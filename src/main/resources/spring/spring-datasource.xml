@@ -18,11 +18,11 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource"
-		p:mapperLocations="classpath:com.comdosoft.financial.manage.mapper.zhangfu.*.xml" />
+		p:mapperLocations="classpath:com.comdosoft.financial.user.mapper.zhangfu.*.xml" />
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
 		p:sqlSessionFactoryBeanName="sqlSessionFactory"
-		p:basePackage="com.comdosoft.financial.manage.mapper.zhangfu" />
+		p:basePackage="com.comdosoft.financial.user.mapper.zhangfu" />
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
@@ -43,11 +43,11 @@
 
 	<bean id="sqlSessionFactory-trades" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource-trades"
-		p:mapperLocations="classpath:com.comdosoft.financial.manage.mapper.trades.*.xml" />
+		p:mapperLocations="classpath:com.comdosoft.financial.user.mapper.trades.*.xml" />
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
 		p:sqlSessionFactoryBeanName="sqlSessionFactory-trades"
-		p:basePackage="com.comdosoft.financial.manage.mapper.trades" />
+		p:basePackage="com.comdosoft.financial.user.mapper.trades" />
 
 	<bean id="transactionManager-trades"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
