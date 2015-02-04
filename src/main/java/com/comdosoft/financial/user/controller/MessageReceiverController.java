@@ -12,7 +12,14 @@ import com.comdosoft.financial.user.domain.zhangfu.MessageReceiver;
 import com.comdosoft.financial.user.domain.zhangfu.SysMessage;
 import com.comdosoft.financial.user.service.MessageReceiverService;
 import com.comdosoft.financial.user.utils.page.Page;
-
+/**
+ * 
+ * 我的消息<br>
+ * <功能描述>
+ *
+ * @author gch 2015年2月4日
+ *
+ */
 @RestController
 @RequestMapping(value="/message/receiver")
 public class MessageReceiverController {
@@ -21,10 +28,11 @@ public class MessageReceiverController {
     private MessageReceiverService messageReceiverService;
     
     @RequestMapping(value="findAll",method=RequestMethod.POST)
-    public Response findAll(@RequestParam(value = "page", required = false) String page ){
+    public Response findAll(@RequestParam(value = "page", required = false) String page,
+                            @RequestParam(value = "person_id", required = false) String person_id){
         Response response = new Response();
         if(null == page) page="0";
-        Page<MessageReceiver> mrs = messageReceiverService.findAll(Integer.parseInt(page),20,1);
+        Page<MessageReceiver> mrs = messageReceiverService.findAll(Integer.parseInt(page),20,Integer.parseInt(person_id));
         response.setResult(mrs);
         response.setCode(0);
         return response;
