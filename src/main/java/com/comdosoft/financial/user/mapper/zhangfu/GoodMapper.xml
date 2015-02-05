@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.GoodMapper">
+  
+  
+  
+  
+    <select id="getGoodsList" parameterType="com.comdosoft.financial.user.domain.query.PosReq" resultType="map">
+        SELECT g.id,g.Title,g.has_purchase,b.name,g.Model_number,g.volume_number,
+	    g.retail_price,g.total_score
+		from goods g 
+    	LEFT JOIN good_brands b on g.good_brands_id=b.id
+		<if test="orderType==0">
+		   order by g.published_at desc
+		</if>
+		<if test="orderType==1">
+		   order by g.volume_number desc
+		</if>
+		<if test="orderType==2">
+		   order by g.retail_price desc
+		</if>
+		<if test="orderType==3">
+		   order by g.retail_price 
+		</if>
+		<if test="orderType==4">
+		   order by g.total_score desc
+		</if>
+    
+    </select>
+    
+    
+     <select id="getPayChannelListByGoodId" resultType="map">
+        SELECT pc.id,pc.name,pc.opening_cost
+ 		from pay_channels pc 
+ 		LEFT JOIN goods_pay_channels gpc on gpc.pay_channel_id=pc.id
+ 		where gpc.good_id=#{id} and pc.status=5
+     </select>
+     
+     <select id="getgoodPics" resultType="map">
+        SELECT id,url_path from goods_pictures where good_id=#{id}
+     </select>
+     
+     <select id="getCommentCount" resultType="int">
+        SELECT count(*) from good_comments  where good_id=#{id} and verify_type=1
+     </select>
+  
+  
+  
+	
+</mapper>
