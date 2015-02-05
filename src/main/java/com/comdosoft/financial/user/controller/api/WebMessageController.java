@@ -1,4 +1,4 @@
-package com.comdosoft.financial.user.controller;
+package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
 
@@ -21,7 +21,7 @@ import com.comdosoft.financial.user.utils.page.Page;
  *
  */
 @RestController
-@RequestMapping(value = "/web/message")
+@RequestMapping(value = "/api/web/message")
 public class WebMessageController {
 
     @Resource
