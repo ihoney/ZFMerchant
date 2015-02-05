@@ -202,6 +202,7 @@ public class SysUtils {
     
     /**
      * 生成订单
+     * author jwb
      * @param type 订单类型：0 在线购买，1 代购，2 批购，3 租赁
      * @return
      */
@@ -210,4 +211,51 @@ public class SysUtils {
         return type+sdf.format(new Date());
     }
     
+    /**
+     * author jwb
+     * @param arry
+     * @return
+     */
+    public static String Arry2Str(int[] arry){
+        StringBuilder sb=new StringBuilder();
+        if(arry!=null&&arry.length>0){
+            sb.append("(");
+            for (Object object : arry) {
+                sb.append(object+",");
+            }
+            sb.deleteCharAt(sb.length()-1);
+            sb.append(")");
+        }
+        return sb.toString();
+    }
+    
+    /**
+     * author jwb
+     * @param arry
+     * @return
+     */
+    public static String Arry2Str(String[] arry){
+        StringBuilder sb=new StringBuilder();
+        if(arry!=null&&arry.length>0){
+            sb.append("(");
+            for (Object object : arry) {
+                sb.append(object+",");
+            }
+            sb.deleteCharAt(sb.length()-1);
+            sb.append(")");
+        }
+        return sb.toString();
+    }
+    /**
+     * author jwb
+     * @param s
+     * @return
+     */
+    public static int String2int(String s){
+        try {
+            return Integer.valueOf(s.trim());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
