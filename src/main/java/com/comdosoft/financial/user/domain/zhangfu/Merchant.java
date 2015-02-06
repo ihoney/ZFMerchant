@@ -115,6 +115,8 @@ public class Merchant {
 	 * @return  the value of merchants.id
 	 * @mbggenerated
 	 */
+	private String customerId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -487,4 +489,14 @@ public class Merchant {
 	public void setAccountBankNum(String accountBankNum) {
 		this.accountBankNum = accountBankNum;
 	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+	
+	
 }
