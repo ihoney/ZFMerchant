@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.query.PosReq;
-import com.comdosoft.financial.user.service.FactoryService;
 import com.comdosoft.financial.user.service.GoodService;
-import com.comdosoft.financial.user.service.PosCategoryService;
 
 @Controller
 @RequestMapping("Goods")
@@ -22,10 +20,7 @@ public class GoodsController {
 
     @Autowired
     private GoodService goodService ;
-    @Autowired
-    private PosCategoryService posCategoryService;
-    @Autowired
-    private FactoryService factoryService;
+
     
     
     
