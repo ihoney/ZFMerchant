@@ -24,7 +24,8 @@ public class GoodService {
         for (Map<String, Object> map : list) {
            int id=Integer.valueOf(""+map.get("id"));
             //支付通道
-            List<Map<String,String>> payChannelList=goodMapper.getPayChannelListByGoodId(id);
+            posreq.setGoodId(id);
+            List<Map<String,String>> payChannelList=goodMapper.getPayChannelListByGoodId(posreq);
             if(null!=payChannelList&&payChannelList.size()>0){
                 map.put("pay_channe",payChannelList.get(0).get("name"));
             }
@@ -38,17 +39,17 @@ public class GoodService {
     }
 
 
-    public Map<String,Object> getGoods(int id) {
+    public Map<String,Object> getGoods(PosReq posreq) {
         Map<String,Object> goodInfoMap=new HashMap<String, Object>();
         
         //支付通道
-        List<Map<String,String>> payChannelList=goodMapper.getPayChannelListByGoodId(id);
+        List<Map<String,String>> payChannelList=goodMapper.getPayChannelListByGoodId(posreq);
         goodInfoMap.put("payChannelList", payChannelList);
         //图片
-        List<Map<String,String>> goodPics=goodMapper.getgoodPics(id);
+        List<Map<String,String>> goodPics=goodMapper.getgoodPics(posreq.getGoodId());
         goodInfoMap.put("goodPics", goodPics);
         //评论数
-        int commentsCount=goodMapper.getCommentCount(id);
+        int commentsCount=goodMapper.getCommentCount(posreq.getGoodId());
         goodInfoMap.put("commentsCount", commentsCount);
         //
         

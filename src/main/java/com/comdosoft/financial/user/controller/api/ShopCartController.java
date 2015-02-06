@@ -3,18 +3,16 @@ package com.comdosoft.financial.user.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.query.CartReq;
-
 import com.comdosoft.financial.user.service.ShopCartService;
 
-@Controller
+@RestController
 @RequestMapping("Cart")
 public class ShopCartController {
 
@@ -22,7 +20,6 @@ public class ShopCartController {
     private ShopCartService shopCartService ;
     
     @RequestMapping(value = "list", method = RequestMethod.POST)
-    @ResponseBody
     public Response getList(@RequestBody CartReq cartreq){
         Response resp=new Response();
         List<?> cartList=shopCartService.getList(cartreq);
@@ -32,7 +29,6 @@ public class ShopCartController {
     }
     
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    @ResponseBody
     public Response delete(@RequestBody CartReq cartreq){
         Response resp=new Response();
         int result= shopCartService.delete(cartreq.getId());
@@ -45,7 +41,6 @@ public class ShopCartController {
     }
     
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    @ResponseBody
     public Response add(@RequestBody CartReq cartreq){
         Response resp=new Response();
         resp.setResult(Response.SUCCESS_CODE);
@@ -59,7 +54,6 @@ public class ShopCartController {
     }
    
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    @ResponseBody
     public Response update(@RequestBody CartReq cartreq){
         Response resp=new Response();
         resp.setResult(Response.SUCCESS_CODE);

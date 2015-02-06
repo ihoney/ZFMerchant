@@ -12,7 +12,7 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getGoodsList(PosReq posreq);
 
-    List<Map<String, String>> getPayChannelListByGoodId(int id);
+    List<Map<String, String>> getPayChannelListByGoodId(PosReq posreq);
 
     List<Map<String, String>> getgoodPics(int id);
 
