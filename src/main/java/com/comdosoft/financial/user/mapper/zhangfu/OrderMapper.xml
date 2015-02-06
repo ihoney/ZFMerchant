@@ -8,7 +8,9 @@
 		customer_address_id,need_invoice,invoice_type,
 		invoice_info,actual_price,created_at,updated_at,
 		comment,total_quantity)
-		VALUES('123',1,100,1,0,1,0,1,'sad',120,NOW(),NOW(),'nihao',5)
+		VALUES(#{ordernumber},#{customerId},#{totalprice},0,0,
+		#{addressId},#{is_need_invoice},#{invoice_type},#{invoice_info},
+		#{totalprice},NOW(),NOW(),#{comment},#{totalcount})
   </insert>
   
   <select id="getGoodInfos" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
@@ -18,6 +20,15 @@
 		LEFT JOIN goods g on g.id=sc.good_id
 		LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id
 		where sc.id in ${cartids}
+  </select>
+  
+  <select id="getGoodInfo" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT  g.id as goodid,pc.id as paychanelid ,
+        g.price,g.retail_price,pc.opening_cost
+		from goods_pay_channels gpc
+		LEFT JOIN goods g on g.id=gpc.good_id
+		LEFT JOIN pay_channels pc on pc.id=gpc.pay_channel_id
+		where gpc.good_id=#{goodId} and gpc.pay_channel_id=#{paychannelId}
   </select>
 	
 	<resultMap id="picsResultMap" type="com.comdosoft.financial.user.domain.zhangfu.GoodsPicture">

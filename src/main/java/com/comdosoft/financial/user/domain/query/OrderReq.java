@@ -5,10 +5,9 @@ public class OrderReq {
     
     
     private int id;
-    private int customerId;
-    private int addressId;
     private String ordernumber;
     private int totalprice;
+    private int totalcount;
     private String cartids;
     
     private int[] cartid;
@@ -17,12 +16,17 @@ public class OrderReq {
     private int paychannelId;
     private int quantity;
     
+    private int customerId;
+    private int addressId;
     private String comment;
     private int is_need_invoice;
     private int invoice_type;
     private String invoice_info;
+    /**
+    {"quantity":2,"customerId":1,"addressId":1,"comment":"nihao",
+    "is_need_invoice":0,"cartid":[1,2,3],"":,"":,"":}
     
-    
+    **/
     public int getId() {
         return id;
     }
@@ -107,6 +111,12 @@ public class OrderReq {
     }
     public void setPaychannelId(int paychannelId) {
         this.paychannelId = paychannelId;
+    }
+    public int getTotalcount() {
+        return totalcount;
+    }
+    public void setTotalcount(int totalcount) {
+        this.totalcount = totalcount;
     }
     
     

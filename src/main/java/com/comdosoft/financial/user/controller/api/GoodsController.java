@@ -1,4 +1,4 @@
-package com.comdosoft.financial.user.controller;
+package com.comdosoft.financial.user.controller.api;
 
 import java.util.List;
 import java.util.Map;
@@ -21,9 +21,6 @@ public class GoodsController {
     @Autowired
     private GoodService goodService ;
 
-    
-    
-    
     @RequestMapping(value = "GoodsList", method = RequestMethod.POST)
     @ResponseBody
     public Response getGoodsList(@RequestBody PosReq posreq){

@@ -1,4 +1,4 @@
-package com.comdosoft.financial.user.controller;
+package com.comdosoft.financial.user.controller.api;
 
 import java.util.List;
 

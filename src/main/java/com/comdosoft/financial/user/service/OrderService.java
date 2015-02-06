@@ -28,16 +28,16 @@ public class OrderService {
         try {
             orderreq.setCartids(SysUtils.Arry2Str(orderreq.getCartid()));
             int totalprice = 0;
+            int count=0;
             List<Map<String, Object>> goodMapList = orderMapper.getGoodInfos(orderreq);
             for (Map<String, Object> map : goodMapList) {
-                map.get("retail_price");
-                map.get("quantity");
-                map.get("opening_cost");
                 int retail_price = SysUtils.String2int("" + map.get("retail_price"));
                 int quantity = SysUtils.String2int("" + map.get("quantity"));
                 int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
                 totalprice += (retail_price + opening_cost) * quantity;
+                count+=quantity;
             }
+            orderreq.setTotalcount(count);
             orderreq.setTotalprice(totalprice);
             orderreq.setOrdernumber(SysUtils.getOrderNum(0));
             orderMapper.addOrder(orderreq);
@@ -58,13 +58,11 @@ public class OrderService {
     public int createOrderFromShop(OrderReq orderreq) {
         try {
             Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
-            goodMap.get("retail_price");
-            goodMap.get("quantity");
-            goodMap.get("opening_cost");
             int retail_price = SysUtils.String2int("" + goodMap.get("retail_price"));
-            int quantity = SysUtils.String2int("" + goodMap.get("quantity"));
+            int quantity = orderreq.getQuantity();
             int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
             int totalprice = (retail_price + opening_cost) * quantity;
+            orderreq.setTotalcount(quantity);
             orderreq.setTotalprice(totalprice);
             orderreq.setOrdernumber(SysUtils.getOrderNum(0));
             orderMapper.addOrder(orderreq);

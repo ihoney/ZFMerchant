@@ -1,4 +1,4 @@
-package com.comdosoft.financial.user.controller;
+package com.comdosoft.financial.user.controller.api;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import com.comdosoft.financial.user.service.OrderService;
 
 @Controller
 @RequestMapping("order")
-public class OrderController {
+public class OrderController2 {
 
     @Autowired
     private OrderService orderService ;
