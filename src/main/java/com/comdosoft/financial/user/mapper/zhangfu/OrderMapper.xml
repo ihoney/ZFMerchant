@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.OrderMapper">
   
-  
-  
   <insert id="addOrder" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
 		INSERT into orders 
 		(order_number,customer_id,total_price,status,types,
@@ -22,4 +20,86 @@
 		where sc.id in ${cartids}
   </select>
 	
+	<resultMap id="picsResultMap" type="com.comdosoft.financial.user.domain.zhangfu.GoodsPicture">
+		 <id property="id" column="pic_id" />  
+         <result property="urlPath" column="url_path" /> 
+	</resultMap>
+	
+	<resultMap id="goodBrandResultMap" type="com.comdosoft.financial.user.domain.zhangfu.GoodBrand">
+		 <id property="id" column="good_brands_id" />  
+         <result property="name" column="name" /> 
+	</resultMap>
+	
+	<resultMap id="goodsMap" type="com.comdosoft.financial.user.domain.zhangfu.Good">
+		 <id property="id" column="good_id" />  
+            <result property="title" column="title" /> 
+            <association property="goodsBrand" javaType="com.comdosoft.financial.user.domain.zhangfu.GoodBrand" resultMap="goodBrandResultMap" />  
+            <collection property="picsList" ofType="com.comdosoft.financial.user.domain.zhangfu.GoodsPicture" resultMap="picsResultMap" />  
+	</resultMap>
+	
+	<resultMap id="orderGoodsMap" type="com.comdosoft.financial.user.domain.zhangfu.OrderGood">
+		 <id property="id" column="order_good_id" />
+			<result property="quantity" column="quantity" />
+			<result property="price" column="price" />
+			<result property="actualPrice" column="actual_price" />
+			<result property="createdAt" column="created_at" />
+			<result property="updatedAt" column="updated_at" />
+			<association property="good" javaType="com.comdosoft.financial.user.domain.zhangfu.Good" resultMap="goodsMap" />  
+	</resultMap>
+	
+	<resultMap id="orderMap" type="com.comdosoft.financial.user.domain.zhangfu.Order">
+		<id property="id" column="id" />
+		<result property="orderNumber" column="order_number" />
+		<result property="customerId" column="customer_id" />
+		<result property="totalPrice" column="total_price" />
+		<result property="status" column="status" />
+		<result property="payedAt" column="payed_at" />
+		<result property="types" column="types" />
+		<result property="customerAddressId" column="customer_address_id" />
+		<result property="needInvoice" column="need_invoice" />
+		<result property="actualPrice" column="actual_price" />
+		<result property="frontMoney" column="front_money" />
+		<result property="frontPayStatus" column="front_pay_status" />
+		<result property="payStatus" column="pay_status" />
+		<result property="createdUserId" column="created_userId" />
+		<result property="createdUserType" column="created_user_type" />
+		<result property="processUserId" column="process_user_id" />
+		<result property="processUserName" column="process_user_name" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="agentOrderMarksId" column="agent_order_marks_id" />
+		<result property="belongsTo" column="belongs_to" />
+		<result property="invoiceType" column="invoice_type" />
+		<result property="comment" column="comment" />
+		<result property="invoiceInfo" column="invoice_info" />
+		<result property="totalQuantity" column="total_quantity" />
+	    <collection property="orderGoodsList" ofType="com.comdosoft.financial.user.domain.zhangfu.OrderGood" resultMap="orderGoodsMap" />  
+	</resultMap>
+
+	<select id="count" resultType="int">
+		SELECT count(o.id) as count
+		FROM orders o
+		where o.customer_id = #{param1}
+	</select>
+
+	<!-- 我的订单列表 -->
+	<select id="findAll" resultMap="orderMap">
+		SELECT
+		o.id as id,og.id as order_good_id,g.id as good_id,
+		o.order_number,	o.created_at,	o.pay_status,gp.id as pic_id,
+		gp.url_path ,g.title,gb.name , gb.id as good_brands_id,
+		pc.name as channel_name,og.price ,	og.quantity ,
+		o.actual_price ,total_price,o.total_quantity as total_num
+		FROM	
+		orders o
+		LEFT JOIN order_goods og ON o.id = og.order_id
+		LEFT JOIN goods g ON og.good_id = g.id
+		LEFT JOIN goods_pictures gp ON g.id = gp.good_id
+		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
+		WHERE
+		o.customer_id = #{param2}
+		order by o.created_at desc
+		LIMIT #{param1.page},#{param1.pageSize}
+	</select>
 </mapper>

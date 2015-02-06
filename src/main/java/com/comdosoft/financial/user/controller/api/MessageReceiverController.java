@@ -1,4 +1,4 @@
-package com.comdosoft.financial.user.controller;
+package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
 
@@ -21,7 +21,7 @@ import com.comdosoft.financial.user.utils.page.Page;
  *
  */
 @RestController
-@RequestMapping(value="/message/receiver")
+@RequestMapping(value="/api/message/receiver")
 public class MessageReceiverController {
 
     @Resource
@@ -29,10 +29,10 @@ public class MessageReceiverController {
     
     @RequestMapping(value="findAll",method=RequestMethod.POST)
     public Response findAll(@RequestParam(value = "page", required = false) String page,
-                            @RequestParam(value = "person_id", required = false) String person_id){
+                            @RequestParam(value = "customers_id", required = false) String customers_id){
         Response response = new Response();
         if(null == page) page="0";
-        Page<MessageReceiver> mrs = messageReceiverService.findAll(Integer.parseInt(page),20,Integer.parseInt(person_id));
+        Page<MessageReceiver> mrs = messageReceiverService.findAll(Integer.parseInt(page),20,Integer.parseInt(customers_id));
         response.setResult(mrs);
         response.setCode(0);
         return response;
