@@ -115,7 +115,8 @@
 		o.id = #{param1}
 	</select>
 	
-	  <insert id="addOrder" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+	 <!-- jwb -->
+	 <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
 		INSERT into orders 
 		(order_number,customer_id,total_price,status,types,
 		customer_address_id,need_invoice,invoice_type,
@@ -126,7 +127,7 @@
 		#{totalprice},NOW(),NOW(),#{comment},#{totalcount})
   </insert>
   
-  <select id="getGoodInfos" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+  <select id="getGoodInfos" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
         SELECT sc.id,sc.quantity,g.id as goodid,pc.id as paychanelid ,
         g.price,g.retail_price,pc.opening_cost
 		from shopping_carts sc
@@ -134,8 +135,8 @@
 		LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id
 		where sc.id in ${cartids}
   </select>
-	
-	 <select id="getGoodInfo" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+  
+  <select id="getGoodInfo" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
         SELECT  g.id as goodid,pc.id as paychanelid ,
         g.price,g.retail_price,pc.opening_cost
 		from goods_pay_channels gpc

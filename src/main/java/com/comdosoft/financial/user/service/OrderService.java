@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
@@ -24,7 +23,6 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Transactional
     public int createOrderFromCart(OrderReq orderreq) {
         try {
             orderreq.setCartids(SysUtils.Arry2Str(orderreq.getCartid()));
@@ -54,8 +52,7 @@ public class OrderService {
             return 0;
         }
     }
-
-    @Transactional
+    
     public int createOrderFromShop(OrderReq orderreq) {
         try {
             Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
@@ -74,6 +71,11 @@ public class OrderService {
             return 0;
         }
     }
+    /**
+     * 上jwb
+     * -------------------------------------------------------------
+     * 下gch
+     */
 
     public Page<Object> findMyOrderAll(Integer page,Integer pageSize,String pid) {
         PageRequest request = new PageRequest(page, pageSize);
