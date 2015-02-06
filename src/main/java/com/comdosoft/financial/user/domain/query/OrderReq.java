@@ -9,6 +9,8 @@ public class OrderReq {
     private int totalprice;
     private int totalcount;
     private String cartids;
+    private int price;
+    private int retail_price;
     
     private int[] cartid;
     
@@ -24,7 +26,7 @@ public class OrderReq {
     private String invoice_info;
     /**
     {"quantity":2,"customerId":1,"addressId":1,"comment":"nihao",
-    "is_need_invoice":0,"cartid":[1,2,3],"":,"":,"":}
+    "is_need_invoice":0,"cartid":[1,2,3],"goodId":2,"paychannelId":2,"":}
     
     **/
     public int getId() {
@@ -117,6 +119,18 @@ public class OrderReq {
     }
     public void setTotalcount(int totalcount) {
         this.totalcount = totalcount;
+    }
+    public int getPrice() {
+        return price;
+    }
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    public int getRetail_price() {
+        return retail_price;
+    }
+    public void setRetail_price(int retail_price) {
+        this.retail_price = retail_price;
     }
     
     

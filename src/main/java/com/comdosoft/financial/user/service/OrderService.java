@@ -13,6 +13,7 @@ import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
+import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -22,6 +23,9 @@ public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    
+    @Autowired
+    private ShopCartMapper shopCartMapper;
 
     public int createOrderFromCart(OrderReq orderreq) {
         try {
@@ -41,10 +45,19 @@ public class OrderService {
             orderreq.setOrdernumber(SysUtils.getOrderNum(0));
             orderMapper.addOrder(orderreq);
             for (Map<String, Object> map : goodMapList) {
-                map.get("opening_cost");
-                map.get("opening_cost");
-                map.get("opening_cost");
+                orderreq.setGoodId(SysUtils.String2int(""+map.get("goodid")));
+                orderreq.setPaychannelId(SysUtils.String2int(""+map.get("paychanelid")));
+                orderreq.setQuantity(SysUtils.String2int(""+map.get("quantity")));
+                int price=SysUtils.String2int("" + map.get("price"));
+                int retail_price = SysUtils.String2int("" + map.get("retail_price"));
+                int quantity = SysUtils.String2int("" + map.get("quantity"));
+                int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
+                price=(price+opening_cost)*quantity;
+                retail_price=(retail_price+opening_cost)*quantity;
+                orderreq.setPrice(price);
+                orderreq.setRetail_price(retail_price);
                 orderMapper.addOrderGood(orderreq);
+                shopCartMapper.delete(SysUtils.String2int(""+map.get("id")));
             }
             return 1;
         } catch (Exception e) {
@@ -64,6 +77,10 @@ public class OrderService {
             orderreq.setTotalprice(totalprice);
             orderreq.setOrdernumber(SysUtils.getOrderNum(0));
             orderMapper.addOrder(orderreq);
+            int price=SysUtils.String2int("" + goodMap.get("price"));
+            price=(price+opening_cost)*quantity;
+            orderreq.setPrice(price);
+            orderreq.setRetail_price(totalprice);
             orderMapper.addOrderGood(orderreq);
             return 1;
         } catch (Exception e) {

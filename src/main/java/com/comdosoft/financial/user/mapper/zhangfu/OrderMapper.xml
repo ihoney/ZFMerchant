@@ -122,14 +122,22 @@
 		customer_address_id,need_invoice,invoice_type,
 		invoice_info,actual_price,created_at,updated_at,
 		comment,total_quantity)
-		VALUES(#{ordernumber},#{customerId},#{totalprice},0,0,
+		VALUES(#{ordernumber},#{customerId},#{totalprice},1,0,
 		#{addressId},#{is_need_invoice},#{invoice_type},#{invoice_info},
 		#{totalprice},NOW(),NOW(),#{comment},#{totalcount})
   </insert>
   
+  <insert id="addOrderGood"  parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+		INSERT into order_goods 
+		(good_id,pay_channel_id,quantity,price,actual_price,
+		order_id,created_at,updated_at)
+		VALUES(#{goodId},#{paychannelId},#{quantity},
+		#{price},#{retail_price},#{id},NOW(),NOW())
+  </insert>
+  
   <select id="getGoodInfos" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
-        SELECT sc.id,sc.quantity,g.id as goodid,pc.id as paychanelid ,
-        g.price,g.retail_price,pc.opening_cost
+        SELECT sc.id,g.id as goodid,pc.id as paychanelid ,
+        sc.quantity,g.price,g.retail_price,pc.opening_cost
 		from shopping_carts sc
 		LEFT JOIN goods g on g.id=sc.good_id
 		LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id
