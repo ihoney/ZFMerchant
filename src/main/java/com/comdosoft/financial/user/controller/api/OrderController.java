@@ -26,7 +26,7 @@ public class OrderController {
     private OrderService orderService;
     
     //订单列表
-    @RequestMapping(value="findAll" ,method=RequestMethod.POST)
+    @RequestMapping(value="findMyOrderAll" ,method=RequestMethod.POST)
     public Response findAll(@RequestParam(value = "page", required = false) String page,
                             @RequestParam(value = "pageSize", required = false) String pageSize,
                             @RequestParam(value = "customers_id", required = false) String customers_id) {
@@ -35,7 +35,16 @@ public class OrderController {
             page = "1";
         if (null == pageSize)
             pageSize = "10";
-        Page<Object> centers = orderService.findAll(Integer.parseInt(page), Integer.parseInt(pageSize),customers_id);
+        Page<Object> centers = orderService.findMyOrderAll(Integer.parseInt(page), Integer.parseInt(pageSize),customers_id);
+        response.setCode(0);
+        response.setResult(centers);
+        return response;
+    }
+    
+    @RequestMapping(value="findById" ,method=RequestMethod.POST)
+    public Response findById(@RequestParam(value = "id", required = false) String id ) {
+        Response response = new Response();
+        Object centers = orderService.findMyOrderById(id);
         response.setCode(0);
         response.setResult(centers);
         return response;

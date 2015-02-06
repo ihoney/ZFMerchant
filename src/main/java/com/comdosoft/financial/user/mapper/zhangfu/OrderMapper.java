@@ -7,11 +7,6 @@ import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
-
-
-
-
-
 public interface OrderMapper {
 
     void addOrder(OrderReq orderreq);
@@ -23,8 +18,10 @@ public interface OrderMapper {
     Map<String, Object> getGoodInfo(OrderReq orderreq);
 
 
-    int count(String pid);
+    int countMyOrder(String pid);
 
-    List<Order> findAll(PageRequest request, String pid);
+    List<Order> findMyOrderAll(PageRequest request, String pid);
+
+    Order findMyOrderById(String id);
 
 }

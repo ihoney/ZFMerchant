@@ -1,7 +1,7 @@
 package com.comdosoft.financial.user.domain.zhangfu;
 
 public enum OrderStatus {
-    UNPAID(-1,"未付款"),PAID(1,"已付款"),SHIPPED(2,"已发货"),EVALUATED(3,"已评价"),CANCEL(-2,"已取消"),CLOSED(0,"交易关闭");
+    UNPAID(1,"未付款"),PAID(2,"已付款"),SHIPPED(3,"已发货"),EVALUATED(4,"已评价"),CANCEL(5,"已取消"),CLOSED(6,"交易关闭");
     private Integer code;
     private String name;
     /**  
