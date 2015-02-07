@@ -34,7 +34,7 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
  *
  */
 @RestController
-@RequestMapping(value = "apply")
+@RequestMapping(value = "/api/apply")
 public class OpeningApplyController {
 
 	@Resource
@@ -46,7 +46,7 @@ public class OpeningApplyController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "applyList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
+	@RequestMapping(value = "getApplyList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
 	public Response getApplyList(@PathVariable("id") Integer id,
 			@PathVariable("indexPage") Integer page,@PathVariable("pageNum") Integer pageNum) {
 		
@@ -66,7 +66,7 @@ public class OpeningApplyController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(value = "applyDetails/{id}/{status}", method = RequestMethod.GET)
+	@RequestMapping(value = "getApplyDetails/{id}/{status}", method = RequestMethod.GET)
 	public Response getApplyDetails(@PathVariable("id") Integer id,
 			@PathVariable("status") Integer status) {
 		Response response = new Response();
@@ -89,7 +89,7 @@ public class OpeningApplyController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "Merchant/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "getMerchant/{id}", method = RequestMethod.GET)
 	public Response getMerchant(@PathVariable("id") Integer id) {
 		Response response = new Response();
 		Merchant merchant = new Merchant();
@@ -128,7 +128,7 @@ public class OpeningApplyController {
 	 * @param status
 	 * @return
 	 */
-	@RequestMapping(value = "materialName/{id}/{status}", method = RequestMethod.GET)
+	@RequestMapping(value = "getMaterialName/{id}/{status}", method = RequestMethod.GET)
 	public Response getMaterialName(@PathVariable("id") Integer id,
 			@PathVariable("status") Integer status) {
 		Response response = new Response();
@@ -141,7 +141,7 @@ public class OpeningApplyController {
 	 * 
 	 * @param paramMap
 	 */
-	@RequestMapping(value = "addApply", method = RequestMethod.POST)
+	@RequestMapping(value = "addOpeningApply", method = RequestMethod.POST)
 	@ResponseBody
 	public void addOpeningApply(@RequestBody List<Map<String, Object>> paramMap) {
 

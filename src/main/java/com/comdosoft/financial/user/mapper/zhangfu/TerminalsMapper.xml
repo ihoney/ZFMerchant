@@ -36,7 +36,7 @@
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
 		SELECT t.serial_num,g.model_number,b.name as
-		brandName,a.name as factorName,m.title,m.phone,e.order_number,e.created_at
+		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt
 		FROM
 		terminals t LEFT JOIN goods g on t.good_id=g.id
 		LEFT JOIN good_brands b on g.good_brands_id=b.id

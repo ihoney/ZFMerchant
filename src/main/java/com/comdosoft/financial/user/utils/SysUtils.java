@@ -274,7 +274,7 @@ public class SysUtils {
      * @return
      * @throws Exception 
      */
-    public String Encryption(String passwors,String path) throws Exception{
+    public static String Encryption(String passwors,String path) throws Exception{
     	String[] arstr = findPasswprdPath(path);
     	String ret = null;
 		Key keySpec = new SecretKeySpec(arstr[0].getBytes(), "AES");    //两个参数，第一个为私钥字节数组， 第二个为加密方式 AES或者DES
@@ -294,7 +294,7 @@ public class SysUtils {
      * @throws NoSuchPaddingException 
      * @throws NoSuchAlgorithmException 
      */
-    public String Decrypt(String password,String path) throws Exception{
+    public static String Decrypt(String password,String path) throws Exception{
     	String[] arstr = findPasswprdPath(path);
 		String str = null;
 		byte [] passByte = Base64.decodeBase64(password);       //先用Base64解码
@@ -313,7 +313,7 @@ public class SysUtils {
      * @throws FileNotFoundException 
      */
     @SuppressWarnings("resource")
-	public String[] findPasswprdPath(String path) throws FileNotFoundException{
+	public static String[] findPasswprdPath(String path) throws FileNotFoundException{
     	File file = new File(path);
    	 	Scanner in = null;
    	 	String result = "";

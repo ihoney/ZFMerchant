@@ -28,7 +28,7 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
  *
  */
 @RestController
-@RequestMapping(value = "terminal")
+@RequestMapping(value = "/api/terminal")
 public class TerminalsController {
 
 	@Resource
@@ -46,7 +46,7 @@ public class TerminalsController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "terminalList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
+	@RequestMapping(value = "getApplyList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
 	public Response getApplyList(@PathVariable("id") Integer id,
 			@PathVariable("indexPage") Integer page,@PathVariable("pageNum") Integer pageNum) {
 
@@ -65,7 +65,7 @@ public class TerminalsController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(value = "applyDetails/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "getApplyDetails/{id}", method = RequestMethod.GET)
 	public Response getApplyDetails(@PathVariable("id") Integer id) {
 		Response response = new Response();
 		Map<Object, Object> map = new HashMap<Object, Object>();
@@ -84,7 +84,7 @@ public class TerminalsController {
 	/**
 	 * 收单机构
 	 */
-	@RequestMapping(value = "Factories", method = RequestMethod.GET)
+	@RequestMapping(value = "getFactories", method = RequestMethod.GET)
 	public Response getFactories() {
 		Response response = new Response();
 		response.setResult(terminalsService.getChannels());
@@ -97,7 +97,7 @@ public class TerminalsController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "Factories", method = RequestMethod.POST)
+	@RequestMapping(value = "addTerminal", method = RequestMethod.POST)
 	public Response addTerminal(@RequestBody Map<String, String> map) {
 		Response response = new Response();
 		Merchant merchants = new Merchant();
@@ -126,7 +126,7 @@ public class TerminalsController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "findPassword/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "Encryption/{id}", method = RequestMethod.GET)
 	public Response Encryption(@PathVariable("id") Integer id) {
 		Response response = new Response();
 			try {

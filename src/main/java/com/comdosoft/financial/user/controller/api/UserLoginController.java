@@ -2,6 +2,7 @@ package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,14 @@ import com.comdosoft.financial.user.utils.SysUtils;
  *
  */
 @RestController
-@RequestMapping(value = "user")
+@RequestMapping(value = "/api/user")
 public class UserLoginController {
 	
 	@Resource
 	private UserLoginService userLoginService;
 
+	@Value("${passPath}")
+	private String passPath;
 	
 	/**
 	 * 用户登陆
@@ -35,13 +38,11 @@ public class UserLoginController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "userLogin", method = RequestMethod.POST)
+	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
 	public Response getApplyList(@RequestBody Customer customer) {
 		Response response = new Response();
-		SysUtils sysUtils = new SysUtils();
 		try {
-			customer.setPassword(sysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
-			//System.out.println("加密后："+SysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
+			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			int count = userLoginService.doLogin(customer);
 			if(count>0){
 				response.setMessage("登陆成功！");
@@ -52,6 +53,7 @@ public class UserLoginController {
 			}
 		} catch (Exception e) {
 			response.setMessage("系统异常！");
+			//e.printStackTrace();
 			return response;
 		}
 		return response;
@@ -74,9 +76,8 @@ public class UserLoginController {
 	@RequestMapping(value = "updatePassword", method = RequestMethod.POST)
 	public Response updatePassword(@RequestBody Customer customer){
 		Response response = new Response();
-		SysUtils sysUtils = new SysUtils();
 		try {
-			customer.setPassword(sysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
+			customer.setPassword(SysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
 			userLoginService.updatePassword(customer);
 			response.setResult("修改成功！");
 			return response;
@@ -94,9 +95,8 @@ public class UserLoginController {
 	@RequestMapping(value = "userRegistration", method = RequestMethod.POST)
 	public Response userRegistration(@RequestBody Customer customer){
 		Response response = new Response();
-		SysUtils sysUtils = new SysUtils();
 		try {
-			customer.setPassword(sysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
+			customer.setPassword(SysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
 			userLoginService.addUser(customer);
 			response.setResult("注册成功！");
 			return response;
