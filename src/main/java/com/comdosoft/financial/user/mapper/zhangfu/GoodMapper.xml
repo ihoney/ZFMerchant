@@ -4,7 +4,17 @@
   
   
      <select id="getGoodById" resultType="map" >
-       select * from goods where id=#{id} and status=5 and is_published=1
+       SELECT g.id,g.Title,g.second_title,gb.name as good_brand,g.Model_number,pc.name as category,
+       g.volume_number,g.retail_price,g.price,
+       g.has_purchase,g.lease_time,g.return_time,g.lease_price,g.lease_description,g.lease_agreement,
+       g.shell_material,g.battery_info,dsow.sign_order_way,decw.encrypt_card_way,
+       g.factory_id,g.description
+	   from goods g 
+	   LEFT JOIN good_brands gb on g.good_brands_id=gb.id
+	   left JOIN pos_categories pc on g.pos_category_id=pc.id
+	   LEFT JOIN dictionary_sign_order_ways dsow on dsow.id=g.sign_order_way_id
+	   LEFT JOIN dictionary_encrypt_card_ways decw on decw.id=g.encrypt_card_way_id
+	   where  g.status=5 and g.is_published=1 and g.id=#{goodId}
      </select>
      
   
@@ -69,7 +79,8 @@
     
     
      <select id="getPayChannelListByGoodId" parameterType="com.comdosoft.financial.user.domain.query.PosReq" resultType="map">
-        SELECT pc.id,pc.name,pc.opening_cost
+        SELECT pc.id,pc.name,pc.opening_cost,pc.support_cancel_flag,
+               pc.opening_requirement,pc.opening_datum,pc.opening_protocol
  		from pay_channels pc 
  		LEFT JOIN goods_pay_channels gpc on gpc.pay_channel_id=pc.id
  		where gpc.good_id=#{goodId} and pc.status=5 and pc.id in 
@@ -149,6 +160,10 @@
 		LEFT JOIN pay_channel_billing_cycles pcbc on pcbc.billing_cycles_id=dbc.id 
 		and pcbc.pay_channel_id=#{pcid}
      </select>
-  
+     
+     <select id="getSupportArea" resultType="map" >
+        SELECT c.name from support_areas sa LEFT JOIN cities c on c.id= sa.city_id 
+		where sa.pay_channel_id=#{pcid} and sa.support_type=1
+     </select>
 	
 </mapper>
