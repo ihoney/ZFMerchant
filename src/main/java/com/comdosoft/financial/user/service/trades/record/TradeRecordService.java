@@ -49,6 +49,7 @@ public class TradeRecordService {
         switch (tradeTypeId) {
         case TradeRecord.TRADETYPEID_1:
             list = tradeRecordMapper.getTradeRecords12(query);
+            break;
         case TradeRecord.TRADETYPEID_2:
             list = tradeRecordMapper.getTradeRecords12(query);
             break;

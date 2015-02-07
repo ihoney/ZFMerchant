@@ -85,7 +85,7 @@ public class TradeRecordAPI {
      * @param endTime
      * @return
      */
-    @RequestMapping(value = "getTradeRecordTotal/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}/{page}/{rows}", method = RequestMethod.GET)
+    @RequestMapping(value = "getTradeRecordTotal/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}", method = RequestMethod.GET)
     public Response getTradeRecordTotal(@PathVariable int tradeTypeId,
                                         @PathVariable String terminalNumber,
                                         @PathVariable String startTime,
