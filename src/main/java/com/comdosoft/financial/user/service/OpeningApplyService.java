@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
+import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.mapper.zhangfu.OpeningApplyMapper;
 
 @Service
@@ -31,6 +32,8 @@ public class OpeningApplyService {
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
+		map.put("twoStatus", Terminal.TerminalTYPEID_2);
+		map.put("threeStatus", Terminal.TerminalTYPEID_3);
 		return openingApplyMapper.getApplyList(map);
 	}
 

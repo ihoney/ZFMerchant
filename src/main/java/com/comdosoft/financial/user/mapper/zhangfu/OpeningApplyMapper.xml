@@ -17,6 +17,7 @@
  		SELECT id,serial_num,status
  		FROM terminals
  		WHERE customer_id=#{id}
+ 		AND status in (#{twoStatus},#{threeStatus})
  		LIMIT #{offSetPage},#{pageSize}
  	</select>
  	

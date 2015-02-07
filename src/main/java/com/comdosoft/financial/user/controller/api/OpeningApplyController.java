@@ -23,7 +23,6 @@ import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
 import com.comdosoft.financial.user.service.OpeningApplyService;
-import com.comdosoft.financial.user.utils.Constants;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
 /**
@@ -47,16 +46,17 @@ public class OpeningApplyController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "applyList/{id}/{indexPage}", method = RequestMethod.GET)
+	@RequestMapping(value = "applyList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
 	public Response getApplyList(@PathVariable("id") Integer id,
-			@PathVariable("indexPage") Integer page) {
-
-		PageRequest PageRequest = new PageRequest(page, Constants.PAGE_SIZE);
+			@PathVariable("indexPage") Integer page,@PathVariable("pageNum") Integer pageNum) {
+		
+		//PageRequest PageRequest = new PageRequest(page, Constants.PAGE_SIZE);
+		PageRequest PageRequest = new PageRequest(page, pageNum);
 		Response response = new Response();
 
 		int offSetPage = PageRequest.getOffset();
 		response.setResult(openingApplyService.getApplyList(id, offSetPage,
-				Constants.PAGE_SIZE));
+				pageNum));
 		return response;
 
 	}
