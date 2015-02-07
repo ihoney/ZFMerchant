@@ -55,6 +55,14 @@ public class OpeningApplyService {
 	public List<Merchant> getMerchants() {
 		return openingApplyMapper.getMerchants();
 	}
+	
+	/**
+	 * 获得所有通道
+	 * @return
+	 */
+	public List<Map<String, String>> getChannels(){
+		return openingApplyMapper.getChannels();
+	}
 
 	/**
 	 * 申请资料数据回显
