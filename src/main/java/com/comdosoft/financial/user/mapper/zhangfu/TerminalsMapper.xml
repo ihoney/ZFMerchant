@@ -21,7 +21,7 @@
 		SELECT serial_num serialNum,
 			   pay_channel_id payChannelId
 		  FROM terminals
-		 WHERE customerId = #{customerId}
+		 WHERE customer_id = #{customerId}
 		   AND status = 2
 	]]>
 	</select>

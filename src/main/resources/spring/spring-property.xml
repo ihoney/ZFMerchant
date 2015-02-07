@@ -8,15 +8,25 @@
 	<!-- <beans profile="production"> -->
 	<!-- <context:property-placeholder location="classpath:config/production.properties" /> -->
 	<!-- </beans> -->
-	<beans profile="demo">
-		<context:property-placeholder location="classpath:config/demo.properties" />
-	</beans>
+	<!-- <beans profile="demo"> -->
+	<!-- <context:property-placeholder location="classpath:config/demo.properties" /> -->
+	<!-- </beans> -->
 	<!-- <beans profile="local"> -->
 	<!-- <context:property-placeholder location="classpath:config/local.properties" /> -->
 	<!-- </beans> -->
+	<!-- <beans profile="config"> -->
+	<!-- <context:property-placeholder location="classpath:config/config.properties" /> -->
+	<!-- </beans> -->
 
-	<beans profile="config">
-		<context:property-placeholder location="classpath:config/config.properties" />
-	</beans>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- <value>classpath:config/production.properties</value> -->
+				<value>classpath:config/demo.properties</value>
+				<!-- <value>classpath:config/local.properties</value> -->
+				<value>classpath:config/config.properties</value>
+			</list>
+		</property>
+	</bean>
 
 </beans>
