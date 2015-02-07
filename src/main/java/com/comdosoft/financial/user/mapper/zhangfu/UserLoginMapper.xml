@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.UserLoginMapper">
+
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		INSERT  into customers(username,password,city_id)
+		VALUES(#{username},#{password},#{cityId})
+	</insert>
+
+	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
+ 		SELECT COUNT(*) 
+ 		FROM customers 
+ 		WHERE username=#{username} and password=#{password}
+ 	</select>
+	
+	<update id="updatePassword" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		UPDATE customers set `password`=#{password}
+		WHERE id=#{id}
+	</update>
+</mapper>
