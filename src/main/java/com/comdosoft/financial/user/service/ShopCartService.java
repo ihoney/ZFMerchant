@@ -23,7 +23,7 @@ public class ShopCartService {
         for (Map<String, Object> map : mapList) {
             int goodId =Integer.valueOf(""+map.get("goodId")); 
             //图片
-            List<Map<String,String>> goodPics=goodMapper.getgoodPics(goodId);
+            List<Map<String,Object>> goodPics=goodMapper.getgoodPics(goodId);
             if(null!=goodPics&&goodPics.size()>0){
                 map.put("url_path",goodPics.get(0).get("url_path"));
             }
