@@ -41,4 +41,12 @@ public class Response {
 		r.message = message;
 		return r;
 	}
+	
+	public static Response buildSuccess(Object result,String message) {
+        Response r = new Response();
+        r.code = SUCCESS_CODE;
+        r.result = result;
+        r.message = message;
+        return r;
+    }
 }

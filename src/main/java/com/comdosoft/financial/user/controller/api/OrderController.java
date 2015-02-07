@@ -2,12 +2,15 @@ package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.comdosoft.financial.user.domain.MyOrderReq;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.service.OrderService;
@@ -24,35 +27,37 @@ import com.comdosoft.financial.user.utils.page.Page;
 @RestController
 @RequestMapping(value="/api/order")
 public class OrderController {
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
     @Resource
     private OrderService orderService;
     
     //  gch  begin
     //订单列表
     @RequestMapping(value="getMyOrderAll" ,method=RequestMethod.POST)
-    public Response getMyOrderAll(@RequestParam(value = "page", required = false) String page,
-                            @RequestParam(value = "pageSize", required = false) String pageSize,
-                            @RequestParam(value = "customers_id", required = false) String customers_id) {
-        Response response = new Response();
-        if (null == page)
-            page = "1";
-        if (null == pageSize)
-            pageSize = "10";
-        Page<Object> centers = orderService.findMyOrderAll(Integer.parseInt(page), Integer.parseInt(pageSize),customers_id);
-        response.setCode(0);
-        response.setResult(centers);
-        return response;
+    public Response getMyOrderAll(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            logger.debug("获取我的订单列表 start");
+            Page<Object> centers = orderService.findMyOrderAll(myOrderReq.getPage(), myOrderReq.getPageSize(),myOrderReq.getCustomers_id());
+            logger.debug("获取我的订单列表 end"+centers);
+            return Response.getSuccess(centers);
+        }catch(Exception e){
+            logger.debug("获取我的订单列表出错"+e);
+            return Response.getError("请求失败");
+        }
     }
     
     @RequestMapping(value="getMyOrderById" ,method=RequestMethod.POST)
     public Response getMyOrderById(@RequestParam(value = "id", required = false) String id ) {
-        Response response = new Response();
-        Object centers = orderService.findMyOrderById(id);
-        response.setCode(0);
-        response.setResult(centers);
-        return response;
-    }
-    
+        try{
+            logger.debug("获取我的订单详情 start");
+            Object centers = orderService.findMyOrderById(id);
+            logger.debug("获取我的订单详情 end"+centers);
+            return Response.getSuccess(centers);
+        }catch(Exception e){
+            logger.debug("获取我的订单详情出错"+e);
+            return Response.getError("请求失败");
+        }
+    }    
    //  gch  end
   
     

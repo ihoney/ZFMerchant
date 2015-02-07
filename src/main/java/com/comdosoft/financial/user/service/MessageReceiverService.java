@@ -14,23 +14,28 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
 
 @Service
 public class MessageReceiverService {
+    public static final Integer WEB_MESSAGE_PAGE_SIZE = 20;
     @Resource
     private MessageReceiverMapper messageReceiverMapper;
 
     public Page<MessageReceiver> findAll(Integer page,Integer pageSize,Integer pid) {
+        if(null == pageSize){
+            pageSize = MessageReceiverService.WEB_MESSAGE_PAGE_SIZE;
+        }
         PageRequest request = new PageRequest(page, pageSize);
         int count = messageReceiverMapper.count(pid);
         List<MessageReceiver> centers = messageReceiverMapper.findAll(request,pid);
         return new Page<MessageReceiver>(request, centers, count);
     }
     
-    public SysMessage findById(String id) {
-        SysMessage sysMessage = messageReceiverMapper.findById(Integer.parseInt(id));
+    public SysMessage findById(Integer id) {
+        SysMessage sysMessage = messageReceiverMapper.findById(id);
+        messageReceiverMapper.isRead(id);
         return sysMessage;
     }
     
-    public void delete(String id){
-        messageReceiverMapper.delete(Integer.parseInt(id));
+    public void delete(Integer id){
+        messageReceiverMapper.delete(id);
     }
     
     public void batchDelete(String[] ids){
@@ -41,8 +46,8 @@ public class MessageReceiverService {
         messageReceiverMapper.batchUpdate(ids);
     }
 
-    public void isRead(String id) {
-        messageReceiverMapper.isRead(id);
-    }
+//    public void isRead(String id) {
+//        messageReceiverMapper.isRead(id);
+//    }
 
 }

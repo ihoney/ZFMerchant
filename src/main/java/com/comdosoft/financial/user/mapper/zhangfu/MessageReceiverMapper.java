@@ -23,6 +23,6 @@ public interface MessageReceiverMapper {
      */
     void batchUpdate(String[] ids);
 
-    void isRead(String id);
+    void isRead(int id);
 
 }
