@@ -12,15 +12,15 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getGoodsList(PosReq posreq);
 
-    List<Map<String, String>> getPayChannelListByGoodId(PosReq posreq);
+    List<Map<String, Object>> getPayChannelListByGoodId(PosReq posreq);
 
-    List<Map<String, String>> getgoodPics(int id);
+    List<Map<String, Object>> getgoodPics(int id);
 
     int getCommentCount(int id);
 
+    Map<String, Object> getGoodById(int goodId);
     
-    
-    
+    Map<String, Object> getFactoryById(int factoryId);
     
     
     List<Map<String, Object>> getBrands_ids();
@@ -37,6 +37,16 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getSale_slip_ids();
 
-    List<Map<String, Object>> getTDates(PosReq posreq);
+    List<Map<String, Object>> getTDatesByCityId(PosReq posreq);
+
+    List<Map<String, Object>> getRequireMaterial_pub(int pcid);
+
+    List<Map<String, Object>> getRequireMaterial_pra(int pcid);
+
+    List<Map<String, Object>> getTDatesByPayChannel(int pcid);
+
+   
+
+    
 
 }

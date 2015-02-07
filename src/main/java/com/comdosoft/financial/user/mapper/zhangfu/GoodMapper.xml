@@ -3,7 +3,10 @@
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.GoodMapper">
   
   
-  
+     <select id="getGoodById" resultType="map" >
+       select * from goods where id=#{id} and status=5 and is_published=1
+     </select>
+     
   
     <select id="getGoodsList" parameterType="com.comdosoft.financial.user.domain.query.PosReq" resultType="map">
          SELECT DISTINCT g.id,g.Title,g.has_purchase,b.name,g.Model_number,g.volume_number,
@@ -12,7 +15,7 @@
     	 LEFT JOIN good_brands b on g.good_brands_id=b.id
          LEFT JOIN goods_pay_channels gpc on gpc.good_id=g.id
          LEFT JOIN pay_channels pc ON pc.id=gpc.pay_channel_id and pc.status=5    
-    	 where g.status=5 and pc.id in 
+    	 where g.status=5 and is_published=1 and pc.id in 
          (SELECT sa.id from support_areas sa where sa.city_id=#{city_id} and sa.support_type=1)
     	 <if test="has_purchase==1">
     	     and g.has_purchase=1
@@ -110,13 +113,42 @@
      <select id="getSale_slip_ids" resultType="map">
         SELECT id,sign_order_way as value from dictionary_sign_order_ways
      </select>
-     <select id="getTDates" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.PosReq">
+     <select id="getTDatesByCityId" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.PosReq">
         SELECT DISTINCT dbc.id,dbc.name as value from support_areas sa 
 	    LEFT JOIN pay_channel_billing_cycles pcbc on pcbc.pay_channel_id=sa.pay_channel_id 
 	    LEFT JOIN dictionary_billing_cycles dbc on pcbc.billing_cycles_id=dbc.id 
 	    where sa.city_id=#{city_id} and sa.support_type=1 and dbc.id is not null
      </select>
-  
+     
+       <select id="getFactoryById" resultType="map" >
+       SELECT * from factories where id=#{factoryId}
+     </select>
+     
+     <select id="getRequireMaterial_pub" resultType="map" >
+        select id,name,introduction from dictionary_open_private_infos where id in(
+		select l.requirement_setting_id
+		from pay_channels p
+		LEFT JOIN opening_requirements o on p.id = o.pay_channel_id 
+		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=0
+	 	where p.id=#{pcid})
+     </select>
+     
+     <select id="getRequireMaterial_pra" resultType="map" >
+        select id,name,introduction from dictionary_open_private_infos where id in(
+		select l.requirement_setting_id
+		from pay_channels p
+		LEFT JOIN opening_requirements o on p.id = o.pay_channel_id 
+		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=0
+	    where p.id=#{pcid})
+     </select>
+     
+     
+     <select id="getTDatesByPayChannel" resultType="map" >
+        SELECT dbc.id,dbc.name,dbc.service_rate,dbc.description 
+		from dictionary_billing_cycles dbc 
+		LEFT JOIN pay_channel_billing_cycles pcbc on pcbc.billing_cycles_id=dbc.id 
+		and pcbc.pay_channel_id=#{pcid}
+     </select>
   
 	
 </mapper>

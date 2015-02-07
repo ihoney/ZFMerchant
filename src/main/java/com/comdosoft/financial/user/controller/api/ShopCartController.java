@@ -13,7 +13,7 @@ import com.comdosoft.financial.user.domain.query.CartReq;
 import com.comdosoft.financial.user.service.ShopCartService;
 
 @RestController
-@RequestMapping("Cart")
+@RequestMapping("cart")
 public class ShopCartController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class ShopCartController {
     public Response getList(@RequestBody CartReq cartreq){
         Response resp=new Response();
         List<?> cartList=shopCartService.getList(cartreq);
-        resp.setResult(Response.SUCCESS_CODE);
+        resp.setCode(Response.SUCCESS_CODE);
         resp.setResult(cartList);
         return resp;
     }
@@ -33,9 +33,9 @@ public class ShopCartController {
         Response resp=new Response();
         int result= shopCartService.delete(cartreq.getId());
         if(result==1){
-            resp.setResult(Response.SUCCESS_CODE);
+            resp.setCode(Response.SUCCESS_CODE);
         }else{
-            resp.setResult(Response.ERROR_CODE);
+            resp.setCode(Response.ERROR_CODE);
         }
         return resp;
     }
@@ -43,12 +43,11 @@ public class ShopCartController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Response add(@RequestBody CartReq cartreq){
         Response resp=new Response();
-        resp.setResult(Response.SUCCESS_CODE);
         int result= shopCartService.add(cartreq);
         if(result==1){
-            resp.setResult(Response.SUCCESS_CODE);
+            resp.setCode(Response.SUCCESS_CODE);
         }else{
-            resp.setResult(Response.ERROR_CODE);
+            resp.setCode(Response.ERROR_CODE);
         }
         return resp;
     }
@@ -56,12 +55,11 @@ public class ShopCartController {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Response update(@RequestBody CartReq cartreq){
         Response resp=new Response();
-        resp.setResult(Response.SUCCESS_CODE);
         int result= shopCartService.update(cartreq);
         if(result==1){
-            resp.setResult(Response.SUCCESS_CODE);
+            resp.setCode(Response.SUCCESS_CODE);
         }else{
-            resp.setResult(Response.ERROR_CODE);
+            resp.setCode(Response.ERROR_CODE);
         }
         return resp;
     }
