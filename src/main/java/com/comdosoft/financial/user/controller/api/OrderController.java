@@ -2,12 +2,14 @@ package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.service.OrderService;
 import com.comdosoft.financial.user.utils.page.Page;
 
@@ -26,8 +28,8 @@ public class OrderController {
     private OrderService orderService;
     
     //订单列表
-    @RequestMapping(value="findMyOrderAll" ,method=RequestMethod.POST)
-    public Response findAll(@RequestParam(value = "page", required = false) String page,
+    @RequestMapping(value="getMyOrderAll" ,method=RequestMethod.POST)
+    public Response getMyOrderAll(@RequestParam(value = "page", required = false) String page,
                             @RequestParam(value = "pageSize", required = false) String pageSize,
                             @RequestParam(value = "customers_id", required = false) String customers_id) {
         Response response = new Response();
@@ -41,12 +43,37 @@ public class OrderController {
         return response;
     }
     
-    @RequestMapping(value="findById" ,method=RequestMethod.POST)
-    public Response findById(@RequestParam(value = "id", required = false) String id ) {
+    @RequestMapping(value="getMyOrderById" ,method=RequestMethod.POST)
+    public Response getMyOrderById(@RequestParam(value = "id", required = false) String id ) {
         Response response = new Response();
         Object centers = orderService.findMyOrderById(id);
         response.setCode(0);
         response.setResult(centers);
         return response;
+    }
+    
+    @RequestMapping(value = "cart", method = RequestMethod.POST)
+    public Response createOrderFromCart(@RequestBody OrderReq orderreq){
+        Response resp=new Response();
+        resp.setResult(Response.ERROR_CODE);
+        if(null!=orderreq.getCartid()&&orderreq.getCartid().length>0){
+            int result= orderService.createOrderFromCart(orderreq);
+            if(result==1){
+                resp.setResult(Response.SUCCESS_CODE);
+            }
+        }
+        return resp;
+    }
+    
+    @RequestMapping(value = "shop", method = RequestMethod.POST)
+    public Response createOrderFromShop(@RequestBody OrderReq orderreq){
+        Response resp=new Response();
+        int result= orderService.createOrderFromShop(orderreq);
+        if(result==1){
+            resp.setResult(Response.SUCCESS_CODE);
+        }else{
+            resp.setResult(Response.ERROR_CODE);
+        }
+        return resp;
     }
 }
