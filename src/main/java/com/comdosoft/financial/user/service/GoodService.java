@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.PosReq;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
+import com.comdosoft.financial.user.utils.SysUtils;
 
 @Service
 public class GoodService {
@@ -54,6 +55,33 @@ public class GoodService {
         //
         
         return goodInfoMap;
+    }
+
+
+    public Map<String, Object> getSearchCondition(PosReq posreq) {
+        Map<String, Object> map=new HashMap<String, Object>();
+        List<Map<String, Object>> list1=goodMapper.getBrands_ids();
+        List<Map<String, Object>> list2=goodMapper.getFartherCategorys();
+        if(null!=list2&&list2.size()>0){
+            List<Map<String, Object>> list2son=null;
+            for (Map<String, Object> map2 : list2) {
+                list2son=goodMapper.getSonCategorys(SysUtils.String2int(""+map2.get("id")));
+                map2.put("son", list2son);
+            }
+        }
+        List<Map<String, Object>> list3=goodMapper.getPay_channel_ids(posreq);
+        List<Map<String, Object>> list4=goodMapper.getPay_card_ids();
+        List<Map<String, Object>> list5=goodMapper.getTrade_type_ids(posreq);
+        List<Map<String, Object>> list6=goodMapper.getSale_slip_ids();
+        List<Map<String, Object>> list7=goodMapper.getTDates(posreq);
+        map.put("brands", list1);
+        map.put("category", list2);
+        map.put("pay_channel", list3);
+        map.put("pay_card", list4);
+        map.put("trade_type", list5);
+        map.put("sale_slip", list6);
+        map.put("tDate", list7);
+        return map;
     }
 	
 	
