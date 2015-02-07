@@ -1,5 +1,7 @@
 package com.comdosoft.financial.user.domain.query;
 
+import com.comdosoft.financial.user.domain.Paging;
+
 public class PosReq {
 
     private int goodId;
@@ -47,7 +49,7 @@ public class PosReq {
 
     private String keys;
     
-    private int page;
+    private Paging paging;
 
     public int getGoodId() {
         return goodId;
@@ -202,12 +204,16 @@ public class PosReq {
         this.maxPrice = maxPrice;
     }
 
-    public int getPage() {
-        return page;
+ 
+
+    
+
+    public Paging getPaging() {
+        return paging;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setPaging(Paging paging) {
+        this.paging = paging;
     }
 
     public String getKeys() {

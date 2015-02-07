@@ -47,6 +47,10 @@ public interface GoodMapper {
 
     List<String> getSupportArea(int pcid);
 
+    List<Map<String, Object>> getOther_rate(int pcid);
+
+    List<Map<String, Object>> getStandard_rates(int pcid);
+
    
 
     
