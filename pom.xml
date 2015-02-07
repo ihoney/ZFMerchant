@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>ZFMerchant</name>
-	<description>zhang fu merchant manage system</description>
+	<description>zhang fu merchant system</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
