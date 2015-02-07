@@ -27,9 +27,10 @@ public class OrderController {
     @Resource
     private OrderService orderService;
     
+    //  gch  begin
     //订单列表
-    @RequestMapping(value="findMyOrderAll" ,method=RequestMethod.POST)
-    public Response findAll(@RequestParam(value = "page", required = false) String page,
+    @RequestMapping(value="getMyOrderAll" ,method=RequestMethod.POST)
+    public Response getMyOrderAll(@RequestParam(value = "page", required = false) String page,
                             @RequestParam(value = "pageSize", required = false) String pageSize,
                             @RequestParam(value = "customers_id", required = false) String customers_id) {
         Response response = new Response();
@@ -43,14 +44,17 @@ public class OrderController {
         return response;
     }
     
-    @RequestMapping(value="findById" ,method=RequestMethod.POST)
-    public Response findById(@RequestParam(value = "id", required = false) String id ) {
+    @RequestMapping(value="getMyOrderById" ,method=RequestMethod.POST)
+    public Response getMyOrderById(@RequestParam(value = "id", required = false) String id ) {
         Response response = new Response();
         Object centers = orderService.findMyOrderById(id);
         response.setCode(0);
         response.setResult(centers);
         return response;
     }
+    
+   //  gch  end
+  
     
     @RequestMapping(value = "cart", method = RequestMethod.POST)
     public Response createOrderFromCart(@RequestBody OrderReq orderreq){

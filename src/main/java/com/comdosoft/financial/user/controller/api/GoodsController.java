@@ -55,6 +55,11 @@ public class GoodsController {
         if(null!=req.gettDate()&&0!=req.gettDate().length){
             req.settDates(SysUtils.Arry2Str(req.gettDate()));
         }
+        if(null!=req.getKeys()&&!"".equals(req.getKeys().trim())){
+            req.setKeys(req.getKeys().trim());
+        }else{
+            req.setKeys(null);
+        }
         return req;
     }
     
@@ -69,9 +74,13 @@ public class GoodsController {
         return response;
     }
     
-    @RequestMapping(value = "SearchCondition", method = RequestMethod.POST)
-    public String getSearchCondition(){
-        return "";
+    @RequestMapping(value = "search", method = RequestMethod.POST)
+    public Response getSearchCondition(@RequestBody PosReq posreq){
+        Response response = new Response();
+        Map<String,Object> searchMap= goodService.getSearchCondition(posreq);
+        response.setCode(Response.SUCCESS_CODE);
+        response.setResult(searchMap);
+        return response;
     }
     
    
