@@ -5,9 +5,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
 	<!-- db zhangfu -->
-	<bean id="dataSource-zhangfu" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" p:driverClassName="${jdbc.driverClassName}"
-		p:url="${jdbc.zhangfu.url}" p:username="${jdbc.zhangfu.user}" p:password="${jdbc.zhangfu.password}" p:filters="stat"
-		p:maxActive="20" p:initialSize="1" p:minIdle="1" p:maxWait="60000" p:timeBetweenEvictionRunsMillis="3000"
+	<bean id="dataSource-zhangfu" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.zhangfu.url}" p:username="${jdbc.zhangfu.user}" p:password="${jdbc.zhangfu.password}"
+		p:filters="stat" p:maxActive="20" p:initialSize="1" p:minIdle="1" p:maxWait="60000" p:timeBetweenEvictionRunsMillis="3000"
 		p:minEvictableIdleTimeMillis="300000" p:validationQuery="SELECT 'x'" p:testWhileIdle="true" p:testOnBorrow="false"
 		p:testOnReturn="false" p:poolPreparedStatements="true" p:maxPoolPreparedStatementPerConnectionSize="20" />
 
@@ -25,11 +25,11 @@
 	<tx:annotation-driven transaction-manager="transactionManager-zhangfu" />
 
 	<!-- db trades -->
-	<bean id="dataSource-trades" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" p:driverClassName="${jdbc.driverClassName}"
-		p:url="${jdbc.trades.url}" p:username="${jdbc.trades.user}" p:password="${jdbc.trades.password}" p:filters="stat" p:maxActive="20"
-		p:initialSize="1" p:minIdle="1" p:maxWait="60000" p:timeBetweenEvictionRunsMillis="3000" p:minEvictableIdleTimeMillis="300000"
-		p:validationQuery="SELECT 'x'" p:testWhileIdle="true" p:testOnBorrow="false" p:testOnReturn="false" p:poolPreparedStatements="true"
-		p:maxPoolPreparedStatementPerConnectionSize="20" />
+	<bean id="dataSource-trades" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.trades.url}" p:username="${jdbc.trades.user}" p:password="${jdbc.trades.password}"
+		p:filters="stat" p:maxActive="20" p:initialSize="1" p:minIdle="1" p:maxWait="60000" p:timeBetweenEvictionRunsMillis="3000"
+		p:minEvictableIdleTimeMillis="300000" p:validationQuery="SELECT 'x'" p:testWhileIdle="true" p:testOnBorrow="false"
+		p:testOnReturn="false" p:poolPreparedStatements="true" p:maxPoolPreparedStatementPerConnectionSize="20" />
 
 	<bean id="sqlSessionFactory-trades" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource-trades"
 		p:mapperLocations="classpath:com.comdosoft.financial.user.mapper.trades.*.xml" />

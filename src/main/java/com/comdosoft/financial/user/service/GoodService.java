@@ -62,6 +62,13 @@ public class GoodService {
                         //支持区域
                         List<String> supportArea=goodMapper.getSupportArea(pcid);
                         map.put("supportArea", supportArea);
+                        //刷卡交易标准手续费
+                        List<Map<String, Object>> standard_rates = goodMapper.getStandard_rates(pcid);
+                        map.put("other_rate", standard_rates);
+                        //其他交易费率
+                        List<Map<String, Object>> other_rate = goodMapper.getOther_rate(pcid);
+                        map.put("other_rate", other_rate);
+                        
                     }
                 }
                 goodInfoMap.put("payChannelList", payChannelList);
@@ -73,7 +80,7 @@ public class GoodService {
             int commentsCount = goodMapper.getCommentCount(posreq.getGoodId());
             goodInfoMap.put("commentsCount", commentsCount);
             // 生产厂家
-            int factoryId = SysUtils.String2int("" + goodinfo.get("FactoryId"));
+            int factoryId = SysUtils.String2int("" + goodinfo.get("factory_id"));
             if (factoryId > 0) {
                 Map<String, Object> factoryMap = goodMapper.getFactoryById(factoryId);
                 goodInfoMap.put("factory", factoryMap);

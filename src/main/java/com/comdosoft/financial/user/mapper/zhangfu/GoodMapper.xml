@@ -75,6 +75,7 @@
 		<if test="orderType==4">
 		   order by g.total_score desc
 		</if>
+		LIMIT #{paging.offset}, #{paging.rows}
     </select>
     
     
@@ -149,7 +150,7 @@
 		select l.requirement_setting_id
 		from pay_channels p
 		LEFT JOIN opening_requirements o on p.id = o.pay_channel_id 
-		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=0
+		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=1
 	    where p.id=#{pcid})
      </select>
      
@@ -161,9 +162,20 @@
 		and pcbc.pay_channel_id=#{pcid}
      </select>
      
-     <select id="getSupportArea" resultType="map" >
+     <select id="getSupportArea" resultType="String" >
         SELECT c.name from support_areas sa LEFT JOIN cities c on c.id= sa.city_id 
 		where sa.pay_channel_id=#{pcid} and sa.support_type=1
+     </select>
+     
+     <select id="getOther_rate" resultType="map" >
+        SELECT dtt.trade_value,terminal_rate,description FROM 
+		support_trade_types stt LEFT JOIN dictionary_trade_types dtt on dtt.id=stt.trade_type_id
+ 		where pay_channel_id=#{pcid}
+     </select>
+     
+     <select id="getStandard_rates" resultType="map" >
+        SELECT name,standard_rate,description from pay_channel_standard_rates 
+        WHERE pay_channel_id=#{pcid}
      </select>
 	
 </mapper>
