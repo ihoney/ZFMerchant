@@ -2,6 +2,7 @@ package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +29,8 @@ public class MessageReceiverController {
     private MessageReceiverService messageReceiverService;
     
     @RequestMapping(value="findAll",method=RequestMethod.POST)
-    public Response findAll(@RequestParam(value = "page", required = false) String page,
-                            @RequestParam(value = "customers_id", required = false) String customers_id){
+    public Response findAll(@RequestBody String page,
+                            @RequestBody String customers_id){
         Response response = new Response();
         if(null == page) page="0";
         Page<MessageReceiver> mrs = messageReceiverService.findAll(Integer.parseInt(page),20,Integer.parseInt(customers_id));

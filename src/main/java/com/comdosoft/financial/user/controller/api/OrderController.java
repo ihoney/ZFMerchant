@@ -27,6 +27,7 @@ public class OrderController {
     @Resource
     private OrderService orderService;
     
+    //  gch  begin
     //订单列表
     @RequestMapping(value="getMyOrderAll" ,method=RequestMethod.POST)
     public Response getMyOrderAll(@RequestParam(value = "page", required = false) String page,
@@ -51,6 +52,9 @@ public class OrderController {
         response.setResult(centers);
         return response;
     }
+    
+   //  gch  end
+  
     
     @RequestMapping(value = "cart", method = RequestMethod.POST)
     public Response createOrderFromCart(@RequestBody OrderReq orderreq){
