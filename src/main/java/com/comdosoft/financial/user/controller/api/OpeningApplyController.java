@@ -82,6 +82,44 @@ public class OpeningApplyController {
 		response.setResult(map);
 		return response;
 	}
+	
+	/**
+	 * 根据商户id获得商户详细信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "Merchant/{id}", method = RequestMethod.GET)
+	public Response getMerchant(@PathVariable("id") Integer id) {
+		Response response = new Response();
+		Merchant merchant = new Merchant();
+		merchant = openingApplyService.getMerchant(id);
+		response.setResult(merchant);
+		return response;
+	}
+	
+	/**
+	 * 获得所有通道
+	 */
+	@RequestMapping(value = "getChannels", method = RequestMethod.GET)
+	public Response getChannels(){
+		Response response = new Response();
+		response.setResult(openingApplyService.getChannels());
+		return response;
+	}
+	
+	/**
+	 * 从第三方接口获得银行
+	 */
+	@RequestMapping(value = "ChooseBank", method = RequestMethod.GET)
+	public Response ChooseBank(){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("code1", "中国农业银行");
+		map.put("code2", "中国工商银行");
+		Response response = new Response();
+		response.setResult(map);
+		return response;
+	}
 
 	/**
 	 * 对公对私材料名称
@@ -215,17 +253,12 @@ public class OpeningApplyController {
 	}
 
 	/**
-	 * 根据商户id获得商户详细信息
-	 * 
-	 * @param id
-	 * @return
+	 * 视频认证
 	 */
-	@RequestMapping(value = "Merchant", method = RequestMethod.GET)
-	public Response getMerchant(@PathVariable("id") Integer id) {
+	@RequestMapping(value = "videoAuthentication", method = RequestMethod.GET)
+	public Response videoAuthentication(){
 		Response response = new Response();
-		Merchant merchant = new Merchant();
-		merchant = openingApplyService.getMerchant(id);
-		response.setResult(merchant);
 		return response;
 	}
+	
 }

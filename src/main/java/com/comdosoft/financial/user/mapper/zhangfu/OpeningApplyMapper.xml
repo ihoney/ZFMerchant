@@ -33,6 +33,10 @@
  		SELECT id,title FROM merchants
  	</select>
  	
+ 	<select id="getChannels" resultType="map">
+ 		SELECT id,name FROM pay_channels
+ 	</select>
+ 	
  	<select id="getMerchant" resultType="com.comdosoft.financial.user.domain.zhangfu.Merchant" parameterType="int">
  		SELECT * FROM merchants
  		WHERE id=#{id}

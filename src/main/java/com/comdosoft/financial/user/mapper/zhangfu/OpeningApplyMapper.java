@@ -38,6 +38,12 @@ public interface OpeningApplyMapper {
 	List<Merchant> getMerchants();
 	
 	/**
+	 * 获得所有通道
+	 * @return
+	 */
+	List<Map<String, String>> getChannels();
+	
+	/**
 	 * 申请资料数据回显
 	 * @param id
 	 * @return
