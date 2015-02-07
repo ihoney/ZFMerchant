@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +16,12 @@ import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
-import com.comdosoft.financial.user.utils.Constants;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
 /**
  * 
- * 开通申请<br>
+ * 终端管理<br>
  * <功能描述>
  *
  * @author xfh 2015年2月5日
@@ -37,8 +37,8 @@ public class TerminalsController {
 	@Resource
 	private TerminalsService terminalsService;
 
-	/*@Value("${passPath}")
-	private String passPath;*/
+	@Value("${passPath}")
+	private String passPath;
 
 	/**
 	 * 根据用户ID获得终端列表
@@ -46,16 +46,16 @@ public class TerminalsController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "terminalList/{id}/{indexPage}", method = RequestMethod.GET)
+	@RequestMapping(value = "terminalList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
 	public Response getApplyList(@PathVariable("id") Integer id,
-			@PathVariable("indexPage") Integer page) {
+			@PathVariable("indexPage") Integer page,@PathVariable("pageNum") Integer pageNum) {
 
-		PageRequest PageRequest = new PageRequest(page, Constants.PAGE_SIZE);
+		PageRequest PageRequest = new PageRequest(page, pageNum);
 		Response response = new Response();
 
 		int offSetPage = PageRequest.getOffset();
 		response.setResult(terminalsService.getTerminalList(id, offSetPage,
-				Constants.PAGE_SIZE));
+				pageNum));
 		return response;
 
 	}
@@ -85,9 +85,10 @@ public class TerminalsController {
 	 * 收单机构
 	 */
 	@RequestMapping(value = "Factories", method = RequestMethod.GET)
-	public void getFactories() {
+	public Response getFactories() {
 		Response response = new Response();
 		response.setResult(terminalsService.getChannels());
+		return response;
 	}
 
 	/**
@@ -121,16 +122,15 @@ public class TerminalsController {
 	}
 
 	/**
-	 * 解密
+	 * 找回POS机密码
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "findPassword/{id}", method = RequestMethod.GET)
 	public Response Encryption(@PathVariable("id") Integer id) {
 		Response response = new Response();
-		SysUtils sysUtils = new SysUtils();
 			try {
-				String pass = sysUtils.Decrypt(terminalsService.findPassword(id), "C:/Program Files (x86)/password.txt");
+				String pass = SysUtils.Decrypt(terminalsService.findPassword(id), passPath);
 				response.setResult(pass);
 				response.setMessage("找回密码成功！");
 			} catch (Exception e) {
@@ -139,5 +139,22 @@ public class TerminalsController {
 			}
 		return response;
 	}
-
+	
+	/**
+	 * 视频认证
+	 */
+	@RequestMapping(value = "videoAuthentication", method = RequestMethod.GET)
+	public Response videoAuthentication(){
+		Response response = new Response();
+		return response;
+	}
+	
+	/**
+	 * 同步
+	 */
+	@RequestMapping(value = "Synchronous", method = RequestMethod.GET)
+	public Response Synchronous(){
+		Response response = new Response();
+		return response;
+	}
 }
