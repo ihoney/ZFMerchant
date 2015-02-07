@@ -4,14 +4,23 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
-
+import org.apache.commons.codec.binary.Base64;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,7 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class SysUtils {
-
+	
     /**
      * 将json字符串转换成java对象
      * 
@@ -257,5 +266,62 @@ public class SysUtils {
         } catch (Exception e) {
             return 0;
         }
+    }
+    
+    /**
+     * 加密
+     * @param id
+     * @return
+     * @throws Exception 
+     */
+    public String Encryption(String passwors,String path) throws Exception{
+    	String[] arstr = findPasswprdPath(path);
+    	String ret = null;
+		Key keySpec = new SecretKeySpec(arstr[0].getBytes(), "AES");    //两个参数，第一个为私钥字节数组， 第二个为加密方式 AES或者DES
+		IvParameterSpec ivSpec = new IvParameterSpec(arstr[1].getBytes()); 
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");//实例化加密类，参数为加密方式，要写全
+			cipher.init(Cipher.ENCRYPT_MODE,  keySpec, ivSpec);
+			byte [] b = cipher.doFinal(passwors.getBytes());//加密操作,返回加密后的字节数组，然后需要编码。主要编解码方式有Base64, HEX, UUE,7bit等等。此处看服务器需要什么编码方式
+			ret = Base64.encodeBase64String(b); 
+		return ret;
+	}
+    
+    /**
+     * 解密
+     * @param password
+     * @return
+     * @throws FileNotFoundException 
+     * @throws NoSuchPaddingException 
+     * @throws NoSuchAlgorithmException 
+     */
+    public String Decrypt(String password,String path) throws Exception{
+    	String[] arstr = findPasswprdPath(path);
+		String str = null;
+		byte [] passByte = Base64.decodeBase64(password);       //先用Base64解码
+		IvParameterSpec ivSpec = new IvParameterSpec(arstr[1].getBytes()); 
+		Key key = new SecretKeySpec(arstr[0].getBytes(), "AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);//与加密时不同MODE:Cipher.DECRYPT_MODE
+			byte [] ret = cipher.doFinal(passByte);
+			str= new String(ret,"utf-8");
+		return str;
+	}
+    
+    /**
+     * 获得秘钥
+     * @param path
+     * @throws FileNotFoundException 
+     */
+    @SuppressWarnings("resource")
+	public String[] findPasswprdPath(String path) throws FileNotFoundException{
+    	File file = new File(path);
+   	 	Scanner in = null;
+   	 	String result = "";
+			in = new Scanner(file);
+	         while (in.hasNextLine()) {
+	             result += in.nextLine() + ",";
+	         }
+		String[] ar = result.split(",");
+		return ar;
     }
 }
