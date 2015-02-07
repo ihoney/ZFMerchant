@@ -45,6 +45,8 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getTDatesByPayChannel(int pcid);
 
+    List<String> getSupportArea(int pcid);
+
    
 
     

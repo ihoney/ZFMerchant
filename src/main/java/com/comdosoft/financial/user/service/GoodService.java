@@ -59,6 +59,9 @@ public class GoodService {
                         // 支付通道开通所需材料 对私
                         List<Map<String, Object>> requireMaterial_pra = goodMapper.getRequireMaterial_pra(pcid);
                         map.put("requireMaterial_pra", requireMaterial_pra);
+                        //支持区域
+                        List<String> supportArea=goodMapper.getSupportArea(pcid);
+                        map.put("supportArea", supportArea);
                     }
                 }
                 goodInfoMap.put("payChannelList", payChannelList);
