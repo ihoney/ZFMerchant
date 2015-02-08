@@ -3,6 +3,7 @@ package com.comdosoft.financial.user.mapper.zhangfu;
 import java.util.List;
 import java.util.Map;
 
+import com.comdosoft.financial.user.domain.MyOrderReq;
 import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -17,11 +18,13 @@ public interface OrderMapper {
 
     Map<String, Object> getGoodInfo(OrderReq orderreq);
 
-
+// ----gch start --------------
     int countMyOrder(String pid);
 
     List<Order> findMyOrderAll(PageRequest request, String pid);
 
-    Order findMyOrderById(String id);
+    Order findMyOrderById(Integer id);
 
+    void cancelMyOrder(MyOrderReq myOrderReq);
+// ------gch end ---------------------
 }

@@ -777,7 +777,7 @@ public class Good {
 	private DictionarySignOrderWay signOrderWay;
 	private DictionaryEncryptCardWay encryptCardWay;
 	private List<PayChannel> channels;
-	private List<GoodsPicture> pictures;
+//	private List<GoodsPicture> pictures;
 	private List<DictionaryCardType> cardTypes;
 	private List<Good> relativeGoods;
 
@@ -827,14 +827,6 @@ public class Good {
 	
 	public void setChannels(List<PayChannel> channels) {
 		this.channels = channels;
-	}
-
-	public List<GoodsPicture> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<GoodsPicture> pictures) {
-		this.pictures = pictures;
 	}
 
 	public List<DictionaryCardType> getCardTypes() {

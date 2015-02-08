@@ -14,14 +14,10 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
 
 @Service
 public class MessageReceiverService {
-    public static final Integer WEB_MESSAGE_PAGE_SIZE = 20;
     @Resource
     private MessageReceiverMapper messageReceiverMapper;
 
     public Page<MessageReceiver> findAll(Integer page,Integer pageSize,Integer pid) {
-        if(null == pageSize){
-            pageSize = MessageReceiverService.WEB_MESSAGE_PAGE_SIZE;
-        }
         PageRequest request = new PageRequest(page, pageSize);
         int count = messageReceiverMapper.count(pid);
         List<MessageReceiver> centers = messageReceiverMapper.findAll(request,pid);

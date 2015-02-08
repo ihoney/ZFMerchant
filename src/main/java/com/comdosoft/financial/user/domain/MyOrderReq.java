@@ -1,12 +1,46 @@
 package com.comdosoft.financial.user.domain;
 
+import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
+import com.comdosoft.financial.user.domain.zhangfu.PayType;
+
 public class MyOrderReq {
     private Integer id;
     private String[] ids;
-    private Integer page;//当前页数
+    private Integer page ;//当前页数
     private Integer pageSize ;//每页大小
     private String customers_id;//用户id
+    private PayType payType;
+    private OrderStatus orderStatus;
     
+    
+    /**  
+     * 获取 orderStatus  
+     * @return orderStatus
+     */
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+    /**  
+     * 设置 orderStatus  
+     * @param orderStatus
+     */
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+    /**  
+     * 获取 payStatus  
+     * @return payStatus
+     */
+    public PayType getPayStatus() {
+        return payType;
+    }
+    /**  
+     * 设置 payStatus  
+     * @param payType
+     */
+    public void setPayStatus(PayType payType) {
+        this.payType = payType;
+    }
     /**  
      * 获取 ids  
      * @return ids
@@ -40,6 +74,7 @@ public class MyOrderReq {
      * @return page
      */
     public Integer getPage() {
+        if(null == page) page = 1;
         return page;
     }
     /**  
@@ -54,6 +89,7 @@ public class MyOrderReq {
      * @return pageSize
      */
     public Integer getPageSize() {
+        if(null == pageSize) pageSize = 20;
         return pageSize;
     }
     /**  

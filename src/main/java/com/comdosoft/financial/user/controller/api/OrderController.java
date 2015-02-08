@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.MyOrderReq;
@@ -47,10 +46,10 @@ public class OrderController {
     }
     
     @RequestMapping(value="getMyOrderById" ,method=RequestMethod.POST)
-    public Response getMyOrderById(@RequestParam(value = "id", required = false) String id ) {
+    public Response getMyOrderById(@RequestBody MyOrderReq myOrderReq ) {
         try{
             logger.debug("获取我的订单详情 start");
-            Object centers = orderService.findMyOrderById(id);
+            Object centers = orderService.findMyOrderById(myOrderReq.getId());
             logger.debug("获取我的订单详情 end"+centers);
             return Response.getSuccess(centers);
         }catch(Exception e){
@@ -58,6 +57,19 @@ public class OrderController {
             return Response.getError("请求失败");
         }
     }    
+    
+    @RequestMapping(value="cancelMyOrder" ,method=RequestMethod.POST)
+    public Response cancelMyOrder(@RequestBody MyOrderReq myOrderReq ) {
+        try{
+            orderService.cancelMyOrder(myOrderReq);
+            return Response.buildSuccess(null, "取消成功");
+        }catch(Exception e){
+            logger.debug("取消我的订单详情出错"+e);
+            return Response.getError("取消失败");
+        }
+    }    
+    
+    
    //  gch  end
   
     

@@ -12,14 +12,10 @@ import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 @Service
 public class WebMessageService {
-    public static final Integer WEB_MESSAGE_PAGE_SIZE = 20;
     @Resource
     private WebMessageMapper webMessageMapper;
     
     public Page<WebMessage> findAll(Integer page,Integer pageSize) {
-        if(null == pageSize){
-            pageSize = WebMessageService.WEB_MESSAGE_PAGE_SIZE;
-        }
         PageRequest request = new PageRequest(page, pageSize);
         int count = webMessageMapper.count();
         List<WebMessage> centers = webMessageMapper.findAll(request);
