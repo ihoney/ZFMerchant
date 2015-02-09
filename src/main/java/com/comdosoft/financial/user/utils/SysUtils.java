@@ -35,7 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class SysUtils {
-	
+
     /**
      * 将json字符串转换成java对象
      * 
@@ -208,120 +208,128 @@ public class SysUtils {
         int b = fc + random.nextInt(bc - fc);
         return new Color(r, g, b);
     }
-    
+
     /**
-     * 生成订单
-     * author jwb
-     * @param type 1.用户订购 2 用户租赁 3 代理商代购 4 代理商代租赁 5 代理商批购
+     * 生成订单 author jwb
+     * 
+     * @param type
+     *            1.用户订购 2 用户租赁 3 代理商代购 4 代理商代租赁 5 代理商批购
      * @return
      */
-    public static String getOrderNum(int type){
+    public static String getOrderNum(int type) {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmssSSS");
-        return type+sdf.format(new Date());
+        return type + sdf.format(new Date());
     }
-    
+
     /**
      * author jwb
+     * 
      * @param arry
      * @return
      */
-    public static String Arry2Str(int[] arry){
-        StringBuilder sb=new StringBuilder();
-        if(arry!=null&&arry.length>0){
+    public static String Arry2Str(int[] arry) {
+        StringBuilder sb = new StringBuilder();
+        if (arry != null && arry.length > 0) {
             sb.append("(");
             for (Object object : arry) {
-                sb.append(object+",");
+                sb.append(object + ",");
             }
-            sb.deleteCharAt(sb.length()-1);
+            sb.deleteCharAt(sb.length() - 1);
             sb.append(")");
         }
         return sb.toString();
     }
-    
+
     /**
      * author jwb
+     * 
      * @param arry
      * @return
      */
-    public static String Arry2Str(String[] arry){
-        StringBuilder sb=new StringBuilder();
-        if(arry!=null&&arry.length>0){
+    public static String Arry2Str(String[] arry) {
+        StringBuilder sb = new StringBuilder();
+        if (arry != null && arry.length > 0) {
             sb.append("(");
             for (Object object : arry) {
-                sb.append(object+",");
+                sb.append(object + ",");
             }
-            sb.deleteCharAt(sb.length()-1);
+            sb.deleteCharAt(sb.length() - 1);
             sb.append(")");
         }
         return sb.toString();
     }
+
     /**
      * author jwb
+     * 
      * @param s
      * @return
      */
-    public static int String2int(String s){
+    public static int String2int(String s) {
         try {
             return Integer.valueOf(s.trim());
         } catch (Exception e) {
             return 0;
         }
     }
-    
+
     /**
      * 加密
+     * 
      * @param id
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public static String Encryption(String passwors,String path) throws Exception{
-    	String[] arstr = findPasswprdPath(path);
-    	String ret = null;
-		Key keySpec = new SecretKeySpec(arstr[0].getBytes(), "AES");    //两个参数，第一个为私钥字节数组， 第二个为加密方式 AES或者DES
-		IvParameterSpec ivSpec = new IvParameterSpec(arstr[1].getBytes()); 
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");//实例化加密类，参数为加密方式，要写全
-			cipher.init(Cipher.ENCRYPT_MODE,  keySpec, ivSpec);
-			byte [] b = cipher.doFinal(passwors.getBytes());//加密操作,返回加密后的字节数组，然后需要编码。主要编解码方式有Base64, HEX, UUE,7bit等等。此处看服务器需要什么编码方式
-			ret = Base64.encodeBase64String(b); 
-		return ret;
-	}
-    
+    public static String Encryption(String passwors, String path) throws Exception {
+        String[] arstr = findPasswprdPath(path);
+        String ret = null;
+        Key keySpec = new SecretKeySpec(arstr[0].getBytes(), "AES"); // 两个参数，第一个为私钥字节数组， 第二个为加密方式 AES或者DES
+        IvParameterSpec ivSpec = new IvParameterSpec(arstr[1].getBytes());
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");// 实例化加密类，参数为加密方式，要写全
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+        byte[] b = cipher.doFinal(passwors.getBytes());// 加密操作,返回加密后的字节数组，然后需要编码。主要编解码方式有Base64, HEX, UUE,7bit等等。此处看服务器需要什么编码方式
+        ret = Base64.encodeBase64String(b);
+        return ret;
+    }
+
     /**
      * 解密
+     * 
      * @param password
      * @return
-     * @throws FileNotFoundException 
-     * @throws NoSuchPaddingException 
-     * @throws NoSuchAlgorithmException 
+     * @throws FileNotFoundException
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
      */
-    public static String Decrypt(String password,String path) throws Exception{
-    	String[] arstr = findPasswprdPath(path);
-		String str = null;
-		byte [] passByte = Base64.decodeBase64(password);       //先用Base64解码
-		IvParameterSpec ivSpec = new IvParameterSpec(arstr[1].getBytes()); 
-		Key key = new SecretKeySpec(arstr[0].getBytes(), "AES");
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);//与加密时不同MODE:Cipher.DECRYPT_MODE
-			byte [] ret = cipher.doFinal(passByte);
-			str= new String(ret,"utf-8");
-		return str;
-	}
-    
+    public static String Decrypt(String password, String path) throws Exception {
+        String[] arstr = findPasswprdPath(path);
+        String str = null;
+        byte[] passByte = Base64.decodeBase64(password); // 先用Base64解码
+        IvParameterSpec ivSpec = new IvParameterSpec(arstr[1].getBytes());
+        Key key = new SecretKeySpec(arstr[0].getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);// 与加密时不同MODE:Cipher.DECRYPT_MODE
+        byte[] ret = cipher.doFinal(passByte);
+        str = new String(ret, "utf-8");
+        return str;
+    }
+
     /**
      * 获得秘钥
+     * 
      * @param path
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     @SuppressWarnings("resource")
-	public static String[] findPasswprdPath(String path) throws FileNotFoundException{
-    	File file = new File(path);
-   	 	Scanner in = null;
-   	 	String result = "";
-			in = new Scanner(file);
-	         while (in.hasNextLine()) {
-	             result += in.nextLine() + ",";
-	         }
-		String[] ar = result.split(",");
-		return ar;
+    public static String[] findPasswprdPath(String path) throws FileNotFoundException {
+        File file = new File(path);
+        Scanner in = null;
+        String result = "";
+        in = new Scanner(file);
+        while (in.hasNextLine()) {
+            result += in.nextLine() + ",";
+        }
+        String[] ar = result.split(",");
+        return ar;
     }
 }

@@ -86,11 +86,10 @@ public class CustomerAPI {
         Response sysResponse = null;
         try {
             int id = (int) param.get("id");
-            String passwordOld = (String) param.get("passwordOld");
             Map<Object, Object> customer = customerService.getOne(id);
             if (customer != null) {
-                String passwordDE = SysUtils.Decrypt((String) customer.get("password"), passPath);
-                if (passwordOld.equals(passwordDE)) {// 判断原密码
+                String passwordEN = (String) customer.get("password");// 获取数据库中的密码
+                if (SysUtils.Encryption((String) param.get("passwordOld"), passPath).equals(passwordEN)) {// 判断原密码
                     param.put("password", SysUtils.Encryption((String) customer.get("password"), passPath)); // 加密新密码
                     customerService.updatePassword(param);
                     sysResponse = Response.getSuccess();

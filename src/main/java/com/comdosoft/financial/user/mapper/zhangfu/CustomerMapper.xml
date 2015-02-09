@@ -38,7 +38,8 @@
 
 	<select id="getIntegralList" resultType="map">
 	<![CDATA[
-		SELECT i.quantity, i.types, d.order_number, d.payed_at, d.actual_price
+		SELECT i.quantity, i.types, d.order_number, d.actual_price,
+			   DATE_FORMAT(d.payed_at, '%Y-%m-%d %T') payedAt
 		  FROM customer_integral_records i LEFT JOIN orders d ON i.target_id = d.id
 		 WHERE i.customer_id = #{customerId}
 	  ORDER BY i.created_at DESC
