@@ -17,6 +17,8 @@ public class Paging {
         this.page = page;
         this.rows = rows;
     }
+    public Paging() {
+    }
 
     public int getPage() {
         return page;

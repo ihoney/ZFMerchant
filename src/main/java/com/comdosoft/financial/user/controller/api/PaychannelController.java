@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.query.PayChannelReq;
 import com.comdosoft.financial.user.service.PayChannelService;
 
 @RestController
@@ -19,9 +20,9 @@ public class PaychannelController {
     private PayChannelService pcService ;
 
     @RequestMapping(value = "info", method = RequestMethod.POST)
-    public Response getGoodsList(@RequestBody  Integer pcid){
+    public Response getGoodsList(@RequestBody  PayChannelReq req){
         Response response = new Response();
-        Map<String,Object> pcInfo= pcService.payChannelInfo(pcid);
+        Map<String,Object> pcInfo= pcService.payChannelInfo(req.getId());
         response.setCode(Response.SUCCESS_CODE);
         response.setResult(pcInfo);
         return response;

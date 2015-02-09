@@ -31,7 +31,7 @@ public class PayChannelService {
         map.put("supportArea", supportArea);
         // 刷卡交易标准手续费
         List<Map<String, Object>> standard_rates = pcMapper.getStandard_rates(pcid);
-        map.put("other_rate", standard_rates);
+        map.put("standard_rates", standard_rates);
         // 其他交易费率
         List<Map<String, Object>> other_rate = pcMapper.getOther_rate(pcid);
         map.put("other_rate", other_rate);
