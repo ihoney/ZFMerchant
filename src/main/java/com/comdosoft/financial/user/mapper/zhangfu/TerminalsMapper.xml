@@ -31,6 +31,7 @@
 		FROM terminals
 		WHERE
 		customer_id=#{id}
+		ORDER BY created_at DESC
 		LIMIT #{offSetPage},#{pageSize}
 	</select>
 	

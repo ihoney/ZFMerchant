@@ -84,7 +84,7 @@ public class TerminalsController {
 	}
 
 	/**
-	 * 收单机构
+	 * 收单通道
 	 */
 	@RequestMapping(value = "getFactories", method = RequestMethod.GET)
 	public Response getFactories() {
