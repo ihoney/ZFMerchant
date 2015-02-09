@@ -81,7 +81,6 @@ public class OrderService {
             orderreq.setType(1);
             orderMapper.addOrder(orderreq);
             int price=SysUtils.String2int("" + goodMap.get("price"));
-            price=(price+opening_cost)*quantity;
             orderreq.setPrice(price+opening_cost);
             orderreq.setRetail_price(retail_price+opening_cost);
             orderMapper.addOrderGood(orderreq);
