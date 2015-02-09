@@ -35,9 +35,9 @@ public class GoodService {
                 map.put("pay_channe", payChannelList.get(0).get("name"));
             }
             // 图片
-            List<Map<String, Object>> goodPics = goodMapper.getgoodPics(id);
+            List<String> goodPics = goodMapper.getgoodPics(id);
             if (null != goodPics && goodPics.size() > 0) {
-                map.put("url_path", goodPics.get(0).get("url_path"));
+                map.put("url_path", goodPics.get(0));
             }
         }
         return list;
@@ -59,7 +59,7 @@ public class GoodService {
                 goodInfoMap.put("paychannelinfo",pcService.payChannelInfo(pcid));
             }
             // 图片
-            List<Map<String, Object>> goodPics = goodMapper.getgoodPics(posreq.getGoodId());
+            List<String> goodPics = goodMapper.getgoodPics(posreq.getGoodId());
             goodInfoMap.put("goodPics", goodPics);
             // 评论数
             int commentsCount = cMapper.getCommentCount(posreq.getGoodId());

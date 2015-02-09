@@ -88,8 +88,8 @@
          (SELECT sa.id from support_areas sa where sa.city_id=#{city_id} and sa.support_type=1)
      </select>
      
-     <select id="getgoodPics" resultType="map">
-        SELECT id,url_path from goods_pictures where good_id=#{id}
+     <select id="getgoodPics" resultType="String">
+        SELECT url_path from goods_pictures where good_id=#{id}
      </select>
      
      
