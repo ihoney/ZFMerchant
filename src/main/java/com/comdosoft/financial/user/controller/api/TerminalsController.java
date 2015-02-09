@@ -115,7 +115,7 @@ public class TerminalsController {
 				return response;
 			} else {
 				merchants.setTitle(map.get("title"));
-				merchants.setCustomerId(map.get("customerId"));
+				merchants.setCustomerId(Integer.parseInt(map.get("customerId")));
 				// 添加商户
 				terminalsService.addMerchants(merchants);
 				// 添加终端
