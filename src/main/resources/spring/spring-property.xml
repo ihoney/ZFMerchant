@@ -4,19 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<!-- <beans profile="production"> -->
-	<!-- <context:property-placeholder location="classpath:config/production.properties" /> -->
-	<!-- </beans> -->
-	<!-- <beans profile="demo"> -->
-	<!-- <context:property-placeholder location="classpath:config/demo.properties" /> -->
-	<!-- </beans> -->
-	<!-- <beans profile="local"> -->
-	<!-- <context:property-placeholder location="classpath:config/local.properties" /> -->
-	<!-- </beans> -->
-	<!-- <beans profile="config"> -->
-	<!-- <context:property-placeholder location="classpath:config/config.properties" /> -->
-	<!-- </beans> -->
-
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
