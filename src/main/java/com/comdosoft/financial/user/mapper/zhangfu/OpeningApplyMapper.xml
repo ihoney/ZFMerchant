@@ -42,7 +42,7 @@
  		WHERE id=#{id}
  	</select>
  	
- 	<select id="getMaterialName" resultType="com.comdosoft.financial.user.domain.zhangfu.Merchant" parameterType="map">
+ 	<select id="getMaterialName" resultType="map" parameterType="map">
  		select * from dictionary_open_private_infos where id in(
 		select l.requirement_setting_id
 		from terminals t LEFT JOIN pay_channels p on t.pay_channel_id=p.id

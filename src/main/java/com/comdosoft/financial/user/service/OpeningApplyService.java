@@ -112,8 +112,8 @@ public class OpeningApplyService {
 	 * @return
 	 */
 	public List<Merchant> getMaterialName(Integer id, Integer status) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("id", id);
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("terminalsId", id);
 		map.put("status", status);
 		return openingApplyMapper.getMaterialName(map);
 	}

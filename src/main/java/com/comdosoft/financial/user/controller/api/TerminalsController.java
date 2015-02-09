@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
+import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -29,7 +32,8 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
 @RestController
 @RequestMapping(value = "/api/terminal")
 public class TerminalsController {
-
+	 private static final Logger logger = LoggerFactory.getLogger(WebMessageController.class);
+	
 	@Resource
 	private TerminalsService terminalsService;
 
@@ -120,10 +124,14 @@ public class TerminalsController {
 				terminalsService.addMerchants(merchants);
 				// 添加终端
 				map.put("merchantId", merchants.getId().toString());
+				map.put("status", String.valueOf(Terminal.TerminalTYPEID_3));
+				map.put("isReturnCsDepots", String.valueOf(Terminal.IS_RETURN_CS_DEPOTS_NO));
+				map.put("type", String.valueOf(Terminal.SYSTYPE));
 				terminalsService.addTerminal(map);
 				return Response.getSuccess("添加成功！");
 			}
 		} catch (Exception e) {
+			  logger.debug("添加终端 end"+e);
 			return Response.getError("请求失败");
 		}
 

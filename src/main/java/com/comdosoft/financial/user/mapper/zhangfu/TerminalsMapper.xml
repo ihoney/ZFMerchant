@@ -5,14 +5,14 @@
 
 	<insert id="addMerchants" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Merchant">
 		INSERT into
-		merchants(title,customer_id)
-		VALUES(#{title},#{customerId})
+		merchants(title,customer_id,created_at)
+		VALUES(#{title},#{customerId},now())
 	</insert>
 
 	<insert id="addTerminal" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT into
-		terminals(good_id,terminal_marks_id,serial_num,merchant_id,customer_id,pay_channel_id)
-		VALUES(0,0,#{serialNum},#{merchantId},#{customerId},#{payChannelId})
+		terminals(good_id,terminal_marks_id,serial_num,merchant_id,customer_id,pay_channel_id,status,is_return_cs_depots,created_at,type)
+		VALUES(0,0,#{serialNum},#{merchantId},#{customerId},#{payChannelId},#{status},#{isReturnCsDepots},now(),#{type})
 	</insert>
 
 	<!-- 查询交易流水用 -->

@@ -74,7 +74,7 @@ public interface OpeningApplyMapper {
 	 * @param id
 	 * @return
 	 */
-	List<Merchant> getMaterialName(Map<String, Integer> map);
+	List<Merchant> getMaterialName(Map<Object, Object> map);
 	
 	/**
 	 * 获得申请表的id
