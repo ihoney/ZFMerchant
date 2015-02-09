@@ -54,6 +54,17 @@ public class CsReturnController {
         }
     }  
     
+    @RequestMapping(value="getReturnById" ,method=RequestMethod.POST)
+    public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
+        try{
+            Object centers = csReturnService.findById(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("请求失败");
+        }
+    }
+    
     @RequestMapping(value="addMark" ,method=RequestMethod.POST)
     public Response addMark(@RequestBody MyOrderReq myOrderReq ) {
         try{

@@ -27,4 +27,6 @@ public interface OrderMapper {
 
     void cancelMyOrder(MyOrderReq myOrderReq);
 // ------gch end ---------------------
+
+    void comment(MyOrderReq myOrderReq);
 }

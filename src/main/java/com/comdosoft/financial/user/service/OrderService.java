@@ -235,8 +235,8 @@ public class OrderService {
     }
 
     public void comment(MyOrderReq myOrderReq) {
-        myOrderReq.setOrderStatus(OrderStatus.CANCEL);
-        orderMapper.cancelMyOrder(myOrderReq);
+        myOrderReq.setOrderStatus(OrderStatus.EVALUATED);
+        orderMapper.comment(myOrderReq);
     }
 
 }

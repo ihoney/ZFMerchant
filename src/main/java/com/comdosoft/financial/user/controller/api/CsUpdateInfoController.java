@@ -25,7 +25,7 @@ import com.comdosoft.financial.user.utils.page.Page;
  *
  */
 @RestController
-@RequestMapping(value="/api/repair")
+@RequestMapping(value="/api/update/info")
 public class CsUpdateInfoController {
     
     private static final Logger logger = LoggerFactory.getLogger(CsUpdateInfoController.class);
@@ -45,6 +45,16 @@ public class CsUpdateInfoController {
         }
     }
     
+    @RequestMapping(value="getInfoById" ,method=RequestMethod.POST)
+    public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
+        try{
+            Object centers = csUpdateInfoService.findById(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("请求失败");
+        }
+    }
     @RequestMapping(value="cancelApply" ,method=RequestMethod.POST)
     public Response cancelRepair(@RequestBody MyOrderReq myOrderReq ) {
         try{
