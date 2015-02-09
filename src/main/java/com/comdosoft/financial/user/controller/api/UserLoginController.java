@@ -38,71 +38,74 @@ public class UserLoginController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
-	public Response getApplyList(@RequestBody Customer customer) {
-		Response response = new Response();
+	@RequestMapping(value = "studentLogin", method = RequestMethod.POST)
+	public Response studentLogin(@RequestBody Customer customer) {
 		try {
 			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			int count = userLoginService.doLogin(customer);
 			if(count>0){
-				response.setMessage("登陆成功！");
+				return Response.getSuccess("登陆成功！");
 			}else if(count==0){
-				response.setMessage("用户名或密码错误！");
+				return Response.getError("用户名或密码错误！");
 			}else{
-				response.setMessage("异常登录！");
+				return Response.getError("异常登录！");
 			}
 		} catch (Exception e) {
-			response.setMessage("系统异常！");
-			//e.printStackTrace();
-			return response;
+			return Response.getError("系统异常！");
 		}
-		return response;
 	}
 
 	/**
-	 * 像手机或者邮箱发送验证
+	 * 发送手机验证码
 	 * @param number
 	 */
-	@RequestMapping(value = "sendVerificationCode", method = RequestMethod.GET)
-	public void sendVerificationCode(@PathVariable("number") String number){
+	@RequestMapping(value = "sendPhoneVerificationCode/codeNumber", method = RequestMethod.GET)
+	public void sendPhoneVerificationCode(@PathVariable("number") String number){
+			
+	}
+	
+	/**
+	 * 发送邮箱验证
+	 * @param number
+	 */
+	@RequestMapping(value = "sendEmailVerificationCode/codeNumber", method = RequestMethod.GET)
+	public void sendEmailVerificationCode(@PathVariable("number") String number){
 		
 	}
 	
 	/**
-	 * 修改密码
+	 * 找回密码
 	 * @param customer
 	 * @return
 	 */
 	@RequestMapping(value = "updatePassword", method = RequestMethod.POST)
 	public Response updatePassword(@RequestBody Customer customer){
-		Response response = new Response();
 		try {
-			customer.setPassword(SysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
-			userLoginService.updatePassword(customer);
-			response.setResult("修改成功！");
-			return response;
+			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
+			if(userLoginService.findUname(customer)>0){
+				userLoginService.updatePassword(customer);
+				return Response.getSuccess("找回密码成功！");
+			}else{
+				return Response.getError("请求失败");
+			}
 		} catch (Exception e) {
-			response.setResult("修改失败！系统异常");
-			return response;
+			return Response.getError("修改失败！系统异常");
 		}
 	}
 	
 	/**
-	 * 添加用户
+	 * 注册用户
 	 * @param customer
 	 * @return
 	 */
 	@RequestMapping(value = "userRegistration", method = RequestMethod.POST)
 	public Response userRegistration(@RequestBody Customer customer){
-		Response response = new Response();
 		try {
-			customer.setPassword(SysUtils.Encryption(customer.getPassword(),"C:/Program Files (x86)/password.txt"));
+			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			userLoginService.addUser(customer);
-			response.setResult("注册成功！");
-			return response;
+			return Response.getSuccess("注册成功！");
 		} catch (Exception e) {
-			response.setResult("注册失败！系统异常");
-			return response;
+			return Response.getError("注册失败！系统异常");
 		}
 	}
 }

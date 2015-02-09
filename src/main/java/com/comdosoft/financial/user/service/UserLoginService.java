@@ -18,15 +18,16 @@ public class UserLoginService {
 	 * @return
 	 */
 	public int doLogin(Customer customer){
+		System.out.println("查看："+customer.getUsername()+"   "+customer.getPassword());
 		return userLoginMapper.doLogin(customer);
 	}
 	
 	/**
-	 * 修改密码
+	 * 找回密码
 	 * @param customer
 	 */
 	public void updatePassword(Customer customer){
-		userLoginMapper.doLogin(customer);
+		userLoginMapper.updatePassword(customer);
 	}
 	
 	/**
@@ -35,5 +36,14 @@ public class UserLoginService {
 	 */
 	public void addUser(Customer customer){
 		userLoginMapper.addUser(customer);
+	}
+	
+	/**
+	 * 查找用户
+	 * @param customer
+	 * @return
+	 */
+	public int findUname(Customer customer){
+		return userLoginMapper.findUname(customer);
 	}
 }

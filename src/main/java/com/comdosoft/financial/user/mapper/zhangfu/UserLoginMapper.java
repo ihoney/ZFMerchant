@@ -21,7 +21,7 @@ public interface UserLoginMapper {
 	int doLogin(Customer customer);
 	
 	/**
-	 * 修改密码
+	 * 找回密码
 	 * @param customer
 	 */
 	void updatePassword(Customer customer);
@@ -31,4 +31,11 @@ public interface UserLoginMapper {
 	 * @param customer
 	 */
 	void addUser(Customer customer);
+	
+	/**
+	 * 查找用户
+	 * @param customer
+	 * @return
+	 */
+	int findUname(Customer customer);
 }

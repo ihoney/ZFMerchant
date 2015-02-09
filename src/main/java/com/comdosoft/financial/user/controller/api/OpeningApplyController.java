@@ -48,17 +48,19 @@ public class OpeningApplyController {
 	 */
 	@RequestMapping(value = "getApplyList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
 	public Response getApplyList(@PathVariable("id") Integer id,
-			@PathVariable("indexPage") Integer page,@PathVariable("pageNum") Integer pageNum) {
-		
-		//PageRequest PageRequest = new PageRequest(page, Constants.PAGE_SIZE);
-		PageRequest PageRequest = new PageRequest(page, pageNum);
-		Response response = new Response();
+			@PathVariable("indexPage") Integer page,
+			@PathVariable("pageNum") Integer pageNum) {
+		try {
+			// PageRequest PageRequest = new PageRequest(page,
+			// Constants.PAGE_SIZE);
+			PageRequest PageRequest = new PageRequest(page, pageNum);
 
-		int offSetPage = PageRequest.getOffset();
-		response.setResult(openingApplyService.getApplyList(id, offSetPage,
-				pageNum));
-		return response;
-
+			int offSetPage = PageRequest.getOffset();
+			return Response.getSuccess(openingApplyService.getApplyList(id,
+					offSetPage, pageNum));
+		} catch (Exception e) {
+			return Response.getError("获取列表失败！");
+		}
 	}
 
 	/**
@@ -66,59 +68,71 @@ public class OpeningApplyController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(value = "getApplyDetails/{id}/{status}", method = RequestMethod.GET)
-	public Response getApplyDetails(@PathVariable("id") Integer id,
+	@RequestMapping(value = "getApplyDetails/{terminalsId}/{status}", method = RequestMethod.GET)
+	public Response getApplyDetails(
+			@PathVariable("terminalsId") Integer terminalsId,
 			@PathVariable("status") Integer status) {
-		Response response = new Response();
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		// 获得终端详情
-		map.put("applyDetails", openingApplyService.getApplyDetails(id));
-		// 获得所有商户
-		map.put("merchants", openingApplyService.getMerchants());
-		// 数据回显(针对重新开通申请)
-		map.put("applyFor", openingApplyService.ReApplyFor(id));
-		// 材料名称
-		map.put("materialName", openingApplyService.getMaterialName(id, status));
-		response.setResult(map);
-		return response;
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			// 获得终端详情
+			map.put("applyDetails",
+					openingApplyService.getApplyDetails(terminalsId));
+			// 获得所有商户
+			map.put("merchants", openingApplyService.getMerchants());
+			// 数据回显(针对重新开通申请)
+			map.put("applyFor", openingApplyService.ReApplyFor(terminalsId));
+			// 材料名称
+			map.put("materialName",
+					openingApplyService.getMaterialName(terminalsId, status));
+			return Response.getSuccess(map);
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
 	}
-	
+
 	/**
 	 * 根据商户id获得商户详细信息
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "getMerchant/{id}", method = RequestMethod.GET)
-	public Response getMerchant(@PathVariable("id") Integer id) {
-		Response response = new Response();
-		Merchant merchant = new Merchant();
-		merchant = openingApplyService.getMerchant(id);
-		response.setResult(merchant);
-		return response;
+	@RequestMapping(value = "getMerchant/{merchantId}", method = RequestMethod.GET)
+	public Response getMerchant(@PathVariable("merchantId") Integer merchantId) {
+		try {
+			Merchant merchant = new Merchant();
+			merchant = openingApplyService.getMerchant(merchantId);
+			return Response.getSuccess(merchant);
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
+
 	}
-	
+
 	/**
 	 * 获得所有通道
 	 */
 	@RequestMapping(value = "getChannels", method = RequestMethod.GET)
-	public Response getChannels(){
-		Response response = new Response();
-		response.setResult(openingApplyService.getChannels());
-		return response;
+	public Response getChannels() {
+		try {
+			return Response.getSuccess(openingApplyService.getChannels());
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
 	}
-	
+
 	/**
 	 * 从第三方接口获得银行
 	 */
 	@RequestMapping(value = "ChooseBank", method = RequestMethod.GET)
-	public Response ChooseBank(){
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("code1", "中国农业银行");
-		map.put("code2", "中国工商银行");
-		Response response = new Response();
-		response.setResult(map);
-		return response;
+	public Response ChooseBank() {
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("code1", "中国农业银行");
+			map.put("code2", "中国工商银行");
+			return Response.getSuccess(map);
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
 	}
 
 	/**
@@ -128,12 +142,16 @@ public class OpeningApplyController {
 	 * @param status
 	 * @return
 	 */
-	@RequestMapping(value = "getMaterialName/{id}/{status}", method = RequestMethod.GET)
-	public Response getMaterialName(@PathVariable("id") Integer id,
+	@RequestMapping(value = "getMaterialName/{terminalId}/{status}", method = RequestMethod.GET)
+	public Response getMaterialName(
+			@PathVariable("terminalId") Integer terminalId,
 			@PathVariable("status") Integer status) {
-		Response response = new Response();
-		response.setResult(openingApplyService.getMaterialName(id, status));
-		return response;
+		try {
+			return Response.getSuccess(openingApplyService.getMaterialName(
+					terminalId, status));
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
 	}
 
 	/**
@@ -143,51 +161,53 @@ public class OpeningApplyController {
 	 */
 	@RequestMapping(value = "addOpeningApply", method = RequestMethod.POST)
 	@ResponseBody
-	public void addOpeningApply(@RequestBody List<Map<String, Object>> paramMap) {
-
-		OpeningApplie openingApplie = new OpeningApplie();
-		String status = null;
-		String openingAppliesId = null;
-		Integer terminalId = null;
-		String key = null;
-		String value = null;
-		int i = 0;
-		int y = 0;
-		for (Map<String, Object> map : paramMap) {
-			Set<String> keys = map.keySet();
-			if (y == 0) {
-				status = (String) map.get("status");
-				terminalId = (Integer) map.get("terminalId");
-				if ("重新申请".equals(status)) {
-					openingAppliesId = String.valueOf(openingApplyService
-							.getApplyesId(terminalId));
-					// 删除旧数据
-					openingApplyService.deleteOpeningInfos(Integer
-							.valueOf(openingAppliesId));
+	public Response addOpeningApply(
+			@RequestBody List<Map<String, Object>> paramMap) {
+		try {
+			OpeningApplie openingApplie = new OpeningApplie();
+			Integer status = null;
+			String openingAppliesId = null;
+			Integer terminalId = null;
+			String key = null;
+			String value = null;
+			int i = 0;
+			int y = 0;
+			for (Map<String, Object> map : paramMap) {
+				Set<String> keys = map.keySet();
+				if (y == 0) {
+					status = (Integer) map.get("status");
+					terminalId = (Integer) map.get("terminalId");
+					if (status == 2) {
+						openingAppliesId = String.valueOf(openingApplyService
+								.getApplyesId(terminalId));
+						// 删除旧数据
+						openingApplyService.deleteOpeningInfos(Integer
+								.valueOf(openingAppliesId));
+					} else {
+						openingApplie.setTerminalId((Integer) map
+								.get("terminalId"));
+						openingApplie.setApplyCustomerId((Integer) map
+								.get("applyCustomerId"));
+						openingApplyService.addOpeningApply(openingApplie);
+						openingAppliesId = String
+								.valueOf(openingApplie.getId());
+					}
 				} else {
-					openingApplie
-							.setTerminalId((Integer) map.get("terminalId"));
-					openingApplie.setApplyCustomerId((Integer) map
-							.get("applyCustomerId"));
-					openingApplie.setPreliminaryVerifyUserId((Integer) map
-							.get("preliminaryVerifyUserId"));
-					openingApplie.setOpeningApplyMarkId((Integer) map
-							.get("openingApplyMarkId"));
-					openingApplyService.addOpeningApply(openingApplie);
-					openingAppliesId = String.valueOf(openingApplie.getId());
+					for (String str : keys) {
+						if (i == 0)
+							key = (String) map.get(str);
+						if (i == 1)
+							value = (String) map.get(str);
+						i++;
+					}
+					openingApplyService.addApply(key, value, openingAppliesId);
+					i = 0;
 				}
-			} else {
-				for (String str : keys) {
-					if (i == 0)
-						key = (String) map.get(str);
-					if (i == 1)
-						value = (String) map.get(str);
-					i++;
-				}
-				openingApplyService.addApply(key, value, openingAppliesId);
-				i = 0;
+				y++;
 			}
-			y++;
+			return Response.getSuccess("添加成功！");
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
 		}
 	}
 
@@ -201,54 +221,53 @@ public class OpeningApplyController {
 	@ResponseBody
 	public Response uploadFile(@RequestBody Map<String, String> map,
 			HttpServletRequest request) {
-		String filePath = null;
-		Set<String> keys = map.keySet();
-		for (String str : keys) {
-			filePath = map.get(str);
-		}
-		Response response = new Response();
-		String fileOutPath = request.getServletContext().getRealPath("/")
-				+ "WEB-INF/temp/";
-		int byteread = 0;// 读取的位数
-		FileInputStream in = null;
-		FileOutputStream out = null;
-		File fileIn = new File(filePath);
-		File fileOut = new File(fileOutPath);
-
-		if (!fileOut.exists()) {
-			fileOut.mkdirs();
-		}
-		fileOut = new File(fileOutPath
-				+ filePath.substring(filePath.lastIndexOf("\\") + 1));
-		if (!fileIn.exists()) {
-			response.setMessage("该路径图片不存在！");
-			return response;
-		}
 		try {
-			in = new FileInputStream(fileIn);
-			out = new FileOutputStream(fileOut);
-			byte[] buffer = new byte[1024];
-			while ((byteread = in.read(buffer)) != -1) {
-				// 将读取的字节写入输出流
-				out.write(buffer, 0, byteread);
+			String filePath = null;
+			Set<String> keys = map.keySet();
+			for (String str : keys) {
+				filePath = map.get(str);
 			}
-			response.setMessage("上传成功！");
-			return response;
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.setMessage("上传失败！");
-			return response;
-		} finally {
+			String fileOutPath = request.getServletContext().getRealPath("/")
+					+ "WEB-INF/temp/";
+			int byteread = 0;// 读取的位数
+			FileInputStream in = null;
+			FileOutputStream out = null;
+			File fileIn = new File(filePath);
+			File fileOut = new File(fileOutPath);
+
+			if (!fileOut.exists()) {
+				fileOut.mkdirs();
+			}
+			fileOut = new File(fileOutPath
+					+ filePath.substring(filePath.lastIndexOf("\\") + 1));
+			if (!fileIn.exists()) {
+				return Response.getSuccess("该路径图片不存在！");
+			}
 			try {
-				if (out != null) {
-					out.close();
+				in = new FileInputStream(fileIn);
+				out = new FileOutputStream(fileOut);
+				byte[] buffer = new byte[1024];
+				while ((byteread = in.read(buffer)) != -1) {
+					// 将读取的字节写入输出流
+					out.write(buffer, 0, byteread);
 				}
-				if (in != null) {
-					in.close();
+				return Response.getSuccess(fileOut);
+			} catch (Exception e) {
+				return Response.getSuccess("上传失败！");
+			} finally {
+				try {
+					if (out != null) {
+						out.close();
+					}
+					if (in != null) {
+						in.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
 		}
 	}
 
@@ -256,9 +275,11 @@ public class OpeningApplyController {
 	 * 视频认证
 	 */
 	@RequestMapping(value = "videoAuthentication", method = RequestMethod.GET)
-	public Response videoAuthentication(){
-		Response response = new Response();
-		return response;
+	public Response videoAuthentication() {
+		try {
+			return Response.getSuccess("视频认证");
+		} catch (Exception e) {
+			return Response.getError("视频认证异常");
+		}
 	}
-	
 }

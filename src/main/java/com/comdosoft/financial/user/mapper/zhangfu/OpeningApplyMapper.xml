@@ -9,8 +9,8 @@
  	</insert>
  	
  	<insert id="addOpeningApply" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
-		INSERT INTO `opening_applies` (`apply_customer_id`, `preliminary_verify_user_id`,`opening_apply_mark_id`,`terminal_id`) 
-		VALUES (#{applyCustomerId},#{preliminaryVerifyUserId},#{openingApplyMarkId},#{terminalId});
+		INSERT INTO `opening_applies` (`apply_customer_id`,`terminal_id`) 
+		VALUES (#{applyCustomerId},#{terminalId});
  	</insert>
  
  	<select id="getApplyList" parameterType="map" resultType="map">
@@ -26,7 +26,7 @@
 		FROM terminals t LEFT JOIN goods g on t.good_id=g.id
 		LEFT JOIN good_brands b on g.good_brands_id=b.id 
 		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
-		WHERE t.id=#{id}
+		WHERE t.id=#{terminalsId}
  	</select>
  	
  	<select id="getMerchants" resultType="map">
@@ -42,19 +42,19 @@
  		WHERE id=#{id}
  	</select>
  	
- 	<select id="getMaterialName" resultType="com.comdosoft.financial.user.domain.zhangfu.Merchant" parameterType="int">
+ 	<select id="getMaterialName" resultType="com.comdosoft.financial.user.domain.zhangfu.Merchant" parameterType="map">
  		select * from dictionary_open_private_infos where id in(
 		select l.requirement_setting_id
 		from terminals t LEFT JOIN pay_channels p on t.pay_channel_id=p.id
 		LEFT JOIN opening_requirements o on p.id = o.pay_channel_id 
 		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id
-		where t.id=#{id} AND l.requirement_type=#{status}
+		where t.id=#{terminalsId} AND l.requirement_type=#{status}
 		)
  	</select>
  	
  	<select id="ReApplyFor" parameterType="int" resultType="map">
  		SELECT * FROM terminal_opening_infos t LEFT JOIN opening_applies e on t.opening_applies_id=e.id
-		WHERE e.terminal_id = #{id}
+		WHERE e.terminal_id = #{terminalsId}
  	</select>
  	
  	<select id="getApplyesId" parameterType="int" resultType="int">

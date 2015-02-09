@@ -15,6 +15,11 @@
 	
 	<update id="updatePassword" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
 		UPDATE customers set `password`=#{password}
-		WHERE id=#{id}
+		WHERE username=#{username}
 	</update>
+	
+	<select id="findUname" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
+		SELECT COUNT(*) from customers 
+		WHERE username=#{username}
+	</select>
 </mapper>

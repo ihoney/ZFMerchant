@@ -80,8 +80,8 @@ public class OpeningApplyService {
 	 * @param id
 	 * @return
 	 */
-	public Merchant getMerchant(Integer id) {
-		return openingApplyMapper.getMerchant(id);
+	public Merchant getMerchant(Integer merchantId) {
+		return openingApplyMapper.getMerchant(merchantId);
 	}
 
 	/**
