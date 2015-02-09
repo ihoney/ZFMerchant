@@ -15,11 +15,11 @@ public class WebMessageService {
     @Resource
     private WebMessageMapper webMessageMapper;
     
-    public Page<WebMessage> findAll(Integer page,Integer pageSize) {
+    public Page<Object> findAll(Integer page,Integer pageSize) {
         PageRequest request = new PageRequest(page, pageSize);
         int count = webMessageMapper.count();
-        List<WebMessage> centers = webMessageMapper.findAll(request);
-        return new Page<WebMessage>(request, centers, count);
+        List<Object> centers = webMessageMapper.findAll(request);
+        return new Page<Object>(request, centers, count);
     }
 
     public WebMessage findById(Integer id) {

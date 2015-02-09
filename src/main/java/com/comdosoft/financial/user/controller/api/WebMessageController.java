@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.comdosoft.financial.user.domain.MyOrderReq;
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.WebMessage;
 import com.comdosoft.financial.user.service.WebMessageService;
 import com.comdosoft.financial.user.utils.page.Page;
@@ -34,7 +34,7 @@ public class WebMessageController {
     public Response getAll(@RequestBody MyOrderReq myOrderReq) {
         try{
             logger.debug("获取系统公告列表 start");
-            Page<WebMessage>  mrs= webMessageService.findAll(myOrderReq.getPage(),myOrderReq.getPageSize());
+            Page<Object>  mrs= webMessageService.findAll(myOrderReq.getPage(),myOrderReq.getPageSize());
             logger.debug("获取系统公告列表 end"+mrs);
             return Response.getSuccess(mrs);
         }catch(Exception e){

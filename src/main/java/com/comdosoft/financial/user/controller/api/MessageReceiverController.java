@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.comdosoft.financial.user.domain.MyOrderReq;
 import com.comdosoft.financial.user.domain.Response;
-import com.comdosoft.financial.user.domain.zhangfu.MessageReceiver;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.SysMessage;
 import com.comdosoft.financial.user.service.MessageReceiverService;
 import com.comdosoft.financial.user.utils.page.Page;
@@ -34,7 +33,7 @@ public class MessageReceiverController {
     public Response getAll(@RequestBody MyOrderReq myOrderReq){
         try{
             logger.debug("获取我的消息列表 start");
-            Page<MessageReceiver> mrs= messageReceiverService.findAll(myOrderReq.getPage(),myOrderReq.getPageSize(),Integer.parseInt(myOrderReq.getCustomers_id()));
+            Page<Object> mrs= messageReceiverService.findAll(myOrderReq.getPage(),myOrderReq.getPageSize(),myOrderReq.getCustomer_id());
             logger.debug("获取我的消息列表 end"+mrs);
             return Response.getSuccess(mrs);
         }catch(Exception e){

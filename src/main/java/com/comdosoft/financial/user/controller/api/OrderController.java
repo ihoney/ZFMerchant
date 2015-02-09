@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.comdosoft.financial.user.domain.MyOrderReq;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.query.OrderReq;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.OrderService;
 import com.comdosoft.financial.user.utils.page.Page;
 
@@ -36,7 +36,7 @@ public class OrderController {
     public Response getMyOrderAll(@RequestBody MyOrderReq myOrderReq) {
         try{
             logger.debug("获取我的订单列表 start");
-            Page<Object> centers = orderService.findMyOrderAll(myOrderReq.getPage(), myOrderReq.getPageSize(),myOrderReq.getCustomers_id());
+            Page<Object> centers = orderService.findMyOrderAll(myOrderReq.getPage(), myOrderReq.getPageSize(),myOrderReq.getCustomer_id());
             logger.debug("获取我的订单列表 end"+centers);
             return Response.getSuccess(centers);
         }catch(Exception e){

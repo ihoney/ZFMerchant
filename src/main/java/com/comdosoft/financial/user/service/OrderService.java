@@ -9,10 +9,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.comdosoft.financial.user.domain.MyOrderReq;
 import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Good;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
@@ -97,7 +97,7 @@ public class OrderService {
      * 下gch
      */
 
-    public Page<Object> findMyOrderAll(Integer page,Integer pageSize,String pid) {
+    public Page<Object> findMyOrderAll(Integer page,Integer pageSize,Integer pid) {
         PageRequest request = new PageRequest(page, pageSize);
         int count = orderMapper.countMyOrder(pid);
         List<Order> centers = orderMapper.findMyOrderAll(request,pid);

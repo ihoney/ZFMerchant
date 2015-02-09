@@ -2,35 +2,37 @@ package com.comdosoft.financial.user.domain.zhangfu;
 
 /**
  * 
- * 订单状态<br>
+ * 维修状态<br>
  * <功能描述>
  *
  * @author gch 2015年2月9日
  *
  */
-public enum OrderStatus {
-    
+public enum RepairStatus {
     /**
      * 未付款
      */
     UNPAID(0,"未付款"),
     /**
-     * 待发回
+     * 已付款
      */
-    PAID(1,"待发回"),
+    PAID(1,"已付款"),
     /**
-     * 维修中
+     * 已发货
      */
-    SHIPPED(2,"维修中"),
+    SHIPPED(2,"已发货"),
     /**
-     * 处理完成
+     * 已评价
      */
-    EVALUATED(3,"处理完成"),
+    EVALUATED(3,"已评价"),
     /**
      * 已取消
      */
-    CANCEL(4,"已取消");
-  
+    CANCEL(4,"已取消"),
+    /**
+     * 已关闭
+     */
+    CLOSED(5,"交易关闭");
     private Integer code;
     private String name;
     /**  
@@ -61,7 +63,7 @@ public enum OrderStatus {
     public void setCode(Integer code) {
         this.code = code;
     }
-    private OrderStatus(Integer code, String name) {
+    private RepairStatus(Integer code, String name) {
         this.code = code;
         this.name = name;
     }

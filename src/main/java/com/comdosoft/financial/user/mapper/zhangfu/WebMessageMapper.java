@@ -9,7 +9,7 @@ public interface WebMessageMapper {
 
     int count();
 
-    List<WebMessage> findAll(PageRequest request);
+    List<Object> findAll(PageRequest request);
 
     WebMessage findById(Integer id);
 
