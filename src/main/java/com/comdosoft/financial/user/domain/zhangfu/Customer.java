@@ -357,4 +357,13 @@ public class Customer {
 	 * 5 代理商员工
 	 */
 	public static final Byte TYPE_AGENT_STAFF = 5;
+	
+	/**
+	 * 0手机号
+	 */
+	public static final Byte TYPE_PHONE = 0;
+	/**
+	 * 1邮箱
+	 */
+	public static final Byte TYPE_EMAIL = 1;
 }

@@ -3,8 +3,8 @@
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.UserLoginMapper">
 
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
-		INSERT  into customers(username,password,city_id)
-		VALUES(#{username},#{password},#{cityId})
+		INSERT  into customers(username,password,city_id,account_type,types,phone,email,created_at)
+		VALUES(#{username},#{password},#{cityId},#{accountType},#{types},#{phone},#{email},now())
 	</insert>
 
 	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
@@ -12,9 +12,14 @@
  		FROM customers 
  		WHERE username=#{username} and password=#{password}
  	</select>
+ 	
+	<update id="updateLastLoginedAt" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		UPDATE customers set last_logined_at=now()
+		WHERE username=#{username}
+	</update>
 	
 	<update id="updatePassword" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
-		UPDATE customers set `password`=#{password}
+		UPDATE customers set `password`=#{password},updated_at=now()
 		WHERE username=#{username}
 	</update>
 	

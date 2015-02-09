@@ -18,7 +18,6 @@ public class UserLoginService {
 	 * @return
 	 */
 	public int doLogin(Customer customer){
-		System.out.println("查看："+customer.getUsername()+"   "+customer.getPassword());
 		return userLoginMapper.doLogin(customer);
 	}
 	
@@ -45,5 +44,13 @@ public class UserLoginService {
 	 */
 	public int findUname(Customer customer){
 		return userLoginMapper.findUname(customer);
+	}
+	
+	/**
+	 * 修改登陆时间
+	 * @param customer
+	 */
+	public void updateLastLoginedAt(Customer customer){
+		userLoginMapper.updateLastLoginedAt(customer);
 	}
 }

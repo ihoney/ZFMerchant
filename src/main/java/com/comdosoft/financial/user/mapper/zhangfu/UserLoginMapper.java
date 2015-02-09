@@ -38,4 +38,10 @@ public interface UserLoginMapper {
 	 * @return
 	 */
 	int findUname(Customer customer);
+	
+	/**
+	 * 修改登录时间
+	 * @param customer
+	 */
+	void updateLastLoginedAt(Customer customer);
 }

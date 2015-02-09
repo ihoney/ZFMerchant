@@ -44,6 +44,7 @@ public class UserLoginController {
 			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			int count = userLoginService.doLogin(customer);
 			if(count>0){
+				userLoginService.updateLastLoginedAt(customer);
 				return Response.getSuccess("登陆成功！");
 			}else if(count==0){
 				return Response.getError("用户名或密码错误！");
@@ -86,7 +87,7 @@ public class UserLoginController {
 				userLoginService.updatePassword(customer);
 				return Response.getSuccess("找回密码成功！");
 			}else{
-				return Response.getError("请求失败");
+				return Response.getError("用户名错误！");
 			}
 		} catch (Exception e) {
 			return Response.getError("修改失败！系统异常");
@@ -102,8 +103,18 @@ public class UserLoginController {
 	public Response userRegistration(@RequestBody Customer customer){
 		try {
 			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
-			userLoginService.addUser(customer);
-			return Response.getSuccess("注册成功！");
+			customer.setTypes(Customer.TYPE_CUSTOMER);
+			if(userLoginService.findUname(customer)==0){
+				if(!customer.getAccountType()){
+					customer.setPhone(customer.getUsername());
+				}else{
+					customer.setEmail(customer.getUsername());
+				}
+				userLoginService.addUser(customer);
+				return Response.getSuccess("注册成功！");
+			}else{
+				return Response.getError("用户已存在！");
+			}
 		} catch (Exception e) {
 			return Response.getError("注册失败！系统异常");
 		}
