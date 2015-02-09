@@ -157,4 +157,18 @@ public class TerminalsController {
 		Response response = new Response();
 		return response;
 	}
+	
+	/**
+	 * author jwb
+	 * 查询终端开通情况
+	 * @param paramMap
+	 * @return
+	 */
+    @RequestMapping(value = "openStatus", method = RequestMethod.POST)
+    public Response openStatus(@RequestBody  Map<String, Object> paramMap){
+        Response response = new Response();
+        response.setCode(Response.SUCCESS_CODE);
+        response.setResult(terminalsService.openStatus(paramMap));
+        return response;
+    }
 }
