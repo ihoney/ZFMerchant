@@ -83,7 +83,9 @@ public class GoodService {
             List<Map<String, Object>> list2son = null;
             for (Map<String, Object> map2 : list2) {
                 list2son = goodMapper.getSonCategorys(SysUtils.String2int("" + map2.get("id")));
-                map2.put("son", list2son);
+                if(null != list2son && list2son.size() > 0){
+                    map2.put("son", list2son);
+                }
             }
         }
         List<Map<String, Object>> list3 = goodMapper.getPay_channel_ids(posreq);
