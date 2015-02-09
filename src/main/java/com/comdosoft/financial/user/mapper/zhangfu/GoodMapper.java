@@ -16,12 +16,9 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getgoodPics(int id);
 
-    int getCommentCount(int id);
-
     Map<String, Object> getGoodById(int goodId);
     
     Map<String, Object> getFactoryById(int factoryId);
-    
     
     List<Map<String, Object>> getBrands_ids();
 
@@ -51,8 +48,5 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getStandard_rates(int pcid);
 
-   
-
-    
 
 }

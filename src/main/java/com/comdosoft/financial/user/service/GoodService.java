@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.PosReq;
+import com.comdosoft.financial.user.mapper.zhangfu.CommentMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
 
@@ -16,6 +17,12 @@ public class GoodService {
 
     @Autowired
     private GoodMapper goodMapper;
+    
+    @Autowired
+    private CommentMapper cMapper;
+    
+    @Autowired
+    private PayChannelService pcService;
 
     public List<?> getGoodsList(PosReq posreq) {
         List<Map<String, Object>> list = goodMapper.getGoodsList(posreq);
@@ -47,37 +54,15 @@ public class GoodService {
             // 支付通道
             List<Map<String, Object>> payChannelList = goodMapper.getPayChannelListByGoodId(posreq);
             if (null != payChannelList && payChannelList.size() > 0) {
-                for (Map<String, Object> map : payChannelList) {
-                    int pcid = SysUtils.String2int("" + map.get("id"));
-                    if (pcid > 0) {
-                        // 支付通道交易费率
-                        List<Map<String, Object>> tDates = goodMapper.getTDatesByPayChannel(pcid);
-                        map.put("tDates", tDates);
-                        // 支付通道开通所需材料 对公
-                        List<Map<String, Object>> requireMaterial_pub = goodMapper.getRequireMaterial_pub(pcid);
-                        map.put("requireMaterial_pub", requireMaterial_pub);
-                        // 支付通道开通所需材料 对私
-                        List<Map<String, Object>> requireMaterial_pra = goodMapper.getRequireMaterial_pra(pcid);
-                        map.put("requireMaterial_pra", requireMaterial_pra);
-                        //支持区域
-                        List<String> supportArea=goodMapper.getSupportArea(pcid);
-                        map.put("supportArea", supportArea);
-                        //刷卡交易标准手续费
-                        List<Map<String, Object>> standard_rates = goodMapper.getStandard_rates(pcid);
-                        map.put("other_rate", standard_rates);
-                        //其他交易费率
-                        List<Map<String, Object>> other_rate = goodMapper.getOther_rate(pcid);
-                        map.put("other_rate", other_rate);
-                        
-                    }
-                }
                 goodInfoMap.put("payChannelList", payChannelList);
+                int pcid=SysUtils.String2int("" +payChannelList.get(0).get("id"));
+                goodInfoMap.put("paychannelinfo",pcService.payChannelInfo(pcid));
             }
             // 图片
             List<Map<String, Object>> goodPics = goodMapper.getgoodPics(posreq.getGoodId());
             goodInfoMap.put("goodPics", goodPics);
             // 评论数
-            int commentsCount = goodMapper.getCommentCount(posreq.getGoodId());
+            int commentsCount = cMapper.getCommentCount(posreq.getGoodId());
             goodInfoMap.put("commentsCount", commentsCount);
             // 生产厂家
             int factoryId = SysUtils.String2int("" + goodinfo.get("factory_id"));
