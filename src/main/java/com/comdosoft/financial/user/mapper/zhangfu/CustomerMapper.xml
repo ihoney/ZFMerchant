@@ -12,7 +12,7 @@
 
 	<select id="getOne" resultType="map">
 	<![CDATA[
-		SELECT name, phone, email, cityId, integral, password
+		SELECT name, phone, email, city_id, integral, password
 		  FROM customers
 		 WHERE id = #{id}
 	]]>
@@ -24,7 +24,7 @@
 			<if test="name != null and name !=''">name = #{name},</if>
 			<if test="phone != null and phone !=''">phone = #{phone},</if>
 			<if test="email != null and email !=''">email = #{email},</if>
-			<if test="cityId != null and cityId !=''">cityId = #{cityId}</if>
+			<if test="cityId != null and cityId !=''">city_id = #{cityId}</if>
 		</trim>
 		WHERE id = #{id}
 	</update>

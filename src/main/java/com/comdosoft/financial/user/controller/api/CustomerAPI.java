@@ -76,6 +76,38 @@ public class CustomerAPI {
     }
 
     /**
+     * 修改用户密码
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    public Response updatePassword(@RequestBody Map<Object, Object> param) {
+        Response sysResponse = null;
+        try {
+            int id = (int) param.get("id");
+            String passwordOld = (String) param.get("passwordOld");
+            Map<Object, Object> customer = customerService.getOne(id);
+            if (customer != null) {
+                String passwordDE = SysUtils.Decrypt((String) customer.get("password"), passPath);
+                if (passwordOld.equals(passwordDE)) {// 判断原密码
+                    param.put("password", SysUtils.Encryption((String) customer.get("password"), passPath)); // 加密新密码
+                    customerService.updatePassword(param);
+                    sysResponse = Response.getSuccess();
+                } else {
+                    sysResponse = Response.getError("修改用户密码失败:原密码不正确");
+                }
+            } else {
+                sysResponse = Response.getError("修改用户密码失败:用户不存在");
+            }
+        } catch (Exception e) {
+            logger.error("修改用户密码失败", e);
+            sysResponse = Response.getError("修改用户密码失败:系统异常");
+        }
+        return sysResponse;
+    }
+
+    /**
      * 获取积分列表
      * 
      * @param customerId
@@ -106,38 +138,6 @@ public class CustomerAPI {
         } catch (Exception e) {
             logger.error("获取积分总计失败", e);
             sysResponse = Response.getError("获取积分总计失败:系统异常");
-        }
-        return sysResponse;
-    }
-
-    /**
-     * 修改用户密码
-     * 
-     * @param customer
-     * @return
-     */
-    @RequestMapping(value = "updateCustomerPassword", method = RequestMethod.POST)
-    public Response updateCustomerPassword(@RequestBody Map<Object, Object> param) {
-        Response sysResponse = null;
-        try {
-            int id = (int) param.get("id");
-            String passwordOld = (String) param.get("passwordOld");
-            Map<Object, Object> customer = customerService.getOne(id);
-            if (customer != null) {
-                String passwordDE = SysUtils.Decrypt((String) customer.get("password"), passPath);
-                if (passwordOld.equals(passwordDE)) {// 判断原密码
-                    param.put("password", SysUtils.Encryption((String) customer.get("password"), passPath)); // 加密新密码
-                    customerService.updatePassword(param);
-                    sysResponse = Response.getSuccess();
-                } else {
-                    sysResponse = Response.getError("修改用户密码失败:原密码不正确");
-                }
-            } else {
-                sysResponse = Response.getError("修改用户密码失败:用户不存在");
-            }
-        } catch (Exception e) {
-            logger.error("修改用户密码失败", e);
-            sysResponse = Response.getError("修改用户密码失败:系统异常");
         }
         return sysResponse;
     }

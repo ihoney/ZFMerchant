@@ -5,6 +5,21 @@ import java.util.Date;
 public class TradeRecord {
 
     /**
+     * 交易状态-待付款
+     */
+    public static final int TRADEDSTATUS_1 = 1;
+
+    /**
+     * 交易状态-交易完成
+     */
+    public static final int TRADEDSTATUS_2 = 2;
+
+    /**
+     * 交易状态-交易失败
+     */
+    public static final int TRADEDSTATUS_3 = 3;
+
+    /**
      * 转账
      */
     public static final int TRADETYPEID_1 = 1;
