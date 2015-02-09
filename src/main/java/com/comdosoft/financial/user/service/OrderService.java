@@ -234,6 +234,9 @@ public class OrderService {
         orderMapper.cancelMyOrder(myOrderReq);
     }
 
-    
-    
+    public void comment(MyOrderReq myOrderReq) {
+        myOrderReq.setOrderStatus(OrderStatus.CANCEL);
+        orderMapper.cancelMyOrder(myOrderReq);
+    }
+
 }

@@ -69,6 +69,17 @@ public class OrderController {
         }
     }    
     
+    @RequestMapping(value="comment" ,method=RequestMethod.POST)
+    public Response comment(@RequestBody MyOrderReq myOrderReq ) {
+        try{
+            orderService.comment(myOrderReq);
+            return Response.buildSuccess(null, "评论成功");
+        }catch(Exception e){
+            logger.debug("取消我的订单详情出错"+e);
+            return Response.getError("评论失败");
+        }
+    }    
+    
     
    //  gch  end
   

@@ -20,26 +20,34 @@
 	</select>
 	
 	<select id="findById" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsCancel">
-			SELECT
+		SELECT
 			o.id,
 			o.`status` AS apply_status,
-			o.created_at AS apply_time,
+			o.created_at AS apply_time,o.contact,o.phone,
 			t.serial_num,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
-			pc.`name` as zhifu_pt, m.title AS merchant_name,
+			pc.`name` AS zhifu_pt,
+			m.title AS merchant_name,
 			m.phone AS mer_phone,
+		(TO_DAYS(o.created_at)-TO_DAYS(od.updated_at))/30*g.lease_price as zujin,
+			g.lease_deposit,
+			g.lease_time,
+			g.return_time,
+			g.lease_price,
 			crm.content AS marks_content,
 			crm.created_at AS marks_time,
 			c.`name` AS marks_person
 		FROM
-			cs_update_infos o
+			cs_lease_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
 		LEFT JOIN goods g ON t.good_id = g.id
+		LEFT JOIN order_goods og on g.id = og.good_id
+		LEFT JOIN orders od on og.order_id = od.id
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
-		LEFT JOIN cs_update_info_marks crm ON o.id = crm.cs_update_info_id
+		LEFT JOIN cs_lease_return_marks crm ON o.id = crm.cs_lease_return_id
 		LEFT JOIN customers c ON crm.customer_id = c.id
 		WHERE
 			o.id = #{id}
