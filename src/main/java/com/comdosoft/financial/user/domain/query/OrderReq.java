@@ -18,6 +18,7 @@ public class OrderReq {
     private int paychannelId;
     private int quantity;
     
+    private int type;
     private int customerId;
     private int addressId;
     private String comment;
@@ -40,6 +41,13 @@ public class OrderReq {
     }
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+    
+    public int getType() {
+        return type;
+    }
+    public void setType(int type) {
+        this.type = type;
     }
     public int getAddressId() {
         return addressId;

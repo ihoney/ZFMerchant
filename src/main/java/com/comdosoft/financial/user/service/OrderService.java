@@ -55,10 +55,9 @@ public class OrderService {
                 int retail_price = SysUtils.String2int("" + map.get("retail_price"));
                 int quantity = SysUtils.String2int("" + map.get("quantity"));
                 int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
-                price=(price+opening_cost)*quantity;
-                retail_price=(retail_price+opening_cost)*quantity;
-                orderreq.setPrice(price);
-                orderreq.setRetail_price(retail_price);
+                orderreq.setPrice(price+opening_cost);
+                orderreq.setRetail_price(retail_price+opening_cost);
+                orderreq.setQuantity(quantity);
                 orderMapper.addOrderGood(orderreq);
                 shopCartMapper.delete(SysUtils.String2int(""+map.get("id")));
             }
@@ -78,12 +77,13 @@ public class OrderService {
             int totalprice = (retail_price + opening_cost) * quantity;
             orderreq.setTotalcount(quantity);
             orderreq.setTotalprice(totalprice);
-            orderreq.setOrdernumber(SysUtils.getOrderNum(0));
+            orderreq.setOrdernumber(SysUtils.getOrderNum(1));
+            orderreq.setType(1);
             orderMapper.addOrder(orderreq);
             int price=SysUtils.String2int("" + goodMap.get("price"));
             price=(price+opening_cost)*quantity;
-            orderreq.setPrice(price);
-            orderreq.setRetail_price(totalprice);
+            orderreq.setPrice(price+opening_cost);
+            orderreq.setRetail_price(retail_price+opening_cost);
             orderMapper.addOrderGood(orderreq);
             return 1;
         } catch (Exception e) {
@@ -91,6 +91,30 @@ public class OrderService {
             return 0;
         }
     }
+    
+    public int createOrderFromLease(OrderReq orderreq) {
+        try {
+            Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
+            int lease_deposit = SysUtils.String2int("" + goodMap.get("lease_deposit"));
+            int quantity = orderreq.getQuantity();
+            int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
+            int totalprice = (lease_deposit + opening_cost) * quantity;
+            orderreq.setTotalcount(quantity);
+            orderreq.setTotalprice(totalprice);
+            orderreq.setOrdernumber(SysUtils.getOrderNum(2));
+            orderreq.setType(2);
+            orderMapper.addOrder(orderreq);
+            orderreq.setPrice(lease_deposit+opening_cost);
+            orderreq.setRetail_price(lease_deposit+opening_cost);
+            orderMapper.addOrderGood(orderreq);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    
     /**
      * 上jwb
      * -------------------------------------------------------------
@@ -210,5 +234,7 @@ public class OrderService {
         myOrderReq.setOrderStatus(OrderStatus.CANCEL);
         orderMapper.cancelMyOrder(myOrderReq);
     }
+
+    
     
 }

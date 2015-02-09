@@ -163,7 +163,7 @@
 		customer_address_id,need_invoice,invoice_type,
 		invoice_info,actual_price,created_at,updated_at,
 		comment,total_quantity)
-		VALUES(#{ordernumber},#{customerId},#{totalprice},1,0,
+		VALUES(#{ordernumber},#{customerId},#{totalprice},1,#{type},
 		#{addressId},#{is_need_invoice},#{invoice_type},#{invoice_info},
 		#{totalprice},NOW(),NOW(),#{comment},#{totalcount})
   </insert>
@@ -186,7 +186,7 @@
   </select>
   
   <select id="getGoodInfo" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
-        SELECT  g.id as goodid,pc.id as paychanelid ,
+        SELECT  g.id as goodid,pc.id as paychanelid ,g.lease_deposit,
         g.price,g.retail_price,pc.opening_cost
 		from goods_pay_channels gpc
 		LEFT JOIN goods g on g.id=gpc.good_id

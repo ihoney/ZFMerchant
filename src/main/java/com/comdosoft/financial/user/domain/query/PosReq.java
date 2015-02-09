@@ -204,10 +204,6 @@ public class PosReq {
         this.maxPrice = maxPrice;
     }
 
- 
-
-    
-
     public Paging getPaging() {
         return paging;
     }

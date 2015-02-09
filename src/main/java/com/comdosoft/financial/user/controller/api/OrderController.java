@@ -97,4 +97,15 @@ public class OrderController {
         }
         return resp;
     }
+    @RequestMapping(value = "lease", method = RequestMethod.POST)
+    public Response createOrderFromLease(@RequestBody OrderReq orderreq){
+        Response resp=new Response();
+        int result= orderService.createOrderFromLease(orderreq);
+        if(result==1){
+            resp.setCode(Response.SUCCESS_CODE);
+        }else{
+            resp.setCode(Response.ERROR_CODE);
+        }
+        return resp;
+    }
 }

@@ -212,7 +212,7 @@ public class SysUtils {
     /**
      * 生成订单
      * author jwb
-     * @param type 订单类型：0 在线购买，1 代购，2 批购，3 租赁
+     * @param type 1.用户订购 2 用户租赁 3 代理商代购 4 代理商代租赁 5 代理商批购
      * @return
      */
     public static String getOrderNum(int type){
