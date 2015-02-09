@@ -44,8 +44,8 @@ public class CustomerAPI {
      * 
      * @param id
      */
-    @RequestMapping(value = "getCustomer/{id}", method = RequestMethod.GET)
-    public Response getCustomer(@PathVariable int id) {
+    @RequestMapping(value = "getOne/{id}", method = RequestMethod.GET)
+    public Response getOne(@PathVariable int id) {
         Response sysResponse = null;
         try {
             sysResponse = Response.getSuccess(customerService.getOne(id));
@@ -80,11 +80,12 @@ public class CustomerAPI {
      * 
      * @param customerId
      */
-    @RequestMapping(value = "getIntegralList/{customerId}", method = RequestMethod.GET)
-    public Response getIntegralList(@PathVariable int customerId) {
+    @RequestMapping(value = "getIntegralList/{customerId}/{page}/{rows}", method = RequestMethod.GET)
+    public Response getIntegralList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
-            sysResponse = Response.getSuccess(customerService.getIntegralList(customerId));
+
+            sysResponse = Response.getSuccess(customerService.getIntegralList(customerId, page, rows));
         } catch (Exception e) {
             logger.error("获取积分列表失败", e);
             sysResponse = Response.getError("获取积分列表失败:系统异常");

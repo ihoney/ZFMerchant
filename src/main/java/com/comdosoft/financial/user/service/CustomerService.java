@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.Paging;
 import com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper;
 
 /**
@@ -37,8 +39,13 @@ public class CustomerService {
         customerMapper.updatePassword(param);
     }
 
-    public List<Map<Object, Object>> getIntegralList(int customerId) {
-        return customerMapper.getIntegralList(customerId);
+    public List<Map<Object, Object>> getIntegralList(int customerId, int page, int rows) {
+        Map<Object, Object> param = new HashMap<Object, Object>();
+        param.put("customerId", customerId);
+        Paging paging = new Paging(page, rows);
+        param.put("offset", paging.getOffset());
+        param.put("rows", paging.getRows());
+        return customerMapper.getIntegralList(param);
     }
 
     public Map<Object, Object> getIntegralTotal(int customerId) {

@@ -38,11 +38,11 @@ public class MerchantAPI {
      * 
      * @param customerId
      */
-    @RequestMapping(value = "getList/{customerId}", method = RequestMethod.GET)
-    public Response getList(@PathVariable int customerId) {
+    @RequestMapping(value = "getList/{customerId}/{page}/{rows}", method = RequestMethod.GET)
+    public Response getList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
-            sysResponse = Response.getSuccess(merchantService.getList(customerId));
+            sysResponse = Response.getSuccess(merchantService.getList(customerId, page, rows));
         } catch (Exception e) {
             logger.error("获取商户信息列表失败", e);
             sysResponse = Response.getError("获取商户信息列表失败:系统异常");

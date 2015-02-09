@@ -19,7 +19,7 @@ public interface CustomerMapper {
 
     void updatePassword(Map<Object, Object> param);
 
-    List<Map<Object, Object>> getIntegralList(int customerId);
+    List<Map<Object, Object>> getIntegralList(Map<Object, Object> param);
 
     Map<Object, Object> getIntegralTotal(int customerId);
 

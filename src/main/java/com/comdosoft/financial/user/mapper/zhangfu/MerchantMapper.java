@@ -13,7 +13,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Merchant;
  */
 public interface MerchantMapper {
 
-    List<Map<Object, Object>> getList(int customerId);
+    List<Map<Object, Object>> getList(Map<Object, Object> query);
 
     Map<Object, Object> getOne(int id);
 
