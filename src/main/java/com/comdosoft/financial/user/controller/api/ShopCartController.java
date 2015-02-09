@@ -13,7 +13,7 @@ import com.comdosoft.financial.user.domain.query.CartReq;
 import com.comdosoft.financial.user.service.ShopCartService;
 
 @RestController
-@RequestMapping("cart")
+@RequestMapping("api/cart")
 public class ShopCartController {
 
     @Autowired

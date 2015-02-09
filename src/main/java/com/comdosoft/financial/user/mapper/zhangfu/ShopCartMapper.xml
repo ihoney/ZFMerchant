@@ -5,7 +5,7 @@
     
     <insert id="add" parameterType="com.comdosoft.financial.user.domain.query.CartReq">
        INSERT into shopping_carts(good_id,customer_id,quantity,pay_channel_id,created_at,updated_at) 
-       VALUES(#{goodId},#{customerId},#{quantity},#{paychannelId},NOW(),NOW())
+       VALUES(#{goodId},#{customerId},1,#{paychannelId},NOW(),NOW())
     </insert>
     
     <delete id="delete">
