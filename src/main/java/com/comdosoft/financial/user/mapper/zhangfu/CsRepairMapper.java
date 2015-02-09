@@ -12,7 +12,8 @@ public interface CsRepairMapper {
 
     void cancelApply(MyOrderReq myOrderReq);
     
-
+    void addMark(MyOrderReq myOrderReq);
+    
     Object findById(MyOrderReq myOrderReq);
 
 }

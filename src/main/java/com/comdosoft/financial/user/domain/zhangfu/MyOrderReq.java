@@ -8,11 +8,26 @@ public class MyOrderReq {
     private Integer page ;//当前页数
     private Integer pageSize ;//每页大小
     private Integer customer_id;//用户id
+    private String centent;//内容
     private PayType payType;
     private OrderStatus orderStatus;
     private RepairStatus repairStatus;
     
     
+    /**  
+     * 获取 centent  
+     * @return centent
+     */
+    public String getCentent() {
+        return centent;
+    }
+    /**  
+     * 设置 centent  
+     * @param centent
+     */
+    public void setCentent(String centent) {
+        this.centent = centent;
+    }
     /**  
      * 获取 repairStatus  
      * @return repairStatus
@@ -151,7 +166,7 @@ public class MyOrderReq {
      */
     @Override
     public String toString() {
-        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + "]";
+        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", centent=" + centent + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + "]";
     }
-
+    
 }

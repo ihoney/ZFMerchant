@@ -10,6 +10,8 @@ public interface CsLeaseReturnsMapper {
     List<Map<String, Object>> findAll(MyOrderReq myOrderReq);
 
     void cancelApply(MyOrderReq myOrderReq);
+    
+    void addMark(MyOrderReq myOrderReq);
 
     Object findById(MyOrderReq myOrderReq);
 

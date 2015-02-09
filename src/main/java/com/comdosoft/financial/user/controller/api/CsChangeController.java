@@ -64,4 +64,15 @@ public class CsChangeController {
             return Response.getError("请求失败");
         }
     }
+    
+    @RequestMapping(value="addMark" ,method=RequestMethod.POST)
+    public Response addMark(@RequestBody MyOrderReq myOrderReq ) {
+        try{
+            csChangeService.addMark(myOrderReq);
+            return Response.buildSuccess(null, "保存成功");
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("保存失败");
+        }
+    }  
 }

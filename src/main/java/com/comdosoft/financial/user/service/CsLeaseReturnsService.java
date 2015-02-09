@@ -32,5 +32,9 @@ public class CsLeaseReturnsService {
         Object o = csLeaseReturnsMapper.findById(myOrderReq);
         return o;
     }
+    
+    public void addMark(MyOrderReq myOrderReq) {
+        csLeaseReturnsMapper.addMark(myOrderReq);
+    }
 
 }

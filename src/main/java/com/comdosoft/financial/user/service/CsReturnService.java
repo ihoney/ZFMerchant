@@ -33,4 +33,8 @@ public class CsReturnService {
         Object o = csReturnMapper.findById(myOrderReq);
         return o;
     }
+    
+    public void addMark(MyOrderReq myOrderReq) {
+        csReturnMapper.addMark(myOrderReq);
+    }
 }

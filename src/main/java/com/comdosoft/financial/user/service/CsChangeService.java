@@ -32,4 +32,8 @@ public class CsChangeService {
         Object o = csChangeMapper.findById(myOrderReq);
         return o;
     }
+    
+    public void addMark(MyOrderReq myOrderReq) {
+        csChangeMapper.addMark(myOrderReq);
+    }
 }

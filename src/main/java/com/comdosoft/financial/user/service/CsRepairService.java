@@ -34,4 +34,8 @@ public class CsRepairService {
         Object o = repairMapper.findById(myOrderReq);
         return o;
     }
+    
+    public void addMark(MyOrderReq myOrderReq) {
+        repairMapper.addMark(myOrderReq);
+    }
 }
