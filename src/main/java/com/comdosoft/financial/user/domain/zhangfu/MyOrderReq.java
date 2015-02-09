@@ -12,8 +12,68 @@ public class MyOrderReq {
     private PayType payType;
     private OrderStatus orderStatus;
     private RepairStatus repairStatus;
+    private Integer score;//分数
+    private Integer good_id;
+    private String computer_name;
+    private String track_number;
     
     
+    /**  
+     * 获取 computer_name  
+     * @return computer_name
+     */
+    public String getComputer_name() {
+        return computer_name;
+    }
+    /**  
+     * 设置 computer_name  
+     * @param computer_name
+     */
+    public void setComputer_name(String computer_name) {
+        this.computer_name = computer_name;
+    }
+    /**  
+     * 获取 track_number  
+     * @return track_number
+     */
+    public String getTrack_number() {
+        return track_number;
+    }
+    /**  
+     * 设置 track_number  
+     * @param track_number
+     */
+    public void setTrack_number(String track_number) {
+        this.track_number = track_number;
+    }
+    /**  
+     * 获取 score  
+     * @return score
+     */
+    public Integer getScore() {
+        return score;
+    }
+    /**  
+     * 设置 score  
+     * @param score
+     */
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+    /**  
+     * 获取 good_id  
+     * @return good_id
+     */
+    public Integer getGood_id() {
+        return good_id;
+    }
+    /**  
+     * 设置 good_id  
+     * @param good_id
+     */
+    public void setGood_id(Integer good_id) {
+        this.good_id = good_id;
+    }
     /**  
      * 获取 centent  
      * @return centent

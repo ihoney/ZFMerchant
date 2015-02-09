@@ -59,6 +59,6 @@
 	<!-- 提交物流信息 -->
 	<insert id="addMark" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsRepairMark">
        INSERT INTO cs_repair_marks (cs_repair_id,customer_id,content,created_at)
-       VALUES(#{id},#{customer_id},#{content},NOW())
+       VALUES(#{id},#{customer_id},#{centent},NOW())
     </insert>
 </mapper>

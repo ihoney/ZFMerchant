@@ -68,6 +68,8 @@ public class CsLeaseReturnsController {
     @RequestMapping(value="addMark" ,method=RequestMethod.POST)
     public Response addMark(@RequestBody MyOrderReq myOrderReq ) {
         try{
+            String content = myOrderReq.getComputer_name()+myOrderReq.getTrack_number();
+            myOrderReq.setCentent(content);
             csLeaseRetrunsService.addMark(myOrderReq);
             return Response.buildSuccess(null, "保存成功");
         }catch(Exception e){

@@ -58,6 +58,9 @@ public class CsRepairController {
     public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
         try{
             Object centers = csRepairService.findById(myOrderReq);
+            if(null == centers){
+                return Response.getError("数据不存在");  
+            }
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
@@ -68,6 +71,8 @@ public class CsRepairController {
     @RequestMapping(value="addMark" ,method=RequestMethod.POST)
     public Response addMark(@RequestBody MyOrderReq myOrderReq ) {
         try{
+            String content = myOrderReq.getComputer_name()+myOrderReq.getTrack_number();
+            myOrderReq.setCentent(content);
             csRepairService.addMark(myOrderReq);
             return Response.buildSuccess(null, "保存成功");
         }catch(Exception e){
