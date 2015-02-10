@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.comdosoft.financial.user.domain.Paging;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.query.PosReq;
 import com.comdosoft.financial.user.service.GoodService;
@@ -32,9 +31,6 @@ public class GoodsController {
     }
     
     private PosReq setPosReq(PosReq req){
-        if(null==req.getPaging()){
-            req.setPaging(new Paging(1, 10));
-        }
         if(null!=req.getBrands_id()&&0!=req.getBrands_id().length){
             req.setBrands_ids(SysUtils.Arry2Str(req.getBrands_id()));
         }

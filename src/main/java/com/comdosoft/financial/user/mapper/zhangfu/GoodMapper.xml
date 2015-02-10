@@ -75,7 +75,7 @@
 		<if test="orderType==4">
 		   order by g.total_score desc
 		</if>
-		LIMIT #{paging.offset}, #{paging.rows}
+		LIMIT #{offset}, #{rows}
     </select>
     
     
