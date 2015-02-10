@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,17 +61,46 @@ public class UserLoginController {
 	 * 发送手机验证码
 	 * @param number
 	 */
-	@RequestMapping(value = "sendPhoneVerificationCode/codeNumber", method = RequestMethod.GET)
-	public void sendPhoneVerificationCode(@PathVariable("number") String number){
-			
+	@RequestMapping(value = "sendPhoneVerificationCode/{codeNumber}", method = RequestMethod.GET)
+	public Response sendPhoneVerificationCode(@PathVariable("codeNumber") String codeNumber,HttpSession session){
+		try{
+			char[] randchar=SysUtils.getRandNum(6);
+			String str ="";
+			for(int i=0;i<randchar.length;i++){
+				str+=randchar[i];
+			}
+			session.setAttribute("code", str);
+			return Response.getSuccess(str);
+		}catch(Exception e){
+			return Response.getError("获取验证码失败！");
+		}
+	}
+	
+	/**
+	 * 手机验证码校验
+	 * @param code
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "isVerificationCode/{code}", method = RequestMethod.GET)
+	public Response isVerificationCode(@PathVariable("code") String code,HttpSession session){
+		try{
+			if(code.equals(session.getAttribute("code"))){
+				return Response.getSuccess("校验成功！");
+			}else{
+				return Response.getError("校验失败！");
+			}
+		}catch(Exception e){
+			return Response.getError("请求失败！");
+		}
 	}
 	
 	/**
 	 * 发送邮箱验证
 	 * @param number
 	 */
-	@RequestMapping(value = "sendEmailVerificationCode/codeNumber", method = RequestMethod.GET)
-	public void sendEmailVerificationCode(@PathVariable("number") String number){
+	@RequestMapping(value = "sendEmailVerificationCode/{codeNumber}", method = RequestMethod.GET)
+	public void sendEmailVerificationCode(@PathVariable("codeNumber") String codeNumber){
 		
 	}
 	
