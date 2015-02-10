@@ -3,15 +3,21 @@
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.UserLoginMapper">
 
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
-		INSERT  into customers(username,password,city_id,account_type,types,phone,email,created_at)
-		VALUES(#{username},#{password},#{cityId},#{accountType},#{types},#{phone},#{email},now())
+		INSERT  into customers(username,password,city_id,account_type,types,phone,email,created_at,dentcode)
+		VALUES(#{username},#{password},#{cityId},#{accountType},#{types},#{phone},#{email},now(),#{dentcode})
 	</insert>
 
-	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
- 		SELECT COUNT(*) 
+	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="object">
+ 		SELECT id 
  		FROM customers 
  		WHERE username=#{username} and password=#{password}
  	</select>
+ 	
+ 	<update id="updateUser" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		UPDATE customers SET password = #{password},city_id = #{cityId},
+		account_type = #{accountType},types = #{types},phone = #{phone},email = #{email},created_at = now(),status=#{status}
+		WHERE username = #{username}
+	</update>
  	
 	<update id="updateLastLoginedAt" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
 		UPDATE customers set last_logined_at=now()
@@ -25,6 +31,11 @@
 	
 	<select id="findUname" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
 		SELECT COUNT(*) from customers 
+		WHERE username=#{username}
+	</select>
+	
+	<select id="findCode" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="string">
+		SELECT dentcode from customers
 		WHERE username=#{username}
 	</select>
 </mapper>

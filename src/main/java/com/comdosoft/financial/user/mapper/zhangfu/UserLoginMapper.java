@@ -18,7 +18,7 @@ public interface UserLoginMapper {
 	 * @param customer
 	 * @return
 	 */
-	int doLogin(Customer customer);
+	Object doLogin(Customer customer);
 	
 	/**
 	 * 找回密码
@@ -33,6 +33,12 @@ public interface UserLoginMapper {
 	void addUser(Customer customer);
 	
 	/**
+	 * 修改注册用户
+	 * @param customer
+	 */
+	void updateUser(Customer customer);
+	
+	/**
 	 * 查找用户
 	 * @param customer
 	 * @return
@@ -44,4 +50,11 @@ public interface UserLoginMapper {
 	 * @param customer
 	 */
 	void updateLastLoginedAt(Customer customer);
+	
+	/**
+	 * 取出验证码
+	 * @param customer
+	 * @return
+	 */
+	String findCode(Customer customer);
 }
