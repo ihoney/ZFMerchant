@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.CsReturnMapper">
 <!-- 退货 -->
-	<select id="findRepairsAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReturn">
+	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReturn">
 		SELECT
 			o.id,
 			o.created_at,
@@ -14,7 +14,7 @@
 			o.customer_id = #{customer_id}
 		ORDER BY
 			o.created_at DESC
-		LIMIT #{page},#{pageSize}
+		LIMIT #{offset},#{pageSize}
 	</select>
 	
 		<select id="findById" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReturn">

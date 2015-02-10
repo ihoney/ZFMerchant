@@ -21,7 +21,7 @@ public class CsRepairService {
 
     public Page<Map<String,Object>> findAll(MyOrderReq myOrderReq) {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
-        List<Map<String, Object>> o = repairMapper.findRepairsAll(myOrderReq);
+        List<Map<String, Object>> o = repairMapper.findAll(myOrderReq);
         return new Page<Map<String,Object>>(request, o);
     }
 

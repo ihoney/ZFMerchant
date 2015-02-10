@@ -43,8 +43,8 @@ public class CsLeaseReturnsController {
         }
     }
     
-    @RequestMapping(value="getCanCelById" ,method=RequestMethod.POST)
-    public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
+    @RequestMapping(value="getById" ,method=RequestMethod.POST)
+    public Response getById(@RequestBody MyOrderReq myOrderReq){
         try{
             Object centers = csLeaseRetrunsService.findById(myOrderReq);
             return Response.getSuccess(centers);

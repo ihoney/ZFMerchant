@@ -1,5 +1,9 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -47,9 +51,15 @@ public class WebMessageController {
     public Response findById(@RequestBody MyOrderReq myOrderReq) {
         try{
             logger.debug("获取系统公告详情 start");
-            WebMessage centers= webMessageService.findById(myOrderReq.getId());
-            logger.debug("获取系统公告详情 end"+centers);
-            return Response.getSuccess(centers);
+            WebMessage wm= webMessageService.findById(myOrderReq.getId());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+            Map<String,String> map = new HashMap<String,String>();
+            map.put("id", wm.getId().toString());
+            map.put("title", wm.getTitle());
+            map.put("create_at",sdf.format(wm.getCreateAt()));
+            map.put("content", wm.getContent());
+            logger.debug("获取系统公告详情 end"+wm);
+            return Response.getSuccess(map);
         }catch(Exception e){
             logger.debug("id:"+myOrderReq.getId()+"获取系统公告详情出错"+e);
             return Response.getError("请求失败");

@@ -8,7 +8,7 @@ import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 
 public interface CsRepairMapper {
 
-    List<Map<String, Object>> findRepairsAll(MyOrderReq myOrderReq);
+    List<Map<String, Object>> findAll(MyOrderReq myOrderReq);
 
     void cancelApply(MyOrderReq myOrderReq);
     

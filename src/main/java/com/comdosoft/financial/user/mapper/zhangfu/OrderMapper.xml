@@ -124,7 +124,7 @@
 		WHERE
 		o.customer_id = #{param2}
 		order by o.created_at desc
-		LIMIT #{param1.page},#{param1.pageSize}
+		LIMIT #{param1.offset},#{param1.pageSize}
 	</select>
 	
 	<select id="findMyOrderById" resultMap="orderMap">

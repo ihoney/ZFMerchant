@@ -6,6 +6,8 @@ public class MyOrderReq {
     private Integer id;//业务id
     private String[] ids;
     private Integer page ;//当前页数
+    @SuppressWarnings("unused")
+    private Integer offset;
     private Integer pageSize ;//每页大小
     private Integer customer_id;//用户id
     private String centent;//内容
@@ -228,5 +230,10 @@ public class MyOrderReq {
     public String toString() {
         return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", centent=" + centent + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + "]";
     }
-    
+    public int getOffset() {
+        if(page>0){
+            return (page - 1) * pageSize;
+        }
+        return 0;
+    }
 }

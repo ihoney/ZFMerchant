@@ -69,7 +69,7 @@ public class OrderController {
         }
     }    
     
-    @RequestMapping(value="comment" ,method=RequestMethod.POST)
+    @RequestMapping(value="saveComment" ,method=RequestMethod.POST)
     public Response comment(@RequestBody MyOrderReq myOrderReq ) {
         try{
             orderService.comment(myOrderReq);

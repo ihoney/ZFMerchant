@@ -64,4 +64,15 @@ public class CsCancelsController {
             return Response.getError("取消失败");
         }
     }  
+    
+    @RequestMapping(value="resubmitCancel" ,method=RequestMethod.POST)
+    public Response resubmitCancel(@RequestBody MyOrderReq myOrderReq ) {
+        try{
+            csCencelsService.resubmitCancel(myOrderReq);
+            return Response.buildSuccess(null, "取消成功");
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("取消失败");
+        }
+    }  
 }

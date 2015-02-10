@@ -23,14 +23,27 @@ public class CsCencelsService {
         return new Page<Map<String,Object>>(request, o);
     }
 
+    /**
+     * 取消申请
+     * @param myOrderReq
+     */
     public void cancelApply(MyOrderReq myOrderReq) {
         myOrderReq.setRepairStatus(RepairStatus.CANCEL);
-        csCencelsMapper.cancelApply(myOrderReq);
+        csCencelsMapper.changeStatus(myOrderReq);
     }
 
     public Object findById(MyOrderReq myOrderReq) {
         Object o = csCencelsMapper.findById(myOrderReq);
         return o;
+    }
+
+    /**
+     * 重新提交注销
+     * @param myOrderReq
+     */
+    public void resubmitCancel(MyOrderReq myOrderReq) {
+        myOrderReq.setRepairStatus(RepairStatus.PENDING);
+        csCencelsMapper.changeStatus(myOrderReq);
     }
 
 }
