@@ -42,7 +42,6 @@ public class UserLoginController {
 	@RequestMapping(value = "studentLogin", method = RequestMethod.POST)
 	public Response studentLogin(@RequestBody Customer customer) {
 		try {
-			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			int count = userLoginService.doLogin(customer);
 			if(count>0){
 				userLoginService.updateLastLoginedAt(customer);
@@ -93,7 +92,6 @@ public class UserLoginController {
 	@RequestMapping(value = "updatePassword", method = RequestMethod.POST)
 	public Response updatePassword(@RequestBody Customer customer){
 		try {
-			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			if(userLoginService.findUname(customer)>0){
 				userLoginService.updatePassword(customer);
 				return Response.getSuccess("找回密码成功！");
@@ -113,10 +111,8 @@ public class UserLoginController {
 	@RequestMapping(value = "userRegistration", method = RequestMethod.POST)
 	public Response userRegistration(@RequestBody Customer customer,HttpSession session){
 		try {
-			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			customer.setTypes(Customer.TYPE_CUSTOMER);
 			if(userLoginService.findUname(customer)==0){
-				System.out.println("查看！"+customer.getCode());
 				if(customer.getCode().equals(session.getAttribute("code"))){
 					if(!customer.getAccountType()){
 						customer.setPhone(customer.getUsername());
