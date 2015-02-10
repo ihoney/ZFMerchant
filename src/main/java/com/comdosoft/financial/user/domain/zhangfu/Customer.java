@@ -118,12 +118,12 @@ public class Customer {
 	 */
 	private String code;
 
-	public String getClde() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setClde(String clde) {
-		this.code = clde;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Integer getId() {

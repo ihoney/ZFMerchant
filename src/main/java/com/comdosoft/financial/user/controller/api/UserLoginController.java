@@ -77,25 +77,6 @@ public class UserLoginController {
 	}
 	
 	/**
-	 * 手机验证码校验
-	 * @param code
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "isVerificationCode/{code}", method = RequestMethod.GET)
-	public Response isVerificationCode(@PathVariable("code") String code,HttpSession session){
-		try{
-			if(code.equals(session.getAttribute("code"))){
-				return Response.getSuccess("校验成功！");
-			}else{
-				return Response.getError("校验失败！");
-			}
-		}catch(Exception e){
-			return Response.getError("请求失败！");
-		}
-	}
-	
-	/**
 	 * 发送邮箱验证
 	 * @param number
 	 */
@@ -130,18 +111,23 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "userRegistration", method = RequestMethod.POST)
-	public Response userRegistration(@RequestBody Customer customer){
+	public Response userRegistration(@RequestBody Customer customer,HttpSession session){
 		try {
 			customer.setPassword(SysUtils.Encryption(customer.getPassword(),passPath));
 			customer.setTypes(Customer.TYPE_CUSTOMER);
 			if(userLoginService.findUname(customer)==0){
-				if(!customer.getAccountType()){
-					customer.setPhone(customer.getUsername());
+				System.out.println("查看！"+customer.getCode());
+				if(customer.getCode().equals(session.getAttribute("code"))){
+					if(!customer.getAccountType()){
+						customer.setPhone(customer.getUsername());
+					}else{
+						customer.setEmail(customer.getUsername());
+					}
+					userLoginService.addUser(customer);
+					return Response.getSuccess("注册成功！");
 				}else{
-					customer.setEmail(customer.getUsername());
+					return Response.getError("验证码错误！");
 				}
-				userLoginService.addUser(customer);
-				return Response.getSuccess("注册成功！");
 			}else{
 				return Response.getError("用户已存在！");
 			}
