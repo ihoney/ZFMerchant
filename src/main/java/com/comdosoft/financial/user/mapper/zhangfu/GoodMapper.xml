@@ -6,7 +6,7 @@
      <select id="getGoodById" resultType="map" >
        SELECT g.id,g.Title,g.second_title,gb.name as good_brand,g.Model_number,pc.name as category,
        g.volume_number,g.retail_price,g.price,
-       g.has_purchase,g.lease_time,g.return_time,g.lease_price,g.lease_description,g.lease_agreement,
+       g.has_lease,g.lease_time,g.return_time,g.lease_price,g.lease_description,g.lease_agreement,
        g.shell_material,g.battery_info,dsow.sign_order_way,decw.encrypt_card_way,
        g.factory_id,g.description
 	   from goods g 
@@ -19,7 +19,7 @@
      
   
     <select id="getGoodsList" parameterType="com.comdosoft.financial.user.domain.query.PosReq" resultType="map">
-         SELECT DISTINCT g.id,g.Title,g.has_purchase,b.name as good_brand,g.Model_number,g.volume_number,
+         SELECT DISTINCT g.id,g.Title,g.has_lease,b.name as good_brand,g.Model_number,g.volume_number,
 	     g.retail_price,g.total_score
 		 from goods g 
     	 LEFT JOIN good_brands b on g.good_brands_id=b.id
@@ -28,7 +28,7 @@
     	 where g.status=5 and is_published=1 and pc.id in 
          (SELECT sa.id from support_areas sa where sa.city_id=#{city_id} and sa.support_type=1)
     	 <if test="has_purchase==1">
-    	     and g.has_purchase=1
+    	     and g.has_lease=1
     	 </if>
     	 <if test="keys!=null">
 		   and ( g.Title like '%${keys}%' or g.second_title like '%${keys}%' or g.key_worlds like '%${keys}%' )
