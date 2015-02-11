@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import com.comdosoft.financial.user.utils.page.Page;
  * <功能描述>
  *
  * @author gch 2015年2月8日
+ *            2015年2月11日  update
  *
  */
 @RestController
@@ -31,11 +33,15 @@ public class CsRepairController {
     private static final Logger logger = LoggerFactory.getLogger(CsRepairController.class);
     @Resource
     private CsRepairService csRepairService;
-    
+    /**
+     * 根据用户customer_id 查询 
+     * @param myOrderReq
+     * @return
+     */
     @RequestMapping(value="getAll" ,method=RequestMethod.POST)
     public Response getAll(@RequestBody MyOrderReq myOrderReq) {
         try{
-            Page<Map<String,Object>> centers = csRepairService.findAll(myOrderReq);
+            Page<List<Object>> centers = csRepairService.findAll(myOrderReq);
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("查询维修列表出错"+e);
@@ -43,6 +49,11 @@ public class CsRepairController {
         }
     }
     
+    /**
+     * 根据业务id取消申请
+     * @param myOrderReq
+     * @return
+     */
     @RequestMapping(value="cancelApply" ,method=RequestMethod.POST)
     public Response cancelRepair(@RequestBody MyOrderReq myOrderReq ) {
         try{
@@ -54,10 +65,34 @@ public class CsRepairController {
         }
     }  
     
+    /**
+     * 根据业务id获取详情
+     * @param myOrderReq
+     * @return
+     */
     @RequestMapping(value="getRepairById" ,method=RequestMethod.POST)
     public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
         try{
-            Object centers = csRepairService.findById(myOrderReq);
+            Map<String,Object> centers = csRepairService.findById(myOrderReq);
+            if(null == centers){
+                return Response.getError("数据不存在");  
+            }
+            return Response.getSuccess(centers);
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("请求失败");
+        }
+    }
+    
+    /**
+     * 根据维修id查询追踪记录
+     * @param myOrderReq
+     * @return
+     */
+    @RequestMapping(value="getTraceById" ,method=RequestMethod.POST)
+    public Response getTraceById(@RequestBody MyOrderReq myOrderReq){
+        try{
+            Page<List<Object>> centers = csRepairService.getTraceById(myOrderReq);
             if(null == centers){
                 return Response.getError("数据不存在");  
             }

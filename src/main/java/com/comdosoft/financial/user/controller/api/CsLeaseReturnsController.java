@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -35,7 +36,7 @@ public class CsLeaseReturnsController {
     @RequestMapping(value="getAll" ,method=RequestMethod.POST)
     public Response getAll(@RequestBody MyOrderReq myOrderReq) {
         try{
-            Page<Map<String,Object>> centers = csLeaseRetrunsService.findAll(myOrderReq);
+            Page<List<Object>> centers = csLeaseRetrunsService.findAll(myOrderReq);
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
@@ -46,7 +47,7 @@ public class CsLeaseReturnsController {
     @RequestMapping(value="getById" ,method=RequestMethod.POST)
     public Response getById(@RequestBody MyOrderReq myOrderReq){
         try{
-            Object centers = csLeaseRetrunsService.findById(myOrderReq);
+            Map<String,Object> centers = csLeaseRetrunsService.findById(myOrderReq);
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);

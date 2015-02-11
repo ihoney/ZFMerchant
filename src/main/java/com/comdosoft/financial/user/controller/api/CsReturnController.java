@@ -1,6 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -32,10 +32,15 @@ public class CsReturnController {
     @Resource
     private CsReturnService csReturnService;
     
+    /**
+     * 根据用户customer_id 查询 
+     * @param myOrderReq
+     * @return
+     */
     @RequestMapping(value="getAll" ,method=RequestMethod.POST)
     public Response getAll(@RequestBody MyOrderReq myOrderReq) {
         try{
-            Page<Map<String,Object>> centers = csReturnService.findAll(myOrderReq);
+            Page<List<Object>> centers = csReturnService.findAll(myOrderReq);
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);

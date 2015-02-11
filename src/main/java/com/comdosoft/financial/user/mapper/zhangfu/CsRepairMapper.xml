@@ -6,7 +6,7 @@
 			SELECT
 			o.id,
 			o.created_at,
-			o. STATUS,
+			o.status,
 			t.serial_num,
 			o.apply_num
 		FROM
@@ -32,10 +32,7 @@
 			m.phone AS mer_phone,
 			cra.address,
 			o.description,
-			o.repair_price,
-			crm.content AS marks_content,
-			crm.created_at AS marks_time,
-			c.`name` AS marks_person
+			o.repair_price
 		FROM
 			cs_repairs o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -44,11 +41,23 @@
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
 		LEFT JOIN cs_receiver_addresses cra ON o.receive_address_id = cra.id
-		LEFT JOIN cs_repair_marks crm ON o.id = crm.cs_repair_id
-		LEFT JOIN customers c ON crm.customer_id = c.id
 		WHERE
 			o.id = #{id}
 	</select>
+	<!-- 根据 cs_repairs id 查询所有追踪记录-->
+		<select id="findTraceById" resultType="map" >
+		SELECT
+			
+			crm.content AS marks_content,
+			crm.created_at,
+			c.`name` AS marks_person
+		FROM
+			 cs_repair_marks crm 
+		LEFT JOIN customers c ON crm.customer_id = c.id
+		WHERE
+		 crm.cs_repair_id = #{id}
+	</select>
+	
 	
 	<update id="cancelApply">
 	update  cs_repairs 

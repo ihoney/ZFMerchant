@@ -6,7 +6,7 @@
 		SELECT
 			o.id,
 			o.created_at,
-			o. STATUS,
+			o.status,
 			t.serial_num,
 			o.apply_num
 		FROM
@@ -28,10 +28,7 @@
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` as zhifu_pt, m.title AS merchant_name,
-			m.phone AS mer_phone,
-			crm.content AS marks_content,
-			crm.created_at AS marks_time,
-			c.`name` AS marks_person
+			m.phone AS mer_phone
 		FROM
 			cs_cancels o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -39,10 +36,20 @@
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
-		LEFT JOIN cs_cancel_marks crm ON o.id = crm.cs_cancel_id
-		LEFT JOIN customers c ON crm.customer_id = c.id
 		WHERE
 			o.id = #{id}
+	</select>
+	
+	<select id="findTraceById" resultType="map" >
+		SELECT
+			crm.content AS marks_content,
+			crm.created_at AS marks_time,
+			c.`name` AS marks_person
+		FROM
+			  cs_cancel_marks crm 
+		LEFT JOIN customers c ON crm.customer_id = c.id
+		WHERE
+		crm.cs_cancel_id = #{id}
 	</select>
 	
 	<update id="changeStatus">

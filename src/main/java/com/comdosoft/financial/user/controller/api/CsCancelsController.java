@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -35,7 +36,7 @@ public class CsCancelsController {
     @RequestMapping(value="getAll" ,method=RequestMethod.POST)
     public Response getAll(@RequestBody MyOrderReq myOrderReq) {
         try{
-            Page<Map<String,Object>> centers = csCencelsService.findAll(myOrderReq);
+            Page<List<Object>> centers = csCencelsService.findAll(myOrderReq);
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
@@ -46,7 +47,7 @@ public class CsCancelsController {
     @RequestMapping(value="getCanCelById" ,method=RequestMethod.POST)
     public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
         try{
-            Object centers = csCencelsService.findById(myOrderReq);
+            Map<String,Object> centers = csCencelsService.findById(myOrderReq);
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);

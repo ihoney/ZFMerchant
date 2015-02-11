@@ -8,10 +8,13 @@ import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 public interface CsReturnMapper {
 
     List<Map<String, Object>> findAll(MyOrderReq myOrderReq);
-
+    
     void cancelApply(MyOrderReq myOrderReq);
 
     void addMark(MyOrderReq myOrderReq);
     
-    Object findById(MyOrderReq myOrderReq);
+    Map<String, Object> findById(MyOrderReq myOrderReq);
+
+    List<Map<String, Object>> findTraceById(MyOrderReq myOrderReq);
+
 }

@@ -6,10 +6,12 @@
 		SELECT
 			o.id,
 			o.created_at,
-			o. STATUS,
-			o.terminal_id
+			o.status,
+			t.serial_num,
+			o.apply_num
 		FROM
 			cs_returns o
+			LEFT JOIN terminals t ON o.terminal_id = t.id
 		WHERE
 			o.customer_id = #{customer_id}
 		ORDER BY
@@ -26,10 +28,7 @@
 			o.bank_name,
 			o.bank_account,
 			o.reason,
-			t.serial_num,
-			crm.content AS marks_content,
-			crm.created_at AS marks_time,
-			c.`name` AS marks_person
+			t.serial_num
 		FROM
 			cs_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -37,10 +36,20 @@
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
-		LEFT JOIN cs_return_marks crm ON o.id = crm.cs_return_id
-		LEFT JOIN customers c ON crm.customer_id = c.id
 		WHERE
 			o.id = #{id}
+	</select>
+	
+		<select id="findTraceById" resultType="map" >
+		SELECT
+			crm.content AS marks_content,
+			crm.created_at,
+			c.`name` AS marks_person
+		FROM
+			 cs_return_marks crm 
+		LEFT JOIN customers c ON crm.customer_id = c.id
+		WHERE
+		     crm.cs_return_id = #{id}
 	</select>
 	
 	<update id="cancelApply">

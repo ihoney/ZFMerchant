@@ -166,8 +166,8 @@
     
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 
-		(score,content,customer_id,order_id,good_id,created_at)
-		VALUES(#{score},#{centent},#{customer_id},#{id},#{good_id},NOW())
+		(score,content,customer_id,order_good_id,created_at)
+		VALUES(#{score},#{centent},#{customer_id},#{order_good_id},NOW())
   </insert>
     
 	<!-- gch end -->

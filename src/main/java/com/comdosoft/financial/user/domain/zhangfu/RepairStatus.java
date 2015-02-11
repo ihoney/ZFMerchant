@@ -71,6 +71,14 @@ public enum RepairStatus {
         this.code = code;
         this.name = name;
     }
-   
     
+    public static String getName(int code){
+        String status_name = null;
+        for (RepairStatus s : RepairStatus.values()){  
+            if(s.getCode() == code){
+                status_name = s.getName();
+            }
+        }
+        return status_name;
+    }
 }

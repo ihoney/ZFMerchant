@@ -16,10 +16,25 @@ public class MyOrderReq {
     private RepairStatus repairStatus;
     private Integer score;//分数
     private Integer good_id;
+    private Integer order_good_id;
     private String computer_name;
     private String track_number;
     
     
+    /**  
+     * 获取 order_good_id  
+     * @return order_good_id
+     */
+    public Integer getOrder_good_id() {
+        return order_good_id;
+    }
+    /**  
+     * 设置 order_good_id  
+     * @param order_good_id
+     */
+    public void setOrder_good_id(Integer order_good_id) {
+        this.order_good_id = order_good_id;
+    }
     /**  
      * 获取 computer_name  
      * @return computer_name
@@ -194,7 +209,7 @@ public class MyOrderReq {
      * @return pageSize
      */
     public Integer getPageSize() {
-        if(null == pageSize) pageSize = 20;
+        if(null == pageSize) pageSize = 10;
         return pageSize;
     }
     /**  

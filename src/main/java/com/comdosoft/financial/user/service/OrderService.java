@@ -143,6 +143,7 @@ public class OrderService {
             if (olist.size() > 0) {
                 for (OrderGood od : olist) {
                     omap = new HashMap<String, Object>();
+                    omap.put("order_good_id", od.getId().toString());
                     omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId().toString());
                     omap.put("good_price", od.getPrice() == null ? "" : od.getPrice().toString());
                     omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity().toString());
@@ -208,6 +209,7 @@ public class OrderService {
         if (olist.size() > 0) {
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
+//                omap.put("order_good_id", od.getId().toString());
                 omap.put("good_id", od.getGood() == null ? "" : od.getGood().getId().toString());
                 omap.put("good_price", od.getPrice() == null ? "" : od.getPrice().toString());
                 omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity().toString());

@@ -6,7 +6,7 @@
 		SELECT
 			o.id,
 			o.created_at,
-			o. STATUS,
+			o.status,
 			t.serial_num,
 			o.apply_num
 		FROM
@@ -29,10 +29,7 @@
 			g.model_number AS brand_number,
 			pc.`name`, m.title AS merchant_name,
 			m.phone AS mer_phone,
-			cra.address,
-			crm.content AS marks_content,
-			crm.created_at AS marks_time,
-			c.`name` AS marks_person
+			cra.address 
 		FROM
 			cs_changes o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -41,10 +38,21 @@
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
 		LEFT JOIN cs_receiver_addresses cra ON o.receive_address_id = cra.id
-		LEFT JOIN cs_change_marks crm ON  o.cs_cencel_id = crm.id
-		LEFT JOIN customers c ON crm.custom_id = c.id
 		WHERE
 			o.id = #{id}
+	</select>
+	
+	<select id="findTraceById" resultType="map" >
+		SELECT
+			
+			crm.content AS marks_content,
+			crm.created_at AS marks_time,
+			c.`name` AS marks_person
+		FROM
+            cs_change_marks crm 
+		LEFT JOIN customers c ON crm.custom_id = c.id
+		WHERE
+		  o.cs_cencel_id  = #{id}
 	</select>
 	
 	<update id="cancelApply">

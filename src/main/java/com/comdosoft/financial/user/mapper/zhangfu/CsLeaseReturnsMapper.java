@@ -13,6 +13,8 @@ public interface CsLeaseReturnsMapper {
     
     void addMark(MyOrderReq myOrderReq);
 
-    Object findById(MyOrderReq myOrderReq);
+    Map<String, Object> findById(MyOrderReq myOrderReq);
+
+    List<Map<String, Object>> findTraceById(MyOrderReq myOrderReq);
 
 }
