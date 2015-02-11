@@ -40,7 +40,7 @@ public class CsCancelsController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
@@ -51,7 +51,7 @@ public class CsCancelsController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
@@ -66,14 +66,19 @@ public class CsCancelsController {
         }
     }  
     
+    /**
+     * 重新提交注销
+     * @param myOrderReq
+     * @return
+     */
     @RequestMapping(value="resubmitCancel" ,method=RequestMethod.POST)
     public Response resubmitCancel(@RequestBody MyOrderReq myOrderReq ) {
         try{
             csCencelsService.resubmitCancel(myOrderReq);
-            return Response.buildSuccess(null, "取消成功");
+            return Response.buildSuccess(null, "提交成功");
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("取消失败");
+            return Response.getError("提交失败");
         }
     }  
 }

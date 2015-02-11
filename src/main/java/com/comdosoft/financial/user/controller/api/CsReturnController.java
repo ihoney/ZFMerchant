@@ -44,7 +44,7 @@ public class CsReturnController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
@@ -66,7 +66,7 @@ public class CsReturnController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     

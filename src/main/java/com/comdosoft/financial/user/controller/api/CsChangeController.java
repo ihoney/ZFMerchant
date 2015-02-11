@@ -40,7 +40,7 @@ public class CsChangeController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
@@ -51,7 +51,7 @@ public class CsChangeController {
             return Response.buildSuccess(null, "取消成功");
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("取消失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }  
     
@@ -62,7 +62,7 @@ public class CsChangeController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     

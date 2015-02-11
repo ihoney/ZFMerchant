@@ -45,7 +45,7 @@ public class CsRepairController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("查询维修列表出错"+e);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
@@ -80,7 +80,7 @@ public class CsRepairController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
@@ -99,7 +99,7 @@ public class CsRepairController {
             return Response.getSuccess(centers);
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败");
+            return Response.getError("请求失败,获取数据出错。");
         }
     }
     
