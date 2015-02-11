@@ -17,7 +17,7 @@ public class UserLoginService {
 	 * @param customer
 	 * @return
 	 */
-	public Object doLogin(Customer customer){
+	public Customer doLogin(Customer customer){
 		return userLoginMapper.doLogin(customer);
 	}
 	
@@ -69,5 +69,31 @@ public class UserLoginService {
 	 */
 	public String findCode(Customer customer){
 		return userLoginMapper.findCode(customer);
+	}
+	
+	/**
+	 * 查找假注册状态
+	 * @param customer
+	 * @return
+	 */
+	public int findUnameAndStatus(Customer customer){
+		return userLoginMapper.findUnameAndStatus(customer);
+	}
+	
+	/**
+	 * 修改验证码
+	 * @param customer
+	 */
+	public void updateCode(Customer customer){
+		userLoginMapper.updateCode(customer);
+	}
+	
+	/**
+	 * 注册查找状态
+	 * @param customer
+	 * @return
+	 */
+	public int findUserAndStatus(Customer customer){
+		return userLoginMapper.findUserAndStatus(customer);
 	}
 }

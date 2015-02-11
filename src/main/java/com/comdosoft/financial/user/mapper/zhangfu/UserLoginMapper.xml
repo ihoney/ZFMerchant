@@ -3,14 +3,16 @@
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.UserLoginMapper">
 
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
-		INSERT  into customers(username,password,city_id,account_type,types,phone,email,created_at,dentcode)
-		VALUES(#{username},#{password},#{cityId},#{accountType},#{types},#{phone},#{email},now(),#{dentcode})
+		INSERT  into customers(username,password,city_id,account_type,types,phone,email,created_at,dentcode,status)
+		VALUES(#{username},#{password},#{cityId},#{accountType},#{types},#{phone},#{email},now(),#{dentcode},#{status})
 	</insert>
 
-	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="object">
- 		SELECT id 
+	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+ 		SELECT id,username,account_type as accountType,name,city_id as cityId,types,last_logined_at as lastLoginedAt,
+ 		integral as integral,status,device_code as deviceCode,created_at as createdAt,updated_at as updatedAt,phone,email 
  		FROM customers 
- 		WHERE username=#{username} and password=#{password}
+ 		WHERE username=#{username} AND password=#{password} AND types=#{types} 
+ 		AND status=#{status}
  	</select>
  	
  	<update id="updateUser" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
@@ -34,8 +36,23 @@
 		WHERE username=#{username}
 	</select>
 	
+	<select id="findUnameAndStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
+		SELECT COUNT(*) from customers 
+		WHERE username=#{username} AND status=#{status}
+	</select>
+	
+	<select id="findUserAndStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
+		SELECT COUNT(*) from customers 
+		WHERE username=#{username} and status!=#{status}
+	</select>
+	
 	<select id="findCode" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="string">
 		SELECT dentcode from customers
 		WHERE username=#{username}
 	</select>
+	
+	<update id="updateCode" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		UPDATE customers set dentcode=#{dentcode}
+		WHERE username=#{username}
+	</update>
 </mapper>
