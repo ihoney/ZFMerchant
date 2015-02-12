@@ -41,9 +41,8 @@ public class CsLeaseReturnsService {
             Date date = sdf.parse(d);
             String c_date = sdf.format(date);
             String status = (m.get("status") + "");
-            String status_name = RepairStatus.getName(Integer.parseInt(status));
             map.put("id", m.get("id"));
-            map.put("status", status_name);
+            map.put("status", status);
             map.put("create_time", c_date);
             map.put("terminal_num", m.get("serial_num"));// 终端号
             map.put("apply_num", m.get("apply_num"));// 维修编号
@@ -62,8 +61,7 @@ public class CsLeaseReturnsService {
         Map<String, Object> map = new HashMap<String, Object>();
         String id = o.get("id").toString();
         map.put("id", id);
-        String status_name = RepairStatus.getName(Integer.parseInt(o.get("apply_status") + ""));
-        map.put("status", status_name);
+        map.put("status", o.get("apply_status"));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat _sdf = new SimpleDateFormat("yyyy-MM-dd");
         String apply_time = o.get("apply_time") + "";
