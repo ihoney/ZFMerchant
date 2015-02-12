@@ -25,7 +25,7 @@
     </select>
     
     <select id="getList" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="map">
-       select sc.id,sc.quantity,pc.name,g.id as goodId,g.retail_price,g.title,g.Model_number,b.name
+       select sc.id,sc.quantity,pc.name,g.id as goodId,g.retail_price,g.title,g.Model_number,b.name as good_brands
        from shopping_carts sc 
        LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id 
        LEFT JOIN goods g on g.id=sc.good_id
