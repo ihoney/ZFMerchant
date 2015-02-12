@@ -1,9 +1,9 @@
 package com.comdosoft.financial.user.mapper.zhangfu;
 
-
 import java.util.List;
 import java.util.Map;
 
+import com.comdosoft.financial.user.domain.zhangfu.PayChannel;
 
 public interface PaychannelMapper {
 
@@ -19,7 +19,6 @@ public interface PaychannelMapper {
 
     List<Map<String, Object>> getOther_rate(int pcid);
 
-
-    
+    PayChannel getOne(int payChannelId);
 
 }

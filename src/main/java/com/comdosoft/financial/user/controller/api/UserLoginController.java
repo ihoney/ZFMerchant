@@ -17,8 +17,7 @@ import com.comdosoft.financial.user.utils.SysUtils;
 
 /**
  * 
- * 用户登陆
- * <功能描述>
+ * 用户登陆 <功能描述>
  *
  * @author xfh 2015年2月7日
  *
@@ -26,162 +25,167 @@ import com.comdosoft.financial.user.utils.SysUtils;
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserLoginController {
-	
-	@Resource
-	private UserLoginService userLoginService;
 
-	@Value("${passPath}")
-	private String passPath;
-	
-	/**
-	 * 用户登陆
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "studentLogin", method = RequestMethod.POST)
-	public Response studentLogin(@RequestBody Customer customer) {
-		try {
-			customer.setTypes(Customer.TYPE_CUSTOMER);
-			customer.setStatus(Customer.STATUS_NORMAL);
-			Customer tomer = userLoginService.doLogin(customer);
-			if(tomer!=null){
-				userLoginService.updateLastLoginedAt(customer);
-				return Response.getSuccess(tomer);
-			} else {
-				return Response.getError("用户名或密码错误！");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.getError("系统异常！");
-		}
-	}
+    @Resource
+    private UserLoginService userLoginService;
 
-	/**
-	 * 发送手机验证码(找回密码)
-	 * @param number
-	 */
-	@RequestMapping(value = "sendPhoneVerificationCodeFind/{codeNumber}", method = RequestMethod.GET)
-	public Response sendPhoneVerificationCodeFind(@PathVariable("codeNumber") String codeNumber){
-		try{
-			Customer customer = new Customer();
-			customer.setUsername(codeNumber);
-			char[] randchar=SysUtils.getRandNum(6);
-			String str ="";
-			for(int i=0;i<randchar.length;i++){
-				str+=randchar[i];
-			}
-			customer.setDentcode(str);
-			if(userLoginService.findUname(customer)==0){
-				return Response.getError("用户不存在！");
-			}else{
-				userLoginService.updateCode(customer);
-				return Response.getSuccess(str);
-			}
-		}catch(Exception e){
-			return Response.getError("获取验证码失败！");
-		}
-	}
-	
-	/**
-	 * 发送手机验证码(注册)
-	 * @param number
-	 */
-	@RequestMapping(value = "sendPhoneVerificationCodeRe/{codeNumber}", method = RequestMethod.GET)
-	public Response sendPhoneVerificationCodeRe(@PathVariable("codeNumber") String codeNumber){
-		try{
-			Customer customer = new Customer();
-			customer.setUsername(codeNumber);
-			char[] randchar=SysUtils.getRandNum(6);
-			String str ="";
-			for(int i=0;i<randchar.length;i++){
-				str+=randchar[i];
-			}
-			customer.setPassword("0");
-			customer.setCityId(0);
-			customer.setDentcode(str);
-			customer.setStatus(Customer.STATUS_NON_END);
-			if(userLoginService.findUname(customer)==0){
-				//添加假状态
-				userLoginService.addUser(customer);
-				return Response.getSuccess(str);
-			}else{
-				if(userLoginService.findUnameAndStatus(customer)==0){
-					return Response.getError("该用户已注册！");
-				}else{
-					userLoginService.updateCode(customer);
-					return Response.getSuccess(str);
-				}
-			}
-		}catch(Exception e){
-			return Response.getError("获取验证码失败！");
-		}
-	}
-	
-	/**
-	 * 发送邮箱验证
-	 * @param number
-	 */
-	@RequestMapping(value = "sendEmailVerificationCode/{codeNumber}", method = RequestMethod.GET)
-	public void sendEmailVerificationCode(@PathVariable("codeNumber") String codeNumber){
-		
-	}
-	
-	/**
-	 * 找回密码
-	 * @param customer
-	 * @return
-	 */
-	@RequestMapping(value = "updatePassword", method = RequestMethod.POST)
-	public Response updatePassword(@RequestBody Customer customer){
-		try {
-			if(userLoginService.findUname(customer)>0){
-				if(customer.getCode().equals(userLoginService.findCode(customer))){
-					userLoginService.updatePassword(customer);
-					return Response.getSuccess("找回密码成功！");
-				}else{
-					return Response.getError("验证码错误！");
-				}
-			}else{
-				return Response.getError("用户名错误！");
-			}
-		} catch (Exception e) {
-			return Response.getError("请求失败！");
-		}
-	}
-	
-	/**
-	 * 注册用户
-	 * @param customer
-	 * @return
-	 */
-	@RequestMapping(value = "userRegistration", method = RequestMethod.POST)
-	public Response userRegistration(@RequestBody Customer customer,HttpSession session){
-		try {
-			customer.setTypes(Customer.TYPE_CUSTOMER);
-			customer.setStatus(Customer.STATUS_NON_END);
-			if(userLoginService.findUserAndStatus(customer)==0){
-			if(!customer.getAccountType()){
-				if(customer.getCode().equals(userLoginService.findCode(customer))){
-						customer.setPhone(customer.getUsername());
-						customer.setStatus(Customer.STATUS_NORMAL);
-					userLoginService.updateUser(customer);
-					return Response.getSuccess("注册成功！");
-				}else{
-					return Response.getError("验证码错误！");
-				}
-			}else{
-				customer.setEmail(customer.getUsername());
-				customer.setStatus(Customer.STATUS_NON_ACTIVE);
-				userLoginService.updateUser(customer);
-				return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
-			}
-			}else{
-				return Response.getError("用户已注册！");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.getError("注册失败！系统异常");
-		}
-	}
+    @Value("${passPath}")
+    private String passPath;
+
+    /**
+     * 用户登陆
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "studentLogin", method = RequestMethod.POST)
+    public Response studentLogin(@RequestBody Customer customer) {
+        try {
+            customer.setTypes(Customer.TYPE_CUSTOMER);
+            customer.setStatus(Customer.STATUS_NORMAL);
+            Customer tomer = userLoginService.doLogin(customer);
+            if (tomer != null) {
+                userLoginService.updateLastLoginedAt(customer);
+                return Response.getSuccess(tomer);
+            } else {
+                return Response.getError("用户名或密码错误！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.getError("系统异常！");
+        }
+    }
+
+    /**
+     * 发送手机验证码(找回密码)
+     * 
+     * @param number
+     */
+    @RequestMapping(value = "sendPhoneVerificationCodeFind/{codeNumber}", method = RequestMethod.GET)
+    public Response sendPhoneVerificationCodeFind(@PathVariable("codeNumber") String codeNumber) {
+        try {
+            Customer customer = new Customer();
+            customer.setUsername(codeNumber);
+            char[] randchar = SysUtils.getRandNum(6);
+            String str = "";
+            for (int i = 0; i < randchar.length; i++) {
+                str += randchar[i];
+            }
+            customer.setDentcode(str);
+            if (userLoginService.findUname(customer) == 0) {
+                return Response.getError("用户不存在！");
+            } else {
+                userLoginService.updateCode(customer);
+                return Response.getSuccess(str);
+            }
+        } catch (Exception e) {
+            return Response.getError("获取验证码失败！");
+        }
+    }
+
+    /**
+     * 发送手机验证码(注册)
+     * 
+     * @param number
+     */
+    @RequestMapping(value = "sendPhoneVerificationCodeReg/{codeNumber}", method = RequestMethod.GET)
+    public Response sendPhoneVerificationCodeReg(@PathVariable("codeNumber") String codeNumber) {
+        try {
+            Customer customer = new Customer();
+            customer.setUsername(codeNumber);
+            char[] randchar = SysUtils.getRandNum(6);
+            String str = "";
+            for (int i = 0; i < randchar.length; i++) {
+                str += randchar[i];
+            }
+            customer.setPassword("0");
+            customer.setCityId(0);
+            customer.setDentcode(str);
+            customer.setStatus(Customer.STATUS_NON_END);
+            if (userLoginService.findUname(customer) == 0) {
+                // 添加假状态
+                userLoginService.addUser(customer);
+                return Response.getSuccess(str);
+            } else {
+                if (userLoginService.findUnameAndStatus(customer) == 0) {
+                    return Response.getError("该用户已注册！");
+                } else {
+                    userLoginService.updateCode(customer);
+                    return Response.getSuccess(str);
+                }
+            }
+        } catch (Exception e) {
+            return Response.getError("获取验证码失败！");
+        }
+    }
+
+    /**
+     * 发送邮箱验证
+     * 
+     * @param number
+     */
+    @RequestMapping(value = "sendEmailVerificationCode/{codeNumber}", method = RequestMethod.GET)
+    public void sendEmailVerificationCode(@PathVariable("codeNumber") String codeNumber) {
+
+    }
+
+    /**
+     * 找回密码
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    public Response updatePassword(@RequestBody Customer customer) {
+        try {
+            if (userLoginService.findUname(customer) > 0) {
+                if (customer.getCode().equals(userLoginService.findCode(customer))) {
+                    userLoginService.updatePassword(customer);
+                    return Response.getSuccess("找回密码成功！");
+                } else {
+                    return Response.getError("验证码错误！");
+                }
+            } else {
+                return Response.getError("用户名错误！");
+            }
+        } catch (Exception e) {
+            return Response.getError("请求失败！");
+        }
+    }
+
+    /**
+     * 注册用户
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "userRegistration", method = RequestMethod.POST)
+    public Response userRegistration(@RequestBody Customer customer, HttpSession session) {
+        try {
+            customer.setTypes(Customer.TYPE_CUSTOMER);
+            customer.setStatus(Customer.STATUS_NON_END);
+            if (userLoginService.findUserAndStatus(customer) == 0) {
+                if (!customer.getAccountType()) {
+                    if (customer.getCode().equals(userLoginService.findCode(customer))) {
+                        customer.setPhone(customer.getUsername());
+                        customer.setStatus(Customer.STATUS_NORMAL);
+                        userLoginService.updateUser(customer);
+                        return Response.getSuccess("注册成功！");
+                    } else {
+                        return Response.getError("验证码错误！");
+                    }
+                } else {
+                    customer.setEmail(customer.getUsername());
+                    customer.setStatus(Customer.STATUS_NON_ACTIVE);
+                    userLoginService.updateUser(customer);
+                    return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
+                }
+            } else {
+                return Response.getError("用户已注册！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.getError("注册失败！系统异常");
+        }
+    }
 }

@@ -2,19 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.trades.record.TradeRecordMapper">
 
-	<select id="getTerminals" resultType="map">
-	<![CDATA[
-		SELECT serial_num serialNum,
-			   pay_channel_id payChannelId
-		  FROM terminals
-		 WHERE customerId = #{customerId}
-		   AND status = 2
-	]]>
-	</select>
-
 	<select id="getTradeRecords12" resultType="map">
 	<![CDATA[
-		SELECT DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+		SELECT r.id,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
 			   r.amount,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
@@ -29,13 +20,36 @@
 	]]>
 	</select>
 
-	<select id="getTradeRecords3" resultType="map">
+	<select id="getTradeRecord12" resultType="map">
 	<![CDATA[
-		SELECT DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+		SELECT r.agent_id agentId,
+			   r.merchant_number merchantNumber,
+			   r.merchant_name merchantName,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
 			   r.amount,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
-			   t.phone
+			   r.pay_channel_id payChannelId,
+			   r.trade_number tradeNumber,
+			   r.batch_number batchNumber,
+			   r.profit_price profitPrice,
+			   r.poundage,
+			   t.pay_from_account payFromAccount,
+			   t.pay_into_account payIntoAccount
+		  FROM trade_records r JOIN trade_transfer_repayment_records t ON r.id = t.id
+		 WHERE r.id = #{tradeRecordId}
+	]]>
+	</select>
+
+	<select id="getTradeRecords3" resultType="map">
+	<![CDATA[
+		SELECT r.id,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.amount,
+			   r.terminal_number terminalNumber,
+			   r.traded_status tradedStatus,
+			   r.poundage,
+			   DATE_FORMAT(t.payed_at, '%Y-%m-%d %T') payedTimeStr
 		  FROM trade_records r JOIN trade_consume_records t ON r.id = t.id
 		 WHERE r.trade_type_id = #{tradeTypeId}
 		   AND r.terminal_number = #{terminalNumber}
@@ -45,9 +59,69 @@
 	]]>
 	</select>
 
-	<select id="getTradeRecords45" resultType="map">
+	<select id="getTradeRecord3" resultType="map">
 	<![CDATA[
-		SELECT DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+		SELECT r.agent_id agentId,
+			   r.merchant_number merchantNumber,
+			   r.merchant_name merchantName,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.amount,
+			   r.terminal_number terminalNumber,
+			   r.traded_status tradedStatus,
+			   r.pay_channel_id payChannelId,
+			   r.trade_number tradeNumber,
+			   r.batch_number batchNumber,
+			   r.profit_price profitPrice,
+			   r.poundage,
+			   DATE_FORMAT(t.payed_at, '%Y-%m-%d %T') payedTimeStr
+		  FROM trade_records r JOIN trade_consume_records t ON r.id = t.id
+		 WHERE r.id = #{tradeRecordId}
+	]]>
+	</select>
+
+	<select id="getTradeRecords4" resultType="map">
+	<![CDATA[
+		SELECT r.id,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.amount,
+			   r.terminal_number terminalNumber,
+			   r.traded_status tradedStatus,
+			   r.account_name,
+			   r.account_number
+		  FROM trade_records r
+		 WHERE r.trade_type_id = #{tradeTypeId}
+		   AND r.terminal_number = #{terminalNumber}
+		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
+	  ORDER BY r.traded_at ASC
+		 LIMIT #{offset}, #{rows}
+	]]>
+	</select>
+
+	<select id="getTradeRecord4" resultType="map">
+	<![CDATA[
+		SELECT r.agent_id agentId,
+			   r.merchant_number merchantNumber,
+			   r.merchant_name merchantName,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.amount,
+			   r.terminal_number terminalNumber,
+			   r.traded_status tradedStatus,
+			   r.pay_channel_id payChannelId,
+			   r.trade_number tradeNumber,
+			   r.batch_number batchNumber,
+			   r.profit_price profitPrice,
+			   r.poundage,
+			   r.account_name,
+			   r.account_number
+		  FROM trade_records r
+		 WHERE r.id = #{tradeRecordId}
+	]]>
+	</select>
+
+	<select id="getTradeRecords5" resultType="map">
+	<![CDATA[
+		SELECT r.id,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
 			   r.amount,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
@@ -58,6 +132,26 @@
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
 	  ORDER BY r.traded_at ASC
 		 LIMIT #{offset}, #{rows}
+	]]>
+	</select>
+
+	<select id="getTradeRecord5" resultType="map">
+	<![CDATA[
+		SELECT r.agent_id agentId,
+			   r.merchant_number merchantNumber,
+			   r.merchant_name merchantName,
+			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.amount,
+			   r.terminal_number terminalNumber,
+			   r.traded_status tradedStatus,
+			   r.pay_channel_id payChannelId,
+			   r.trade_number tradeNumber,
+			   r.batch_number batchNumber,
+			   r.profit_price profitPrice,
+			   r.poundage,
+			   t.phone
+		  FROM trade_records r JOIN trade_recharge_records t ON r.id = t.id
+		 WHERE r.id = #{tradeRecordId}
 	]]>
 	</select>
 

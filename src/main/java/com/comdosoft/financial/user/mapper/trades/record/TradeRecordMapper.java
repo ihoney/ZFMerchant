@@ -11,13 +11,21 @@ import java.util.Map;
  */
 public interface TradeRecordMapper {
 
-    List<Map<Object, Object>> getTerminals(int customerId);
-
     List<Map<Object, Object>> getTradeRecords12(Map<Object, Object> query);
+
+    Map<Object, Object> getTradeRecord12(int tradeRecordId);
 
     List<Map<Object, Object>> getTradeRecords3(Map<Object, Object> query);
 
-    List<Map<Object, Object>> getTradeRecords45(Map<Object, Object> query);
+    Map<Object, Object> getTradeRecord3(int tradeRecordId);
+
+    List<Map<Object, Object>> getTradeRecords4(Map<Object, Object> query);
+
+    Map<Object, Object> getTradeRecord4(int tradeRecordId);
+
+    List<Map<Object, Object>> getTradeRecords5(Map<Object, Object> query);
+
+    Map<Object, Object> getTradeRecord5(int tradeRecordId);
 
     Map<Object, Object> getTradeRecordTotal(Map<Object, Object> query);
 

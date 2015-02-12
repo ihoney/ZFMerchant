@@ -100,4 +100,22 @@ public class TradeRecordAPI {
         return sysResponse;
     }
 
+    /**
+     * [04]获取交易流水详情
+     * 
+     * @param tradeRecordId
+     * @return
+     */
+    @RequestMapping(value = "getTradeRecord/{tradeRecordId}", method = RequestMethod.GET)
+    public Response getTradeRecord(@PathVariable int tradeRecordId) {
+        Response sysResponse = null;
+        try {
+            sysResponse = Response.getSuccess(tradeRecordService.getTradeRecord(tradeRecordId));
+        } catch (Exception e) {
+            logger.error("获取交易流水详情失败", e);
+            sysResponse = Response.getError("获取交易流水详情失败:系统异常");
+        }
+        return sysResponse;
+    }
+
 }
