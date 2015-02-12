@@ -2,14 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.CsUpdateInfoMapper">
 <!-- 更新资料 -->
+	<select id="count" resultType="int" >
+		SELECT count(o.id) as count 
+		FROM
+			cs_update_infos o
+		WHERE
+			o.customer_id = #{customer_id}
+		ORDER BY
+			o.created_at DESC
+	</select>
+	
 	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsUpdateInfo">
 		SELECT
 			o.id,
 			o.created_at,
 			o.status,
-			o.terminal_id
+			t.serial_num,
+			o.apply_num
 		FROM
-			cs_update_info o
+			cs_update_infos o
+			LEFT JOIN terminals t ON o.terminal_id = t.id
 		WHERE
 			o.customer_id = #{customer_id}
 		ORDER BY
@@ -28,7 +40,7 @@
 			pc.`name` as zhifu_pt, m.title AS merchant_name,
 			m.phone AS mer_phone
 		FROM
-			cs_lease_returns o
+			cs_update_infos o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
 		LEFT JOIN goods g ON t.good_id = g.id
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
@@ -41,17 +53,17 @@
 		<select id="findTraceById" resultType="map" >
 		SELECT
 			crm.content AS marks_content,
-			crm.created_at AS marks_time,
+			crm.created_at,
 			c.`name` AS marks_person
 		FROM
-			 cs_lease_return_marks crm 
+			 cs_update_info_marks crm 
 		LEFT JOIN customers c ON crm.customer_id = c.id
 		WHERE
-	         crm.cs_lease_return_id = #{id}
+	         crm.cs_update_info_id = #{id}
 	</select>
 	
 	<update id="cancelApply">
-	update  cs_update_info 
+	update  cs_update_infos 
 	SET STATUS = #{repairStatus.code}
 	where id = #{id}
 	</update>

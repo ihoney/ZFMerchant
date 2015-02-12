@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.CsLeaseReturnsMapper">
 <!-- 租赁退还 -->
+	<select id="count" resultType="int" >
+		SELECT count(o.id) as count 
+		FROM
+			cs_lease_returns o
+		LEFT JOIN terminals t ON o.terminal_id = t.id
+		WHERE
+			o.customer_id = #{customer_id}
+		ORDER BY
+			o.created_at DESC
+	</select>
+	
 	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsLeaseReturn">
 		SELECT
 			o.id,
@@ -51,7 +62,7 @@
 	<select id="findTraceById" resultType="map"  >
 		SELECT
 			crm.content AS marks_content,
-			crm.created_at AS marks_time,
+			crm.created_at,
 			c.`name` AS marks_person
 		FROM
 			 cs_lease_return_marks crm
@@ -68,7 +79,7 @@
 	
 	<!-- 提交物流信息 -->
 	<insert id="addMark" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsRepairMark">
-       INSERT INTO cs_lease_return_mark (cs_lease_return_id,customer_id,content,created_at)
-       VALUES(#{id},#{customer_id},#{centent},NOW())
+       INSERT INTO cs_lease_return_marks (cs_lease_return_id,customer_id,content,created_at)
+       VALUES(#{id},#{customer_id},#{content},NOW())
     </insert>
 </mapper>

@@ -70,7 +70,7 @@ public class CsLeaseReturnsController {
     public Response addMark(@RequestBody MyOrderReq myOrderReq ) {
         try{
             String content = myOrderReq.getComputer_name()+myOrderReq.getTrack_number();
-            myOrderReq.setCentent(content);
+            myOrderReq.setContent(content);
             csLeaseRetrunsService.addMark(myOrderReq);
             return Response.buildSuccess(null, "保存成功");
         }catch(Exception e){

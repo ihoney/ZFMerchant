@@ -120,10 +120,10 @@ public class OrderService {
      * 下gch
      */
 
-    public Page<Object> findMyOrderAll(Integer page,Integer pageSize,Integer pid) {
-        PageRequest request = new PageRequest(page, pageSize);
-        int count = orderMapper.countMyOrder(pid);
-        List<Order> centers = orderMapper.findMyOrderAll(request,pid);
+    public Page<Object> findMyOrderAll(MyOrderReq myOrderReq) {
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        int count = orderMapper.countMyOrder(myOrderReq.getCustomer_id());
+        List<Order> centers = orderMapper.findMyOrderAll(myOrderReq);
         List<Object> obj_list = new ArrayList<Object>();
         Map<String,Object> map = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -143,7 +143,7 @@ public class OrderService {
             if (olist.size() > 0) {
                 for (OrderGood od : olist) {
                     omap = new HashMap<String, Object>();
-                    omap.put("order_good_id", od.getId().toString());
+//                    omap.put("order_good_id", od.getId()==null?"":od.getId().toString());
                     omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId().toString());
                     omap.put("good_price", od.getPrice() == null ? "" : od.getPrice().toString());
                     omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity().toString());
@@ -158,13 +158,13 @@ public class OrderService {
                         if(list.size()>0){
                             GoodsPicture gp  = list.get(0);
                             good_logo = gp.getUrlPath();
+                            omap.put("good_logo", good_logo);
                         }
                     }
-                    omap.put("good_logo", good_logo);
                     newObjList.add(omap);
                 }
+                map.put("order_goodsList", newObjList);
             }
-            map.put("order_goodsList", newObjList);
             obj_list.add(map);
         }
         return new Page<Object>(request, obj_list, count);
@@ -179,7 +179,7 @@ public class OrderService {
         Order o = orderMapper.findMyOrderById(id);
         List<Object> obj_list = new ArrayList<Object>();
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("order_id", o.getId().toString());
+        map.put("order_id", o.getId()==null ?"":o.getId().toString());
         map.put("order_number", o.getOrderNumber());//订单编号
         map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 

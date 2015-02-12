@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
-import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
 import com.comdosoft.financial.user.domain.zhangfu.RepairStatus;
 import com.comdosoft.financial.user.mapper.zhangfu.CsChangeMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
@@ -27,6 +26,7 @@ public class CsChangeService {
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csChangeMapper.findAll(myOrderReq);
+        int count = csChangeMapper.count(myOrderReq);
         List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
         Map<String,Object> map = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -44,11 +44,11 @@ public class CsChangeService {
             map.put("apply_num", m.get("apply_num"));//维修编号
             list.add(map);
         }
-        return new Page<List<Object>>(request, list);
+        return new Page<List<Object>>(request, list,count);
     }
 
     public void cancelApply(MyOrderReq myOrderReq) {
-        myOrderReq.setOrderStatus(OrderStatus.CANCEL);
+        myOrderReq.setRepairStatus(RepairStatus.CANCEL);
         csChangeMapper.cancelApply(myOrderReq);
     }
 
@@ -69,8 +69,7 @@ public class CsChangeService {
         map.put("merchant_name", o.get("merchant_name")+"");
         map.put("merchant_phone", o.get("mer_phone")+"");
         map.put("receiver_addr", o.get("address")+"");
-        map.put("description", o.get("description")+"");
-        map.put("repair_price", o.get("repair_price")+"");
+        map.put("change_reason", o.get("reason")+"");
         myOrderReq.setId(Integer.parseInt(id));
         List<Map<String,Object>> list = csChangeMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));

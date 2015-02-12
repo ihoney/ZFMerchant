@@ -21,8 +21,7 @@
 		updated_at,content
 		   FROM web_messages m 
 		    order by m.updated_at desc
-		<!-- LIMIT #{param1.page},#{param1.pageSize} -->
-		 
+		LIMIT #{offset},#{pageSize}
 	</select>
 	
 	<select id="findById" resultMap="webMessage" >

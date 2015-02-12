@@ -36,9 +36,11 @@ public class OrderController {
     public Response getMyOrderAll(@RequestBody MyOrderReq myOrderReq) {
         try{
             logger.debug("获取我的订单列表 start");
-            Page<Object> centers = orderService.findMyOrderAll(myOrderReq.getPage(), myOrderReq.getPageSize(),myOrderReq.getCustomer_id());
+            Page<Object> centers = orderService.findMyOrderAll(myOrderReq);
             logger.debug("获取我的订单列表 end"+centers);
             return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
         }catch(Exception e){
             logger.debug("获取我的订单列表出错"+e);
             return Response.getError("请求失败");
@@ -52,6 +54,8 @@ public class OrderController {
             Object centers = orderService.findMyOrderById(myOrderReq.getId());
             logger.debug("获取我的订单详情 end"+centers);
             return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
         }catch(Exception e){
             logger.debug("获取我的订单详情出错"+e);
             return Response.getError("请求失败");

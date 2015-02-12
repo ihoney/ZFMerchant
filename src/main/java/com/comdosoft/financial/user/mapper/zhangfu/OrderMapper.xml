@@ -120,9 +120,9 @@
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		WHERE
-		o.customer_id = #{param2}
+		o.customer_id = #{customer_id}
 		order by o.created_at desc
-		LIMIT #{param1.offset},#{param1.pageSize}
+		LIMIT #{offset},#{pageSize}
 	</select>
 	
 	<select id="findPicByGoodId" resultMap="picsResultMap" >
@@ -166,8 +166,8 @@
     
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 
-		(score,content,customer_id,order_good_id,created_at)
-		VALUES(#{score},#{centent},#{customer_id},#{order_good_id},NOW())
+		(score,content,customer_id,good_id,order_id,created_at)
+		VALUES(#{score},#{content},#{customer_id},#{good_id},#{order_id},NOW())
   </insert>
     
 	<!-- gch end -->

@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.WebMessage;
 import com.comdosoft.financial.user.mapper.zhangfu.WebMessageMapper;
 import com.comdosoft.financial.user.utils.page.Page;
@@ -19,10 +20,10 @@ public class WebMessageService {
     @Resource
     private WebMessageMapper webMessageMapper;
     
-    public Page<Object> findAll(Integer page,Integer pageSize) {
-        PageRequest request = new PageRequest(page, pageSize);
+    public Page<Object> findAll(MyOrderReq myOrderReq) {
+        PageRequest request = new PageRequest(myOrderReq.getPage(),myOrderReq.getPageSize());
         int count = webMessageMapper.count();
-        List<WebMessage> centers = webMessageMapper.findAll(request);
+        List<WebMessage> centers = webMessageMapper.findAll(myOrderReq);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         List<Object> listMap = new ArrayList<Object>();
         Map<String,String> map = null;

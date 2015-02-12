@@ -10,31 +10,15 @@ public class MyOrderReq {
     private Integer offset;
     private Integer pageSize ;//每页大小
     private Integer customer_id;//用户id
-    private String centent;//内容
+    private String content;//内容
     private PayType payType;
     private OrderStatus orderStatus;
     private RepairStatus repairStatus;
     private Integer score;//分数
     private Integer good_id;
-    private Integer order_good_id;
     private String computer_name;
     private String track_number;
     
-    
-    /**  
-     * 获取 order_good_id  
-     * @return order_good_id
-     */
-    public Integer getOrder_good_id() {
-        return order_good_id;
-    }
-    /**  
-     * 设置 order_good_id  
-     * @param order_good_id
-     */
-    public void setOrder_good_id(Integer order_good_id) {
-        this.order_good_id = order_good_id;
-    }
     /**  
      * 获取 computer_name  
      * @return computer_name
@@ -91,19 +75,20 @@ public class MyOrderReq {
     public void setGood_id(Integer good_id) {
         this.good_id = good_id;
     }
+ 
     /**  
-     * 获取 centent  
-     * @return centent
+     * 获取 content  
+     * @return content
      */
-    public String getCentent() {
-        return centent;
+    public String getContent() {
+        return content;
     }
     /**  
-     * 设置 centent  
-     * @param centent
+     * 设置 content  
+     * @param content
      */
-    public void setCentent(String centent) {
-        this.centent = centent;
+    public void setContent(String content) {
+        this.content = content;
     }
     /**  
      * 获取 repairStatus  
@@ -243,7 +228,7 @@ public class MyOrderReq {
      */
     @Override
     public String toString() {
-        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", centent=" + centent + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + "]";
+        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + "]";
     }
     public int getOffset() {
         if(page>0){

@@ -18,4 +18,6 @@ public interface CsRepairMapper {
     
     Map<String, Object> findById(MyOrderReq myOrderReq);
 
+    int count(MyOrderReq myOrderReq);
+
 }

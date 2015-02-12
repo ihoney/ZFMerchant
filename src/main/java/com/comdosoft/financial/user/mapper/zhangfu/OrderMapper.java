@@ -7,7 +7,6 @@ import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
-import com.comdosoft.financial.user.utils.page.PageRequest;
 
 public interface OrderMapper {
 
@@ -22,7 +21,7 @@ public interface OrderMapper {
 // ----gch start --------------
     int countMyOrder(Integer pid);
 
-    List<Order> findMyOrderAll(PageRequest request, Integer pid);
+    List<Order> findMyOrderAll(MyOrderReq myOrderReq);
 
     Order findMyOrderById(Integer id);
 

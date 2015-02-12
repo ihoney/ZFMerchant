@@ -11,6 +11,7 @@ public class Response {
 
     public static final Integer SUCCESS_CODE = 1;
     public static final Integer ERROR_CODE = -1;
+    public static final Integer MISSING_CODE = -2;
 
     private Integer code;
     private String message;
@@ -65,6 +66,14 @@ public class Response {
         r.code = SUCCESS_CODE;
         r.result = result;
         r.message = message;
+        return r;
+    }
+    
+    public static Response buildErrorWithMissing() {
+        Response r = new Response();
+        r.code = MISSING_CODE;
+        r.result = null;
+        r.message = "缺少必填参数或测试数据出错";
         return r;
     }
 

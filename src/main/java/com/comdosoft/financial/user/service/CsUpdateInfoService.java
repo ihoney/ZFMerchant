@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
-import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
 import com.comdosoft.financial.user.domain.zhangfu.RepairStatus;
 import com.comdosoft.financial.user.mapper.zhangfu.CsUpdateInfoMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
@@ -28,6 +27,7 @@ public class CsUpdateInfoService {
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csUpdateInfoMapper.findAll(myOrderReq);
+        int count = csUpdateInfoMapper.count(myOrderReq);
         List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
         Map<String,Object> map = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -45,11 +45,11 @@ public class CsUpdateInfoService {
             map.put("apply_num", m.get("apply_num"));//维修编号
             list.add(map);
         }
-        return new Page<List<Object>>(request, list);
+        return new Page<List<Object>>(request, list,count);
     }
 
     public void cancelApply(MyOrderReq myOrderReq) {
-        myOrderReq.setOrderStatus(OrderStatus.CANCEL);
+        myOrderReq.setRepairStatus(RepairStatus.CANCEL);
         csUpdateInfoMapper.cancelApply(myOrderReq);
     }
 
@@ -69,9 +69,6 @@ public class CsUpdateInfoService {
         map.put("zhifu_pingtai", o.get("zhifu_pt")+"");
         map.put("merchant_name", o.get("merchant_name")+"");
         map.put("merchant_phone", o.get("mer_phone")+"");
-        map.put("receiver_addr", o.get("address")+"");
-        map.put("description", o.get("description")+"");
-        map.put("repair_price", o.get("repair_price")+"");
         myOrderReq.setId(Integer.parseInt(id));
         List<Map<String,Object>> list = csUpdateInfoMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));

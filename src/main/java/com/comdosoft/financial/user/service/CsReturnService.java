@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
-import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
 import com.comdosoft.financial.user.domain.zhangfu.RepairStatus;
 import com.comdosoft.financial.user.mapper.zhangfu.CsReturnMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
@@ -28,7 +27,7 @@ public class CsReturnService {
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csReturnMapper.findAll(myOrderReq);
-        
+        int count = csReturnMapper.count(myOrderReq);
         List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
         Map<String,Object> map = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -46,11 +45,11 @@ public class CsReturnService {
             map.put("apply_num", m.get("apply_num"));//维修编号
             list.add(map);
         }
-        return new Page<List<Object>>(request, list);
+        return new Page<List<Object>>(request, list,count);
     }
 
     public void cancelApply(MyOrderReq myOrderReq) {
-        myOrderReq.setOrderStatus(OrderStatus.CANCEL);
+        myOrderReq.setRepairStatus(RepairStatus.CANCEL);
         csReturnMapper.cancelApply(myOrderReq);
     }
 
@@ -65,7 +64,7 @@ public class CsReturnService {
         String apply_time =   o.get("apply_time")+"";
         map.put("apply_time", sdf.format(sdf.parse(apply_time)));
         map.put("terminal_num", o.get("serial_num")+"");
-        map.put("brand_name", o.get("brand_name")+"");
+        map.put("bank_name", o.get("bank_name")+"");
         map.put("bank_account", o.get("bank_account")+"");
         map.put("reason", o.get("reason")+"");
         map.put("return_price", o.get("return_price")+"");

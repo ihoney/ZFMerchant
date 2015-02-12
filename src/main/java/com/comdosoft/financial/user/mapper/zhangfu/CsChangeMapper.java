@@ -16,4 +16,6 @@ public interface CsChangeMapper {
     Map<String, Object> findById(MyOrderReq myOrderReq);
 
     List<Map<String, Object>> findTraceById(MyOrderReq myOrderReq);
+
+    int count(MyOrderReq myOrderReq);
 }

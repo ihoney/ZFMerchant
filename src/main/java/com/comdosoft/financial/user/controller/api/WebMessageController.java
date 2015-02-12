@@ -38,9 +38,11 @@ public class WebMessageController {
     public Response getAll(@RequestBody MyOrderReq myOrderReq) {
         try{
             logger.debug("获取系统公告列表 start");
-            Page<Object>  mrs= webMessageService.findAll(myOrderReq.getPage(),myOrderReq.getPageSize());
+            Page<Object>  mrs= webMessageService.findAll(myOrderReq);
             logger.debug("获取系统公告列表 end"+mrs);
             return Response.getSuccess(mrs);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
         }catch(Exception e){
             logger.debug("获取系统公告表出错"+e);
             return Response.getError("请求失败");
@@ -60,6 +62,8 @@ public class WebMessageController {
             map.put("content", wm.getContent());
             logger.debug("获取系统公告详情 end"+wm);
             return Response.getSuccess(map);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
         }catch(Exception e){
             logger.debug("id:"+myOrderReq.getId()+"获取系统公告详情出错"+e);
             return Response.getError("请求失败");

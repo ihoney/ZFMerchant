@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.CsChangeMapper">
 <!-- 换货 -->
+	<select id="count" resultType="int" >
+		SELECT count(o.id) as count
+		FROM
+			cs_changes o
+		LEFT JOIN terminals t ON o.terminal_id = t.id
+		WHERE
+			o.customer_id = #{customer_id}
+		ORDER BY
+			o.created_at DESC
+	</select>
+	
 	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsChange">
 		SELECT
 			o.id,
@@ -25,9 +36,9 @@
 			o.`status` AS apply_status,
 			o.created_at AS apply_time,
 			t.serial_num,
-			gb.`name` AS brand_name,
+			gb.`name` AS brand_name,o.reason,
 			g.model_number AS brand_number,
-			pc.`name`, m.title AS merchant_name,
+			pc.`name` as zhifu_pt, m.title AS merchant_name,
 			m.phone AS mer_phone,
 			cra.address 
 		FROM
@@ -46,13 +57,13 @@
 		SELECT
 			
 			crm.content AS marks_content,
-			crm.created_at AS marks_time,
+			crm.created_at,
 			c.`name` AS marks_person
 		FROM
             cs_change_marks crm 
 		LEFT JOIN customers c ON crm.custom_id = c.id
 		WHERE
-		  o.cs_cencel_id  = #{id}
+		  crm.cs_change_id  = #{id}
 	</select>
 	
 	<update id="cancelApply">
@@ -63,7 +74,7 @@
 	
 	<!-- 提交物流信息 -->
 	<insert id="addMark" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsRepairMark">
-       INSERT INTO cs_change_mark (cs_change_id,customer_id,content,created_at)
-       VALUES(#{id},#{customer_id},#{centent},NOW())
+       INSERT INTO cs_change_marks (cs_change_id,custom_id,content,created_at)
+       VALUES(#{id},#{customer_id},#{content},NOW())
     </insert>
 </mapper>

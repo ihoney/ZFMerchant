@@ -15,4 +15,6 @@ public interface CsCencelsMapper {
 
     List<Map<String, Object>> findTraceById(MyOrderReq myOrderReq);
 
+    int count(MyOrderReq myOrderReq);
+
 }

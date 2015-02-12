@@ -25,6 +25,7 @@ public class CsCencelsService {
     private CsCencelsMapper csCencelsMapper;
     public Page<List<Object>>  findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        int count = csCencelsMapper.count(myOrderReq);
         List<Map<String, Object>> o = csCencelsMapper.findAll(myOrderReq);
         List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
         Map<String,Object> map = null;
@@ -43,7 +44,7 @@ public class CsCencelsService {
             map.put("apply_num", m.get("apply_num"));//维修编号
             list.add(map);
         }
-        return new Page<List<Object>>(request, list);
+        return new Page<List<Object>>(request, list,count);
     }
 
     /**
