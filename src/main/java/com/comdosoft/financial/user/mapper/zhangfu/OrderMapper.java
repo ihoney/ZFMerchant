@@ -31,4 +31,6 @@ public interface OrderMapper {
     void comment(MyOrderReq myOrderReq);
 
     List<GoodsPicture> findPicByGoodId(Integer gid);
+
+    List<Map<String, Object>> findTraceById(MyOrderReq myOrderReq);
 }

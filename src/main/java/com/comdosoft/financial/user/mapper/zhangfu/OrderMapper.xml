@@ -169,6 +169,20 @@
 		(score,content,customer_id,good_id,order_id,created_at)
 		VALUES(#{score},#{content},#{customer_id},#{good_id},#{order_id},NOW())
   </insert>
+  
+  <select id="findTraceById" resultType="map" >
+		SELECT
+			crm.content AS marks_content,
+			crm.created_at,
+			c.`name` AS marks_person
+		FROM
+			  good_comments crm 
+		LEFT JOIN customers c ON crm.customer_id = c.id
+		WHERE
+		crm.order_id = #{id}
+	</select>
+	
+  
     
 	<!-- gch end -->
 	

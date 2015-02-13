@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
 import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
+import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -174,12 +176,14 @@ public class OrderService {
      * 订单详情
      * @param id
      * @return
+     * @throws ParseException 
      */
-    public Object findMyOrderById(Integer id) {
+    public Object findMyOrderById(Integer id) throws ParseException {
         Order o = orderMapper.findMyOrderById(id);
         List<Object> obj_list = new ArrayList<Object>();
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("order_id", o.getId()==null ?"":o.getId().toString());
+//        String oid = o.getId()==null ?"":o.getId().toString();
+        map.put("order_id", id);
         map.put("order_number", o.getOrderNumber());//订单编号
         map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -229,6 +233,10 @@ public class OrderService {
             }
         }
         map.put("order_goodsList", newObjList);
+        MyOrderReq myOrderReq = new MyOrderReq();
+        myOrderReq.setId(id);
+        List<Map<String,Object>> list = orderMapper.findTraceById(myOrderReq);
+        map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         obj_list.add(map);
         return obj_list;
     }
