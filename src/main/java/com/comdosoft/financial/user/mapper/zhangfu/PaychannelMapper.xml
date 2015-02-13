@@ -26,7 +26,7 @@
 		from
 		dictionary_billing_cycles dbc
 		LEFT JOIN pay_channel_billing_cycles pcbc on pcbc.billing_cycles_id=dbc.id
-		and
+		where
 		pcbc.pay_channel_id=#{pcid}
 	</select>
 
