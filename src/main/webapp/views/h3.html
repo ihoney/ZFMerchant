@@ -1,0 +1,85 @@
+ <script type="text/javascript" src="js/controllers/h3.controller.js"></script>
+ <div class="right" ng-controller="h3Controller">
+            	<div class="breadcrumb">
+                    <ul>
+                        <li><a href="#">我的终端</a></li>
+                    </ul>
+                </div>
+                <div class="content clear">
+                    <div class="user_title">
+                    	<h1>终端列表</h1>
+                    	<div class="userTopBtnBox">
+                        	<a href="#" class="ghostBtn addOtherTerminal_a">添加其他终端</a>
+                        </div>
+                    </div>
+                    <div class="seenBox clear">
+                    	<ul>
+                        	<li><div class="user_search"><input name="" type="text" /><button></button></div></li>
+                            <li><div class="user_select">
+                            	<label>状态筛选</label>
+                            	<select name="">
+                            	  <option>已付款</option>
+                            	  <option>未付款</option>
+                            	  <option>已付定金</option>
+                            	</select>
+                            </div></li>
+                        </ul>
+                    </div>
+                    <div class="uesr_table">
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
+                         <colgroup>
+                         	<col />
+                            <col />
+                            <col />
+                            <col width="200" />
+                            <col />
+                            <col />
+                            <col width="150" />
+                         </colgroup>
+                         <thead>
+                          <tr>
+                            <th>终端号</th>
+                            <th>POS机</th>
+                            <th>支付通道</th>
+                            <th>商户名称</th>
+                            <th>商户电话</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="l in list">
+                            <th>{{l.order_number}}</th>
+                            <th>{{l.}}</th>
+                            <th>{{l.good_channel}}</th>
+                            <th>{{l.}}</th>
+                            <th>{{l.}}</th>
+                            <th>{{l.}}</th>
+                            <th><a href="#" class="a_btn">查看详情</a>
+                           		<a href="#" class="a_btn">开通认证</a>
+                           		<a href="#" class="a_btn">视频认证</a></th>
+                          <tr>
+                          </tbody>                          
+                        </table>
+                    </div>
+                    <div class="pageTurn"> 
+            	<div class="p_num">
+                <a href="#" class="disabled">上一页</a> 
+                <a href="#" class="current">1</a> 
+                <a href="#?page=2">2</a> 
+                <a href="#?page=3">3</a> 
+                <a href="#?page=4">4</a> 
+                <a href="#?page=5">5</a>
+                ...
+                <a href="#?page=199">199</a> 
+                <a href="#?page=200">200</a> 
+                <a href="#?page=2">下一页</a> 
+                </div>
+                <div class="p_skip">
+                	 <span>共24页</span>
+                     <span>到第&nbsp;&nbsp;<input name="" type="text" />&nbsp;&nbsp;页</span>
+                     <button>确定</button>
+                </div>
+            </div>
+            	</div>
+        	</div>
