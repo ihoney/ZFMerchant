@@ -39,7 +39,7 @@
 			o.bank_name,
 			o.bank_account,
 			o.reason,
-			t.serial_num
+			t.serial_num,cc.templete_info_xml  
 		FROM
 			cs_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -47,6 +47,7 @@
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
+		left join cs_cancels cc on o.cs_cancels_id = cc.id
 		WHERE
 			o.id = #{id}
 	</select>
