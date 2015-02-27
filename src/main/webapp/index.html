@@ -1,109 +1,123 @@
 <html ng-app="indexModule">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="renderer" content="webkit">
-	<title></title>
-	<!--shop.css 商品列表 商品详情页-->
-	<link href="style/shop.css" rel="stylesheet" type="text/css" />
-	<!--user.css用户后台页-->
-	<link href="style/user.css" rel="stylesheet" type="text/css" />
-	<!--global.css全局公用-->
-	<link href="style/global.css" rel="stylesheet" type="text/css" />
-	
-	<script src="js/jQuery-1.11.2.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/Chart.min.js"></script>
-     
-    <script type="text/javascript" src="js/libs/angular.js"></script>
-    <script type="text/javascript" src="js/libs/angular-route.js"></script>
-    <script type="text/javascript" src="js/libs/angular-cookies.js"></script>
-    <script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
-    <script type="text/javascript" src="js/libs/ng-csv.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
 
-    <!-- Services -->
-    <script type="text/javascript" src="js/services/loginService.js"></script>
-    <!-- Directives -->
-    <script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
-    <script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
-    <!-- Controllers -->
-    <script type="text/javascript" src="js/controllers/route.controller.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+
+<title></title>
+
+<!--shop.css 商品列表 商品详情页-->
+<link href="style/shop.css" rel="stylesheet" type="text/css" />
+<!--user.css用户后台页-->
+<link href="style/user.css" rel="stylesheet" type="text/css" />
+<!--global.css全局公用-->
+<link href="style/global.css" rel="stylesheet" type="text/css" />
+
+<script src="js/jQuery-1.11.2.js"></script>
+<script src="js/main.js"></script>
+<script src="js/Chart.min.js"></script>
+
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/libs/angular-route.js"></script>
+<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
+<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
+<script type="text/javascript" src="js/libs/ng-csv.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+<!-- Services -->
+<script type="text/javascript" src="js/services/loginService.js"></script>
+<!-- Directives -->
+<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
+<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="js/controllers/route.controller.js"></script>
+
 </head>
-<body>
 
 <body>
-    <div class="topInfo clear">
-	<div class="box">
-    	<div class="top_kf"><ul><li><strong>400800 5678</strong></li><li><a href="#" class="kf_a"><i></i>在线客服</a></li></ul></div>
-        <div class="top_user"><a href="#">王小小</a><a href="#">退出</a><a href="#">掌富APP</a></div>
-    </div>
-    <div class="clear"></div>
-</div>
+
+	<div class="topInfo clear">
+		<div class="box">
+			<div class="top_kf">
+				<ul>
+					<li><strong>400800 5678</strong></li>
+					<li><a href="#" class="kf_a"><i></i>在线客服</a></li>
+				</ul>
+			</div>
+			<div class="top_user">
+				<a href="#">王小小</a><a href="#">退出</a><a href="#">掌富APP</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
 
 
 	<div class="head clear">
-	<div class="box">
-    	<div class="logo">华尔街金融</div>
-        <div class="search">
-            <div class="search_box">
-            <input name="" type="text" value="请输入POS机信息" /><button>搜索</button>
-            </div>
-            <div class="hotwords"><a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a></div>
-        </div>
-        <div class="phone"><img src="images/dh.png" /></div>
-        <div class="shoppingCart">
-            <div class="sCart_h"><i></i><em></em><span>999</span></div>
-            <div class="sCart_b">购物车暂无商品</div>
-        </div>
-    </div>
-</div>
+		<div class="box">
+			<div class="logo">华尔街金融</div>
+			<div class="search">
+				<div class="search_box">
+					<input name="" type="text" value="请输入POS机信息" />
+					<button>搜索</button>
+				</div>
+				<div class="hotwords">
+					<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
+				</div>
+			</div>
+			<div class="phone">
+				<img src="images/dh.png" />
+			</div>
+			<div class="shoppingCart">
+				<div class="sCart_h">
+					<i></i><em></em><span>999</span>
+				</div>
+				<div class="sCart_b">购物车暂无商品</div>
+			</div>
+		</div>
+	</div>
 
 
-    <div class="main_user">
-    	<div class="box">
-        	<div class="left" ng-app="routeConfig" >
-            	<ul>
-                	<li><a href="#/h1">我的掌富</a></li>
-                    <li><a href="#/h2">我的订单</a></li>
-                    <li><a href="#/h3">我的终端</a></li>
-                    <li class="second"><a href="javascript:void(0);" class="hover">售后记录<i class="off"></i></a>
-                    	<ol>
-                        	<li><a href="#">注销记录</a></li>
-                            <li><a href="#">退货记录</a></li>
-                            <li><a href="#">换货记录</a></li>
-                            <li><a href="#">维修记录</a></li>
-                            <li><a href="#" class="hover">更新资料记录</a></li>
-                            <li><a href="#">租赁退还记录</a></li>
-                        </ol>
-                    </li>
-                    <li><a href="#">交易流水</a></li>
-                    <li><a href="#">我的信息</a></li>
-                    <li><a href="#">商户资料</a></li>
-                    <li><a href="#">查看消息</a></li>
-                </ul>
-            </div>
-            <div ng-view></div>
-    	</div>
-    </div>
-    
-    
-    
-    <div class="foot">
-        <div class="box">
-        	<ul class="foot_nav">
-            	<li><a href="#">关于我们</a></li>     
-                <li>/</li>
-                <li><a href="#">企业文化</a></li>
-                <li>/</li>
-                <li><a href="#">帮助中心</a></li>
-                <li>/</li>
-                <li><a href="#">企业招聘</a></li>
-            </ul>
-            <div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
-        </div>
-    </div>
-  
+	<div class="main_user">
+		<div class="box">
+			<div class="left" ng-app="routeConfig">
+				<ul>
+					<li><a href="#/h1">我的掌富</a></li>
+					<li><a href="#/h2">我的订单</a></li>
+					<li><a href="#/h3">我的终端</a></li>
+					<li class="second"><a href="javascript:void(0);" class="hover">售后记录<i class="off"></i></a>
+						<ol>
+							<li><a href="#">注销记录</a></li>
+							<li><a href="#">退货记录</a></li>
+							<li><a href="#">换货记录</a></li>
+							<li><a href="#">维修记录</a></li>
+							<li><a href="#" class="hover">更新资料记录</a></li>
+							<li><a href="#">租赁退还记录</a></li>
+						</ol></li>
+					<li><a href="#">交易流水</a></li>
+					<li><a href="#">我的信息</a></li>
+					<li><a href="#">商户资料</a></li>
+					<li><a href="#">查看消息</a></li>
+				</ul>
+			</div>
+			<div ng-view></div>
+		</div>
+	</div>
+
+	<div class="foot">
+		<div class="box">
+			<ul class="foot_nav">
+				<li><a href="#">关于我们</a></li>
+				<li>/</li>
+				<li><a href="#">企业文化</a></li>
+				<li>/</li>
+				<li><a href="#">帮助中心</a></li>
+				<li>/</li>
+				<li><a href="#">企业招聘</a></li>
+			</ul>
+			<div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
+		</div>
+	</div>
+
 </body>
 </html>
-
