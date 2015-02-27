@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<title>登录</title>
+<link href="style/login.css" rel="stylesheet" type="text/css" />
+<script src="js/jQuery-1.11.2.js"></script>
+
+
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/libs/angular-route.js"></script>
+<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
+<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
+<script type="text/javascript" src="js/libs/ng-csv.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+<!-- Services -->
+<script type="text/javascript" src="js/services/loginService.js"></script>
+<!-- Directives -->
+<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
+<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="js/controllers/route.controller.js"></script>
+<script type="text/javascript" src="js/controllers/head.controller.js"></script>
+</head>
+
+<script type="text/javascript">
+//登录
+// 切换
+$(function(){
+	$(".lr_b > div").not(":first").hide();
+	$(".lr_h li").unbind("click").bind("click", function(){
+		$(this).addClass("hover").siblings().removeClass("hover");
+		var index = $(".lr_h li").index( $(this) );
+		$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
+   });
+});
+
+//input默认值
+function focusBlur(e){
+	$(e).focus(function(){
+		var thisVal = $(this).val();
+		if(thisVal == this.defaultValue){
+			$(this).val('');
+		}	
+	})	
+	$(e).blur(function(){
+		var thisVal = $(this).val();
+		if(thisVal == ''){
+			$(this).val(this.defaultValue);
+		}	
+	})	
+}
+
+$(function(){
+	focusBlur('.login_area input');//登录
+})
+
+</script>
+
+    
+</head>
+<body>
+	<div class="logo"><img src="images/logo.png" /></div>
+    <div class="login">
+    	<div class="login_left">
+        	<img src="images/ad.jpg" />
+        </div>
+        <div class="login_right" ng-controller="LoginController">
+        	<div class="lr_h">
+            	<ul>
+                	<li class="hover">普通用户</li>
+                    <li>代理商</li>
+                </ul>
+            </div>
+            <div class="lr_b">
+            	<div class="login_area">
+                	<ul>
+                    	<li><input name="" type="text" value="ID" class="error" />
+                        	<p class="red">没有这个帐号</p>
+                        </li>
+                        <li><input name="" type="text" value="密码" /></li>
+                        <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="yzm"><img src="images/yzm.jpg" /></div></li>
+                    </ul>
+                    <div class="forget">
+                    	<span><input name="" type="checkbox" value="" /> 忘记密码</span>
+                        <a href="#">忘记密码？</a>
+                    </div>
+                    <div class="btn"><button ng-click="login()">登录</button></div>
+                </div>
+                <div class="login_area">
+                	<ul>
+                    	<li><input name="" type="text" value="ID" /></li>
+                        <li><input name="" type="text" value="密码" /></li>
+                        <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="yzm"><img src="images/yzm.jpg" /></div></li>
+                    </ul>
+                    <div class="forget">
+                    	<span><input name="" type="checkbox" value="" /> 忘记密码</span>
+                        <a href="#">忘记密码？</a>
+                    </div>
+                    <div class="btn"><button ng-click="login()">登录</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+        <div class="box">
+        	<ul class="foot_nav">
+            	<li><a href="#">关于我们</a></li>     
+                <li>/</li>
+                <li><a href="#">企业文化</a></li>
+                <li>/</li>
+                <li><a href="#">帮助中心</a></li>
+                <li>/</li>
+                <li><a href="#">企业招聘</a></li>
+            </ul>
+            <div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
+        </div>
+    </div>
+</body>
+</html>

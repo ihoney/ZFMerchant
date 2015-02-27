@@ -14,6 +14,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         fullName: "123",
         userPower : "11",
         userLogo:"123",
+        city:1,
 
         //用户登陆功能
         login: function (user) {

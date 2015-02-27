@@ -18,6 +18,11 @@
 <script src="js/main.js"></script>
 <script src="js/Chart.min.js"></script>
 
+<!--放大产品-->
+<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
+<script type="text/javascript" src="js/pro-show.js"></script>
+
 <script type="text/javascript" src="js/libs/angular.js"></script>
 <script type="text/javascript" src="js/libs/angular-route.js"></script>
 <script type="text/javascript" src="js/libs/angular-cookies.js"></script>
@@ -32,11 +37,10 @@
 <script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
 <!-- Controllers -->
 <script type="text/javascript" src="js/controllers/route.controller.js"></script>
-
+<script type="text/javascript" src="js/controllers/head.controller.js"></script>
 </head>
 
-<body>
-
+<body ng-app="routeConfig">
 	<div class="topInfo clear">
 		<div class="box">
 			<div class="top_kf">
@@ -52,35 +56,35 @@
 		<div class="clear"></div>
 	</div>
 
-
-	<div class="head clear">
-		<div class="box">
-			<div class="logo">华尔街金融</div>
-			<div class="search">
-				<div class="search_box">
-					<input name="" type="text" value="请输入POS机信息" />
-					<button>搜索</button>
+    <div ng-controller="headController">
+		<div class="head clear">
+			<div class="box">
+				<div class="logo">华尔街金融</div>
+				<div class="search">
+					<div class="search_box">
+						<input name="" type="text" value="请输入POS机信息" />
+						<button ng-click="searchShop()">搜索</button>
+					</div>
+					<div class="hotwords">
+						<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
+					</div>
 				</div>
-				<div class="hotwords">
-					<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
+				<div class="phone">
+					<img src="images/dh.png" />
 				</div>
-			</div>
-			<div class="phone">
-				<img src="images/dh.png" />
-			</div>
-			<div class="shoppingCart">
-				<div class="sCart_h">
-					<i></i><em></em><span>999</span>
+				<div class="shoppingCart">
+					<div class="sCart_h">
+						<i></i><em></em><span>999</span>
+					</div>
+					<div class="sCart_b">购物车暂无商品</div>
 				</div>
-				<div class="sCart_b">购物车暂无商品</div>
 			</div>
 		</div>
 	</div>
 
-
 	<div class="main_user">
 		<div class="box">
-			<div class="left" ng-app="routeConfig">
+			<div class="left" id="leftRoute">
 				<ul>
 					<li><a href="#/h1">我的掌富</a></li>
 					<li><a href="#/h2">我的订单</a></li>
@@ -103,7 +107,9 @@
 			<div ng-view></div>
 		</div>
 	</div>
-
+	
+	
+	
 	<div class="foot">
 		<div class="box">
 			<ul class="foot_nav">
