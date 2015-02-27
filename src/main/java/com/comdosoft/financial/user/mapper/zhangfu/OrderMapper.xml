@@ -90,6 +90,7 @@
 		<result property="agentOrderMarksId" column="agent_order_marks_id" />
 		<result property="belongsTo" column="belongs_to" />
 		<result property="invoiceType" column="invoice_type" />
+		<result property="volumeNumber" column="volume_number" />
 		<result property="comment" column="comment" />
 		<result property="invoiceInfo" column="invoice_info" />
 		<result property="totalQuantity" column="total_quantity" />
@@ -109,7 +110,7 @@
 	<!-- 我的订单列表 -->
 	<select id="findMyOrderAll" resultMap="orderMap" >
 		SELECT
-		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,
+		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,o.volume_number,
 		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
 		pc.name as channel_name,og.price ,	og.quantity ,
 		o.actual_price ,total_price,o.total_quantity as total_num

@@ -34,8 +34,25 @@ public class Order {
 	private List<OrderGood> orderGoodsList = new ArrayList<OrderGood>();
 	private List<OrderMark> orderMarkList = new ArrayList<OrderMark>();
 	private OrderPayment orderPayment;
+	private Integer volumeNumber;
 	
 	
+    /**  
+     * 获取 volumeNumber  
+     * @return volumeNumber
+     */
+    public Integer getVolumeNumber() {
+        return volumeNumber;
+    }
+
+    /**  
+     * 设置 volumeNumber  
+     * @param volumeNumber
+     */
+    public void setVolumeNumber(Integer volumeNumber) {
+        this.volumeNumber = volumeNumber;
+    }
+
     /**  
      * 获取 orderPayment  
      * @return orderPayment
