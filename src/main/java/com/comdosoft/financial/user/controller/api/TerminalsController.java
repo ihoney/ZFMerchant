@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,16 +45,16 @@ public class TerminalsController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "getApplyList/{customersId}/{indexPage}/{pageNum}", method = RequestMethod.GET)
-	public Response getApplyList(
-			@PathVariable("customersId") Integer customersId,
-			@PathVariable("indexPage") Integer page,
-			@PathVariable("pageNum") Integer pageNum) {
+	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
+	public Response getApplyList(@RequestBody Map<String, Object> map) {
 		try {
-			PageRequest PageRequest = new PageRequest(page, pageNum);
+			PageRequest PageRequest = new PageRequest(Integer.parseInt((String)map.get("indexPage")),
+					Integer.parseInt((String)map.get("pageNum")));
 			int offSetPage = PageRequest.getOffset();
 			return Response.getSuccess(terminalsService.getTerminalList(
-					customersId, offSetPage, pageNum));
+					Integer.parseInt((String)map.get("customersId")),
+					offSetPage,
+					Integer.parseInt((String)map.get("pageNum"))));
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
@@ -66,21 +65,20 @@ public class TerminalsController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(value = "getApplyDetails/{terminalsId}", method = RequestMethod.GET)
-	public Response getApplyDetails(
-			@PathVariable("terminalsId") Integer terminalsId) {
+	@RequestMapping(value = "getApplyDetails", method = RequestMethod.POST)
+	public Response getApplyDetails(@RequestBody Map<String, Object> maps) {
 		try {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					terminalsService.getApplyDetails(terminalsId));
+					terminalsService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 终端交易类型
-			map.put("rates", terminalsService.getRate(terminalsId));
+			map.put("rates", terminalsService.getRate(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 追踪记录
-			map.put("trackRecord", terminalsService.getTrackRecord(terminalsId));
+			map.put("trackRecord", terminalsService.getTrackRecord(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 开通详情
 			map.put("openingDetails",
-					terminalsService.getOpeningDetails(terminalsId));
+					terminalsService.getOpeningDetails(Integer.parseInt((String)maps.get("terminalsId"))));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
@@ -90,7 +88,7 @@ public class TerminalsController {
 	/**
 	 * 收单通道
 	 */
-	@RequestMapping(value = "getFactories", method = RequestMethod.GET)
+	@RequestMapping(value = "getFactories", method = RequestMethod.POST)
 	public Response getFactories() {
 		try {
 			return Response.getSuccess(terminalsService.getChannels());
@@ -143,11 +141,12 @@ public class TerminalsController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "Encryption/{terminalid}", method = RequestMethod.GET)
-	public Response Encryption(@PathVariable("terminalid") Integer terminalid) {
+	@RequestMapping(value = "Encryption", method = RequestMethod.POST)
+	public Response Encryption(@RequestBody Map<String, Object> map) {
 		try {
 			String pass = SysUtils.Decrypt(
-					terminalsService.findPassword(terminalid), passPath);
+					terminalsService.findPassword(Integer.parseInt((String)map.get("terminalid"))),
+					passPath);
 			return Response.getSuccess(pass);
 		} catch (Exception e) {
 			return Response.getError("请求失败!");
@@ -157,7 +156,7 @@ public class TerminalsController {
 	/**
 	 * 视频认证
 	 */
-	@RequestMapping(value = "videoAuthentication", method = RequestMethod.GET)
+	@RequestMapping(value = "videoAuthentication", method = RequestMethod.POST)
 	public Response videoAuthentication() {
 		try {
 			return Response.getSuccess("认证成功！");
@@ -169,7 +168,7 @@ public class TerminalsController {
 	/**
 	 * 同步
 	 */
-	@RequestMapping(value = "synchronous", method = RequestMethod.GET)
+	@RequestMapping(value = "synchronous", method = RequestMethod.POST)
 	public Response Synchronous() {
 		try {
 			return Response.getSuccess("同步成功！");

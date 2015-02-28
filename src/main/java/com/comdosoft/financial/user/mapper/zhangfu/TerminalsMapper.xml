@@ -27,11 +27,11 @@
 	</select>
 
 	<select id="getTerminalList" parameterType="map" resultType="map">
-		SELECT id,serial_num,status
-		FROM terminals
-		WHERE
-		customer_id=#{id}
-		ORDER BY created_at DESC
+		SELECT t.id,t.serial_num,t.status,o.id as appid
+		FROM terminals t LEFT JOIN opening_applies o
+		ON o.terminal_id = t.id
+		WHERE t.customer_id = #{id} 
+		ORDER BY t.created_at DESC
 		LIMIT #{offSetPage},#{pageSize}
 	</select>
 	

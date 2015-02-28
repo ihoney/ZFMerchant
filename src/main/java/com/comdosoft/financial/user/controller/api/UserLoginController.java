@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,8 +60,8 @@ public class UserLoginController {
      * 
      * @param number
      */
-    @RequestMapping(value = "sendPhoneVerificationCodeFind/{codeNumber}", method = RequestMethod.GET)
-    public Response sendPhoneVerificationCodeFind(@PathVariable("codeNumber") String codeNumber) {
+    @RequestMapping(value = "sendPhoneVerificationCodeFind", method = RequestMethod.POST)
+    public Response sendPhoneVerificationCodeFind(@RequestBody String codeNumber) {
         try {
             Customer customer = new Customer();
             customer.setUsername(codeNumber);
@@ -88,8 +87,8 @@ public class UserLoginController {
      * 
      * @param number
      */
-    @RequestMapping(value = "sendPhoneVerificationCodeReg/{codeNumber}", method = RequestMethod.GET)
-    public Response sendPhoneVerificationCodeReg(@PathVariable("codeNumber") String codeNumber) {
+    @RequestMapping(value = "sendPhoneVerificationCodeReg", method = RequestMethod.POST)
+    public Response sendPhoneVerificationCodeReg(@RequestBody String codeNumber) {
         try {
             Customer customer = new Customer();
             customer.setUsername(codeNumber);
@@ -124,8 +123,8 @@ public class UserLoginController {
      * 
      * @param number
      */
-    @RequestMapping(value = "sendEmailVerificationCode/{codeNumber}", method = RequestMethod.GET)
-    public void sendEmailVerificationCode(@PathVariable("codeNumber") String codeNumber) {
+    @RequestMapping(value = "sendEmailVerificationCode", method = RequestMethod.POST)
+    public void sendEmailVerificationCode(@RequestBody String codeNumber) {
 
     }
 

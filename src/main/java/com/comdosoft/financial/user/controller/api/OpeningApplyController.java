@@ -12,7 +12,6 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,18 +45,19 @@ public class OpeningApplyController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "getApplyList/{id}/{indexPage}/{pageNum}", method = RequestMethod.GET)
-	public Response getApplyList(@PathVariable("id") Integer id,
-			@PathVariable("indexPage") Integer page,
-			@PathVariable("pageNum") Integer pageNum) {
+	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
+	public Response getApplyList(@RequestBody Map<String, Object> map) {
 		try {
 			// PageRequest PageRequest = new PageRequest(page,
 			// Constants.PAGE_SIZE);
-			PageRequest PageRequest = new PageRequest(page, pageNum);
+			PageRequest PageRequest = new PageRequest(Integer.parseInt((String)map.get("indexPage")),
+					Integer.parseInt((String)map.get("pageNum")));
 
 			int offSetPage = PageRequest.getOffset();
-			return Response.getSuccess(openingApplyService.getApplyList(id,
-					offSetPage, pageNum));
+			return Response.getSuccess(openingApplyService.getApplyList(
+					Integer.parseInt((String)map.get("customersId")),
+					offSetPage, 
+					Integer.parseInt((String)map.get("pageNum"))));
 		} catch (Exception e) {
 			return Response.getError("获取列表失败！");
 		}
@@ -68,22 +68,21 @@ public class OpeningApplyController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(value = "getApplyDetails/{terminalsId}/{status}", method = RequestMethod.GET)
-	public Response getApplyDetails(
-			@PathVariable("terminalsId") Integer terminalsId,
-			@PathVariable("status") Integer status) {
+	@RequestMapping(value = "getApplyDetails", method = RequestMethod.POST)
+	public Response getApplyDetails(@RequestBody Map<String, Object> maps) {
 		try {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					openingApplyService.getApplyDetails(terminalsId));
+					openingApplyService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants());
 			// 数据回显(针对重新开通申请)
-			map.put("applyFor", openingApplyService.ReApplyFor(terminalsId));
+			map.put("applyFor", openingApplyService.ReApplyFor(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 材料名称
 			map.put("materialName",
-					openingApplyService.getMaterialName(terminalsId, status));
+					openingApplyService.getMaterialName(Integer.parseInt((String)maps.get("terminalsId")),
+							Integer.parseInt((String)maps.get("status"))));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
@@ -96,11 +95,11 @@ public class OpeningApplyController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "getMerchant/{merchantId}", method = RequestMethod.GET)
-	public Response getMerchant(@PathVariable("merchantId") Integer merchantId) {
+	@RequestMapping(value = "getMerchant", method = RequestMethod.POST)
+	public Response getMerchant(@RequestBody Map<String, Object> map) {
 		try {
 			Merchant merchant = new Merchant();
-			merchant = openingApplyService.getMerchant(merchantId);
+			merchant = openingApplyService.getMerchant(Integer.parseInt((String)map.get("merchantId")));
 			return Response.getSuccess(merchant);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
@@ -111,7 +110,7 @@ public class OpeningApplyController {
 	/**
 	 * 获得所有通道
 	 */
-	@RequestMapping(value = "getChannels", method = RequestMethod.GET)
+	@RequestMapping(value = "getChannels", method = RequestMethod.POST)
 	public Response getChannels() {
 		try {
 			return Response.getSuccess(openingApplyService.getChannels());
@@ -123,7 +122,7 @@ public class OpeningApplyController {
 	/**
 	 * 从第三方接口获得银行
 	 */
-	@RequestMapping(value = "ChooseBank", method = RequestMethod.GET)
+	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
 	public Response ChooseBank() {
 		try {
 			Map<String, String> map = new HashMap<String, String>();
@@ -142,13 +141,12 @@ public class OpeningApplyController {
 	 * @param status
 	 * @return
 	 */
-	@RequestMapping(value = "getMaterialName/{terminalId}/{status}", method = RequestMethod.GET)
-	public Response getMaterialName(
-			@PathVariable("terminalId") Integer terminalId,
-			@PathVariable("status") Integer status) {
+	@RequestMapping(value = "getMaterialName", method = RequestMethod.POST)
+	public Response getMaterialName(@RequestBody Map<String, Object> map) {
 		try {
 			return Response.getSuccess(openingApplyService.getMaterialName(
-					terminalId, status));
+					Integer.parseInt((String)map.get("terminalId"))
+					, Integer.parseInt((String)map.get("status"))));
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
@@ -274,7 +272,7 @@ public class OpeningApplyController {
 	/**
 	 * 视频认证
 	 */
-	@RequestMapping(value = "videoAuthentication", method = RequestMethod.GET)
+	@RequestMapping(value = "videoAuthentication", method = RequestMethod.POST)
 	public Response videoAuthentication() {
 		try {
 			return Response.getSuccess("视频认证");

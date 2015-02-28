@@ -4,7 +4,13 @@
 var loginServiceModule = angular.module("loginServiceModule", []);
 
 //登陆服务
-var loginService = function ($http, $rootScope, $cookieStore) {
+var loginService = function ($scope){
+	 $scope.username = "";
+	 $scope.login = function(){
+		 alert($scope.username);
+	 }
+}
+var loginServices = function ($http, $rootScope, $cookieStore) {
     return {
         //定义当前用户是否被授权
         //isAuthorized: typeof($cookieStore.get("loginInfo")) == 'undefined' ? false : true,
@@ -13,12 +19,12 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         //loginUserName: typeof($cookieStore.get("loginInfo")) == 'undefined' ? "" : $cookieStore.get("loginInfo"),
         fullName: "123",
         userPower : "11",
-        userLogo:"123",
-
+        userLogo: "123",
         //用户登陆功能
-        login: function (user) {
+        login: function ($scope) {
+        	alert("login");
             var self = this;
-            $http.post("api/user/studentLogin", user).success(function (data) {
+            $http.post("api/user/studentLogin", $scope).success(function (data) {
             	if (data.code != 10) {
 //                    self.mobile = user.mobile;
 //                    self.isAuthorized = true;

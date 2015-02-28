@@ -37,57 +37,7 @@ indexModule.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('myInterceptor');
 }]);
 
-//顶菜单控制器
-var TopMenuController = function ($scope, $http, $cookieStore, LoginService) {
 
-    
-   // LoginService.checkAuthorization();  //进入页面后就进行一次用户是否登陆的校验
-
- 
-    $scope.userName = $cookieStore.get("userName");
-    $scope.userLogo = $cookieStore.get("userLogo");
-    $scope.shopName = $cookieStore.get("shopName");
-    
-    $scope.employeeNum=76;
-    $scope.subDeptNum=3;
-    $scope.departmentName="山西移动网络管理中心";
-    
-    $scope.shopLogo = $cookieStore.get("shopLogo");
-    //var welcomeInfo = "店长, 欢迎使用招财猫!";
-
-    $scope.$on("Login.Success",
-        function (event, msg) {
-            $cookieStore.put("userName", LoginService.fullName);
-            $cookieStore.put("userLogo", LoginService.userLogo);
-            //$scope.userName = LoginService.isAuthorized == false ? "您还未登陆!" : (LoginService.fullName + welcomeInfo);
-            $scope.userName = LoginService.fullName;
-            //parent.location.reload(); // 刷新页面
-            //$scope.getUserMenuList();
-            parent.location.reload();
-
-        });
-    //$scope.userName = LoginService.isAuthorized == false ? "您还未登陆!" : (LoginService.fullName + welcomeInfo);
-
-    //显示用户确认退出窗口
-    $scope.confirmLogout = function() {
-        $("#logoutModal").modal({keyboard:false,backdrop:'static'});
-    };
-    //用户登出功能
-    $scope.logout = function () {
-        LoginService.logout();
-        $("#resetPwd-success-msg").hide();
-        $("#login-danger-msg").hide();
-        $("#logoutModal").modal('hide');
-        $scope.userName = " 您还未登陆!";
-    };
-
-    //接受用户已登录事件('user.login')
-    $scope.$on('user.login', function (event) {
-        $scope.userName = LoginService.fullName;
-    });
-
-    //$scope.checkUserPower();//调用获取权限列表
-};
 
 //登陆功能控制器
 var LoginController = function ($scope, LoginService) {
