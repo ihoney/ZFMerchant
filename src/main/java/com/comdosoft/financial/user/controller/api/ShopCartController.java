@@ -28,7 +28,7 @@ public class ShopCartController {
         return resp;
     }
     
-    @RequestMapping(value = "list", method = RequestMethod.POST)
+    @RequestMapping(value = "total", method = RequestMethod.POST)
     public Response getTotal(@RequestBody CartReq cartreq){
         Response resp=new Response();
         int total=shopCartService.getTotal(cartreq);
