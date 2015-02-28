@@ -1,6 +1,12 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -54,6 +60,26 @@ public class UserLoginController {
             return Response.getError("系统异常！");
         }
     }
+    
+    /**
+     * (pc端，含有图片验证码校验)
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "sizeUpImgCode", method = RequestMethod.POST)
+    public Response sizeUpImgCode(@RequestBody Map<String, String> map ,HttpSession session) {
+        try {
+            if(((String) session.getAttribute("imageCode")).equalsIgnoreCase(map.get("imgnum"))){
+            	 return Response.getSuccess("true");
+            }else{
+            	return Response.getError("验证码错误！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.getError("系统异常！");
+        }
+    }
 
     /**
      * 发送手机验证码(找回密码)
@@ -81,6 +107,28 @@ public class UserLoginController {
             return Response.getError("获取验证码失败！");
         }
     }
+    
+    /**
+     * (找回密码web端第一步)
+     * 
+     * @param number
+     */
+    @RequestMapping(value = "getFindUser", method = RequestMethod.POST)
+    public Response getFindUser(@RequestBody Map<String, Object> map) {
+        try {
+            Customer customer = new Customer();
+            System.out.println(map.get("username")+"查看姓名！");
+            customer.setUsername((String)map.get("username"));
+            if (userLoginService.findUname(customer) == 0) {
+                return Response.getError("用户不存在！");
+            } else {
+                return Response.getSuccess("用户存在！");
+            }
+        } catch (Exception e) {
+            return Response.getError("系统异常！");
+        }
+    }
+    
 
     /**
      * 发送手机验证码(注册)
@@ -185,6 +233,36 @@ public class UserLoginController {
         } catch (Exception e) {
             e.printStackTrace();
             return Response.getError("注册失败！系统异常");
+        }
+    }
+    
+    /**
+     * 获取验证码（登录用）
+     * 
+     * @param response
+     */
+    @RequestMapping("getRandCodeImg")
+    public void getRandCodeImg(HttpServletResponse response,HttpSession session) {
+
+        // 设置页面不缓存数据
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // 获取4位随机验证码
+        char[] randNum = SysUtils.getRandNum(4);
+        String randNumStr = new String(randNum);
+
+        // 将验证码存入session
+        session.setAttribute("imageCode", randNumStr);
+
+        // 生成验证码图片
+        BufferedImage image = SysUtils.generateRandImg(randNum);
+
+        try {// 输出图象到页面
+            ImageIO.write(image, "JPEG", response.getOutputStream());
+        } catch (IOException ioEx) {
+           // logger.error("验证码图片显示异常", ioEx);
         }
     }
 }

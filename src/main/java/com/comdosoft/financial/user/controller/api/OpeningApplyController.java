@@ -168,6 +168,7 @@ public class OpeningApplyController {
 			Integer terminalId = null;
 			String key = null;
 			String value = null;
+			Integer types = null;
 			int i = 0;
 			int y = 0;
 			for (Map<String, Object> map : paramMap) {
@@ -196,9 +197,11 @@ public class OpeningApplyController {
 							key = (String) map.get(str);
 						if (i == 1)
 							value = (String) map.get(str);
+						if (i == 2)
+							types = (Integer) map.get(str);
 						i++;
 					}
-					openingApplyService.addApply(key, value, openingAppliesId);
+					openingApplyService.addApply(key, value,types, openingAppliesId);
 					i = 0;
 				}
 				y++;

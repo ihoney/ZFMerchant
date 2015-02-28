@@ -61,7 +61,7 @@ public interface OpeningApplyMapper {
 	 * 添加开通信息
 	 * @param map
 	 */
-	void addApply(Map<String, String> map);
+	void addApply(Map<String, Object> map);
 	
 	/**
 	 * 添加开通关联信息

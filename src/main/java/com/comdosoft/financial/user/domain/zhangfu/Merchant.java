@@ -150,8 +150,20 @@ public class Merchant {
     private Integer cityId;
 
     private String bodyPhotoPath;
+    
+    private Integer payChannelId;
+    
+    
 
-    public Integer getId() {
+    public Integer getPayChannelId() {
+		return payChannelId;
+	}
+
+	public void setPayChannelId(Integer payChannelId) {
+		this.payChannelId = payChannelId;
+	}
+
+	public Integer getId() {
         return id;
     }
 

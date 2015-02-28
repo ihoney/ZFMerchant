@@ -4,11 +4,43 @@
 var loginServiceModule = angular.module("loginServiceModule", []);
 
 //登陆服务
-var loginService = function ($scope){
+var loginService = function ($scope,$http){
+	 $scope.RememberPass=false;
 	 $scope.username = "";
+	 $scope.password = "";
+	 $scope.code = "";
+	 $scope.jsons = {username:$scope.username,password:$scope.password};
 	 $scope.login = function(){
-		 alert($scope.username);
-	 }
+		 alert($scope.code);
+		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
+			 if(data.code == -1){
+				 $scope.message = data.message;
+			 }else{
+				 $http.post("api/user/studentLogin", $scope.jsons).success(function (data) {  //绑定
+			           alert(data.code);
+			           if(data.code == -1){//用户或者密码错误！
+			        	   $scope.message = data.message; 
+			           }else{
+			        	   if($scope.RememberPass==true){
+			        		   $cookieStore.put("password",data.result.password);
+			        	   }
+			        	   $cookieStore.put("loginUserName",data.result.username);
+			        	   $cookieStore.put("loginUserId",data.result.id);
+			        	   $scope.message = data.message; //登陆成功，跳转页面
+			           }
+			        }).error(function (data) {
+			        	$scope.message = "登陆异常！"
+			        });
+			 }
+		 }).error(function(data){
+			 $scope.message = "获取验证码失败！"
+		 });
+	 };
+	 //图片验证码
+	 $scope.reGetRandCodeImg = function(){
+		 $("#loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
+	 };
+	 
 }
 var loginServices = function ($http, $rootScope, $cookieStore) {
     return {

@@ -89,10 +89,11 @@ public class OpeningApplyService {
 	 * 
 	 * @param map
 	 */
-	public void addApply(String key, String value, String openingAppliesId) {
-		Map<String, String> map = new HashMap<String, String>();
+	public void addApply(String key, String value,Integer types, String openingAppliesId) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("key", key);
 		map.put("value", value);
+		map.put("types", types);
 		map.put("openingAppliesId", openingAppliesId);
 		openingApplyMapper.addApply(map);
 	}
