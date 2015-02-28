@@ -26,11 +26,16 @@ public interface OrderMapper {
     Order findMyOrderById(Integer id);
 
     void cancelMyOrder(MyOrderReq myOrderReq);
-// ------gch end ---------------------
 
     void comment(MyOrderReq myOrderReq);
 
     List<GoodsPicture> findPicByGoodId(Integer gid);
 
     List<Map<String, Object>> findTraceById(MyOrderReq myOrderReq);
+
+    int countOrderSearch(MyOrderReq myOrderReq);
+
+    List<Order> orderSearch(MyOrderReq myOrderReq);
+    
+// ------gch end ---------------------
 }

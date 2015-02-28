@@ -6,8 +6,9 @@ public class MyOrderReq {
     private Integer id;//业务id
     private String[] ids;
     private Integer page ;//当前页数
-    @SuppressWarnings("unused")
     private Integer offset;
+    private String search;//搜索条件
+    private String q;//状态值
     private Integer pageSize ;//每页大小
     private Integer customer_id;//用户id
     private String content;//内容
@@ -20,6 +21,34 @@ public class MyOrderReq {
     private String computer_name;
     private String track_number;
     
+    /**  
+     * 获取 search  
+     * @return search
+     */
+    public String getSearch() {
+        return search;
+    }
+    /**  
+     * 设置 search  
+     * @param search
+     */
+    public void setSearch(String search) {
+        this.search = search;
+    }
+    /**  
+     * 获取 q  
+     * @return q
+     */
+    public String getQ() {
+        return q;
+    }
+    /**  
+     * 设置 q  
+     * @param q
+     */
+    public void setQ(String q) {
+        this.q = q;
+    }
     /**  
      * 获取 updateStatus  
      * @return updateStatus
@@ -238,12 +267,13 @@ public class MyOrderReq {
     public MyOrderReq() {
         super();
     }
+     
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + "]";
+        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", offset=" + offset + ", search=" + search + ", q=" + q + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", score=" + score + ", good_id=" + good_id + ", computer_name=" + computer_name + ", track_number=" + track_number + "]";
     }
     public int getOffset() {
         if(page>0){

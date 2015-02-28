@@ -35,9 +35,20 @@ public class OrderController {
     @RequestMapping(value="getMyOrderAll" ,method=RequestMethod.POST)
     public Response getMyOrderAll(@RequestBody MyOrderReq myOrderReq) {
         try{
-            logger.debug("获取我的订单列表 start");
             Page<Object> centers = orderService.findMyOrderAll(myOrderReq);
-            logger.debug("获取我的订单列表 end"+centers);
+            return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
+        }catch(Exception e){
+            logger.debug("获取我的订单列表出错"+e);
+            return Response.getError("请求失败");
+        }
+    }
+    //订单搜索筛选
+    @RequestMapping(value="orderSearch" ,method=RequestMethod.POST)
+    public Response orderSearch(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            Page<Object> centers = orderService.orderSearch(myOrderReq);
             return Response.getSuccess(centers);
         }catch(NullPointerException e){
             return Response.buildErrorWithMissing();
@@ -50,9 +61,7 @@ public class OrderController {
     @RequestMapping(value="getMyOrderById" ,method=RequestMethod.POST)
     public Response getMyOrderById(@RequestBody MyOrderReq myOrderReq ) {
         try{
-            logger.debug("获取我的订单详情 start");
             Object centers = orderService.findMyOrderById(myOrderReq.getId());
-            logger.debug("获取我的订单详情 end"+centers);
             return Response.getSuccess(centers);
         }catch(NullPointerException e){
             return Response.buildErrorWithMissing();

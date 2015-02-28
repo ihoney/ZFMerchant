@@ -32,6 +32,7 @@
 	<resultMap id="goodsMap" type="com.comdosoft.financial.user.domain.zhangfu.Good">
 		 <id property="id" column="good_id" />  
             <result property="title" column="title" /> 
+            <result property="volumeNumber" column="volume_number" />
             <association property="goodsBrand" javaType="com.comdosoft.financial.user.domain.zhangfu.GoodBrand" resultMap="goodBrandResultMap" />  
             <collection property="picsList" ofType="com.comdosoft.financial.user.domain.zhangfu.GoodsPicture" resultMap="picsResultMap" />  
 	</resultMap>
@@ -90,7 +91,6 @@
 		<result property="agentOrderMarksId" column="agent_order_marks_id" />
 		<result property="belongsTo" column="belongs_to" />
 		<result property="invoiceType" column="invoice_type" />
-		<result property="volumeNumber" column="volume_number" />
 		<result property="comment" column="comment" />
 		<result property="invoiceInfo" column="invoice_info" />
 		<result property="totalQuantity" column="total_quantity" />
@@ -106,13 +106,59 @@
 		FROM orders o
 		where o.customer_id = #{param1}
 	</select>
+	
+	<select id="countOrderSearch" resultType="int">
+		SELECT count(o.id) as count
+		FROM orders o
+		LEFT JOIN order_goods og ON o.id = og.order_id
+		LEFT JOIN goods g ON og.good_id = g.id
+		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
+		where o.customer_id = #{customer_id}
+		<if test="search !=null and search!=''">
+		and (o.order_number like "%"#{search}"%" 
+			or g.title like "%"#{search}"%" 
+			or g.second_title like "%"#{search}"%"  
+			or g.key_worlds like "%"#{search}"%" ) 
+		</if>
+		<if test="q !=null and q!=''">
+		and front_pay_status = #{q}
+		</if>
+	</select>
 
-	<!-- 我的订单列表 -->
+	 
+	<select id="orderSearch" resultMap="orderMap" >
+		SELECT
+		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,g.volume_number,
+		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
+		pc.name as channel_name,og.price ,	og.quantity ,o.types,
+		o.actual_price ,total_price,o.total_quantity as total_num
+		FROM	
+		orders o
+		LEFT JOIN order_goods og ON o.id = og.order_id
+		LEFT JOIN goods g ON og.good_id = g.id
+		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
+		WHERE
+		o.customer_id = #{customer_id}
+		<if test="search !=null and search!=''">
+		and (o.order_number like "%"#{search}"%" 
+			or g.title like "%"#{search}"%" 
+			or g.second_title like "%"#{search}"%"  
+			or g.key_worlds like "%"#{search}"%" ) 
+		</if>
+		<if test="q !=null and q!=''">
+		and front_pay_status = #{q}
+		</if>
+		order by o.created_at desc
+		LIMIT #{offset},#{pageSize}
+	</select>
+	
 	<select id="findMyOrderAll" resultMap="orderMap" >
 		SELECT
-		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,o.volume_number,
+		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,g.volume_number,
 		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
-		pc.name as channel_name,og.price ,	og.quantity ,
+		pc.name as channel_name,og.price ,	og.quantity ,o.types,
 		o.actual_price ,total_price,o.total_quantity as total_num
 		FROM	
 		orders o

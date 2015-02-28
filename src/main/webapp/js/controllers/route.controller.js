@@ -10,8 +10,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/h1.html'
         }).when('/h1', {
             templateUrl: 'views/h1.html'
-        }).when('/h2', {
-            templateUrl: 'views/h2.html'
+        }).when('/order', {
+            templateUrl: 'views/order/order.html'
+        }).when('/orderinfo', {
+        	templateUrl: 'views/order/orderinfo.html'
         }).when('/h3', {
             templateUrl: 'views/h3.html'
         }).when('/shop', {
