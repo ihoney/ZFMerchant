@@ -21,6 +21,8 @@ public interface ShopCartMapper {
     int isExist(CartReq cartreq);
 
     List<Map<String,Object>> getList(CartReq cartreq);
+
+    int getTotal(CartReq cartreq);
     
     
 }

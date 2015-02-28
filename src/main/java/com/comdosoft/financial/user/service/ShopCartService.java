@@ -67,4 +67,8 @@ public class ShopCartService {
         }
     }
 
+    public int getTotal(CartReq cartreq) {
+        return shopCartMapper.getTotal(cartreq);
+    }
+
 }

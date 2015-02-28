@@ -28,6 +28,15 @@ public class ShopCartController {
         return resp;
     }
     
+    @RequestMapping(value = "list", method = RequestMethod.POST)
+    public Response getTotal(@RequestBody CartReq cartreq){
+        Response resp=new Response();
+        int total=shopCartService.getTotal(cartreq);
+        resp.setCode(Response.SUCCESS_CODE);
+        resp.setResult(total);
+        return resp;
+    }
+    
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public Response delete(@RequestBody CartReq cartreq){
         Response resp=new Response();
