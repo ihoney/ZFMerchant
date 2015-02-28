@@ -119,21 +119,6 @@
 		 <if test="tDates!=null">
 		   and pc.id in (SELECT pcbc.pay_channel_id from  pay_channel_billing_cycles pcbc where pcbc.billing_cycles_id in ${tDates})
 		 </if>
-		<if test="orderType==0">
-		   order by g.published_at desc
-		</if>
-		<if test="orderType==1">
-		   order by g.volume_number desc
-		</if>
-		<if test="orderType==2">
-		   order by g.retail_price desc
-		</if>
-		<if test="orderType==3">
-		   order by g.retail_price 
-		</if>
-		<if test="orderType==4">
-		   order by g.total_score desc
-		</if>
     </select>
     
     
