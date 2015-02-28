@@ -136,6 +136,7 @@ public class OrderService {
             String d = sdf.format(o.getCreatedAt());
             map.put("order_createTime", d);
             map.put("order_status", o.getStatus().getCode());
+            map.put("order_volume_number", o.getVolumeNumber());//热销量
             map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
             map.put("order_totalPrice", o.getActualPrice());
             map.put("order_psf", "0");//配送费

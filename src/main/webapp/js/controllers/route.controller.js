@@ -14,6 +14,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/h2.html'
         }).when('/h3', {
             templateUrl: 'views/h3.html'
+        }).when('/shop', {
+            templateUrl: 'views/shop/shop.html'
+        }).when('/shopinfo', {
+            templateUrl: 'views/shop/shopinfo.html'
         }).otherwise({
             redirectTo: "/"
         });

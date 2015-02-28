@@ -5,7 +5,7 @@
 });*/
 
 //主页面模块
-var indexModule = angular.module("indexModule", ['loginServiceModule', 'routeModule', 'ngCookies', 'fileUploadModule', 'datePickerModule', 'ngCsv']);
+var indexModule = angular.module("indexModule", ['loginServiceModule','routeModule', 'ngCookies',  'ngCsv']);
 
 
 
