@@ -24,8 +24,10 @@ public class GoodService {
     @Autowired
     private PayChannelService pcService;
 
-    public List<?> getGoodsList(PosReq posreq) {
+    public Map<String,Object> getGoodsList(PosReq posreq) {
+        Map<String,Object> result=new HashMap<String, Object>();
         List<Map<String, Object>> list = goodMapper.getGoodsList(posreq);
+        int total=goodMapper.getGoodsTotal(posreq);
         for (Map<String, Object> map : list) {
             int id = Integer.valueOf("" + map.get("id"));
             // 支付通道
@@ -40,7 +42,9 @@ public class GoodService {
                 map.put("url_path", goodPics.get(0));
             }
         }
-        return list;
+        result.put("list", list);
+        result.put("total",total);
+        return result;
     }
 
     public Map<String, Object> getGoods(PosReq posreq) {
@@ -93,8 +97,10 @@ public class GoodService {
         List<Map<String, Object>> list5 = goodMapper.getTrade_type_ids(posreq);
         List<Map<String, Object>> list6 = goodMapper.getSale_slip_ids();
         List<Map<String, Object>> list7 = goodMapper.getTDatesByCityId(posreq);
+        List<Map<String, Object>> list8 = goodMapper.getWebCategorys();
         map.put("brands", list1);
         map.put("category", list2);
+        map.put("webcategory", list8);
         map.put("pay_channel", list3);
         map.put("pay_card", list4);
         map.put("trade_type", list5);

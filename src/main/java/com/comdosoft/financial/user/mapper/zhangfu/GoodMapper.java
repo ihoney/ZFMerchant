@@ -48,5 +48,9 @@ public interface GoodMapper {
 
     List<Map<String, Object>> getStandard_rates(int pcid);
 
+    List<Map<String, Object>> getWebCategorys();
+
+    int getGoodsTotal(PosReq posreq);
+
 
 }

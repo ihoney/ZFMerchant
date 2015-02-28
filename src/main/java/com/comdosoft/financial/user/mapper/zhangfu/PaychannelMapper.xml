@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.PaychannelMapper">
 
+
+	<select id="getPcinfo" resultType="Map">
+		SELECT pc.id,pc.name,pc.opening_cost,pc.support_cancel_flag,factory_id,
+               pc.opening_requirement,pc.opening_datum,pc.opening_protocol
+ 		from pay_channels pc 
+ 		where pc.id=#{pcid}
+	</select>
+
 	<select id="getSupportArea" resultType="String">
 		SELECT c.name from support_areas sa LEFT JOIN cities c on c.id= sa.city_id
 		where
@@ -53,6 +61,10 @@
 		opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=1
 		where p.id=#{pcid})
 	</select>
+	
+	<select id="getFactoryById" resultType="map" >
+       SELECT * from factories where id=#{factoryId}
+     </select>
 
 	<select id="getOne" resultType="com.comdosoft.financial.user.domain.zhangfu.PayChannel">
 	<![CDATA[

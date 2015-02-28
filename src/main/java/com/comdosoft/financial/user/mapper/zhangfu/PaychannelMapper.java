@@ -21,4 +21,8 @@ public interface PaychannelMapper {
 
     PayChannel getOne(int payChannelId);
 
+    Map<String, Object> getPcinfo(int pcid);
+
+    Map<String, Object> getFactoryById(int factoryId);
+
 }
