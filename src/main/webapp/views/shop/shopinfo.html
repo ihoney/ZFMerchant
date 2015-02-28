@@ -37,8 +37,8 @@
                 </script>
 
             <div class="proInfo_area">
-            	<h1>汉米SS3010收银机 触摸屏POS机收款机 超市餐饮服装点餐机奶茶店</h1>
-                <h3>{{haha}}火热销售中，月销售5000件</h3>
+            	<h1>{{good.goodinfo.Title}}</h1>
+                <h3>{{good.goodinfo.second_title}}</h3>
                 <div class="pac_summary">
                 	<ul>
                     	<li class="price_li"><span>原价</span><div class="text"><strong class="original">￥600.00</strong></div></li>
@@ -88,19 +88,19 @@
                     	<div class="pro_attributes">
                         	<h2>POS机信息</h2>
                             <ul>
-                            	<li><span>品牌：</span><div class="text">掌富ZF系列</div></li>
-                                <li><span>型号：</span><div class="text">掌富ZF-330</div></li>
-                                <li><span>外壳型号：</span><div class="text">SF01型</div></li> 
-                                <li><span>电池信息：</span><div class="text">2000毫安</div></li>
-                                <li><span>签购单打印方式：</span><div class="text">小票</div></li>
-                                <li><span>加密卡方式：</span><div class="text">sql</div></li>
+                            	<li><span>品牌：</span><div class="text">{{good.goodinfo.good_brand}}</div></li>
+                                <li><span>型号：</span><div class="text">{{good.goodinfo.Model_number}}</div></li>
+                                <li><span>外壳型号：</span><div class="text">{{good.goodinfo.shell_material}}</div></li> 
+                                <li><span>电池信息：</span><div class="text">{{good.goodinfo.battery_info}}</div></li>
+                                <li><span>签购单打印方式：</span><div class="text">{{good.goodinfo.sign_order_way}}</div></li>
+                                <li><span>加密卡方式：</span><div class="text">{{good.goodinfo.encrypt_card_way}}</div></li>
                                 <li><span>支持银行卡类型：</span><div class="text">全部</div></li>
                             </ul>
                         </div>
                         <div class="pro_attributes">
                         	<h2>支付平台信息</h2>
                             <ul>
-                            	<li><span>支持区域：</span><div class="text">全国</div></li>
+                            	<li><span>支持区域：</span><div class="text">{{paychannel.supportArea}}</div></li>
                                 <li><span>到账时间：</span><div class="text">2天内</div></li>
                                 <li><span>是否支持注销：</span><div class="text">支持</div></li> 
                             </ul>
@@ -167,21 +167,6 @@
                                 <td>0.5%</td>
                                 <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
                               </tr>
-                              <tr>
-                                <td>T+1</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>T+1</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>T+1</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
                             </table>
                         </div>
                         <div class="pro_attributes">
@@ -199,31 +184,12 @@
                                 <th>说明</th>
                               </tr>
                               </thead>
-                              <tr>
-                                <td>转账</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
+                              <tr ng-repeat="l in paychannel.other_rate">
+                                <td>{{l.trade_value}}</td>
+                                <td>{{l.terminal_rate/100 |currency : ""}}%</td>
+                                <td><p>{{l.description}}</p></td>
                               </tr>
-                              <tr>
-                                <td>转账</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>转账</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>转账</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>转账</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
-                              </tr>
+                              
                             </table>
                         </div>
                         <div class="pro_attributes">
@@ -386,6 +352,7 @@ nunc eget odio.</div>
                 </div>
             </div>
         </div>
+        
         <div class="product_right">
         	<div class="pro_manufacturer">
             	<div class="manufacturer">
@@ -405,6 +372,7 @@ nunc eget odio.</div>
                 <div class="mf_text">拉卡拉集团成立于2005年，是中国领先的互联网金融及社区电商公司，借助互联网技术，以便民服务及支付为手段，为商户及其用户提供金融及电子商务服务。<br /><a href="#">http://www.lakala.com/index.html</a></div>
             </div>
             </div>
+            
             <div class="hot_product">
             	<h1>推荐商品</h1>
             	<ul>
@@ -439,3 +407,6 @@ nunc eget odio.</div>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
+<script type="text/javascript" src="js/pro-show.js"></script>
+<script type="text/javascript" src="js/main.js"></script>

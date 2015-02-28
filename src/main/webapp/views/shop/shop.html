@@ -4,8 +4,13 @@
     	<div class="category_group">
         	<div class="crumbs_nav">
             	<ul>
-                	<li><a href="#">您当前选择</a><i></i></li>
-                    <li class="crumbs_nav_drop"><a href="#" class="hover"><span class="cnd_p">POS机品牌：掌付</span><span class="cnd_x"></span></a><i></i></li>
+                	<li>您当前选择<i></i></li>
+                    <li ng-show="chli1show" class="crumbs_nav_drop" id="chli1"><a href="javascript:void(0)" ng-click="chli1del()" class="hover"><span class="cnd_p">POS机品牌：{{chli1val}}</span><span class="cnd_x"></span></a><i></i></li>
+                    <li ng-show="chli2show" class="crumbs_nav_drop" id="chli2"><a href="javascript:void(0)" ng-click="chli2del()" class="hover"><span class="cnd_p">POS机类型：{{chli2val}}</span><span class="cnd_x"></span></a><i></i></li>
+                    <li ng-show="chli3show" class="crumbs_nav_drop" id="chli3"><a href="javascript:void(0)" ng-click="chli3del()" class="hover"><span class="cnd_p">支付通道：{{chli3val}}</span><span class="cnd_x"></span></a><i></i></li>
+                    <li ng-show="chli4show" class="crumbs_nav_drop" id="chli4"><a href="javascript:void(0)" ng-click="chli4del()" class="hover"><span class="cnd_p">支持卡类型：{{chli4val}}</span><span class="cnd_x"></span></a><i></i></li>
+                    <li ng-show="chli5show" class="crumbs_nav_drop" id="chli5"><a href="javascript:void(0)" ng-click="chli5del()" class="hover"><span class="cnd_p">支持交易类型：{{chli5val}}</span><span class="cnd_x"></span></a><i></i></li>
+                    <li ng-show="chli6show" class="crumbs_nav_drop" id="chli6"><a href="javascript:void(0)" ng-click="chli6del()" class="hover"><span class="cnd_p">签购单方式：{{chli6val}}</span><span class="cnd_x"></span></a><i></i></li>
                 </ul>
             </div>
         	<div class="category_item">
@@ -14,7 +19,7 @@
                 <div class="category_item_con">
                 	<ul >
                     	<li ng-repeat="one in brands">
-                    	  <a href="javascript:void(0)" ng-click="check(one)" class="{{one.clazz}}">{{one.value}}</a>
+                    	  <a href="javascript:void(0)" ng-click="check1(one)" class="{{one.clazz}}">{{one.value}}</a>
                     	</li>
                     </ul>
                 </div>
@@ -24,7 +29,7 @@
                 <div class="category_item_con">
                 	<ul>
                     	<li ng-repeat="one in category">
-                    	  <a href="javascript:void(0)" ng-click="check(one)" class="{{one.clazz}}">{{one.value}}</a>
+                    	  <a href="javascript:void(0)" ng-click="check2(one)" class="{{one.clazz}}">{{one.value}}</a>
                     	</li>
                     </ul>
                 </div>
@@ -34,7 +39,7 @@
                 <div class="category_item_con">
                 	<ul>
                     	<li ng-repeat="one in pay_channel">
-                    	  <a href="javascript:void(0)" ng-click="check(one)" class="{{one.clazz}}">{{one.value}}</a>
+                    	  <a href="javascript:void(0)" ng-click="check3(one)" class="{{one.clazz}}">{{one.value}}</a>
                     	</li>
                     </ul>
                 </div>
@@ -44,7 +49,7 @@
                 <div class="category_item_con">
                 	<ul>
                     	<li ng-repeat="one in pay_card">
-                    	  <a href="javascript:void(0)" ng-click="check(one)" class="{{one.clazz}}">{{one.value}}</a>
+                    	  <a href="javascript:void(0)" ng-click="check4(one)" class="{{one.clazz}}">{{one.value}}</a>
                     	</li>
                     </ul>
                 </div>
@@ -54,7 +59,7 @@
                 <div class="category_item_con">
                 	<ul>
                     	<li ng-repeat="one in trade_type">
-                    	  <a href="javascript:void(0)" ng-click="check(one)" class="{{one.clazz}}">{{one.value}}</a>
+                    	  <a href="javascript:void(0)" ng-click="check5(one)" class="{{one.clazz}}">{{one.value}}</a>
                     	</li>
                     </ul>
                 </div>
@@ -64,7 +69,7 @@
                 <div class="category_item_con">
                 	<ul>
                     	<li ng-repeat="one in sale_slip">
-                    	  <a href="javascript:void(0)" ng-click="check(one)" class="{{one.clazz}}">{{one.value}}</a>
+                    	  <a href="javascript:void(0)" ng-click="check6(one)" class="{{one.clazz}}">{{one.value}}</a>
                     	</li>
                     </ul>
                 	
@@ -74,15 +79,15 @@
         <div class="sortbar clear">
         	<div class="sortbar_ul">
                 <ul>
-                    <li class="default_sort hover"><a href="javasrcipt:void(0);">综合排序</a></li>
+                    <li class="default_sort hover"><a href="javasrcipt:void(0);" ng-click="order(0)">综合排序</a></li>
                     <li class="on_1"><span>按价格</span>
                         <div class="droplist">
-                            <a href="javascript:void(0);" class="dashed">按价格从高到低</a>
-                            <a href="javascript:void(0);">按价格从低到高</a>
+                            <a href="javascript:void(0);" class="dashed" ng-click="order(2)">按价格从高到低</a>
+                            <a href="javascript:void(0);" ng-click="order(3)">按价格从低到高</a>
                         </div>
                     </li>
-                    <li class="default_sort" title="按销量从高到低"><a href="javascript:void(0);">按销量</a></li>
-                    <li class="default_sort" title="按评价从多到少"><a href="javascript:void(0);">按评价</a></li>
+                    <li class="default_sort" title="按销量从高到低"><a href="javascript:void(0);" ng-click="order(1)">按销量</a></li>
+                    <li class="default_sort" title="按评价从多到少"><a href="javascript:void(0);" ng-click="order(4)">按评价</a></li>
                 </ul>
             </div>
             <div class="accountTime">
@@ -184,3 +189,4 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="js/main.js"></script>

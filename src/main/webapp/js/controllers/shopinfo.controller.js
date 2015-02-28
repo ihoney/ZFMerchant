@@ -15,10 +15,20 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
     $scope.getGoodInfo = function () {
     	$http.post("api/good/goodinfo", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
-            	$scope.goodInfo=data.result;
+            	$scope.good=data.result;
+            	$scope.paychannel=data.result.paychannelinfo;
             }
         }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
+           // $("#serverErrorModal").modal({show: true});
+        });
+    };
+    $scope.getPayChannelInfo = function () {
+    	$http.post("api/paychannel/info", $scope.req).success(function (data) {  //绑定
+            if (data.code==1) {
+            	$scope.paychannel=data.result;
+            }
+        }).error(function (data) {
+        	//$("#serverErrorModal").modal({show: true});
         });
     };
     $scope.init();

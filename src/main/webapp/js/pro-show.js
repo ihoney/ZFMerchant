@@ -1,10 +1,10 @@
 // JavaScript Document
 //产品图片左右点击移动
 $(function(){
+	
 	var page = 1;
 	var i = 5;	
 	$('div.next').click(function(){
-		//alert(0)
 		var $parent = $(this).parents('div.picBox');
 		var $pic_show = $parent.find('.pic_show')
 		var $smallImg = $parent.find('.smallImg');
@@ -26,7 +26,6 @@ $(function(){
 	
 	
 	$('div.prev').click(function(){
-		//alert(0)
 		var $parent = $(this).parents('div.picBox');
 		var $pic_show = $parent.find('.pic_show')
 		var $smallImg = $parent.find('.smallImg');

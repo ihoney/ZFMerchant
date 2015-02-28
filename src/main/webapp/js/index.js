@@ -7,8 +7,6 @@
 //主页面模块
 var indexModule = angular.module("indexModule", ['loginServiceModule','routeModule', 'ngCookies',  'ngCsv']);
 
-
-
 indexModule.factory('myInterceptor', [function() {
     var requestInterceptor = {
         request: function(config) {
@@ -22,12 +20,10 @@ indexModule.factory('myInterceptor', [function() {
                 $("#loginModal").modal({keyboard:false,backdrop:'static'});
                 return response;
             }
-
             if(responseData=="NOT_AUTHORIZED") {
                 $("#loginModal").modal({keyboard:false,backdrop:'static'});
                 return response;
             }
-
             return response;
         }
     };
@@ -215,6 +211,5 @@ var ResetPwdController = function ($scope, $http, $timeout) {
 
 
 indexModule.$inject = ['$scope', '$http', '$rootScope', 'LoginService'];
-indexModule.controller('TopMenuController', TopMenuController);
 indexModule.controller('LoginController', LoginController);
 indexModule.controller('ResetPwdController', ResetPwdController);

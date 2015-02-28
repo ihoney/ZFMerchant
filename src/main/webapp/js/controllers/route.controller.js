@@ -20,6 +20,8 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/shop/shop.html'
         }).when('/shopinfo', {
             templateUrl: 'views/shop/shopinfo.html'
+        }).when('/shopcart', {
+            templateUrl: 'views/shop/shopcart.html'
         }).otherwise({
             redirectTo: "/"
         });
