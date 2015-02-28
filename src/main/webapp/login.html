@@ -1,14 +1,21 @@
-<html ng-app="loginServiceModule">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="loginServiceModule">
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="renderer" content="webkit">
 <title>登录</title>
+<!--shop.css 商品列表 商品详情页-->
+<link href="style/shop.css" rel="stylesheet" type="text/css" />
+<!--user.css用户后台页-->
+<link href="style/user.css" rel="stylesheet" type="text/css" />
+<!--global.css全局公用-->
+<link href="style/global.css" rel="stylesheet" type="text/css" />
+
 <link href="style/login.css" rel="stylesheet" type="text/css" />
 <script src="js/jQuery-1.11.2.js"></script>
+<script src="js/main.js"></script>
+<script src="js/Chart.min.js"></script>
 
 <script type="text/javascript" src="js/libs/angular.js"></script>
 <script type="text/javascript" src="js/libs/angular-route.js"></script>
@@ -16,19 +23,9 @@
 <script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
 <script type="text/javascript" src="js/libs/ng-csv.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
 
 <!-- Services -->
 <script type="text/javascript" src="js/services/loginService.js"></script>
-<!-- Directives -->
-<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
-<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
-<!-- Controllers -->
-<script type="text/javascript" src="js/controllers/route.controller.js"></script>
-</head>
-
-<script type="text/javascript" src="js/controllers/head.controller.js"></script>
-</head>
 
 <script type="text/javascript">
 //登录
@@ -68,12 +65,11 @@ $(function(){
 </head>
 <body>
 	<div class="logo"><img src="images/logo.png" /></div>
-    <div class="login">
+    <div class="login" ng-controller="loginService">
     	<div class="login_left">
         	<img src="images/ad.jpg" />
         </div>
-        <div class="login_right" ng-controller="loginService">
-        <div class="login_right" ng-controller="LoginController">
+        <div class="login_right">
         	<div class="lr_h">
             	<ul>
                 	<li class="hover">普通用户</li>
@@ -83,16 +79,15 @@ $(function(){
             <div class="lr_b">
             	<div class="login_area">
                 	<ul>
-                    	<li><input name="" type="text" value="ID" class="error" ng-model="username" />
-                    	<li><input name="" type="text" value="ID" class="error" />
-                        	<p class="red">没有这个帐号</p>
+                    	<li><input name="" type="text" value="ID" class="error" ng-model="username"/>
+                        	<p class="red" ng-bind="message"></p>
                         </li>
-                        <li><input name="" type="text" value="密码" /></li>
-                        <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="yzm"><img src="images/yzm.jpg" /></div></li>
+                        <li><input name="" type="text" value="密码" ng-model="password"/></li>
+                        <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><div class="yzm"><img id="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
                     </ul>
                     <div class="forget">
-                    	<span><input name="" type="checkbox" value="" /> 忘记密码</span>
-                        <a href="#">忘记密码？</a>
+                    	<span><input name="" type="checkbox" value="" ng-model="RememberPass" /> 忘记密码</span>
+                        <a href="findPassOne.html" >忘记密码？</a>
                     </div>
                     <div class="btn"><button ng-click="login()">登录</button></div>
                 </div>
@@ -106,7 +101,7 @@ $(function(){
                     	<span><input name="" type="checkbox" value="" /> 忘记密码</span>
                         <a href="#">忘记密码？</a>
                     </div>
-                    <div class="btn"><button ng-click="login()">登录</button></div>
+                    <div class="btn"><button>登录</button></div>
                 </div>
             </div>
         </div>
