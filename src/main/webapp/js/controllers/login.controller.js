@@ -4,14 +4,15 @@
 var loginModule = angular.module("loginModule", ['loginServiceModule','loginrouteModule',  'ngRoute']);
 
 var loginController = function ($scope,$location, $http, LoginService) {
-	 $scope.index=true,
-	 $scope.login=true,
+	 $('#login').show();
+	 $('#index').show();
 	 $scope.RememberPass=false;
 	 $scope.username = "";
 	 $scope.password = "";
 	 $scope.code = "";
 	 $scope.jsons = {username:$scope.username,password:$scope.password};
 	 $scope.login = function(){
+		 alert("66");
 		 LoginService.login();
 		 
 	 };
