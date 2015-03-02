@@ -16,6 +16,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         userid: 2,
         userLogo:"123",
         city:1,
+        goods:[],
         //用户登陆功能
         login: function ($scope) {
         	
@@ -82,6 +83,13 @@ var loginService = function ($http, $rootScope, $cookieStore) {
             $("#loginModal").modal({keyboard:false,backdrop:'static'}); //登出之后，则显示登陆界面，并隐藏主页面
             $("#resetPwd-success-msg").hide();
             $("#indexDiv").hide();
+        },
+        
+      //创建订单传值
+        tomakeorder: function (val) {
+            var self = this;
+            self.goods=[];
+        	self.goods.push(val);
         },
 
         //检验当前是否为已登录状态，或Cookie中仍存在登陆记录

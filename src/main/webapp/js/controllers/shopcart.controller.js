@@ -4,6 +4,7 @@
 var shopcartModule = angular.module("shopcartModule", []);
 
 var shopcartController = function($scope, $location, $http, LoginService) {
+	$scope.carts=[];
 	$scope.req = {};
 	$scope.selectCount = 0;
 	$scope.selectMoney = 0;
@@ -83,6 +84,13 @@ var shopcartController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	$scope.next= function(){
+		$scope.goods=[];
+		angular.forEach($scope.carts, function(one) {
+			if(one.checked){
+				$scope.goods.push(one);
+			}
+		});
+		LoginService.tomakeorder($scope.goods);
 		window.location.href = '#/tomakeorder';
 	}
 	$scope.init();
