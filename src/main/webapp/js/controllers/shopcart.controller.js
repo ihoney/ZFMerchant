@@ -83,7 +83,7 @@ var shopcartController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	$scope.next= function(){
-		alert("1");
+		window.location.href = '#/tomakeorder';
 	}
 	$scope.init();
 

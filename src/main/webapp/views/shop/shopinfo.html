@@ -46,20 +46,18 @@
                         <li class="deposit_li"><span>租赁押金</span><div class="text"><strong>￥200.00</strong></div></li>
                         <li class="selected_li"><span>支付通道</span>
                         	<div class="text">
-                            	<a href="#">平台A</a>
-                            	<a href="#">平台B</a>
-                                <a href="#">平台C</a>
+                            	<a href="javascript:void(0);"  ng-repeat="one in good.payChannelList" class="{{one.id==paychannel.id?'hover':''}}" ng-click="getPayChannelInfo(one.id)">{{one.name}}</a>
                             </div>
                         </li>
-                        <li class="selected_li"><span>购买/租赁</span>
+                        <li class="selected_li"><span>购买{{good.goodinfo.has_lease?'/租赁':''}}</span>
                         	<div class="text">
-                            	<a href="#" class="buy_a hover">购买</a>
-                            	<a href="#" class="lease_a">租赁</a>
+                            	<a href="javascript:void(0);" class="buy_a hover">购买</a>
+                            	<a href="javascript:void(0);" ng-show="good.goodinfo.has_lease" class="lease_a">租赁</a>
                             </div>
                         </li>
                         <li><span>购买数量</span>
                         	<div class="text">
-                        		<div class="buy_numb"><a href="#">-</a><input type="text" value="1" /><a href="#">+</a>&nbsp;&nbsp;件</div>
+                        		<div class="buy_numb"><a href="javascript:void(0);" ng-click="count(-1)">-</a><input type="text"  ng-model="quantity" /><a href="javascript:void(0);" ng-click="count(1)">+</a>&nbsp;&nbsp;件</div>
                                 <em class="buy_stock">库存200件</em>
                         	</div>
                         </li>
@@ -79,8 +77,8 @@
                         <li><a href="javascript:void(0);">交易费率信息</a></li>
                         <li><a href="javascript:void(0);">开通申请条件</a></li>
                         <li><a href="javascript:void(0);">开通所需材料</a></li>
-                        <li><a href="javascript:void(0);">评价(<strong>208</strong>)</a></li>
-                        <li><a href="javascript:void(0);">租赁说明</a></li>
+                        <li><a href="javascript:void(0);">评价(<strong>{{good.commentsCount}}</strong>)</a></li>
+                        <li><a href="javascript:void(0);" ng-show="good.goodinfo.has_lease">租赁说明</a></li>
                     </ul>
                 </div>
                 <div class="pro_detail_con">
@@ -102,7 +100,7 @@
                             <ul>
                             	<li><span>支持区域：</span><div class="text">{{paychannel.supportArea}}</div></li>
                                 <li><span>到账时间：</span><div class="text">2天内</div></li>
-                                <li><span>是否支持注销：</span><div class="text">支持</div></li> 
+                                <li><span>是否支持注销：</span><div class="text">{{paychannel.support_cancel_flag?'支持':'不支持'}}</div></li> 
                             </ul>
                         </div>
                         <div class="pro_attributes">
@@ -165,7 +163,7 @@
                               <tr>
                                 <td>T+1</td>
                                 <td>0.5%</td>
-                                <td><p>这里是说这里是说明这里是说这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明明...</p></td>
+                                <td><p>这里是说明</p></td>
                               </tr>
                             </table>
                         </div>
@@ -230,87 +228,27 @@
                     <div>
                     	<div class="pro_evaluate">
                         	<div class="evaluate_title"><i></i>综合评分4.5</div>
+                           
                             <div class="evaluate_item">
                             	<div class="evaluate_star">
                                 	<ul>
-                                        <li class="p_li_o">
-                                        </li><li class="p_li_o"></li><li class="p_li_o"></li><li class="p_li_o"></li><li></li>
+                                        <li class="p_li_o"></li>
+                                        <li class="p_li_o"></li>
+                                        <li class="p_li_o"></li>
+                                        <li class="p_li_o"></li>
+                                        <li></li>
                                     </ul>
                                 </div>
-                                <div class="evaluate_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus 
-accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien 
-nunc eget odio.</div>
+                                <div class="evaluate_text">内容</div>
 								<div class="evaluate_name">
                                 	<h3>维尼熊</h3>
                                     <span>2014-12-19   20：05：30</span>
                                 </div>
                             </div>
-                            <div class="evaluate_item">
-                            	<div class="evaluate_star">
-                                	<ul>
-                                        <li class="p_li_o">
-                                        </li><li class="p_li_o"></li><li class="p_li_o"></li><li class="p_li_o"></li><li></li>
-                                    </ul>
-                                </div>
-                                <div class="evaluate_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus 
-accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien 
-nunc eget odio.</div>
-								<div class="evaluate_name">
-                                	<h3>维尼熊</h3>
-                                    <span>2014-12-19   20：05：30</span>
-                                </div>
-                            </div>
-                            <div class="evaluate_item">
-                            	<div class="evaluate_star">
-                                	<ul>
-                                        <li class="p_li_o">
-                                        </li><li class="p_li_o"></li><li class="p_li_o"></li><li class="p_li_o"></li><li></li>
-                                    </ul>
-                                </div>
-                                <div class="evaluate_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus 
-accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien 
-nunc eget odio.</div>
-								<div class="evaluate_name">
-                                	<h3>维尼熊</h3>
-                                    <span>2014-12-19   20：05：30</span>
-                                </div>
-                            </div>
-                            <div class="evaluate_item">
-                            	<div class="evaluate_star">
-                                	<ul>
-                                        <li class="p_li_o">
-                                        </li><li class="p_li_o"></li><li class="p_li_o"></li><li class="p_li_o"></li><li></li>
-                                    </ul>
-                                </div>
-                                <div class="evaluate_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus 
-accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien 
-nunc eget odio.</div>
-								<div class="evaluate_name">
-                                	<h3>维尼熊</h3>
-                                    <span>2014-12-19   20：05：30</span>
-                                </div>
-                            </div>
-                            <div class="evaluate_item">
-                            	<div class="evaluate_star">
-                                	<ul>
-                                        <li class="p_li_o">
-                                        </li><li class="p_li_o"></li><li class="p_li_o"></li><li class="p_li_o"></li><li></li>
-                                    </ul>
-                                </div>
-                                <div class="evaluate_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus 
-accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien 
-nunc eget odio.</div>
-								<div class="evaluate_name">
-                                	<h3>维尼熊</h3>
-                                    <span>2014-12-19   20：05：30</span>
-                                </div>
-                            </div>
-                            <div class="pageTurn"> 
+                            
+                            
+                           
+                        <div class="pageTurn"> 
                         <div class="p_num">
                         <a href="#" class="disabled">上一页</a> 
                         <a href="#" class="current">1</a> 
@@ -332,21 +270,17 @@ nunc eget odio.</div>
                         </div>
                     </div>
                     <div>
-                        <div class="pro_attributes">
+                        <div class="pro_attributes" >
                             <h2>租赁最小期限</h2>
-                            <div class="text">1年</div>
+                            <div class="text">{{good.goodinfo.lease_time}}月</div>
                         </div>
                         <div class="pro_attributes">
                             <h2>租赁说明</h2>
-                            <div class="text">租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明
-租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明
-租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明</div>
+                            <div class="text">{{good.goodinfo.lease_description}}</div>
                         </div>
                         <div class="pro_attributes">
 							<h2>租赁协议</h2>
-                            <div class="text">租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明
-租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明
-租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明租赁说明</div>
+                            <div class="text">{{good.goodinfo.lease_agreement}}</div>
                         </div>
                     </div>
                 </div>
@@ -361,7 +295,7 @@ nunc eget odio.</div>
                 	<div class="mf_logo"><img src="images/mf_logo.jpg" /></div>
                     <div class="mf_name">拉卡拉集团拉卡拉集团拉卡拉集团</div>
                 </div>
-                <div class="mf_text">拉卡拉集团成立于2005年，是中国领先的互联网金融及社区电商公司，借助互联网技术，以便民服务及支付为手段，为商户及其用户提供金融及电子商务服务。<br /><a href="#">http://www.lakala.com/index.html</a></div>
+                <div class="mf_text">拉卡拉集团成立于2005年，是中国领先的互联网金融及社区电商公司，借助互联网技术，以便民服务及支付为手段，为商户及其用户提供金融及电子商务服务。<br /><a href="http://www.lakala.com/index.html">http://www.lakala.com/index.html</a></div>
             </div>
             	<div class="manufacturer">
             	<h2>收单机构</h2>
