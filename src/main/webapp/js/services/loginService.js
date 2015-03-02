@@ -3,63 +3,53 @@
 //登陆服务模块
 var loginServiceModule = angular.module("loginServiceModule", []);
 
-//登陆服务
-var loginService = function ($scope,$http){
-	 $scope.RememberPass=false;
-	 $scope.username = "";
-	 $scope.password = "";
-	 $scope.code = "";
-	 $scope.jsons = {username:$scope.username,password:$scope.password};
-	 $scope.login = function(){
-		 alert($scope.code);
-		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
-			 if(data.code == -1){
-				 $scope.message = data.message;
-			 }else{
-				 $http.post("api/user/studentLogin", $scope.jsons).success(function (data) {  //绑定
-			           alert(data.code);
-			           if(data.code == -1){//用户或者密码错误！
-			        	   $scope.message = data.message; 
-			           }else{
-			        	   if($scope.RememberPass==true){
-			        		   $cookieStore.put("password",data.result.password);
-			        	   }
-			        	   $cookieStore.put("loginUserName",data.result.username);
-			        	   $cookieStore.put("loginUserId",data.result.id);
-			        	   $scope.message = data.message; //登陆成功，跳转页面
-			           }
-			        }).error(function (data) {
-			        	$scope.message = "登陆异常！"
-			        });
-			 }
-		 }).error(function(data){
-			 $scope.message = "获取验证码失败！"
-		 });
-	 };
-	 //图片验证码
-	 $scope.reGetRandCodeImg = function(){
-		 $("#loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
-	 };
-	 
-}
-var loginServices = function ($http, $rootScope, $cookieStore) {
+
+var loginService = function ($http, $rootScope, $cookieStore) {
     return {
         //定义当前用户是否被授权
         //isAuthorized: typeof($cookieStore.get("loginInfo")) == 'undefined' ? false : true,
     	isAuthorized:true,
     	//当前登陆的用户名
         //loginUserName: typeof($cookieStore.get("loginInfo")) == 'undefined' ? "" : $cookieStore.get("loginInfo"),
-        fullName: "123",
+    	shopcount: "123",
         userPower : "11",
-        userLogo: "123",
+        userid: "123",
         userLogo:"123",
         city:1,
         //用户登陆功能
         login: function ($scope) {
-        	alert("login");
-            var self = this;
-            $http.post("api/user/studentLogin", $scope).success(function (data) {
-            	if (data.code != 10) {
+        	
+        	alert($scope.code);
+   		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
+   			 if(data.code == -1){
+   				 $scope.message = data.message;
+   			 }else{
+   				 $http.post("api/user/studentLogin", $scope.jsons).success(function (data) {  //绑定
+   			           alert(data.code);
+   			           if(data.code == -1){//用户或者密码错误！
+   			        	   $scope.message = data.message; 
+   			           }else{
+   			        	   if($scope.RememberPass==true){
+   			        		   $cookieStore.put("password",data.result.password);
+   			        	   }
+   			        	   $cookieStore.put("loginUserName",data.result.username);
+   			        	   $cookieStore.put("loginUserId",data.result.id);
+   			        	   $scope.message = data.message; //登陆成功，跳转页面
+   			           }
+   			        }).error(function (data) {
+   			        	$scope.message = "登陆异常！"
+   			        });
+   			 }
+   		 }).error(function(data){
+   			 $scope.message = "获取验证码失败！"
+   		 });
+        	
+        	
+        	
+//        	alert("login");
+//            var self = this;
+//            $http.post("api/user/studentLogin", $scope).success(function (data) {
+//            	if (data.code != 10) {
 //                    self.mobile = user.mobile;
 //                    self.isAuthorized = true;
 //                    self.userCD = data.userinfo.userCD;
@@ -70,15 +60,15 @@ var loginServices = function ($http, $rootScope, $cookieStore) {
 //                    $cookieStore.put("shopLogo", self.userLogo);
 //                    $("#loginModal").modal('hide'); //登陆成功，则隐藏登陆窗口，并且显示主页面
 //                    $("#userPwd").val("");
-                    $("#indexDiv").show();
-                    $rootScope.$broadcast('Login.Success', self.mobile);
-                } else {
-                    $("#resetPwd-success-msg").hide();
-                    $("#login-danger-msg").show();
-                }
-        }).error(function (data) {
-            console.log("Login error!");
-        });
+//                    $("#indexDiv").show();
+//                    $rootScope.$broadcast('Login.Success', self.mobile);
+//                } else {
+//                    $("#resetPwd-success-msg").hide();
+//                    $("#login-danger-msg").show();
+//                }
+//        }).error(function (data) {
+//            console.log("Login error!");
+//        });
         },
 
         //用户登出功能

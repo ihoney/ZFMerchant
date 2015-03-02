@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="loginServiceModule">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="loginModule">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +26,8 @@
 
 <!-- Services -->
 <script type="text/javascript" src="js/services/loginService.js"></script>
-
+<!-- controller  -->
+<script type="text/javascript" src="js/controllers/login.controller.js"></script>
 <script type="text/javascript">
 //登录
 // 切换
@@ -65,7 +66,7 @@ $(function(){
 </head>
 <body>
 	<div class="logo"><img src="images/logo.png" /></div>
-    <div class="login" ng-controller="loginService">
+    <div class="login" ng-controller="loginConfig">
     	<div class="login_left">
         	<img src="images/ad.jpg" />
         </div>
@@ -85,9 +86,9 @@ $(function(){
                         <li><input name="" type="text" value="密码" ng-model="password"/></li>
                         <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><div class="yzm"><img id="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
                     </ul>
-                    <div class="forget">
+                    <div class="forget" >
                     	<span><input name="" type="checkbox" value="" ng-model="RememberPass" /> 忘记密码</span>
-                        <a href="findPassOne.html" >忘记密码？</a>
+                        <a href="#/findPass" >忘记密码？</a>
                     </div>
                     <div class="btn"><button ng-click="login()">登录</button></div>
                 </div>

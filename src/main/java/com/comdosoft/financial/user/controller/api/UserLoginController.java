@@ -70,11 +70,15 @@ public class UserLoginController {
     @RequestMapping(value = "sizeUpImgCode", method = RequestMethod.POST)
     public Response sizeUpImgCode(@RequestBody Map<String, String> map ,HttpSession session) {
         try {
-            if(((String) session.getAttribute("imageCode")).equalsIgnoreCase(map.get("imgnum"))){
-            	 return Response.getSuccess("true");
-            }else{
-            	return Response.getError("验证码错误！");
-            }
+        	if((String) session.getAttribute("imageCode") == null){
+        		return Response.getError("验证码错误！");
+        	}else{
+        		if(((String) session.getAttribute("imageCode")).equalsIgnoreCase(map.get("imgnum"))){
+               	 return Response.getSuccess("true");
+               }else{
+               	return Response.getError("验证码错误！");
+               }
+        	}
         } catch (Exception e) {
             e.printStackTrace();
             return Response.getError("系统异常！");
