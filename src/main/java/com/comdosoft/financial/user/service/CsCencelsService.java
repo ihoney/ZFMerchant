@@ -85,10 +85,10 @@ public class CsCencelsService {
                 map.put("resource_info", list_json);
             } catch (IOException e) {
                 e.printStackTrace();
-                map.put("resource_info", "");
+                map.put("resource_info", new ArrayList<>());
             }
         }else{
-            map.put("resource_info", "");
+            map.put("resource_info", new ArrayList<>());
         }
         myOrderReq.setId(Integer.parseInt(id));
         List<Map<String,Object>> list = csCencelsMapper.findTraceById(myOrderReq);
