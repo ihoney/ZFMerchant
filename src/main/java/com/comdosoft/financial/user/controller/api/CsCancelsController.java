@@ -80,5 +80,19 @@ public class CsCancelsController {
             logger.debug("出错"+e+"==>>"+myOrderReq);
             return Response.getError("提交失败");
         }
-    }  
+    }
+    
+    //搜索筛选
+    @RequestMapping(value="search" ,method=RequestMethod.POST)
+    public Response search(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            Page<List<Object>> centers = csCencelsService.search(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
+        }catch(Exception e){
+            logger.debug("获取我的订单列表出错"+e);
+            return Response.getError("请求失败");
+        }
+    }
 }

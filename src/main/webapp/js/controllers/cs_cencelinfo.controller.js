@@ -1,13 +1,13 @@
 'user strict';
 
 //系统设置模块
-var cs_updateinfoModule = angular.module("cs_updateinfoModule",[]);
+var cs_cencelinfoModule = angular.module("cs_cencelinfoModule",[]);
 
-var cs_updateinfoController = function ($scope,$location, $http, LoginService) {
+var cs_cencelinfoController = function ($scope,$location, $http, LoginService) {
 	$scope.req={};
 	$scope.req.id=$location.search()['infoId'];
     $scope.getInfo = function () {
-    	$http.post("api/update/info/getInfoById", $scope.req).success(function (data) {  //绑定
+    	$http.post("api/cs/cancels/getCanCelById", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.info=data.result;
             }
@@ -19,4 +19,4 @@ var cs_updateinfoController = function ($scope,$location, $http, LoginService) {
 
 };
 
-cs_updateinfoModule.controller("cs_updateinfoController", cs_updateinfoController);
+cs_cencelinfoModule.controller("cs_cencelinfoController", cs_cencelinfoController);

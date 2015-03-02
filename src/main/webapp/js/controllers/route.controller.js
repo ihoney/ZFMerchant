@@ -14,10 +14,6 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/order/order.html'
         }).when('/orderinfo', {
         	templateUrl: 'views/order/orderinfo.html'
-        }).when('/cs_update', {
-        	templateUrl: 'views/cs/update.html'
-        }).when('/cs_updateinfo', {
-        	templateUrl: 'views/cs/updateinfo.html'
         }).when('/h3', {
             templateUrl: 'views/h3.html'
         }).when('/shop', {
@@ -34,6 +30,30 @@ function routeConfig($routeProvider) {
     		templateUrl : 'views/login/findPassTwo.html'
     	}).when('/myinfobase', {
     		templateUrl : 'views/customer/myinfobase.html'
+    	 }).when('/cs_cencel', {
+         	templateUrl: 'views/cs/cencel.html'
+         }).when('/cs_cencelinfo', {
+         	templateUrl: 'views/cs/cencelinfo.html'
+         }).when('/cs_change', {
+         	templateUrl: 'views/cs/change.html'
+         }).when('/cs_changeinfo', {
+         	templateUrl: 'views/cs/changeinfo.html'
+         }).when('/cs_lease', {
+         	templateUrl: 'views/cs/lease.html'
+         }).when('/cs_leaseinfo', {
+         	templateUrl: 'views/cs/leaseinfo.html'
+         }).when('/cs_repair', {
+         	templateUrl: 'views/cs/repair.html'
+         }).when('/cs_repairinfo', {
+         	templateUrl: 'views/cs/repairinfo.html'
+         }).when('/cs_return', {
+         	templateUrl: 'views/cs/return.html'
+         }).when('/cs_returninfo', {
+         	templateUrl: 'views/cs/returninfo.html'
+         }).when('/cs_update', {
+         	templateUrl: 'views/cs/update.html'
+         }).when('/cs_updateinfo', {
+         	templateUrl: 'views/cs/updateinfo.html'
     	}).otherwise({
             redirectTo: "/"
         });
