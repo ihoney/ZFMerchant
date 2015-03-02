@@ -118,7 +118,7 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "getFindUser", method = RequestMethod.POST)
-    public Response getFindUser(@RequestBody Map<String, Object> map) {
+    public Response getFindUser(@RequestBody Map<String, Object> map,HttpSession session) {
         try {
             Customer customer = new Customer();
             System.out.println(map.get("username")+"查看姓名！");

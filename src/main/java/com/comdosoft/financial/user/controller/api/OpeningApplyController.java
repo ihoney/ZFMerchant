@@ -50,15 +50,16 @@ public class OpeningApplyController {
 		try {
 			// PageRequest PageRequest = new PageRequest(page,
 			// Constants.PAGE_SIZE);
-			PageRequest PageRequest = new PageRequest(Integer.parseInt((String)map.get("indexPage")),
-					Integer.parseInt((String)map.get("pageNum")));
+			PageRequest PageRequest = new PageRequest((Integer)(map.get("indexPage")),
+					(Integer)map.get("pageNum"));
 
 			int offSetPage = PageRequest.getOffset();
 			return Response.getSuccess(openingApplyService.getApplyList(
-					Integer.parseInt((String)map.get("customersId")),
+					((Integer)map.get("customersId")),
 					offSetPage, 
-					Integer.parseInt((String)map.get("pageNum"))));
+					((Integer)map.get("pageNum"))));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("获取列表失败！");
 		}
 	}

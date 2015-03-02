@@ -22,6 +22,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/shop/shopinfo.html'
         }).when('/shopcart', {
             templateUrl: 'views/shop/shopcart.html'
+        }).when('/findPass', {
+            templateUrl: 'views/login/findPassOne.html'
+        }).when('/findPassTwo', {
+            templateUrl: 'views/login/findPassTwo.html'
         }).otherwise({
             redirectTo: "/"
         });
