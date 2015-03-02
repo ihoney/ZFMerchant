@@ -4,7 +4,7 @@
 var tomakeorderModule = angular.module("tomakeorderModule", []);
 
 var tomakeorderController = function($scope, $location, $http, LoginService) {
-	$scope.list=LoginService.goods;
+	alert(0);
 };
 
 tomakeorderModule.controller("tomakeorderController", tomakeorderController);
