@@ -13,7 +13,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         //loginUserName: typeof($cookieStore.get("loginInfo")) == 'undefined' ? "" : $cookieStore.get("loginInfo"),
     	shopcount: "123",
         userPower : "11",
-        userid: "123",
+        userid: 2,
         userLogo:"123",
         city:1,
         //用户登陆功能

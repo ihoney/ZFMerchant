@@ -14,6 +14,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/order/order.html'
         }).when('/orderinfo', {
         	templateUrl: 'views/order/orderinfo.html'
+        }).when('/cs_update', {
+        	templateUrl: 'views/cs/update.html'
+        }).when('/cs_updateinfo', {
+        	templateUrl: 'views/cs/updateinfo.html'
         }).when('/h3', {
             templateUrl: 'views/h3.html'
         }).when('/shop', {

@@ -3,7 +3,7 @@
 	<div class="box">
     	<div class="breadcrumb">
         	<ul>
-            	<li><a href="#">我的购物车</a></li>
+            	<li>我的购物车</li>
             </ul>
         </div>
         <div class="inner">
@@ -19,7 +19,7 @@
              </colgroup>
              <thead>
               <tr>
-             	<th><input name="" type="checkbox" ng-model="isSelectAll" ng-checked="{{isSelectAll}}" ng-click="checkAll()" /></th>
+             	<th><input type="checkbox" ng-model="isSelectAll" ng-checked="{{isSelectAll}}" ng-click="checkAll()" /></th>
                 <th>商品</th>
                 <th>单价</th>
                 <th>数量</th>
@@ -29,12 +29,12 @@
              </thead>
              
               <tr ng-repeat="c in carts">
-              	<td><input name=""  ng-model="c.checked" ng-checked="{{c.checked}}" type="checkbox" ng-click="checkOne(c)" /></td>
+              	<td><input  ng-model="c.checked" ng-checked="{{c.checked}}" type="checkbox" ng-click="checkOne(c)" /></td>
                 <td>
                 	<div class="td_proBox">
-                    	<a href="#" class="cn_img"><img src="images/c.jpg" /></a>
+                    	<a href="#/shopinfo?goodId={{c.goodId}}" class="cn_img"><img src="images/c.jpg" /></a>
                         <div class="td_proBox_info">
-                        	<h1><a href="#">{{c.title}}</a></h1>
+                        	<h1><a href="#/shopinfo?goodId={{c.goodId}}">{{c.title}}</a></h1>
                             <h3>{{c.second_title}}</h3>
                             <ul>
                             	<li><span>品牌型号：</span><div class="c_text">{{c.good_brands}}{{c.Model_number}}</div></li>
@@ -43,18 +43,18 @@
                         </div>
                     </div>
                 </td>
-                <td><a href="#"><strong>{{(c.opening_cost+c.retail_price)/100|currency : "￥"}}</strong></a></td>
-                <td><div class="choose_amount"><a href="javascript:void(0);">-</a><input type="text" ng-model="c.quantity" /><a href="javascript:void(0);">+</a></div></td>
-                <td><a href="#"><strong>{{(c.opening_cost+c.retail_price)/100*c.quantity|currency : "￥"}}</strong></a></td>
+                <td><a href="javascript:void(0);"><strong>{{(c.opening_cost+c.retail_price)/100|currency : "￥"}}</strong></a></td>
+                <td><div class="choose_amount"><a href="javascript:void(0);" ng-click="upadteCart(c,-1)">-</a><input type="text" ng-model="c.quantity" ng-blur="upadteCart(c,0)"/><a href="javascript:void(0);" ng-click="upadteCart(c,1)">+</a></div></td>
+                <td><a href="javascript:void(0);"><strong>{{(c.opening_cost+c.retail_price)/100*c.quantity|currency : "￥"}}</strong></a></td>
                 <td>
-                	<a href="#" class="a_btn">删除</a>
+                	<a href="javascript:void(0);" ng-click="del(c.id)" class="a_btn">删除</a>
                 </td>
               </tr>
               
               
               <tr class="myShopOrder_bottom">
-              	<td><input name="" type="checkbox" value="" />&nbsp;全选</td>
-              	<td colspan="5"><div class="mscb_a"><a href="#">删除</a></div>
+              	<td><input type="checkbox" ng-model="isSelectAll" ng-checked="{{isSelectAll}}" ng-click="checkAll()" />&nbsp;全选</td>
+              	<td colspan="5"><div class="mscb_a"><a href="javascript:void(0);" ng-click="delAll()" >删除</a></div>
                 	<div class="mscb_info">
                     	<span>已选中<strong>{{selectCount}}</strong>件商品</span><span>合计(不含配送费)：<strong>{{selectMoney/100|currency : "￥"}}</strong></span>
                     </div>
@@ -62,7 +62,7 @@
               </tr>
             </table>
         </div>
-        <div class="btnRight"><button class="orangeBtn">下一步</button></div>
+        <div class="btnRight"><button class="{{selectCount==0?'grayBtn':'orangeBtn'}}"  ng-disabled="selectCount==0" ng-click="next()">下一步</button></div>
         </div>
     </div>
 </div>

@@ -82,10 +82,10 @@ public class CsChangeService {
                 map.put("resource_info", list_json);
             } catch (IOException e) {
                 e.printStackTrace();
-                map.put("resource_info", "");
+                map.put("resource_info", new ArrayList<>());
             }
         }else{
-            map.put("resource_info", "");
+            map.put("resource_info", new ArrayList<>());
         }
         List<Map<String,Object>> list = csChangeMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
