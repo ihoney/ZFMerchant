@@ -109,10 +109,10 @@ public class CsLeaseReturnsService {
                 map.put("resource_info", list_json);
             } catch (IOException e) {
                 e.printStackTrace();
-                map.put("resource_info", "");
+                map.put("resource_info", new ArrayList<>());
             }
         }else{
-            map.put("resource_info", "");
+            map.put("resource_info", new ArrayList<>());
         }
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         return map;
