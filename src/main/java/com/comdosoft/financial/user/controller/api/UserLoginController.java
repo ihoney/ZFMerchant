@@ -182,6 +182,29 @@ public class UserLoginController {
     }
 
     /**
+     * 找回密码(web)校验验证码
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "webFicationCode", method = RequestMethod.POST)
+    public Response webFicationCode(@RequestBody Customer customer) {
+        try {
+        	System.out.println(customer.getCode()+"验证码1");
+        	System.out.println(userLoginService.findCode(customer)+"验证码2");
+                if (customer.getCode().equals(userLoginService.findCode(customer))) {
+                	
+                    return Response.getSuccess("验证码正确！");
+                } else {
+                    return Response.getError("验证码错误！");
+                }
+        } catch (Exception e) {
+            return Response.getError("请求失败！");
+        }
+    }
+    
+    
+    /**
      * 找回密码
      * 
      * @param customer

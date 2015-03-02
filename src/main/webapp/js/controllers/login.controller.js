@@ -62,32 +62,51 @@ var loginController = function($scope, $location, $http, LoginService) {
 							).success(function(data) {
 								if(data.code == 1){
 									alert("重置邮件发送成功！");
+									$('#findPassOne').hide();
+									$('#findPassTwo').show();
+									$("#ulPhone").hide();
+									$("#updown").hide();
 								}else{
 									alert("重置密码邮件发送失败！");
 								}
+								
 							})
-							$("#ulPhone").hide();
-							$("#updown").hide();
 						} else {
 							$http.post("api/user/sendPhoneVerificationCodeFind", {
 								codeNumber : $scope.username,
 							}).success(function(data) {
 								if(data.code == 1){
+									alert(data.result);
+									$scope.code = data.result;
 									$('#findPassOne').hide();
 									$('#findPassTwo').show();
 								}else{
-									alert("该用户不存在！");
+									alert("发送手机验证码失败！");
 								}
 							})
 							$("#emailtext").hide();
 						}
-						$('#findPassOne').hide();
-						$('#findPassTwo').show();
 					}
 				})
 			}
 		})
 	}
+	
+	//找回密码第三步
+	$scope.findPassThree = function(){
+		$http.post("api/user/webFicationCode", {
+			code : $scope.code
+		}).success(function(data) {
+			if(data.code == 1){
+				$('#findPassTwo').hide();
+				$('#findPassThree').show();
+			}else if(data.code == -1){
+				alert(data.message);
+			}
+			
+		})
+	}
+	
 	//动态加载css样式
 	$scope.dynamicLoadingCss = function(path){
 		if(!path || path.length == 0){

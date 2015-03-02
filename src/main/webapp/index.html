@@ -16,8 +16,6 @@
 <!-- <link href="style/global.css" rel="stylesheet" type="text/css" /> -->
 <script src="js/jQuery-1.11.2.js"></script>
 
-
-
 <script src="js/Chart.min.js"></script>
 <script src="js/main.js"></script>
 
@@ -207,8 +205,28 @@ $(function(){
     	<ul id="ulPhone">
             <li><input name="" type="text" value="输入图片校验码" class="m" /><button class="send_btn">重新发送验证码（119秒）</button></li>
         </ul>
-        <div class="btn" id="updown"><button>下一步</button></div>
+        <div class="btn" id="updown"><button ng-click="findPassThree()">下一步</button></div>
         <div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
+    </div>
+</div>
+   </div>
+   
+   <div id="findPassThree">
+	<div class="logo"><img src="images/logo.png" /></div>
+<div class="retrieve">
+	<div class="ret_h">
+    	<ul>
+        	<li><a href="#">第一步</a></li>
+            <li><a href="#">第二步</a></li>
+            <li><a href="#" class="hover">第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b">
+    	<ul>
+            <li><input name="" type="text" value="输入新密码" /></li>
+            <li><input name="" type="text" value="确认新密码" /></li>
+        </ul>
+        <div class="btn"><button>去登陆</button></div>
     </div>
 </div>
    </div>
