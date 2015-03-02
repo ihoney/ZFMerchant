@@ -29,10 +29,16 @@
             <result property="openingProtocol" column="openingProtocol" /> 
 	</resultMap>
 	
+	<resultMap id="factoryResultMap" type="com.comdosoft.financial.user.domain.zhangfu.Factory">
+		 <id property="id" column="id" />  
+            <result property="name" column="factory_name" /> 
+	</resultMap>
+	
 	<resultMap id="goodsMap" type="com.comdosoft.financial.user.domain.zhangfu.Good">
 		 <id property="id" column="good_id" />  
             <result property="title" column="title" /> 
             <result property="volumeNumber" column="volume_number" />
+            <association property="factory" javaType="com.comdosoft.financial.user.domain.zhangfu.Factory" resultMap="factoryResultMap" />  
             <association property="goodsBrand" javaType="com.comdosoft.financial.user.domain.zhangfu.GoodBrand" resultMap="goodBrandResultMap" />  
             <collection property="picsList" ofType="com.comdosoft.financial.user.domain.zhangfu.GoodsPicture" resultMap="picsResultMap" />  
 	</resultMap>
@@ -185,11 +191,11 @@
 	
 	<select id="findMyOrderById" resultMap="orderMap">
 		SELECT
-		o.id as id,og.id as order_good_id,g.id as good_id,o.total_quantity,
+		o.id as id,og.id as order_good_id,g.id as good_id,o.total_quantity,p.pay_type,g.factory_id,
 		o.order_number,	o.created_at,	o.status,o.pay_status,gp.id as pic_id,o.invoice_type,
-		gp.url_path ,g.title,gb.name , gb.id as good_brands_id,o.comment,
+		gp.url_path ,g.title,gb.name , gb.id as good_brands_id,o.comment,f.name as factory_name,
 		pc.name as channel_name,og.price ,	og.quantity ,o.invoice_info,
-		o.actual_price ,total_price,o.total_quantity as total_num,om.customer_id as om_customer_id,om.order_id as om_order_id,
+		o.actual_price ,o.total_price,o.total_quantity as total_num,om.customer_id as om_customer_id,om.order_id as om_order_id,
 		ca.receiver ,ca.address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name 
 		FROM	
 		orders o
@@ -197,10 +203,12 @@
 		LEFT JOIN goods g ON og.good_id = g.id
 		LEFT JOIN goods_pictures gp ON g.id = gp.good_id
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN factories f ON g.factory_id = f.id
 		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		LEFT JOIN customer_addresses ca on o.customer_address_id = ca.id 
 		LEFT JOIN order_marks om on o.id = om.order_id 
 		LEFT JOIN customers c on om.customer_id = c.id
+		LEFT JOIN order_payments p on o.id= p.order_id
 		WHERE
 		o.id = #{param1}
 	</select>
@@ -223,7 +231,7 @@
 			crm.created_at,
 			c.`name` AS marks_person
 		FROM
-			  good_comments crm 
+			  order_marks crm 
 		LEFT JOIN customers c ON crm.customer_id = c.id
 		WHERE
 		crm.order_id = #{id}

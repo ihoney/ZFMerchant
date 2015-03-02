@@ -15,7 +15,7 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
             $("#serverErrorModal").modal({show: true});
         });
     };
-    $scope.init();
+    $scope.getOrderInfo();
 
 };
 

@@ -131,7 +131,7 @@ public class OrderService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         for(Order o : centers){
             map = new HashMap<String, Object>();
-            map.put("order_id", o.getId().toString());
+            map.put("order_id", o.getId()+"");
             map.put("order_type", o.getTypes());
             map.put("order_number", o.getOrderNumber());
             String d = sdf.format(o.getCreatedAt());
@@ -148,13 +148,13 @@ public class OrderService {
                 for (OrderGood od : olist) {
                     omap = new HashMap<String, Object>();
 //                    omap.put("order_good_id", od.getId()==null?"":od.getId().toString());
-                    omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId().toString());
+                    omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId()+"");
                     omap.put("good_volume_number",  od.getGood() == null ? "" : od.getGood().getVolumeNumber()+"");//热销量
-                    omap.put("good_price", od.getPrice() == null ? "" : od.getPrice().toString());
-                    omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity().toString());
-                    omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle());
-                    omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
-                    omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName());
+                    omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
+                    omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
+                    omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()+"");
+                    omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName()+"");
+                    omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()+"");
                     String good_logo = "";
                     if(null !=od.getGood()){
                         Good g = od.getGood();
@@ -195,8 +195,9 @@ public class OrderService {
 //        map.put("order_pay_status", o.getPayStatus().getName());
         map.put("order_status", o.getStatus().getCode());
         map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
-        map.put("order_totalPrice", o.getActualPrice());
-        map.put("order_psf", "");//配送费
+        map.put("order_totalPrice", o.getActualPrice()+"");//订单总额
+        map.put("order_price", o.getTotalPrice()+"");//订单原价
+        map.put("order_psf", "0");//配送费
         map.put("order_receiver", o.getCustomerAddress()==null ?"":o.getCustomerAddress().getReceiver());
         map.put("order_address", o.getCustomerAddress()==null ?"":o.getCustomerAddress().getAddress());
         map.put("order_receiver_phone", o.getCustomerAddress()==null ?"":o.getCustomerAddress().getMoblephone());
@@ -214,13 +215,15 @@ public class OrderService {
         List<Object> newObjList = new ArrayList<Object>();
         Map<String, Object> omap = null;
         if (olist.size() > 0) {
+            OrderGood og = olist.get(0);
+            map.put("good_merchant", og.getGood() == null ? "" : og.getGood().getFactory()==null?"":og.getGood().getFactory().getName()==null?"":og.getGood().getFactory().getName());//供货商
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
 //                omap.put("order_good_id", od.getId().toString());
-                omap.put("good_id", od.getGood() == null ? "" : od.getGood().getId().toString());
-                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice().toString());
-                omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity().toString());
-                omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle());
+                omap.put("good_id", od.getGood() == null ? "" : od.getGood().getId()+"");
+                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
+                omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
+                omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle());
                 omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
                 omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName());
                 String good_logo = "";
@@ -263,13 +266,13 @@ public class OrderService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         for(Order o : centers){
             map = new HashMap<String, Object>();
-            map.put("order_id", o.getId().toString());
+            map.put("order_id", o.getId()+"");
             map.put("order_type", o.getTypes());
             map.put("order_number", o.getOrderNumber());
             String d = sdf.format(o.getCreatedAt());
             map.put("order_createTime", d);
             map.put("order_status", o.getStatus().getCode());
-            map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
+            map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity()+"");// 订单总件数
             map.put("order_totalPrice", o.getActualPrice());
             map.put("order_psf", "0");//配送费
             List<OrderGood> olist = o.getOrderGoodsList();
@@ -280,13 +283,13 @@ public class OrderService {
                 for (OrderGood od : olist) {
                     omap = new HashMap<String, Object>();
 //                    omap.put("order_good_id", od.getId()==null?"":od.getId().toString());
-                    omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId().toString());
+                    omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId()+"");
                     omap.put("good_volume_number",  od.getGood() == null ? "" : od.getGood().getVolumeNumber()+"");//热销量
-                    omap.put("good_price", od.getPrice() == null ? "" : od.getPrice().toString());
-                    omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity().toString());
-                    omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle());
-                    omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
-                    omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName());
+                    omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
+                    omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
+                    omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle()+"");
+                    omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName()+"");
+                    omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()+"");
                     String good_logo = "";
                     if(null !=od.getGood()){
                         Good g = od.getGood();
