@@ -48,13 +48,13 @@ public class TerminalsController {
 	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
 	public Response getApplyList(@RequestBody Map<String, Object> map) {
 		try {
-			PageRequest PageRequest = new PageRequest(Integer.parseInt((String)map.get("indexPage")),
-					Integer.parseInt((String)map.get("pageNum")));
+			PageRequest PageRequest = new PageRequest((Integer)map.get("indexPage"),
+					(Integer)map.get("pageNum"));
 			int offSetPage = PageRequest.getOffset();
 			return Response.getSuccess(terminalsService.getTerminalList(
-					Integer.parseInt((String)map.get("customersId")),
+					((Integer)map.get("customersId")),
 					offSetPage,
-					Integer.parseInt((String)map.get("pageNum"))));
+					(Integer)map.get("pageNum")));
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
@@ -71,14 +71,14 @@ public class TerminalsController {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					terminalsService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+					terminalsService.getApplyDetails((Integer)maps.get("terminalsId")));
 			// 终端交易类型
-			map.put("rates", terminalsService.getRate(Integer.parseInt((String)maps.get("terminalsId"))));
+			map.put("rates", terminalsService.getRate((Integer)maps.get("terminalsId")));
 			// 追踪记录
-			map.put("trackRecord", terminalsService.getTrackRecord(Integer.parseInt((String)maps.get("terminalsId"))));
+			map.put("trackRecord", terminalsService.getTrackRecord((Integer)maps.get("terminalsId")));
 			// 开通详情
 			map.put("openingDetails",
-					terminalsService.getOpeningDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
@@ -145,7 +145,7 @@ public class TerminalsController {
 	public Response Encryption(@RequestBody Map<String, Object> map) {
 		try {
 			String pass = SysUtils.Decrypt(
-					terminalsService.findPassword(Integer.parseInt((String)map.get("terminalid"))),
+					terminalsService.findPassword((Integer)map.get("terminalid")),
 					passPath);
 			return Response.getSuccess(pass);
 		} catch (Exception e) {

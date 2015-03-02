@@ -75,15 +75,15 @@ public class OpeningApplyController {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					openingApplyService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+					openingApplyService.getApplyDetails((Integer)maps.get("terminalsId")));
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants());
 			// 数据回显(针对重新开通申请)
-			map.put("applyFor", openingApplyService.ReApplyFor(Integer.parseInt((String)maps.get("terminalsId"))));
+			map.put("applyFor", openingApplyService.ReApplyFor((Integer)maps.get("terminalsId")));
 			// 材料名称
 			map.put("materialName",
-					openingApplyService.getMaterialName(Integer.parseInt((String)maps.get("terminalsId")),
-							Integer.parseInt((String)maps.get("status"))));
+					openingApplyService.getMaterialName((Integer)maps.get("terminalsId"),
+					(Integer)maps.get("status")));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
@@ -100,7 +100,7 @@ public class OpeningApplyController {
 	public Response getMerchant(@RequestBody Map<String, Object> map) {
 		try {
 			Merchant merchant = new Merchant();
-			merchant = openingApplyService.getMerchant(Integer.parseInt((String)map.get("merchantId")));
+			merchant = openingApplyService.getMerchant((Integer)map.get("merchantId"));
 			return Response.getSuccess(merchant);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
@@ -146,8 +146,8 @@ public class OpeningApplyController {
 	public Response getMaterialName(@RequestBody Map<String, Object> map) {
 		try {
 			return Response.getSuccess(openingApplyService.getMaterialName(
-					Integer.parseInt((String)map.get("terminalId"))
-					, Integer.parseInt((String)map.get("status"))));
+					(Integer)map.get("terminalId")
+					, (Integer)map.get("status")));
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
@@ -209,6 +209,7 @@ public class OpeningApplyController {
 			}
 			return Response.getSuccess("添加成功！");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}
