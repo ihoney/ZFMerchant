@@ -91,11 +91,11 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "sendPhoneVerificationCodeFind", method = RequestMethod.POST)
-    public Response sendPhoneVerificationCodeFind(@RequestBody String codeNumber) {
+    public Response sendPhoneVerificationCodeFind(@RequestBody Map<String, String> map) {
         try {
-        	System.out.println(codeNumber+"查看");
+        	System.out.println(map.get("codeNumber")+"查看");
             Customer customer = new Customer();
-            customer.setUsername(codeNumber);
+            customer.setUsername(map.get("codeNumber"));
             char[] randchar = SysUtils.getRandNum(6);
             String str = "";
             for (int i = 0; i < randchar.length; i++) {
