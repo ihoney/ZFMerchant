@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"  ng-app="indexModule">
-<head>
+<head  ng-controller="loginController">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,12 +13,13 @@
 <!--user.css用户后台页-->
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
-<link href="style/global.css" rel="stylesheet" type="text/css" />
-<link href="style/login.css" rel="stylesheet" type="text/css" />
+<!-- <link href="style/global.css" rel="stylesheet" type="text/css" /> -->
 <script src="js/jQuery-1.11.2.js"></script>
 
 <script src="js/Chart.min.js"></script>
 <script src="js/main.js"></script>
+
+
 <!--放大产品-->
 <link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
@@ -74,10 +75,57 @@ $(function(){
 })
 
 </script>
+
+<script type="text/javascript">
+
+//input默认值findpassone
+function focusBlur(e){
+	$(e).focus(function(){
+		var thisVal = $(this).val();
+		if(thisVal == this.defaultValue){
+			$(this).val('');
+		}	
+	})	
+	$(e).blur(function(){
+		var thisVal = $(this).val();
+		if(thisVal == ''){
+			$(this).val(this.defaultValue);
+		}	
+	})	
+}
+
+$(function(){
+	focusBlur('.ret_b input');//登录
+})
+
+</script>
+
+<script type="text/javascript">
+//input默认值findTwo
+function focusBlur(e){
+	$(e).focus(function(){
+		var thisVal = $(this).val();
+		if(thisVal == this.defaultValue){
+			$(this).val('');
+		}	
+	})	
+	$(e).blur(function(){
+		var thisVal = $(this).val();
+		if(thisVal == ''){
+			$(this).val(this.defaultValue);
+		}	
+	})	
+}
+
+$(function(){
+	focusBlur('.ret_b input');//登录
+})
+
+</script>
+
 </head>
 
-<body ng-controller="loginController">
-   
+<body  ng-controller="loginController">
     <div id="login" >
 	<div class="logo"><img src="images/logo.png" /></div>
     <div class="login" >
@@ -98,11 +146,11 @@ $(function(){
                         	<p class="red" ng-bind="message"></p>
                         </li>
                         <li><input name="" type="text" value="密码" ng-model="password"/></li>
-                        <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><div class="yzm"><img id="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
+                        <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><div class="yzm"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
                     </ul>
                     <div class="forget" >
                     	<span><input name="" type="checkbox" value="" ng-model="RememberPass" /> 忘记密码</span>
-                        <a href="#/findPass" >忘记密码？</a>
+                        <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
                     </div>
                     <div class="btn"><button ng-click="login()">登录</button></div>
                 </div>
@@ -121,6 +169,66 @@ $(function(){
             </div>
         </div>
     </div>
+   </div>
+   
+   <div id="findPassOne">
+	<div class="logo"><img src="images/logo.png" /></div>
+	<div class="retrieve">
+	<div class="ret_h">
+    	<ul>
+        	<li><a href="#" class="hover">第一步</a></li>
+            <li><a href="#">第二步</a></li>
+            <li><a href="#">第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b">
+    	<ul>
+            <li><input name="" type="text" value="手机号/邮箱" ng-model="username"/></li>
+            <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></li>
+        </ul>
+        <div class="btn"><button ng-click="findPassOnes()">下一步</button></div>
+    </div>
+</div>
+   </div>
+   
+    <div id="findPassTwo">
+	<div class="logo"><img src="images/logo.png" /></div>
+<div class="retrieve">
+	<div class="ret_h">
+    	<ul>
+        	<li><a href="#">第一步</a></li>
+            <li><a href="#" class="hover">第二步</a></li>
+            <li><a href="#">第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b">
+    	<ul id="ulPhone">
+            <li><input name="" type="text" value="输入图片校验码" class="m" /><button class="send_btn">重新发送验证码（119秒）</button></li>
+        </ul>
+        <div class="btn" id="updown"><button ng-click="findPassThree()">下一步</button></div>
+        <div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
+    </div>
+</div>
+   </div>
+   
+   <div id="findPassThree">
+	<div class="logo"><img src="images/logo.png" /></div>
+<div class="retrieve">
+	<div class="ret_h">
+    	<ul>
+        	<li><a href="#">第一步</a></li>
+            <li><a href="#">第二步</a></li>
+            <li><a href="#" class="hover">第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b">
+    	<ul>
+            <li><input name="" type="text" value="输入新密码" /></li>
+            <li><input name="" type="text" value="确认新密码" /></li>
+        </ul>
+        <div class="btn"><button>去登陆</button></div>
+    </div>
+</div>
    </div>
 
 

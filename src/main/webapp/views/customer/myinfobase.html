@@ -1,0 +1,84 @@
+<script type="text/javascript" src="js/controllers/myinfobaseController.js"></script>
+<div class="right" ng-controller="myinfobaseController">
+	<div class="breadcrumb">
+		<ul>
+			<li><a href="#/myinfobase">我的信息</a></li>
+			<li><a href="#/myinfobase">基本信息</a></li>
+		</ul>
+	</div>
+	<div class="content clear">
+		<div class="myInfoNav">
+			<ul>
+				<li><a href="#/myinfobase" class="hover">基本信息</a></li>
+				<li><a href="#">修改密码</a></li>
+				<li><a href="#">地址管理</a></li>
+				<li><a href="#">我的积分</a></li>
+			</ul>
+		</div>
+		<div class="user_title">
+			<h1>编辑基本信息</h1>
+		</div>
+		<div class="myInfoBox">
+			<ul>
+				<li><label>姓名：</label><input type="text" ng-model="customer.name" /></li>
+				<li><label>电话：</label><input type="text" ng-model="customer.phone" disabled="disabled" /><a href="#">修改手机号</a></li>
+				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="#">修改邮箱</a></li>
+				<li><label>所在地：</label><select>
+						<option>江苏省</option>
+				</select><select ng-model="customer.city_id">
+						<option value="1">南京市</option>
+						<option value="2">苏州市</option>
+				</select></li>
+			</ul>
+			<div class="myInfoBox_btn">
+				<button type="button" class="orangeBtn" ng-click="save()">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="mask"></div>
+
+<div class="tab" style="display: none; top: 20px; right: 100px;">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabBody">
+		<div class="modification">
+			<p>为了修改您的手机号，我们向您的手机发送了验证码， 请输入您收到的验证码。</p>
+			<ul>
+				<li><input name="" type="text" /><a href="#">重新发送验证码（109秒）</a></li>
+				<li><input name="" type="text" value="新手机号" /></li>
+			</ul>
+		</div>
+	</div>
+	<div class="tabFoot">
+		<button class="orangeBtn">确定</button>
+	</div>
+</div>
+
+<div class="tab" style="display: none; top: 260px; right: 100px;">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabBody">
+		<div class="modification">
+			<p>我们向您的新手机号发送了验证码。</p>
+			<ul>
+				<li><input name="" type="text" /><a href="#">重新发送验证码（109秒）</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="tabFoot">
+		<button class="orangeBtn">确定</button>
+	</div>
+</div>
+
+<div class="tab" style="display: none; top: 460px; right: 100px;">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabBody">
+		<div class="modification">
+			<p>为了修改您的邮箱，我们向您的邮箱发送了修改连接， 请查看您的邮箱。</p>
+		</div>
+	</div>
+	<div class="tabFoot">
+		<button class="orangeBtn">确定</button>
+	</div>
+</div>
+<script type="text/javascript" src="js/main.js"></script>

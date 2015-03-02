@@ -91,10 +91,11 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "sendPhoneVerificationCodeFind", method = RequestMethod.POST)
-    public Response sendPhoneVerificationCodeFind(@RequestBody String codeNumber) {
+    public Response sendPhoneVerificationCodeFind(@RequestBody Map<String, String> map) {
         try {
+        	System.out.println(map.get("codeNumber")+"查看");
             Customer customer = new Customer();
-            customer.setUsername(codeNumber);
+            customer.setUsername(map.get("codeNumber"));
             char[] randchar = SysUtils.getRandNum(6);
             String str = "";
             for (int i = 0; i < randchar.length; i++) {
@@ -118,7 +119,7 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "getFindUser", method = RequestMethod.POST)
-    public Response getFindUser(@RequestBody Map<String, Object> map) {
+    public Response getFindUser(@RequestBody Map<String, Object> map,HttpSession session) {
         try {
             Customer customer = new Customer();
             System.out.println(map.get("username")+"查看姓名！");
@@ -176,10 +177,33 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "sendEmailVerificationCode", method = RequestMethod.POST)
-    public void sendEmailVerificationCode(@RequestBody String codeNumber) {
-
+    public Response sendEmailVerificationCode(@RequestBody String codeNumber) {
+    	 return Response.getSuccess("发送邮件成功！");
     }
 
+    /**
+     * 找回密码(web)校验验证码
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "webFicationCode", method = RequestMethod.POST)
+    public Response webFicationCode(@RequestBody Customer customer) {
+        try {
+        	System.out.println(customer.getCode()+"验证码1");
+        	System.out.println(userLoginService.findCode(customer)+"验证码2");
+                if (customer.getCode().equals(userLoginService.findCode(customer))) {
+                	
+                    return Response.getSuccess("验证码正确！");
+                } else {
+                    return Response.getError("验证码错误！");
+                }
+        } catch (Exception e) {
+            return Response.getError("请求失败！");
+        }
+    }
+    
+    
     /**
      * 找回密码
      * 

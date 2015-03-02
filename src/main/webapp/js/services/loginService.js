@@ -18,6 +18,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         city:1,
         //用户登陆功能
         login: function ($scope) {
+        	
    		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
    			 if(data.code == -1){
    				 $scope.message = data.message;

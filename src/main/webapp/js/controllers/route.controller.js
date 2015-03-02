@@ -1,9 +1,9 @@
 'use strict';
 
-//主页面路由模块，用于控制主页面的菜单导航(注入了登陆服务LoginService)
-var routeModule = angular.module("routeModule", ['loginServiceModule',  'ngRoute']);
+// 主页面路由模块，用于控制主页面的菜单导航(注入了登陆服务LoginService)
+var routeModule = angular.module("routeModule", [ 'loginServiceModule', 'ngRoute' ]);
 
-//路由器的具体分发
+// 路由器的具体分发
 function routeConfig($routeProvider) {
     $routeProvider.
         when('/', {
@@ -28,9 +28,15 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/shop/shopcart.html'
         }).when('/tomakeorder', {
             templateUrl: 'views/shop/tomakeorder.html'
-        }).otherwise({
+        }).when('/findPass', {
+    		templateUrl : 'views/login/findPassOne.html'
+    	}).when('/findPassTwo', {
+    		templateUrl : 'views/login/findPassTwo.html'
+    	}).when('/myinfobase', {
+    		templateUrl : 'views/customer/myinfobase.html'
+    	}).otherwise({
             redirectTo: "/"
         });
 };
-routeModule.$inject = ['LoginService'];
+routeModule.$inject = [ 'LoginService' ];
 routeModule.config(routeConfig);
