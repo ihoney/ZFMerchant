@@ -6,7 +6,7 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule',
 
 var loginController = function($scope, $location, $http, LoginService) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	$('#login').show();
+	$('#login').hide();
 	$('#index').show();
 	$('#findPassOne').hide();
 	$('#findPassTwo').hide();
