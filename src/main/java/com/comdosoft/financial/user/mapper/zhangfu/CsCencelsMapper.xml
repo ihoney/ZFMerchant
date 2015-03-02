@@ -65,6 +65,12 @@
 	
 	<update id="changeStatus">
 	update  cs_cancels 
+	SET STATUS = #{updateStatus.code}
+	where id = #{id}
+	</update>
+	
+	<update id="cancel">
+	update  cs_cancels 
 	SET STATUS = #{repairStatus.code}
 	where id = #{id}
 	</update>

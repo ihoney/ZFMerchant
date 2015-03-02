@@ -56,7 +56,7 @@ public class CsCencelsService {
      */
     public void cancelApply(MyOrderReq myOrderReq) {
         myOrderReq.setRepairStatus(RepairStatus.CANCEL);
-        csCencelsMapper.changeStatus(myOrderReq);
+        csCencelsMapper.cancel(myOrderReq);
     }
 
     @SuppressWarnings("unchecked")

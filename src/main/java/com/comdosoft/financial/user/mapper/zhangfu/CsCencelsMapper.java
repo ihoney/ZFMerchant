@@ -10,6 +10,7 @@ public interface CsCencelsMapper {
     List<Map<String, Object>> findAll(MyOrderReq myOrderReq);
 
     void changeStatus(MyOrderReq myOrderReq);
+    void cancel(MyOrderReq myOrderReq);
 
     Map<String, Object> findById(MyOrderReq myOrderReq);
 
