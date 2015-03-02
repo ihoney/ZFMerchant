@@ -93,6 +93,7 @@ public class UserLoginController {
     @RequestMapping(value = "sendPhoneVerificationCodeFind", method = RequestMethod.POST)
     public Response sendPhoneVerificationCodeFind(@RequestBody String codeNumber) {
         try {
+        	System.out.println(codeNumber+"查看");
             Customer customer = new Customer();
             customer.setUsername(codeNumber);
             char[] randchar = SysUtils.getRandNum(6);
@@ -176,8 +177,8 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "sendEmailVerificationCode", method = RequestMethod.POST)
-    public void sendEmailVerificationCode(@RequestBody String codeNumber) {
-
+    public Response sendEmailVerificationCode(@RequestBody String codeNumber) {
+    	 return Response.getSuccess("发送邮件成功！");
     }
 
     /**

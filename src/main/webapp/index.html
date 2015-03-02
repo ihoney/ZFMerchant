@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"  ng-app="indexModule">
-<head>
+<head  ng-controller="loginController">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +14,6 @@
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
 <link href="style/global.css" rel="stylesheet" type="text/css" />
-<link href="style/login.css" rel="stylesheet" type="text/css" />
-<link href="style/retrieve.css" rel="stylesheet" type="text/css" />
 <script src="js/jQuery-1.11.2.js"></script>
 
 
@@ -129,7 +127,7 @@ $(function(){
 
 </head>
 
-<body ng-controller="loginController">
+<body  ng-controller="loginController">
     <div id="login" >
 	<div class="logo"><img src="images/logo.png" /></div>
     <div class="login" >
@@ -187,7 +185,6 @@ $(function(){
     </div>
     <div class="ret_b">
     	<ul>
-            <li><input name="" type="text" value="手机号/邮箱"/></li>
             <li><input name="" type="text" value="手机号/邮箱" ng-model="username"/></li>
             <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></li>
         </ul>
