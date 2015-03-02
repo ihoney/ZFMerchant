@@ -15,6 +15,11 @@
     <update id="update" parameterType="com.comdosoft.financial.user.domain.query.CartReq">
        UPDATE shopping_carts set quantity=#{quantity} where id=#{id}
     </update>
+    
+    <update id="update2" parameterType="com.comdosoft.financial.user.domain.query.CartReq">
+       UPDATE shopping_carts set quantity=#{quantity}  where customer_id=#{customerId} and 
+         good_id=#{goodId} and pay_channel_id=#{paychannelId}
+    </update>
   
     <select id="isExist" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="int">
     SELECT IFNULL(
@@ -25,7 +30,8 @@
     </select>
     
     <select id="getList" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="map">
-       select sc.id,sc.quantity,pc.name,g.id as goodId,g.retail_price,g.title,g.Model_number,b.name as good_brands
+       select sc.id,sc.quantity,pc.name,pc.opening_cost,g.id as goodId,g.second_title,
+ 			  g.retail_price,g.title,g.Model_number,b.name as good_brands
        from shopping_carts sc 
        LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id 
        LEFT JOIN goods g on g.id=sc.good_id

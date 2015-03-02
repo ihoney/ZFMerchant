@@ -48,7 +48,7 @@ public class ShopCartService {
                 shopCartMapper.add(cartreq);
             }else{
                 cartreq.setQuantity(quantity+1);
-                shopCartMapper.update(cartreq);
+                shopCartMapper.update2(cartreq);
             }
             return 1;
         } catch (Exception e) {

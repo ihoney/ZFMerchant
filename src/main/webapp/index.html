@@ -74,9 +74,10 @@
 				</div>
 				<div class="shoppingCart">
 					<div class="sCart_h">
-						<i></i><em></em><span>999</span>
+						<i></i><em></em><span>{{shopcount}}</span>
 					</div>
-					<div class="sCart_b">购物车暂无商品</div>
+					<div class="sCart_b" ng-if="shopcount>0">您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a></div>
+					<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
 				</div>
 			</div>
 		</div>

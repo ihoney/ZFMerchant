@@ -31,6 +31,17 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
         	//$("#serverErrorModal").modal({show: true});
         });
     };
+    $scope.addCart = function () {
+    	$scope.cartreq={customerId:LoginService.userid,goodId:$scope.good.goodinfo.id,paychannelId:$scope.paychannel.id};
+    	$http.post("api/cart/add",$scope.cartreq ).success(function (data) {  //绑定
+            if (data.code==1) {
+            	//$scope.paychannel=data.result;
+            	LoginService.shopcount+=1;
+            }
+        }).error(function (data) {
+        	//$("#serverErrorModal").modal({show: true});
+        });
+    };
     $scope.init();
 
 };

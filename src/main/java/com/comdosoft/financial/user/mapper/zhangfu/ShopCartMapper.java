@@ -23,6 +23,8 @@ public interface ShopCartMapper {
     List<Map<String,Object>> getList(CartReq cartreq);
 
     int getTotal(CartReq cartreq);
+
+    void update2(CartReq cartreq);
     
     
 }
