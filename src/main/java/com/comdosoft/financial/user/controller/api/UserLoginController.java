@@ -141,10 +141,10 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "sendPhoneVerificationCodeReg", method = RequestMethod.POST)
-    public Response sendPhoneVerificationCodeReg(@RequestBody String codeNumber) {
+    public Response sendPhoneVerificationCodeReg(@RequestBody Map<String, Object> map) {
         try {
             Customer customer = new Customer();
-            customer.setUsername(codeNumber);
+            customer.setUsername((String)map.get("codeNumber") );
             char[] randchar = SysUtils.getRandNum(6);
             String str = "";
             for (int i = 0; i < randchar.length; i++) {
@@ -164,6 +164,7 @@ public class UserLoginController {
                 } else {
                     userLoginService.updateCode(customer);
                     return Response.getSuccess(str);
+                    
                 }
             }
         } catch (Exception e) {
@@ -199,6 +200,27 @@ public class UserLoginController {
                     return Response.getError("验证码错误！");
                 }
         } catch (Exception e) {
+            return Response.getError("请求失败！");
+        }
+    }
+    
+    /**
+     * 找回密码(web)修改密码
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "webUpdatePass", method = RequestMethod.POST)
+    public Response webUpdatePass(@RequestBody Customer customer) {
+        try {
+            if (userLoginService.findUname(customer) > 0) {
+                    userLoginService.updatePassword(customer);
+                    return Response.getSuccess("找回密码成功！");
+            } else {
+                return Response.getError("用户名错误！");
+            }
+        } catch (Exception e) {
+        	e.printStackTrace();
             return Response.getError("请求失败！");
         }
     }

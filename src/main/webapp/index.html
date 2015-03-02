@@ -14,6 +14,7 @@
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
 <!-- <link href="style/global.css" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
 <script src="js/jQuery-1.11.2.js"></script>
 
 <script src="js/Chart.min.js"></script>
@@ -123,6 +124,30 @@ $(function(){
 
 </script>
 
+<script type="text/javascript">
+
+//input默认值注册
+function focusBlur(e){
+	$(e).focus(function(){
+		var thisVal = $(this).val();
+		if(thisVal == this.defaultValue){
+			$(this).val('');
+		}	
+	})	
+	$(e).blur(function(){
+		var thisVal = $(this).val();
+		if(thisVal == ''){
+			$(this).val(this.defaultValue);
+		}	
+	})	
+}
+
+$(function(){
+	focusBlur('.res_b input');//登录
+})
+
+</script>
+
 </head>
 
 <body  ng-controller="loginController">
@@ -153,12 +178,13 @@ $(function(){
                         <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
                     </div>
                     <div class="btn"><button ng-click="login()">登录</button></div>
+                    <div class="btn"><button ng-click="register()">注册</button></div>
                 </div>
                 <div class="login_area">
                 	<ul>
                     	<li><input name="" type="text" value="ID" /></li>
                         <li><input name="" type="text" value="密码" /></li>
-                        <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="yzm"><img src="images/yzm.jpg" /></div></li>
+                        <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="yzm"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
                     </ul>
                     <div class="forget">
                     	<span><input name="" type="checkbox" value="" /> 忘记密码</span>
@@ -203,7 +229,7 @@ $(function(){
     </div>
     <div class="ret_b">
     	<ul id="ulPhone">
-            <li><input name="" type="text" value="输入图片校验码" class="m" /><button class="send_btn">重新发送验证码（119秒）</button></li>
+            <li><input name="" type="text" value="输入图片校验码" class="m" ng-model="codeNumber"/><button class="send_btn">重新发送验证码（119秒）</button></li>
         </ul>
         <div class="btn" id="updown"><button ng-click="findPassThree()">下一步</button></div>
         <div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
@@ -223,10 +249,76 @@ $(function(){
     </div>
     <div class="ret_b">
     	<ul>
-            <li><input name="" type="text" value="输入新密码" /></li>
-            <li><input name="" type="text" value="确认新密码" /></li>
+            <li><input name="" type="text" value="输入新密码" ng-model="password1"/></li>
+            <li><input name="" type="text" value="确认新密码" ng-model="password2"/></li>
         </ul>
-        <div class="btn"><button>去登陆</button></div>
+        <div class="btn"><button ng-click="findPassEnd()">去登陆</button></div>
+    </div>
+</div>
+   </div>
+   
+   
+   <div id="retrieveHtml">
+	<div class="logo"><img src="images/logo.png" /></div>
+<div class="register">
+	<div class="res_h">
+    	<ul>
+        	<li><a href="#" class="hover" ng-click="register()">手机注册</a></li>
+            <li><a href="#" ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
+        </ul>
+    </div>
+    <div class="res_b">
+    	<ul>
+        	<li><label>所在地</label>
+            	<select name="">
+            	  <option>省</option>
+            	</select>
+                <select name="">
+            	  <option>市</option>
+            	</select>
+            </li>
+            <li><input name="" type="text" value="手机号码" class="l" ng-model="username"/><button class="yzm_btn" ng-click="getRegisterCode()">获取验证码</button></li>
+            <li><input name="" type="text" value="验证码" ng-model="codeNumber"/></li>
+            <li><input name="" type="text" value="用户名（可选）" ng-model="name"/></li>
+            <li><input name="" type="text" value="密码" ng-model="password1"/></li>
+            <li><input name="" type="text" value="确认密码" ng-model="password2"/></li>
+            <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei"/><div><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
+            <li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+        </ul>
+        <div class="btn"><button ng-click="getImgCode()">注册</button></div>
+    </div>
+</div>
+   </div>
+   
+   
+   <div id="emailRetrieveHtml">
+	<div class="logo"><img src="images/logo.png" /></div>
+<div class="register">
+	<div class="res_h">
+    	<ul>
+        	<li><a href="#" ng-click="register()">手机注册</a></li>
+            <li><a href="#" class="hover">邮箱注册</a></li>
+        </ul>
+    </div>
+    <div class="res_b">
+    	<ul>
+        	<li><label>所在地</label>
+            	<select name="">
+            	  <option>省</option>
+            	</select>
+                <select name="">
+            	  <option>市</option>
+            	</select>
+            </li>
+            <li><input name="" type="text" value="邮箱" ng-model="username"/></li>
+            <li><input name="" type="text" value="用户名（可选）" ng-model="name"/></li>
+            <li><input name="" type="text" value="密码" ng-model="password1"/></li>
+            <li><input name="" type="text" value="确认密码" ng-model="password2"/></li>
+            <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei"/><div class="jym"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
+            <li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+        </ul>
+        <div class="btn"><button ng-click="getImgEmailCode()">注册</button></div>
+        <div class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
     </div>
 </div>
    </div>
