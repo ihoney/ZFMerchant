@@ -108,7 +108,6 @@ public class CustomerAPI {
     public Response getIntegralList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
-
             sysResponse = Response.getSuccess(customerService.getIntegralList(customerId, page, rows));
         } catch (Exception e) {
             logger.error("获取积分列表失败", e);
