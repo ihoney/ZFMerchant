@@ -13,7 +13,7 @@
 <!--user.css用户后台页-->
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
-<link href="style/global.css" rel="stylesheet" type="text/css" />
+<!-- <link href="style/global.css" rel="stylesheet" type="text/css" /> -->
 <script src="js/jQuery-1.11.2.js"></script>
 
 
@@ -196,14 +196,14 @@ $(function(){
     <div id="findPassTwo">
 	<div class="logo"><img src="images/logo.png" /></div>
 <div class="retrieve">
-	<div class="ret_h" ng-model="hidenum=1">
+	<div class="ret_h">
     	<ul>
         	<li><a href="#">第一步</a></li>
             <li><a href="#" class="hover">第二步</a></li>
             <li><a href="#">第三步</a></li>
         </ul>
     </div>
-    <div class="ret_b" ng-controller="findPassService">
+    <div class="ret_b">
     	<ul id="ulPhone">
             <li><input name="" type="text" value="输入图片校验码" class="m" /><button class="send_btn">重新发送验证码（119秒）</button></li>
         </ul>

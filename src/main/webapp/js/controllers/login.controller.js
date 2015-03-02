@@ -73,9 +73,10 @@ var loginController = function($scope, $location, $http, LoginService) {
 								codeNumber : $scope.username,
 							}).success(function(data) {
 								if(data.code == 1){
-									alert(data.message);
+									$('#findPassOne').hide();
+									$('#findPassTwo').show();
 								}else{
-									alert(data.message);
+									alert("该用户不存在！");
 								}
 							})
 							$("#emailtext").hide();
