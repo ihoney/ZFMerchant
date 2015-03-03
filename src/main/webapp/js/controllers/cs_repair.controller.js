@@ -6,7 +6,7 @@ var cs_repairModule = angular.module("cs_repairModule",[]);
 var cs_repairController = function ($scope, $http, LoginService) {
 	//搜索
 	$scope.submitSearch = function(){
-		$scope.req={customer_id:16,search:$scope.search};
+		$scope.req={customer_id:80,search:$scope.search};
 		$http.post("api/cs/repair/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result.content;
@@ -17,7 +17,7 @@ var cs_repairController = function ($scope, $http, LoginService) {
 	};
 	//筛选
 	$scope.submitScreen = function(){
-		$scope.req={customer_id:16,search:$scope.search,q:$scope.screen};
+		$scope.req={customer_id:80,search:$scope.search,q:$scope.screen};
 		$http.post("api/cs/repair/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result.content;
@@ -28,7 +28,7 @@ var cs_repairController = function ($scope, $http, LoginService) {
 	};
 	//订单列表
 	$scope.orderlist = function () {
-        $scope.req={customer_id:16};
+        $scope.req={customer_id:80};
         $http.post("api/cs/repair/getAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result.content;
