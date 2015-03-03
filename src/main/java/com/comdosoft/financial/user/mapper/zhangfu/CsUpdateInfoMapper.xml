@@ -18,11 +18,11 @@
 			cs_update_infos o
 		WHERE
 			o.customer_id = #{customer_id}
-			<if test="search !=null and search!=''">
-		        and  o.apply_num like "%"#{search}"%" 
-		   </if>
+		<if test="search !=null and search!=''">
+	        and  o.apply_num like "%"#{search}"%" 
+	   </if>
 		<if test="q !=null and q!=''">
-		and o.status = #{q}
+			and o.status = #{q}
 		</if>
 		ORDER BY
 			o.created_at DESC
@@ -35,7 +35,7 @@
 			o.status,
 			t.serial_num,
 			o.apply_num,
-		gb.`name` AS brand_name,
+			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` as zhifu_pt, m.title AS merchant_name,
 			m.phone AS mer_phone
@@ -73,11 +73,11 @@
 		LEFT JOIN merchants m ON t.merchant_id = m.id
 		WHERE
 			o.customer_id = #{customer_id}
-			<if test="search !=null and search!=''">
-		        and  o.apply_num like "%"#{search}"%" 
-		   </if>
+		<if test="search !=null and search!=''">
+	        and  o.apply_num like "%"#{search}"%" 
+	   </if>
 		<if test="q !=null and q!=''">
-		and o.status = #{q}
+			and o.status = #{q}
 		</if>
 		ORDER BY
 			o.created_at DESC

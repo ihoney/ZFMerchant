@@ -13,18 +13,74 @@
 			o.created_at DESC
 	</select>
 	
+	<select id="countSearch" resultType="int" >
+		SELECT count(o.id) as count
+		FROM
+			cs_cancels o
+		LEFT JOIN terminals t ON o.terminal_id = t.id
+		WHERE
+			o.customer_id = #{customer_id}
+		<if test="search !=null and search!=''">
+	        and  o.apply_num like "%"#{search}"%" 
+	   </if>
+		<if test="q !=null and q!=''">
+			and o.status = #{q}
+		</if>
+		ORDER BY
+			o.created_at DESC
+	</select>
+	
 	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsCancel">
 		SELECT
 			o.id,
 			o.created_at,
 			o.status,
 			t.serial_num,
-			o.apply_num
+			o.apply_num,
+			gb.`name` AS brand_name,
+			g.model_number AS brand_number,
+			pc.`name` as zhifu_pt, m.title AS merchant_name,
+			m.phone AS mer_phone
 		FROM
 			cs_cancels o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
+		LEFT JOIN goods g ON t.good_id = g.id
+		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
+		LEFT JOIN merchants m ON t.merchant_id = m.id
 		WHERE
 			o.customer_id = #{customer_id}
+		ORDER BY
+			o.created_at DESC
+		LIMIT #{offset},#{pageSize}
+	</select>
+	
+	<select id="search" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsCancel">
+		SELECT
+			o.id,
+			o.created_at,
+			o.status,
+			t.serial_num,
+			o.apply_num,
+			gb.`name` AS brand_name,
+			g.model_number AS brand_number,
+			pc.`name` as zhifu_pt, m.title AS merchant_name,
+			m.phone AS mer_phone
+		FROM
+			cs_cancels o
+		LEFT JOIN terminals t ON o.terminal_id = t.id
+		LEFT JOIN goods g ON t.good_id = g.id
+		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
+		LEFT JOIN merchants m ON t.merchant_id = m.id
+		WHERE
+			o.customer_id = #{customer_id}
+		<if test="search !=null and search!=''">
+	        and  o.apply_num like "%"#{search}"%" 
+	    </if>
+		<if test="q !=null and q!=''">
+			and o.status = #{q}
+		</if>
 		ORDER BY
 			o.created_at DESC
 		LIMIT #{offset},#{pageSize}
@@ -35,7 +91,7 @@
 			o.id,o.templete_info_xml,
 			o.`status` AS apply_status,
 			o.created_at AS apply_time,
-			t.serial_num,
+			t.serial_num,o.apply_num,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` as zhifu_pt, m.title AS merchant_name,

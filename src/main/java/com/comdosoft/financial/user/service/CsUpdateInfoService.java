@@ -31,6 +31,11 @@ public class CsUpdateInfoService {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csUpdateInfoMapper.findAll(myOrderReq);
         int count = csUpdateInfoMapper.count(myOrderReq);
+        List<Map<String, Object>> list = putDate(o);
+        return new Page<List<Object>>(request, list,count);
+    }
+
+    public List<Map<String, Object>> putDate(List<Map<String, Object>> o) throws ParseException {
         List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
         Map<String,Object> map = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -52,7 +57,7 @@ public class CsUpdateInfoService {
             map.put("merchant_phone", m.get("mer_phone")+"");
             list.add(map);
         }
-        return new Page<List<Object>>(request, list,count);
+        return list;
     }
 
     public void cancelApply(MyOrderReq myOrderReq) {
@@ -88,27 +93,7 @@ public class CsUpdateInfoService {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csUpdateInfoMapper.search(myOrderReq);
         int count = csUpdateInfoMapper.countSearch(myOrderReq);
-        List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-        Map<String,Object> map = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-        for(Map<String,Object> m: o){
-            map = new HashMap<String,Object>();
-            String d = (m.get("created_at")+"");
-            Date date = sdf.parse(d);
-            String c_date = sdf.format(date);
-            String status = (m.get("status")+"");
-            map.put("id",m.get("id"));
-            map.put("status", status);
-            map.put("create_time", c_date);
-            map.put("terminal_num", m.get("serial_num"));//终端号
-            map.put("apply_num", m.get("apply_num"));//维修编号
-            map.put("brand_name", m.get("brand_name")+"");
-            map.put("brand_number", m.get("brand_number")+"");
-            map.put("zhifu_pingtai", m.get("zhifu_pt")+"");
-            map.put("merchant_name", m.get("merchant_name")+"");
-            map.put("merchant_phone", m.get("mer_phone")+"");
-            list.add(map);
-        }
+        List<Map<String, Object>> list = putDate(o);
         return new Page<List<Object>>(request, list,count);
     }
     

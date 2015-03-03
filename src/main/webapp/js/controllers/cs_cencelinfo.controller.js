@@ -15,6 +15,30 @@ var cs_cencelinfoController = function ($scope,$location, $http, LoginService) {
             $("#serverErrorModal").modal({show: true});
         });
     };
+    //取消
+    $scope.cancelApply = function(o){
+    	$scope.req={id:o.id};
+		$http.post("api/cs/cancels/cancelApply", $scope.req).success(function (data) {  //绑定
+            if (data != null && data != undefined) {
+            	$scope.getInfo();
+//                $scope.list = data.message;
+            }
+        }).error(function (data) {
+            $("#serverErrorModal").modal({show: true});
+        });
+	};
+	//重新提交
+	$scope.resubmitCancel = function(o){
+		$scope.req={id:o.id};
+		$http.post("api/cs/cancels/resubmitCancel", $scope.req).success(function (data) {  //绑定
+			if (data != null && data != undefined) {
+//                $scope.list = data.message;
+				$scope.getInfo();
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
+	};
     $scope.getInfo();
 
 };
