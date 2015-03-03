@@ -30,6 +30,8 @@ function routeConfig($routeProvider) {
     		templateUrl : 'views/login/findPassTwo.html'
     	}).when('/myinfobase', {
     		templateUrl : 'views/customer/myinfobase.html'
+    	}).when('/myinfoupdatepassword', {
+    		templateUrl : 'views/customer/myinfoupdatepassword.html'
     	 }).when('/cs_cencel', {
          	templateUrl: 'views/cs/cencel.html'
          }).when('/cs_cencelinfo', {
