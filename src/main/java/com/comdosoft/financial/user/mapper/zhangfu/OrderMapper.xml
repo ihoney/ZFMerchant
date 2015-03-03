@@ -110,7 +110,10 @@
 	<select id="countMyOrder" resultType="int">
 		SELECT count(o.id) as count
 		FROM orders o
-		where o.customer_id = #{param1}
+		where o.customer_id = #{customer_id}
+		<if test="q !=null and q!=''">
+		and o.types = #{q}
+		</if>
 	</select>
 	
 	<select id="countOrderSearch" resultType="int">
@@ -174,6 +177,9 @@
 		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		WHERE
 		o.customer_id = #{customer_id}
+		<if test="q !=null and q!=''">
+		and o.types = #{q}
+		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{pageSize}
 	</select>

@@ -19,7 +19,7 @@ public interface OrderMapper {
     Map<String, Object> getGoodInfo(OrderReq orderreq);
 
 // ----gch start --------------
-    int countMyOrder(Integer pid);
+    int countMyOrder(MyOrderReq myOrderReq);
 
     List<Order> findMyOrderAll(MyOrderReq myOrderReq);
 

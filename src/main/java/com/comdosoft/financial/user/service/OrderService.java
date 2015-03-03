@@ -124,7 +124,7 @@ public class OrderService {
 
     public Page<Object> findMyOrderAll(MyOrderReq myOrderReq) {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
-        int count = orderMapper.countMyOrder(myOrderReq.getCustomer_id());
+        int count = orderMapper.countMyOrder(myOrderReq);
         List<Order> centers = orderMapper.findMyOrderAll(myOrderReq);
         List<Object> obj_list = new ArrayList<Object>();
         Map<String,Object> map = null;
