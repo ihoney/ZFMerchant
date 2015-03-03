@@ -2,326 +2,350 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule">
 <head ng-controller="loginController">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="renderer" content="webkit">
 
-<title></title>
+	<title></title> <!--shop.css 商品列表 商品详情页-->
+	<link href="style/shop.css" rel="stylesheet" type="text/css" />
+	<!--user.css用户后台页-->
+	<link href="style/user.css" rel="stylesheet" type="text/css" />
+	<!--global.css全局公用-->
+	<link href="style/global.css" rel="stylesheet" type="text/css" />
+	<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
 
-<!--shop.css 商品列表 商品详情页-->
-<link href="style/shop.css" rel="stylesheet" type="text/css" />
-<!--user.css用户后台页-->
-<link href="style/user.css" rel="stylesheet" type="text/css" />
-<!--global.css全局公用-->
-<link href="style/global.css" rel="stylesheet" type="text/css" />
-<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
-
-<script src="js/jQuery-1.11.2.js"></script>
-<script src="js/Chart.min.js"></script>
-<script src="js/main.js"></script>
+	<script src="js/jQuery-1.11.2.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/Chart.min.js"></script>
 
 
-<!--放大产品-->
-<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
-<script type="text/javascript" src="js/pro-show.js"></script>
+	<!--放大产品-->
+	<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
+	<script type="text/javascript" src="js/pro-show.js"></script>
 
-<script type="text/javascript" src="js/libs/angular.js"></script>
-<script type="text/javascript" src="js/libs/angular-route.js"></script>
-<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
-<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
-<script type="text/javascript" src="js/libs/ng-csv.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/libs/angular.js"></script>
+	<script type="text/javascript" src="js/libs/angular-route.js"></script>
+	<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
+	<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
+	<script type="text/javascript" src="js/libs/ng-csv.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
 
-<!-- Services -->
-<script type="text/javascript" src="js/services/loginService.js"></script>
-<!-- Directives -->
-<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
-<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
-<!-- Controllers -->
-<script type="text/javascript" src="js/controllers/route.controller.js"></script>
-<script type="text/javascript" src="js/controllers/head.controller.js"></script>
-<script type="text/javascript" src="js/controllers/login.controller.js"></script>
+	<!-- Services -->
+	<script type="text/javascript" src="js/services/loginService.js"></script>
+	<!-- Directives -->
+	<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
+	<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
+	<!-- Controllers -->
+	<script type="text/javascript" src="js/controllers/route.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/head.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/login.controller.js"></script>
 
-<script type="text/javascript">
-//登录
-// 切换
-$(function(){
-	$(".lr_b > div").not(":first").hide();
-	$(".lr_h li").unbind("click").bind("click", function(){
-		$(this).addClass("hover").siblings().removeClass("hover");
-		var index = $(".lr_h li").index( $(this) );
-		$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
-   });
-});
+	<script type="text/javascript">
+		//登录
+		// 切换
+		$(function() {
+			$(".lr_b > div").not(":first").hide();
+			$(".lr_h li").unbind("click").bind("click", function() {
+				$(this).addClass("hover").siblings().removeClass("hover");
+				var index = $(".lr_h li").index($(this));
+				$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
+			});
+		});
 
-//input默认值
-function focusBlur(e){
-	$(e).focus(function(){
-		var thisVal = $(this).val();
-		if(thisVal == this.defaultValue){
-			$(this).val('');
-		}	
-	})	
-	$(e).blur(function(){
-		var thisVal = $(this).val();
-		if(thisVal == ''){
-			$(this).val(this.defaultValue);
-		}	
-	})	
-}
+		//input默认值
+		function focusBlur(e) {
+			$(e).focus(function() {
+				var thisVal = $(this).val();
+				if (thisVal == this.defaultValue) {
+					$(this).val('');
+				}
+			})
+			$(e).blur(function() {
+				var thisVal = $(this).val();
+				if (thisVal == '') {
+					$(this).val(this.defaultValue);
+				}
+			})
+		}
 
-$(function(){
-	focusBlur('.login_area input');//登录
-})
+		$(function() {
+			focusBlur('.login_area input');//登录
+		})
+	</script>
 
-</script>
+	<script type="text/javascript">
+		//input默认值findpassone
+		function focusBlur(e) {
+			$(e).focus(function() {
+				var thisVal = $(this).val();
+				if (thisVal == this.defaultValue) {
+					$(this).val('');
+				}
+			})
+			$(e).blur(function() {
+				var thisVal = $(this).val();
+				if (thisVal == '') {
+					$(this).val(this.defaultValue);
+				}
+			})
+		}
 
-<script type="text/javascript">
+		$(function() {
+			focusBlur('.ret_b input');//登录
+		})
+	</script>
 
-//input默认值findpassone
-function focusBlur(e){
-	$(e).focus(function(){
-		var thisVal = $(this).val();
-		if(thisVal == this.defaultValue){
-			$(this).val('');
-		}	
-	})	
-	$(e).blur(function(){
-		var thisVal = $(this).val();
-		if(thisVal == ''){
-			$(this).val(this.defaultValue);
-		}	
-	})	
-}
+	<script type="text/javascript">
+		//input默认值findTwo
+		function focusBlur(e) {
+			$(e).focus(function() {
+				var thisVal = $(this).val();
+				if (thisVal == this.defaultValue) {
+					$(this).val('');
+				}
+			})
+			$(e).blur(function() {
+				var thisVal = $(this).val();
+				if (thisVal == '') {
+					$(this).val(this.defaultValue);
+				}
+			})
+		}
 
-$(function(){
-	focusBlur('.ret_b input');//登录
-})
+		$(function() {
+			focusBlur('.ret_b input');//登录
+		})
+	</script>
 
-</script>
+	<script type="text/javascript">
+		//input默认值注册
+		function focusBlur(e) {
+			$(e).focus(function() {
+				var thisVal = $(this).val();
+				if (thisVal == this.defaultValue) {
+					$(this).val('');
+				}
+			})
+			$(e).blur(function() {
+				var thisVal = $(this).val();
+				if (thisVal == '') {
+					$(this).val(this.defaultValue);
+				}
+			})
+		}
 
-<script type="text/javascript">
-//input默认值findTwo
-function focusBlur(e){
-	$(e).focus(function(){
-		var thisVal = $(this).val();
-		if(thisVal == this.defaultValue){
-			$(this).val('');
-		}	
-	})	
-	$(e).blur(function(){
-		var thisVal = $(this).val();
-		if(thisVal == ''){
-			$(this).val(this.defaultValue);
-		}	
-	})	
-}
-
-$(function(){
-	focusBlur('.ret_b input');//登录
-})
-
-</script>
-
-<script type="text/javascript">
-
-//input默认值注册
-function focusBlur(e){
-	$(e).focus(function(){
-		var thisVal = $(this).val();
-		if(thisVal == this.defaultValue){
-			$(this).val('');
-		}	
-	})	
-	$(e).blur(function(){
-		var thisVal = $(this).val();
-		if(thisVal == ''){
-			$(this).val(this.defaultValue);
-		}	
-	})	
-}
-
-$(function(){
-	focusBlur('.res_b input');//登录
-})
-
-</script>
-
+		$(function() {
+			focusBlur('.res_b input');//登录
+		});
+	</script>
 </head>
 
-<body  ng-controller="loginController">
-    <div id="login" >
-	<div class="logo"><img src="images/logo.png" /></div>
-    <div class="login" >
-    	<div class="login_left">
-        	<img src="images/ad.jpg" />
-        </div>
-        <div class="login_right">
-        	<div class="lr_h">
-            	<ul>
-                	<li class="hover">普通用户</li>
-                    <li>代理商</li>
-                </ul>
-            </div>
-            <div class="lr_b">
-            	<div class="login_area">
-                	<ul>
-                    	<li><input name="" type="text" value="ID" class="error" ng-model="username"/>
-                        	<p class="red" ng-bind="message"></p>
-                        </li>
-                        <li><input name="" type="text" value="密码" ng-model="password1"/></li>
-                        <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><div class="yzm"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
-                    </ul>
-                    <div class="forget" >
-                    	<span><input name="" type="checkbox" value="" ng-model="RememberPass" /> 忘记密码</span>
-                        <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
-                    </div>
-                    <div class="btn"><button ng-click="login()">登录</button></div>
-                    <div class="btn"><button ng-click="register()">注册</button></div>
-                </div>
-                <div class="login_area">
-                	<ul>
-                    	<li><input name="" type="text" value="ID" /></li>
-                        <li><input name="" type="text" value="密码" /></li>
-                        <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="yzm"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
-                    </ul>
-                    <div class="forget">
-                    	<span><input name="" type="checkbox" value="" /> 忘记密码</span>
-                        <a href="#">忘记密码？</a>
-                    </div>
-                    <div class="btn"><button>登录</button></div>
-                </div>
-            </div>
-        </div>
-    </div>
-   </div>
-   
-   <div id="findPassOne">
-	<div class="logo"><img src="images/logo.png" /></div>
-	<div class="retrieve">
-	<div class="ret_h">
-    	<ul>
-        	<li><a href="#" class="hover">第一步</a></li>
-            <li><a href="#">第二步</a></li>
-            <li><a href="#">第三步</a></li>
-        </ul>
-    </div>
-    <div class="ret_b">
-    	<ul>
-            <li><input name="" type="text" value="手机号/邮箱" ng-model="username"/></li>
-            <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></li>
-        </ul>
-        <div class="btn"><button ng-click="findPassOnes()">下一步</button></div>
-    </div>
-</div>
-   </div>
-   
-    <div id="findPassTwo">
-	<div class="logo"><img src="images/logo.png" /></div>
-<div class="retrieve">
-	<div class="ret_h">
-    	<ul>
-        	<li><a href="#">第一步</a></li>
-            <li><a href="#" class="hover">第二步</a></li>
-            <li><a href="#">第三步</a></li>
-        </ul>
-    </div>
-    <div class="ret_b">
-    	<ul id="ulPhone">
-            <li><input name="" type="text" value="输入图片校验码" class="m" ng-model="codeNumber"/><button class="send_btn">重新发送验证码（119秒）</button></li>
-        </ul>
-        <div class="btn" id="updown"><button ng-click="findPassThree()">下一步</button></div>
-        <div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
-    </div>
-</div>
-   </div>
-   
-   <div id="findPassThree">
-	<div class="logo"><img src="images/logo.png" /></div>
-<div class="retrieve">
-	<div class="ret_h">
-    	<ul>
-        	<li><a href="#">第一步</a></li>
-            <li><a href="#">第二步</a></li>
-            <li><a href="#" class="hover">第三步</a></li>
-        </ul>
-    </div>
-    <div class="ret_b">
-    	<ul>
-            <li><input name="" type="text" value="输入新密码" ng-model="password1"/></li>
-            <li><input name="" type="text" value="确认新密码" ng-model="password2"/></li>
-        </ul>
-        <div class="btn"><button ng-click="findPassEnd()">去登陆</button></div>
-    </div>
-</div>
-   </div>
-   
-   <div id="retrieveHtml">
-	<div class="logo"><img src="images/logo.png" /></div>
-<div class="register">
-	<div class="res_h">
-    	<ul>
-        	<li><a href="#" class="hover" ng-click="register()">手机注册</a></li>
-            <li><a href="#" ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
-        </ul>
-    </div>
-    <div class="res_b">
-    	<ul>
-        	<li><label>所在地</label>
-            	<select name="">
-            	  <option>省</option>
-            	</select>
-                <select name="">
-            	  <option>市</option>
-            	</select>
-            </li>
-            <li><input name="" type="text" value="手机号码" class="l" ng-model="username"/><button class="yzm_btn" ng-click="getRegisterCode()">获取验证码</button></li>
-            <li><input name="" type="text" value="验证码" ng-model="codeNumber"/></li>
-            <li><input name="" type="text" value="用户名（可选）" ng-model="name"/></li>
-            <li><input name="" type="text" value="密码" ng-model="password1"/></li>
-            <li><input name="" type="text" value="确认密码" ng-model="password2"/></li>
-            <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei"/><div><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
-            <li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
-        </ul>
-        <div class="btn"><button ng-click="getImgCode()">注册</button></div>
-    </div>
-</div>
-   </div>
-   
-   <div id="emailRetrieveHtml">
-	<div class="logo"><img src="images/logo.png" /></div>
-<div class="register">
-	<div class="res_h">
-    	<ul>
-        	<li><a href="#" ng-click="register()">手机注册</a></li>
-            <li><a href="#" class="hover">邮箱注册</a></li>
-        </ul>
-    </div>
-    <div class="res_b">
-    	<ul>
-        	<li><label>所在地</label>
-            	<select name="">
-            	  <option>省</option>
-            	</select>
-                <select name="">
-            	  <option>市</option>
-            	</select>
-            </li>
-            <li><input name="" type="text" value="邮箱" ng-model="username"/></li>
-            <li><input name="" type="text" value="用户名（可选）" ng-model="name"/></li>
-            <li><input name="" type="text" value="密码" ng-model="password1"/></li>
-            <li><input name="" type="text" value="确认密码" ng-model="password2"/></li>
-            <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei"/><div class="jym"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
-            <li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
-        </ul>
-        <div class="btn"><button ng-click="getImgEmailCode()">注册</button></div>
-        <div class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
-    </div>
-</div>
-   </div>
+<body ng-controller="loginController">
+	<div id="login">
+		<div class="logo">
+			<img src="images/logo.png" />
+		</div>
+		<div class="login">
+			<div class="login_left">
+				<img src="images/ad.jpg" />
+			</div>
+			<div class="login_right">
+				<div class="lr_h">
+					<ul>
+						<li class="hover">普通用户</li>
+						<li>代理商</li>
+					</ul>
+				</div>
+				<div class="lr_b">
+					<div class="login_area">
+						<ul>
+							<li><input name="" type="text" value="ID" class="error" ng-model="username" />
+								<p class="red" ng-bind="message"></p></li>
+							<li><input name="" type="text" value="密码" ng-model="password1" /></li>
+							<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code" />
+								<div class="yzm">
+									<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
+								</div></li>
+						</ul>
+						<div class="forget">
+							<span><input name="" type="checkbox" value="" ng-model="RememberPass" /> 忘记密码</span> <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
+						</div>
+						<div class="btn">
+							<button ng-click="login()">登录</button>
+						</div>
+						<div class="btn">
+							<button ng-click="register()">注册</button>
+						</div>
+					</div>
+					<div class="login_area">
+						<ul>
+							<li><input name="" type="text" value="ID" /></li>
+							<li><input name="" type="text" value="密码" /></li>
+							<li><input name="" type="text" value="输入图片校验码" class="l" />
+								<div class="yzm">
+									<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
+								</div></li>
+						</ul>
+						<div class="forget">
+							<span><input name="" type="checkbox" value="" /> 忘记密码</span> <a href="#">忘记密码？</a>
+						</div>
+						<div class="btn">
+							<button>登录</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<div  id="index" class="topInfo clear">
+	<div id="findPassOne">
+		<div class="logo">
+			<img src="images/logo.png" />
+		</div>
+		<div class="retrieve">
+			<div class="ret_h">
+				<ul>
+					<li><a href="#" class="hover">第一步</a></li>
+					<li><a href="#">第二步</a></li>
+					<li><a href="#">第三步</a></li>
+				</ul>
+			</div>
+			<div class="ret_b">
+				<ul>
+					<li><input name="" type="text" value="手机号/邮箱" ng-model="username" /></li>
+					<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code" /><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" /></li>
+				</ul>
+				<div class="btn">
+					<button ng-click="findPassOnes()">下一步</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="findPassTwo">
+		<div class="logo">
+			<img src="images/logo.png" />
+		</div>
+		<div class="retrieve">
+			<div class="ret_h">
+				<ul>
+					<li><a href="#">第一步</a></li>
+					<li><a href="#" class="hover">第二步</a></li>
+					<li><a href="#">第三步</a></li>
+				</ul>
+			</div>
+			<div class="ret_b">
+				<ul id="ulPhone">
+					<li><input name="" type="text" value="输入图片校验码" class="m" ng-model="codeNumber" />
+						<button class="send_btn">重新发送验证码（119秒）</button></li>
+				</ul>
+				<div class="btn" id="updown">
+					<button ng-click="findPassThree()">下一步</button>
+				</div>
+				<div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="findPassThree">
+		<div class="logo">
+			<img src="images/logo.png" />
+		</div>
+		<div class="retrieve">
+			<div class="ret_h">
+				<ul>
+					<li><a href="#">第一步</a></li>
+					<li><a href="#">第二步</a></li>
+					<li><a href="#" class="hover">第三步</a></li>
+				</ul>
+			</div>
+			<div class="ret_b">
+				<ul>
+					<li><input name="" type="text" value="输入新密码" ng-model="password1" /></li>
+					<li><input name="" type="text" value="确认新密码" ng-model="password2" /></li>
+				</ul>
+				<div class="btn">
+					<button ng-click="findPassEnd()">去登陆</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="retrieveHtml">
+		<div class="logo">
+			<img src="images/logo.png" />
+		</div>
+		<div class="register">
+			<div class="res_h">
+				<ul>
+					<li><a href="#" class="hover" ng-click="register()">手机注册</a></li>
+					<li><a href="#" ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
+				</ul>
+			</div>
+			<div class="res_b">
+				<ul>
+					<li><label>所在地</label> <select name="">
+							<option>省</option>
+					</select> <select name="">
+							<option>市</option>
+					</select></li>
+					<li><input name="" type="text" value="手机号码" class="l" ng-model="username" />
+						<button class="yzm_btn" ng-click="getRegisterCode()">获取验证码</button></li>
+					<li><input name="" type="text" value="验证码" ng-model="codeNumber" /></li>
+					<li><input name="" type="text" value="用户名（可选）" ng-model="name" /></li>
+					<li><input name="" type="text" value="密码" ng-model="password1" /></li>
+					<li><input name="" type="text" value="确认密码" ng-model="password2" /></li>
+					<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei" />
+						<div>
+							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
+						</div></li>
+					<li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+				</ul>
+				<div class="btn">
+					<button ng-click="getImgCode()">注册</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="emailRetrieveHtml">
+		<div class="logo">
+			<img src="images/logo.png" />
+		</div>
+		<div class="register">
+			<div class="res_h">
+				<ul>
+					<li><a href="#" ng-click="register()">手机注册</a></li>
+					<li><a href="#" class="hover">邮箱注册</a></li>
+				</ul>
+			</div>
+			<div class="res_b">
+				<ul>
+					<li><label>所在地</label> <select name="">
+							<option>省</option>
+					</select> <select name="">
+							<option>市</option>
+					</select></li>
+					<li><input name="" type="text" value="邮箱" ng-model="username" /></li>
+					<li><input name="" type="text" value="用户名（可选）" ng-model="name" /></li>
+					<li><input name="" type="text" value="密码" ng-model="password1" /></li>
+					<li><input name="" type="text" value="确认密码" ng-model="password2" /></li>
+					<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei" />
+						<div class="jym">
+							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
+						</div></li>
+					<li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+				</ul>
+				<div class="btn">
+					<button ng-click="getImgEmailCode()">注册</button>
+				</div>
+				<div class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="index" class="topInfo clear">
 		<div class="box">
 			<div class="top_kf">
 				<ul>
@@ -356,7 +380,9 @@ $(function(){
 					<div class="sCart_h">
 						<i></i><em></em><span>{{shopcount}}</span>
 					</div>
-					<div class="sCart_b" ng-if="shopcount>0">您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a></div>
+					<div class="sCart_b" ng-if="shopcount>0">
+						您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a>
+					</div>
 					<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
 				</div>
 			</div>
@@ -388,7 +414,7 @@ $(function(){
 			<div ng-view></div>
 		</div>
 	</div>
-	
+
 	<div class="foot">
 		<div class="box">
 			<ul class="foot_nav">
@@ -403,5 +429,6 @@ $(function(){
 			<div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
 		</div>
 	</div>
+
 </body>
 </html>
