@@ -70,6 +70,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/terminals/terminalToUpdate.html'
         }).when('/terminalOpening', {
             templateUrl: 'views/terminals/terminalOpening.html'
+        }).when('/message', {
+            templateUrl: 'views/message/message.html'
+        }).when('/messageinfo', {
+            templateUrl: 'views/message/messageinfo.html'
         }).otherwise({
             redirectTo: "/"
         });
