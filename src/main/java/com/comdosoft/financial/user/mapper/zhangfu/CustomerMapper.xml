@@ -78,7 +78,7 @@
 
 	<select id="getAddressList" resultType="map">
 	<![CDATA[
-		SELECT id, receiver, moblephone, address
+		SELECT id, city_id, address, zip_code, receiver, moblephone, telphone, is_default
 		  FROM customer_addresses
 		 WHERE customer_id = #{customerId}
 	]]>
