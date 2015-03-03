@@ -32,9 +32,28 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   
   //动态显示
   $scope.angu = function(obj){
-	  alert("开始");
-	  $scope.merchantNamed = $(obj).html();
-	  alert($(obj).html());
+	  $scope.merchantNamed = obj;
+  }
+  
+//动态加载银行
+  $scope.bankName ="";
+  $scope.bank = function(){
+	  $("#backapen").html("");
+	/*  $http.post("api/terminal/ChooseBank", {}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+              //终端信息
+              $scope.applyDetails = data.result.applyDetails;
+              //获得商户集合
+              $scope.merchantList = data.result.merchants;
+          }
+      }).error(function (data) {
+    	  alert("获取列表失败");
+          $("#serverErrorModal").modal({show: true});
+      });*/
+	  $scope.bankCode=[1,2,3,4,5];
+	  for(var i=0;i< $scope.bankCode.length;i++){
+		  $("#backapen").append("<a href='#'>支付通道"+i+"</a>");
+	  }
   }
   
   $scope.terminalDetail();

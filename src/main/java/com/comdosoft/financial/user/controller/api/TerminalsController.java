@@ -127,13 +127,6 @@ public class TerminalsController {
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants(maps.get("customerId")));
 			
-			
-			// 数据回显(针对重新开通申请)
-			map.put("applyFor", openingApplyService.ReApplyFor(maps.get("terminalsId")));
-			// 材料名称
-			map.put("materialName",
-					openingApplyService.getMaterialName(maps.get("terminalsId"),
-					(Integer)maps.get("status")));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,4 +242,20 @@ public class TerminalsController {
 			return Response.getError("请求失败！");
 		}
 	}
+	
+	/**
+	 * 从第三方接口获得银行
+	 */
+	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
+	public Response ChooseBank() {
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("code1", "中国农业银行");
+			map.put("code2", "中国工商银行");
+			return Response.getSuccess(map);
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
+	}
+
 }

@@ -26,7 +26,7 @@
                         	<dl>
                             	<dt>已有商户：</dt>
                                 <dd>
-                                <a href="JavaScript:void(0)" class="hover" ng-repeat="man in merchantList" ng-click="angu(this)">{{man.title}}</a>
+                                <a href="JavaScript:void(0)" class="hover" ng-repeat="man in merchantList" ng-click="angu(man.title)">{{man.title}}</a>
                                 </dd>
                             </dl>
                             <dl>
@@ -63,11 +63,9 @@
                                 <li><span class="labelSpan">身份证：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li class="overflow"><span class="labelSpan">结算银行名称：</span>
-                                	<div class="text"><input name="" type="text" /></div>
-                                    <div class="suggest">
+                                	<div class="text"><input name="" type="text" ng-keyup="bank()"></div>
+                                    <div class="suggest" id="backapen">
                                     	<a href="#">支付通道01</a>
-                                        <a href="#">支付通道02</a>
-                                        <a href="#">支付通道03</a>
                                     </div>
                                 </li>
                                 <li><span class="labelSpan">结算银行代码：</span>
@@ -78,13 +76,9 @@
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li><span class="labelSpan">组织机构号：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
-                                <li><span class="labelSpan">组织机构号：</span>
+                                <li><span class="labelSpan">收单机构：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
-                                <li><span class="labelSpan">支付通道：</span>
-                                	<div class="text"><input name="" type="text" /></div></li>
-                                <li><span class="labelSpan">结算银行：</span>
-                                	<div class="text"><input name="" type="text" /></div></li>
-                                <li><span class="labelSpan">结算银行：</span>
+                                <li><span class="labelSpan">结算类型：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li class="clear"><span class="labelSpan">营业执照：</span>
                                 	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
