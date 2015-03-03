@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.RepairStatus;
+import com.comdosoft.financial.user.domain.zhangfu.UpdateStatus;
 import com.comdosoft.financial.user.mapper.zhangfu.CsLeaseReturnsMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.page.Page;
@@ -103,6 +104,7 @@ public class CsLeaseReturnsService {
         String json = o.get("templete_info_xml")+"";
         ObjectMapper mapper = new ObjectMapper();
         if(!json.equals("")){
+            System.err.println("not kong de json ==>>"+json);
             List<LinkedHashMap<String, Object>> list_json;
             try {
                 list_json = mapper.readValue(json, List.class);
@@ -113,6 +115,7 @@ public class CsLeaseReturnsService {
             }
         }else{
             map.put("resource_info", new ArrayList<>());
+            System.err.println("kong de  json ==>>"+json);
         }
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         return map;
@@ -120,6 +123,34 @@ public class CsLeaseReturnsService {
 
     public void addMark(MyOrderReq myOrderReq) {
         csLeaseReturnsMapper.addMark(myOrderReq);
+    }
+
+    public void resubmitCancel(MyOrderReq myOrderReq) {
+        myOrderReq.setUpdateStatus(UpdateStatus.PENDING);
+        csLeaseReturnsMapper.changeStatus(myOrderReq);
+    }
+
+    public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        List<Map<String, Object>> o = csLeaseReturnsMapper.search(myOrderReq);
+        int count = csLeaseReturnsMapper.countSearch(myOrderReq);
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (Map<String, Object> m : o) {
+            map = new HashMap<String, Object>();
+            String d = (m.get("created_at") + "");
+            Date date = sdf.parse(d);
+            String c_date = sdf.format(date);
+            String status = (m.get("status") + "");
+            map.put("id", m.get("id"));
+            map.put("status", status);
+            map.put("create_time", c_date);
+            map.put("terminal_num", m.get("serial_num"));// 终端号
+            map.put("apply_num", m.get("apply_num"));// 维修编号
+            list.add(map);
+        }
+        return new Page<List<Object>>(request, list,count);
     }
 
 }

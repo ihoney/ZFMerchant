@@ -36,7 +36,15 @@ public interface TerminalsMapper {
      * @return
      */
     Map<String, String> getApplyDetails(Integer id);
-
+    
+    /**
+     * 获得租赁信息
+     * 
+     * @param id
+     * @return
+     */
+    Map<String, String> getTenancy(Integer id);
+    
     /**
      * 获得该终端交易类型
      * 

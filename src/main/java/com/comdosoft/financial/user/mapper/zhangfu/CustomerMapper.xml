@@ -62,6 +62,13 @@
 	]]>
 	</insert>
 
+	<update id="updateIntegralTotal">
+	<![CDATA[
+		UPDATE customers SET integral = #{integralTotal}
+		 WHERE id = #{customerId}
+	]]>
+	</update>
+
 	<insert id="insertIntegralRecord" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
 		INSERT INTO customer_integral_records (customer_id, types, quantity)

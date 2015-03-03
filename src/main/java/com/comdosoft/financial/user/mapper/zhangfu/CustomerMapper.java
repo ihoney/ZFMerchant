@@ -25,6 +25,8 @@ public interface CustomerMapper {
 
     void insertIntegralConvert(Map<Object, Object> param);
 
+    void updateIntegralTotal(Map<Object, Object> param);
+
     void insertIntegralRecord(Map<Object, Object> param);
 
     List<Map<Object, Object>> getAddressList(int customerId);

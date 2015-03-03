@@ -10,9 +10,9 @@
 		<div class="myInfoNav">
 			<ul>
 				<li><a href="#/myinfobase" class="hover">基本信息</a></li>
-				<li><a href="#">修改密码</a></li>
-				<li><a href="#">地址管理</a></li>
-				<li><a href="#">我的积分</a></li>
+				<li><a href="#/myinfoupdatepassword">修改密码</a></li>
+				<li><a href="#/myinfoAddresses">地址管理</a></li>
+				<li><a href="#/myinfointegral">我的积分</a></li>
 			</ul>
 		</div>
 		<div class="user_title">
@@ -20,7 +20,7 @@
 		</div>
 		<div class="myInfoBox">
 			<ul>
-				<li><label>姓名：</label><input type="text" ng-model="customer.name" /></li>
+				<li><label>姓名：</label><input type="text" ng-model="customer.name" required /></li>
 				<li><label>电话：</label><input type="text" ng-model="customer.phone" disabled="disabled" /><a href="#">修改手机号</a></li>
 				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="#">修改邮箱</a></li>
 				<li><label>所在地：</label><select>
@@ -81,4 +81,3 @@
 		<button class="orangeBtn">确定</button>
 	</div>
 </div>
-<script type="text/javascript" src="js/main.js"></script>

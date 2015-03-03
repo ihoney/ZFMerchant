@@ -82,4 +82,34 @@ public class CsReturnController {
             return Response.getError("保存失败");
         }
     } 
+    
+    /**
+     * 重新提交注销
+     * @param myOrderReq
+     * @return
+     */
+    @RequestMapping(value="resubmitCancel" ,method=RequestMethod.POST)
+    public Response resubmitCancel(@RequestBody MyOrderReq myOrderReq ) {
+        try{
+            csReturnService.resubmitCancel(myOrderReq);
+            return Response.buildSuccess(null, "提交成功");
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("提交失败");
+        }
+    }  
+    
+    //搜索筛选
+    @RequestMapping(value="search" ,method=RequestMethod.POST)
+    public Response search(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            Page<List<Object>> centers = csReturnService.search(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
+        }catch(Exception e){
+            logger.debug("获取我的订单列表出错"+e);
+            return Response.getError("请求失败");
+        }
+    }
 }

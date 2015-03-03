@@ -27,9 +27,17 @@
 	</select>
 
 	<select id="getTerminalList" parameterType="map" resultType="map">
-		SELECT t.id,t.serial_num,t.status,o.id as appid
+		SELECT t.id,t.serial_num,t.status,o.id as appid,m.title,m.phone,p.`name` as channelName ,g.model_number,b.`name` as brandsName
 		FROM terminals t LEFT JOIN opening_applies o
 		ON o.terminal_id = t.id
+		LEFT JOIN merchants m 
+		ON m.id = t.merchant_id
+		LEFT JOIN pay_channels p
+		ON p.id = t.pay_channel_id
+		LEFT JOIN goods g
+		ON g.id = t.good_id
+		LEFT JOIN good_brands b
+		ON b.id = g.good_brands_id
 		WHERE t.customer_id = #{id} 
 		ORDER BY t.created_at DESC
 		LIMIT #{offSetPage},#{pageSize}
@@ -50,8 +58,8 @@
 	</select>
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
-		SELECT t.serial_num,g.model_number,b.name as
-		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt
+		SELECT t.serial_num,t.`status`,g.model_number,b.name as
+		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.`name` as channelName,l.`status` as applieStatus
 		FROM
 		terminals t LEFT JOIN goods g on t.good_id=g.id
 		LEFT JOIN good_brands b on g.good_brands_id=b.id
@@ -63,6 +71,7 @@
 		LEFT JOIN order_goods o ON t.good_id=o.good_id
 		LEFT JOIN orders e ON
 		o.order_id=e.id
+		LEFT JOIN opening_applies l ON l.terminal_id = t.id
 		WHERE t.id=#{id}
 		AND
 		e.customer_id=t.customer_id
@@ -70,12 +79,13 @@
 
 	<select id="getRate" parameterType="int" resultType="map">
 		SELECT
-		s.id,s.trade_type_id,s.terminal_rate,s.base_rate,s.service_rate,i.`status`
+		s.id,s.terminal_rate,d.trade_value,y.service_rate,t.base_rate,l.`status`
 		FROM terminals t LEFT JOIN
-		terminal_trade_type_infos
-		i ON t.id=i.terminal_id
-		LEFT JOIN support_trade_types s ON i.trade_type_id=s.id
-		WHERE t.id=#{id}
+		support_trade_types s ON t.pay_channel_id = s.pay_channel_id
+		LEFT JOIN dictionary_trade_types d ON d.id = s.trade_type_id
+		LEFT JOIN dictionary_billing_cycles y ON y.id = t.billing_cycles_id
+		LEFT JOIN terminal_trade_type_infos l ON l.trade_type_id = s.trade_type_id
+		WHERE t.id=#{id} and l.terminal_id = #{id}
 	</select>
 
 	<select id="getTrackRecord" parameterType="int" resultType="map">
@@ -96,6 +106,14 @@
 		LEFT JOIN terminal_opening_infos s ON
 		i.id=s.opening_applies_id
 		where t.id=#{id}
+	</select>
+	
+	<select id="getTenancy" parameterType="int" resultType="map">
+		SELECT
+		g.has_lease,g.lease_price,g.lease_time,g.lease_deposit,g.return_time,g.lease_description,g.created_at
+		FROM terminals t LEFT JOIN
+		goods g ON t.good_id = g.id
+		where t.id = #{id}
 	</select>
 
 	<select id="channels" resultType="map">

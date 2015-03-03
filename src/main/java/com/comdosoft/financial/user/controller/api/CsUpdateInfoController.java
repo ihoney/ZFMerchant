@@ -46,6 +46,20 @@ public class CsUpdateInfoController {
         }
     }
     
+  //搜索筛选
+    @RequestMapping(value="search" ,method=RequestMethod.POST)
+    public Response search(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            Page<List<Object>> centers = csUpdateInfoService.orderSearch(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
+        }catch(Exception e){
+            logger.debug("获取我的订单列表出错"+e);
+            return Response.getError("请求失败");
+        }
+    }
+    
     @RequestMapping(value="getInfoById" ,method=RequestMethod.POST)
     public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
         try{
@@ -64,6 +78,22 @@ public class CsUpdateInfoController {
         }catch(Exception e){
             logger.debug("出错"+e+"==>>"+myOrderReq);
             return Response.getError("取消失败");
+        }
+    } 
+    
+    /**
+     * 重新提交注销
+     * @param myOrderReq
+     * @return
+     */
+    @RequestMapping(value="resubmitCancel" ,method=RequestMethod.POST)
+    public Response resubmitCancel(@RequestBody MyOrderReq myOrderReq ) {
+        try{
+            csUpdateInfoService.resubmitCancel(myOrderReq);
+            return Response.buildSuccess(null, "提交成功");
+        }catch(Exception e){
+            logger.debug("出错"+e+"==>>"+myOrderReq);
+            return Response.getError("提交失败");
         }
     }  
 }

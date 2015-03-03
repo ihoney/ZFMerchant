@@ -1,5 +1,7 @@
- <script type="text/javascript" src="js/controllers/h3.controller.js"></script>
- <div class="right" ng-controller="h3Controller">
+<script type="text/javascript" src="js/controllers/terminals.controller.js"></script>
+<div class="main_user" ng-controller="terminalController">
+    	<div class="box">
+            <div class="right">
             	<div class="breadcrumb">
                     <ul>
                         <li><a href="#">我的终端</a></li>
@@ -48,17 +50,19 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr ng-repeat="l in list">
-                            <th>{{l.order_number}}</th>
-                            <th>{{l.}}</th>
-                            <th>{{l.good_channel}}</th>
-                            <th>{{l.}}</th>
-                            <th>{{l.}}</th>
-                            <th>{{l.}}</th>
-                            <th><a href="#" class="a_btn">查看详情</a>
-                           		<a href="#" class="a_btn">开通认证</a>
-                           		<a href="#" class="a_btn">视频认证</a></th>
-                          <tr>
+                          <tr ng-repeat="nums in list">
+                            <td>{{nums.serial_num}}</td>
+                            <td>{{nums.brandsName + nums.model_number}}</td>
+                            <td>{{nums.channelName}}</td>
+                            <td>{{nums.title}}</td>
+                            <td>{{nums.phone}}</td>
+                            <td><strong class="strong_status">
+                            <span ng-if="nums.status == 2"> 部分开通</span> 
+                            <span ng-if="nums.status == 1"> 已开通</span>
+                            <span ng-if="nums.status == 3"> 未开通</span>  
+                           </strong></td>
+                            <td><a href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a><a href="#" class="a_btn">视频认证</a></td>
+                          </tr>
                           </tbody>                          
                         </table>
                     </div>
@@ -83,3 +87,5 @@
             </div>
             	</div>
         	</div>
+    	</div>
+    </div>
