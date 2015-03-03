@@ -1,0 +1,98 @@
+<script type="text/javascript" src="js/controllers/myinfoAddresses.js"></script>
+<div class="right" ng-controller="myinfoAddressesController">
+	<div class="breadcrumb">
+		<ul>
+			<li><a href="#/myinfobase">我的信息</a></li>
+			<li><a href="#/myinfoAddresses">地址管理</a></li>
+		</ul>
+	</div>
+	<div class="content clear">
+		<div class="myInfoNav">
+			<ul>
+				<li><a href="#/myinfobase">基本信息</a></li>
+				<li><a href="#/myinfoupdatepassword">修改密码</a></li>
+				<li><a href="#/myinfoAddresses" class="hover">地址管理</a></li>
+				<li><a href="#/myinfointegral">我的积分</a></li>
+			</ul>
+		</div>
+		<div class="user_title">
+			<h1>管理收货地址</h1>
+		</div>
+		<div class="myInfoBox">
+			<ul>
+				<li><label><span class="red">*</span>所在地：</label><input type="text" /></li>
+				<li><label><span class="red">*</span>详细地址：</label> <textarea cols="" rows=""></textarea></li>
+				<li><label><span class="red">*</span>邮政编码：</label><input type="text" /></li>
+				<li><label><span class="red">*</span>收货人姓名：</label><input type="text" /></li>
+				<li><label><span class="red">*</span>手机号码：</label><input type="text" /></li>
+				<li><label><span class="red">*</span>电话号码：</label><input type="text" /></li>
+				<li><label></label><input type="radio" />设置为默认地址</li>
+			</ul>
+			<div class="myInfoBox_btn">
+				<button class="orangeBtn">保存</button>
+			</div>
+		</div>
+		<div class="myAddress">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
+				<colgroup>
+					<col width="90" />
+					<col width="240" />
+					<col width="180" />
+					<col width="80" />
+					<col width="80" />
+					<col width="80" />
+					<col width="80" />
+					<col />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>收货人</th>
+						<th>所在地区</th>
+						<th>详细地址</th>
+						<th>邮编</th>
+						<th>手机号码</th>
+						<th>电话</th>
+						<th>操作</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tr>
+					<td>张三三</td>
+					<td>江苏省苏州市吴中区</td>
+					<td>东方大道1788号7栋311室</td>
+					<td>215000</td>
+					<td>123456789</td>
+					<td>86176000</td>
+					<td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+					<td><span class="defaultAddr">默认地址</span></td>
+				</tr>
+				<tr>
+					<td>张三三</td>
+					<td>江苏省苏州市吴中区</td>
+					<td>东方大道1788号7栋311室</td>
+					<td>215000</td>
+					<td>123456789</td>
+					<td>86176000</td>
+					<td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+					<td><a href="#" class="set_defaultAddr">设为默认地址</a></td>
+				</tr>
+				<tr>
+					<td>张三三</td>
+					<td>江苏省苏州市吴中区</td>
+					<td>东方大道1788号7栋311室</td>
+					<td>215000</td>
+					<td>123456789</td>
+					<td>86176000</td>
+					<td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+					<td><a href="#" class="set_defaultAddr">设为默认地址</a></td>
+				</tr>
+			</table>
+			<div class="addAddr_btn">
+				<button>使用新地址</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
