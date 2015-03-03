@@ -14,8 +14,6 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/order/order.html'
         }).when('/orderinfo', {
         	templateUrl: 'views/order/orderinfo.html'
-        }).when('/h3', {
-            templateUrl: 'views/h3.html'
         }).when('/shop', {
             templateUrl: 'views/shop/shop.html'
         }).when('/shopinfo', {
@@ -56,7 +54,13 @@ function routeConfig($routeProvider) {
          	templateUrl: 'views/cs/update.html'
          }).when('/cs_updateinfo', {
          	templateUrl: 'views/cs/updateinfo.html'
-    	}).otherwise({
+    	}).when('/terminal', {
+            templateUrl: 'views/terminals/terminalsList.html'
+        }).when('/terminalDetail', {
+            templateUrl: 'views/terminals/terminalDetail.html'
+        }).when('/terminalToUpdate', {
+            templateUrl: 'views/terminals/terminalToUpdate.html'
+        }).otherwise({
             redirectTo: "/"
         });
 };

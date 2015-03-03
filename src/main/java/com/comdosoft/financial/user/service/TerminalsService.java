@@ -47,6 +47,16 @@ public class TerminalsService {
 	}
 	
 	/**
+	 * 获得租赁信息
+	 * @param id
+	 * @return
+	 */
+	public Map<String, String> getTenancy(Integer id){
+		return terminalsMapper.getTenancy(id);
+	}
+	
+	
+	/**
 	 * 获得该终端交易类型详情
 	 * @param id
 	 * @return

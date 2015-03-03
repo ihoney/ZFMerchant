@@ -13,7 +13,7 @@
 <!--user.css用户后台页-->
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
-<!-- <link href="style/global.css" rel="stylesheet" type="text/css" /> -->
+<link href="style/global.css" rel="stylesheet" type="text/css" />
 <!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
 
 <script src="js/jQuery-1.11.2.js"></script>
@@ -170,7 +170,7 @@ $(function(){
                     	<li><input name="" type="text" value="ID" class="error" ng-model="username"/>
                         	<p class="red" ng-bind="message"></p>
                         </li>
-                        <li><input name="" type="text" value="密码" ng-model="password"/></li>
+                        <li><input name="" type="text" value="密码" ng-model="password1"/></li>
                         <li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code"/><div class="yzm"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/></div></li>
                     </ul>
                     <div class="forget" >
@@ -369,7 +369,7 @@ $(function(){
 				<ul>
 					<li><a href="#/h1" class="hover">我的掌富</a></li>
 					<li><a href="#/order">我的订单</a></li>
-					<li><a href="#/h3">我的终端</a></li>
+					<li><a href="#/terminal">我的终端</a></li>
 					<li class="second"><a href="javascript:void(0);" class="hover">售后记录<i class="off"></i></a>
 						<ol>
 							<li><a href="#/cs_cencel">注销记录</a></li>
@@ -403,6 +403,5 @@ $(function(){
 			<div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
 		</div>
 	</div>
-
 </body>
 </html>

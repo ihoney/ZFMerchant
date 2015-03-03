@@ -66,21 +66,24 @@ public class TerminalsController {
 	 * @param id
 	 */
 	@RequestMapping(value = "getApplyDetails", method = RequestMethod.POST)
-	public Response getApplyDetails(@RequestBody Map<String, Object> maps) {
+	public Response getApplyDetails(@RequestBody Map<Object, Object> maps) {
 		try {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					terminalsService.getApplyDetails((Integer)maps.get("terminalsId")));
+					terminalsService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 终端交易类型
-			map.put("rates", terminalsService.getRate((Integer)maps.get("terminalsId")));
+			map.put("rates", terminalsService.getRate(Integer.parseInt((String)maps.get("terminalsId"))));
+			//获得租赁信息
+			map.put("tenancy", terminalsService.getTenancy(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 追踪记录
-			map.put("trackRecord", terminalsService.getTrackRecord((Integer)maps.get("terminalsId")));
+			map.put("trackRecord", terminalsService.getTrackRecord(Integer.parseInt((String)maps.get("terminalsId"))));
 			// 开通详情
 			map.put("openingDetails",
-					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
+					terminalsService.getOpeningDetails(Integer.parseInt((String)maps.get("terminalsId"))));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}
