@@ -9,18 +9,10 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 	//查看终端详情
 	$scope.terminalDetail = function () {
       alert($scope.terminalId);
-      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getApplyToUpdate", {terminalsId:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
-              //交易
-              $scope.rateList = data.result.rates;
-              //租赁
-              $scope.tenancy  = data.result.tenancy;
-              //追踪记录
-              $scope.trackRecord = data.result.trackRecord;
-              //资料
-              $scope.openingDetails = data.result.openingDetails;
           }
       }).error(function (data) {
     	  alert("获取列表失败");

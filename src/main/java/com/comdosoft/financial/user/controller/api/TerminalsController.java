@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
+import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -35,6 +36,9 @@ public class TerminalsController {
 	
 	@Resource
 	private TerminalsService terminalsService;
+	
+	@Resource
+	private OpeningApplyService openingApplyService;
 
 	@Value("${passPath}")
 	private String passPath;
@@ -87,6 +91,57 @@ public class TerminalsController {
 			return Response.getError("请求失败！");
 		}
 	}
+	
+	
+	/**
+	 * 申请更新资料
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "getApplyToUpdate", method = RequestMethod.POST)
+	public Response getApplyToUpdate(@RequestBody Map<Object, Object> maps) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			// 获得终端详情
+			map.put("applyDetails",
+					terminalsService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+			return Response.getSuccess(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 进入申请开通
+	 * 
+	 * @param id
+	 */
+	@RequestMapping(value = "getApplyOpenDetails", method = RequestMethod.POST)
+	public Response getApplyOpenDetails(@RequestBody Map<String, Integer> maps) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			// 获得终端详情
+			map.put("applyDetails",
+					terminalsService.getApplyDetails(maps.get("terminalsId")));
+			// 获得所有商户
+			map.put("merchants", openingApplyService.getMerchants(maps.get("customerId")));
+			
+			
+			// 数据回显(针对重新开通申请)
+			map.put("applyFor", openingApplyService.ReApplyFor(maps.get("terminalsId")));
+			// 材料名称
+			map.put("materialName",
+					openingApplyService.getMaterialName(maps.get("terminalsId"),
+					(Integer)maps.get("status")));
+			return Response.getSuccess(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+
+	
 
 	/**
 	 * 收单通道

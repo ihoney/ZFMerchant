@@ -58,7 +58,7 @@
 	</select>
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
-		SELECT t.serial_num,t.`status`,g.model_number,b.name as
+		SELECT t.id,t.serial_num,t.`status`,g.model_number,b.name as
 		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.`name` as channelName,l.`status` as applieStatus
 		FROM
 		terminals t LEFT JOIN goods g on t.good_id=g.id

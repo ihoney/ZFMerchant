@@ -11,15 +11,18 @@
                     <div class="user_title">
                     	<h1>终端详情</h1>
                     	<div class="userTopBtnBox">
-                    	<span ng-if="applyDetails.status == 1">
-                    	<a href="#" class="ghostBtn">换货</a><a href="#/terminalToUpdate" class="ghostBtn" >更新资料</a><a href="#" class="ghostBtn">注销</a><a href="#" class="ghostBtn">维修</a><a href="#" class="ghostBtn">找回POS密码</a><a href="#" class="ghostBtn">退货</a><a href="#" class="ghostBtn">同步</a>
+                    	<!-- <span ng-if="applyDetails.status == 1">
+                    	<a href="#" class="ghostBtn">换货</a><a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn" >更新资料</a><a href="#" class="ghostBtn">注销</a><a href="#" class="ghostBtn">维修</a><a href="#" class="ghostBtn">找回POS密码</a><a href="#" class="ghostBtn">退货</a><a href="#" class="ghostBtn">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 2">
                     	<a href="#" class="ghostBtn">视频认证</a><a href="#" class="ghostBtn">换货</a><a href="#" class="ghostBtn">更新资料</a><a href="#" class="ghostBtn">注销</a><a href="#" class="ghostBtn">维修</a><a href="#" class="ghostBtn">找回POS密码</a><a href="#" class="ghostBtn">退货</a><a href="#" class="ghostBtn">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 3">
-                    	<a href="#" class="ghostBtn">视频认证</a><a href="#" class="ghostBtn">换货</a><a href="#" class="ghostBtn">更新资料</a><a href="#" class="ghostBtn">维修</a><a href="#" class="ghostBtn">退货</a><a href="#" class="ghostBtn">同步</a><a href="#" class="ghostBtn">申请开通</a>
-                    	</span>
+                    	<a href="#" class="ghostBtn">视频认证</a><a href="#" class="ghostBtn">换货</a><a href="#" class="ghostBtn">更新资料</a><a href="#" class="ghostBtn">维修</a><a href="#" class="ghostBtn">退货</a><a href="#" class="ghostBtn">同步</a><a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">申请开通</a>
+                    	</span> -->
+                    	<div class="userTopBtnBox">
+                        	<a href="#" class="ghostBtn">视频认证1</a> <a href="#" class="ghostBtn">更新资料</a><a href="#" class="ghostBtn">找回POS密码</a><a href="#" class="ghostBtn">换货</a><a href="#" class="ghostBtn">注销</a><a href="#" class="ghostBtn">维修</a><a href="#" class="ghostBtn">退货</a><a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">同步</a><a href="#/terminalOpening?terminalId={{applyDetails.id}}" class="ghostBtn">申请开通</a>
+                        </div>
                         </div>
                     </div>
                     <div class="detailCon">

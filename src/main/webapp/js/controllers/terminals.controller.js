@@ -8,7 +8,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	//获得终端列表
 	$scope.getInfo = function () {
       $scope.req={
-    		  customersId:1,
+    		  customersId:80,
     		  indexPage:1,
     		  pageNum:8
     		  };

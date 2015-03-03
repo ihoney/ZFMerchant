@@ -52,8 +52,8 @@ public class OpeningApplyService {
 	 * 
 	 * @return
 	 */
-	public List<Merchant> getMerchants() {
-		return openingApplyMapper.getMerchants();
+	public List<Merchant> getMerchants(int customerId) {
+		return openingApplyMapper.getMerchants(customerId);
 	}
 	
 	/**

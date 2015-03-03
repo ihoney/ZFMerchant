@@ -77,7 +77,7 @@ public class OpeningApplyController {
 			map.put("applyDetails",
 					openingApplyService.getApplyDetails((Integer)maps.get("terminalsId")));
 			// 获得所有商户
-			map.put("merchants", openingApplyService.getMerchants());
+			map.put("merchants", openingApplyService.getMerchants((Integer)maps.get("customerId")));
 			// 数据回显(针对重新开通申请)
 			map.put("applyFor", openingApplyService.ReApplyFor((Integer)maps.get("terminalsId")));
 			// 材料名称

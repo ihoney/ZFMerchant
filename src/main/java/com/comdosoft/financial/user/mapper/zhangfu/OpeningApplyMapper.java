@@ -35,7 +35,7 @@ public interface OpeningApplyMapper {
 	 * 获得所有商户
 	 * @return
 	 */
-	List<Merchant> getMerchants();
+	List<Merchant> getMerchants(int customerId);
 	
 	/**
 	 * 获得所有通道

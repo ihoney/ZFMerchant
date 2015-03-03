@@ -29,8 +29,8 @@
 		WHERE t.id=#{terminalsId}
  	</select>
  	
- 	<select id="getMerchants" resultType="map">
- 		SELECT id,title FROM merchants
+ 	<select id="getMerchants" resultType="map"  parameterType="int">
+ 		SELECT id,title FROM merchants where customer_id =#{customerId}
  	</select>
  	
  	<select id="getChannels" resultType="map">
