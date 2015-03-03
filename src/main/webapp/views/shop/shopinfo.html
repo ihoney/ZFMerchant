@@ -41,9 +41,9 @@
                 <h3>{{good.goodinfo.second_title}}</h3>
                 <div class="pac_summary">
                 	<ul>
-                    	<li class="price_li"><span>原价</span><div class="text"><strong class="original">￥600.00</strong></div></li>
-                    	<li class="price_li"><span>现价</span><div class="text"><strong>￥500.00</strong></div></li>
-                        <li class="deposit_li"><span>租赁押金</span><div class="text"><strong>￥200.00</strong></div></li>
+                    	<li class="price_li"><span>原价</span><div class="text"><strong class="original">{{(paychannel.opening_cost+good.goodinfo.price)/100|currency : "￥"}}</strong></div></li>
+                    	<li class="price_li"><span>现价</span><div class="text"><strong>{{(paychannel.opening_cost+good.goodinfo.retail_price)/100|currency : "￥"}}</strong></div></li>
+                        <li class="deposit_li"><span>租赁押金</span><div class="text"><strong>{{good.goodinfo.lease_deposit/100|currency : "￥"}}</strong></div></li>
                         <li class="selected_li"><span>支付通道</span>
                         	<div class="text">
                             	<a href="javascript:void(0);"  ng-repeat="one in good.payChannelList" class="{{one.id==paychannel.id?'hover':''}}" ng-click="getPayChannelInfo(one.id)">{{one.name}}</a>
@@ -58,7 +58,7 @@
                         <li><span>购买数量</span>
                         	<div class="text">
                         		<div class="buy_numb"><a href="javascript:void(0);" ng-click="count(-1)">-</a><input type="text"  ng-model="quantity" /><a href="javascript:void(0);" ng-click="count(1)">+</a>&nbsp;&nbsp;件</div>
-                                <em class="buy_stock">库存200件</em>
+                                <em class="buy_stock">库存{{good.goodinfo.quantity}}件</em>
                         	</div>
                         </li>
                  	</ul>
@@ -292,18 +292,18 @@
             	<div class="manufacturer">
             	<h2>生产厂商</h2>
                 <div class="mf_title">
-                	<div class="mf_logo"><img src="images/mf_logo.jpg" /></div>
-                    <div class="mf_name">拉卡拉集团拉卡拉集团拉卡拉集团</div>
+                	<div class="mf_logo"><img src="{{good.factory.logo_file_path}}" /></div>
+                    <div class="mf_name">{{good.factory.name}}</div>
                 </div>
-                <div class="mf_text">拉卡拉集团成立于2005年，是中国领先的互联网金融及社区电商公司，借助互联网技术，以便民服务及支付为手段，为商户及其用户提供金融及电子商务服务。<br /><a href="http://www.lakala.com/index.html">http://www.lakala.com/index.html</a></div>
+                <div class="mf_text">{{good.factory.description}}<a href="{{good.factory.website_url}}">{{good.factory.website_url}}</a></div>
             </div>
             	<div class="manufacturer">
             	<h2>收单机构</h2>
                 <div class="mf_title">
-                	<div class="mf_logo"><img src="images/mf_logo.jpg" /></div>
-                    <div class="mf_name">拉卡拉集团拉卡拉集团拉卡拉集团</div>
+                	<div class="mf_logo"><img src="{{paychannel.pcfactory.logo_file_path}}" /></div>
+                    <div class="mf_name">{{paychannel.pcfactory.name}}</div>
                 </div>
-                <div class="mf_text">拉卡拉集团成立于2005年，是中国领先的互联网金融及社区电商公司，借助互联网技术，以便民服务及支付为手段，为商户及其用户提供金融及电子商务服务。<br /><a href="#">http://www.lakala.com/index.html</a></div>
+                <div class="mf_text">{{paychannel.pcfactory.description}}<br /><a href="{{paychannel.pcfactory.website_url}}">{{paychannel.pcfactory.website_url}}</a></div>
             </div>
             </div>
             
