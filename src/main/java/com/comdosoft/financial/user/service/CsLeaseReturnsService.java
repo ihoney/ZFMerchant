@@ -1,12 +1,10 @@
 package com.comdosoft.financial.user.service;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +21,6 @@ import com.comdosoft.financial.user.mapper.zhangfu.CsLeaseReturnsMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CsLeaseReturnsService {
@@ -31,7 +28,9 @@ public class CsLeaseReturnsService {
     private static final Logger logger = LoggerFactory.getLogger(CsLeaseReturnsService.class);
     @Resource
     private CsLeaseReturnsMapper csLeaseReturnsMapper;
-
+    @Resource
+    private CsCencelsService csCencelsService;
+    
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csLeaseReturnsMapper.findAll(myOrderReq);
@@ -60,7 +59,6 @@ public class CsLeaseReturnsService {
         csLeaseReturnsMapper.cancelApply(myOrderReq);
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> findById(MyOrderReq myOrderReq) throws ParseException {
         Map<String, Object> o = csLeaseReturnsMapper.findById(myOrderReq);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -102,21 +100,7 @@ public class CsLeaseReturnsService {
         myOrderReq.setId(Integer.parseInt(id));
         List<Map<String, Object>> list = csLeaseReturnsMapper.findTraceById(myOrderReq);
         String json = o.get("templete_info_xml")+"";
-        ObjectMapper mapper = new ObjectMapper();
-        if(!json.equals("")){
-            System.err.println("not kong de json ==>>"+json);
-            List<LinkedHashMap<String, Object>> list_json;
-            try {
-                list_json = mapper.readValue(json, List.class);
-                map.put("resource_info", list_json);
-            } catch (IOException e) {
-                e.printStackTrace();
-                map.put("resource_info", new ArrayList<>());
-            }
-        }else{
-            map.put("resource_info", new ArrayList<>());
-            System.err.println("kong de  json ==>>"+json);
-        }
+        map = csCencelsService.getTemplePaths(map, json);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         return map;
     }

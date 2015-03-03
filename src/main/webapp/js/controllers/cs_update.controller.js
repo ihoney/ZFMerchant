@@ -46,10 +46,9 @@ var cs_updateController = function ($scope, $http, LoginService) {
     //取消
     $scope.cancelApply = function(o){
     	$scope.req={id:o.id};
-//    	$scope.req=  {id:$scope.infoId}
-		$http.post("api/update/info/cancelApply", $scope.req).success(function (data) {  //绑定
+		$http.post("api/update/info/cancelApply", $scope.req).success(function (data) {  
             if (data != null && data != undefined) {
-            	console.log("data.message==>"+data.message);
+            	$scope.orderlist();
 //                $scope.list = data.message;
             }
         }).error(function (data) {
@@ -59,10 +58,9 @@ var cs_updateController = function ($scope, $http, LoginService) {
 	//重新提交
 	$scope.resubmitCancel = function(o){
 		$scope.req={id:o.id};
-//    	$scope.req=  {id:$scope.infoId}
-		$http.post("api/update/info/resubmitCancel", $scope.req).success(function (data) {  //绑定
+		$http.post("api/update/info/resubmitCancel", $scope.req).success(function (data) {   
 			if (data != null && data != undefined) {
-				console.log("data.message==>"+data.message);
+				$scope.orderlist();
 //                $scope.list = data.message;
 			}
 		}).error(function (data) {

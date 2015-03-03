@@ -1,12 +1,10 @@
 package com.comdosoft.financial.user.service;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +19,14 @@ import com.comdosoft.financial.user.mapper.zhangfu.CsReturnMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class CsReturnService {
     
     @Resource
     private CsReturnMapper csReturnMapper;
-
+    @Resource
+    private CsCencelsService csCencelsService;
+    
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
         List<Map<String, Object>> o = csReturnMapper.findAll(myOrderReq);
@@ -56,7 +55,6 @@ public class CsReturnService {
         csReturnMapper.cancelApply(myOrderReq);
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> findById(MyOrderReq myOrderReq) throws ParseException {
         Map<String, Object> o = csReturnMapper.findById(myOrderReq);
         Map<String,Object> map = new HashMap<String,Object>();
@@ -73,19 +71,7 @@ public class CsReturnService {
         map.put("return_price", o.get("return_price")+"");
         myOrderReq.setId(Integer.parseInt(id));
         String json = o.get("templete_info_xml")+"";
-        ObjectMapper mapper = new ObjectMapper();
-        if(!json.equals("")){
-            List<LinkedHashMap<String, Object>> list_json;
-            try {
-                list_json = mapper.readValue(json, List.class);
-                map.put("resource_info", list_json);
-            } catch (IOException e) {
-                e.printStackTrace();
-                map.put("resource_info", new ArrayList<>());
-            }
-        }else{
-            map.put("resource_info", new ArrayList<>());
-        }
+        map = csCencelsService.getTemplePaths(map, json);
         List<Map<String,Object>> list = csReturnMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         return map;

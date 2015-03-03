@@ -23,4 +23,6 @@ public interface CsCencelsMapper {
 
     int countSearch(MyOrderReq myOrderReq);
 
+    List<Map<String, Object>>  findTemplete(MyOrderReq myOrderReq);
+
 }

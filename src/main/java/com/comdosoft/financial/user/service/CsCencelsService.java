@@ -59,7 +59,6 @@ public class CsCencelsService {
         csCencelsMapper.cancel(myOrderReq);
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String,Object> findById(MyOrderReq myOrderReq) throws ParseException {
         Map<String, Object> o = csCencelsMapper.findById(myOrderReq);
         Map<String,Object> map = new HashMap<String,Object>();
@@ -77,12 +76,48 @@ public class CsCencelsService {
         map.put("merchant_phone", o.get("mer_phone")+"");
         map.put("receiver_addr", o.get("address")+"");
         String json = o.get("templete_info_xml")+"";
+        map = getTemplePaths(map, json);
+        myOrderReq.setId(Integer.parseInt(id));
+        List<Map<String,Object>> list = csCencelsMapper.findTraceById(myOrderReq);
+        map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
+        return map;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Map<String,Object> getTemplePaths(Map<String, Object> map, String json) {
         ObjectMapper mapper = new ObjectMapper();
         if(!json.equals("")){
+            Map<String,Object> child_map = null;
             List<LinkedHashMap<String, Object>> list_json;
             try {
+                List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
                 list_json = mapper.readValue(json, List.class);
-                map.put("resource_info", list_json);
+                String[] ids = new String[list_json.size()];
+                for(int i=0;i<list_json.size();i++){
+                    String c_id = list_json.get(i).get("id")+"";
+                    ids[i]= c_id;
+                }
+                MyOrderReq mo = new MyOrderReq();
+                mo.setIds(ids);
+                List<Map<String, Object>> childsList = csCencelsMapper.findTemplete(mo);
+                for(Map<String,Object> m: childsList){
+                    child_map = new HashMap<String,Object>();
+                    String temp_id = (m.get("id")+"");
+                    String temp_title = m.get("title")+"";
+                    String temp_path = m.get("templet_file_path")+"";
+                    String temp_up_path = "";
+                    for(Map<String,Object> mm: list_json){
+                        if(temp_id.equals(mm.get("id")+"")){
+                            temp_up_path = mm.get("path")+"" ;
+                        }
+                    }
+                    child_map.put("id", temp_id);
+                    child_map.put("title", temp_title);
+                    child_map.put("templet_path", temp_path);
+                    child_map.put("upload_path", temp_up_path);
+                    list.add(child_map);
+                }
+                map.put("resource_info", list);
             } catch (IOException e) {
                 e.printStackTrace();
                 map.put("resource_info", new ArrayList<>());
@@ -90,9 +125,6 @@ public class CsCencelsService {
         }else{
             map.put("resource_info", new ArrayList<>());
         }
-        myOrderReq.setId(Integer.parseInt(id));
-        List<Map<String,Object>> list = csCencelsMapper.findTraceById(myOrderReq);
-        map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         return map;
     }
 

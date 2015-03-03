@@ -11,43 +11,29 @@
 			<h1>订单详情</h1>
 		</div>
 		<div class="detail_panel">
-			<div class="detailPanel_status"  ng-if="o.order_status==1">
-				<div class="payWarning">
+			<div class="detailPanel_status" >
+				<div class="payWarning"  ng-if="o.order_status==1">
 					<i class="no"></i>未付款
 				</div>
-				<div class="dp_status_btn">
-					<a href="#" class="orangeBtn">付款</a>
-				</div>
-			</div>
-			<div class="detailPanel_status"  ng-if="o.order_status==2">
-				<div class="payWarning">
+				<div class="payWarning" ng-if="o.order_status==2">
 					<i ></i>已付款
 				</div>
-				
-			</div>
-			<div class="detailPanel_status"  ng-if="o.order_status==3">
-				<div class="payWarning">
+				<div class="payWarning" ng-if="o.order_status==3">
 					<i ></i>已发货
 				</div>
-				
-			</div>
-			<div class="detailPanel_status"  ng-if="o.order_status==4">
-				<div class="payWarning">
+				<div class="payWarning" ng-if="o.order_status==4">
 					<i ></i>已评价
 				</div>
-				 
-			</div>
-			<div class="detailPanel_status"  ng-if="o.order_status==5">
-				<div class="payWarning">
-					<i class="no"></i>已取消
+				<div class="payWarning" ng-if="o.order_status==5">
+					<i ></i>已取消
 				</div>
-				 
-			</div>
-			<div class="detailPanel_status"  ng-if="o.order_status==6">
-				<div class="payWarning">
-					<i class="no"></i>交易关闭
+				<div class="payWarning" ng-if="o.order_status==6">
+					<i ></i>交易关闭
 				</div>
 				
+				<div class="dp_status_btn"  ng-if="o.order_status==1">
+					<a href="#" class="orangeBtn">付款</a>
+				</div>
 			</div>
 			
 			<div class="detailPanel_info detailDl">
@@ -137,7 +123,7 @@
 
 						<td><strong>{{o.order_totalPrice/100 |currency : "￥"}} </strong></td>
 						<td ><a href="#" class="a_btn" ng-if="o.order_status==1">付款</a>
-						 <a href="#" class="a_btn starGrade_a" ng-if="o.order_status==3">评价</a><a href="#" ng-if="o.order_status==3" class="a_btn">查看终端号</a>
+						 <a href="javascript:void(0);" class="a_btn starGrade_a" ng-if="o.order_status==3">评价</a><a href="#" ng-if="o.order_status==3" class="a_btn">查看终端号</a>
 						 </td>
 					</tr>
 				</tbody>
@@ -156,5 +142,19 @@
 		
 		</div>
 
+	</div>
+</div>
+<div class="mask"></div>
+<div class="tab starGrade_tab">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabHead">评价</div>
+	<div class="tabBody">
+		<div class="halfShow_star"></div>
+		<div class="gradeText">
+			<textarea name="" cols="" rows=""></textarea>
+		</div>
+	</div>
+	<div class="tabFoot">
+		<button class="orangeBtn">确定</button>
 	</div>
 </div>

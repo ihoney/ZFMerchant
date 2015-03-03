@@ -42,7 +42,7 @@
 			<div class="applyFor_list clear" >
 				<div class="af_con" ng-repeat="o in info.resource_info">
 					<div class="af_con_n">
-						1.注销申请资料01 <a href="#" class="a_btn">下载模版</a>
+						{{o.title}} <a href="{{o.templet_path}}" target="_blank" class="a_btn">下载模版</a> <a href="{{o.upload_path}}" target="_blank"  class="a_btn">下载资料</a>
 					</div>
 				</div>
 			</div>

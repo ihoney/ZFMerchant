@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.zhangfu.MessageReceiver;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.SysMessage;
 import com.comdosoft.financial.user.mapper.zhangfu.MessageReceiverMapper;
@@ -24,16 +25,21 @@ public class MessageReceiverService {
     public Page<Object> findAll(MyOrderReq myOrderReq) {
         PageRequest request = new PageRequest(myOrderReq.getPage(),myOrderReq.getPageSize());
         int count = messageReceiverMapper.count(myOrderReq.getCustomer_id());
-        List<SysMessage> centers = messageReceiverMapper.findAll(myOrderReq);
+        List<MessageReceiver> centers = messageReceiverMapper.findAll(myOrderReq);
         List<Object> list = new ArrayList<Object>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Map<String,String> map = null;
-        for(SysMessage s: centers){
-            map = new HashMap<String,String>();
-            map.put("id", s.getId().toString());
-            map.put("title", s.getTitle());
-            map.put("create_at",sdf.format(s.getCreatedAt()));
-            map.put("content", s.getContent());
+        Map<String,Object> map = null;
+        for(MessageReceiver s: centers){
+            map = new HashMap<String,Object>();
+            map.put("id", s.getSysMessage() ==null ?"":s.getSysMessage().getId()+"");
+            map.put("title", s.getSysMessage() ==null ?"":s.getSysMessage().getTitle());
+            if(s.getStatus()==1){
+                map.put("status", true);
+            }else{
+                map.put("status", false);
+            }
+            map.put("create_at",sdf.format(s.getSysMessage() ==null ?"":s.getSysMessage().getCreatedAt()));
+            map.put("content", s.getSysMessage() ==null ?"":s.getSysMessage().getContent());
             list.add(map);
         }
         return new Page<Object>(request, list, count);

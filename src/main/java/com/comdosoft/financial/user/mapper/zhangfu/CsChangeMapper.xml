@@ -80,7 +80,7 @@
 			g.model_number AS brand_number,
 			pc.`name` as zhifu_pt, m.title AS merchant_name,
 			m.phone AS mer_phone,
-			cra.address 
+			cra.address ,cra.receiver,cra.phone as receiver_phone
 		FROM
 			cs_changes o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
