@@ -48,7 +48,6 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 			$scope.quantity += type;
 		}
 	}
-    
     $scope.init();
 
 };

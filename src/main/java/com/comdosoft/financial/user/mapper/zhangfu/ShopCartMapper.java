@@ -25,6 +25,10 @@ public interface ShopCartMapper {
     int getTotal(CartReq cartreq);
 
     void update2(CartReq cartreq);
+
+    Map<String, Object> getShopOne(CartReq cartreq);
+
+    Map<String, Object> getLeaseOne(CartReq cartreq);
     
     
 }

@@ -3,7 +3,7 @@
 // 系统设置模块
 var shopcartModule = angular.module("shopcartModule", []);
 
-var shopcartController = function($scope, $location, $http, LoginService) {
+var shopcartController = function($scope,$http,LoginService) {
 	$scope.carts=[];
 	$scope.req = {};
 	$scope.selectCount = 0;
@@ -69,7 +69,6 @@ var shopcartController = function($scope, $location, $http, LoginService) {
 				$http.post("api/cart/update", {id:one.id,quantity:one.quantity});
 			}
 		}
-
 	}
 	$scope.del= function(id) {
 		$http.post("api/cart/delete", {id:id});
@@ -91,10 +90,10 @@ var shopcartController = function($scope, $location, $http, LoginService) {
 			}
 		});
 		LoginService.tomakeorder($scope.goods);
-		window.location.href = '#/tomakeorder';
+		//instance.list = $scope.goods;
+		window.location.href = '#/cartmakeorder';
 	}
 	$scope.init();
 
 };
-
 shopcartModule.controller("shopcartController", shopcartController);

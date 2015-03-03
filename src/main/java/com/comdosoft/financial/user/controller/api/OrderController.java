@@ -104,7 +104,7 @@ public class OrderController {
         if(null!=orderreq.getCartid()&&orderreq.getCartid().length>0){
             int result= orderService.createOrderFromCart(orderreq);
             if(result==1){
-                resp.setCode(Response.ERROR_CODE);
+                resp.setCode(Response.SUCCESS_CODE);
             }
         }
         return resp;

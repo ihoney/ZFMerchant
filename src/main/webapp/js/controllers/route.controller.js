@@ -26,8 +26,12 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/shop/shopinfo.html'
         }).when('/shopcart', {
             templateUrl: 'views/shop/shopcart.html'
-        }).when('/tomakeorder', {
-            templateUrl: 'views/shop/tomakeorder.html'
+        }).when('/cartmakeorder', {
+            templateUrl: 'views/shop/cartmakeorder.html'
+        }).when('/shopmakeorder', {
+            templateUrl: 'views/shop/shopmakeorder.html'
+        }).when('/leasemakeorder', {
+            templateUrl: 'views/shop/leasemakeorder.html'
         }).when('/findPass', {
     		templateUrl : 'views/login/findPassOne.html'
     	}).when('/findPassTwo', {

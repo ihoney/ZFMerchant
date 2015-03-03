@@ -1,0 +1,160 @@
+<script type="text/javascript" src="js/controllers/tomakeorder.controller.js"></script>
+<div class="main" ng-controller="cartmakeorderController">
+	<div class="box">
+    	<div class="breadcrumb">
+        	<ul>
+                <li><a href="#">确认您的订单信息</a></li>
+            </ul>
+        </div>
+        <div class="inner">
+          <div class="myAddress">
+          	<h3>确认收货地址</h3>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
+                 <colgroup>
+                    <col width="30" />
+                    <col width="90" />
+                    <col width="250" />
+                    <col width="320" />
+                    <col width="90" />
+                    <col width="90" />
+                    <col width="120" />
+                    <col />
+                  </colgroup>
+                 <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>收货人</th>
+                    <th>所在地区</th>
+                    <th>详细地址</th>
+                    <th>邮编</th>
+                    <th>电话</th>
+                    <th>操作</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                  </thead>
+                  <tr>
+                    <td><input name="" type="radio" value="" /></td>
+                    <td>张三三</td>
+                    <td>江苏省苏州市吴中区</td>
+                    <td> 	东方大道1788号7栋311室东方大道1788号7栋311室东方大道1788号7栋311室东方大道1788号7栋311室东方大道1788号7栋311室东方大道</td>
+                    <td>215000</td>
+                    <td>123456789</td>
+                    <td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+                    <td><span class="defaultAddr">默认地址</span></td>
+                  </tr>
+                  <tr>
+                    <td><input name="" type="radio" value="" /></td>
+                    <td>张三三</td>
+                    <td>江苏省苏州市吴中区</td>
+                    <td> 	东方大道1788号7栋311室</td>
+                    <td>215000</td>
+                    <td>123456789</td>
+                    <td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+                    <td><a href="#" class="set_defaultAddr">设为默认地址</a></td>
+                  </tr>
+                  <tr>
+                    <td><input name="" type="radio" value="" /></td>
+                    <td>张三三</td>
+                    <td>江苏省苏州市吴中区</td>
+                    <td>东方大道1788号7栋311室</td>
+                    <td>215000</td>
+                    <td>123456789</td>
+                    <td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+                    <td><a href="#" class="set_defaultAddr">设为默认地址</a></td>
+                  </tr>
+                  <tr class="addAddr_box">
+                    <td>&nbsp;</td>
+                    <td><input name="" type="text" value="收件人姓名" /></td>
+                    <td>
+                    	<select name="">
+                    	  <option>省</option>
+                    	  <option>江苏省</option>
+                    	</select>
+                        <select name="">
+                    	  <option>市</option>
+                    	  <option>南京市</option>
+                    	</select>
+                        <select name="">
+                    	  <option>区/县</option>
+                    	  <option>姑苏区</option>
+                    	</select>
+                    </td>
+                    <td><input name="" type="text" class="w" value="详细地址" /></td>
+                    <td><input name="" type="text" value="邮编" /></td>
+                    <td><input name="" type="text" value="手机号码" /></td>
+                    <td><a href="#" class="a_btn">确定</a></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+    			<div class="addAddr_btn"><button>使用新地址</button></div>
+            </div>
+            <div class="myShopOrder">
+            	<h3>您的订单信息</h3>
+                <table width="100%" cellspacing="0" cellpadding="0" class="b_table">
+                 <colgroup>
+                    <col width="640" />
+                    <col />
+                    <col />
+                    <col />
+                 </colgroup>
+                 <thead>
+                  <tr>
+                    <th>商品</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>金额</th>
+                  </tr>
+                 </thead>
+                  <tr ng-repeat="c in list">
+                    <td>
+                        <div class="td_proBox">
+                            <a href="#/shopinfo?goodId={{c.goodId}}" class="cn_img"><img src="images/c.jpg" /></a>
+                            <div class="td_proBox_info">
+                                <h1><a href="#/shopinfo?goodId={{c.goodId}}">{{c.title}}</a></h1>
+                                <h3>{{c.second_title}}</h3>
+                                <ul>
+                                    <li><span>品牌型号：</span><div class="c_text">{{c.good_brands}}{{c.Model_number}}</div></li>
+                                    <li><span>支付通道：</span><div class="c_text">{{c.name}}</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td><a href="javascript:void(0);"><strong>{{(c.opening_cost+c.retail_price)/100|currency : "￥"}}</strong></a></td>
+                    <td><div class="choose_amount"><strong>{{c.quantity}}</strong></div></td>
+                    <td><a href="javascript:void(0);"><strong>{{(c.opening_cost+c.retail_price)/100*c.quantity|currency : "￥"}}</strong></a></td>
+                  </tr>
+                  
+                </table>
+            </div>
+            <div class="total_info">含配送费合计<strong>￥9.99</strong>（配送费￥0.00）</div>
+            <div class="other_info">
+            	<div class="oi_left">
+                	<div class="oi_title">留言</div>
+                    <div class="oi_area">
+                    	<textarea maxlength="100" ng-model="order.comment" cols="" rows=""></textarea>
+                        <p>留言最多{{100-order.comment.length}}个字</p>
+                    </div>
+                </div>
+                <div class="oi_right">
+                	<div class="oi_title">
+                    	<div class="invoice_checkbox"> <input ng-model="order.is_need_invoice" type="checkbox" value=""  /> 需要发票</div>
+                    	<div class="invoice"><span>类型：</span>
+                        	<a href="javascript:void(0);" ng-click="ctype(1)" class="hover">个人</a>
+                            <a href="javascript:void(0);" ng-click="ctype(0)">公司</a>
+                        </div>
+                    </div>
+                    <div class="oi_area">
+                    	<textarea   ng-model="order.invoice_info" class="invoice_area" disabled="disabled">
+                    	</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="settleAccount">
+            	<p>实付：<strong>￥1377.00</strong></p>
+            	<button class="orangeBtn" ng-click="submit()">结算</button>
+                <p><a href="#/shopcart" class="a_btn">返回购物车</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/main.js"></script>

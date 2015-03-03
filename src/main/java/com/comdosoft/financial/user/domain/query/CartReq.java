@@ -8,6 +8,7 @@ public class CartReq {
      private int customerId;
      private int quantity;
      private int paychannelId;
+     private int type;
      
      //{"id":1,"goodId":2,"customerId":2,"quantity":2,"paychannelId":2}
      
@@ -40,6 +41,12 @@ public class CartReq {
     }
     public void setPaychannelId(int paychannelId) {
         this.paychannelId = paychannelId;
+    }
+    public int getType() {
+        return type;
+    }
+    public void setType(int type) {
+        this.type = type;
     }
      
      

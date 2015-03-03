@@ -9,6 +9,6 @@ var headController = function ($scope, $http, LoginService) {
 		window.location.href = '#/shop';
 	};
 };
-
+headController.$inject = ['$scope','$http','LoginService'];
 headModule.controller("headController", headController);
 

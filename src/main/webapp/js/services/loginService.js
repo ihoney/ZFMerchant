@@ -16,7 +16,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         userid: 2,
         userLogo:"123",
         city:1,
-        goods:[],
+        goods: [],
         //用户登陆功能
         login: function ($scope) {
         	
@@ -88,8 +88,8 @@ var loginService = function ($http, $rootScope, $cookieStore) {
       //创建订单传值
         tomakeorder: function (val) {
             var self = this;
-            self.goods=[];
-        	self.goods.push(val);
+            self.goods=val;
+            
         },
 
         //检验当前是否为已登录状态，或Cookie中仍存在登陆记录
