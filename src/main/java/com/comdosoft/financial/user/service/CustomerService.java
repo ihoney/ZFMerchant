@@ -67,19 +67,20 @@ public class CustomerService {
         }
         Map<Object, Object> result = new HashMap<>();
         result.put("quantityTotal", quantityTotal);
-        result.put("moneyTotal", quantityTotal.multiply(paramValue));
+        result.put("moneyTotal", quantityTotal.multiply(paramValue).multiply(new BigDecimal(100)));
         return result;
     }
 
     public void insertIntegralConvert(Map<Object, Object> param) {
         Map<Object, Object> sysconfig = customerMapper.getSysConfig(SysConfig.PARAMNAME_INTEGRALCONVERT);
         BigDecimal paramValue = new BigDecimal((String) sysconfig.get("param_value"));
-        BigDecimal price = new BigDecimal((String) param.get("price"));
+        BigDecimal price = new BigDecimal((int) param.get("price"));
         BigDecimal quantity = price.divide(paramValue);
         Date now = new Date();
         param.put("createdAt", now);
         param.put("updatedAt", now);
         param.put("quantity", quantity.intValue());
+        param.put("price", price.multiply(new BigDecimal(100)));
         customerMapper.insertIntegralConvert(param);
     }
 
