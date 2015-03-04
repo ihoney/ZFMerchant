@@ -74,6 +74,12 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/message/message.html'
         }).when('/messageinfo', {
             templateUrl: 'views/message/messageinfo.html'
+        }).when('/lowstocks', {
+            templateUrl: 'views/shop/lowstocks.html'
+        }).when('/pay', {
+            templateUrl: 'views/shop/pay.html'
+        }).when('/pay_success', {
+            templateUrl: 'views/shop/pay_success.html'
         }).otherwise({
             redirectTo: "/"
         });

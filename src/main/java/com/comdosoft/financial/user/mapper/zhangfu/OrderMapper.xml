@@ -292,4 +292,18 @@
 		LEFT JOIN pay_channels pc on pc.id=gpc.pay_channel_id
 		where gpc.good_id=#{goodId} and gpc.pay_channel_id=#{paychannelId}
   </select>
+  
+  <select id="getPayOrder" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT o.order_number,o.total_price,ca.receiver,ca.address
+ 		from orders o
+		LEFT JOIN customer_addresses ca on ca.id=o.customer_address_id
+		where o.id=#{id} and o.status=0
+  </select>
+  
+  <select id="getPayOrderGood" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT g.title,pc.name as pcname,og.quantity from order_goods og
+		LEFT JOIN goods g on og.good_id=g.id
+		left JOIN pay_channels pc on pc.id=og.pay_channel_id
+		where order_id=#{id}
+  </select>
 </mapper>

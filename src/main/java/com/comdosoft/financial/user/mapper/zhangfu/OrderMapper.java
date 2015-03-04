@@ -19,6 +19,10 @@ public interface OrderMapper {
     Map<String, Object> getGoodInfo(OrderReq orderreq);
     
     List<Map<String, Object>> checkList(OrderReq orderreq);
+    
+    Map<String, Object> getPayOrder(OrderReq orderreq);
+
+    List<Map<String, Object>> getPayOrderGood(OrderReq orderreq);
 
 // ----gch start --------------
     int countMyOrder(MyOrderReq myOrderReq);

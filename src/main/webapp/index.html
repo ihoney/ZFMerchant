@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="js/controllers/route.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/head.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/login.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
 
 	<script type="text/javascript">
 		//登录
@@ -429,6 +430,15 @@
 			<div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
 		</div>
 	</div>
-
+<div class="tab payTab" ng-controller="payController" id="payTab">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabBody">
+    	<h2>您是否已经完成支付？</h2>
+    </div>
+    <div class="tabFoot">
+    	<button class="greenBtn" ng-click="finish()">支付成功</button><button class="whiteBtn">遇到问题</button>
+    </div>
+	</div>
+<div class="mask"></div>
 </body>
 </html>

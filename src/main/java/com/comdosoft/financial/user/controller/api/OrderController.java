@@ -1,5 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -120,7 +122,7 @@ public class OrderController {
     public Response createOrderFromShop(@RequestBody OrderReq orderreq) {
         Response resp = new Response();
         try {
-            int result = orderService.createOrderFromCart(orderreq);
+            int result = orderService.createOrderFromShop(orderreq);
             resp.setCode(Response.SUCCESS_CODE);
             resp.setResult(result);
         } catch (LowstocksException e) {
@@ -136,12 +138,26 @@ public class OrderController {
     public Response createOrderFromLease(@RequestBody OrderReq orderreq) {
         Response resp = new Response();
         try {
-            int result = orderService.createOrderFromCart(orderreq);
+            int result = orderService.createOrderFromLease(orderreq);
             resp.setCode(Response.SUCCESS_CODE);
             resp.setResult(result);
         } catch (LowstocksException e) {
             resp.setCode(-2);
         } catch (Exception e) {
+            resp.setCode(Response.ERROR_CODE);
+            e.printStackTrace();
+        }
+        return resp;
+    }
+    
+    @RequestMapping(value = "payOrder", method = RequestMethod.POST)
+    public Response payOrder(@RequestBody OrderReq orderreq) {
+        Response resp = new Response();
+        try {
+            Map<String,Object> result = orderService.payOrder(orderreq);
+            resp.setCode(Response.SUCCESS_CODE);
+            resp.setResult(result);
+        }catch (Exception e) {
             resp.setCode(Response.ERROR_CODE);
             e.printStackTrace();
         }
