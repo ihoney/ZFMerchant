@@ -269,16 +269,24 @@
   
   <select id="getGoodInfos" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
         SELECT sc.id,g.id as goodid,pc.id as paychanelid ,
-        sc.quantity,g.price,g.retail_price,pc.opening_cost
+        sc.quantity,g.price,g.retail_price,pc.opening_cost,g.quantity as count
 		from shopping_carts sc
 		LEFT JOIN goods g on g.id=sc.good_id
 		LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id
 		where sc.id in ${cartids}
   </select>
   
+  <select id="checkList" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT  g.id as goodid,sum(sc.quantity) as quantity,g.quantity as count
+		from shopping_carts sc
+		LEFT JOIN goods g on g.id=sc.good_id 	
+		where sc.id in ${cartids}
+    	GROUP BY goodid
+  </select>
+  
   <select id="getGoodInfo" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
         SELECT  g.id as goodid,pc.id as paychanelid ,g.lease_deposit,
-        g.price,g.retail_price,pc.opening_cost
+        g.price,g.retail_price,pc.opening_cost,g.quantity as count
 		from goods_pay_channels gpc
 		LEFT JOIN goods g on g.id=gpc.good_id
 		LEFT JOIN pay_channels pc on pc.id=gpc.pay_channel_id

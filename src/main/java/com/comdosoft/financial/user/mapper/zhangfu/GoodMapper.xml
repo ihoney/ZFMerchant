@@ -174,5 +174,9 @@
        <select id="getFactoryById" resultType="map" >
        SELECT * from factories where id=#{factoryId}
      </select>
+     
+     <update id="upQuantity">
+     	UPDATE goods set quantity=#{city_id} WHERE id=#{goodId}
+     </update>
 	
 </mapper>
