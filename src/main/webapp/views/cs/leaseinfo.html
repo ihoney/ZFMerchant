@@ -3,15 +3,16 @@
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="#">售后记录</a></li>
-			<li><a href="#">更新资料记录</a></li>
-			<li><a href="#">详情</a></li>
+			<li><a href="#/cs_lease">租赁退还申请记录</a></li>
+			<li><a href="#/cs_leaseinfo?infoId={info.id}">详情</a></li>
 		</ul>
 	</div>
 	<div class="content clear" >
 		<div class="user_title">
-			<h1>更新资料申请记录</h1>
+			<h1>租赁退还申请记录</h1>
 			<div class="userTopBtnBox">
-				<a href="#" class="ghostBtn">取消申请</a>
+				<a href="javascript:void(0)" ng-click="cancelApply(info)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="info.status==1" class="ghostBtn">取消</a>
+				 <a href="javascript:void(0)" ng-click="resubmitCancel(info)" onClick="if(confirm('是否重新提交？'))return true;return false;" ng-if="info.status==5" class="ghostBtn">重新提交</a>
 			</div>
 		</div>
 		<div class="attributes_box">
@@ -19,7 +20,12 @@
 			<div class="attributes_list clear">
 				<ul>
 					<li>编号：{{info.apply_num}}</li>
-					<li>状态：<span class="orangeText">处理中</span></li>
+					<li>状态：
+					<span class="orangeText" ng-if="info.status==1">待处理</span>
+					<span class="orangeText" ng-if="info.status==2">退还中</span>
+					<span class="orangeText" ng-if="info.status==4">处理完成</span>
+					<span class="orangeText" ng-if="info.status==5">已取消</span>
+					</li>
 					<li>申请日期：{{info.apply_time}}</li>
 				</ul>
 			</div>
@@ -33,16 +39,31 @@
 					<li>终端号：{{info.terminal_num}}</li>
 					<li>商户名称：{{info.merchant_name}}</li>
 					<li>商户电话：{{info.merchant_phone}}</li>
+					<li>租赁日期： </li>
+                    <li>最短租赁时间：{{info.lease_min_time/30}}个月</li>
+                    <li>最长租赁时间：{{info.lease_max_time/30}}个月</li>
+                    <li>租金：<strong>{{info.lease_price/100 |currency : "￥"}}</strong></li>
+                    <li>租赁押金：<strong>{{info.lease_deposit/100 |currency : "￥"}}</strong></li>
+                    <li>租赁时长：{{info.lease_length}}天</li>
 				</ul>
 			</div>
 		</div>
-
+		<div class="attributes_box">
+         	<h2>退货信息</h2>
+             <div class="attributes_list clear">
+                 <ul>
+                     <li class="w">
+                  	   退款金额：{{info.return_price/100 |currency : "￥"}}    联系人：{{info.receiver_person}}    联系电话：{{info.receiver_phone}}
+                     </li>
+                 </ul>
+             </div>
+         </div>
 		<div class="attributes_box">
 			<h2>更新申请资料</h2>
 			<div class="applyFor_list clear" >
 				<div class="af_con" ng-repeat="o in info.resource_info">
 					<div class="af_con_n">
-						1.注销申请资料01 <a href="#" class="a_btn">下载模版</a>
+						{{o.title}} <a href="{{o.templet_path}}" target="_blank" class="a_btn">下载模版</a> <a href="{{o.upload_path}}" target="_blank"  class="a_btn">下载资料</a>
 					</div>
 				</div>
 			</div>

@@ -15,6 +15,28 @@ var cs_leaseinfoController = function ($scope,$location, $http, LoginService) {
             $("#serverErrorModal").modal({show: true});
         });
     };
+    //取消
+    $scope.cancelApply = function(o){
+    	$scope.req={id:o.id};
+		$http.post("api/cs/lease/returns/cancelApply", $scope.req).success(function (data) {  //绑定
+            if (data != null && data != undefined) {
+            	$scope.getInfo();
+            }
+        }).error(function (data) {
+            $("#serverErrorModal").modal({show: true});
+        });
+	};
+	//重新提交
+	$scope.resubmitCancel = function(o){
+		$scope.req={id:o.id};
+		$http.post("api/cs/lease/returns/resubmitCancel", $scope.req).success(function (data) {  //绑定
+			if (data != null && data != undefined) {
+				$scope.getInfo();
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
+	};
     $scope.getInfo();
 
 };

@@ -91,7 +91,7 @@
 			o.id,
 			o.`status` AS apply_status,
 			o.created_at AS apply_time,o.contact,o.phone,
-			t.serial_num,
+			t.serial_num,o.apply_num,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` AS zhifu_pt,
@@ -103,6 +103,7 @@
 			g.lease_time,
 			g.return_time,o.cs_cencel_id,
 			g.lease_price,cc.templete_info_xml 
+			
 		FROM
 			cs_lease_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id

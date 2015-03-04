@@ -48,6 +48,7 @@ var cs_leaseController = function ($scope, $http, LoginService) {
     	$scope.req={id:o.id};
 		$http.post("api/cs/lease/returns/cancelApply", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
+            	$scope.orderlist();
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -58,6 +59,7 @@ var cs_leaseController = function ($scope, $http, LoginService) {
 		$scope.req={id:o.id};
 		$http.post("api/cs/lease/returns/resubmitCancel", $scope.req).success(function (data) {  //绑定
 			if (data != null && data != undefined) {
+				$scope.orderlist();
 			}
 		}).error(function (data) {
 			$("#serverErrorModal").modal({show: true});

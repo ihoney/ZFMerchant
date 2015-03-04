@@ -104,7 +104,7 @@
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
-		LEFT JOIN cs_receiver_addresses cra ON o.receive_address_id = cra.id
+		LEFT JOIN cs_receiver_addresses cra ON o.return_address_id = cra.id
 		WHERE
 			o.id = #{id}
 	</select>

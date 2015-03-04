@@ -46,11 +46,9 @@ var cs_returnController = function ($scope, $http, LoginService) {
     //取消
     $scope.cancelApply = function(o){
     	$scope.req={id:o.id};
-//    	$scope.req=  {id:$scope.infoId}
 		$http.post("api/return/cancelApply", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-            	console.log("data.message==>"+data.message);
-//                $scope.list = data.message;
+            	$scope.orderlist();
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -59,11 +57,9 @@ var cs_returnController = function ($scope, $http, LoginService) {
 	//重新提交
 	$scope.resubmitCancel = function(o){
 		$scope.req={id:o.id};
-//    	$scope.req=  {id:$scope.infoId}
 		$http.post("api/return/resubmitCancel", $scope.req).success(function (data) {  //绑定
 			if (data != null && data != undefined) {
-				console.log("data.message==>"+data.message);
-//                $scope.list = data.message;
+				$scope.orderlist();
 			}
 		}).error(function (data) {
 			$("#serverErrorModal").modal({show: true});
