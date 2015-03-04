@@ -4,6 +4,7 @@
 var cs_repairModule = angular.module("cs_repairModule",[]);
 
 var cs_repairController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};

@@ -180,7 +180,7 @@ public class OrderService {
             }else{
                 map.put("order_createTime", "");
             }
-            map.put("order_status", o.getStatus()==null?"":o.getStatus().getCode());
+            map.put("order_status", o.getStatus()==null?"":o.getStatus());
             map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
             map.put("order_totalPrice", o.getActualPrice()==null?"":o.getActualPrice());
             map.put("order_psf", "0");//配送费
@@ -236,7 +236,7 @@ public class OrderService {
         String d = sdf.format(o.getCreatedAt());
         map.put("order_createTime", d);//订单日期
 //        map.put("order_pay_status", o.getPayStatus().getName());
-        map.put("order_status", o.getStatus().getCode());
+        map.put("order_status", o.getStatus());
         map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
         map.put("order_totalPrice", o.getActualPrice()+"");//订单总额
         map.put("order_price", o.getTotalPrice()+"");//订单原价

@@ -4,6 +4,7 @@
 var cs_leaseinfoModule = angular.module("cs_leaseinfoModule",[]);
 
 var cs_leaseinfoController = function ($scope,$location, $http, LoginService) {
+	$("#leftRoute").show();
 	$scope.req={};
 	$scope.req.id=$location.search()['infoId'];
     $scope.getInfo = function () {

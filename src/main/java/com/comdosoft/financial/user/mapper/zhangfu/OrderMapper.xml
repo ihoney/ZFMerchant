@@ -81,7 +81,7 @@
 		<result property="orderNumber" column="order_number" />
 		<result property="customerId" column="customer_id" />
 		<result property="totalPrice" column="total_price" />
-		<result property="status" column="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler" />
+		<result property="status" column="status"/>
 		<result property="payedAt" column="payed_at" />
 		<result property="types" column="types" />
 		<result property="needInvoice" column="need_invoice" />
@@ -121,8 +121,6 @@
 		FROM orders o
 		LEFT JOIN order_goods og ON o.id = og.order_id
 		LEFT JOIN goods g ON og.good_id = g.id
-		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
-		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		where o.customer_id = #{customer_id}
 		<if test="search !=null and search!=''">
 		and (o.order_number like "%"#{search}"%" 
@@ -131,7 +129,7 @@
 			or g.key_worlds like "%"#{search}"%" ) 
 		</if>
 		<if test="q !=null and q!=''">
-		and front_pay_status = #{q}
+		and o.front_pay_status = #{q}
 		</if>
 	</select>
 
@@ -157,7 +155,7 @@
 			or g.key_worlds like "%"#{search}"%" ) 
 		</if>
 		<if test="q !=null and q!=''">
-		and front_pay_status = #{q}
+		and o.front_pay_status = #{q}
 		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{pageSize}

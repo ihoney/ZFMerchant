@@ -4,6 +4,7 @@
 var cs_returninfoModule = angular.module("cs_returninfoModule",[]);
 
 var cs_returninfoController = function ($scope,$location, $http, LoginService) {
+	$("#leftRoute").show();
 	$scope.req={};
 	$scope.req.id=$location.search()['infoId'];
     $scope.getInfo = function () {

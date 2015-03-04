@@ -4,6 +4,7 @@
 var cs_repairinfoModule = angular.module("cs_repairinfoModule",[]);
 
 var cs_repairinfoController = function ($scope,$location, $http, LoginService) {
+	$("#leftRoute").show();
 	$scope.req={};
 	$scope.req.id=$location.search()['infoId'];
     $scope.getInfo = function () {

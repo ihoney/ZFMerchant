@@ -4,6 +4,7 @@
 var cs_updateModule = angular.module("cs_updateModule",[]);
 
 var cs_updateController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};

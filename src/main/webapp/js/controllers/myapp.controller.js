@@ -4,6 +4,7 @@
 var myappModule = angular.module("myappModule",[]);
 
 var myappController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	$scope.my_message_list = function(){
 		$scope.req={customer_id:80};
 		$http.post("api/web/message/getAll", $scope.req).success(function (data) {   

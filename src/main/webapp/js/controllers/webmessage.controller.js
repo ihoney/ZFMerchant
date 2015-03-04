@@ -4,6 +4,7 @@
 var webmessageModule = angular.module("webmessageModule", []);
 
 var webmessageController = function($scope, $location, $http, LoginService) {
+	$("#leftRoute").show();
 	 $scope.getInfo = function () {
 		$("#leftRoute").show();
 		$scope.req={};

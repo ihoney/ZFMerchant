@@ -4,6 +4,7 @@
 var cs_returnModule = angular.module("cs_returnModule",[]);
 
 var cs_returnController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};

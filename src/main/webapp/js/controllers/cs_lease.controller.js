@@ -4,6 +4,7 @@
 var cs_leaseModule = angular.module("cs_leaseModule",[]);
 
 var cs_leaseController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};
