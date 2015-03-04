@@ -9,18 +9,22 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.comdosoft.financial.user.domain.query.OrderReq;
+import com.comdosoft.financial.user.domain.query.PosReq;
 import com.comdosoft.financial.user.domain.zhangfu.Good;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
+import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.SysUtils;
+import com.comdosoft.financial.user.utils.Exception.LowstocksException;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
@@ -28,53 +32,75 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
 public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
-    
+    @Autowired
+    private GoodMapper goodMapper;
     @Autowired
     private ShopCartMapper shopCartMapper;
 
-    public int createOrderFromCart(OrderReq orderreq) {
-        try {
-            orderreq.setCartids(SysUtils.Arry2Str(orderreq.getCartid()));
-            int totalprice = 0;
-            int count=0;
-            List<Map<String, Object>> goodMapList = orderMapper.getGoodInfos(orderreq);
-            for (Map<String, Object> map : goodMapList) {
-                int retail_price = SysUtils.String2int("" + map.get("retail_price"));
-                int quantity = SysUtils.String2int("" + map.get("quantity"));
-                int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
-                totalprice += (retail_price + opening_cost) * quantity;
-                count+=quantity;
+    @Transactional(value = "transactionManager-zhangfu")
+    public int createOrderFromCart(OrderReq orderreq) throws LowstocksException {
+        orderreq.setCartids(SysUtils.Arry2Str(orderreq.getCartid()));
+        int totalprice = 0;
+        int count = 0;
+        List<Map<String, Object>> checkList = orderMapper.checkList(orderreq);
+        for (Map<String, Object> map : checkList) {
+            int count2 = SysUtils.String2int("" + map.get("count"));
+            int quantity = SysUtils.String2int("" + map.get("quantity"));
+            if (count2 < quantity) {
+                throw new LowstocksException("库存不足");
+            } else {
+                int goodId = SysUtils.String2int("" + map.get("goodid"));
+                PosReq posreq = new PosReq();
+                posreq.setGoodId(goodId);
+                posreq.setCity_id(count2-quantity);
+                goodMapper.upQuantity(posreq);
             }
-            orderreq.setTotalcount(count);
-            orderreq.setTotalprice(totalprice);
-            orderreq.setOrdernumber(SysUtils.getOrderNum(0));
-            orderMapper.addOrder(orderreq);
-            for (Map<String, Object> map : goodMapList) {
-                orderreq.setGoodId(SysUtils.String2int(""+map.get("goodid")));
-                orderreq.setPaychannelId(SysUtils.String2int(""+map.get("paychanelid")));
-                orderreq.setQuantity(SysUtils.String2int(""+map.get("quantity")));
-                int price=SysUtils.String2int("" + map.get("price"));
-                int retail_price = SysUtils.String2int("" + map.get("retail_price"));
-                int quantity = SysUtils.String2int("" + map.get("quantity"));
-                int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
-                orderreq.setPrice(price+opening_cost);
-                orderreq.setRetail_price(retail_price+opening_cost);
-                orderreq.setQuantity(quantity);
-                orderMapper.addOrderGood(orderreq);
-                shopCartMapper.delete(SysUtils.String2int(""+map.get("id")));
-            }
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
         }
+        List<Map<String, Object>> goodMapList = orderMapper.getGoodInfos(orderreq);
+        for (Map<String, Object> map : goodMapList) {
+            int retail_price = SysUtils.String2int("" + map.get("retail_price"));
+            int quantity = SysUtils.String2int("" + map.get("quantity"));
+
+            int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
+            totalprice += (retail_price + opening_cost) * quantity;
+            count += quantity;
+        }
+        orderreq.setTotalcount(count);
+        orderreq.setTotalprice(totalprice);
+        orderreq.setOrdernumber(SysUtils.getOrderNum(0));
+        orderMapper.addOrder(orderreq);
+        for (Map<String, Object> map : goodMapList) {
+            orderreq.setGoodId(SysUtils.String2int("" + map.get("goodid")));
+            orderreq.setPaychannelId(SysUtils.String2int("" + map.get("paychanelid")));
+            orderreq.setQuantity(SysUtils.String2int("" + map.get("quantity")));
+            int price = SysUtils.String2int("" + map.get("price"));
+            int retail_price = SysUtils.String2int("" + map.get("retail_price"));
+            int quantity = SysUtils.String2int("" + map.get("quantity"));
+            int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
+            orderreq.setPrice(price + opening_cost);
+            orderreq.setRetail_price(retail_price + opening_cost);
+            orderreq.setQuantity(quantity);
+            orderMapper.addOrderGood(orderreq);
+            shopCartMapper.delete(SysUtils.String2int("" + map.get("id")));
+        }
+        return orderreq.getId();
     }
-    
-    public int createOrderFromShop(OrderReq orderreq) {
-        try {
+
+    @Transactional(value = "transactionManager-zhangfu")
+    public int createOrderFromShop(OrderReq orderreq) throws LowstocksException{
             Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
             int retail_price = SysUtils.String2int("" + goodMap.get("retail_price"));
             int quantity = orderreq.getQuantity();
+            int count = SysUtils.String2int("" + goodMap.get("count"));
+            if (count < quantity) {
+                throw new LowstocksException("库存不足");
+            } else {
+                int goodId = SysUtils.String2int("" + goodMap.get("goodid"));
+                PosReq posreq = new PosReq();
+                posreq.setGoodId(goodId);
+                posreq.setCity_id(count-quantity);
+                goodMapper.upQuantity(posreq);
+            }
             int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
             int totalprice = (retail_price + opening_cost) * quantity;
             orderreq.setTotalcount(quantity);
@@ -82,22 +108,28 @@ public class OrderService {
             orderreq.setOrdernumber(SysUtils.getOrderNum(1));
             orderreq.setType(1);
             orderMapper.addOrder(orderreq);
-            int price=SysUtils.String2int("" + goodMap.get("price"));
-            orderreq.setPrice(price+opening_cost);
-            orderreq.setRetail_price(retail_price+opening_cost);
+            int price = SysUtils.String2int("" + goodMap.get("price"));
+            orderreq.setPrice(price + opening_cost);
+            orderreq.setRetail_price(retail_price + opening_cost);
             orderMapper.addOrderGood(orderreq);
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+            return orderreq.getId();
     }
-    
-    public int createOrderFromLease(OrderReq orderreq) {
-        try {
+
+    @Transactional(value = "transactionManager-zhangfu")
+    public int createOrderFromLease(OrderReq orderreq) throws LowstocksException{
             Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
             int lease_deposit = SysUtils.String2int("" + goodMap.get("lease_deposit"));
             int quantity = orderreq.getQuantity();
+            int count = SysUtils.String2int("" + goodMap.get("count"));
+            if (count < quantity) {
+                throw new LowstocksException("库存不足");
+            } else {
+                int goodId = SysUtils.String2int("" + goodMap.get("goodid"));
+                PosReq posreq = new PosReq();
+                posreq.setGoodId(goodId);
+                posreq.setCity_id(count-quantity);
+                goodMapper.upQuantity(posreq);
+            }
             int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
             int totalprice = (lease_deposit + opening_cost) * quantity;
             orderreq.setTotalcount(quantity);
@@ -105,14 +137,17 @@ public class OrderService {
             orderreq.setOrdernumber(SysUtils.getOrderNum(2));
             orderreq.setType(2);
             orderMapper.addOrder(orderreq);
-            orderreq.setPrice(lease_deposit+opening_cost);
-            orderreq.setRetail_price(lease_deposit+opening_cost);
+            orderreq.setPrice(lease_deposit + opening_cost);
+            orderreq.setRetail_price(lease_deposit + opening_cost);
             orderMapper.addOrderGood(orderreq);
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+            return orderreq.getId();
+    }
+
+    
+    public Map<String, Object> payOrder(OrderReq orderreq) {
+        Map<String, Object> map=orderMapper.getPayOrder(orderreq);
+        map.put("good", orderMapper.getPayOrderGood(orderreq));
+        return map;
     }
     
     
