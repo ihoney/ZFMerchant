@@ -74,11 +74,21 @@ public class CsReturnService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String apply_time =   o.get("apply_time")+"";
         map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        map.put("apply_num", o.get("apply_num"));//维修编号
         map.put("terminal_num", o.get("serial_num")+"");
         map.put("bank_name", o.get("bank_name")+"");
         map.put("bank_account", o.get("bank_account")+"");
         map.put("reason", o.get("reason")+"");
+        map.put("brand_name", o.get("brand_name")+"");
+        map.put("brand_number", o.get("brand_number")+"");
         map.put("return_price", o.get("return_price")+"");
+        map.put("zhifu_pingtai", o.get("zhifu_pt")+"");
+        map.put("merchant_name", o.get("merchant_name")+"");
+        map.put("merchant_phone", o.get("mer_phone")+"");
+        map.put("receiver_addr", o.get("address")+"");
+        map.put("receiver_person", o.get("receiver")+"");
+        map.put("receiver_phone", o.get("receiver_phone")+"");
+        map.put("change_reason", o.get("reason")+"");
         myOrderReq.setId(Integer.parseInt(id));
         String json = o.get("templete_info_xml")+"";
         map = csCencelsService.getTemplePaths(map, json);

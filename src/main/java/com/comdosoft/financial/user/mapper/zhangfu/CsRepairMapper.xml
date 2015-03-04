@@ -95,14 +95,14 @@
 			o.id,
 			o.`status` AS apply_status,
 			o.created_at AS apply_time,
-			t.serial_num,
+			t.serial_num,o.apply_num,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` as zhifu_pt, m.title AS merchant_name,
 			m.phone AS mer_phone,
-			cra.address,
-			o.description,
-			o.repair_price
+			cra.address,cra.receiver,cra.phone as receiver_phone,
+			o.description
+			
 		FROM
 			cs_repairs o
 		LEFT JOIN terminals t ON o.terminal_id = t.id

@@ -11,8 +11,8 @@
 		<div class="user_title">
 			<h1>换货申请记录</h1>
 			<div class="userTopBtnBox">
-			 <a href="javascript:void(0)" ng-click="cancelApply(info)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="info.status==1" class="a_btn">取消</a>
-				 <a href="javascript:void(0)" ng-click="resubmitCancel(info)" onClick="if(confirm('是否重新提交？'))return true;return false;" ng-if="info.status==5" class="a_btn">重新提交</a>
+			 <a href="javascript:void(0)" ng-click="cancelApply(info)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="info.status==1" class="ghostBtn">取消</a>
+				 <a href="javascript:void(0)" ng-click="resubmitCancel(info)" onClick="if(confirm('是否重新提交？'))return true;return false;" ng-if="info.status==5" class="ghostBtn">重新提交</a>
 			</div>
 		</div>
 		<div class="attributes_box">
@@ -20,7 +20,12 @@
 			<div class="attributes_list clear">
 				<ul>
 					<li>编号：{{info.apply_num}}</li>
-					<li>状态：<span class="orangeText">处理中</span></li>
+					<li>状态：
+					<span class="orangeText" ng-if="info.status==1">待处理</span>
+					<span class="orangeText" ng-if="info.status==2">换货中</span>
+					<span class="orangeText" ng-if="info.status==4">处理完成</span>
+					<span class="orangeText" ng-if="info.status==5">已取消</span>
+					</li>
 					<li>申请日期：{{info.apply_time}}</li>
 				</ul>
 			</div>
@@ -38,14 +43,14 @@
 			</div>
 		</div>
 		<div class="attributes_box">
-                    	<h2>退货信息</h2>
-                        <div class="attributes_list clear">
-                            <ul>
-                                <li class="w">收货地址：{{info.receiver_addr}}  {{info.receiver_person}} {{info.receiver_phone}}</li>
-                                <li class="w">换货原因：{{info.change_reason}}</li>
-                            </ul>
-                        </div>
-                    </div>
+         	<h2>退货信息</h2>
+             <div class="attributes_list clear">
+                 <ul>
+                     <li class="w">收货地址：{{info.receiver_addr}}  {{info.receiver_person}} {{info.receiver_phone}}</li>
+                     <li class="w">换货原因：{{info.change_reason}}</li>
+                 </ul>
+             </div>
+         </div>
 		<div class="attributes_box">
 			<h2>更新申请资料</h2>
 			<div class="applyFor_list clear" >
