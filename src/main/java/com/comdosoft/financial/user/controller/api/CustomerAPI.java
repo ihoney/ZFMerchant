@@ -189,6 +189,25 @@ public class CustomerAPI {
     }
 
     /**
+     * 修改地址
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "updateAddress", method = RequestMethod.POST)
+    public Response updateAddress(@RequestBody Map<Object, Object> param) {
+        Response sysResponse = null;
+        try {
+            customerService.updateAddress(param);
+            sysResponse = Response.getSuccess();
+        } catch (Exception e) {
+            logger.error("修改地址失败", e);
+            sysResponse = Response.getError("修改地址失败:系统异常");
+        }
+        return sysResponse;
+    }
+
+    /**
      * 删除地址
      * 
      * @param id

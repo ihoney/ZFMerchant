@@ -6,45 +6,62 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 	$scope.list = function() {
 		$http.get("api/customers/getAddressList/80").success(function(data) {
 			if (data.code == 1) {
-				$scope.list = data.result;
+				$scope.addressList = data.result;
 			} else {
-				// 提示错误信息
 				alert(data.message);
 			}
 		}).error(function(data) {
 
 		});
 	};
-	$scope.update = function() {
-		$scope.updateCustomer = {
-			id : 8,
-			passwordOld : $scope.customer.passwordOld,
-			password : $scope.customer.password
-		};
-		$http.post("api/customers/updatePassword", $scope.updateCustomer).success(function(data) {
-			if (data.code == 1) {
-				// 提示保存成功
-				alert("修改成功");
-			} else {
-				// 提示错误信息
-				alert(data.message);
-			}
-		}).error(function(data) {
+	$scope.openUpdateAddress = function(e) {
+		$scope.address = e;
+	};
+	$scope.save = function() {
+		$scope.address.customerId = 80;
+		if ($scope.address.id == undefined) {
+			$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
+				if (data.code == 1) {
+					// alert("新增成功");
+					$scope.init();
+				} else {
+					alert(data.message);
+				}
+			}).error(function(data) {
 
-		});
+			});
+		} else {
+			$http.post("api/customers/updateAddress", $scope.address).success(function(data) {
+				if (data.code == 1) {
+					// alert("修改成功");
+					$scope.init();
+				} else {
+					alert(data.message);
+				}
+			}).error(function(data) {
+
+			});
+		}
 	};
 	$scope.deleteAddress = function(e) {
-		$http.post("api/customers/updatePassword", $scope.updateCustomer).success(function(data) {
-			if (data.code == 1) { // 提示保存成功
-				alert("删除成功");
-			} else {
-				// 提示错误信息
-				alert(data.message);
-			}
-		}).error(function(data) {
+		if (confirm('确定删除？')) {
+			$http.get("api/customers/deleteAddress/" + e.id).success(function(data) {
+				if (data.code == 1) {
+					// alert("删除成功");
+					$scope.init();
+				} else {
+					alert(data.message);
+				}
+			}).error(function(data) {
 
-		});
+			});
+		}
 	};
-	$scope.list();
+	$scope.init = function() {
+		$scope.address = {};
+		$scope.address.isDefault = "2";
+		$scope.list();
+	};
+	$scope.init();
 };
 myinfoAddressesModule.controller("myinfoAddressesController", myinfoAddressesController);
