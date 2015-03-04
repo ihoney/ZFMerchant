@@ -152,11 +152,10 @@ public class OrderService {
             List<OrderGood> olist = o.getOrderGoodsList();
             List<Object> newObjList = new ArrayList<Object>();
             Map<String, Object> omap = null;
-            map.put("goods_list_size", olist.size()); 
+//            map.put("goods_list_size", olist.size()); 
             if (olist.size() > 0) {
                 for (OrderGood od : olist) {
                     omap = new HashMap<String, Object>();
-//                    omap.put("order_good_id", od.getId()==null?"":od.getId().toString());
                     omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId()==null?"":od.getGood().getId());
                     omap.put("good_volume_number",  od.getGood() == null ? "" : od.getGood().getVolumeNumber()==null?"":od.getGood().getVolumeNumber());//热销量
                     omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
@@ -172,11 +171,9 @@ public class OrderService {
                         if(list.size()>0){
                             GoodsPicture gp  = list.get(0);
                             good_logo = gp.getUrlPath();
-                            omap.put("good_logo", good_logo);
                         }
-                    }else{
-                        omap.put("good_logo", "");
-                    }
+                     } 
+                    omap.put("good_logo", good_logo);
                     newObjList.add(omap);
                 }
                 map.put("order_goodsList", newObjList);

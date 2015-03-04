@@ -227,8 +227,8 @@
     
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 
-		(score,content,customer_id,good_id,order_id,created_at)
-		VALUES(#{score},#{content},#{customer_id},#{good_id},#{order_id},NOW())
+		(score,content,customer_id,good_id,created_at)
+		VALUES(#{score},#{content},#{customer_id},#{good_id},NOW())
   </insert>
   
   <select id="findTraceById" resultType="map" >

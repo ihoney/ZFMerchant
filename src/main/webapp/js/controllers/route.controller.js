@@ -74,6 +74,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/message/message.html'
         }).when('/messageinfo', {
             templateUrl: 'views/message/messageinfo.html'
+        }).when('/myapp', {
+        	templateUrl: 'views/myapp.html'
+        }).when('/webmessageinfo', {
+        	templateUrl: 'views/message/webmessageinfo.html'
         }).otherwise({
             redirectTo: "/"
         });

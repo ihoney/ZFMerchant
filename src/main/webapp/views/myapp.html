@@ -1,8 +1,8 @@
-<script type="text/javascript" src="js/controllers/h1.controller.js"></script>
-<div class="right" ng-controller="h1Controller">
+<script type="text/javascript" src="js/controllers/myapp.controller.js"></script>
+<div class="right" ng-controller="myappController">
             	<div class="breadcrumb">
                     <ul>
-                        <li><a href="#">我的掌富</a></li>
+                        <li><a href="#/myapp">我的掌富</a></li>
                     </ul>
                 </div>
                 <div class="content clear">
@@ -46,13 +46,9 @@
                     </div>
                     <div class="user_notice">
                     	<div class="cu_title">公告板</div>
-                        <div class="user_news_con">
+                    	<div class="user_news_con" >
                         	<ul>
-                            	<li><a href="#">[公告] 华尔街金融正式上线华尔街金融正式上线华尔街金融正式上线华尔街金融正式上线华尔街金融正式上线华！</a></li>
-                                <li><a href="#">[公告] 华尔街金融正式上线！</a></li>
-                                <li><a href="#">[公告] 华尔街金融正式上线！</a></li>
-                                <li><a href="#">[公告] 华尔街金融正式上线！</a></li>
-                                <li><a href="#">[公告] 华尔街金融正式上线！</a></li>
+                            	<li ng-repeat="m in web_list"><a href="#/webmessageinfo?infoId={{m.id}}">[公告] {{m.title}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -70,13 +66,9 @@
                     </div>
                     <div class="user_message">
                     	<div class="cu_title">消息栏</div>
-                        <div class="user_news_con">
+                        <div class="user_news_con" >
                         	<ul>
-                            	<li><a href="#">[消息] 华尔街金融正式上线华尔街金融正式上线华尔街金融正式上线华尔街金融正式上线华尔街金融正式上线华！</a></li>
-                                <li><a href="#">[消息] 华尔街金融正式上线！</a></li>
-                                <li><a href="#">[消息] 华尔街金融正式上线！</a></li>
-                                <li><a href="#">[消息] 华尔街金融正式上线！</a></li>
-                                <li><a href="#">[消息] 华尔街金融正式上线！</a></li>
+                            	<li  ng-repeat="m in my_list"><a href="#/messageinfo?id={{m.id}}">[消息] {{m.title}}</a></li>
                             </ul>
                         </div>
                     </div>
