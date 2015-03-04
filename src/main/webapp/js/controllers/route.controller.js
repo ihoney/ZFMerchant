@@ -78,8 +78,6 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/shop/lowstocks.html'
         }).when('/pay', {
             templateUrl: 'views/shop/pay.html'
-        }).when('/pay_success', {
-            templateUrl: 'views/shop/pay_success.html'
         }).when('/myapp', {
         	templateUrl: 'views/myapp.html'
         }).when('/webmessageinfo', {
