@@ -78,9 +78,10 @@
 
 	<select id="getAddressList" resultType="map">
 	<![CDATA[
-		SELECT id, city_id, address, zip_code, receiver, moblephone, telphone, is_default
+		SELECT id, city_id cityId, address, zip_code zipCode, receiver, moblephone, telphone, is_default isDefault
 		  FROM customer_addresses
 		 WHERE customer_id = #{customerId}
+	  ORDER BY created_at DESC
 	]]>
 	</select>
 
@@ -94,12 +95,24 @@
 
 	<insert id="insertAddress" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
-		INSERT INTO customer_addresses (city_id, receiver, moblephone, zip_code, address, is_default, customer_id)
-		VALUES (#{cityId}, #{receiver}, #{moblephone}, #{zipCode},  #{address},  #{isDefault},  #{customerId})
+		INSERT INTO customer_addresses (city_id, receiver, moblephone, zip_code, address, is_default, customer_id, created_at)
+		VALUES (#{cityId}, #{receiver}, #{moblephone}, #{zipCode}, #{address}, #{isDefault}, #{customerId}, NOW())
 	]]>
 	</insert>
 
 	<update id="updateAddress">
+	<![CDATA[
+		UPDATE customer_addresses SET city_id = #{cityId},
+									  receiver = #{receiver},
+									  moblephone = #{moblephone},
+									  zip_code = #{zipCode},
+									  address = #{address},
+									  is_default = #{isDefault}
+		 WHERE id = #{id}
+	]]>
+	</update>
+
+	<update id="updateDefaultAddress">
 	<![CDATA[
 		UPDATE customer_addresses SET is_default = #{is_default}
 		 WHERE customer_id = #{customerId}
