@@ -71,10 +71,10 @@
 				</dl>
 				<dl>
 					<dt>订单原金额：</dt>
-					<dd class="line_through">{{o.order_price |currency : "￥"}}</dd>
+					<dd class="line_through">{{o.order_price/100 |currency : "￥"}}</dd>
 					<dt>订单金额：</dt>
 					<dd>
-						<strong>{{o.order_totalPrice |currency : "￥"}}</strong>
+						<strong>{{o.order_totalPrice/100 |currency : "￥"}}</strong>
 					</dd>
 				</dl>
 			</div>

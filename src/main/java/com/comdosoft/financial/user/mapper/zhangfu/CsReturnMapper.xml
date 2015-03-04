@@ -130,7 +130,7 @@
 	
 	<update id="cancelApply">
 	update  cs_returns 
-	SET STATUS = #{repairStatus.code}
+	SET status = #{repairStatus.code}
 	where id = #{id}
 	</update>
 	

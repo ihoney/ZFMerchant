@@ -80,6 +80,10 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/shop/pay.html'
         }).when('/pay_success', {
             templateUrl: 'views/shop/pay_success.html'
+        }).when('/myapp', {
+        	templateUrl: 'views/myapp.html'
+        }).when('/webmessageinfo', {
+        	templateUrl: 'views/message/webmessageinfo.html'
         }).otherwise({
             redirectTo: "/"
         });
