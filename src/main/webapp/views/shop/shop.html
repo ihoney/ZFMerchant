@@ -4,7 +4,7 @@
     	<div class="category_group">
         	<div class="crumbs_nav">
             	<ul>
-                	<li>您当前选择<i></i></li>
+                	<li ng-show="chli1show||chli2show||chli3show||chli4show||chli5show||chli6show||chli7show" class="crumbs_nav_li_h">您当前选择<i></i></li>
                     <li ng-show="chli1show" class="crumbs_nav_drop" id="chli1"><a href="javascript:void(0)" ng-click="chli1del()" class="hover"><span class="cnd_p">POS机品牌：{{chli1val}}</span><span class="cnd_x"></span></a><i></i></li>
                     <li ng-show="chli2show" class="crumbs_nav_drop" id="chli2"><a href="javascript:void(0)" ng-click="chli2del()" class="hover"><span class="cnd_p">POS机类型：{{chli2val}}</span><span class="cnd_x"></span></a><i></i></li>
                     <li ng-show="chli3show" class="crumbs_nav_drop" id="chli3"><a href="javascript:void(0)" ng-click="chli3del()" class="hover"><span class="cnd_p">支付通道：{{chli3val}}</span><span class="cnd_x"></span></a><i></i></li>
@@ -159,8 +159,8 @@
                             <li class="p_li_o" ></li>
                             <li class="p_li_o"></li>
                             <li class="p_li_o"></li>
-                            <li class="p_li_o"></li>
-                            <li class="p_li_o"></li>
+                            <li class="p_li_b"></li>
+                            <li class=""></li>
                         </ul>
                         </a>
                     </div>

@@ -469,7 +469,7 @@ tr.order_hd td { text-align: left; }
 .user_record .ur_item_name { color: #999;}
 
 /*---星型评分----*/
-.halfShow_star { width: 120px;}
+.halfShow_star { width: 130px;}
 .gradeText { margin: 5px 0;}
 .gradeText textarea { width: 456px; height: 100px; padding: 10px;}
 
