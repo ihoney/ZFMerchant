@@ -32,7 +32,7 @@
               	<td><input  ng-model="c.checked" ng-checked="{{c.checked}}" type="checkbox" ng-click="checkOne(c)" /></td>
                 <td>
                 	<div class="td_proBox">
-                    	<a href="#/shopinfo?goodId={{c.goodId}}" class="cn_img"><img src="images/c.jpg" /></a>
+                    	<a href="#/shopinfo?goodId={{c.goodId}}" class="cn_img"><img src="{{c.url_path}}" /></a>
                         <div class="td_proBox_info">
                         	<h1><a href="#/shopinfo?goodId={{c.goodId}}">{{c.title}}</a></h1>
                             <h3>{{c.second_title}}</h3>

@@ -7,6 +7,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
 	$scope.order.customerId=LoginService.userid;
 	$scope.order.addressId=1;
+	$scope.totalMoney=0;
 	$scope.init = function() {
 		if(LoginService.goods.length==0){
 			window.location.href = '#/shopcart';
@@ -16,6 +17,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 			$scope.order.cartid=[];
 			angular.forEach($scope.list, function(one) {
 				$scope.order.cartid.push(one.id);
+				$scope.totalMoney+=(one.opening_cost+one.retail_price)*one.quantity;
 			});
 		}
 	};

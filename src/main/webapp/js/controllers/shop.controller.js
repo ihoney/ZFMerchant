@@ -33,7 +33,6 @@ var shopController = function ($scope, $http, LoginService) {
             	$scope.pay_channel=data.result.pay_channel;
             	$scope.trade_type=data.result.trade_type;
             	$scope.tDate=data.result.tDate;
-            	
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});

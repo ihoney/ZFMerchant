@@ -138,7 +138,7 @@
               <tr ng-repeat="one in goodList">
                 <td>
                 	<div class="td_proBox clear">
-                    	<a href="#" class="cn_img"><img src="{{one.url_path}}" /></a>
+                    	<a href="#/shopinfo?goodId={{one.id}}" class="cn_img"><img src="{{one.url_path}}" /></a>
                         <div class="td_proBox_info">
                         	<h1><a href="#/shopinfo?goodId={{one.id}}" >{{one.Title}}</a></h1>
                             <h3>{{one.second_title}}</h3>
@@ -156,11 +156,11 @@
                 	<div class="evaluate">
                     	<a href="javascript:void(0);">
                         <ul>
-                            <li class="p_li_o" ></li>
-                            <li class="p_li_o"></li>
-                            <li class="p_li_o"></li>
-                            <li class="p_li_b"></li>
-                            <li class=""></li>
+                            <li class="{{one.total_score>9?'p_li_o':(one.total_score>4?'p_li_b':'')}}" ></li>
+                            <li class="{{one.total_score>19?'p_li_o':(one.total_score>14?'p_li_b':'')}}"></li>
+                            <li class="{{one.total_score>29?'p_li_o':(one.total_score>24?'p_li_b':'')}}"></li>
+                            <li class="{{one.total_score>39?'p_li_o':(one.total_score>34?'p_li_b':'')}}"></li>
+                            <li class="{{one.total_score>49?'p_li_o':(one.total_score>44?'p_li_b':'')}}"></li>
                         </ul>
                         </a>
                     </div>

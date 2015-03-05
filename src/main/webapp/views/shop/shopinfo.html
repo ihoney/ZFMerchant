@@ -4,19 +4,12 @@
         <div class="product_left clear">
         	<div class="pro_head clear">
             <div class="pro_show">
-                        <div class="bigImg jqzoom"><img src="images/mt_big.jpg" jqimg = "images/mt_show.jpg" /></div>
+                        <div class="bigImg jqzoom"><img src="{{good.goodPics[0]}}" jqimg = "{{good.goodPics[0]}}" /></div>
                         <div class="picBox">
                             <div class="prev">Prev</div>
                             <div class="smallImg">
                                  <ul class="pic_show">
-                                     <li class="hover"><img src="images/mt.jpg" width="55" /></li>
-                                     <li><img src="images/mt01.jpg" width="55" /></li>
-                                     <li><img src="images/mt.jpg" width="55" /></li>
-                                     <li><img src="images/mt.jpg" width="55" /></li>
-                                     <li><img src="images/mt.jpg" width="55" /></li>
-                                     <li><img src="images/mt.jpg" width="55" /></li>
-                                     <li><img src="images/mt.jpg" width="55" /></li>
-                                     <li><img src="images/mt.jpg" width="55" /></li>
+                                     <li ng-repeat="one in good.goodPics track by $index"><img src="{{one}}" width="55" /></li>
                                  </ul>
                             </div>
                             <div class="next">Next</div>
@@ -77,7 +70,7 @@
                         <li><a href="javascript:void(0);">交易费率信息</a></li>
                         <li><a href="javascript:void(0);">开通申请条件</a></li>
                         <li><a href="javascript:void(0);">开通所需材料</a></li>
-                        <li><a href="javascript:void(0);">评价(<strong>{{good.commentsCount}}</strong>)</a></li>
+                        <li><a href="javascript:void(0);" ng-show="good.commentsCount>0" ng-click="comment()">评价(<strong>{{good.commentsCount}}</strong>)</a></li>
                         <li><a href="javascript:void(0);" ng-show="good.goodinfo.has_lease">租赁说明</a></li>
                     </ul>
                 </div>
@@ -98,12 +91,11 @@
                         <div class="pro_attributes">
                         	<h2>支付平台信息</h2>
                             <ul>
-                            	<li><span>支持区域：</span><div class="text">{{paychannel.supportArea}}</div></li>
-                                <li><span>到账时间：</span><div class="text">2天内</div></li>
+                            	<li><span>支持区域：</span><div class="text"><span ng-repeat="one in paychannel.supportArea">{{one}} </span></div></li>
                                 <li><span>是否支持注销：</span><div class="text">{{paychannel.support_cancel_flag?'支持':'不支持'}}</div></li> 
                             </ul>
                         </div>
-                        <div class="pro_attributes">
+                        <div class="pro_attributes" ng-show="paychannel.standard_rates.length>0">
                         	<h2>刷卡交易标准手续费</h2>
                             <table width="100%" border="0" cellspacing="1" cellpadding="0">
                             <colgroup>
@@ -118,34 +110,16 @@
                                 <th>说明</th>
                               </tr>
                               </thead>
-                              <tr>
-                                <td>全部</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说明...</p></td>
+                              <tr ng-repeat="one in paychannel.standard_rates">
+                                <td>{{one.name}}</td>
+                                <td>{{one.standard_rate/100}}%</td>
+                                <td><p>{{one.description}}</p></td>
                               </tr>
-                              <tr>
-                                <td>全部</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>全部</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>全部</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说明...</p></td>
-                              </tr>
-                              <tr>
-                                <td>全部</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说明...</p></td>
-                              </tr>
+                              
+                             
                             </table>
                         </div>
-                        <div class="pro_attributes">
+                        <div class="pro_attributes" ng-show="paychannel.tDates.length>0">
                         	<h2>资金服务费</h2>
                             <table width="100%" border="0" cellspacing="1" cellpadding="0">
                             <colgroup>
@@ -160,14 +134,14 @@
                                 <th>说明</th>
                               </tr>
                               </thead>
-                              <tr>
-                                <td>T+1</td>
-                                <td>0.5%</td>
-                                <td><p>这里是说明</p></td>
+                              <tr ng-repeat="one in paychannel.tDates">
+                                <td>{{one.name}}</td>
+                                <td>{{one.service_rate/100}}%</td>
+                                <td><p>{{one.description}}</p></td>
                               </tr>
                             </table>
                         </div>
-                        <div class="pro_attributes">
+                        <div class="pro_attributes" ng-show="paychannel.other_rate.length>0">
                         	<h2>其他交易费率</h2>
                             <table width="100%" border="0" cellspacing="1" cellpadding="0">
                             <colgroup>
@@ -182,67 +156,85 @@
                                 <th>说明</th>
                               </tr>
                               </thead>
-                              <tr ng-repeat="l in paychannel.other_rate">
-                                <td>{{l.trade_value}}</td>
-                                <td>{{l.terminal_rate/100 |currency : ""}}%</td>
-                                <td><p>{{l.description}}</p></td>
+                              <tr ng-repeat="one in paychannel.other_rate">
+                                <td>{{one.trade_value}}</td>
+                                <td>{{one.terminal_rate/100}}%</td>
+                                <td><p>{{one.description}}</p></td>
                               </tr>
                               
                             </table>
                         </div>
                         <div class="pro_attributes">
                         	<h2>详细说明</h2>
-                            <div class="text">包括硬件描述（不变）和软件描述（根据上面的平台变化而变化）</div>
+                            <div class="text">{{good.goodinfo.description}}</div>
                         </div>
                     </div>
-                    <div>2222</div>
+                   
+                   
+                    <div>
+                      <div class="pro_attributes" ng-show="paychannel.tDates.length>0">
+                        	<h2>资金服务费</h2>
+                            <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                            <colgroup>
+                            	<col width="25%" />
+                                <col width="25%" />
+                                <col width="50%" />
+                            </colgroup>
+                              <thead>
+                              <tr>
+                                <th>结算周期</th>
+                                <th>费率</th>
+                                <th>说明</th>
+                              </tr>
+                              </thead>
+                              <tr ng-repeat="one in paychannel.tDates">
+                                <td>{{one.name}}</td>
+                                <td>{{one.service_rate/100}}%</td>
+                                <td><p>{{one.description}}</p></td>
+                              </tr>
+                            </table>
+                        </div>
+					</div>
+                   
                     <div>
                     	<div class="pro_attributes">
                             <div class="text">
-                            	1.年龄在18～65岁间的中国公民；<br />
-                            	2.必须有稳定职业；<br />
-                            	3.无信用不良记录；
+                            	{{paychannel.opening_requirement}}
                             </div>
                         </div>
                     </div>
                     <div>
                     	<div class="pro_attributes">
-                        	<h2>对个人开通</h2>
+                        	<h2 ng-show="paychannel.requireMaterial_pra.length>0">对个人开通</h2>
                             <div class="text">
-                            	1.身份证正反面照片；<br />
-                                2.手持身份证上半身照片；<br />
-                                3.开户行的银行卡照片（支持银行有：中国银行、工商银行……）；<br />
-                                4.手持协议拍照
+                            	<span  ng-repeat="one in paychannel.requireMaterial_pra">{{one.name}}({{one.introduction}})；<br/></span>
                             </div>
                         </div>
                         <div class="pro_attributes">
-                        	<h2>对公开通</h2>
+                        	<h2 ng-show="paychannel.requireMaterial_pub.length>0">对公开通</h2>
                             <div class="text">
-                            	1.法人身份证正反面照片；<br />
-                                2.组织机构照片；<br />
-                                3.公司结算银行账户照片（法人的开户行照片）；<br />
-                                4.税务登记照片
+                            	<span  ng-repeat="one in paychannel.requireMaterial_pub">{{one.name}}({{one.introduction}})；<br/></span>
                             </div>
                         </div>
                     </div>
                     <div>
                     	<div class="pro_evaluate">
-                        	<div class="evaluate_title"><i></i>综合评分4.5</div>
+                        	<div class="evaluate_title"><i></i>综合评分{{good.goodinfo.total_score/10}}</div>
                            
-                            <div class="evaluate_item">
+                            <div class="evaluate_item" ng-repeat="one in comment">
                             	<div class="evaluate_star">
                                 	<ul>
-                                        <li class="p_li_o"></li>
-                                        <li class="p_li_o"></li>
-                                        <li class="p_li_o"></li>
-                                        <li class="p_li_o"></li>
-                                        <li></li>
+                                        <li class="{{one.score>9?'p_li_o':''}}"></li>
+                                        <li class="{{one.score>19?'p_li_o':''}}"></li>
+                                        <li class="{{one.score>29?'p_li_o':''}}"></li>
+                                        <li class="{{one.score>39?'p_li_o':''}}"></li>
+                                        <li class="{{one.score>49?'p_li_o':''}}"></li>
                                     </ul>
                                 </div>
-                                <div class="evaluate_text">内容</div>
+                                <div class="evaluate_text">{{one.content}}</div>
 								<div class="evaluate_name">
-                                	<h3>维尼熊</h3>
-                                    <span>2014-12-19   20：05：30</span>
+                                	<h3>{{one.name}}</h3>
+                                    <span>{{one.created_at}}</span>
                                 </div>
                             </div>
                             
