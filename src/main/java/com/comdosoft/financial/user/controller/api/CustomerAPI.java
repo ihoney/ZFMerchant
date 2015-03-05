@@ -208,6 +208,25 @@ public class CustomerAPI {
     }
 
     /**
+     * 设置为默认地址
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "setDefaultAddress", method = RequestMethod.POST)
+    public Response setDefaultAddress(@RequestBody Map<Object, Object> param) {
+        Response sysResponse = null;
+        try {
+            customerService.setDefaultAddress(param);
+            sysResponse = Response.getSuccess();
+        } catch (Exception e) {
+            logger.error("设置为默认地址失败", e);
+            sysResponse = Response.getError("设置为默认地址失败:系统异常");
+        }
+        return sysResponse;
+    }
+
+    /**
      * 删除地址
      * 
      * @param id
