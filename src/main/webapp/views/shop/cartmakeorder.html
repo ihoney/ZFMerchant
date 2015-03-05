@@ -108,7 +108,7 @@
                   <tr ng-repeat="c in list">
                     <td>
                         <div class="td_proBox">
-                            <a href="#/shopinfo?goodId={{c.goodId}}" class="cn_img"><img src="images/c.jpg" /></a>
+                            <a href="#/shopinfo?goodId={{c.goodId}}" class="cn_img"><img src="{{c.url_path}}" /></a>
                             <div class="td_proBox_info">
                                 <h1><a href="#/shopinfo?goodId={{c.goodId}}">{{c.title}}</a></h1>
                                 <h3>{{c.second_title}}</h3>
@@ -126,7 +126,7 @@
                   
                 </table>
             </div>
-            <div class="total_info">含配送费合计<strong>￥9.99</strong>（配送费￥0.00）</div>
+            <div class="total_info">含配送费合计<strong>{{totalMoney/100|currency : "￥"}}</strong>（配送费￥0.00）</div>
             <div class="other_info">
             	<div class="oi_left">
                 	<div class="oi_title">留言</div>
@@ -150,7 +150,7 @@
                 </div>
             </div>
             <div class="settleAccount">
-            	<p>实付：<strong>￥1377.00</strong></p>
+            	<p>实付：<strong>{{totalMoney/100|currency : "￥"}}</strong></p>
             	<button class="orangeBtn" ng-click="submit()">结算</button>
                 <p><a href="#/shopcart" class="a_btn">返回购物车</a></p>
             </div>

@@ -7,6 +7,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
 	$scope.order.customerId=LoginService.userid;
 	$scope.order.addressId=1;
+	$scope.totalMoney=0;
 	$scope.init = function() {
 		if(LoginService.goods.length==0){
 			window.location.href = '#/shopcart';
@@ -16,13 +17,14 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 			$scope.order.cartid=[];
 			angular.forEach($scope.list, function(one) {
 				$scope.order.cartid.push(one.id);
+				$scope.totalMoney+=(one.opening_cost+one.retail_price)*one.quantity;
 			});
 		}
 	};
 	$scope.ctype=function(v){
 		$scope.order.invoice_type=v;
 	}
-	$scope.submit = function(type) {
+	$scope.submit = function() {
 		if($scope.order.is_need_invoice){
 			$scope.order.is_need_invoice=1;
 		}else{
@@ -30,7 +32,9 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 		}
 		$http.post("api/order/cart", $scope.order).success(function(data) {
 			if (data.code == 1) {
-				alert("cart")
+				window.location.href = '#/pay?id='+data.result;
+			}else if(data.code == -2){
+				window.location.href = '#/lowstocks';
 			}
 		});
 		
@@ -63,7 +67,7 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 				$scope.order.quantity += type;
 			}
 	};
-	$scope.submit = function(type) {
+	$scope.submit = function() {
 		if($scope.order.is_need_invoice){
 			$scope.order.is_need_invoice=1;
 		}else{
@@ -72,13 +76,17 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 		if(2==$scope.order.type){
 			$http.post("api/order/lease", $scope.order).success(function(data) {
 				if (data.code == 1) {
-					alert("shop")
+					window.location.href = '#/pay?id='+data.result;
+				}else if(data.code == -2){
+					window.location.href = '#/lowstocks';
 				}
 			});
 		}else{
 			$http.post("api/order/shop", $scope.order).success(function(data) {
 				if (data.code == 1) {
-					alert("lease")
+					window.location.href = '#/pay?id='+data.result;
+				}else if(data.code == -2){
+					window.location.href = '#/lowstocks';
 				}
 			});
 		}

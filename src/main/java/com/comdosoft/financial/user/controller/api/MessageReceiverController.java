@@ -68,6 +68,9 @@ public class MessageReceiverController {
     @RequestMapping(value="deleteById",method=RequestMethod.POST)
     public Response deleteById(@RequestBody MyOrderReq myOrderReq){
         try{
+            if(null ==myOrderReq.getCustomer_id() || null == myOrderReq.getId()){
+                return Response.buildErrorWithMissing();
+            }
             messageReceiverService.delete(myOrderReq);
             return Response.buildSuccess(null, "删除成功");
         }catch(Exception e){

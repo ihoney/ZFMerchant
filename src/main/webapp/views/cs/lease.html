@@ -3,12 +3,12 @@
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="#">售后记录</a></li>
-			<li><a href="#/cs_lease">更新资料记录</a></li>
+			<li><a href="#/cs_lease">租赁退还记录列表</a></li>
 		</ul>
 	</div>
 	<div class="content clear">
 		<div class="user_title">
-			<h1>更新资料记录列表</h1>
+			<h1>租赁退还记录列表</h1>
 		</div>
 		<div class="seenBox clear">
 			<ul>
@@ -20,7 +20,7 @@
 						<label>状态筛选</label> <select name="q" ng-model="screen" ng-change="submitScreen()">
 							<option value="">请选择</option>
 							<option value="1">待处理</option>
-							<option value="2">处理中</option>
+							<option value="2">退还中</option>
 							<option value="4">处理完成</option>
 							<option value="5">已取消</option>
 						</select>
@@ -57,7 +57,7 @@
 						<td>{{o.merchant_name}}<br />{{o.merchant_phone}}
 						</td>
 						<td><strong ng-if="o.status==1" class="strong_status">待处理</strong>
-						 <strong ng-if="o.status==2" class="strong_status">处理中</strong> 
+						 <strong ng-if="o.status==2" class="strong_status">退还中</strong> 
 						 <strong ng-if="o.status==4" class="strong_status">处理完成</strong> 
 						 <strong ng-if="o.status==5" class="strong_status">已取消</strong>
 						</td>

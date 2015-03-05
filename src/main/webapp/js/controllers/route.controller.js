@@ -6,10 +6,8 @@ var routeModule = angular.module("routeModule", [ 'loginServiceModule', 'ngRoute
 // 路由器的具体分发
 function routeConfig($routeProvider) {
     $routeProvider.
-        when('/', {
-            templateUrl: 'views/h1.html'
-        }).when('/h1', {
-            templateUrl: 'views/h1.html'
+    	when('/', {
+    		templateUrl: 'views/myapp.html'
         }).when('/order', {
             templateUrl: 'views/order/order.html'
         }).when('/orderinfo', {
@@ -84,6 +82,14 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/message/message.html'
         }).when('/messageinfo', {
             templateUrl: 'views/message/messageinfo.html'
+        }).when('/lowstocks', {
+            templateUrl: 'views/shop/lowstocks.html'
+        }).when('/pay', {
+            templateUrl: 'views/shop/pay.html'
+        }).when('/myapp', {
+        	templateUrl: 'views/myapp.html'
+        }).when('/webmessageinfo', {
+        	templateUrl: 'views/message/webmessageinfo.html'
         }).otherwise({
             redirectTo: "/"
         });

@@ -18,6 +18,8 @@
 	<script src="js/main.js"></script>
 	<script src="js/Chart.min.js"></script>
 
+	<!--星型评分插件http://www.wbotelhos.com/raty/-->
+	<script src="js/jquery.raty.js"></script>
 
 	<!--放大产品-->
 	<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
@@ -40,6 +42,7 @@
 	<script type="text/javascript" src="js/controllers/route.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/head.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/login.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
 
 	<script type="text/javascript">
 		//登录
@@ -393,7 +396,7 @@
 		<div class="box">
 			<div class="left" id="leftRoute">
 				<ul>
-					<li><a href="#/h1" class="hover">我的掌富</a></li>
+					<li><a href="#/myapp" class="hover">我的掌富</a></li>
 					<li><a href="#/order">我的订单</a></li>
 					<li><a href="#/terminal">我的终端</a></li>
 					<li class="second"><a href="javascript:void(0);" class="hover">售后记录<i class="off"></i></a>
@@ -429,6 +432,21 @@
 			<div class="copyright">版权所有 &copy; 2011-2014 上海掌富网络技术有限公司（备案号 1236548）</div>
 		</div>
 	</div>
+
+<div class="mask"></div>
+<div class="tab starGrade_tab">
+	<a href="javascript:void(0);" class="close"  >关闭</a>
+	<div class="tabHead">评价</div>
+	<div class="tabBody">
+		<div class="halfShow_star"></div>
+		<div class="gradeText">
+			<textarea name="" cols="" rows=""></textarea>
+		</div>
+	</div>
+	<div class="tabFoot">
+		<button class="orangeBtn" >确定</button>
+	</div>
+</div>
 
 </body>
 </html>

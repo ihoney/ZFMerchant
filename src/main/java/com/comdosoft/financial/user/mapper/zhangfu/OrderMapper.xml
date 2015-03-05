@@ -81,7 +81,7 @@
 		<result property="orderNumber" column="order_number" />
 		<result property="customerId" column="customer_id" />
 		<result property="totalPrice" column="total_price" />
-		<result property="status" column="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler" />
+		<result property="status" column="status"/>
 		<result property="payedAt" column="payed_at" />
 		<result property="types" column="types" />
 		<result property="needInvoice" column="need_invoice" />
@@ -121,8 +121,6 @@
 		FROM orders o
 		LEFT JOIN order_goods og ON o.id = og.order_id
 		LEFT JOIN goods g ON og.good_id = g.id
-		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
-		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		where o.customer_id = #{customer_id}
 		<if test="search !=null and search!=''">
 		and (o.order_number like "%"#{search}"%" 
@@ -131,7 +129,7 @@
 			or g.key_worlds like "%"#{search}"%" ) 
 		</if>
 		<if test="q !=null and q!=''">
-		and front_pay_status = #{q}
+		and o.front_pay_status = #{q}
 		</if>
 	</select>
 
@@ -157,7 +155,7 @@
 			or g.key_worlds like "%"#{search}"%" ) 
 		</if>
 		<if test="q !=null and q!=''">
-		and front_pay_status = #{q}
+		and o.front_pay_status = #{q}
 		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{pageSize}
@@ -227,8 +225,8 @@
     
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 
-		(score,content,customer_id,good_id,order_id,created_at)
-		VALUES(#{score},#{content},#{customer_id},#{good_id},#{order_id},NOW())
+		(score,content,customer_id,good_id,created_at)
+		VALUES(#{score},#{content},#{customer_id},#{good_id},NOW())
   </insert>
   
   <select id="findTraceById" resultType="map" >
@@ -254,7 +252,7 @@
 		customer_address_id,need_invoice,invoice_type,
 		invoice_info,actual_price,created_at,updated_at,
 		comment,total_quantity)
-		VALUES(#{ordernumber},#{customerId},#{totalprice},0,#{type},
+		VALUES(#{ordernumber},#{customerId},#{totalprice},1,#{type},
 		#{addressId},#{is_need_invoice},#{invoice_type},#{invoice_info},
 		#{totalprice},NOW(),NOW(),#{comment},#{totalcount})
   </insert>
@@ -269,19 +267,47 @@
   
   <select id="getGoodInfos" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
         SELECT sc.id,g.id as goodid,pc.id as paychanelid ,
-        sc.quantity,g.price,g.retail_price,pc.opening_cost
+        sc.quantity,g.price,g.retail_price,pc.opening_cost,g.quantity as count
 		from shopping_carts sc
 		LEFT JOIN goods g on g.id=sc.good_id
 		LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id
 		where sc.id in ${cartids}
   </select>
   
+  <select id="checkList" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT  g.id as goodid,sum(sc.quantity) as quantity,g.quantity as count
+		from shopping_carts sc
+		LEFT JOIN goods g on g.id=sc.good_id 	
+		where sc.id in ${cartids}
+    	GROUP BY goodid
+  </select>
+  
   <select id="getGoodInfo" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
         SELECT  g.id as goodid,pc.id as paychanelid ,g.lease_deposit,
-        g.price,g.retail_price,pc.opening_cost
+        g.price,g.retail_price,pc.opening_cost,g.quantity as count
 		from goods_pay_channels gpc
 		LEFT JOIN goods g on g.id=gpc.good_id
 		LEFT JOIN pay_channels pc on pc.id=gpc.pay_channel_id
 		where gpc.good_id=#{goodId} and gpc.pay_channel_id=#{paychannelId}
   </select>
+  
+  <select id="getPayOrder" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT o.order_number,o.total_price,ca.receiver,ca.address,IFNULL(op.pay_type,0) paytype
+ 		from orders o
+		LEFT JOIN customer_addresses ca on ca.id=o.customer_address_id
+		LEFT JOIN order_payments op on op.order_id=o.id
+		where o.id=#{id} 
+  </select>
+  
+  <select id="getPayOrderGood" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+        SELECT g.title,pc.name as pcname,og.quantity from order_goods og
+		LEFT JOIN goods g on og.good_id=g.id
+		left JOIN pay_channels pc on pc.id=og.pay_channel_id
+		where order_id=#{id}
+  </select>
+  
+   <insert id="payFinish"  parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+		INSERT into order_payments(order_id,price,pay_type,created_at)  
+		VALUES(#{id},#{price},#{type},NOW())
+  </insert>
 </mapper>

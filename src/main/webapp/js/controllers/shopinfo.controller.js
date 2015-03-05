@@ -38,15 +38,21 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             if (data.code==1) {
             	//$scope.paychannel=data.result;
             	//LoginService.shopcount+=1;
+            	window.location.href = '#/shopcart';
             }
-        }).error(function (data) {
-        	//$("#serverErrorModal").modal({show: true});
         });
     };
     $scope.count = function(type) {
 		if ($scope.quantity != 1 || type != -1) {
 			$scope.quantity += type;
 		}
+	}
+    $scope.comment = function() {
+    	$http.post("api/comment/list",{goodId:$scope.req.goodId} ).success(function (data) {  //绑定
+            if (data.code==1) {
+            	$scope.comment=data.result.list;
+            }
+        });
 	}
     $scope.init();
 

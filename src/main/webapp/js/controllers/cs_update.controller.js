@@ -4,6 +4,7 @@
 var cs_updateModule = angular.module("cs_updateModule",[]);
 
 var cs_updateController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};
@@ -49,7 +50,6 @@ var cs_updateController = function ($scope, $http, LoginService) {
 		$http.post("api/update/info/cancelApply", $scope.req).success(function (data) {  
             if (data != null && data != undefined) {
             	$scope.orderlist();
-//                $scope.list = data.message;
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -61,7 +61,6 @@ var cs_updateController = function ($scope, $http, LoginService) {
 		$http.post("api/update/info/resubmitCancel", $scope.req).success(function (data) {   
 			if (data != null && data != undefined) {
 				$scope.orderlist();
-//                $scope.list = data.message;
 			}
 		}).error(function (data) {
 			$("#serverErrorModal").modal({show: true});

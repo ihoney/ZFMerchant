@@ -98,12 +98,31 @@ public class CustomerService {
 
     @Transactional(value = "transactionManager-zhangfu")
     public void insertAddress(Map<Object, Object> param) {
-        int isDefault = (int) param.get("isDefault");
+        int isDefault = Integer.parseInt(param.get("isDefault").toString());
         if (isDefault == CustomerAddress.ISDEFAULT_1) {
             param.put("is_default", CustomerAddress.ISDEFAULT_2);
-            customerMapper.updateAddress(param);
+            customerMapper.updateDefaultAddress(param);
         }
         customerMapper.insertAddress(param);
+    }
+
+    @Transactional(value = "transactionManager-zhangfu")
+    public void updateAddress(Map<Object, Object> param) {
+        int isDefault = Integer.parseInt(param.get("isDefault").toString());
+        if (isDefault == CustomerAddress.ISDEFAULT_1) {
+            param.put("is_default", CustomerAddress.ISDEFAULT_2);
+            customerMapper.updateDefaultAddress(param);
+        }
+        customerMapper.updateAddress(param);
+    }
+
+    @Transactional(value = "transactionManager-zhangfu")
+    public void setDefaultAddress(Map<Object, Object> param) {
+        // 其它设置为非默认
+        param.put("is_default", CustomerAddress.ISDEFAULT_2);
+        customerMapper.updateDefaultAddress(param);
+
+        customerMapper.setDefaultAddress(param);
     }
 
     public void deleteAddress(int id) {

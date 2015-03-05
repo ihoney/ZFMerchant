@@ -10,14 +10,14 @@ public class Order {
 	private String orderNumber;
 	private Integer customerId;
 	private Integer totalPrice;
-	private OrderStatus status;//订单状态
+	private Integer status;//订单状态
 	private Date payedAt;
 	private Byte types;
 	private CustomerAddress customerAddress;
 	private Boolean needInvoice;
 	private Integer actualPrice;
 	private Integer frontMoney;
-	private Byte frontPayStatus;
+	private Integer frontPayStatus;
 	private OrderStatus payStatus;
 	private Integer createdUserId;
 	private Byte createdUserType;
@@ -211,7 +211,7 @@ public class Order {
      * 获取 status  
      * @return status
      */
-    public OrderStatus getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -219,7 +219,7 @@ public class Order {
      * 设置 status  
      * @param status
      */
-    public void setStatus(OrderStatus status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -319,7 +319,7 @@ public class Order {
 	 * @return  the value of orders.front_pay_status
 	 * @mbggenerated
 	 */
-	public Byte getFrontPayStatus() {
+	public Integer getFrontPayStatus() {
 		return frontPayStatus;
 	}
 
@@ -328,7 +328,7 @@ public class Order {
 	 * @param frontPayStatus  the value for orders.front_pay_status
 	 * @mbggenerated
 	 */
-	public void setFrontPayStatus(Byte frontPayStatus) {
+	public void setFrontPayStatus(Integer frontPayStatus) {
 		this.frontPayStatus = frontPayStatus;
 	}
 

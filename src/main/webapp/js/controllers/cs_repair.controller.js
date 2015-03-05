@@ -4,6 +4,7 @@
 var cs_repairModule = angular.module("cs_repairModule",[]);
 
 var cs_repairController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};
@@ -46,11 +47,9 @@ var cs_repairController = function ($scope, $http, LoginService) {
     //取消
     $scope.cancelApply = function(o){
     	$scope.req={id:o.id};
-//    	$scope.req=  {id:$scope.infoId}
 		$http.post("api/cs/repair/cancelApply", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-            	console.log("data.message==>"+data.message);
-//                $scope.list = data.message;
+            	$scope.orderlist();
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -59,11 +58,9 @@ var cs_repairController = function ($scope, $http, LoginService) {
 	//重新提交
 	$scope.resubmitCancel = function(o){
 		$scope.req={id:o.id};
-//    	$scope.req=  {id:$scope.infoId}
 		$http.post("api/cs/repair/resubmitCancel", $scope.req).success(function (data) {  //绑定
 			if (data != null && data != undefined) {
-				console.log("data.message==>"+data.message);
-//                $scope.list = data.message;
+				$scope.orderlist();
 			}
 		}).error(function (data) {
 			$("#serverErrorModal").modal({show: true});

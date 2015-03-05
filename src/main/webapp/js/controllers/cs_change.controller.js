@@ -4,6 +4,7 @@
 var cs_changeModule = angular.module("cs_changeModule",[]);
 
 var cs_changeController = function ($scope, $http, LoginService) {
+	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};

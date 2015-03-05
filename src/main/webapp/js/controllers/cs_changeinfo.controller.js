@@ -4,6 +4,7 @@
 var cs_changeinfoModule = angular.module("cs_changeinfoModule",[]);
 
 var cs_changeinfoController = function ($scope,$location, $http, LoginService) {
+	$("#leftRoute").show();
 	$scope.req={};
 	$scope.req.id=$location.search()['infoId'];
     $scope.getInfo = function () {

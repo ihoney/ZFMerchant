@@ -71,10 +71,10 @@
 				</dl>
 				<dl>
 					<dt>订单原金额：</dt>
-					<dd class="line_through">{{o.order_price |currency : "￥"}}</dd>
+					<dd class="line_through">{{o.order_price/100 |currency : "￥"}}</dd>
 					<dt>订单金额：</dt>
 					<dd>
-						<strong>{{o.order_totalPrice |currency : "￥"}}</strong>
+						<strong>{{o.order_totalPrice/100 |currency : "￥"}}</strong>
 					</dd>
 				</dl>
 			</div>
@@ -123,7 +123,7 @@
 
 						<td><strong>{{o.order_totalPrice/100 |currency : "￥"}} </strong></td>
 						<td ><a href="#" class="a_btn" ng-if="o.order_status==1">付款</a>
-						 <a href="javascript:void(0);" class="a_btn starGrade_a" ng-if="o.order_status==3">评价</a><a href="#" ng-if="o.order_status==3" class="a_btn">查看终端号</a>
+						 <a href="javascript:void(0);" class="a_btn starGrade_a" ng-if="o.order_status==3" ng-click="comment()">评价</a><a href="#" ng-if="o.order_status==3" class="a_btn">查看终端号</a>
 						 </td>
 					</tr>
 				</tbody>
@@ -142,19 +142,5 @@
 		
 		</div>
 
-	</div>
-</div>
-<div class="mask"></div>
-<div class="tab starGrade_tab">
-	<a href="javascript:void(0);" class="close">关闭</a>
-	<div class="tabHead">评价</div>
-	<div class="tabBody">
-		<div class="halfShow_star"></div>
-		<div class="gradeText">
-			<textarea name="" cols="" rows=""></textarea>
-		</div>
-	</div>
-	<div class="tabFoot">
-		<button class="orangeBtn">确定</button>
 	</div>
 </div>

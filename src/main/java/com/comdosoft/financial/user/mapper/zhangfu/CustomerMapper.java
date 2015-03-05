@@ -37,6 +37,10 @@ public interface CustomerMapper {
 
     void updateAddress(Map<Object, Object> param);
 
+    void updateDefaultAddress(Map<Object, Object> param);
+
+    void setDefaultAddress(Map<Object, Object> param);
+
     void deleteAddress(int id);
 
 }

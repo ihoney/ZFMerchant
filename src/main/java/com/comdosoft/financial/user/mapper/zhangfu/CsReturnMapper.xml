@@ -95,7 +95,13 @@
 			o.bank_name,
 			o.bank_account,
 			o.reason,o.cs_cencel_id,
-			t.serial_num,cc.templete_info_xml  
+			t.serial_num,cc.templete_info_xml,
+			o.apply_num,
+			gb.`name` AS brand_name,
+			g.model_number AS brand_number,
+			pc.`name` as zhifu_pt, m.title AS merchant_name,
+			m.phone AS mer_phone,
+			cra.address ,cra.receiver,cra.phone as receiver_phone  
 		FROM
 			cs_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -104,6 +110,8 @@
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
 		left join cs_cancels cc on o.cs_cencel_id = cc.id
+		LEFT JOIN cs_receiver_addresses cra ON o.return_address_id = cra.id
+		
 		WHERE
 			o.id = #{id}
 	</select>
@@ -122,7 +130,7 @@
 	
 	<update id="cancelApply">
 	update  cs_returns 
-	SET STATUS = #{repairStatus.code}
+	SET status = #{repairStatus.code}
 	where id = #{id}
 	</update>
 	

@@ -168,5 +168,19 @@
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
 	]]>
 	</select>
+	
+	<select id="getSevenDynamic" resultType="map">
+	<![CDATA[
+		SELECT SUM(t.amount) as tread_sum,
+			count(t.id) as tread_num,DATE(t.created_at) as riqi 
+		FROM
+			trade_records t
+		WHERE
+		  DATEDIFF(NOW(),t.created_at)<8 and DATEDIFF(NOW(),t.created_at)>0
+		and t.customer_id=  #{customer_id}
+		GROUP BY riqi
+		ORDER BY riqi DESC
+	]]>
+	</select>
 
 </mapper>

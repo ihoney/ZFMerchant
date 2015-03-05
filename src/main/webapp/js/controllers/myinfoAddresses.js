@@ -1,12 +1,12 @@
 'user strict';
 
-// 系统设置模块
+// 地址管理
 var myinfoAddressesModule = angular.module("myinfoAddressesModule", []);
 var myinfoAddressesController = function($scope, $http, LoginService) {
 	$scope.list = function() {
 		$http.get("api/customers/getAddressList/80").success(function(data) {
 			if (data.code == 1) {
-				$scope.list = data.result;
+				$scope.addressList = data.result;
 			} else {
 				// 提示错误信息
 				alert(data.message);
@@ -15,18 +15,38 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 
 		});
 	};
-	$scope.update = function() {
-		$scope.updateCustomer = {
-			id : 8,
-			passwordOld : $scope.customer.passwordOld,
-			password : $scope.customer.password
-		};
-		$http.post("api/customers/updatePassword", $scope.updateCustomer).success(function(data) {
+	$scope.openUpdateAddress = function(e) {
+		$scope.address = e;
+	};
+	$scope.save = function() {
+		if ($scope.address.id == undefined) {
+			$scope.address.customerId = 80;
+			$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
+				if (data.code == 1) {
+					$scope.init();
+				} else {
+					alert(data.message);
+				}
+			}).error(function(data) {
+
+			});
+		} else {
+			$http.post("api/customers/updateAddress", $scope.address).success(function(data) {
+				if (data.code == 1) {
+					$scope.init();
+				} else {
+					alert(data.message);
+				}
+			}).error(function(data) {
+
+			});
+		}
+	};
+	$scope.setDefaultAddress = function(e) {
+		$http.post("api/customers/setDefaultAddress/", e).success(function(data) {
 			if (data.code == 1) {
-				// 提示保存成功
-				alert("修改成功");
+				$scope.init();
 			} else {
-				// 提示错误信息
 				alert(data.message);
 			}
 		}).error(function(data) {
@@ -34,17 +54,23 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.deleteAddress = function(e) {
-		$http.post("api/customers/updatePassword", $scope.updateCustomer).success(function(data) {
-			if (data.code == 1) { // 提示保存成功
-				alert("删除成功");
-			} else {
-				// 提示错误信息
-				alert(data.message);
-			}
-		}).error(function(data) {
+		if (confirm('确定删除？')) {
+			$http.get("api/customers/deleteAddress/" + e.id).success(function(data) {
+				if (data.code == 1) {
+					$scope.init();
+				} else {
+					alert(data.message);
+				}
+			}).error(function(data) {
 
-		});
+			});
+		}
 	};
-	$scope.list();
+	$scope.init = function() {
+		$scope.address = {};
+		$scope.address.isDefault = "2";
+		$scope.list();
+	};
+	$scope.init();
 };
 myinfoAddressesModule.controller("myinfoAddressesController", myinfoAddressesController);

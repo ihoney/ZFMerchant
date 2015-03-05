@@ -407,8 +407,9 @@
 /*-----category_group产品类别------*/
 .category_group { border: 1px #CCCCCC solid; padding: 0 10px;}
 
-.crumbs_nav { height: 24px; line-height: 24px; padding: 10px; font-size: 14px;}
-.crumbs_nav li { display: inline-block;}
+.crumbs_nav { line-height: 24px; padding: 10px 10px 10px 100px; font-size: 14px; position: relative;}
+.crumbs_nav li.crumbs_nav_li_h { height: 30px; position: absolute; top: 10px; left: 0px;}
+.crumbs_nav li { display: inline-block; margin-bottom: 5px;}
 .crumbs_nav li a { color: #666; padding: 2px 5px;}
 .crumbs_nav li a:hover { color: #ff5f2b;}
 .crumbs_nav li i { 
@@ -446,7 +447,7 @@
 	height: 24px; 
 	line-height: 24px;
 	font-weight:400;
-	color: #999;
+	color: #666;
 }
 .category_item a.more { position: absolute; top: 8px; right: 15px; color: #999;}
 .category_item a.more:hover { color: #ff5f2b;}
@@ -597,6 +598,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 	margin: 0 2px;
 }
 .evaluate li.p_li_o {background: url(../images/icons.png) no-repeat -6px -78px;}
+.evaluate li.p_li_b {background: url(../images/icons.png) no-repeat -6px -91px;}
 
 .lease_t { padding: 2px 5px; background: #ff5f2b; border-radius: 2px; color: #FFF; display: inline-block;}
 .lease_t.no { background: #999; color: #ccc;}

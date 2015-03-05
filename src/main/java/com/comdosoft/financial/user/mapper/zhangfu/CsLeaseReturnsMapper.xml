@@ -91,7 +91,7 @@
 			o.id,
 			o.`status` AS apply_status,
 			o.created_at AS apply_time,o.contact,o.phone,
-			t.serial_num,
+			t.serial_num,o.apply_num,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` AS zhifu_pt,
@@ -102,7 +102,8 @@
 			g.lease_deposit,
 			g.lease_time,
 			g.return_time,o.cs_cencel_id,
-			g.lease_price,cc.templete_info_xml 
+			g.lease_price,cc.templete_info_xml ,
+			cra.address ,cra.receiver,cra.phone as receiver_phone  
 		FROM
 			cs_lease_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -113,6 +114,7 @@
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
 		left join cs_cancels cc on o.cs_cencel_id = cc.id
+		LEFT JOIN cs_receiver_addresses cra ON o.return_address_id = cra.id
 		WHERE
 			o.id = #{id}
 	</select>
