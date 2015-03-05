@@ -8,41 +8,10 @@
                 <div class="content clear">
                 	<div class="user_deal">
                     	<div class="cu_title">7日交易动态<span>单位：元</span></div>
-                        <div class="deal_text">交易金额：<strong>￥5800.00</strong>&nbsp;&nbsp;交易笔数：<strong>3</strong> 次</div>
+                        <div class="deal_text">交易金额：<strong>{{trade.sum/100  |currency : "￥"}}</strong>&nbsp;&nbsp;交易笔数：<strong>{{trade.num}}</strong> 次</div>
                         <div class="barChart">
                         	<canvas id="myChart" height="230" width="420"></canvas>
                         </div>
-                    	
-						<script>
-                        var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-                        
-                        var barChartData = {
-                            labels : ["1","2","3","4","5","6","7"],
-                            datasets : [
-                                {
-                                    fillColor : "rgba(151,187,205,0.5)",
-                                    strokeColor : "rgba(151,187,205,0.8)",
-                                    highlightFill : "rgba(151,187,205,0.75)",
-                                    highlightStroke : "rgba(151,187,205,1)",
-                                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-                                }
-                            ]		
-                        }
-                        var globalGraphSettings = {
-                            responsive : true,
-                            barStrokeWidth : 1,
-                            barValueSpacing : 10,
-                        };
-                        function showBarChart(){
-                            var ctx = document.getElementById("myChart").getContext("2d");
-                            new Chart(ctx).Bar(barChartData,globalGraphSettings);
-                        };
-                        
-                        $(function(){
-                            showBarChart();
-                        })
-                        
-                        </script>
                     </div>
                     <div class="user_notice">
                     	<div class="cu_title">公告板</div>
