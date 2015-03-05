@@ -1,4 +1,6 @@
 <script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
+<script src="js/jquery.form.min.js"></script>
+<script type="text/javascript" src="js/dateSelector.js"></script>
  <div class="right" ng-controller="terminalOpenController">
             	<div class="breadcrumb">
                     <ul>
@@ -43,13 +45,28 @@
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li><span class="labelSpan">性别：</span>
                                 	<div class="text">
-                                    	<span class="checkboxRadio_span"><input name="" type="radio" value="" /> 男</span>
-                                        <span class="checkboxRadio_span"><input name="" type="radio" value="" /> 女</span>
+                                    	<span class="checkboxRadio_span"><input name="sex" type="radio" value="" /> 男</span>
+                                        <span class="checkboxRadio_span"><input name="sex" type="radio" value="" /> 女</span>
                                     </div>
                                 </li>
                                 <li><span class="labelSpan">生日：</span>
                                 	<div class="text">
-                                    <select name="">
+                                	<select id="selYear"></select> 
+                                	<select id="selMonth"></select>
+                                	<select id="selDay"></select>
+							<script type="text/javascript">
+								var selYear = window.document
+										.getElementById("selYear");
+								var selMonth = window.document
+										.getElementById("selMonth");
+								var selDay = window.document
+										.getElementById("selDay");
+
+								// 新建一个DateSelector类的实例，将三个select对象传进去
+								new DateSelector(selYear, selMonth, selDay,
+										null, null, null);
+							</script>
+							<!-- <select name="">
                                 	  <option>111</option>
                                 	</select>
                                     <select name="">
@@ -57,19 +74,19 @@
                                 	</select>
                                     <select name="">
                                 	  <option>333</option>
-                                	</select>
+                                	</select> -->
                                     </div>
                                 </li>
                                 <li><span class="labelSpan">身份证：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li class="overflow"><span class="labelSpan">结算银行名称：</span>
-                                	<div class="text"><input name="" type="text" ng-keyup="bank()"></div>
+                                	<div class="text"><input name="" type="text" ng-keyup="bank() "></div>
                                     <div class="suggest" id="backapen">
-                                    	<a href="#">支付通道01</a>
+                                    	<a href="javascript:void(0)" ng-repeat="code in bankCode" ng-click="bankNum(code)">{{code}}</a>
                                     </div>
                                 </li>
                                 <li><span class="labelSpan">结算银行代码：</span>
-                                	<div class="text"><input name="" type="text" /></div></li>
+                                	<div class="text"><input name="" type="text" ng-model="bamunber"/></div></li>
                                 <li><span class="labelSpan">结算银行账户：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li><span class="labelSpan">税务机构号：</span>
@@ -81,27 +98,125 @@
                                 <li><span class="labelSpan">结算类型：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li class="clear"><span class="labelSpan">营业执照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                <div class="text">
+                                <form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" >
+                                    <span id="h1">上传</span>
+                                    <input type="text" id="inpu1"/>
+                                    <input  name="img" multiple type="file" onchange="showImage('h1','a1','inpu1')">
+                                    </a>
+                                </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">组织机构照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a2" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h2">上传</span>
+                                    <input type="text" id="inpu2"/>
+                                    <input  name="img" multiple type="file" onchange="showImage('h2','a2','inpu2')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">对公银行卡照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a3" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h3">上传</span>
+                                    <input type="text" id="inpu3"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h3','a3','inpu3')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">税务登记照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a4" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h4">上传</span>
+                                    <input type="text" id="inpu4"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h4','a4','inpu4')" >
+                                    </a>
+                                    </form>
+                                	</div>
+                                </li>
                                 <li><span class="labelSpan">对私银行卡照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a5" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h5">上传</span>
+                                    <input type="text" id="inpu5"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h5','a5','inpu5')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">法人身份证正面照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a6" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h6">上传</span>
+                                    <input type="text" id="inpu6"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h6','a6','inpu6')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">法人身份证正面照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a7" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h7">上传</span>
+                                    <input type="text" id="inpu7"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h7','a7','inpu7')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">个人半身照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a8" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h8">上传</span>
+                                    <input type="text" id="inpu8"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h8','a8','inpu8')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">个人签名照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<form id="a9" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="h9">上传</span>
+                                    <input type="text" id="inpu9"/>
+                                    <input name="img" multiple type="file" onchange="showImage('h9','a9','inpu9')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">其他照片：</span>
-                                	<div class="text"><a href="javascript:void(0);" class="informImg_a">
-                                        <span>重新上传</span><input name="" multiple type="file">
-                                    </a></div></li>
+                                	<div class="text">
+                                	<form id="b1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                    <span id="ha">上传</span>
+                                    <input type="text" id="inpu10"/>
+                                    <input name="img" multiple type="file" onchange="showImage('ha','b1','inpu10')" >
+                                    </a>
+                                    </form>
+                                </div>
+                                </li>
                             </ul>
                             <div class="img_info"><img src="images/ewm.jpg" /></div>
                         </div>
@@ -115,23 +230,29 @@
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li><span class="labelSpan">性别：</span>
                                 	<div class="text">
-                                    	<span class="checkboxRadio_span"><input name="" type="radio" value="" /> 男</span>
-                                        <span class="checkboxRadio_span"><input name="" type="radio" value="" /> 女</span>
+                                    	<span class="checkboxRadio_span"><input name="sex" type="radio" value="" /> 男</span>
+                                        <span class="checkboxRadio_span"><input name="sex" type="radio" value="" /> 女</span>
                                     </div>
                                 </li>
                                 <li><span class="labelSpan">生日：</span>
                                 	<div class="text">
-                                    <select name="">
-                                	  <option>111</option>
-                                	</select>
-                                    <select name="">
-                                	  <option>222</option>
-                                	</select>
-                                    <select name="">
-                                	  <option>333</option>
-                                	</select>
+                                    <select id="selYears"></select> 
+                                	<select id="selMonths"></select>
+                                	<select id="selDays"></select>
                                     </div>
                                 </li>
+                                <script type="text/javascript">
+								var selYear = window.document
+										.getElementById("selYears");
+								var selMonth = window.document
+										.getElementById("selMonths");
+								var selDay = window.document
+										.getElementById("selDays");
+
+								// 新建一个DateSelector类的实例，将三个select对象传进去
+								new DateSelector(selYear, selMonth, selDay,
+										null, null, null);
+								</script>
                                 <li><span class="labelSpan">身份证：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li><span class="labelSpan">结算银行名称：</span>
@@ -153,34 +274,98 @@
                                 <li><span class="labelSpan">结算银行：</span>
                                 	<div class="text"><input name="" type="text" /></div></li>
                                 <li class="clear"><span class="labelSpan">营业执照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hb')">
+                                    <span id="hb">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">组织机构照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hc')">
+                                    <span id="hc">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">对公银行卡照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hd')">
+                                    <span id="hd">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">税务登记照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('he')">
+                                    <span id="he">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">对私银行卡照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hf')">
+                                    <span id="hf">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
                                 <li><span class="labelSpan">法人身份证正面照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hj')">
+                                    <span id="hj">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">法人身份证正面照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hh')">
+                                    <span id="hh">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">个人半身照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hi')">
+                                    <span id="hi">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">个人签名照：</span>
-                                	<div class="text"><img src="images/zp.jpg" class="cover" /></div></li>
+                                	<div class="text">
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hg')">
+                                    <span id="hg">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div>
+                                </li>
                                 <li><span class="labelSpan">其他照片：</span>
                                 	<div class="text">
-                                    <img src="images/zp.jpg" class="cover" />
-                                    <a href="javascript:void(0);" class="informImg_a">
-                                        <span>重新上传</span><input name="" multiple type="file">
-                                    </a></div></li>
+                                	<img src="images/zp.jpg" class="cover" />
+                                	<a href="javascript:void(0);" class="informImg_a" ng-click="imgUploade('hk')">
+                                    <span id="hk">上传</span>
+                                    <input name="" multiple type="file" ng-model="img" >
+                                    </a>
+                                </div></li>
                             </ul>
-                            <div class="img_info"><img src="images/ewm.jpg" /></div>
+                            <div class="img_info"><img id="imgShow" src="uploadFiles/tmp/1425525836073.jpg" /></div>
                         </div>
                         
                     </div>
-                    <div class="btnBottom"><button class="orangeBtn">保存</button></div>
+                    <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
             	</div>
         	</div>

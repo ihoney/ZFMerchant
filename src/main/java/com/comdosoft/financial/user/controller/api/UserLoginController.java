@@ -93,7 +93,6 @@ public class UserLoginController {
     @RequestMapping(value = "sendPhoneVerificationCodeFind", method = RequestMethod.POST)
     public Response sendPhoneVerificationCodeFind(@RequestBody Map<String, String> map) {
         try {
-        	System.out.println(map.get("codeNumber")+"查看");
             Customer customer = new Customer();
             customer.setUsername(map.get("codeNumber"));
             char[] randchar = SysUtils.getRandNum(6);

@@ -3,6 +3,8 @@ package com.comdosoft.financial.user.mapper.zhangfu;
 import java.util.List;
 import java.util.Map;
 
+import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
+import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 
 /**
@@ -20,7 +22,15 @@ public interface TerminalsMapper {
      * @return
      */
     List<Map<Object, Object>> getTerminals(int customerId);
-
+    
+    /**
+     * <!--用户收货地址 -->
+     * 
+     * @param customerId
+     * @return
+     */
+    List<Map<Object, Object>> getCustomerAddress(int customerId);
+    
     /**
      * 根据用户id获得终端列表
      * 
@@ -28,7 +38,49 @@ public interface TerminalsMapper {
      * @return
      */
     List<Map<Object, Object>> getTerminalList(Map<String, Object> map);
-
+    
+    /**
+     * 申请维修添加地址
+     * 
+     * @param map
+     * @return
+     */
+    void subRepairAddress(CsReceiverAddress csReceiverAddress);
+    
+    /**
+     * 申请维修添加
+     * 
+     * @param map
+     * @return
+     */
+    void subRepair(Map<Object, Object> map);
+    
+    /**
+     * 申请换货添加
+     * 
+     * @param map
+     * @return
+     */
+    void subChange(Map<Object, Object> map);
+    
+    
+    /**
+     * 提交退还申请
+     * 
+     * @param map
+     * @return
+     */
+    void subRentalReturn(CsCancel csCancel);
+    
+    
+    /**
+     * 提交注销
+     * 
+     * @param map
+     * @return
+     */
+    void subLeaseReturn(Map<Object, Object> map);
+    
     /**
      * 获得终端详情
      * 
@@ -129,4 +181,14 @@ public interface TerminalsMapper {
      * @return
      */
     List<Map<String, Object>> getTerminalOpenStatus(int id);
+    
+    /**
+     * 获得模板
+     * 
+     * @param id
+     * @return
+     */
+    List<Map<String, Object>> getModule(Map<String, Object> map);
+    
+  
 }

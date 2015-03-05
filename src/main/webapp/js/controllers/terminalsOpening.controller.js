@@ -6,7 +6,9 @@ var terminalOpenModule = angular.module("terminalOpenModule",[]);
 var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.customerId = 80;
+	$scope.img = null;
 	$scope.merchantNamed = "";
+	$scope.bankCode="";
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {
@@ -38,7 +40,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 //动态加载银行
   $scope.bankName ="";
   $scope.bank = function(){
-	  $("#backapen").html("");
 	/*  $http.post("api/terminal/ChooseBank", {}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
@@ -51,10 +52,46 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           $("#serverErrorModal").modal({show: true});
       });*/
 	  $scope.bankCode=[1,2,3,4,5];
-	  for(var i=0;i< $scope.bankCode.length;i++){
-		  $("#backapen").append("<a href='#'>支付通道"+i+"</a>");
-	  }
   }
+  
+//动态显示银行代码号
+  $scope.bankNum = function(number){
+	  $scope.bankCode = "";
+	  $scope.bamunber = number;
+  }
+  
+//提交申请
+  $scope.addApply = function(){
+	  $scope.list = [
+	                 {
+	                     status:1,
+	                     terminalId:2,
+	                     publicPrivateStatus: 1,
+	                     applyCustomerId: 11
+	                 },
+	                 {
+	                     unameKey: "姓名123123123",
+	                     unameValue: "鲜虎",
+	                     types:1
+	                 },
+	                 {
+	                     shopKey: "店铺名",
+	                     shopValue: "有名鲜花店",
+	                     types:1
+	                 }
+	             ];
+	  
+	  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  alert(data.code);
+          }
+      }).error(function (data) {
+    	  alert("获取列表失败");
+          /*$("#serverErrorModal").modal({show: true});*/
+      });
+  }
+  
+
   
   $scope.terminalDetail();
 

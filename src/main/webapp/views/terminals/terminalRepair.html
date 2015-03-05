@@ -1,0 +1,102 @@
+<script type="text/javascript" src="js/controllers/terminalsRepair.controller.js"></script>
+<div ng-controller="terminalRepairController">
+<div class="right">
+            	<div class="breadcrumb">
+                    <ul>
+                        <li><a href="#">我的终端</a></li>
+                        <li><a href="#">维修</a></li>
+                    </ul>
+                </div>
+                <div class="content clear">
+                    <div class="user_title">
+                    	<h1>申请维修</h1>
+                    </div>
+                    <div class="attributes_box">
+                    	<h2>终端信息</h2>
+                        <div class="attributes_list clear">
+                            <ul>
+                                <li>品牌型号：{{applyDetails.brandName + applyDetails.model_number}}</li>
+                                <li>支付通道：{{applyDetails.channelName}}</li>
+                                <li>终端号：{{applyDetails.serial_num}}</li>
+                                <li>商户名称：{{applyDetails.title}}</li>
+                                <li>商户电话：{{applyDetails.phone}}</li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="attributes_box">
+                    	<h2>维修信息</h2>
+                         <div class="ab_b">
+                            <dl>
+                            	<dt>故障描述：</dt>
+                                <dd><input name="" type="text" ng-model="description"/></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="attributes_box">
+                    	<div class="myAddress">
+                            <h3>确认收货地址</h3>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
+                                 <colgroup>
+                                    <col width="30" />
+                                    <col width="90" />
+                                    <col width="240" />
+                                    <col width="180" />
+                                    <col width="80" />
+                                    <col width="80" />
+                                    <col width="80" />
+                                    <col />
+                                  </colgroup>
+                                 <thead>
+                                  <tr>
+                                    <th>&nbsp;</th>
+                                    <th>收货人</th>
+                                    <th>所在地区</th>
+                                    <th>详细地址</th>
+                                    <th>邮编</th>
+                                    <th>电话</th>
+                                    <th>操作</th>
+                                    <th>&nbsp;</th>
+                                  </tr>
+                                  </thead>
+                                  <tr ng-repeat="ad in addressList">
+                                    <td><input name="addressId" type="radio" value="{{ad.id}}" ng-click="diAddre(ad.id)"/></td>
+                                    <td>{{ad.receiver}}</td>
+                                    <td>江苏省苏州市吴中区</td>
+                                    <td>{{ad.address}}</td>
+                                    <td>{{ad.zip_code}}</td>
+                                    <td>{{ad.moblephone}}</td>
+                                    <!-- <td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
+                                    <td><span class="defaultAddr">默认地址</span></td> -->
+                                  </tr>
+                                  <tr class="addAddr_box" >
+                                    <td>&nbsp;</td>
+                                    <td><input name="" type="text" value="收件人姓名" /></td>
+                                    <td>
+                                        <select name="">
+                                          <option>省</option>
+                                          <option>江苏省</option>
+                                        </select>
+                                        <select name="">
+                                          <option>市</option>
+                                          <option>南京市</option>
+                                        </select>
+                                        <select name="">
+                                          <option>区/县</option>
+                                          <option>姑苏区</option>
+                                        </select>
+                                    </td>
+                                    <td><input name="" type="text" value="详细地址" class="l" /></td>
+                                    <td><input name="" type="text" value="邮编" /></td>
+                                    <td><input name="" type="text" value="手机号码" /></td>
+                                    <td><a href="#" class="a_btn">确定</a></td>
+                                    <td>&nbsp;</td>
+                                  </tr>
+                                </table>
+                                <div class="addAddr_btn"  ><button ng-click="citOffOn(!citOn)">使用新地址</button></div>
+                            </div>
+                    </div>
+                    
+                    <div class="btnBottom"><button class="orangeBtn" ng-click="subDetail()">提交申请</button></div>
+            	</div>
+        	</div>
+</div>

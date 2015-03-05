@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
+import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.mapper.zhangfu.OpeningApplyMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.TerminalsMapper;
@@ -36,6 +38,62 @@ public class TerminalsService {
 		map.put("pageSize", pageSize);
 		return terminalsMapper.getTerminalList(map);
 	}
+	
+	/**
+	 * 获得该用户收获地址
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
+		return terminalsMapper.getCustomerAddress(id);
+	}
+	
+	/**
+	 *申请维修添加地址
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public CsReceiverAddress subRepairAddress(Map<Object, Object> map) {
+		CsReceiverAddress csReceiverAddress = new CsReceiverAddress();
+		csReceiverAddress.setAddress((String)map.get("address"));
+		csReceiverAddress.setPhone((String)map.get("phone"));
+		csReceiverAddress.setZipCode((String)map.get("zipCode"));
+		csReceiverAddress.setReceiver((String)map.get("receiver"));
+		terminalsMapper.subRepairAddress(csReceiverAddress);
+		return csReceiverAddress;
+	}
+	
+	/**
+	 *添加申请维修
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public void subRepair(Map<Object, Object> map) {
+		terminalsMapper.subRepair(map);
+	}
+	
+	/**
+	 *添加申请维修
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public void subChange(Map<Object, Object> map) {
+		terminalsMapper.subChange(map);
+	}
+	
+	
 
 	/**
 	 * 获得终端详情
@@ -100,6 +158,19 @@ public class TerminalsService {
 		return terminalsMapper.isExistence(serialNum);
 	}
 	
+
+	/**
+	 * 获得注销模板
+	 * @param id
+	 * @return
+	 */
+	public List<Map<String, Object>>  getModule(Integer  terminalsId,int type){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalsId",terminalsId);
+		map.put("type", type);
+		return terminalsMapper.getModule(map);
+	}
+	
 	/**
 	 * 判断商户名是否存在
 	 * @param id
@@ -124,6 +195,25 @@ public class TerminalsService {
 	public void addTerminal(Map<String, String> map){
 		terminalsMapper.addTerminal(map);
 	}
+	
+	/**
+	 * 提交注销
+	 * @param map
+	 */
+	public void subRentalReturn(CsCancel csCancel){
+		terminalsMapper.subRentalReturn(csCancel);
+	}
+	
+
+	/**
+	 * 提交退还申请
+	 * @param map
+	 */
+	public void subLeaseReturn(Map<Object, Object> map){
+		terminalsMapper.subLeaseReturn(map);
+	}
+	
+	
 	
 	/**
 	 * POS找回密码
@@ -153,4 +243,5 @@ public class TerminalsService {
         }
         return listmap;
     }
+    
 }

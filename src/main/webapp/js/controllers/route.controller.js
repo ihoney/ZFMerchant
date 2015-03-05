@@ -70,6 +70,16 @@ function routeConfig($routeProvider) {
             templateUrl: 'views/terminals/terminalToUpdate.html'
         }).when('/terminalOpening', {
             templateUrl: 'views/terminals/terminalOpening.html'
+        }).when('/terminalCancellation', {
+            templateUrl: 'views/terminals/terminalCancellation.html'
+        }).when('/terminalRentalReturn', {
+            templateUrl: 'views/terminals/terminalRentalReturn.html'
+        }).when('/terminalRepair', {
+            templateUrl: 'views/terminals/terminalRepair.html'
+        }).when('/terminalExchangeGoods', {
+            templateUrl: 'views/terminals/terminalExchangeGoods.html'
+        }).when('/terminalReturnGood', {
+            templateUrl: 'views/terminals/terminalReturnGood.html'
         }).when('/message', {
             templateUrl: 'views/message/message.html'
         }).when('/messageinfo', {

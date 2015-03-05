@@ -14,6 +14,32 @@
 		terminals(good_id,terminal_marks_id,serial_num,merchant_id,customer_id,pay_channel_id,status,is_return_cs_depots,created_at,type)
 		VALUES(0,0,#{serialNum},#{merchantId},#{customerId},#{payChannelId},#{status},#{isReturnCsDepots},now(),#{type})
 	</insert>
+	
+	<insert id="subRentalReturn" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsCancel" >
+		INSERT INTO cs_cancels(terminal_id,status,templete_info_xml,created_at,updated_at,types,customer_id,apply_num)
+		VALUES(#{terminalId},#{status},#{templeteInfoXml},now(),now(),#{types},#{customerId},unix_timestamp(now()))
+	</insert>
+	
+	<insert id="subLeaseReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+		INSERT INTO cs_lease_returns(status,terminal_id,created_at,updated_at,apply_num,order_types,contact,phone,return_address_id,customer_id,cs_cencel_id)
+		VALUES(#{status},#{terminalId},now(),now(),unix_timestamp(now()),#{orderTypes},#{contact},#{phone},1,#{customerId},#{csCencelId})
+	</insert>
+	
+	<insert id="subRepairAddress" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress">
+		INSERT into cs_receiver_addresses(address,phone,zip_code,receiver,created_at)
+		VALUES(#{address},#{phone},#{zipCode},#{receiver},now())
+	</insert>
+	
+	
+	<insert id="subRepair" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+		INSERT into cs_repairs(terminal_id,status,description,receive_address_id,customer_id,created_at,updated_at,apply_num,return_address_id,cs_repair_marks_id)
+		VALUES(#{terminalsId},#{status},#{description},#{receiveAddressId},#{customerId},now(),now(),unix_timestamp(now()),#{returnAddressId},0)
+	</insert>
+	
+	<insert id="subChange" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+		INSERT into cs_changes(terminal_id,status,receive_address_id,templete_info_xml,created_at,updated_at,reason,customer_id,should_cancel,cs_cencel_id,apply_num,return_address_id)
+		VALUES(#{terminalsId},#{status},#{receiveAddressId},#{templeteInfoXml},now(),now(),#{reason},#{customerId},1,#{csCencelId},unix_timestamp(now()),#{returnAddressId})
+	</insert>
 
 	<!-- 查询交易流水用 -->
 	<select id="getTerminals" resultType="map">
@@ -55,6 +81,17 @@
 		SELECT dtt.trade_value,ttti.status from  terminal_trade_type_infos ttti LEFT JOIN
     	dictionary_trade_types dtt on ttti.trade_type_id=dtt.id
      	where ttti.terminal_id=#{id}
+	</select>
+	
+	<select id="getCustomerAddress"  resultType="map" parameterType="int">
+		SELECT * from customer_addresses
+		WHERE customer_id = #{customerId}
+	</select>
+	
+	<select id="getModule"  resultType="map">
+		SELECT o.* 
+		FROM terminals t LEFT JOIN other_requirements o ON t.pay_channel_id = o.pay_channel_id
+		where t.id = #{terminalsId} and o.types = #{type}
 	</select>
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">

@@ -1,7 +1,9 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -11,15 +13,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
+import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
+import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
+
 
 /**
  * 
@@ -85,6 +92,7 @@ public class TerminalsController {
 			// 开通详情
 			map.put("openingDetails",
 					terminalsService.getOpeningDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+			
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,18 +107,126 @@ public class TerminalsController {
 	 * @param maps
 	 */
 	@RequestMapping(value = "getApplyToUpdate", method = RequestMethod.POST)
-	public Response getApplyToUpdate(@RequestBody Map<Object, Object> maps) {
+	public Response getApplyToUpdate(@RequestBody Map<Object, Integer> maps) {
 		try {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					terminalsService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+					terminalsService.getApplyDetails(maps.get("terminalsId")));
+			map.put("tenancy", terminalsService.getTenancy(maps.get("terminalsId")));
+			//获得注销模板路径
+			map.put("ReModel", terminalsService.getModule(maps.get("terminalsId"),1));
+			//获得用户收货地址
+			map.put("address", terminalsService.getCustomerAddress(maps.get("customerId")));
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}
+	
+	/**
+	 * 提交退还申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "subLeaseReturn", method = RequestMethod.POST)
+	public Response subLeaseReturn(@RequestBody Map<Object, Object> maps) {
+		try {
+			CsCancel csCancel =new CsCancel();
+			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+			csCancel.setStatus((Integer)maps.get("status"));
+			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
+			csCancel.setTypes((Integer)maps.get("type"));
+			csCancel.setCustomerId((Integer)maps.get("customerId"));
+			//先注销
+			terminalsService.subRentalReturn(csCancel);
+			maps.put("csCencelId", csCancel.getId());
+			terminalsService.subLeaseReturn(maps);
+			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 提交注销
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "subRentalReturn", method = RequestMethod.POST)
+	public Response subRentalReturn(@RequestBody Map<Object, Object> maps) {
+		try {
+			CsCancel csCancel =new CsCancel();
+			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+			csCancel.setStatus((Integer)maps.get("status"));
+			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
+			csCancel.setTypes((Integer)maps.get("type"));
+			csCancel.setCustomerId((Integer)maps.get("customerId"));
+			//先注销
+			terminalsService.subRentalReturn(csCancel);
+			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 提交维修申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "subRepair", method = RequestMethod.POST)
+	public Response subRepair(@RequestBody Map<Object, Object> maps) {
+		try {
+			CsReceiverAddress csReceiverAddress =new CsReceiverAddress();
+			//先添加维修地址表
+			csReceiverAddress = terminalsService.subRepairAddress(maps);
+			maps.put("receiveAddressId", csReceiverAddress.getId());
+			maps.put("receiveAddressId", 56);
+			
+			terminalsService.subRepair(maps);
+			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 提交换货申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "subChange", method = RequestMethod.POST)
+	public Response subChange(@RequestBody Map<Object, Object> maps) {
+		try {
+			CsCancel csCancel =new CsCancel();
+			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalsId")));
+			csCancel.setStatus((Integer)maps.get("status"));
+			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
+			csCancel.setTypes((Integer)maps.get("type"));
+			csCancel.setCustomerId((Integer)maps.get("customerId"));
+			//先注销
+			terminalsService.subRentalReturn(csCancel);
+			maps.put("csCencelId", csCancel.getId());
+			
+			CsReceiverAddress csReceiverAddress =new CsReceiverAddress();
+			//先添加换货地址表
+			csReceiverAddress = terminalsService.subRepairAddress(maps);
+			
+			maps.put("receiveAddressId", csReceiverAddress.getId());
+			
+			terminalsService.subChange(maps);
+			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
 	
 	/**
 	 * 进入申请开通
@@ -176,6 +292,7 @@ public class TerminalsController {
 				map.put("status", String.valueOf(Terminal.TerminalTYPEID_3));
 				map.put("isReturnCsDepots", String.valueOf(Terminal.IS_RETURN_CS_DEPOTS_NO));
 				map.put("type", String.valueOf(Terminal.SYSTYPE));
+				map.put("payChannelId", map.get("payChannelId"));
 				terminalsService.addTerminal(map);
 				return Response.getSuccess("添加成功！");
 			}
@@ -252,8 +369,71 @@ public class TerminalsController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("code1", "中国农业银行");
 			map.put("code2", "中国工商银行");
+			map.put("code3", "美国农业银行");
+			map.put("code4", "美国工商银行");
 			return Response.getSuccess(map);
 		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 添加申请信息
+	 * 
+	 * @param paramMap
+	 */
+	@RequestMapping(value = "addOpeningApply", method = RequestMethod.POST)
+	@ResponseBody
+	public Response addOpeningApply(
+			@RequestBody List<Map<String, Object>> paramMap) {
+		try {
+			OpeningApplie openingApplie = new OpeningApplie();
+			Integer status = null;
+			String openingAppliesId = null;
+			Integer terminalId = null;
+			String key = null;
+			String value = null;
+			Integer types = null;
+			int i = 0;
+			int y = 0;
+			for (Map<String, Object> map : paramMap) {
+				Set<String> keys = map.keySet();
+				if (y == 0) {
+					status = (Integer) map.get("status");
+					terminalId = (Integer) map.get("terminalId");
+					if (status == 2) {
+						openingAppliesId = String.valueOf(openingApplyService
+								.getApplyesId(terminalId));
+						// 删除旧数据
+						openingApplyService.deleteOpeningInfos(Integer
+								.valueOf(openingAppliesId));
+					} else {
+						openingApplie.setTerminalId((Integer) map
+								.get("terminalId"));
+						openingApplie.setApplyCustomerId((Integer) map
+								.get("applyCustomerId"));
+						openingApplyService.addOpeningApply(openingApplie);
+						openingAppliesId = String
+								.valueOf(openingApplie.getId());
+					}
+				} else {
+					for (String str : keys) {
+						if (i == 0)
+							key = (String) map.get(str);
+						if (i == 1)
+							value = (String) map.get(str);
+						if (i == 2)
+							types = (Integer) map.get(str);
+						i++;
+					}
+					openingApplyService.addApply(key, value,types, openingAppliesId);
+					i = 0;
+				}
+				y++;
+			}
+			return Response.getSuccess("添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}

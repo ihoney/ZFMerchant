@@ -1,0 +1,71 @@
+<script type="text/javascript" src="js/controllers/terminalsReturnGood.controller.js"></script>
+<div class="right" ng-controller="terminalReturnGoodController">
+            	<div class="breadcrumb">
+                    <ul>
+                        <li><a href="#">我的终端</a></li>
+                        <li><a href="#">申请退货</a></li>
+                    </ul>
+                </div>
+                <div class="content clear">
+                    <div class="user_title">
+                    	<h1>申请退货</h1>
+                    </div>
+                    <div class="attributes_box">
+                    	<h2>终端信息</h2>
+                        <div class="attributes_list clear">
+                            <ul>
+                                <li>品牌型号：{{applyDetails.brandName + applyDetails.model_number}}</li>
+                                <li>支付通道：{{applyDetails.channelName}}</li>
+                                <li>终端号：{{applyDetails.serial_num}}</li>
+                                <li>商户名称：{{applyDetails.title}}</li>
+                                <li>商户电话：{{applyDetails.phone}}</li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="attributes_box">
+                    	<h2>换货信息</h2>
+                         <div class="ab_b">
+                            <dl>
+                            	<dt>退货原因：</dt>
+                                <dd><input name="" type="text" /></dd>
+                            </dl>
+                            <dl>
+                            	<dt>退款金额：</dt>
+                                <dd><strong>￥458.00</strong></dd>
+                            </dl>
+                            <dl>
+                            	<dt>联系人：</dt>
+                                <dd><input name="" type="text" /></dd>
+                            </dl>
+                            <dl>
+                            	<dt>联系电话：</dt>
+                                <dd><input name="" type="text" /></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <div class="attributes_box">
+                    	<h2>更新申请资料</h2>
+                        <div class="applyFor_list clear">
+                           <div class="af_con">
+                            	<div class="af_con_n">1.注销申请资料01 <a href="#" class="a_btn">下载模版</a></div>
+                                <div class="af_con_b"><i class="on"></i>
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                        <span>重新上传</span><input name="" multiple type="file">
+                                    </a>
+                                </div>
+                           </div>
+                           <div class="af_con">
+                            	<div class="af_con_n">2.注销申请资料02 <a href="#" class="a_btn">下载模版</a></div>
+                                <div class="af_con_b"><i></i>
+                                	<a href="javascript:void(0);" class="informImg_a">
+                                        <span>上传</span><input name="" multiple type="file">
+                                    </a>
+                                </div>
+                           </div>
+                        </div>
+                        
+                    </div>
+                    <div class="btnBottom"><button class="orangeBtn">提交申请</button></div>
+            	</div>
+        	</div>
