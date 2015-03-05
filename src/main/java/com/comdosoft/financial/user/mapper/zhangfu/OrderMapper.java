@@ -23,6 +23,8 @@ public interface OrderMapper {
     Map<String, Object> getPayOrder(OrderReq orderreq);
 
     List<Map<String, Object>> getPayOrderGood(OrderReq orderreq);
+    
+    void payFinish(OrderReq orderreq);
 
 // ----gch start --------------
     int countMyOrder(MyOrderReq myOrderReq);
@@ -42,6 +44,8 @@ public interface OrderMapper {
     int countOrderSearch(MyOrderReq myOrderReq);
 
     List<Order> orderSearch(MyOrderReq myOrderReq);
+
+   
 
    
     

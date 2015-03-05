@@ -252,7 +252,7 @@
 		customer_address_id,need_invoice,invoice_type,
 		invoice_info,actual_price,created_at,updated_at,
 		comment,total_quantity)
-		VALUES(#{ordernumber},#{customerId},#{totalprice},0,#{type},
+		VALUES(#{ordernumber},#{customerId},#{totalprice},1,#{type},
 		#{addressId},#{is_need_invoice},#{invoice_type},#{invoice_info},
 		#{totalprice},NOW(),NOW(),#{comment},#{totalcount})
   </insert>
@@ -292,10 +292,11 @@
   </select>
   
   <select id="getPayOrder" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
-        SELECT o.order_number,o.total_price,ca.receiver,ca.address
+        SELECT o.order_number,o.total_price,ca.receiver,ca.address,IFNULL(op.pay_type,0) paytype
  		from orders o
 		LEFT JOIN customer_addresses ca on ca.id=o.customer_address_id
-		where o.id=#{id} and o.status=0
+		LEFT JOIN order_payments op on op.order_id=o.id
+		where o.id=#{id} 
   </select>
   
   <select id="getPayOrderGood" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
@@ -304,4 +305,9 @@
 		left JOIN pay_channels pc on pc.id=og.pay_channel_id
 		where order_id=#{id}
   </select>
+  
+   <insert id="payFinish"  parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
+		INSERT into order_payments(order_id,price,pay_type,created_at)  
+		VALUES(#{id},#{price},#{type},NOW())
+  </insert>
 </mapper>

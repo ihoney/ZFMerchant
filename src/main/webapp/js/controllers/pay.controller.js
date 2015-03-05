@@ -18,6 +18,10 @@ var payController = function($scope, $http,$location) {
 		$http.post("api/order/payOrder", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.order=data.result;
+            	if(data.result.paytype>0){
+            		$scope.pay=false;
+            		$scope.payway=data.result.paytype;
+            	}
             }
         });
 	};
@@ -25,8 +29,23 @@ var payController = function($scope, $http,$location) {
 		$('#payTab').show();
 		if(1==$scope.payway){
 			//alert("支付宝");
+			$scope.order.title="";
+        	var count=0;
+        	 angular.forEach($scope.order.good, function (one) {
+                 if(count<2){
+                	 $scope.order.title+=one.title+" "+one.pcname+"("+one.quantity+"件)";
+                 }
+                 count++;
+             });
+        	 if(count>2){
+        		 $scope.order.title+="..";
+        	 }
+			window.open("alipayapi.jsp?WIDtotal_fee="+
+					$scope.order.total_price/100+"&WIDsubject="+$scope.order.title
+					+"&WIDout_trade_no="+$scope.order.order_number);  
 		}else{
 			//alert("银行");
+			window.open("http://www.taobao.com");  
 		}
 	}
 	$scope.finish= function(){

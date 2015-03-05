@@ -150,7 +150,10 @@ public class OrderService {
         return map;
     }
     
-    
+    public void payFinish(OrderReq orderreq) {
+        orderMapper.payFinish(orderreq);
+        
+    }
     /**
      * 上jwb
      * -------------------------------------------------------------
@@ -307,5 +310,7 @@ public class OrderService {
         List<Object> obj_list = putDate(centers);
         return new Page<Object>(request, obj_list, count);
     }
+
+   
 
 }
