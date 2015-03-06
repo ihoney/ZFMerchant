@@ -151,9 +151,19 @@ public class OrderService {
     }
     
     public void payFinish(OrderReq orderreq) {
-        orderMapper.payFinish(orderreq);
-        
+        Map<String,Object> map=orderMapper.getOrderByMumber(orderreq);
+        try {
+            int id=SysUtils.String2int(map.get("id").toString());
+            int total_price=SysUtils.String2int(map.get("total_price").toString());
+            orderreq.setId(id);
+            orderreq.setType(1);
+            orderreq.setPrice(total_price);
+            orderMapper.payFinish(orderreq);
+            orderMapper.upOrder(orderreq);
+        } catch (Exception e) {
+        }
     }
+
     /**
      * 上jwb
      * -------------------------------------------------------------

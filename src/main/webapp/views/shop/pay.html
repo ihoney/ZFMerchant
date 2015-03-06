@@ -41,7 +41,7 @@
                 <div class="pay_ok_info">
                 	<div class="pay_ok_info_left">
                     	<p>订单号：{{order.order_number}}</p>
-						<p>支付方式：<strong>{{order.payway==1?"支付宝":"银联"}}</strong></p>
+						<p>支付方式：<strong>{{order.paytype==1?"支付宝":"银联"}}</strong></p>
 						<p>支付金额：<strong>{{order.total_price/100|currency : "￥"}}</strong></p>
 						<p>如交易出现问题请联系021-37494756</p>
                     </div>

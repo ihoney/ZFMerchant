@@ -19,6 +19,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.comdosoft.financial.user.utils.alipay.util.*"%>
 <%@ page import="com.comdosoft.financial.user.utils.alipay.config.*"%>
+<%@ page import="com.comdosoft.financial.user.utils.HttpUtil"%>
 <%
 	//获取支付宝POST过来反馈信息
 	Map<String,String> params = new HashMap<String,String>();
@@ -51,7 +52,7 @@
 	if(AlipayNotify.verify(params)){//验证成功
 		//////////////////////////////////////////////////////////////////////////////////////////
 		//请在这里加上商户的业务逻辑程序代码
-
+		HttpUtil.postJsonHttp("http://121.40.84.2:8080/ZFMerchant/api/pay/alipayback","ordernumber",out_trade_no);
 		//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
 		
 		if(trade_status.equals("TRADE_FINISHED")){
