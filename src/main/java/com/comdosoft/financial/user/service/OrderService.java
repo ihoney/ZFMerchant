@@ -19,6 +19,7 @@ import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
+import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
@@ -276,12 +277,19 @@ public class OrderService {
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
 //                omap.put("order_good_id", od.getId().toString());
-                omap.put("good_id", od.getGood() == null ? "" : od.getGood().getId()==null?"":od.getGood().getId());
+                String good_id = od.getGood() == null ? "" : od.getGood().getId()==null?"":od.getGood().getId().toString();
+                omap.put("good_id", good_id);
                 omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
                 omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
                 omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle());
                 omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
                 omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()==null?"":od.getPayChannel().getName());
+                List<Terminal> terminals = orderMapper.getTerminsla(id,Integer.valueOf(good_id));
+                StringBuffer sb = new StringBuffer();
+                for(Terminal t:terminals){
+                    sb.append(t.getSerialNum()+" ");
+                }
+                omap.put("terminals", sb.toString());
                 String good_logo = "";
                 if(null !=od.getGood()){
                     Good g = od.getGood();
@@ -294,6 +302,7 @@ public class OrderService {
                 newObjList.add(omap);
             }
         }
+       
         map.put("order_goodsList", newObjList);
         MyOrderReq myOrderReq = new MyOrderReq();
         myOrderReq.setId(id);

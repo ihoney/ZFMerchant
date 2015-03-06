@@ -17,9 +17,18 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
         });
     };
     
+    $scope.close_wlxx = function() {
+		$("#od_ter_div").css('display', 'none');
+	};
+ 
+    $scope.t_comment = function (g) {
+    	$("#order_g_t_v").html(g.terminals);
+	    $("#od_ter_div").css('display','block');
+    };
+    
     $scope.s_comment = function (g) {
     	$("#com_good_id").val(g.good_id);
-	    $(".tab").css('display','block');
+    	$("#od_pj_div").css('display','block');
     };
     
     $scope.saveContent= function () {

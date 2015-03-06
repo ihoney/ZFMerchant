@@ -7,6 +7,7 @@ import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
+import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 
 public interface OrderMapper {
 
@@ -49,13 +50,7 @@ public interface OrderMapper {
 
     List<Order> orderSearch(MyOrderReq myOrderReq);
 
-   
+    List<Terminal> getTerminsla(Integer order_id,Integer goods_id);
 
-   
-
-   
-
-   
-    
 // ------gch end ---------------------
 }

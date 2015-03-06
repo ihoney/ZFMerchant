@@ -1,5 +1,35 @@
 <script type="text/javascript" src="js/controllers/orderinfo.controller.js"></script>
 <div class="right" ng-controller="orderinfoController">
+<div class="tab seeNumber_tab hide" id="od_ter_div">
+	<a href="javascript:void(0);" class="close" ng-click="close_wlxx()">关闭</a>
+	<div class="tabHead">查看终端号</div>
+	<div class="tabBody">
+		<div class="item_list">
+        	<ul>
+            	<li><span class="labelSpan">终端号：</span><div class="text" id="order_g_t_v"></div></li>
+            </ul>
+        </div>
+	</div>
+	<div class="tabFoot"><button class="orangeBtn" ng-click="close_wlxx()">确定</button></div>
+</div>
+
+<div class="tab starGrade_tab hide" id="od_pj_div">
+<span class="glyphicon glyphicon-thumbs-down"></span>
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabHead">评价</div>
+	<div class="tabBody" >
+		<div class="halfShow_star"></div>
+		<input type="hidden" value="" id="com_score" ng-model="score" name="score">
+		<input type="hidden" value="" id="com_good_id" ng-model="goodid" name="goodid">
+		<div class="gradeText"> 
+			<textarea name="content"  ng-model="content" cols="" rows=""></textarea>
+		</div>
+	</div>
+	<div class="tabFoot">
+	  <button ng-click="saveContent()" class="orangeBtn" >确定</button>
+	</div>
+</div>
+
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="#/order">我的订单</a></li>
@@ -119,10 +149,9 @@
 						</td>
 						<td><strong>{{g.good_price/100 |currency : "￥"}} </strong></td>
 						<td>{{g.good_num}}</td>
-
 						<td><strong>{{o.order_totalPrice/100 |currency : "￥"}} </strong></td>
-						<td ><a href="#" class="a_btn" ng-if="o.order_status==1">付款</a>
-						 <a class="a_btn starGrade_a" ng-if="o.order_status==3"  ng-click="s_comment(g)">评价</a><a href="#" ng-if="o.order_status==3" class="a_btn">查看终端号</a>
+						<td ><a href="#" class="a_btn" ng-if="o.order_status==1">付款</a> 
+						 <a class="a_btn starGrade_a" ng-if="o.order_status==3"  ng-click="s_comment(g)">评价</a><a href="javascript:void(0)" ng-click="t_comment(g)" ng-if="o.order_status==3" class="a_btn">查看终端号</a>
 						 </td>
 					</tr>
 				</tbody>
@@ -146,23 +175,6 @@
 </div>
 
 	<div class="mask"></div>
-<div class="tab starGrade_tab hide" ng-controller="orderinfoController">
-<span class="glyphicon glyphicon-thumbs-down"></span>
-	<a href="javascript:void(0);" class="close">关闭</a>
-	<div class="tabHead">评价</div>
-	<div class="tabBody" >
-		<div class="halfShow_star"></div>
-		<input type="hidden" value="" id="com_score" ng-model="score" name="score">
-		<input type="hidden" value="" id="com_good_id" ng-model="goodid" name="goodid">
-		<div class="gradeText"> 
-			<textarea name="content"  ng-model="content" cols="" rows=""></textarea>
-		</div>
-	</div>
-	<div class="tabFoot">
-	  <button ng-click="saveContent()" class="orangeBtn" >确定</button>
-	</div>
-</div>
- 
 <script type="text/javascript" src="js/main.js"></script>
 	<!--星型评分插件http://www.wbotelhos.com/raty/-->
 	<script src="js/jquery.raty.js"></script>

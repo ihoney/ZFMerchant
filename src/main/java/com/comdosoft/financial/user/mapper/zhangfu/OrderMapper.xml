@@ -7,6 +7,13 @@
          <result property="urlPath" column="url_path" /> 
 	</resultMap>
 	
+	<resultMap id="terResultMap" type="com.comdosoft.financial.user.domain.zhangfu.Terminal">
+		 <id property="id" column="id" />  
+         <result property="serialNum" column="serial_num" /> 
+         <result property="orderId" column="order_id" /> 
+         <result property="goodId" column="good_id" /> 
+	</resultMap>
+	
 	<resultMap id="goodBrandResultMap" type="com.comdosoft.financial.user.domain.zhangfu.GoodBrand">
 		 <id property="id" column="good_brands_id" />  
          <result property="name" column="name" /> 
@@ -241,6 +248,9 @@
 		crm.order_id = #{id}
 	</select>
 	
+	  <select id="getTerminsla" resultMap="terResultMap" >
+		select  t.serial_num from terminals t where t.order_id=#{param1} and t.good_id=#{param2}
+	</select>
   
     
 	<!-- gch end -->
