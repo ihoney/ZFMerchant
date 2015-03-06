@@ -14,6 +14,19 @@
 		
 	</select>
 	
+	<select id="wxlist" resultType="map">
+	SELECT
+		cr.`status`
+	FROM
+		cs_repairs cr
+	WHERE
+		cr.`status` != 1
+		AND cr.customer_id =#{customer_id}
+	ORDER BY
+		cr.created_at DESC
+		LIMIT 0,2
+	</select>
+	
 	<select id="countSearch" resultType="int" >
 		SELECT count(o.id) as count 
 		FROM

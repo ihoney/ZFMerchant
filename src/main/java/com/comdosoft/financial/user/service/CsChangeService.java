@@ -109,4 +109,8 @@ public class CsChangeService {
         }
         return list;
     }
+    
+    public List<Map<String, Object>> wxlist(MyOrderReq myOrderReq) {
+        return csChangeMapper.wxlist(myOrderReq);
+    }
 }

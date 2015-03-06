@@ -117,4 +117,8 @@ public class CsReturnService {
         List<Map<String, Object>> list = putDate(o);
         return new Page<List<Object>>(request, list,count);
     }
+
+    public List<Map<String, Object>> wxlist(MyOrderReq myOrderReq) {
+        return csReturnMapper.wxlist(myOrderReq);
+    }
 }

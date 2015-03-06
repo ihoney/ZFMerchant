@@ -24,4 +24,6 @@ public interface CsChangeMapper {
     int countSearch(MyOrderReq myOrderReq);
 
     void changeStatus(MyOrderReq myOrderReq);
+    
+    List<Map<String, Object>> wxlist(MyOrderReq myOrderReq);
 }

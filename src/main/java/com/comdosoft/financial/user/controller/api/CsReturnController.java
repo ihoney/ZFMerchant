@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -108,8 +109,21 @@ public class CsReturnController {
         }catch(NullPointerException e){
             return Response.buildErrorWithMissing();
         }catch(Exception e){
-            logger.debug("获取我的订单列表出错"+e);
             return Response.getError("请求失败");
         }
     }
+    
+    @RequestMapping(value="wxlist" ,method=RequestMethod.POST)
+    public Response wxlist(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            List<Map<String,Object>> centers = csReturnService.wxlist(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
+        }catch(Exception e){
+            return Response.getError("请求失败");
+        }
+    }
+    
+    
 }

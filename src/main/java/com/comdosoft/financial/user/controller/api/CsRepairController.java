@@ -145,4 +145,16 @@ public class CsRepairController {
             return Response.getError("请求失败");
         }
     }
+    
+    @RequestMapping(value="wxlist" ,method=RequestMethod.POST)
+    public Response wxlist(@RequestBody MyOrderReq myOrderReq) {
+        try{
+            List<Map<String,Object>> centers = csRepairService.wxlist(myOrderReq);
+            return Response.getSuccess(centers);
+        }catch(NullPointerException e){
+            return Response.buildErrorWithMissing();
+        }catch(Exception e){
+            return Response.getError("请求失败");
+        }
+    }
 }
