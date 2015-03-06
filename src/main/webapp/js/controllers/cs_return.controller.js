@@ -66,6 +66,33 @@ var cs_returnController = function ($scope, $http, LoginService) {
 			$("#serverErrorModal").modal({show: true});
 		});
 	};
+	// 关闭
+	$scope.close_wlxx = function() {
+		$(".tab").css('display', 'none');
+	};
+	// 打开
+	$scope.click_wlxx = function(o) {
+		$("#info_id").val(o.id);
+		$(".tab").css('display', 'block');
+	};
+	// 提交
+	$scope.save_wlxx = function() {
+		var id = $("#info_id").val();
+		$scope.req.id = id;
+		$scope.req.computer_name = $scope.computer_name;
+		$scope.req.track_number = $scope.track_number;
+		$scope.req.customer_id = 80;
+
+		$http.post("api/return/addMark", $scope.req).success(function(data) {
+			if (data.code == 1) {
+				$(".tab").css('display', 'none');
+			}
+		}).error(function(data) {
+			$("#serverErrorModal").modal({
+				show : true
+			});
+		});
+	};
     $scope.orderlist();
 };
 

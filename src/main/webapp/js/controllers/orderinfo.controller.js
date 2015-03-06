@@ -34,7 +34,6 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
     	$scope.req.customer_id = 80;
     	
     	$http.post("api/order/saveComment", $scope.req).success(function (data) {  
-    		console.log("save comment");
     		if (data.code==1) {
     			 $(".tab").css('display','none');
     		}

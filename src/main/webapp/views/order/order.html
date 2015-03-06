@@ -87,12 +87,9 @@
 							<strong ng-if="o.order_status==5" class="strong_status">已取消</strong> 
 							<strong ng-if="o.order_status==6" class="strong_status">交易关闭</strong>
 						</td>
-						<td ng-if="o.order_status==1"><a href="#" class="a_btn">付款</a> <a href="#" class="a_btn">取消</a> <a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
-						<td ng-if="o.order_status==2"><a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
-						<td ng-if="o.order_status==3"><a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
-						<td ng-if="o.order_status==4"><a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
-						<td ng-if="o.order_status==5"><a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
-						<td ng-if="o.order_status==6"><a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
+						<td ><a href="#" ng-if="o.order_status==1" class="a_btn">付款</a> 
+						<a href="javascript:void(0)" ng-click="cancelApply(o.order_id)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="o.order_status==1" class="a_btn">取消</a>
+						<a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
  					</tr>
 					
 				</tbody>

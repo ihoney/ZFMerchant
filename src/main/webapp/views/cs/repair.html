@@ -1,5 +1,18 @@
 <script type="text/javascript" src="js/controllers/cs_repair.controller.js"></script>
 <div class="right" ng-controller="cs_repairController">
+ <div class="tab logistics_tab hide"  >
+    	<a href="javascript:void(0);" class="close" ng-click="close_wlxx()">关闭</a>
+    	<div class="tabHead">物流信息</div>
+        <div class="tabBody">
+            <div class="item_list">
+            	<ul>
+                	<li><span class="labelSpan">物流公司</span><div class="text"><input name="computer_name" ng-model="computer_name" type="text" /></div></li>
+                    <li><span class="labelSpan">物流单号</span><div class="text"><input name="track_number" ng-model="track_number" type="text" /></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tabFoot"><button class="orangeBtn" ng-click="save_wlxx()">确定</button></div>
+    </div> 
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="#">售后记录</a></li>
@@ -51,6 +64,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="o in list">
+						<input type="hidden" value="" name="info_id" id="info_id" >
 						<td>{{o.apply_num}}</td>
 						<td>{{o.create_time}}</td>
 						<td>{{o.terminal_num}}<br />{{o.brand_name}} {{o.brand_number}} {{o.zhifu_pingtai}}
@@ -65,6 +79,7 @@
 						</td>
 						<td><a href="#/cs_repairinfo?infoId={{o.id}}" class="a_btn">查看详情</a>
 						 <a href="javascript:void(0)" ng-click="cancelApply(o)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="o.status==1" class="a_btn">取消</a>
+						 <a href="javascript:void(0)" ng-click="click_wlxx(o)"   ng-if="o.status==2" class="a_btn">提交物流信息</a>
 						 <a href="javascript:void(0)" ng-click="resubmitCancel(o)" onClick="if(confirm('是否重新提交？'))return true;return false;" ng-if="o.status==5" class="a_btn">重新提交</a></td>
 					</tr>
 				</tbody>
@@ -81,5 +96,9 @@
 			</div>
 		</div>
 	</div>
-
+   
 </div>
+	<div class="mask"></div>
+   <script type="text/javascript" src="js/main.js"></script>
+
+ 
