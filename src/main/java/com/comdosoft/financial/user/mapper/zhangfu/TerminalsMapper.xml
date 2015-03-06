@@ -113,7 +113,7 @@
 
 	<select id="getRate" parameterType="int" resultType="map">
 		SELECT
-		s.id,s.terminal_rate,d.trade_value,y.service_rate,t.base_rate,l.`status`
+		s.id,s.terminal_rate,d.trade_type,d.trade_value,y.service_rate,t.base_rate,l.`status`
 		FROM terminals t LEFT JOIN
 		support_trade_types s ON t.pay_channel_id = s.pay_channel_id
 		LEFT JOIN dictionary_trade_types d ON d.id = s.trade_type_id

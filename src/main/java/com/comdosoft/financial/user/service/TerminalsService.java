@@ -48,6 +48,7 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
+		System.out.println("用户地址："+id);
 		return terminalsMapper.getCustomerAddress(id);
 	}
 	
