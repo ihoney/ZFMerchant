@@ -22,6 +22,7 @@ var payController = function($scope, $http,$location) {
             		$scope.pay=false;
             		$scope.payway=data.result.paytype;
             	}
+            	
             }
         });
 	};
@@ -49,14 +50,20 @@ var payController = function($scope, $http,$location) {
 		}
 	}
 	$scope.finish= function(){
-		if(1==1){
-			$('#payTab').hide();
-			$('.mask').hide();
-			$scope.pay=false;
-			//window.location.href = '#/pay_success?id='+$scope.req.id;
-		}else{
-			alert("支付失败")
-		}
+		$http.post("api/order/payOrder", $scope.req).success(function (data) {  //绑定
+            if (data.code==1) {
+            	$scope.order=data.result;
+            	if(data.result.paytype>0){
+            		$scope.pay=false;
+            		$scope.payway=data.result.paytype;
+            		$('#payTab').hide();
+            		$('.mask').hide();
+            	}else{
+            		alert("尚未支付,如有疑问请联系888-88888");
+            	}
+            	
+            }
+        });
 	};
 	$scope.init();
 };

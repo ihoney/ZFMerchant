@@ -192,6 +192,7 @@ public class AlipaySubmit {
      * @throws DocumentException
      * @throws MalformedURLException
      */
+    @SuppressWarnings("unchecked")
 	public static String query_timestamp() throws MalformedURLException,
                                                         DocumentException, IOException {
 

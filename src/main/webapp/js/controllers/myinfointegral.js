@@ -36,7 +36,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 			$scope.integral.customerId = 80;
 			$http.post("api/customers/insertIntegralConvert", $scope.integral).success(function(data) {
 				if (data.code == 1) {
-					$scope.init();
+					$(".close").click();
 				} else {
 					alert(data.message);
 				}

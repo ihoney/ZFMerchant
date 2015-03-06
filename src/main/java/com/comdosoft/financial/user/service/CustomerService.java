@@ -74,7 +74,7 @@ public class CustomerService {
     public void insertIntegralConvert(Map<Object, Object> param) {
         Map<Object, Object> sysconfig = customerMapper.getSysConfig(SysConfig.PARAMNAME_INTEGRALCONVERT);
         BigDecimal paramValue = new BigDecimal((String) sysconfig.get("param_value"));
-        BigDecimal price = new BigDecimal((int) param.get("price"));
+        BigDecimal price = new BigDecimal(Integer.parseInt(param.get("price").toString()));
         BigDecimal quantity = price.divide(paramValue);
         Date now = new Date();
         param.put("createdAt", now);

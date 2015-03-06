@@ -97,17 +97,14 @@
 	<select id="getApplyDetails" parameterType="int" resultType="map">
 		SELECT t.id,t.serial_num,t.`status`,g.model_number,b.name as
 		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.`name` as channelName,l.`status` as applieStatus
-		FROM
-		terminals t LEFT JOIN goods g on t.good_id=g.id
+		FROM terminals t 
+		LEFT JOIN order_goods o on o.order_id = t.order_id
+		LEFT JOIN goods g on o.good_id=g.id
 		LEFT JOIN good_brands b on g.good_brands_id=b.id
 		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
-		LEFT JOIN factories a ON
-		c.factory_id=a.id
-		LEFT JOIN merchants m ON
-		t.merchant_id=m.id
-		LEFT JOIN order_goods o ON t.good_id=o.good_id
-		LEFT JOIN orders e ON
-		o.order_id=e.id
+		LEFT JOIN factories a ON c.factory_id=a.id
+		LEFT JOIN merchants m ON t.merchant_id=m.id
+		LEFT JOIN orders e ON t.order_id=e.id
 		LEFT JOIN opening_applies l ON l.terminal_id = t.id
 		WHERE t.id=#{id}
 		AND
@@ -116,7 +113,7 @@
 
 	<select id="getRate" parameterType="int" resultType="map">
 		SELECT
-		s.id,s.terminal_rate,d.trade_value,y.service_rate,t.base_rate,l.`status`
+		s.id,s.terminal_rate,d.trade_type,d.trade_value,y.service_rate,t.base_rate,l.`status`
 		FROM terminals t LEFT JOIN
 		support_trade_types s ON t.pay_channel_id = s.pay_channel_id
 		LEFT JOIN dictionary_trade_types d ON d.id = s.trade_type_id
