@@ -32,6 +32,14 @@ public interface TerminalsMapper {
     List<Map<Object, Object>> getCustomerAddress(int customerId);
     
     /**
+     * <!-城市级联 -->
+     * 
+     * @param 
+     * @return
+     */
+    List<Map<Object, Object>> getCities();
+    
+    /**
      * 根据用户id获得终端列表
      * 
      * @param map
@@ -54,6 +62,14 @@ public interface TerminalsMapper {
      * @return
      */
     void subRepair(Map<Object, Object> map);
+    
+    /**
+     * 申请退货添加
+     * 
+     * @param map
+     * @return
+     */
+    void subReturn(Map<Object, Object> map);
     
     /**
      * 申请换货添加

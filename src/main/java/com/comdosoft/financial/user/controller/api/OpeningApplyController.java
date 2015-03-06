@@ -136,7 +136,7 @@ public class OpeningApplyController {
 	}
 
 	/**
-	 * 对公对私材料名称
+	 * 对公对私材料名称(0 对公， 1对私)
 	 * 
 	 * @param id
 	 * @param status

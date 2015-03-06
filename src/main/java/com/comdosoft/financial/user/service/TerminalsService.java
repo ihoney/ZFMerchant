@@ -48,10 +48,20 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
-		System.out.println("用户地址："+id);
 		return terminalsMapper.getCustomerAddress(id);
 	}
 	
+	/**
+	 * 城市级联
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Map<Object, Object>> getCities() {
+		return terminalsMapper.getCities();
+	}
 	/**
 	 *申请维修添加地址
 	 * 
@@ -80,6 +90,18 @@ public class TerminalsService {
 	 */
 	public void subRepair(Map<Object, Object> map) {
 		terminalsMapper.subRepair(map);
+	}
+	
+	/**
+	 *添加退货
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public void subReturn(Map<Object, Object> map) {
+		terminalsMapper.subReturn(map);
 	}
 	
 	/**

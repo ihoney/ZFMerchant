@@ -5,10 +5,11 @@ var terminalRentalReturnModule = angular.module("terminalRentalReturnModule",[])
 
 var terminalRentalReturnController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=$location.search()['terminalId'];
+	$scope.customerId = 80;
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		
-      $http.post("api/terminal/getApplyToUpdate", {terminalsId:$scope.terminalId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getApplyToUpdate", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;

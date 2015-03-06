@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
@@ -114,7 +114,7 @@ public class TerminalsController {
 			map.put("applyDetails",
 					terminalsService.getApplyDetails(maps.get("terminalsId")));
 			map.put("tenancy", terminalsService.getTenancy(maps.get("terminalsId")));
-			//获得注销模板路径
+			//获得模板路径
 			map.put("ReModel", terminalsService.getModule(maps.get("terminalsId"),1));
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress(maps.get("customerId")));
@@ -132,6 +132,31 @@ public class TerminalsController {
 	 */
 	@RequestMapping(value = "subLeaseReturn", method = RequestMethod.POST)
 	public Response subLeaseReturn(@RequestBody Map<Object, Object> maps) {
+		try {
+			CsCancel csCancel =new CsCancel();
+			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+			csCancel.setStatus((Integer)maps.get("status"));
+			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
+			csCancel.setTypes((Integer)maps.get("type"));
+			csCancel.setCustomerId((Integer)maps.get("customerId"));
+			//先注销
+			terminalsService.subRentalReturn(csCancel);
+			maps.put("csCencelId", csCancel.getId());
+			terminalsService.subLeaseReturn(maps);
+			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 提交退货申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "subReturn", method = RequestMethod.POST)
+	public Response subReturn(@RequestBody Map<Object, Object> maps) {
 		try {
 			CsCancel csCancel =new CsCancel();
 			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
@@ -242,7 +267,10 @@ public class TerminalsController {
 					terminalsService.getApplyDetails(maps.get("terminalsId")));
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants(maps.get("customerId")));
-			
+			// 获得材料等级
+			map.put("MaterialLevel", openingApplyService.getMaterialLevel(maps.get("terminalsId")));
+			//城市级联
+			map.put("Cities", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -383,16 +411,14 @@ public class TerminalsController {
 	 * @param paramMap
 	 */
 	@RequestMapping(value = "addOpeningApply", method = RequestMethod.POST)
-	@ResponseBody
-	public Response addOpeningApply(
-			@RequestBody List<Map<String, Object>> paramMap) {
+	public Response addOpeningApply(@RequestBody List<Map<String, Object>> paramMap) {
 		try {
 			OpeningApplie openingApplie = new OpeningApplie();
 			Integer status = null;
 			String openingAppliesId = null;
 			Integer terminalId = null;
 			String key = null;
-			String value = null;
+			Object value = null;
 			Integer types = null;
 			int i = 0;
 			int y = 0;
@@ -400,7 +426,7 @@ public class TerminalsController {
 				Set<String> keys = map.keySet();
 				if (y == 0) {
 					status = (Integer) map.get("status");
-					terminalId = (Integer) map.get("terminalId");
+					terminalId = Integer.parseInt((String)map.get("terminalId"));
 					if (status == 2) {
 						openingAppliesId = String.valueOf(openingApplyService
 								.getApplyesId(terminalId));
@@ -408,10 +434,27 @@ public class TerminalsController {
 						openingApplyService.deleteOpeningInfos(Integer
 								.valueOf(openingAppliesId));
 					} else {
-						openingApplie.setTerminalId((Integer) map
-								.get("terminalId"));
+						openingApplie.setTerminalId(Integer.parseInt((String) map
+								.get("terminalId")));
 						openingApplie.setApplyCustomerId((Integer) map
 								.get("applyCustomerId"));
+						openingApplie.setStatus((Integer) map
+								.get("status"));
+						openingApplie.setMerchantId((Integer) map
+								.get("merchantId"));
+						openingApplie.setMerchantName((String) map
+								.get("merchantName"));
+						openingApplie.setSex((Integer) map
+								.get("sex"));
+						openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
+						openingApplie.setCardId((String) map
+								.get("cardId"));
+						openingApplie.setPhone((String) map
+								.get("phone"));
+						openingApplie.setEmail((String) map
+								.get("email"));
+						openingApplie.setCityId((Integer) map
+								.get("cityId"));
 						openingApplyService.addOpeningApply(openingApplie);
 						openingAppliesId = String
 								.valueOf(openingApplie.getId());
@@ -421,7 +464,7 @@ public class TerminalsController {
 						if (i == 0)
 							key = (String) map.get(str);
 						if (i == 1)
-							value = (String) map.get(str);
+							value =  map.get(str);
 						if (i == 2)
 							types = (Integer) map.get(str);
 						i++;
@@ -432,6 +475,25 @@ public class TerminalsController {
 				y++;
 			}
 			return Response.getSuccess("添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 对公对私材料名称(0 对公， 1对私)
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value = "getMaterialName", method = RequestMethod.POST)
+	public Response getMaterialName(@RequestBody Map<String, Integer> map) {
+		try {
+			return Response.getSuccess(openingApplyService.getMaterialName(
+					map.get("terminalId")
+					,map.get("status")));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");

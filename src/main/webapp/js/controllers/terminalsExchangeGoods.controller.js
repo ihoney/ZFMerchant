@@ -15,7 +15,7 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
               $scope.applyDetails = data.result.applyDetails;
             //用户收货地址
               $scope.addressList = data.result.address;
-              //注销模板
+              //下载模板
               $scope.ReModel = data.result.ReModel;
           }
       }).error(function (data) {

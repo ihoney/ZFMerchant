@@ -77,6 +77,13 @@ public interface OpeningApplyMapper {
 	List<Merchant> getMaterialName(Map<Object, Object> map);
 	
 	/**
+	 * 查看该终端材料等级个数
+	 * @param id
+	 * @return
+	 */
+	List<Map<Object, Object>> getMaterialLevel(int terminalsId);
+	
+	/**
 	 * 获得申请表的id
 	 * @param id
 	 * @return

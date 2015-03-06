@@ -46,6 +46,18 @@ public class OpeningApplyService {
 	public Map<String, Object> getApplyDetails(Integer id) {
 		return openingApplyMapper.getApplyDetails(id);
 	}
+	
+	/**
+	 * 获得终端材料等级个数
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<Map<Object, Object>> getMaterialLevel( int terminalsId) {
+		return openingApplyMapper.getMaterialLevel(terminalsId);
+	}
+	
+	
 
 	/**
 	 * 获得所有商户列表
@@ -89,7 +101,7 @@ public class OpeningApplyService {
 	 * 
 	 * @param map
 	 */
-	public void addApply(String key, String value,Integer types, String openingAppliesId) {
+	public void addApply(String key, Object value,Integer types, String openingAppliesId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("key", key);
 		map.put("value", value);

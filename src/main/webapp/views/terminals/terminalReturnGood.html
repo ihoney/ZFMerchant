@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/controllers/terminalsReturnGood.controller.js"></script>
+<script src="js/jquery.form.min.js"></script>
 <div class="right" ng-controller="terminalReturnGoodController">
             	<div class="breadcrumb">
                     <ul>
@@ -27,7 +28,7 @@
                          <div class="ab_b">
                             <dl>
                             	<dt>退货原因：</dt>
-                                <dd><input name="" type="text" /></dd>
+                                <dd><input name="" type="text" ng-model="reason"/></dd>
                             </dl>
                             <dl>
                             	<dt>退款金额：</dt>
@@ -47,25 +48,21 @@
                     <div class="attributes_box">
                     	<h2>更新申请资料</h2>
                         <div class="applyFor_list clear">
-                           <div class="af_con">
-                            	<div class="af_con_n">1.注销申请资料01 <a href="#" class="a_btn">下载模版</a></div>
-                                <div class="af_con_b"><i class="on"></i>
+                           <div class="af_con" ng-repeat="re in ReModel">
+                            	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn">下载模版</a></div>
+                                <div class="af_con_b">
+                                <form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                <i></i>
                                 	<a href="javascript:void(0);" class="informImg_a">
-                                        <span>重新上传</span><input name="" multiple type="file">
+                                        <span>上传</span>
+                                        <input type="text" id="b1"/>
+                                        <input name="img" multiple type="file" onchange="setSpanName(this,'a1','b1')">
                                     </a>
-                                </div>
-                           </div>
-                           <div class="af_con">
-                            	<div class="af_con_n">2.注销申请资料02 <a href="#" class="a_btn">下载模版</a></div>
-                                <div class="af_con_b"><i></i>
-                                	<a href="javascript:void(0);" class="informImg_a">
-                                        <span>上传</span><input name="" multiple type="file">
-                                    </a>
+                                    </form>
                                 </div>
                            </div>
                         </div>
-                        
                     </div>
-                    <div class="btnBottom"><button class="orangeBtn">提交申请</button></div>
+                    <div class="btnBottom"><button class="orangeBtn" ng-click="subReturn()">提交申请</button></div>
             	</div>
         	</div>

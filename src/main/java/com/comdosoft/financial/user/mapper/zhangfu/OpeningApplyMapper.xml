@@ -9,8 +9,8 @@
  	</insert>
  	
  	<insert id="addOpeningApply" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
-		INSERT INTO `opening_applies` (`apply_customer_id`,`terminal_id`) 
-		VALUES (#{applyCustomerId},#{terminalId});
+		INSERT INTO `opening_applies` (`apply_customer_id`,`terminal_id`,`status`,`created_at`,`updated_at`,`types`,`merchant_id`,`merchant_name`,`sex`,`birthday`,`card_id`,`phone`,`email`,`city_id`) 
+		VALUES (#{applyCustomerId},#{terminalId},#{status},now(),now(),#{types},#{merchantId},#{merchantName},#{sex},#{birthday},#{cardId},#{phone},#{email},#{cityId});
  	</insert>
  
  	<select id="getApplyList" parameterType="map" resultType="map">
@@ -50,6 +50,13 @@
 		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id
 		where t.id=#{terminalsId} AND l.requirement_type=#{status}
 		)
+ 	</select>
+ 	
+ 	<select id="getMaterialLevel" resultType="map" parameterType="int">
+ 		select o.*
+		from terminals t 
+		LEFT JOIN opening_requirements o on t.pay_channel_id = o.pay_channel_id 
+		where t.id=#{terminalsId} 
  	</select>
  	
  	<select id="ReApplyFor" parameterType="int" resultType="map">

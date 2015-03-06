@@ -1,9 +1,8 @@
-function showImage(obj1,boj2,obj3) { 
-	document.getElementById(obj1).innerHTML="重新上传";
-	
-	$('#'+boj2).ajaxSubmit({
+function showImage(obj) { 
+	$(obj).parent("a").children("span").html("重新上传")
+	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			$('#'+obj3).val(data.result);
+			$(obj).siblings("input").val(data.result);
 		}
 	});
 }
@@ -25,9 +24,7 @@ function infoTab(i_tab,i_box){
 			$(i_box).css({'top':0+'px', 'left':0+'px'});
 		}
 	);
-	
 }
-
 $(document).ready(function(){
 		infoTab('.cover','.img_info');//首页设置弹出框
 })

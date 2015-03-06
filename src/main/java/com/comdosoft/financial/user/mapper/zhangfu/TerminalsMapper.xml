@@ -40,6 +40,11 @@
 		INSERT into cs_changes(terminal_id,status,receive_address_id,templete_info_xml,created_at,updated_at,reason,customer_id,should_cancel,cs_cencel_id,apply_num,return_address_id)
 		VALUES(#{terminalsId},#{status},#{receiveAddressId},#{templeteInfoXml},now(),now(),#{reason},#{customerId},1,#{csCencelId},unix_timestamp(now()),#{returnAddressId})
 	</insert>
+	
+	<insert id="subReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+		INSERT INTO cs_returns(terminal_id,status,return_price,reason,should_cencel,cs_cencel_id,customer_id,created_at,updated_at,apply_num,cs_return_marks_id)
+		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()),,#{templeteInfoXml})
+	</insert>
 
 	<!-- 查询交易流水用 -->
 	<select id="getTerminals" resultType="map">
@@ -92,6 +97,10 @@
 		SELECT o.* 
 		FROM terminals t LEFT JOIN other_requirements o ON t.pay_channel_id = o.pay_channel_id
 		where t.id = #{terminalsId} and o.types = #{type}
+	</select>
+	
+	<select id="getCities"  resultType="map">
+		SELECT * FROM cities 
 	</select>
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
