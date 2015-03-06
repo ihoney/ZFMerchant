@@ -63,8 +63,9 @@ public class MessageReceiverService {
         messageReceiverMapper.batchUpdate(myOrderReq);
     }
 
-//    public void isRead(String id) {
-//        messageReceiverMapper.isRead(id);
-//    }
+    public List<Map<String,Object>> getServerDynamic(MyOrderReq myOrderReq) {
+        List<Map<String,Object>> list = messageReceiverMapper.getServerDynamic(myOrderReq);
+        return list;
+    }
 
 }

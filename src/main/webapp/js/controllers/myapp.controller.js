@@ -36,7 +36,7 @@ var myappController = function ($scope, $http, LoginService) {
 					var data_sum =  new Array();
 					for(var i=0;i<myobj.length;i++){
 						var s = myobj[i].tread_sum;
-						data_sum[i]=s;
+						data_sum[i]=s/100;
 					} 
 			         
 			         var barChartData = {

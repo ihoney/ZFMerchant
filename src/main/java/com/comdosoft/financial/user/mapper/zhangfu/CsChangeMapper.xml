@@ -124,7 +124,7 @@
 	
 	<update id="cancelApply">
 	update  cs_changes 
-	SET STATUS = #{repairStatus.code}
+	SET STATUS = #{repairStatus.code},updated_at = NOW()
 	where id = #{id}
 	</update>
 	
@@ -136,7 +136,7 @@
     
     <update id="changeStatus">
 	update  cs_changes 
-	SET STATUS = #{updateStatus.code}
+	SET STATUS = #{updateStatus.code},updated_at = NOW()
 	where id = #{id}
 	</update>
 </mapper>

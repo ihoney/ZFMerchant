@@ -29,6 +29,13 @@
 		order by s.created_at desc
 		LIMIT #{offset},#{pageSize}
 	</select>
+	
+	<select id="getServerDynamic" resultType="map">
+		SELECT m.id,m.customer_id,m.status,s.id as sid,s.title,s.content,s.created_at
+		FROM  message_receivers m left join sys_messages s  on m.sys_message_id = s.id
+		where m.customer_id = #{customer_id}
+		order by s.created_at desc
+	</select>
 
 <select id="findById" resultMap="sysMessage">
 		SELECT s.id,s.title,s.content,s.created_at

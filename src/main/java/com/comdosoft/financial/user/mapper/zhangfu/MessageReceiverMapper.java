@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.mapper.zhangfu;
 
 import java.util.List;
+import java.util.Map;
 
 import com.comdosoft.financial.user.domain.zhangfu.MessageReceiver;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
@@ -24,5 +25,7 @@ public interface MessageReceiverMapper {
     void batchUpdate(MyOrderReq myOrderReq );
 
     void isRead(MyOrderReq myOrderReq);
+
+    List<Map<String, Object>> getServerDynamic(MyOrderReq myOrderReq);
 
 }

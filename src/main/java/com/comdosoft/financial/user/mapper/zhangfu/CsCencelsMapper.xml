@@ -121,13 +121,13 @@
 	
 	<update id="changeStatus">
 	update  cs_cancels 
-	SET STATUS = #{updateStatus.code}
+	SET STATUS = #{updateStatus.code},updated_at = NOW()
 	where id = #{id}
 	</update>
 	
 	<update id="cancel">
 	update  cs_cancels 
-	SET STATUS = #{repairStatus.code}
+	SET STATUS = #{repairStatus.code},updated_at = NOW()
 	where id = #{id}
 	</update>
 	

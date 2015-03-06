@@ -2,6 +2,7 @@ package com.comdosoft.financial.user.controller.api;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -99,5 +100,12 @@ public class MessageReceiverController {
             logger.debug("根据ids[]批量设置我的消息已读 出错"+e);
             return Response.getError("请求失败");
         }
+    }
+    
+    @RequestMapping(value="getServerDynamic",method=RequestMethod.POST)
+    public Response getServerDynamic(@RequestBody MyOrderReq myOrderReq){
+        List<Map<String,Object>> ts = messageReceiverService.getServerDynamic(myOrderReq);
+        Response rs = Response.buildSuccess(ts, "");
+        return rs;
     }
 }
