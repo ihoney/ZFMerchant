@@ -1,0 +1,141 @@
+<script type="text/javascript" src="js/controllers/traderecord.js"></script>
+<div class="right" ng-controller="traderecordController">
+	<div class="breadcrumb">
+		<ul>
+			<li><a href="#">交易流水</a></li>
+			<li><a href="#">转账</a></li>
+		</ul>
+	</div>
+	<div class="content clear">
+		<div class="dealNav">
+			<a href="javascript:void(0);" class="dn_prev">上一页</a>
+			<div class="dealNavBox">
+				<ul class="li_show">
+					<li><a href="#" class="hover">转账</a></li>
+					<li><a href="#">还款</a></li>
+					<li><a href="#">消费</a></li>
+					<li><a href="#">话费充值</a></li>
+					<li><a href="#">生活充值</a></li>
+				</ul>
+			</div>
+			<a href="javascript:void(0);" class="dn_next">下一页</a>
+		</div>
+
+		<div class="user_title">
+			<h1>转账交易流水</h1>
+		</div>
+		<div class="seenBox clear">
+			<ul>
+				<li><div class="user_select">
+						<label>选择终端</label><select ng-model="terminalNumber" ng-options="t.serialNum for t in terminals"></select>
+					</div></li>
+				<li><div class="user_date">
+						<label>选择日期</label><input type="text" ng-model="startTime"/>&nbsp;-&nbsp;<input type="text" ng-model="endTime"/>
+					</div></li>
+				<li><button class="ghostBtn" ng-click="search()">搜索</button></li>
+			</ul>
+		</div>
+		<div class="user_statistics">
+			2014年12月1日~2014年12月31日&nbsp;转账交易共&nbsp;<strong>6</strong>&nbsp;笔&nbsp;交易金额总计&nbsp;<strong>￥4200.00</strong>
+		</div>
+		<div class="user_table">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
+				<colgroup>
+					<col />
+					<col />
+					<col />
+					<col width="200" />
+					<col />
+					<col />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>交易号</th>
+						<th>交易时间</th>
+						<th>终端号</th>
+						<th>交易金额</th>
+						<th>手续费</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>123654789</td>
+						<td>2014/12/12 20:20:20</td>
+						<td>AF456699452</td>
+						<td><strong>￥485.00</strong></td>
+						<td><strong>￥10.00</strong></td>
+						<td><strong class="strong_status">已完成</strong></td>
+						<td><a href="#" class="a_btn">查看详情</a></td>
+					</tr>
+					<tr>
+						<td>123654789</td>
+						<td>2014/12/12 20:20:20</td>
+						<td>AF456699452</td>
+						<td><strong>￥485.00</strong></td>
+						<td><strong>￥10.00</strong></td>
+						<td><strong class="strong_status">已完成</strong></td>
+						<td><a href="#" class="a_btn">查看详情</a></td>
+					</tr>
+					<tr>
+						<td>123654789</td>
+						<td>2014/12/12 20:20:20</td>
+						<td>AF456699452</td>
+						<td><strong>￥485.00</strong></td>
+						<td><strong>￥10.00</strong></td>
+						<td><strong class="strong_status">已完成</strong></td>
+						<td><a href="#" class="a_btn">查看详情</a></td>
+					</tr>
+					<tr>
+						<td>123654789</td>
+						<td>2014/12/12 20:20:20</td>
+						<td>AF456699452</td>
+						<td><strong>￥485.00</strong></td>
+						<td><strong>￥10.00</strong></td>
+						<td><strong class="strong_status">已完成</strong></td>
+						<td><a href="#" class="a_btn">查看详情</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="pageTurn">
+			<div class="p_num">
+				<a href="#" class="disabled">上一页</a> <a href="#" class="current">1</a> <a href="#?page=2">2</a> <a href="#?page=3">3</a> <a href="#?page=4">4</a> <a href="#?page=5">5</a> ... <a href="#?page=199">199</a> <a href="#?page=200">200</a> <a href="#?page=2">下一页</a>
+			</div>
+			<div class="p_skip">
+				<span>共24页</span> <span>到第&nbsp;&nbsp;<input name="" type="text" />&nbsp;&nbsp;页
+				</span>
+				<button>确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<link href="style/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".user_date input").datepicker();
+	});
+	jQuery(function($) {
+		$.datepicker.regional['zh-CN'] = {
+			closeText : '关闭',
+			prevText : '<上月',
+			nextText: '下月>',
+			currentText : '今天',
+			monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+			monthNamesShort : [ '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二' ],
+			dayNames : [ '星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六' ],
+			dayNamesShort : [ '周日', '周一', '周二', '周三', '周四', '周五', '周六' ],
+			dayNamesMin : [ '日', '一', '二', '三', '四', '五', '六' ],
+			weekHeader : '周',
+			dateFormat : 'yy-mm-dd',
+			firstDay : 1,
+			isRTL : false,
+			showMonthAfterYear : true,
+			yearSuffix : '年'
+		};
+		$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+	});
+</script>
