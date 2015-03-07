@@ -32,7 +32,7 @@
                             </dl>
                             <dl>
                             	<dt>退款金额：</dt>
-                                <dd><strong>￥458.00</strong></dd>
+                                <dd><strong ng-model="returnPrice">￥458.00</strong></dd>
                             </dl>
                             <dl>
                             	<dt>联系人：</dt>
@@ -49,14 +49,15 @@
                     	<h2>更新申请资料</h2>
                         <div class="applyFor_list clear">
                            <div class="af_con" ng-repeat="re in ReModel">
+                           <input type="hidden" value="0" id="modelStatus"/>
                             	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn">下载模版</a></div>
                                 <div class="af_con_b">
-                                <form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                <form  method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 <i></i>
                                 	<a href="javascript:void(0);" class="informImg_a">
                                         <span>上传</span>
-                                        <input type="text" id="b1"/>
-                                        <input name="img" multiple type="file" onchange="setSpanName(this,'a1','b1')">
+                                        <input type="text" id="up_{{$index}}"/>
+                                        <input name="img" multiple type="file" onchange="setSpanName(this)">
                                     </a>
                                     </form>
                                 </div>

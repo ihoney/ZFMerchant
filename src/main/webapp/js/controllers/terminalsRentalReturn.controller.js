@@ -9,7 +9,7 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		
-      $http.post("api/terminal/getApplyToUpdate", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
@@ -25,24 +25,24 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
     //提交退还申请
   	$scope.subRentalReturn = function(obj){
   		
-  		/* $scope.map = {
-  				terminalId : $scope.terminalId,
-  				status : 1,
-  				templeteInfoXml :[{name:$scope.name,phone:$scope.phone,id:1,path:$scope.patch}],
-  				type : 3,
-  				customerId:80
+  		$scope.array = [];
+  		 for(var i=0;i<$scope.ReModel.length;i++){
+  			$scope.array[i] = {
+  					id:$scope.terminalId,
+  					path:$("#up_"+i).val()
+  			};
   		 }
-  		 */
   		
   		 $scope.map = {
    				terminalId : $scope.terminalId,
    				status : 1,
-   				templeteInfoXml :"[{id:1,path:'d:img/patch.tupian.jsp'}]",
+   				templeteInfoXml :$scope.array,
    				type : 3,
-   				customerId:80,
+   				customerId:$scope.customerId,
    				orderTypes : 1,
-   				contact : "张三",
-   				phone : "123123123",
+   				contact : $scope.username,
+   				phone : $scope.phone,
+   				modelStatus : $("#modelStatus").val(),
    				
    		 }
    		 
@@ -66,12 +66,14 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
 };
 
 //改变上传按钮
-function setSpanName(obj,obj1,obj2){
+function setSpanName(obj){
+	//改变下载模板初始状态
+	$("#modelStatus").val(1);
+	$(obj).parent("a").children("span").html("重新上传")
 	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
-	$(obj).siblings("span").html("重新上传")
-	$('#'+obj1).ajaxSubmit({
+	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			$('#'+obj2).val(data.result);
+			$(obj).siblings("input").val(data.result);
 		}
 	});
 }

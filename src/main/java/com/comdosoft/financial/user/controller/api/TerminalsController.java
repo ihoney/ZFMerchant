@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
+import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
@@ -92,7 +93,12 @@ public class TerminalsController {
 			// 开通详情
 			map.put("openingDetails",
 					terminalsService.getOpeningDetails(Integer.parseInt((String)maps.get("terminalsId"))));
-			
+			//获得模板路径
+			map.put("ReModel", terminalsService.getModule(Integer.parseInt((String)maps.get("terminalsId")),1));
+			//获得用户收货地址
+			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
+			//城市级联
+			map.put("Cities", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,18 +113,11 @@ public class TerminalsController {
 	 * @param maps
 	 */
 	@RequestMapping(value = "getApplyToUpdate", method = RequestMethod.POST)
-	public Response getApplyToUpdate(@RequestBody Map<Object, Integer> maps) {
+	public Response getApplyToUpdate(@RequestBody Map<Object, Object> maps) {
 		try {
-			Map<Object, Object> map = new HashMap<Object, Object>();
-			// 获得终端详情
-			map.put("applyDetails",
-					terminalsService.getApplyDetails(maps.get("terminalsId")));
-			map.put("tenancy", terminalsService.getTenancy(maps.get("terminalsId")));
-			//获得模板路径
-			map.put("ReModel", terminalsService.getModule(maps.get("terminalsId"),1));
-			//获得用户收货地址
-			map.put("address", terminalsService.getCustomerAddress(maps.get("customerId")));
-			return Response.getSuccess(map);
+			maps.put("templeteInfoXml", maps.get("templeteInfoXml").toString());
+			terminalsService.subToUpdate(maps);
+			return Response.getSuccess("更新成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -133,16 +132,20 @@ public class TerminalsController {
 	@RequestMapping(value = "subLeaseReturn", method = RequestMethod.POST)
 	public Response subLeaseReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			CsCancel csCancel =new CsCancel();
-			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
-			csCancel.setStatus((Integer)maps.get("status"));
-			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
-			csCancel.setTypes((Integer)maps.get("type"));
-			csCancel.setCustomerId((Integer)maps.get("customerId"));
-			//先注销
-			
-			terminalsService.subRentalReturn(csCancel);
-			maps.put("csCencelId", csCancel.getId());
+			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+				CsCancel csCancel =new CsCancel();
+				csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+				csCancel.setStatus((Integer)maps.get("status"));
+				csCancel.setTempleteInfoXml((maps.get("templeteInfoXml").toString()));
+				csCancel.setTypes((Integer)maps.get("type"));
+				csCancel.setCustomerId((Integer)maps.get("customerId"));
+				//先注销
+				terminalsService.subRentalReturn(csCancel);
+				maps.put("csCencelId", csCancel.getId());
+			}else{
+				maps.put("csCencelId", null);
+			}
+			//退还
 			terminalsService.subLeaseReturn(maps);
 			return Response.getSuccess("操作成功！");
 		} catch (Exception e) {
@@ -159,16 +162,19 @@ public class TerminalsController {
 	@RequestMapping(value = "subReturn", method = RequestMethod.POST)
 	public Response subReturn(@RequestBody Map<Object, Object> maps) {
 		try {
+			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 			CsCancel csCancel =new CsCancel();
-			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalsId")));
 			csCancel.setStatus((Integer)maps.get("status"));
-			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
+			csCancel.setTempleteInfoXml(maps.get("templeteInfoXml").toString());
 			csCancel.setTypes((Integer)maps.get("type"));
 			csCancel.setCustomerId((Integer)maps.get("customerId"));
 			//先注销
 			terminalsService.subRentalReturn(csCancel);
 			maps.put("csCencelId", csCancel.getId());
-			terminalsService.subLeaseReturn(maps);
+			}else{
+				terminalsService.subReturn(maps);
+			}
 			return Response.getSuccess("操作成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,7 +193,7 @@ public class TerminalsController {
 			CsCancel csCancel =new CsCancel();
 			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
 			csCancel.setStatus((Integer)maps.get("status"));
-			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
+			csCancel.setTempleteInfoXml(maps.get("templeteInfoXml").toString());
 			csCancel.setTypes((Integer)maps.get("type"));
 			csCancel.setCustomerId((Integer)maps.get("customerId"));
 			//先注销
@@ -211,7 +217,6 @@ public class TerminalsController {
 			//先添加维修地址表
 			csReceiverAddress = terminalsService.subRepairAddress(maps);
 			maps.put("receiveAddressId", csReceiverAddress.getId());
-			maps.put("receiveAddressId", 56);
 			
 			terminalsService.subRepair(maps);
 			return Response.getSuccess("操作成功！");
@@ -229,18 +234,23 @@ public class TerminalsController {
 	@RequestMapping(value = "subChange", method = RequestMethod.POST)
 	public Response subChange(@RequestBody Map<Object, Object> maps) {
 		try {
-			CsCancel csCancel =new CsCancel();
-			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalsId")));
-			csCancel.setStatus((Integer)maps.get("status"));
-			csCancel.setTempleteInfoXml((String)maps.get("templeteInfoXml"));
-			csCancel.setTypes((Integer)maps.get("type"));
-			csCancel.setCustomerId((Integer)maps.get("customerId"));
-			//先注销
-			terminalsService.subRentalReturn(csCancel);
-			maps.put("csCencelId", csCancel.getId());
+			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+				CsCancel csCancel =new CsCancel();
+				csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalsId")));
+				csCancel.setStatus((Integer)maps.get("status"));
+				csCancel.setTempleteInfoXml((maps.get("templeteInfoXml").toString()));
+				csCancel.setTypes((Integer)maps.get("type"));
+				csCancel.setCustomerId((Integer)maps.get("customerId"));
+				//先注销
+				terminalsService.subRentalReturn(csCancel);
+				maps.put("csCencelId", csCancel.getId());
+			}else{
+				maps.put("csCencelId", null);
+			}
 			
 			CsReceiverAddress csReceiverAddress =new CsReceiverAddress();
 			//先添加换货地址表
+			maps.put("templeteInfoXml", maps.get("templeteInfoXml").toString());
 			csReceiverAddress = terminalsService.subRepairAddress(maps);
 			
 			maps.put("receiveAddressId", csReceiverAddress.getId());
@@ -508,5 +518,24 @@ public class TerminalsController {
 			return Response.getError("请求失败！");
 		}
 	}
-
+	
+	/**
+	 *添加联系地址
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value = "addCostometAddress", method = RequestMethod.POST)
+	public Response addCostometAddress(@RequestBody CustomerAddress customerAddress) {
+		try {
+			customerAddress.setIsDefault(2);
+			terminalsService.addCostometAddress(customerAddress);
+			return Response.getSuccess("添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
 }

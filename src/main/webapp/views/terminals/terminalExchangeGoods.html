@@ -70,25 +70,19 @@
                                   </tr>
                                   <tr class="addAddr_box">
                                     <td>&nbsp;</td>
-                                    <td><input name="" type="text" value="收件人姓名" /></td>
+                                    <td><input name="" type="text" value="收件人姓名" ng-model="receiver"/></td>
                                     <td>
-                                        <select name="">
-                                          <option>省</option>
-                                          <option>江苏省</option>
+                                        <select name="" >
+                                          <option ng-repeat="ci in Cities" ng-if="ci.parent_id == 0" ng-click="changCit(ci.id)">{{ci.name}}</option>
                                         </select>
                                         <select name="">
-                                          <option>市</option>
-                                          <option>南京市</option>
-                                        </select>
-                                        <select name="">
-                                          <option>区/县</option>
-                                          <option>姑苏区</option>
+                                          <option ng-repeat="shi in shiCities" ng-click="shiId(shi.id)">{{shi.name}}</option>
                                         </select>
                                     </td>
-                                    <td><input name="" type="text" value="详细地址" class="l" /></td>
-                                    <td><input name="" type="text" value="邮编" /></td>
-                                    <td><input name="" type="text" value="手机号码" /></td>
-                                    <td><a href="#" class="a_btn">确定</a></td>
+                                    <td><input name="" type="text" value="详细地址" class="l" ng-model="address"/></td>
+                                    <td><input name="" type="text" value="邮编" ng-model="zipCode"/></td>
+                                    <td><input name="" type="text" value="手机号码" ng-model="moblephone"/></td>
+                                    <td><a href="javascript:void(0)" class="a_btn" ng-click="addCostometAddress()">确定</a></td>
                                     <td>&nbsp;</td>
                                   </tr>
                                 </table>
@@ -98,15 +92,16 @@
                     <div class="attributes_box">
                     	<h2>更新申请资料</h2>
                         <div class="applyFor_list clear">
+                        <input type="hidden" id="modelStatus" value="0"/>
                            <div class="af_con" ng-repeat="re in ReModel">
                             	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn">下载模版</a></div>
                                 <div class="af_con_b">
-                                 <form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
+                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 <i></i>
                                 	<a href="javascript:void(0);" class="informImg_a">
-                                        <span>重新上传</span>
-                                        <input type="text" id="b1"/>
-                                        <input  name="img" multiple type="file" onchange="setSpanName(this,'a1','b1')">
+                                        <span>上传</span>
+                                        <input type="text" id="up_{{$index}}"/>
+                                        <input  name="img" multiple type="file" onchange="setSpanName(this)">
                                     </a>
                                     </form>
                                 </div>

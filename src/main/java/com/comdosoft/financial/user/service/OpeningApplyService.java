@@ -92,7 +92,7 @@ public class OpeningApplyService {
 	 * @param id
 	 * @return
 	 */
-	public Merchant getMerchant(Integer merchantId) {
+	public Map<String, String> getMerchant(Integer merchantId) {
 		return openingApplyMapper.getMerchant(merchantId);
 	}
 

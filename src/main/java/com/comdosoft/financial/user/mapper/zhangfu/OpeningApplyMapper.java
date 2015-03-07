@@ -55,7 +55,7 @@ public interface OpeningApplyMapper {
 	 * @param id
 	 * @return
 	 */
-	Merchant getMerchant(Integer id);
+	Map<String, String> getMerchant(Integer id);
 	
 	/**
 	 * 添加开通信息

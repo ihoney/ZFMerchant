@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
+import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 
 /**
@@ -40,6 +41,14 @@ public interface TerminalsMapper {
     List<Map<Object, Object>> getCities();
     
     /**
+     * <!-添加联系地址 -->
+     * 
+     * @param 
+     * @return
+     */
+    void addCostometAddress(CustomerAddress customerAddress);
+    
+    /**
      * 根据用户id获得终端列表
      * 
      * @param map
@@ -62,6 +71,14 @@ public interface TerminalsMapper {
      * @return
      */
     void subRepair(Map<Object, Object> map);
+    
+    /**
+     * 申请更新添加
+     * 
+     * @param map
+     * @return
+     */
+    void subToUpdate(Map<Object, Object> map);
     
     /**
      * 申请退货添加

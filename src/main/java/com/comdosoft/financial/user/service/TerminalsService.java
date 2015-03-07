@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
+import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.mapper.zhangfu.OpeningApplyMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.TerminalsMapper;
@@ -37,6 +38,16 @@ public class TerminalsService {
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
 		return terminalsMapper.getTerminalList(map);
+	}
+	
+	/**
+	 * 添加联系地址
+	 * 
+	 * @param customerAddress
+	 * @return
+	 */
+	public void addCostometAddress(CustomerAddress customerAddress) {
+		 terminalsMapper.addCostometAddress(customerAddress);
 	}
 	
 	/**
@@ -234,6 +245,14 @@ public class TerminalsService {
 	 */
 	public void subLeaseReturn(Map<Object, Object> map){
 		terminalsMapper.subLeaseReturn(map);
+	}
+	
+	/**
+	 * 提交更新申请
+	 * @param map
+	 */
+	public void subToUpdate(Map<Object, Object> map){
+		terminalsMapper.subToUpdate(map);
 	}
 	
 	

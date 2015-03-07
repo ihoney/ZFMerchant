@@ -26,19 +26,19 @@
                     <div class="attributes_box">
                     	<h2>注销申请资料</h2>
                         <div class="applyFor_list clear" ng-repeat="re in ReModel">
-                        	<form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                            <div class="af_con">
                             	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn">下载模版</a></div>
                                 <div class="af_con_b">
+                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 	<i></i>
                                 	<a href="javascript:void(0);" class="informImg_a">
                                         <span>上传</span>
-                                        <input type="text" id="b1"/>
-                                        <input name="img" multiple type="file" onchange="setSpanName(this,'a1','b1')">
+                                        <input type="text" id="up_{{$index}}"/>
+                                        <input name="img" multiple type="file" onchange="setSpanName(this)">
                                     </a>
+                                    </form>
                                 </div>
                            </div>
-                           </form>
                         </div>
                     </div>
                     <div class="btnBottom"><button class="orangeBtn" ng-click="subRentalReturn()">提交申请</button></div>

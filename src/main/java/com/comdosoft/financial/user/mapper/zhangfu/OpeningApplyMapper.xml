@@ -37,7 +37,7 @@
  		SELECT id,name FROM pay_channels
  	</select>
  	
- 	<select id="getMerchant" resultType="com.comdosoft.financial.user.domain.zhangfu.Merchant" parameterType="int">
+ 	<select id="getMerchant" resultType="map" parameterType="int">
  		SELECT * FROM merchants
  		WHERE id=#{id}
  	</select>

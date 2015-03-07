@@ -5,12 +5,13 @@ var terminalDetailModule = angular.module("terminalDetailModule",[]);
 
 var terminalDetailController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=$location.search()['terminalId'];
+	$scope.customerId = 80;
 	$(".leaseExplain_tab").hide();
 	$("#pass").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {
       alert($scope.terminalId);
-      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
@@ -40,6 +41,17 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 	  $("#"+obj).hide();
 	  $(".mask").hide ();
   }
+//同步
+  $scope.synchronous = function(){
+	  $http.post("api/terminal/synchronous").success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  alert(data.code);
+          }
+      }).error(function (data) {
+    	  alert("同步失败");
+      });
+  }
+  
   //找回POS机密码
   $scope.findPassword = function(){
 	  $http.post("api/terminal/Encryption", {terminalid:$scope.terminalId}).success(function (data) {  //绑定

@@ -12,12 +12,15 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		
-      $http.post("api/terminal/getApplyToUpdate", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
               //用户收货地址
               $scope.addressList = data.result.address;
+            //城市级联
+              $scope.Cities = data.result.Cities;
+              $scope.shiCities = [];
           }
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -39,6 +42,47 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   	$scope.diAddre = function (num) {
   		$scope.num = num;
   		}
+  	
+  //城市及联
+  	$scope.count = 0;
+  	$scope.changCit = function(citid){
+  		
+  		for(var i=0;i<$scope.Cities.length;i++){
+  			
+  			if($scope.Cities[i].parent_id == citid){
+  				$scope.shiCities[$scope.count] = {
+  						id : $scope.Cities[i].id,
+  						name : $scope.Cities[i].name,
+  				}
+  				$scope.count++;
+  			}
+  		}
+  	}
+  	
+  //记录citId
+ 	 
+  	$scope.shiId = function(citId){
+  		$scope.citId = citId;
+  	}
+  	
+  //添加地址
+  	$scope.addCostometAddress = function(){
+  		 $scope.CostometAddress = {
+  				cityId :$scope.citId,
+  				receiver :$scope.receiver,
+  				address :$scope.address,
+  				moblephone :$scope.moblephone,
+  				zipCode :$scope.zipCode,
+  				customerId :$scope.customerId
+  		 };
+  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
+  	          if (data != null && data != undefined) {
+  	        	$scope.terminalDetail();
+  	          }
+  	      }).error(function (data) {
+  	    	  alert("操作失败");
+  	      });
+  	}
   	
   //提交
 	$scope.subDetail = function () {

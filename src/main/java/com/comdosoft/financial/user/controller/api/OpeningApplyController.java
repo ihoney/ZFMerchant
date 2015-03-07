@@ -100,7 +100,7 @@ public class OpeningApplyController {
 	@RequestMapping(value = "getMerchant", method = RequestMethod.POST)
 	public Response getMerchant(@RequestBody Map<String, Object> map) {
 		try {
-			Merchant merchant = new Merchant();
+			Map<String, String> merchant = new HashMap<String, String>();
 			merchant = openingApplyService.getMerchant((Integer)map.get("merchantId"));
 			return Response.getSuccess(merchant);
 		} catch (Exception e) {

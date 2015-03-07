@@ -29,11 +29,12 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			           if(data.code == -1){//用户或者密码错误！
    			        	   $scope.message = data.message; 
    			           }else{
-   			        	   if($scope.RememberPass==true){
+   			        	   if($scope.RememberPass == true){
    			        		   $cookieStore.put("password",data.result.password);
    			        	   }
    			        	   $cookieStore.put("loginUserName",data.result.username);
    			        	   $cookieStore.put("loginUserId",data.result.id);
+   			        	   
    			        	   $scope.message = data.message; //登陆成功，跳转页面
    			        	   $('#login').hide();
    			        	   $('#index').show();

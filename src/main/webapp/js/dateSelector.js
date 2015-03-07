@@ -1,9 +1,7 @@
 function showImage(obj) { 
-	alert("8768");
 	$(obj).parent("a").children("span").html("重新上传")
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			alert(data.result);
 			$(obj).siblings("input").val(data.result);
 		}
 	});

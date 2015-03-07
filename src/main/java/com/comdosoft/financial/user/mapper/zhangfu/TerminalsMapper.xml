@@ -30,6 +30,11 @@
 		VALUES(#{address},#{phone},#{zipCode},#{receiver},now())
 	</insert>
 	
+	<insert id="addCostometAddress" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.CustomerAddress">
+		INSERT INTO customer_addresses(city_id,receiver,address,moblephone,zip_code,is_default,customer_id,created_at,updated_at)
+		VALUES(#{cityId},#{receiver},#{address},#{moblephone},#{zipCode},#{isDefault},#{customerId},now(),now())
+	</insert>
+	
 	
 	<insert id="subRepair" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT into cs_repairs(terminal_id,status,description,receive_address_id,customer_id,created_at,updated_at,apply_num,return_address_id,cs_repair_marks_id)
@@ -43,7 +48,12 @@
 	
 	<insert id="subReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT INTO cs_returns(terminal_id,status,return_price,reason,should_cencel,cs_cencel_id,customer_id,created_at,updated_at,apply_num,cs_return_marks_id)
-		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()),,#{templeteInfoXml})
+		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()),1)
+	</insert>
+	
+	<insert id="subToUpdate" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+		INSERT INTO cs_update_infos(terminal_id,status,templete_info_xml,created_at,updated_at,customer_id,apply_num)
+		VALUES(#{terminalsId},#{status},#{templeteInfoXml},new(),now(),#{customerId},unix_timestamp(now()))
 	</insert>
 
 	<!-- 查询交易流水用 -->
