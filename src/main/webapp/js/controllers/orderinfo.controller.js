@@ -17,7 +17,12 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
         });
     };
     
-    $scope.close_wlxx = function() {
+    $scope.topay = function(o) {
+    	var g_name = $("#g_name").val();
+    	window.open("alipayapi.jsp?WIDtotal_fee="+o.order_totalPrice/100+"&WIDsubject="+g_name+"&WIDout_trade_no="+o.order_number);  
+	};
+	
+	$scope.close_wlxx = function() {
 		$("#od_ter_div").css('display', 'none');
 	};
  

@@ -56,6 +56,10 @@ var orderController = function ($scope, $http, LoginService) {
     	$scope.poscd=p.id;
     	window.location.href = '#/orderinfo';
     };
+    $scope.topay = function(o) {
+    	var g_name = $("#g_name").val();
+    	window.open("alipayapi.jsp?WIDtotal_fee="+o.order_totalPrice/100+"&WIDsubject="+g_name+"&WIDout_trade_no="+o.order_number);  
+	};
     $scope.orderlist();
 //    $scope.submitSearch();
 //    $scope.orderinfo();

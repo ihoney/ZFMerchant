@@ -57,6 +57,7 @@
 						<span ng-if="o.order_type==5">类型：代理商批购 </span></td>
 					</tr>
 					<tr ng-repeat="g in  o.order_goodsList ">
+					<input type="hidden" value="{{g.good_name}}" name="g_name" ng-model="g_name" id="g_name">
 						<td>
 							<div class="td_proBox clear">
 								<a href="#/shopinfo?goodId={{g.good_id}}" class="cn_img"><img width="130px" height="130px" src="{{g.good_logo}}" /></a>
@@ -87,7 +88,7 @@
 							<strong ng-if="o.order_status==5" class="strong_status">已取消</strong> 
 							<strong ng-if="o.order_status==6" class="strong_status">交易关闭</strong>
 						</td>
-						<td ><a href="#" ng-if="o.order_status==1" class="a_btn">付款</a> 
+						<td ><a href="javascript:void(0);" ng-click="topay(o)" ng-if="o.order_status==1" class="a_btn">付款</a> 
 						<a href="javascript:void(0)" ng-click="cancelApply(o.order_id)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="o.order_status==1" class="a_btn">取消</a>
 						<a href="#/orderinfo?orderId={{o.order_id}}" class="a_btn">查看详情</a></td>
  					</tr>
