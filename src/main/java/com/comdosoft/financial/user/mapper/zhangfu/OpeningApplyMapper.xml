@@ -4,8 +4,8 @@
 	
 	
 	<insert id="addApply" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-		INSERT INTO `terminal_opening_infos` (`key`, `value`,`types`,`opening_applies_id`,`created_at`,`updated_at`) 
-		VALUES (#{key},#{value},#{types},#{openingAppliesId},now(),now());
+		INSERT INTO `terminal_opening_infos` (`key`, `value`,`types`,`opening_applies_id`,`target_id`,`opening_requirement_id`,`created_at`,`updated_at`) 
+		VALUES (#{key},#{value},#{types},#{openingAppliesId},#{targetId},#{openingRequirementId},now(),now());
  	</insert>
  	
  	<insert id="addOpeningApply" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">

@@ -69,7 +69,6 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
 function setSpanName(obj,obj1,obj2){
 	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
 	$(obj).siblings("span").html("重新上传")
-	
 	$('#'+obj1).ajaxSubmit({
 		success : function(data) {
 			$('#'+obj2).val(data.result);

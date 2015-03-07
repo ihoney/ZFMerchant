@@ -92,9 +92,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
 //动态显示银行代码号
-  $scope.bankNum = function(number){
+  $scope.bankNum = function(obj,number){
 	  $scope.bankCode = "";
-	  $scope.bamunber = number;
+	  $("#"+obj).siblings("input").val(number)
   }
   
 //对私按钮
@@ -149,43 +149,30 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     cityId:$scope.citiesId
 	                 },
 	             ];
+	  
 	  $scope.listOne=[];
 	  var countOne=0;
-	  for(var i=0;i<$scope.result.length;i++){
-		  if($scope.result[i].info_type != 1 || $scope.result[i].name == '结算银行名称'){
-			  var keys =($("#b_"+(i+1)).html());
+	  for(var i=0;i<$scope.MaterialLevel.length;i++){
+		  for(var y=0;y<$scope.result.length;y++){
+			  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
+			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html());
 			  keys = keys.replace(":","");
-			  var values =($("#a_"+(i+1)).val());
+			  alert(keys);
+			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
 			  $scope.listOne[countOne] = {
 					  key:keys,
 					  value:values,
-					  types:1
+					  types:$scope.result[y].info_type,
+					  openingRequirementId:$scope.MaterialLevel[i].id,
+					  targetId:id
 			  }
 			  countOne++;
-		  }
-	  }
-	  $scope.listTwo=[];
-	  var countTwo=0;
-	  for(var i=0;i<$scope.result.length;i++){
-		  if($scope.result[i].info_type == 1){
-			  var keyes =($("#imga_"+(i+1)).html());
-			  keyes = keyes.replace(":","");
-			  var valuees =($("#imgb_"+(i+1)).val());
-			  $scope.listTwo[countTwo] = {
-					  key:keyes,
-					  value:valuees,
-					  types:2
-			  }
-			  countTwo++;
+			  alert(values);
 		  }
 	  }
 	  $scope.leng = $scope.list.length;
 	  for(var i=0;i<$scope.listOne.length;i++){
 		  $scope.list[$scope.leng+i] = $scope.listOne[i];
-	  }
-	  $scope.leng = $scope.list.length;
-	  for(var i=0;i<$scope.listTwo.length;i++){
-		  $scope.list[$scope.leng+i] = $scope.listTwo[i];
 	  }
 	  
 	  

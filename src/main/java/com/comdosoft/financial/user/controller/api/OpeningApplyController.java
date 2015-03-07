@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,24 +160,24 @@ public class OpeningApplyController {
 	 * @param paramMap
 	 */
 	@RequestMapping(value = "addOpeningApply", method = RequestMethod.POST)
-	@ResponseBody
-	public Response addOpeningApply(
-			@RequestBody List<Map<String, Object>> paramMap) {
+	public Response addOpeningApply(@RequestBody List<Map<String, Object>> paramMap) {
 		try {
 			OpeningApplie openingApplie = new OpeningApplie();
 			Integer status = null;
 			String openingAppliesId = null;
 			Integer terminalId = null;
 			String key = null;
-			String value = null;
+			Object value = null;
 			Integer types = null;
+			Integer openingRequirementId = null;
+			Integer targetId =null;
 			int i = 0;
 			int y = 0;
 			for (Map<String, Object> map : paramMap) {
 				Set<String> keys = map.keySet();
 				if (y == 0) {
 					status = (Integer) map.get("status");
-					terminalId = (Integer) map.get("terminalId");
+					terminalId = Integer.parseInt((String)map.get("terminalId"));
 					if (status == 2) {
 						openingAppliesId = String.valueOf(openingApplyService
 								.getApplyesId(terminalId));
@@ -184,10 +185,29 @@ public class OpeningApplyController {
 						openingApplyService.deleteOpeningInfos(Integer
 								.valueOf(openingAppliesId));
 					} else {
-						openingApplie.setTerminalId((Integer) map
-								.get("terminalId"));
+						openingApplie.setTerminalId(Integer.parseInt((String) map
+								.get("terminalId")));
 						openingApplie.setApplyCustomerId((Integer) map
 								.get("applyCustomerId"));
+						openingApplie.setStatus((Integer) map
+								.get("status"));
+						openingApplie.setTypes((Integer) map
+								.get("publicPrivateStatus"));
+						openingApplie.setMerchantId((Integer) map
+								.get("merchantId"));
+						openingApplie.setMerchantName((String) map
+								.get("merchantName"));
+						openingApplie.setSex((Integer) map
+								.get("sex"));
+						openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
+						openingApplie.setCardId((String) map
+								.get("cardId"));
+						openingApplie.setPhone((String) map
+								.get("phone"));
+						openingApplie.setEmail((String) map
+								.get("email"));
+						openingApplie.setCityId((Integer) map
+								.get("cityId"));
 						openingApplyService.addOpeningApply(openingApplie);
 						openingAppliesId = String
 								.valueOf(openingApplie.getId());
@@ -197,12 +217,16 @@ public class OpeningApplyController {
 						if (i == 0)
 							key = (String) map.get(str);
 						if (i == 1)
-							value = (String) map.get(str);
+							value =  map.get(str);
 						if (i == 2)
 							types = (Integer) map.get(str);
+						if (i == 3)
+							openingRequirementId = (Integer) map.get(str);
+						if (i == 4)
+							targetId = Integer.parseInt((String) map.get(str));
 						i++;
 					}
-					openingApplyService.addApply(key, value,types, openingAppliesId);
+					openingApplyService.addApply(key, value,types, openingAppliesId,openingRequirementId,targetId);
 					i = 0;
 				}
 				y++;
@@ -210,66 +234,6 @@ public class OpeningApplyController {
 			return Response.getSuccess("添加成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.getError("请求失败！");
-		}
-	}
-
-	/**
-	 * 材料图片上传
-	 * 
-	 * @param filePath
-	 * @return
-	 */
-	@RequestMapping(value = "uploadFile", method = RequestMethod.POST)
-	@ResponseBody
-	public Response uploadFile(@RequestBody Map<String, String> map,
-			HttpServletRequest request) {
-		try {
-			String filePath = null;
-			Set<String> keys = map.keySet();
-			for (String str : keys) {
-				filePath = map.get(str);
-			}
-			String fileOutPath = request.getServletContext().getRealPath("/")
-					+ "WEB-INF/temp/";
-			int byteread = 0;// 读取的位数
-			FileInputStream in = null;
-			FileOutputStream out = null;
-			File fileIn = new File(filePath);
-			File fileOut = new File(fileOutPath);
-
-			if (!fileOut.exists()) {
-				fileOut.mkdirs();
-			}
-			fileOut = new File(fileOutPath
-					+ filePath.substring(filePath.lastIndexOf("\\") + 1));
-			if (!fileIn.exists()) {
-				return Response.getSuccess("该路径图片不存在！");
-			}
-			try {
-				in = new FileInputStream(fileIn);
-				out = new FileOutputStream(fileOut);
-				byte[] buffer = new byte[1024];
-				while ((byteread = in.read(buffer)) != -1) {
-					// 将读取的字节写入输出流
-					out.write(buffer, 0, byteread);
-				}
-				return Response.getSuccess(fileOut);
-			} catch (Exception e) {
-				return Response.getSuccess("上传失败！");
-			} finally {
-				try {
-					if (out != null) {
-						out.close();
-					}
-					if (in != null) {
-						in.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
 	}

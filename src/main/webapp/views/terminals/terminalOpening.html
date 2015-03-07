@@ -37,19 +37,20 @@
                             </dl>
                         </div>
                     </div>
-                    <div class="attributes_box" ng-repeat="ma in MaterialLevel" ng-if="ma != null && ma.level == 1">
-                    	<h2>基本开通<em>消费限额5000元</em></h2>
+                    <div class="attributes_box" ng-repeat="ma in MaterialLevel">
+                    	<h2 ng-if="$index == 0">基本开通<em>消费限额5000元</em></h2>
+                    	<h2 ng-if="$index == 1">完全开通<em>消费无限额</em></h2>
                         <div class="item_list clear">
                             <ul>
-                                <li><span class="labelSpan" id="keyNmae">姓名：</span>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="keyNmae">姓名：</span>
                                 	<div class="text"><input name="valueName" type="text" id="valueName"/></div></li>
-                                <li><span class="labelSpan" id="sexName">性别：</span>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="sexName">性别：</span>
                                 	<div class="text">
                                     	<span class="checkboxRadio_span"><input name="valueSex" type="radio" value="" ng-click="butSex(1)"/> 男</span>
                                         <span class="checkboxRadio_span"><input name="valueSex" type="radio" value="" ng-click="butSex(0)"> 女</span>
                                     </div>
                                 </li>
-                                <li><span class="labelSpan" id="priKey">生日：</span>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
                                 	<div class="text">
                                 	<select id="selYear" ></select> 
                                 	<select id="selMonth"></select>
@@ -68,16 +69,16 @@
 							</script>
                                     </div>
                                 </li>
-                                <li><span class="labelSpan" id="cirdKey">身份证：</span>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="cirdKey">身份证：</span>
                                 	<div class="text"><input name="" type="text" id="cirdValue"/></div>
                                 </li>
-                                 <li><span class="labelSpan" id="phoneKey">电话：</span>
+                                 <li ng-if="$index == 0"><span class="labelSpan" id="phoneKey">电话：</span>
                                 	<div class="text"><input name="" type="text" id="phoneValue"/></div>
                                 </li>
-                                 <li><span class="labelSpan" id="emailKey">邮箱：</span>
+                                 <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">邮箱：</span>
                                 	<div class="text"><input name="" type="text" id="emailValue"/></div>
                                 </li>
-                                <li><span class="labelSpan" id="emailKey">地址：</span>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">地址：</span>
                                 	<div class="text">
                                 		<select name="">
                                           <option ng-repeat="cit in Cities" ng-if="cit.parent_id == 0" ng-click="jilianChneg(cit.id)">{{cit.name}}</option>
@@ -87,25 +88,31 @@
                                         </select>
                                      </div>
                                 </li>
-                                <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 0 && r.name == '结算银行名称'">
-                                <span class="labelSpan">结算银行名称：</span>
-                                	<div class="text"><input name="" type="text" ng-keyup="bank() "></div>
+                                <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3">
+                                <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
+                                	<div class="text">
+                                	<input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
+                                	<input name="" type="text" ng-keyup="bank()">
+                                	</div>
                                     <div class="suggest" id="backapen">
-                                    	<a href="javascript:void(0)" ng-repeat="code in bankCode" ng-click="bankNum(code)">{{code}}</a>
+                                    	<input name="" type="hidden"  id="value_{{ma.level+'_'+$index}}" >
+                                    	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="code in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,code)">{{code}}</a>
                                     </div>
                                 </li>
                                 <li ng-repeat="r in result" ng-if="r.info_type == 0">
-                                <span id="b_{{$index+1}}" class="labelSpan">{{r.name}}:</span>
-                                <div class="text"><input id="a_{{$index+1}}" name="" type="text" ng-model="bamunber"/></div>
+                                <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
+                                <span id="key_{{ma.level+'_'+$index}}" class="labelSpan">{{r.name}}:</span>
+                                <div class="text"><input id="value_{{ma.level+'_'+$index}}" name="" type="text"/></div>
                                 </li>
                                 <li  ng-repeat="r in result" ng-if="r.info_type == 1">
-                                <span class="labelSpan" id="imga_{{$index+1}}">{{r.name}}:</span>
+                                <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
+                                <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}:</span>
                                 <div class="text" >
                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 	<img src="images/zp.jpg" class="cover" />
                                 	<a href="javascript:void(0);" class="informImg_a" >
                                     <span>上传</span>
-                                    <input type="text" id="imgb_{{$index+1}}"/>
+                                    <input type="text" id="value_{{ma.level+'_'+$index}}"/>
                                     <input  name="img" multiple type="file" onchange="showImage(this)">
                                     </a>
                                 </form>
@@ -115,53 +122,24 @@
                             <div class="img_info"><img src="images/ewm.jpg" /></div>
                         </div>
                     </div>
-                    
-                    <div class="attributes_box" ng-repeat="ma in MaterialLevel" ng-if="ma != null && ma.level == 2">
+                    <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
+                   <!--  <div class="attributes_box" ng-repeat="ma in MaterialLevel" ng-if="ma != null && ma.level == 2">
                     	<h2>完全开通<em>消费无限额</em></h2>
                         <div class="item_list clear">
                             <ul>
-                                <li><span class="labelSpan" name="key">姓名：</span>
-                                	<div class="text"><input name="value" type="text" /></div></li>
-                                <li><span class="labelSpan" >性别：</span>
-                                	<div class="text">
-                                    	<span class="checkboxRadio_span"><input name="value" type="radio" value="" /> 男</span>
-                                        <span class="checkboxRadio_span"><input name="value" type="radio" value="" /> 女</span>
-                                    </div>
-                                </li>
-                                <li><span class="labelSpan">生日：</span>
-                                	<div class="text">
-                                    <select id="selYears"></select> 
-                                	<select id="selMonths"></select>
-                                	<select id="selDays"></select>
-                                    </div>
-                                </li>
-                                <script type="text/javascript">
-								var selYear = window.document
-										.getElementById("selYears");
-								var selMonth = window.document
-										.getElementById("selMonths");
-								var selDay = window.document
-										.getElementById("selDays");
-
-								// 新建一个DateSelector类的实例，将三个select对象传进去
-								new DateSelector(selYear, selMonth, selDay,
-										null, null, null);
-								</script>
-                                <li><span class="labelSpan">身份证：</span>
-                                	<div class="text"><input name="" type="text" /></div></li>
                                 <li ng-repeat="r in result" ng-if="r.info_type == 0">
-                                <span class="labelSpan">{{r.name}}:</span>
-                                <div class="text"><input name="" type="text" ng-model="bamunber"/></div>
+                                <span class="labelSpan" id="levea2_{{$index+1}}">{{r.name}}:</span>
+                                <div class="text"><input name="" type="text" ng-model="bamunber" id="leveb2_{{$index+1}}"/></div>
                                 </li>
                                 <li  ng-repeat="r in result" ng-if="r.info_type == 1">
-                                <span class="labelSpan" >{{r.name}}:</span>
+                                <span class="labelSpan" id="leveaimg2_{{$index+1}}">{{r.name}}:</span>
                                 <div class="text" >
                                 <form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 	<img src="images/zp.jpg" class="cover" />
                                 	<a href="javascript:void(0);" class="informImg_a" >
                                     <span id="h1">上传</span>
-                                    <input type="text" id="inpu1"/>
-                                    <input  name="img" multiple type="file" onchange="showImage('h1','a1','inpu1')">
+                                    <input type="text" id="inpu1" id="leveaimg2_{{$index+1}}"/>
+                                    <input  name="img" multiple type="file" onchange="showImage(this)">
                                     </a>
                                 </form>
                                 </div>
@@ -173,5 +151,6 @@
                     </div>
                     
                     <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
-            	</div>
+            	</div> -->
+        	</div>
         	</div>

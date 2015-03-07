@@ -140,6 +140,7 @@ public class TerminalsController {
 			csCancel.setTypes((Integer)maps.get("type"));
 			csCancel.setCustomerId((Integer)maps.get("customerId"));
 			//先注销
+			
 			terminalsService.subRentalReturn(csCancel);
 			maps.put("csCencelId", csCancel.getId());
 			terminalsService.subLeaseReturn(maps);
@@ -341,10 +342,10 @@ public class TerminalsController {
 	public Response Encryption(@RequestBody Map<String, Object> map) {
 		try {
 			String pass = SysUtils.Decrypt(
-					terminalsService.findPassword((Integer)map.get("terminalid")),
-					passPath);
+					terminalsService.findPassword(Integer.parseInt((String)map.get("terminalid"))),passPath);
 			return Response.getSuccess(pass);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("请求失败!");
 		}
 	}
@@ -420,6 +421,8 @@ public class TerminalsController {
 			String key = null;
 			Object value = null;
 			Integer types = null;
+			Integer openingRequirementId = null;
+			Integer targetId =null;
 			int i = 0;
 			int y = 0;
 			for (Map<String, Object> map : paramMap) {
@@ -440,6 +443,8 @@ public class TerminalsController {
 								.get("applyCustomerId"));
 						openingApplie.setStatus((Integer) map
 								.get("status"));
+						openingApplie.setTypes((Integer) map
+								.get("publicPrivateStatus"));
 						openingApplie.setMerchantId((Integer) map
 								.get("merchantId"));
 						openingApplie.setMerchantName((String) map
@@ -467,9 +472,13 @@ public class TerminalsController {
 							value =  map.get(str);
 						if (i == 2)
 							types = (Integer) map.get(str);
+						if (i == 3)
+							openingRequirementId = (Integer) map.get(str);
+						if (i == 4)
+							targetId = Integer.parseInt((String) map.get(str));
 						i++;
 					}
-					openingApplyService.addApply(key, value,types, openingAppliesId);
+					openingApplyService.addApply(key, value,types, openingAppliesId,openingRequirementId,targetId);
 					i = 0;
 				}
 				y++;
