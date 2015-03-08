@@ -41,6 +41,23 @@ public class TerminalsService {
 	}
 	
 	/**
+	 * 获得终端列表总记录数
+	 * 
+	 * @param id
+	 * @param offSetPage
+	 * @param pageSize
+	 * @return
+	 */
+	public int getTerminalListNums(Integer id,
+			Integer offSetPage, Integer pageSize) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("offSetPage", offSetPage);
+		map.put("pageSize", pageSize);
+		return terminalsMapper.getTerminalListPage(map);
+	}
+	
+	/**
 	 * 添加联系地址
 	 * 
 	 * @param customerAddress

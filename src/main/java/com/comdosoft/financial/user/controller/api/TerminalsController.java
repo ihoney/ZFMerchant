@@ -60,13 +60,23 @@ public class TerminalsController {
 	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
 	public Response getApplyList(@RequestBody Map<String, Object> map) {
 		try {
+			Map<Object, Object> maps = new HashMap<Object, Object>();
 			PageRequest PageRequest = new PageRequest((Integer)map.get("indexPage"),
 					(Integer)map.get("pageNum"));
 			int offSetPage = PageRequest.getOffset();
-			return Response.getSuccess(terminalsService.getTerminalList(
+			
+			
+			maps.put("indexPage", (Integer)map.get("indexPage"));
+			maps.put("pageNum", (Integer)map.get("pageNum"));
+			maps.put("totalSize", terminalsService.getTerminalListNums(
 					((Integer)map.get("customersId")),
 					offSetPage,
 					(Integer)map.get("pageNum")));
+			maps.put("list", terminalsService.getTerminalList(
+					((Integer)map.get("customersId")),
+					offSetPage,
+					(Integer)map.get("pageNum")));
+			return Response.getSuccess(maps);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}

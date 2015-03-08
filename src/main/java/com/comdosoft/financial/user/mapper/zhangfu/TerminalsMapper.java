@@ -57,6 +57,14 @@ public interface TerminalsMapper {
     List<Map<Object, Object>> getTerminalList(Map<String, Object> map);
     
     /**
+     * 根据用户id获得终端列总记录数
+     * 
+     * @param map
+     * @return
+     */
+    int getTerminalListPage(Map<String, Object> map);
+    
+    /**
      * 申请维修添加地址
      * 
      * @param map

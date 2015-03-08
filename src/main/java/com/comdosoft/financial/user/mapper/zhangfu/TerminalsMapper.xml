@@ -84,6 +84,22 @@
 		LIMIT #{offSetPage},#{pageSize}
 	</select>
 	
+	<select id="getTerminalListPage" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM terminals t LEFT JOIN opening_applies o
+		ON o.terminal_id = t.id
+		LEFT JOIN merchants m 
+		ON m.id = t.merchant_id
+		LEFT JOIN pay_channels p
+		ON p.id = t.pay_channel_id
+		LEFT JOIN goods g
+		ON g.id = t.good_id
+		LEFT JOIN good_brands b
+		ON b.id = g.good_brands_id
+		WHERE t.customer_id = #{id} 
+		ORDER BY t.created_at DESC
+	</select>
+	
 	<select id="getTerminalListByPhone" parameterType="map" resultType="map">
 		SELECT  t.id,t.serial_num
 		FROM terminals t
