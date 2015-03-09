@@ -4,7 +4,7 @@
 var terminalToUpdateModule = angular.module("terminalToUpdateModule",[]);
 
 var terminalToUpdateController = function ($scope, $http,$location, LoginService) {
-	$scope.terminalId=$location.search()['terminalId'];
+	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = 80;
 	$(".leaseExplain_tab").hide();
 	//查看终端详情

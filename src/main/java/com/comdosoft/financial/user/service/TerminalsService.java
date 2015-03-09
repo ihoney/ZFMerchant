@@ -94,7 +94,15 @@ public class TerminalsService {
 	public List<Map<Object, Object>> getCities() {
 		return terminalsMapper.getCities();
 	}
-	
+	 /**
+     * <!-城市级联(市) -->
+     * 
+     * @param 
+     * @return
+     */
+	public List<Map<Object, Object>> getShiCities(int parentId) {
+		return terminalsMapper.getShiCities(parentId);
+	}
 	/**
 	 * 获得所有终端付款状态
 	 * @param id

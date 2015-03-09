@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
+<script src="js/main.js"></script>
 <script src="js/jquery.form.min.js"></script>
 <script type="text/javascript" src="js/dateSelector.js"></script>
  <div class="right" ng-controller="terminalOpenController">
@@ -123,34 +124,5 @@
                         </div>
                     </div>
                     <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
-                   <!--  <div class="attributes_box" ng-repeat="ma in MaterialLevel" ng-if="ma != null && ma.level == 2">
-                    	<h2>完全开通<em>消费无限额</em></h2>
-                        <div class="item_list clear">
-                            <ul>
-                                <li ng-repeat="r in result" ng-if="r.info_type == 0">
-                                <span class="labelSpan" id="levea2_{{$index+1}}">{{r.name}}:</span>
-                                <div class="text"><input name="" type="text" ng-model="bamunber" id="leveb2_{{$index+1}}"/></div>
-                                </li>
-                                <li  ng-repeat="r in result" ng-if="r.info_type == 1">
-                                <span class="labelSpan" id="leveaimg2_{{$index+1}}">{{r.name}}:</span>
-                                <div class="text" >
-                                <form id="a1" method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
-                                	<img src="images/zp.jpg" class="cover" />
-                                	<a href="javascript:void(0);" class="informImg_a" >
-                                    <span id="h1">上传</span>
-                                    <input type="text" id="inpu1" id="leveaimg2_{{$index+1}}"/>
-                                    <input  name="img" multiple type="file" onchange="showImage(this)">
-                                    </a>
-                                </form>
-                                </div>
-                                </li>
-                            </ul>
-                            <div class="img_info"><img id="imgShow" src="uploadFiles/tmp/1425525836073.jpg" /></div>
-                        </div>
-                        
-                    </div>
-                    
-                    <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
-            	</div> -->
         	</div>
         	</div>

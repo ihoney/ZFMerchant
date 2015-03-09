@@ -144,6 +144,11 @@
 	<select id="getCities"  resultType="map">
 		SELECT * FROM cities 
 	</select>
+	
+	<select id="getShiCities"  resultType="map" parameterType="int">
+		SELECT * FROM cities 
+		WHERE parent_id = #{parentId}
+	</select>
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
 		SELECT t.id,t.serial_num,t.`status`,g.model_number,b.name as

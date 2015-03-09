@@ -4,7 +4,7 @@
 var terminalReturnGoodModule = angular.module("terminalReturnGoodModule",[]);
 
 var terminalReturnGoodController = function ($scope, $http,$location, LoginService) {
-	$scope.terminalId=$location.search()['terminalId'];
+	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = 80;
 	//查看终端详情
 	$scope.terminalDetail = function () {

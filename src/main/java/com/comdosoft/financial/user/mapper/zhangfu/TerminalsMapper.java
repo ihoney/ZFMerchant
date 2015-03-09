@@ -33,12 +33,20 @@ public interface TerminalsMapper {
     List<Map<Object, Object>> getCustomerAddress(int customerId);
     
     /**
-     * <!-城市级联 -->
+     * <!-城市级联(省) -->
      * 
      * @param 
      * @return
      */
     List<Map<Object, Object>> getCities();
+    
+    /**
+     * <!-城市级联(市) -->
+     * 
+     * @param 
+     * @return
+     */
+    List<Map<Object, Object>> getShiCities(int parentId);
     
     /**
      * <!-添加联系地址 -->

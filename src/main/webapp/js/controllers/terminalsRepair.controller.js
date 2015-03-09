@@ -4,7 +4,7 @@
 var terminalRepairModule = angular.module("terminalRepairModule",[]);
 
 var terminalRepairController = function ($scope, $http,$location, LoginService) {
-	$scope.terminalId=$location.search()['terminalId'];
+	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = 80;
 	$scope.citOn = false;
 	$scope.num = -1;
@@ -46,22 +46,20 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   //城市及联
   	$scope.count = 0;
   	$scope.changCit = function(citid){
-  		
-  		for(var i=0;i<$scope.Cities.length;i++){
-  			
-  			if($scope.Cities[i].parent_id == citid){
-  				$scope.shiCities[$scope.count] = {
-  						id : $scope.Cities[i].id,
-  						name : $scope.Cities[i].name,
-  				}
-  				$scope.count++;
-  			}
-  		}
+  		$http.post("api/terminal/getShiCities", {parentId:citid}).success(function (data) {  //绑定
+            if (data != null && data != undefined) {
+              //市
+                $scope.shiCitie = data.result;
+            }
+        }).error(function (data) {
+      	  alert("获取列表失败");
+        });
   	}
   	
   //记录citId
  	 
   	$scope.shiId = function(citId){
+  		alert(citId);
   		$scope.citId = citId;
   	}
   	

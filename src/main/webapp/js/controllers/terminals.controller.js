@@ -4,12 +4,9 @@
 var terminalModule = angular.module("terminalModule",[]);
 
 var terminalController = function ($scope, $http, LoginService) {
+	  initSystemPage($scope);// 初始化分页参数
 	
-	  $scope.pageNum = 2;
-	  $scope.indexPage = 1;
-	  $scope.totalPage = 1;
-	  $scope.totalSize = 0;
-	  $scope.pages = [];
+	  $scope.total = 0;
 	  //付款筛选状态
 	  $scope.frontStatus = null;
 	  //根据终端号筛选
@@ -27,7 +24,7 @@ var terminalController = function ($scope, $http, LoginService) {
       $scope.req={
     		  customersId:80,
     		  indexPage:$scope.indexPage,
-    		  pageNum:$scope.pageNum,
+    		  pageNum:$scope.rows,
     		  frontStatus:$scope.frontStatus,
     		  serialNum:$scope.serialNum
     		  };
@@ -35,7 +32,7 @@ var terminalController = function ($scope, $http, LoginService) {
       $http.post("api/terminal/getApplyList", $scope.req).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               $scope.list = data.result.list;
-              $scope.totalSize = data.result.totalSize;
+              $scope.total = data.result.totalSize;
               //所有通道
               $scope.channels = data.result.channels;
               if($scope.boolean){
@@ -43,64 +40,12 @@ var terminalController = function ($scope, $http, LoginService) {
               }
           }
           $scope.pages = [];
-          $scope.GenerationNum();
+          calcSystemPage($scope, $scope.total);// 计算分页
       }).error(function (data) {
     	  alert("获取列表失败");
       });
 	}  
 	
-	
-	
-	
-	$scope.GenerationNum = function (){
-		 //获取总页数
-	    	  $scope.totalPage =  Math.ceil($scope.totalSize / $scope.pageNum);
-    	//生成数字链接
-          if ($scope.indexPage > 1 && $scope.indexPage < $scope.totalPage) {
-        	  if($scope.totalPage<=10){
-        		  for(var i=0;i<$scope.totalPage;i++){
-        			  $scope.pages[i] =(i+1);
-        		  }
-        	  }else if($scope.totalPage>10 && $scope.indexPage<=5){
-        		  for(var i=0;i<10;i++){
-        			  $scope.pages[i] =(i+1);
-        		  }
-        	  }else if($scope.totalPage>10 && $scope.indexPage>5){
-        		  if(($scope.totalPage - $scope.indexPage)>=5){
-        			  for(var i=0;i<10;i++){
-            			  $scope.pages[i] = $scope.indexPage-5+i+1;
-            		  }
-        		  }else if(($scope.totalPage - $scope.indexPage)<5){
-        			  for(var i=0;i<10;i++){
-            			  $scope.pages[i] = $scope.totalPage-10+i+1;
-            		  }
-        		  }
-        		  
-        	  }
-          } else if ($scope.indexPage == 1 && $scope.totalPage > 1) {
-        	 
-        	  if($scope.totalPage<=10){
-        		  for(var i=0;i<$scope.totalPage;i++){
-        			  $scope.pages[i] = $scope.indexPage + i;
-        		  }
-        	  }else if($scope.totalPage>10){
-        		  for(var i=0;i<10;i++){
-        			  $scope.pages[i] =$scope.totalPage -10 + i;
-        		  }
-        	  }
-        	  
-          } else if ($scope.indexPage == $scope.totalPage && $scope.totalPage > 1) {
-        	  if($scope.totalPage<=10){
-        		  for(var i=0;i<$scope.totalPage;i++){
-        			  $scope.pages[i] = i+1;
-        		  }
-        	  }else if($scope.totalPage>10){
-            		  for(var i=0;i<10;i++){
-            			  $scope.pages[i] = $scope.totalPage -10 + i +1;
-            		  }
-        	  }
-          }
-      }
 	//添加終端是通道Id
 	$scope.channelId = function(chanId){
 		$scope.payChannelId = Math.ceil(chanId);

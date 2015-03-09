@@ -12,13 +12,32 @@
                     	<h1>终端详情</h1>
                     	<div class="userTopBtnBox">
                     	<span ng-if="applyDetails.status == 1">
-                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a><a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a><a href="#/terminalCancellation?terminalId={{applyDetails.id}}" class="ghostBtn">注销</a><a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a><a href="javascript:void(0)" class="ghostBtn" ng-click="findPassword()">找回POS密码</a><a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a><a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
+                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a>
+                    	<a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a>
+                    	<a href="#/terminalCancellation?terminalId={{applyDetails.id}}" class="ghostBtn">注销</a>
+                    	<a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a>
+                    	<a href="javascript:void(0)" class="ghostBtn" ng-click="findPassword()">找回POS密码</a>
+                    	<a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a>
+                    	<a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 2">
-                    	<a href="#" class="ghostBtn">视频认证</a><a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a><a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a><a href="#/terminalCancellation?terminalId={{applyDetails.id}}" class="ghostBtn">注销</a><a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a><a href="javascript:void(0)" class="ghostBtn" ng-click="findPassword()">找回POS密码</a><a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a><a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
+                    	<a href="#" class="ghostBtn">视频认证</a>
+                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a>
+                    	<a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a>
+                    	<a href="#/terminalCancellation?terminalId={{applyDetails.id}}" class="ghostBtn">注销</a>
+                    	<a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a>
+                    	<a href="javascript:void(0)" class="ghostBtn" ng-click="findPassword()">找回POS密码</a>
+                    	<a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a>
+                    	<a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 3">
-                    	<a href="#" class="ghostBtn">视频认证</a><a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a><a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a><a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a><a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a><a href="#" class="ghostBtn">同步</a><a href="#/terminalOpening?terminalId={{applyDetails.id}}" class="ghostBtn">申请开通</a>
+                    	<a href="#" class="ghostBtn">视频认证</a>
+                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a>
+                    	<a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a>
+                    	<a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a>
+                    	<a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a>
+                    	<a href="#" class="ghostBtn">同步</a>
+                    	<a href="#/terminalOpening?terminalId={{applyDetails.id}}" class="ghostBtn">申请开通</a>
                     	</span>
                         </div>
                     </div>
@@ -93,10 +112,16 @@
                         
                         <div class="item_list clear">
                             <ul>
-                                <li ng-repeat="opening in openingDetails "><span class="labelSpan" ng-if="opening.types != 2">{{opening.key}}：</span>
-                                	<div class="text"  ng-if="opening.types != 2">{{opening.value}}</div></li>
-                                    <li ng-repeat="opening in openingDetails "><span class="labelSpan" ng-if="opening.types == 2">{{opening.key}}：</span>
-                                	<div class="text" ng-if="opening.types == 2">三峡格格</div></li>
+                                <li ng-repeat="opening in openingDetails ">
+                                <span class="labelSpan" ng-if="opening.types != 2">{{opening.key}}：</span>
+                                <div class="text"  ng-if="opening.types != 2">{{opening.value}}</div>
+                                </li>
+                                <li ng-repeat="opening in openingDetails ">
+                                <span class="labelSpan" ng-if="opening.types == 2">{{opening.key}}：</span>
+                                <div class="text" ng-if="opening.types == 2">
+                                <img src="images/zp.jpg" class="cover"/>
+                                </div>
+                                </li>
                             </ul>
                             <div class="img_info"><img src="images/ewm.jpg" /></div>
                         </div> 
@@ -110,7 +135,9 @@
                     </div>
             	</div>
         	</div>
-        	<div class="mask"></div>
+        	
+<div class="mask"></div>
+
 <div class="tab leaseExplain_tab">
 	<a href="javascript:void(0);" class="close">关闭</a>
 	<div class="tabHead">租赁说明</div>
@@ -120,6 +147,7 @@
         </div>
 	</div>
 </div>
+
 <div id="pass" class="tab posPassword_tab">
 	<a href="javascript:void(0);" class="close" ng-click="closeDocument('pass')">关闭</a>
 	<div class="tabHead">找回POS机密码</div>
@@ -133,3 +161,4 @@
     <div class="tabFoot"><button class="orangeBtn" ng-click="closeDocument('pass')">确定</button></div>
 </div> 
 </div>
+<script src="js/main.js"></script>

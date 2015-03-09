@@ -4,7 +4,7 @@
 var terminalDetailModule = angular.module("terminalDetailModule",[]);
 
 var terminalDetailController = function ($scope, $http,$location, LoginService) {
-	$scope.terminalId=$location.search()['terminalId'];
+	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = 80;
 	$(".leaseExplain_tab").hide();
 	$("#pass").hide();
@@ -30,10 +30,33 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
       });
   };
   
-//弹出层
+//租借說明弹出层
   $scope.popup = function(t,b){
-	  $(".mask").show();
-	  $(".leaseExplain_tab").show();
+	  /*$(".mask").show();
+	  $(".leaseExplain_tab").show();*/
+	  var doc_height = $(document).height();
+		var doc_width = $(document).width();
+		var win_height = $(window).height();
+		var win_width = $(window).width();
+		
+		var layer_height = $(t).height();
+		var layer_width = $(t).width();
+		
+		var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+		
+		//tab
+		$(b).bind('click',function(){
+			    $(".mask").css({display:'block',height:doc_height});
+				$(t).css('top',(win_height-layer_height)/2);
+				$(t).css('left',(win_width-layer_width)/2);
+				$(t).css('display','block');
+				return false;
+			}
+		)
+		$(".close").click(function(){
+			$(t).css('display','none');
+			$(".mask").css('display','none');
+		})
   }
   
   //关闭弹出框
@@ -68,6 +91,8 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
   $scope.terminalDetail();
 
 };
+
+
 
 
 

@@ -75,8 +75,9 @@
                                         <select name="" >
                                           <option ng-repeat="ci in Cities" ng-if="ci.parent_id == 0" ng-click="changCit(ci.id)">{{ci.name}}</option>
                                         </select>
+                                        
                                         <select name="">
-                                          <option ng-repeat="shi in shiCities" ng-click="shiId(shi.id)">{{shi.name}}</option>
+                                          <option ng-repeat="shi in shiCitie" ng-click="shiId(shi.id)">{{shi.name}}</option>
                                         </select>
                                     </td>
                                     <td><input name="" type="text" value="详细地址" class="l" ng-model="address"/></td>
@@ -94,7 +95,7 @@
                         <div class="applyFor_list clear">
                         <input type="hidden" id="modelStatus" value="0"/>
                            <div class="af_con" ng-repeat="re in ReModel">
-                            	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn">下载模版</a></div>
+                            	<div class="af_con_n">{{re.title}}<a href="javascript:void(0)" class="a_btn" nf-click="upModel(re.templet_file_path)">下载模版</a></div>
                                 <div class="af_con_b">
                                  <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 <i></i>

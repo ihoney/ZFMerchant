@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.zhangfu.City;
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
 import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
@@ -102,18 +103,18 @@ public class TerminalsController {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
 			map.put("applyDetails",
-					terminalsService.getApplyDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+					terminalsService.getApplyDetails((Integer)maps.get("terminalsId")));
 			// 终端交易类型
-			map.put("rates", terminalsService.getRate(Integer.parseInt((String)maps.get("terminalsId"))));
+			map.put("rates", terminalsService.getRate((Integer)maps.get("terminalsId")));
 			//获得租赁信息
-			map.put("tenancy", terminalsService.getTenancy(Integer.parseInt((String)maps.get("terminalsId"))));
+			map.put("tenancy", terminalsService.getTenancy((Integer)maps.get("terminalsId")));
 			// 追踪记录
-			map.put("trackRecord", terminalsService.getTrackRecord(Integer.parseInt((String)maps.get("terminalsId"))));
+			map.put("trackRecord", terminalsService.getTrackRecord((Integer)maps.get("terminalsId")));
 			// 开通详情
 			map.put("openingDetails",
-					terminalsService.getOpeningDetails(Integer.parseInt((String)maps.get("terminalsId"))));
+					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
 			//获得模板路径
-			map.put("ReModel", terminalsService.getModule(Integer.parseInt((String)maps.get("terminalsId")),1));
+			map.put("ReModel", terminalsService.getModule((Integer)maps.get("terminalsId"),1));
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
 			//城市级联
@@ -554,4 +555,20 @@ public class TerminalsController {
 		}
 	}
 	
+	/**
+	 *很据省获得市
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value = "getShiCities", method = RequestMethod.POST)
+	public Response getShiCities(@RequestBody City city) {
+		try {
+			return Response.getSuccess(terminalsService.getShiCities(city.getParentId()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
 }
