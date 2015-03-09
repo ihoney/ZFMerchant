@@ -49,6 +49,7 @@ public class CsRepairService {
             map.put("create_time", c_date);
             map.put("terminal_num", m.get("serial_num"));//终端号
             map.put("apply_num", m.get("apply_num"));//维修编号
+            map.put("repair_price", m.get("repair_price")==null?"":m.get("repair_price"));
             map.put("brand_name", m.get("brand_name")+"");
             map.put("brand_number", m.get("brand_number")+"");
             map.put("zhifu_pingtai", m.get("zhifu_pt")+"");
