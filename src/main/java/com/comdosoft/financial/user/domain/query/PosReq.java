@@ -229,17 +229,17 @@ public class PosReq {
         return (int)maxPrice*100;
     }
     
-    private int page;
+    private int indexPage;
     private int rows;
     private int offset;
 
 
-    public int getPage() {
-        return page;
+    public int getIndexPage() {
+        return indexPage;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setIndexPage(int indexPage) {
+        this.indexPage = indexPage;
     }
 
     public int getRows() {
@@ -254,8 +254,8 @@ public class PosReq {
     }
 
     public int getOffset() {
-        if (page > 0 && rows > 0) {
-            offset = (page - 1) * rows;
+        if (indexPage > 0 && rows > 0) {
+            offset = (indexPage - 1) * rows;
         } else {
             offset = 0;
         }

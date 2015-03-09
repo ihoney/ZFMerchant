@@ -5,7 +5,7 @@ var shopModule = angular.module("shopModule",[]);
 
 var shopController = function ($scope, $http, LoginService) {
 	
-	$scope.req={page:1,rows:10};
+	$scope.req={};
 	$scope.req.city_id=LoginService.city;
 	$scope.req.orderType=1;
 	
@@ -23,8 +23,13 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req.tDate=[];
 	
 	$scope.init = function () {
+		initSystemPage($scope.req);// 初始化分页参数
 		$("#leftRoute").hide();
-		$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
+		$scope.searchinfo();
+		$scope.list();
+    };
+    $scope.searchinfo=function(){
+    	$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.brands=data.result.brands;
             	$scope.category=data.result.webcategory;
@@ -34,19 +39,45 @@ var shopController = function ($scope, $http, LoginService) {
             	$scope.trade_type=data.result.trade_type;
             	$scope.tDate=data.result.tDate;
             }
-        }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
         });
-    };
+    }
     $scope.list = function () {
 		$http.post("api/good/list", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.goodList=data.result.list;
+            	calcSystemPage($scope.req, data.result.total);// 计算分页
             }
-        }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
         });
     };
+    
+ // 上一页
+	$scope.prev = function() {
+		if ($scope.req.indexPage > 1) {
+			$scope.req.indexPage--;
+			$scope.list();
+		}
+	};
+
+	// 当前页
+	$scope.loadPage = function(currentPage) {
+		$scope.req.indexPage = currentPage;
+		$scope.list();
+	};
+
+	// 下一页
+	$scope.next = function() {
+		if ($scope.req.indexPage < $scope.req.totalPage) {
+			$scope.req.indexPage++;
+			$scope.list();
+		}
+	};
+
+	// 跳转到XX页
+	$scope.getPage = function() {
+		$scope.req.indexPage = Math.ceil($scope.req.gotoPage);
+		$scope.list();
+	};
+    
     //POS机品牌
     $scope.check1=function (p) {
     	if(p.clazz=="hover"){
@@ -297,7 +328,7 @@ var shopController = function ($scope, $http, LoginService) {
     }
     
     $scope.init();
-    $scope.list();
+    
 
 };
 shopModule.controller("shopController", shopController);

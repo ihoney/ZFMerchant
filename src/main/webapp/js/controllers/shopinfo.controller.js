@@ -5,10 +5,13 @@ var shopinfoModule = angular.module("shopinfoModule",[]);
 
 var shopinfoController = function ($scope,$location, $http, LoginService) {
 	$scope.req={};
+	$scope.creq={};
 	$scope.quantity=1;
 	$scope.req.goodId=$location.search()['goodId'];
+	$scope.creq.goodId=$scope.req.goodId;
 	$scope.req.city_id=LoginService.city;
 	$scope.init = function () {
+		initSystemPage($scope.creq);// 初始化分页参数
 		$("#leftRoute").hide();
 		$scope.getGoodInfo();
 		
@@ -19,8 +22,6 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             	$scope.good=data.result;
             	$scope.paychannel=data.result.paychannelinfo;
             }
-        }).error(function (data) {
-           // $("#serverErrorModal").modal({show: true});
         });
     };
     $scope.getPayChannelInfo = function (id) {
@@ -28,8 +29,6 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             if (data.code==1) {
             	$scope.paychannel=data.result;
             }
-        }).error(function (data) {
-        	//$("#serverErrorModal").modal({show: true});
         });
     };
     $scope.addCart = function () {
@@ -47,15 +46,44 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 			$scope.quantity += type;
 		}
 	}
-    $scope.comment = function() {
-    	$http.post("api/comment/list",{goodId:$scope.req.goodId} ).success(function (data) {  //绑定
+    $scope.commentList = function() {
+    	$http.post("api/comment/list",$scope.creq ).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.comment=data.result.list;
+            	calcSystemPage($scope.creq, data.result.total);// 计算分页
             }
         });
 	}
     $scope.init();
 
+    
+    // 上一页
+   	$scope.prev = function() {
+   		if ($scope.creq.indexPage > 1) {
+   			$scope.creq.indexPage--;
+   			$scope.commentList();
+   		}
+   	};
+
+   	// 当前页
+   	$scope.loadPage = function(currentPage) {
+   		$scope.creq.indexPage = currentPage;
+   		$scope.commentList();
+   	};
+
+   	// 下一页
+   	$scope.next = function() {
+   		if ($scope.creq.indexPage < $scope.creq.totalPage) {
+   			$scope.creq.indexPage++;
+   			$scope.commentList();
+   		}
+   	};
+
+   	// 跳转到XX页
+   	$scope.getPage = function() {
+   		$scope.req.indexPage = Math.ceil($scope.req.gotoPage);
+   		$scope.commentList();
+   	};
 };
 
 
