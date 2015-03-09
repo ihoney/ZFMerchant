@@ -109,7 +109,7 @@
 			<if test="receiver != null and receiver !=''">receiver = #{receiver},</if>
 			<if test="telphone != null and telphone !=''">telphone = #{telphone},</if>
 			<if test="moblephone != null and moblephone !=''">moblephone = #{moblephone},</if>
-			<if test="isDefault != null and isDefault !=''">is_default = #{isDefault}</if>
+			<if test="isDefault != null">is_default = #{isDefault}</if>
 		</trim>
 		WHERE id = #{id}
 	</update>

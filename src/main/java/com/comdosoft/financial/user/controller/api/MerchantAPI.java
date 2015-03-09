@@ -121,11 +121,13 @@ public class MerchantAPI {
      * @param id
      * @return
      */
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public Response deleteAddress(@PathVariable int id) {
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public Response deleteAddress(@RequestBody int[] ids) {
         Response sysResponse = null;
         try {
-            merchantService.delete(id);
+            for (int id : ids) {
+                merchantService.delete(id);
+            }
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("删除商户信息失败", e);

@@ -232,11 +232,13 @@ public class CustomerAPI {
      * @param id
      * @return
      */
-    @RequestMapping(value = "deleteAddress/{id}", method = RequestMethod.GET)
-    public Response deleteAddress(@PathVariable int id) {
+    @RequestMapping(value = "deleteAddress", method = RequestMethod.POST)
+    public Response deleteAddress(@RequestBody int[] ids) {
         Response sysResponse = null;
         try {
-            customerService.deleteAddress(id);
+            for (int id : ids) {
+                customerService.deleteAddress(id);
+            }
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("删除地址失败", e);
