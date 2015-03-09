@@ -80,6 +80,7 @@ public class TerminalsController {
 					offSetPage,
 					(Integer)map.get("pageNum"),
 					(Integer)map.get("frontStatus")));
+			System.out.println("查看："+(Integer)map.get("frontStatus"));
 			return Response.getSuccess(maps);
 		} catch (Exception e) {
 			e.printStackTrace();

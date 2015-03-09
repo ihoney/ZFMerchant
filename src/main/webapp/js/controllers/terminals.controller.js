@@ -15,6 +15,9 @@ var terminalController = function ($scope, $http, LoginService) {
 	  
 	  //付款状态集
 	  $scope.frontPayStatus = [];
+	  
+	  //辨别获取付款状态
+	  $scope.boolean = true;
 
 	
 	//获得终端列表
@@ -30,8 +33,12 @@ var terminalController = function ($scope, $http, LoginService) {
           if (data != null && data != undefined) {
               $scope.list = data.result.list;
               $scope.totalSize = data.result.totalSize;
-              $scope.frontPayStatus = data.result.frontPayStatus;
+              if($scope.boolean){
+            	  $scope.frontPayStatus = data.result.frontPayStatus;
+              }
+              
           }
+          $scope.pages = [];
           $scope.GenerationNum();
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -68,6 +75,7 @@ var terminalController = function ($scope, $http, LoginService) {
         		  
         	  }
           } else if ($scope.indexPage == 1 && $scope.totalPage > 1) {
+        	 
         	  if($scope.totalPage<=10){
         		  for(var i=0;i<$scope.totalPage;i++){
         			  $scope.pages[i] = $scope.indexPage + i;
@@ -77,6 +85,7 @@ var terminalController = function ($scope, $http, LoginService) {
         			  $scope.pages[i] =$scope.totalPage -10 + i;
         		  }
         	  }
+        	  
           } else if ($scope.indexPage == $scope.totalPage && $scope.totalPage > 1) {
         	  if($scope.totalPage<=10){
         		  for(var i=0;i<$scope.totalPage;i++){
@@ -94,6 +103,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	//筛选
 	$scope.screening = function(obj){
 		$scope.frontStatus = Math.ceil(obj);
+		$scope.boolean = false;
 		$scope.getInfo();
 	}
 

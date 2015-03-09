@@ -20,9 +20,9 @@
                             <li><div class="user_select">
                             	<label>状态筛选</label>
                             	<select name="">
-                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 1" ng-click="indexPage=1;screening(status.front_pay_status)">已付款</option>
-                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 0" ng-click="indexPage=1;screening(status.front_pay_status)">未付款</option>
-                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 2" ng-click="indexPage=1;screening(status.front_pay_status)">已付定金</option>
+                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 2" ng-click="indexPage=1;screening(status.front_pay_status)">已付款</option>
+                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 1" ng-click="indexPage=1;screening(status.front_pay_status)">未付款</option>
+                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 3" ng-click="indexPage=1;screening(status.front_pay_status)">已付定金</option>
                             	</select>
                             </div></li>
                         </ul>
