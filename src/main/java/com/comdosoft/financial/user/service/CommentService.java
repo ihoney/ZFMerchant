@@ -28,25 +28,27 @@ public class CommentService {
 
     @Autowired
     private CommentMapper commentMapper;
-    
+
     @Value("${uploadPictureTempsPath}")
     private String uploadPictureTempsPath;
-    
+
     @Value("${downloadAdminExeclTemplatePath}")
     private String downloadAdminExeclTemplatePath;
 
     private static final String managerTemplateFileName = "管理员导入模板.xls";
-    
+
     public Map<String, Object> getList(CommentReq req) {
-        Map<String, Object> map=new HashMap<String, Object>();
-        int total=commentMapper.getCommentCount(req.getGoodId());
-        List<Map<String, Object>> list=commentMapper.getCommentList(req);
+        Map<String, Object> map = new HashMap<String, Object>();
+        int total = commentMapper.getCommentCount(req.getGoodId());
+        List<Map<String, Object>> list = commentMapper.getCommentList(req);
         map.put("total", total);
         map.put("list", list);
         return map;
     }
+
     /**
      * 图片上传
+     * 
      * @param img
      * @param request
      * @return
@@ -61,11 +63,11 @@ public class CommentService {
             dir.mkdirs();
         }
         InputStream stream = img.getInputStream();
-        //Thumbnails.of(stream).size(480, 480).toFile(realPath + File.separator + fileName);
+        // Thumbnails.of(stream).size(480, 480).toFile(realPath + File.separator + fileName);
         stream.close();
         return uploadPictureTempsPath + fileName;
     }
-    
+
     /**
      * 下载模板文件
      * 
@@ -121,6 +123,5 @@ public class CommentService {
             }
         }
     }
-
 
 }

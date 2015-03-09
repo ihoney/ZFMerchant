@@ -1,16 +1,20 @@
 package com.comdosoft.financial.user.controller.api;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
+import com.comdosoft.financial.user.service.CommonService;
 import com.comdosoft.financial.user.service.MerchantService;
 
 /**
@@ -27,6 +31,12 @@ public class MerchantAPI {
 
     @Resource
     private MerchantService merchantService;
+
+    @Resource
+    private CommonService commonService;
+
+    @Value("${uploadMerchantFilePath}")
+    private String uploadMerchantFilePath;
 
     /**
      * 日志记录器
@@ -120,6 +130,26 @@ public class MerchantAPI {
         } catch (Exception e) {
             logger.error("删除商户信息失败", e);
             sysResponse = Response.getError("删除商户信息失败:系统异常");
+        }
+        return sysResponse;
+    }
+
+    /**
+     * 上传文件接口
+     * 
+     * @param img
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "upload/file", method = RequestMethod.POST)
+    public Response upload(MultipartFile fileName, HttpServletRequest request) {
+        Response sysResponse = null;
+        try {
+            String path = commonService.saveTmpImage(request, fileName, uploadMerchantFilePath);
+            sysResponse = Response.getSuccess(path);
+        } catch (Exception e) {
+            logger.error("上传文件失败", e);
+            sysResponse = Response.getError("上传文件失败:系统异常");
         }
         return sysResponse;
     }

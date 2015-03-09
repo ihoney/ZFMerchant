@@ -14,13 +14,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -331,5 +337,52 @@ public class SysUtils {
         }
         String[] ar = result.split(",");
         return ar;
+    }
+
+    /**
+     * 获取上传文件的名称<br>
+     * <该文件已复制到指定目录>
+     * 
+     * @param request
+     * @param imgInputName
+     * @param uploadFilePath
+     * @return
+     * @throws IOException
+     */
+    public static String getUploadFileName(HttpServletRequest request, String imgInputName, String uploadFilePath) throws IOException {
+        MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+        MultipartFile multiFile = mRequest.getFile(imgInputName);
+        if (null == multiFile || StringUtils.isEmpty(multiFile.getOriginalFilename())) {
+            return null;
+        }
+        String originalFileName = multiFile.getOriginalFilename();// 源文件全名
+        StringBuffer newFileName = new StringBuffer(UUID.randomUUID().toString());// 生成系统唯一文件名
+        newFileName.append(originalFileName.substring(originalFileName.lastIndexOf(".")));// 拼接源文件扩展名
+        String realPath = request.getServletContext().getRealPath(uploadFilePath);
+        FileUtils.copyInputStreamToFile(multiFile.getInputStream(), new File(realPath, newFileName.toString()));
+        return newFileName.toString();
+    }
+
+    /**
+     * 获取上传文件的相对路径+文件名<br>
+     * <该文件已复制到指定目录>
+     * 
+     * @param request
+     * @param multiFile
+     * @param uploadFilePath
+     * @return
+     * @throws IOException
+     */
+    public static String getUploadFileName(HttpServletRequest request, MultipartFile multiFile, String uploadFilePath) throws IOException {
+        if (null == multiFile || StringUtils.isEmpty(multiFile.getOriginalFilename())) {
+            return null;
+        }
+        String originalFileName = multiFile.getOriginalFilename();// 源文件全名
+        StringBuffer newFileName = new StringBuffer(UUID.randomUUID().toString());// 生成系统唯一文件名
+        newFileName.append(originalFileName.substring(originalFileName.lastIndexOf(".")));// 拼接源文件扩展名
+        String realPath = request.getServletContext().getRealPath(uploadFilePath);
+        String fileName = newFileName.toString();
+        FileUtils.copyInputStreamToFile(multiFile.getInputStream(), new File(realPath, fileName));
+        return uploadFilePath + fileName;
     }
 }
