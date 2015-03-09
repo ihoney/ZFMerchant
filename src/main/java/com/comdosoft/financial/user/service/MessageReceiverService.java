@@ -33,7 +33,7 @@ public class MessageReceiverService {
             map = new HashMap<String,Object>();
             map.put("id", s.getSysMessage() ==null ?"":s.getSysMessage().getId()+"");
             map.put("title", s.getSysMessage() ==null ?"":s.getSysMessage().getTitle());
-            if(s.getStatus()==1){
+            if(null != s.getStatus() && s.getStatus()==1){
                 map.put("status", true);
             }else{
                 map.put("status", false);
