@@ -11,8 +11,8 @@
 		<div class="user_title">
 			<h1>租赁退还申请记录</h1>
 			<div class="userTopBtnBox">
-				<a href="javascript:void(0)" ng-click="cancelApply(info)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="info.status==1" class="ghostBtn">取消</a>
-				 <a href="javascript:void(0)" ng-click="resubmitCancel(info)" onClick="if(confirm('是否重新提交？'))return true;return false;" ng-if="info.status==5" class="ghostBtn">重新提交</a>
+				<a href="javascript:void(0)" ng-click="cancelApply(info)"    ng-if="info.status==1" class="ghostBtn">取消</a>
+				 <a href="javascript:void(0)" ng-click="resubmitCancel(info)"   ng-if="info.status==5" class="ghostBtn">重新提交</a>
 			</div>
 		</div>
 		<div class="attributes_box">

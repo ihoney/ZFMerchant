@@ -76,9 +76,9 @@
 						 <strong ng-if="o.status==5" class="strong_status">已取消</strong>
 						</td>
 						<td><a href="#/cs_returninfo?infoId={{o.id}}" class="a_btn">查看详情</a>
-						 <a href="javascript:void(0)" ng-click="cancelApply(o)"  onClick="if(confirm('是否确定取消？'))return true;return false;" ng-if="o.status==1" class="a_btn">取消</a>
+						 <a href="javascript:void(0)" ng-click="cancelApply(o)"   ng-if="o.status==1" class="a_btn">取消</a>
 						 <a href="javascript:void(0)" ng-click="click_wlxx(o)"   ng-if="o.status==2" class="a_btn">提交物流信息</a>
-						 <a href="javascript:void(0)" ng-click="resubmitCancel(o)" onClick="if(confirm('是否重新提交？'))return true;return false;" ng-if="o.status==5" class="a_btn">重新提交</a></td>
+						 <a href="javascript:void(0)" ng-click="resubmitCancel(o)"  ng-if="o.status==5" class="a_btn">重新提交</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -97,4 +97,4 @@
 
 </div>
 	<div class="mask"></div>
-   <script type="text/javascript" src="js/main.js"></script>
+<!--    <script type="text/javascript" src="js/main.js"></script> -->

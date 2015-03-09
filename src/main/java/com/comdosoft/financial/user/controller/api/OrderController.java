@@ -68,8 +68,10 @@ public class OrderController {
             Object centers = orderService.findMyOrderById(myOrderReq.getId());
             return Response.getSuccess(centers);
         } catch (NullPointerException e) {
+            e.printStackTrace();
             return Response.buildErrorWithMissing();
         } catch (Exception e) {
+            e.printStackTrace();
             logger.debug("获取我的订单详情出错" + e);
             return Response.getError("请求失败");
         }

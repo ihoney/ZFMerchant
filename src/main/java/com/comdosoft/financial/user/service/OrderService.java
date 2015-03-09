@@ -284,12 +284,16 @@ public class OrderService {
                 omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle());
                 omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
                 omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()==null?"":od.getPayChannel().getName());
-                List<Terminal> terminals = orderMapper.getTerminsla(id,Integer.valueOf(good_id));
-                StringBuffer sb = new StringBuffer();
-                for(Terminal t:terminals){
-                    sb.append(t.getSerialNum()+" ");
+                if(good_id !=""){
+                    List<Terminal> terminals = orderMapper.getTerminsla(id,Integer.valueOf(good_id));
+                    StringBuffer sb = new StringBuffer();
+                    for(Terminal t:terminals){
+                        sb.append(t.getSerialNum()+" ");
+                    }
+                    omap.put("terminals", sb.toString());
+                }else{
+                    omap.put("terminals", "");
                 }
-                omap.put("terminals", sb.toString());
                 String good_logo = "";
                 if(null !=od.getGood()){
                     Good g = od.getGood();
