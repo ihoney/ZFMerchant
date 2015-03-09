@@ -118,10 +118,8 @@ public class CustomerService {
 
     @Transactional(value = "transactionManager-zhangfu")
     public void setDefaultAddress(Map<Object, Object> param) {
-        // 其它设置为非默认
-        param.put("is_default", CustomerAddress.ISDEFAULT_2);
+        param.put("is_default", CustomerAddress.ISDEFAULT_2); // 其它设置为非默认
         customerMapper.updateDefaultAddress(param);
-
         customerMapper.setDefaultAddress(param);
     }
 

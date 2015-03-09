@@ -101,16 +101,17 @@
 	</insert>
 
 	<update id="updateAddress">
-	<![CDATA[
-		UPDATE customer_addresses SET city_id = #{cityId},
-									  receiver = #{receiver},
-									  moblephone = #{moblephone},
-									  telphone = #{telphone},
-									  zip_code = #{zipCode},
-									  address = #{address},
-									  is_default = #{isDefault}
-		 WHERE id = #{id}
-	]]>
+		UPDATE customer_addresses
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="cityId != null">city_id = #{cityId},</if>
+			<if test="zipCode != null and zipCode !=''">zip_code = #{zipCode},</if>
+			<if test="address != null and address !=''">address = #{address},</if>
+			<if test="receiver != null and receiver !=''">receiver = #{receiver},</if>
+			<if test="telphone != null and telphone !=''">telphone = #{telphone},</if>
+			<if test="moblephone != null and moblephone !=''">moblephone = #{moblephone},</if>
+			<if test="isDefault != null and isDefault !=''">is_default = #{isDefault}</if>
+		</trim>
+		WHERE id = #{id}
 	</update>
 
 	<update id="updateDefaultAddress">
