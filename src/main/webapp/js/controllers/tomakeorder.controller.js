@@ -110,8 +110,10 @@ var addressController=function($scope, $location, $http, LoginService){
 			}
 		});
 	};
-	$scope.deleteAddress = function(id) {
-		$http.get("api/customers/deleteAddress/" + id).success(function(data) {
+	$scope.addad = function(id) {
+		$scope.ad.customerId=LoginService.userid;
+		$scope.ad.isDefault=2;
+		$http.post("api/customers/insertAddress", $scope.ad).success(function(data) {
 			if (data.code == 1) {
 				$scope.init();
 			} else {

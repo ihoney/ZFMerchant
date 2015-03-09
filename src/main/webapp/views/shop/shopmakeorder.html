@@ -17,7 +17,6 @@
                     <col width="320" />
                     <col width="90" />
                     <col width="90" />
-                    <col width="120" />
                     <col />
                   </colgroup>
                  <thead>
@@ -28,50 +27,43 @@
                     <th>详细地址</th>
                     <th>邮编</th>
                     <th>电话</th>
-                    <th>操作</th>
                     <th>&nbsp;</th>
                   </tr>
                   </thead>
                   <tr ng-repeat="one in addressList">
-	                    <td><input ng-checked="one.isDefault==1" ng-model="order.addressId" type="radio" value="{{one.id}}"  /></td>
+	                    <td><input type="radio"  value="{{one.id}}" ng-model="order.addressId" ng-checked="one.isDefault==1"/></td>
 	                    
 	                    <td>{{one.receiver}}</td>
-	                    <td>江苏省苏州市吴中区</td>
+	                    <td>{{one.cityId}}</td>
 	                    <td>{{one.address}}</td>
 	                    <td>{{one.zipCode}}</td>
 	                    <td>{{one.moblephone}}</td>
-	                    <td><a href="javascript:void(0);" class="a_btn">修改</a>
-	                        <a href="javascript:void(0);" class="a_btn" ng-click="deleteAddress(one.id)">删除</a></td>
 	                    <td><span ng-show="one.isDefault==1" class="defaultAddr">默认地址</span>
 	                        <a ng-show="one.isDefault==2" href="javascript:void(0);" ng-click="setDefaultAddress(one)" class="set_defaultAddr">设为默认地址</a>
 	                    </td>
                   </tr>
                   
-                  <tr class="addAddr_box" ng-show="addad">
+                  <tr class="addAddr_box" ng-show="addadd">
                     <td>&nbsp;</td>
-                    <td><input name="" type="text" value="收件人姓名" /></td>
+                    <td><input ng-model="ad.receiver" type="text" ng-init="ad.receiver='收件人姓名'" /></td>
                     <td>
                     	<select name="">
                     	  <option>省</option>
                     	  <option>江苏省</option>
                     	</select>
-                        <select name="">
+                        <select ng-model="ad.cityId" ng-init="ad.cityId=1">
                     	  <option>市</option>
                     	  <option>南京市</option>
                     	</select>
-                        <select name="">
-                    	  <option>区/县</option>
-                    	  <option>姑苏区</option>
-                    	</select>
                     </td>
-                    <td><input name="" type="text" class="w" value="详细地址" /></td>
-                    <td><input name="" type="text" value="邮编" /></td>
-                    <td><input name="" type="text" value="手机号码" /></td>
-                    <td><a href="javascript:void(0);" class="a_btn">确定</a></td>
+                    <td><input ng-model="ad.address" type="text" class="w" ng-init="ad.address='详细地址'" /></td>
+                    <td><input ng-model="ad.zipCode" type="text"  ng-init="ad.zipCode='邮编'" /></td>
+                    <td><input ng-model="ad.moblephone" type="text" ng-init="ad.moblephone='手机号码'" /></td>
+                    <td><a href="javascript:void(0);" class="a_btn" ng-click="addad()">确定</a></td>
                     <td>&nbsp;</td>
                   </tr>
                 </table>
-    			<div class="addAddr_btn" ng-click="addad=true"><button>使用新地址</button></div>
+    			<div class="addAddr_btn" ng-click="addadd=true"><button>使用新地址</button></div>
             </div>
            
            
