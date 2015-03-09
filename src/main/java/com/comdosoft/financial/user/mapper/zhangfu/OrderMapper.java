@@ -38,7 +38,7 @@ public interface OrderMapper {
 
     Order findMyOrderById(Integer id);
 
-    void cancelMyOrder(MyOrderReq myOrderReq);
+    void changeStatus(MyOrderReq myOrderReq);
 
     void comment(MyOrderReq myOrderReq);
 

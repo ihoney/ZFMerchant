@@ -318,11 +318,12 @@ public class OrderService {
 
     public void cancelMyOrder(MyOrderReq myOrderReq) {
         myOrderReq.setOrderStatus(OrderStatus.CANCEL);
-        orderMapper.cancelMyOrder(myOrderReq);
+        orderMapper.changeStatus(myOrderReq);
     }
 
     public void comment(MyOrderReq myOrderReq) {
         myOrderReq.setOrderStatus(OrderStatus.EVALUATED);
+        orderMapper.changeStatus(myOrderReq);
         orderMapper.comment(myOrderReq);
     }
 

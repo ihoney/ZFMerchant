@@ -223,7 +223,8 @@
 		WHERE
 		o.id = #{param1}
 	</select>
-	<update id="cancelMyOrder" parameterType="com.comdosoft.financial.user.domain.zhangfu.Order">
+    
+	<update id="changeStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Order">
         UPDATE orders
 			SET STATUS = #{orderStatus.code}
 		WHERE
