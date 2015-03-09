@@ -70,7 +70,7 @@
                         <li><a href="javascript:void(0);">交易费率信息</a></li>
                         <li><a href="javascript:void(0);">开通申请条件</a></li>
                         <li><a href="javascript:void(0);">开通所需材料</a></li>
-                        <li><a href="javascript:void(0);" ng-show="good.commentsCount>0" ng-click="comment()">评价(<strong>{{good.commentsCount}}</strong>)</a></li>
+                        <li><a href="javascript:void(0);" ng-show="good.commentsCount>0" ng-click="commentList()">评价(<strong>{{good.commentsCount}}</strong>)</a></li>
                         <li><a href="javascript:void(0);" ng-show="good.goodinfo.has_lease">租赁说明</a></li>
                     </ul>
                 </div>
@@ -240,25 +240,21 @@
                             
                             
                            
-                        <div class="pageTurn"> 
-                        <div class="p_num">
-                        <a href="#" class="disabled">上一页</a> 
-                        <a href="#" class="current">1</a> 
-                        <a href="#?page=2">2</a> 
-                        <a href="#?page=3">3</a> 
-                        <a href="#?page=4">4</a> 
-                        <a href="#?page=5">5</a>
-                        ...
-                        <a href="#?page=199">199</a> 
-                        <a href="#?page=200">200</a> 
-                        <a href="#?page=2">下一页</a> 
-                        </div>
-                        <div class="p_skip">
-                             <span>共24页</span>
-                             <span>到第&nbsp;&nbsp;<input name="" type="text" />&nbsp;&nbsp;页</span>
-                             <button>确定</button>
-                        </div>
-                    </div>
+             <div class="pageTurn">
+				<div class="p_num" ng-show="creq.totalPage>1">
+				<a ng-class="{true:'disabled'}[creq.indexPage==1]" href="javascript:void(0)" ng-click="creq.indexPage=1;commentList()">首页</a>
+				<a ng-class="{true:'disabled'}[creq.indexPage==1]" href="javascript:void(0)" ng-click="prev()">上一页</a>
+				<a ng-class="{true:'current'}[creq.indexPage==currentPage]" ng-repeat="currentPage in creq.pages" href="javascript:void(0)" ng-click="loadPage(currentPage)">{{currentPage}}</a>
+				<a ng-class="{true:'disabled'}[creq.indexPage==creq.totalPage]" href="javascript:void(0)" ng-click="next()">下一页</a>
+				<a ng-class="{true:'disabled'}[creq.indexPage==creq.totalPage]" href="javascript:void(0)" ng-click="creq.indexPage=creq.totalPage;commentList()">末页</a>
+			</div>
+			<div class="p_skip">
+				<span>共&nbsp;{{creq.totalPage}}&nbsp;页</span>&nbsp;<span>到第&nbsp;<input type="text" ng-model="creq.gotoPage">&nbsp;页</span>
+				<button ng-click="getPage()">确定</button>
+			</div>
+			</div>
+                    
+                    
                         </div>
                     </div>
                     <div>
