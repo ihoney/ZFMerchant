@@ -7,10 +7,17 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
 	//搜索
 	$scope.submitSearch = function(){
-		$scope.req={customer_id:80,search:$scope.search};
+		initSystemPage($scope);// 初始化分页参数
+		$scope.req = {
+			customer_id : 80,
+			search : $scope.search,
+			page : $scope.indexPage,
+			pageSize : $scope.rows
+		};
 		$http.post("api/cs/cancels/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-                $scope.list = data.result.content;
+                $scope.list = data.result;
+                calcSystemPage($scope, data.result.total);// 计算分页
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -18,21 +25,51 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 	};
 	//筛选
 	$scope.submitScreen = function(){
-		$scope.req={customer_id:80,search:$scope.search,q:$scope.screen};
+		initSystemPage($scope);// 初始化分页参数
+		$scope.req = {
+			customer_id : 80,
+			search : $scope.search,
+			q : $scope.screen,
+			page : $scope.indexPage,
+			pageSize : $scope.rows
+		};
 		$http.post("api/cs/cancels/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-                $scope.list = data.result.content;
+                $scope.list = data.result;
+                calcSystemPage($scope, data.result.total);// 计算分页
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
         });
 	};
+	
+	$scope.submitPage = function(){
+		$scope.req = {
+			customer_id : 80,
+			search : $scope.search,
+			q : $scope.screen,
+			page : $scope.indexPage,
+			pageSize : $scope.rows
+		};
+		$http.post("api/cs/cancels/search", $scope.req).success(function (data) {  //绑定
+			if (data != null && data != undefined) {
+				$scope.list = data.result;
+				calcSystemPage($scope, data.result.total);// 计算分页
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
+	};
 	//订单列表
 	$scope.orderlist = function () {
-        $scope.req={customer_id:80};
+		initSystemPage($scope);// 初始化分页参数
+        $scope.req={customer_id:80,
+        		page:$scope.indexPage,
+        		pageSize:$scope.rows};
         $http.post("api/cs/cancels/getAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-                $scope.list = data.result.content;
+                $scope.list = data.result;
+                calcSystemPage($scope, data.result.total);// 计算分页
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -68,6 +105,35 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 			$("#serverErrorModal").modal({show: true});
 		});
 	};
+	
+	// 上一页
+	$scope.prev = function() {
+		if ($scope.indexPage > 1) {
+			$scope.indexPage--;
+			$scope.submitPage();
+		}
+	};
+
+	// 当前页
+	$scope.loadPage = function(currentPage) {
+		$scope.indexPage = currentPage;
+		$scope.submitPage();
+	};
+
+	// 下一页
+	$scope.next = function() {
+		if ($scope.indexPage < $scope.totalPage) {
+			$scope.indexPage++;
+			$scope.submitPage();
+		}
+	};
+
+	// 跳转到XX页
+	$scope.getPage = function() {
+		$scope.indexPage = Math.ceil($scope.gotoPage);
+		$scope.submitPage();
+	};
+
     $scope.orderlist();
 };
 
