@@ -93,7 +93,6 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         tomakeorder: function (val) {
             var self = this;
             self.goods=val;
-            
         },
 
         //检验当前是否为已登录状态，或Cookie中仍存在登陆记录

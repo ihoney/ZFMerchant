@@ -177,7 +177,7 @@ public class UserLoginController {
      * @param number
      */
     @RequestMapping(value = "sendEmailVerificationCode", method = RequestMethod.POST)
-    public Response sendEmailVerificationCode(@RequestBody String codeNumber) {
+    public Response sendEmailVerificationCode(@RequestBody Map<String, Object> map) {
     	 return Response.getSuccess("发送邮件成功！");
     }
 

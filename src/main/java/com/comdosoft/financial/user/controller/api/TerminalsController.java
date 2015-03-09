@@ -75,7 +75,7 @@ public class TerminalsController {
 					(Integer)map.get("pageNum"),
 					(Integer)map.get("frontStatus"),
 					(String)map.get("serialNum")));
-			//终端付款状态（1 已付   0未付  2已付定金）
+			//终端付款状态（2 已付   1未付  3已付定金）
 			maps.put("frontPayStatus", terminalsService.getFrontPayStatus());
 			//通道
 			maps.put("channels", terminalsService.getChannels());
@@ -89,6 +89,96 @@ public class TerminalsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 收单通道
+	 */
+	@RequestMapping(value = "getFactories", method = RequestMethod.POST)
+	public Response getFactories() {
+		try {
+			return Response.getSuccess(terminalsService.getChannels());
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 添加终端
+	 * 
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "addTerminal", method = RequestMethod.POST)
+	public Response addTerminal(@RequestBody Map<String, String> map) {
+		try {
+			Merchant merchants = new Merchant();
+			// 判断该终端号是否存在
+			if (terminalsService.isExistence(map.get("serialNum")) > 0) {
+				return Response.getError("终端号已存在！");
+			} else if (terminalsService.isMerchantName(map.get("title")) > 0) {
+				return Response.getError("商户名已存在！");
+			} else {
+				merchants.setTitle(map.get("title"));
+				merchants.setCustomerId(Integer.parseInt(map.get("customerId")));
+				// 添加商户
+				terminalsService.addMerchants(merchants);
+				// 添加终端
+				map.put("merchantId", merchants.getId().toString());
+				map.put("status", String.valueOf(Terminal.TerminalTYPEID_3));
+				map.put("isReturnCsDepots", String.valueOf(Terminal.IS_RETURN_CS_DEPOTS_NO));
+				map.put("type", String.valueOf(Terminal.SYSTYPE));
+				map.put("payChannelId", map.get("payChannelId"));
+				terminalsService.addTerminal(map);
+				return Response.getSuccess("添加成功！");
+			}
+		} catch (Exception e) {
+			  logger.debug("添加终端 "+e);
+			return Response.getError("请求失败");
+		}
+
+	}
+	
+	/**
+	 * 找回POS机密码
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "Encryption", method = RequestMethod.POST)
+	public Response Encryption(@RequestBody Map<String, Object> map) {
+		try {
+			String pass = SysUtils.Decrypt(
+					terminalsService.findPassword(Integer.parseInt((String)map.get("terminalid"))),passPath);
+			return Response.getSuccess(pass);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败!");
+		}
+	}
+	
+	/**
+	 * 视频认证
+	 */
+	@RequestMapping(value = "videoAuthentication", method = RequestMethod.POST)
+	public Response videoAuthentication() {
+		try {
+			return Response.getSuccess("认证成功！");
+		} catch (Exception e) {
+			return Response.getError("认证失败！");
+		}
+	}
+	
+	/**
+	 * 同步
+	 */
+	@RequestMapping(value = "synchronous", method = RequestMethod.POST)
+	public Response Synchronous() {
+		try {
+			return Response.getSuccess("同步成功！");
+		} catch (Exception e) {
+			return Response.getError("同步失败！");
 		}
 	}
 
@@ -127,7 +217,7 @@ public class TerminalsController {
 	}
 	
 	
-	/**
+	/**(以下web)
 	 * 申请更新资料
 	 * 
 	 * @param maps
@@ -306,98 +396,6 @@ public class TerminalsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
-		}
-	}
-
-	
-
-	/**
-	 * 收单通道
-	 */
-	@RequestMapping(value = "getFactories", method = RequestMethod.POST)
-	public Response getFactories() {
-		try {
-			return Response.getSuccess(terminalsService.getChannels());
-		} catch (Exception e) {
-			return Response.getError("请求失败！");
-		}
-	}
-
-	/**
-	 * 添加终端
-	 * 
-	 * @param map
-	 * @return
-	 */
-	@RequestMapping(value = "addTerminal", method = RequestMethod.POST)
-	public Response addTerminal(@RequestBody Map<String, String> map) {
-		try {
-			Merchant merchants = new Merchant();
-			// 判断该终端号是否存在
-			if (terminalsService.isExistence(map.get("serialNum")) > 0) {
-				return Response.getError("终端号已存在！");
-			} else if (terminalsService.isMerchantName(map.get("title")) > 0) {
-				return Response.getError("商户名已存在！");
-			} else {
-				merchants.setTitle(map.get("title"));
-				merchants.setCustomerId(Integer.parseInt(map.get("customerId")));
-				// 添加商户
-				terminalsService.addMerchants(merchants);
-				// 添加终端
-				map.put("merchantId", merchants.getId().toString());
-				map.put("status", String.valueOf(Terminal.TerminalTYPEID_3));
-				map.put("isReturnCsDepots", String.valueOf(Terminal.IS_RETURN_CS_DEPOTS_NO));
-				map.put("type", String.valueOf(Terminal.SYSTYPE));
-				map.put("payChannelId", map.get("payChannelId"));
-				terminalsService.addTerminal(map);
-				return Response.getSuccess("添加成功！");
-			}
-		} catch (Exception e) {
-			  logger.debug("添加终端 "+e);
-			return Response.getError("请求失败");
-		}
-
-	}
-
-	/**
-	 * 找回POS机密码
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "Encryption", method = RequestMethod.POST)
-	public Response Encryption(@RequestBody Map<String, Object> map) {
-		try {
-			String pass = SysUtils.Decrypt(
-					terminalsService.findPassword(Integer.parseInt((String)map.get("terminalid"))),passPath);
-			return Response.getSuccess(pass);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.getError("请求失败!");
-		}
-	}
-
-	/**
-	 * 视频认证
-	 */
-	@RequestMapping(value = "videoAuthentication", method = RequestMethod.POST)
-	public Response videoAuthentication() {
-		try {
-			return Response.getSuccess("认证成功！");
-		} catch (Exception e) {
-			return Response.getError("认证失败！");
-		}
-	}
-
-	/**
-	 * 同步
-	 */
-	@RequestMapping(value = "synchronous", method = RequestMethod.POST)
-	public Response Synchronous() {
-		try {
-			return Response.getSuccess("同步成功！");
-		} catch (Exception e) {
-			return Response.getError("同步失败！");
 		}
 	}
 
