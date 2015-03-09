@@ -20,7 +20,7 @@ function calcSystemPage($scope, total) {
 		$scope.total = total;
 	}
 	$scope.totalPage = Math.ceil($scope.total / $scope.rows); // 获取总页数
-	if ($scope.indexPage > 1 && $scope.indexPage < $scope.totalPage) { // 生成数字链接
+	if ($scope.indexPage >= 1 && $scope.indexPage < $scope.totalPage) { // 生成数字链接
 		if ($scope.totalPage <= 10) {
 			for (var i = 0; i < $scope.totalPage; i++) {
 				$scope.pages[i] = (i + 1);

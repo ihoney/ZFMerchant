@@ -5,7 +5,7 @@ var orderModule = angular.module("orderModule",[]);
 
 var orderController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
-	
+	initSystemPage($scope);// 初始化分页参数
 	// 搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};
@@ -28,30 +28,16 @@ var orderController = function ($scope, $http, LoginService) {
             $("#serverErrorModal").modal({show: true});
         });
 	};
-	//分页
-	$scope.submitpage = function(){
-		var input_page = $scope.input_page;
-		var strP = /^\d+(\.\d+)?$/;
-		if (!strP.test(input_page)) {
-			alert("请输入正确的页数");
-			return false;
-		} 
-		$scope.req={customer_id:80,search:$scope.search,q:$scope.screen,page:input_page};
-		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  //绑定
-			if (data != null && data != undefined) {
-				$scope.list = data.result;
-			}
-		}).error(function (data) {
-			$("#serverErrorModal").modal({show: true});
-		});
-	};
+	 
 	//订单列表
 	$scope.orderlist = function () {
-        $scope.req={customer_id:80};
-        
+        $scope.req={customer_id:80,
+        		page:$scope.indexPage,
+        		pageSize:$scope.rows};
         $http.post("api/order/getMyOrderAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result;
+                calcSystemPage($scope, data.result.total);// 计算分页
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -78,6 +64,35 @@ var orderController = function ($scope, $http, LoginService) {
     	var g_name = $("#g_name").val();
     	window.open("alipayapi.jsp?WIDtotal_fee="+o.order_totalPrice/100+"&WIDsubject="+g_name+"&WIDout_trade_no="+o.order_number);  
 	};
+	
+	// 上一页
+	$scope.prev = function() {
+		if ($scope.indexPage > 1) {
+			$scope.indexPage--;
+			$scope.orderlist();
+		}
+	};
+
+	// 当前页
+	$scope.loadPage = function(currentPage) {
+		$scope.indexPage = currentPage;
+		$scope.orderlist();
+	};
+
+	// 下一页
+	$scope.next = function() {
+		if ($scope.indexPage < $scope.totalPage) {
+			$scope.indexPage++;
+			$scope.orderlist();
+		}
+	};
+
+	// 跳转到XX页
+	$scope.getPage = function() {
+		$scope.indexPage = Math.ceil($scope.gotoPage);
+		$scope.orderlist();
+	};
+
     $scope.orderlist();
 //    $scope.submitSearch();
 //    $scope.orderinfo();
