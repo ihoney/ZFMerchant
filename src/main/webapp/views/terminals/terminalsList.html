@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/controllers/terminals.controller.js"></script>
+<script src="js/main.js"></script>
 <div class="main_user" ng-controller="terminalController">
     	<div class="box">
             <div class="right">
@@ -16,13 +17,13 @@
                     </div>
                     <div class="seenBox clear">
                     	<ul>
-                        	<li><div class="user_search"><input name="" type="text" /><button></button></div></li>
+                        	<li><div class="user_search"><input name="" type="text" ng-model="serialNum"/><button ng-click="screeningSerialNum()"></button></div></li>
                             <li><div class="user_select">
                             	<label>状态筛选</label>
                             	<select name="">
-                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 1" ng-click="indexPage=1;screening(status.front_pay_status)">已付款</option>
-                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 0" ng-click="indexPage=1;screening(status.front_pay_status)">未付款</option>
-                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 2" ng-click="indexPage=1;screening(status.front_pay_status)">已付定金</option>
+                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 2" ng-click="indexPage=1;screening(status.front_pay_status)">已付款</option>
+                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 1" ng-click="indexPage=1;screening(status.front_pay_status)">未付款</option>
+                            	  <option ng-repeat="status in frontPayStatus" ng-if="status.front_pay_status == 3" ng-click="indexPage=1;screening(status.front_pay_status)">已付定金</option>
                             	</select>
                             </div></li>
                         </ul>
@@ -63,7 +64,7 @@
                            </strong></td>
                             <td><a href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a><a href="#" class="a_btn">视频认证</a>
                             <span ng-if="nums.status != 1">
-                            <a href="#" class="a_btn">申请开通</a>
+                            <a href="#/terminalOpening?terminalId={{nums.id}}" class="a_btn">申请开通</a>
                             </span>
                             </td>
                           </tr>
@@ -89,3 +90,30 @@
         	</div>
     	</div>
     </div>
+    <div class="mask"></div>
+
+<div id="closeWin" class="tab otherTerminal_tab" ng-controller="terminalController">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabHead">添加终端</div>
+	<div class="tabBody">
+    	<div class="item_list clear">
+        	<ul>
+            	<li><span class="labelSpan">支付通道：</span>
+                	<div class="text">
+                        <select name="">
+                            <option ng-repeat="chan in channels" ng-click="channelId(chan.id)">{{chan.name}}</option>
+                        </select>
+                    </div>
+                </li>
+                <li><span class="labelSpan">商户名称：</span>
+                	<div class="text"><input name="" type="text" ng-model="title"/></div>
+                </li>
+                <li><span class="labelSpan">终端号：</span>
+                	<div class="text"><input name="" type="text" ng-model="serialNum"/></div>
+                </li>
+            </ul>
+        </div>
+	</div>
+	<div class="tabFoot"><button class="orangeBtn" ng-click="addChannel('1')">确定</button></div>
+</div>
+    

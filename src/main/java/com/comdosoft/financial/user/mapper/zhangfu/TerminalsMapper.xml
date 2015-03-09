@@ -82,7 +82,8 @@
 		LEFT JOIN orders e
 		ON e.id = t.order_id
 		WHERE t.customer_id = #{id} 
-		<if test="frontStatus != null and frontStatus !=''">AND e.front_pay_status = #{frontStatus},</if>
+		<if test="frontStatus != null and frontStatus !=''">AND e.front_pay_status = #{frontStatus}</if>
+		<if test="serialNum != null and serialNum !=''">AND  t.serial_num like '%${serialNum}%'</if>
 		ORDER BY t.created_at DESC
 		LIMIT #{offSetPage},#{pageSize}
 	</select>
@@ -102,7 +103,8 @@
 		LEFT JOIN orders e
 		ON e.id = t.order_id
 		WHERE t.customer_id = #{id} 
-		<if test="frontStatus != null and frontStatus !=''">AND e.front_pay_status = #{frontStatus},</if>
+		<if test="frontStatus != null and frontStatus !=''">AND e.front_pay_status = #{frontStatus}</if>
+		<if test="serialNum != null and serialNum !=''">AND  t.serial_num like '%${serialNum}%'</if>
 		ORDER BY t.created_at DESC
 	</select>
 	

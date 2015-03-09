@@ -10,11 +10,11 @@
                <div class="message_con">
                	<div class="mail_article">
                    	<div class="mail_article_title">
-                       	<h1>这是一条消息</h1>
-                       	<p>2014/12/12 18:00:21 <a href="#">删除</a></p>
+                       	<h1>{{message.title}}</h1>
+                       	<p>{{message.create_at}} <a href="javascript:void(0);" ng-click="delone(message.id)">删除</a></p>
                        </div>
                        <div class="mail_article_text">
-                       	<p>Lorem ipsum dolor sit amet</p>
+                       	<p>{{message.content}}</p>
                        </div>
                    </div>
                </div>

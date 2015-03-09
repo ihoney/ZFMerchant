@@ -12,9 +12,14 @@ var terminalController = function ($scope, $http, LoginService) {
 	  $scope.pages = [];
 	  //付款筛选状态
 	  $scope.frontStatus = null;
+	  //根据终端号筛选
+	  $scope.serialNum = null;
 	  
 	  //付款状态集
 	  $scope.frontPayStatus = [];
+	  
+	  //辨别获取付款状态
+	  $scope.boolean = true;
 
 	
 	//获得终端列表
@@ -23,15 +28,21 @@ var terminalController = function ($scope, $http, LoginService) {
     		  customersId:80,
     		  indexPage:$scope.indexPage,
     		  pageNum:$scope.pageNum,
-    		  frontStatus:$scope.frontStatus
+    		  frontStatus:$scope.frontStatus,
+    		  serialNum:$scope.serialNum
     		  };
       
       $http.post("api/terminal/getApplyList", $scope.req).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               $scope.list = data.result.list;
               $scope.totalSize = data.result.totalSize;
-              $scope.frontPayStatus = data.result.frontPayStatus;
+              //所有通道
+              $scope.channels = data.result.channels;
+              if($scope.boolean){
+            	  $scope.frontPayStatus = data.result.frontPayStatus;
+              }
           }
+          $scope.pages = [];
           $scope.GenerationNum();
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -42,7 +53,6 @@ var terminalController = function ($scope, $http, LoginService) {
 	
 	
 	$scope.GenerationNum = function (){
-		
 		 //获取总页数
 	    	  $scope.totalPage =  Math.ceil($scope.totalSize / $scope.pageNum);
     	//生成数字链接
@@ -68,6 +78,7 @@ var terminalController = function ($scope, $http, LoginService) {
         		  
         	  }
           } else if ($scope.indexPage == 1 && $scope.totalPage > 1) {
+        	 
         	  if($scope.totalPage<=10){
         		  for(var i=0;i<$scope.totalPage;i++){
         			  $scope.pages[i] = $scope.indexPage + i;
@@ -77,6 +88,7 @@ var terminalController = function ($scope, $http, LoginService) {
         			  $scope.pages[i] =$scope.totalPage -10 + i;
         		  }
         	  }
+        	  
           } else if ($scope.indexPage == $scope.totalPage && $scope.totalPage > 1) {
         	  if($scope.totalPage<=10){
         		  for(var i=0;i<$scope.totalPage;i++){
@@ -89,18 +101,57 @@ var terminalController = function ($scope, $http, LoginService) {
         	  }
           }
       }
+	//添加終端是通道Id
+	$scope.channelId = function(chanId){
+		$scope.payChannelId = Math.ceil(chanId);
+	}
+	//添加終端$scope.channels
+	$scope.addChannel = function(){
+		 $scope.addChan={
+				  customerId:80,
+	    		  title:$scope.title,
+	    		  payChannelId:$scope.payChannelId,
+	    		  serialNum:$scope.serialNum
+	    		  };
+		
+		$http.post("api/terminal/addTerminal", $scope.addChan).success(function (data) {  //绑定
+	          if (data != null && data != undefined) {
+	        	  if(data.code == 1){
+	        		  $("#closeWin").css('display','none');
+	        		  $(".mask").css('display','none');
+	        		  
+	        		  $scope.serialNum = null;
+	        		  $scope.getInfo();
+	        	  }else{
+	        		  alert(data.result);
+	        	  }
+	          }
+	      }).error(function (data) {
+	    	  alert("获取列表失败");
+	      });
+	}
 	
-	
-	//筛选
+	//筛选状态
 	$scope.screening = function(obj){
 		$scope.frontStatus = Math.ceil(obj);
+		$scope.boolean = false;
+		//取消终端号的筛选
+		$scope.serialNum = null;
+		$scope.getInfo();
+	}
+	
+	//筛选终端号
+	$scope.screeningSerialNum = function(){
+		 $scope.indexPage = 1;
+		//取消终端状态的筛选
+		$scope.frontStatus = null;
+		$scope.boolean = true;
 		$scope.getInfo();
 	}
 
 	//go to page
 	$scope.tiaoPage = 1;
 	$scope.getPage = function(){
-		alert($scope.tiaoPage);
 		$scope.indexPage = Math.ceil($scope.tiaoPage);
 		$scope.getInfo();
 	};

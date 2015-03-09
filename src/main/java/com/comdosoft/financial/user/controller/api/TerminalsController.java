@@ -72,14 +72,18 @@ public class TerminalsController {
 					((Integer)map.get("customersId")),
 					offSetPage,
 					(Integer)map.get("pageNum"),
-					(Integer)map.get("frontStatus")));
+					(Integer)map.get("frontStatus"),
+					(String)map.get("serialNum")));
 			//终端付款状态（1 已付   0未付  2已付定金）
 			maps.put("frontPayStatus", terminalsService.getFrontPayStatus());
+			//通道
+			maps.put("channels", terminalsService.getChannels());
 			maps.put("list", terminalsService.getTerminalList(
 					((Integer)map.get("customersId")),
 					offSetPage,
 					(Integer)map.get("pageNum"),
-					(Integer)map.get("frontStatus")));
+					(Integer)map.get("frontStatus"),
+					(String)map.get("serialNum")));
 			return Response.getSuccess(maps);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -327,15 +331,12 @@ public class TerminalsController {
 	@RequestMapping(value = "addTerminal", method = RequestMethod.POST)
 	public Response addTerminal(@RequestBody Map<String, String> map) {
 		try {
-			Response response = new Response();
 			Merchant merchants = new Merchant();
 			// 判断该终端号是否存在
 			if (terminalsService.isExistence(map.get("serialNum")) > 0) {
-				response.setMessage("终端号已存在！");
-				return response;
+				return Response.getError("终端号已存在！");
 			} else if (terminalsService.isMerchantName(map.get("title")) > 0) {
-				response.setMessage("商户名已存在！");
-				return response;
+				return Response.getError("商户名已存在！");
 			} else {
 				merchants.setTitle(map.get("title"));
 				merchants.setCustomerId(Integer.parseInt(map.get("customerId")));
@@ -351,7 +352,7 @@ public class TerminalsController {
 				return Response.getSuccess("添加成功！");
 			}
 		} catch (Exception e) {
-			  logger.debug("添加终端 end"+e);
+			  logger.debug("添加终端 "+e);
 			return Response.getError("请求失败");
 		}
 

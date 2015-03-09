@@ -32,12 +32,13 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getTerminalList(Integer id,
-			Integer offSetPage, Integer pageSize,Integer frontStatus) {
+			Integer offSetPage, Integer pageSize,Integer frontStatus,String serialNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
 		map.put("frontStatus", frontStatus);
+		map.put("serialNum", serialNum);
 		return terminalsMapper.getTerminalList(map);
 	}
 	
@@ -50,12 +51,13 @@ public class TerminalsService {
 	 * @return
 	 */
 	public int getTerminalListNums(Integer id,
-			Integer offSetPage, Integer pageSize,Integer frontStatus) {
+			Integer offSetPage, Integer pageSize,Integer frontStatus,String serialNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
 		map.put("frontStatus", frontStatus);
+		map.put("serialNum", serialNum);
 		return terminalsMapper.getTerminalListPage(map);
 	}
 	
