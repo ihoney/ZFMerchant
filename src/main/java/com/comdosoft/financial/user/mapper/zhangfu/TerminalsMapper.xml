@@ -79,7 +79,10 @@
 		ON g.id = t.good_id
 		LEFT JOIN good_brands b
 		ON b.id = g.good_brands_id
+		LEFT JOIN orders e
+		ON e.id = t.order_id
 		WHERE t.customer_id = #{id} 
+		<if test="frontStatus != null and frontStatus !=''">AND e.front_pay_status = #{frontStatus},</if>
 		ORDER BY t.created_at DESC
 		LIMIT #{offSetPage},#{pageSize}
 	</select>
@@ -96,9 +99,20 @@
 		ON g.id = t.good_id
 		LEFT JOIN good_brands b
 		ON b.id = g.good_brands_id
+		LEFT JOIN orders e
+		ON e.id = t.order_id
 		WHERE t.customer_id = #{id} 
+		<if test="frontStatus != null and frontStatus !=''">AND e.front_pay_status = #{frontStatus},</if>
 		ORDER BY t.created_at DESC
 	</select>
+	
+	<select id="getFrontPayStatus" resultType="map">
+		SELECT e.front_pay_status
+		FROM orders e 
+		GROUP BY e.front_pay_status
+		HAVING e.front_pay_status is not NULL
+	</select>
+	
 	
 	<select id="getTerminalListByPhone" parameterType="map" resultType="map">
 		SELECT  t.id,t.serial_num

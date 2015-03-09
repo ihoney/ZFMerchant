@@ -10,6 +10,11 @@ var terminalController = function ($scope, $http, LoginService) {
 	  $scope.totalPage = 1;
 	  $scope.totalSize = 0;
 	  $scope.pages = [];
+	  //付款筛选状态
+	  $scope.frontStatus = null;
+	  
+	  //付款状态集
+	  $scope.frontPayStatus = [];
 
 	
 	//获得终端列表
@@ -17,19 +22,22 @@ var terminalController = function ($scope, $http, LoginService) {
       $scope.req={
     		  customersId:80,
     		  indexPage:$scope.indexPage,
-    		  pageNum:$scope.pageNum
+    		  pageNum:$scope.pageNum,
+    		  frontStatus:$scope.frontStatus
     		  };
       
       $http.post("api/terminal/getApplyList", $scope.req).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               $scope.list = data.result.list;
               $scope.totalSize = data.result.totalSize;
+              $scope.frontPayStatus = data.result.frontPayStatus;
           }
           $scope.GenerationNum();
       }).error(function (data) {
     	  alert("获取列表失败");
       });
 	}  
+	
 	
 	
 	
@@ -81,6 +89,13 @@ var terminalController = function ($scope, $http, LoginService) {
         	  }
           }
       }
+	
+	
+	//筛选
+	$scope.screening = function(obj){
+		$scope.frontStatus = Math.ceil(obj);
+		$scope.getInfo();
+	}
 
 	//go to page
 	$scope.tiaoPage = 1;
