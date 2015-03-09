@@ -31,6 +31,8 @@ var terminalController = function ($scope, $http, LoginService) {
       });
 	}  
 	
+	
+	
 	$scope.GenerationNum = function (){
 		
 		 //获取总页数
@@ -80,6 +82,15 @@ var terminalController = function ($scope, $http, LoginService) {
           }
       }
 
+	//go to page
+	$scope.tiaoPage = 1;
+	$scope.getPage = function(){
+		alert($scope.tiaoPage);
+		$scope.indexPage = Math.ceil($scope.tiaoPage);
+		$scope.getInfo();
+	};
+
+	//下一页
   $scope.next = function () {
       if ($scope.indexPage < $scope.totalPage) {
           $scope.indexPage++;
@@ -87,6 +98,7 @@ var terminalController = function ($scope, $http, LoginService) {
       }
   };
 
+  //上一页
   $scope.prev = function () {
       if ($scope.indexPage > 1) {
           $scope.indexPage--;

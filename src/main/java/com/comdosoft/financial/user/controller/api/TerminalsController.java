@@ -78,6 +78,7 @@ public class TerminalsController {
 					(Integer)map.get("pageNum")));
 			return Response.getSuccess(maps);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}
