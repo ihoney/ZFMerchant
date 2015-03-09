@@ -20,20 +20,16 @@ function calcSystemPage($scope, total) {
 		$scope.total = total;
 	}
 	$scope.totalPage = Math.ceil($scope.total / $scope.rows); // 获取总页数
-	console.log("totalPage==>"+$scope.totalPage);
 	if ($scope.indexPage >= 1 && $scope.indexPage < $scope.totalPage) { // 生成数字链接
 		if ($scope.totalPage <= 10) {
 			for (var i = 0; i < $scope.totalPage; i++) {
-				console.log("==>>if ++>>"+i);
 				$scope.pages[i] = (i + 1);
 			}
 		} else if ($scope.totalPage > 10 && $scope.indexPage <= 5) {
-			console.log("==>>else if ++>>"+i);
 			for (var i = 0; i < 10; i++) {
 				$scope.pages[i] = (i + 1);
 			}
 		} else if ($scope.totalPage > 10 && $scope.indexPage > 5) {
-			console.log("==>>else if  else if ++>>"+i);
 			if (($scope.totalPage - $scope.indexPage) >= 5) {
 				for (var i = 0; i < 10; i++) {
 					$scope.pages[i] = $scope.indexPage - 5 + i + 1;

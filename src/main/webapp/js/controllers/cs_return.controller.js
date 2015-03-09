@@ -51,7 +51,9 @@ var cs_returnController = function ($scope, $http, LoginService) {
 	//订单列表
 	$scope.orderlist = function () {
 		initSystemPage($scope);// 初始化分页参数
-        $scope.req={customer_id:80};
+        $scope.req={customer_id:80,
+				page : $scope.indexPage,
+				pageSize : $scope.rows};
         $http.post("api/return/getAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result;
