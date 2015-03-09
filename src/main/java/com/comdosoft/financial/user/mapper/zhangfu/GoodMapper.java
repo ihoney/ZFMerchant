@@ -54,5 +54,7 @@ public interface GoodMapper {
 
     void upQuantity(PosReq posreq);
 
+    List<Map<String, Object>> getRelativeShopListByGoodId(PosReq posreq);
+
 
 }

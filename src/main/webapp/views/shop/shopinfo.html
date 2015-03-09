@@ -299,34 +299,15 @@
             </div>
             </div>
             
-            <div class="hot_product">
-            	<h1>推荐商品</h1>
+            <div class="hot_product" ng-show="good.relativeShopList.length>0">
+            	<h1 >推荐商品</h1>
             	<ul>
-                	<li>
-                    	<div class="hotPro_img"><a href="#"><img src="images/c.jpg" /></a></div>
-                        <h2><a href="#">汉米SS3010收银机 触摸屏POS机收款机 超市餐饮服装点餐机奶茶店</a></h2>
-                        <h2><a href="#" class="hp_price">￥458.00</a></h2>
+                	<li ng-repeat="one in good.relativeShopList">
+                    	<div class="hotPro_img"><a href="#shopinfo?goodId={{one.id}}"><img src="{{one.url_path}}" /></a></div>
+                        <h2><a href="#shopinfo?goodId={{one.id}}">{{one.Title}}</a></h2>
+                        <h2><a href="#shopinfo?goodId={{one.id}}" class="hp_price">{{one.retail_price|currency : "￥"}}</a></h2>
                     </li>
-                    <li>
-                    	<div class="hotPro_img"><a href="#"><img src="images/c.jpg" /></a></div>
-                        <h2><a href="#">汉米SS3010收银机 触摸屏POS机收款机 超市餐饮服装点餐机奶茶店</a></h2>
-                        <h2><a href="#" class="hp_price">￥458.00</a></h2>
-                    </li>
-                    <li>
-                    	<div class="hotPro_img"><a href="#"><img src="images/c.jpg" /></a></div>
-                        <h2><a href="#">汉米SS3010收银机 触摸屏POS机收款机 超市餐饮服装点餐机奶茶店</a></h2>
-                        <h2><a href="#" class="hp_price">￥458.00</a></h2>
-                    </li>
-                    <li>
-                    	<div class="hotPro_img"><a href="#"><img src="images/c.jpg" /></a></div>
-                        <h2><a href="#">汉米SS3010收银机 触摸屏POS机收款机 超市餐饮服装点餐机奶茶店</a></h2>
-                        <h2><a href="#" class="hp_price">￥458.00</a></h2>
-                    </li>
-                    <li>
-                    	<div class="hotPro_img"><a href="#"><img src="images/c.jpg" /></a></div>
-                        <h2><a href="#">汉米SS3010收银机 触摸屏POS机收款机 超市餐饮服装点餐机奶茶店</a></h2>
-                        <h2><a href="#" class="hp_price">￥458.00</a></h2>
-                    </li>
+                    
                 </ul>
             </div>
         	

@@ -6,7 +6,7 @@ var tomakeorderModule = angular.module("tomakeorderModule", []);
 var cartmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
 	$scope.order.customerId=LoginService.userid;
-	$scope.order.addressId=1;
+	//$scope.order.addressId=1;
 	$scope.totalMoney=0;
 	$scope.init = function() {
 		if(LoginService.goods.length==0){
@@ -45,7 +45,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 var shopmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
 	$scope.order.customerId=LoginService.userid;
-	$scope.order.addressId=1;
+	//$scope.order.addressId=1;
 	$scope.init = function() {
 		$("#leftRoute").hide();
 		$scope.order.goodId=$location.search()['goodId'];
@@ -97,6 +97,44 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 	
 	$scope.init();
 };
+
+
+var addressController=function($scope, $location, $http, LoginService){
+	$scope.list = function() {
+		$http.get("api/customers/getAddressList/"+LoginService.userid).success(function(data) {
+			if (data.code == 1) {
+				$scope.addressList = data.result;
+			} else {
+				// 提示错误信息
+				alert(data.message);
+			}
+		});
+	};
+	$scope.deleteAddress = function(id) {
+		$http.get("api/customers/deleteAddress/" + id).success(function(data) {
+			if (data.code == 1) {
+				$scope.init();
+			} else {
+				alert(data.message);
+			}
+		});
+	};
+	$scope.setDefaultAddress = function(e) {
+		$http.post("api/customers/setDefaultAddress/", e).success(function(data) {
+			if (data.code == 1) {
+				$scope.init();
+			} else {
+				alert(data.message);
+			}
+		});
+	};
+	$scope.init = function() {
+		$scope.address = {};
+		$scope.address.isDefault = "2";
+		$scope.list();
+	};
+	$scope.init();
+}
 
 tomakeorderModule.controller("cartmakeorderController", cartmakeorderController);
 tomakeorderModule.controller("shopmakeorderController", shopmakeorderController);
