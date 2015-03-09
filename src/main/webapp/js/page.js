@@ -20,16 +20,20 @@ function calcSystemPage(page, total) {
 		page.total = total;
 	}
 	page.totalPage = Math.ceil(page.total / page.rows); // 获取总页数
+	console.log("totalPage==>"+$scope.totalPage);
 	if (page.indexPage >= 1 && page.indexPage < page.totalPage) { // 生成数字链接
 		if (page.totalPage <= 10) {
 			for (var i = 0; i < page.totalPage; i++) {
+				console.log("==>>if ++>>"+i);
 				page.pages[i] = (i + 1);
 			}
 		} else if (page.totalPage > 10 && page.indexPage <= 5) {
+			console.log("==>>else if ++>>"+i);
 			for (var i = 0; i < 10; i++) {
 				page.pages[i] = (i + 1);
 			}
 		} else if (page.totalPage > 10 && page.indexPage > 5) {
+			console.log("==>>else if  else if ++>>"+i);
 			if ((page.totalPage - page.indexPage) >= 5) {
 				for (var i = 0; i < 10; i++) {
 					page.pages[i] = page.indexPage - 5 + i + 1;
