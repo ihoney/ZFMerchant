@@ -64,7 +64,7 @@
                            </strong></td>
                             <td><a href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a><a href="#" class="a_btn">视频认证</a>
                             <span ng-if="nums.status != 1">
-                            <a href="#" class="a_btn">申请开通</a>
+                            <a href="#/terminalOpening?terminalId={{nums.id}}" class="a_btn">申请开通</a>
                             </span>
                             </td>
                           </tr>
@@ -92,7 +92,7 @@
     </div>
     <div class="mask"></div>
 
-<div class="tab otherTerminal_tab">
+<div id="closeWin" class="tab otherTerminal_tab" ng-controller="terminalController">
 	<a href="javascript:void(0);" class="close">关闭</a>
 	<div class="tabHead">添加终端</div>
 	<div class="tabBody">
@@ -101,21 +101,19 @@
             	<li><span class="labelSpan">支付通道：</span>
                 	<div class="text">
                         <select name="">
-                            <option>111</option>
-                            <option>222</option>
-                            <option>333</option>
+                            <option ng-repeat="chan in channels" ng-click="channelId(chan.id)">{{chan.name}}</option>
                         </select>
                     </div>
                 </li>
                 <li><span class="labelSpan">商户名称：</span>
-                	<div class="text"><input name="" type="text" /></div>
+                	<div class="text"><input name="" type="text" ng-model="title"/></div>
                 </li>
                 <li><span class="labelSpan">终端号：</span>
-                	<div class="text"><input name="" type="text" /></div>
+                	<div class="text"><input name="" type="text" ng-model="serialNum"/></div>
                 </li>
             </ul>
         </div>
 	</div>
-	<div class="tabFoot"><button class="orangeBtn">确定</button></div>
+	<div class="tabFoot"><button class="orangeBtn" ng-click="addChannel('1')">确定</button></div>
 </div>
     

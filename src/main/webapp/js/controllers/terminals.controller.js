@@ -36,6 +36,8 @@ var terminalController = function ($scope, $http, LoginService) {
           if (data != null && data != undefined) {
               $scope.list = data.result.list;
               $scope.totalSize = data.result.totalSize;
+              //所有通道
+              $scope.channels = data.result.channels;
               if($scope.boolean){
             	  $scope.frontPayStatus = data.result.frontPayStatus;
               }
@@ -51,7 +53,6 @@ var terminalController = function ($scope, $http, LoginService) {
 	
 	
 	$scope.GenerationNum = function (){
-		
 		 //获取总页数
 	    	  $scope.totalPage =  Math.ceil($scope.totalSize / $scope.pageNum);
     	//生成数字链接
@@ -100,7 +101,35 @@ var terminalController = function ($scope, $http, LoginService) {
         	  }
           }
       }
-	
+	//添加終端是通道Id
+	$scope.channelId = function(chanId){
+		$scope.payChannelId = Math.ceil(chanId);
+	}
+	//添加終端$scope.channels
+	$scope.addChannel = function(){
+		 $scope.addChan={
+				  customerId:80,
+	    		  title:$scope.title,
+	    		  payChannelId:$scope.payChannelId,
+	    		  serialNum:$scope.serialNum
+	    		  };
+		
+		$http.post("api/terminal/addTerminal", $scope.addChan).success(function (data) {  //绑定
+	          if (data != null && data != undefined) {
+	        	  if(data.code == 1){
+	        		  $("#closeWin").css('display','none');
+	        		  $(".mask").css('display','none');
+	        		  
+	        		  $scope.serialNum = null;
+	        		  $scope.getInfo();
+	        	  }else{
+	        		  alert(data.result);
+	        	  }
+	          }
+	      }).error(function (data) {
+	    	  alert("获取列表失败");
+	      });
+	}
 	
 	//筛选状态
 	$scope.screening = function(obj){
@@ -113,6 +142,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	
 	//筛选终端号
 	$scope.screeningSerialNum = function(){
+		 $scope.indexPage = 1;
 		//取消终端状态的筛选
 		$scope.frontStatus = null;
 		$scope.boolean = true;

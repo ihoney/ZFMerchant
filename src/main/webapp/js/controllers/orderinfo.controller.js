@@ -4,7 +4,7 @@
 var orderinfoModule = angular.module("orderinfoModule",[]);
 
 var orderinfoController = function ($scope,$location, $http, LoginService) {
-	$("#leftRoute").show();
+//	$("#leftRoute").show();
 	$scope.req={};
 	$scope.req.id=$location.search()['orderId'];
     $scope.getOrderInfo = function () {
@@ -16,6 +16,17 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
             $("#serverErrorModal").modal({show: true});
         });
     };
+    //取消
+    $scope.cancelApply = function(id){
+    	$scope.req={id:id};
+		$http.post("api/order/cancelMyOrder", $scope.req).success(function (data) {  //绑定
+            if (data != null && data != undefined) {
+            	  $scope.getOrderInfo();
+            }
+        }).error(function (data) {
+            $("#serverErrorModal").modal({show: true});
+        });
+	};
     
     $scope.topay = function(o) {
     	var g_name = $("#g_name").val();
@@ -24,6 +35,9 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
 	
 	$scope.close_wlxx = function() {
 		$("#od_ter_div").css('display', 'none');
+	};
+	$scope.close_pj = function() {
+		$("#od_pj_div").css('display', 'none');
 	};
  
     $scope.t_comment = function (g) {
@@ -49,7 +63,8 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
     	
     	$http.post("api/order/saveComment", $scope.req).success(function (data) {  
     		if (data.code==1) {
-    			 $(".tab").css('display','none');
+//    			 $(".tab").css('display','none');
+    			 $("#od_pj_div").css('display','none');
     		}
     	}).error(function (data) {
     		$("#serverErrorModal").modal({show: true});

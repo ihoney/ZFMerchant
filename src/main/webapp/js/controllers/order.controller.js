@@ -5,12 +5,13 @@ var orderModule = angular.module("orderModule",[]);
 
 var orderController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
-	//搜索
+	
+	// 搜索
 	$scope.submitSearch = function(){
 		$scope.req={customer_id:80,search:$scope.search};
-		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  //绑定
+		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  // 绑定
             if (data != null && data != undefined) {
-                $scope.list = data.result.content;
+                $scope.list = data.result;
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
@@ -21,11 +22,28 @@ var orderController = function ($scope, $http, LoginService) {
 		$scope.req={customer_id:80,search:$scope.search,q:$scope.screen};
 		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-                $scope.list = data.result.content;
+                $scope.list = data.result;
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
         });
+	};
+	//分页
+	$scope.submitpage = function(){
+		var input_page = $scope.input_page;
+		var strP = /^\d+(\.\d+)?$/;
+		if (!strP.test(input_page)) {
+			alert("请输入正确的页数");
+			return false;
+		} 
+		$scope.req={customer_id:80,search:$scope.search,q:$scope.screen,page:input_page};
+		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  //绑定
+			if (data != null && data != undefined) {
+				$scope.list = data.result;
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
 	};
 	//订单列表
 	$scope.orderlist = function () {
@@ -33,7 +51,7 @@ var orderController = function ($scope, $http, LoginService) {
         
         $http.post("api/order/getMyOrderAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-                $scope.list = data.result.content;
+                $scope.list = data.result;
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
