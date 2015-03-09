@@ -71,11 +71,15 @@ public class TerminalsController {
 			maps.put("totalSize", terminalsService.getTerminalListNums(
 					((Integer)map.get("customersId")),
 					offSetPage,
-					(Integer)map.get("pageNum")));
+					(Integer)map.get("pageNum"),
+					(Integer)map.get("frontStatus")));
+			//终端付款状态（1 已付   0未付  2已付定金）
+			maps.put("frontPayStatus", terminalsService.getFrontPayStatus());
 			maps.put("list", terminalsService.getTerminalList(
 					((Integer)map.get("customersId")),
 					offSetPage,
-					(Integer)map.get("pageNum")));
+					(Integer)map.get("pageNum"),
+					(Integer)map.get("frontStatus")));
 			return Response.getSuccess(maps);
 		} catch (Exception e) {
 			e.printStackTrace();

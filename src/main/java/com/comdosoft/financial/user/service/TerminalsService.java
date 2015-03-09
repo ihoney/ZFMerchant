@@ -32,11 +32,12 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getTerminalList(Integer id,
-			Integer offSetPage, Integer pageSize) {
+			Integer offSetPage, Integer pageSize,Integer frontStatus) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
+		map.put("frontStatus", frontStatus);
 		return terminalsMapper.getTerminalList(map);
 	}
 	
@@ -49,11 +50,12 @@ public class TerminalsService {
 	 * @return
 	 */
 	public int getTerminalListNums(Integer id,
-			Integer offSetPage, Integer pageSize) {
+			Integer offSetPage, Integer pageSize,Integer frontStatus) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
+		map.put("frontStatus", frontStatus);
 		return terminalsMapper.getTerminalListPage(map);
 	}
 	
@@ -90,6 +92,16 @@ public class TerminalsService {
 	public List<Map<Object, Object>> getCities() {
 		return terminalsMapper.getCities();
 	}
+	
+	/**
+	 * 获得所有终端付款状态
+	 * @param id
+	 * @return
+	 */
+	public List<Map<Object, Object>> getFrontPayStatus(){
+		return terminalsMapper.getFrontPayStatus();
+	}
+	
 	/**
 	 *申请维修添加地址
 	 * 
