@@ -91,6 +91,16 @@ public class MessageReceiverController {
         }
     }
     
+    @RequestMapping(value="deleteAll",method=RequestMethod.POST)
+    public Response deleteAll(@RequestBody MyOrderReq myOrderReq){
+        try{
+            messageReceiverService.deleteAll(myOrderReq);
+            return Response.buildSuccess(null, "删除成功");
+        }catch(Exception e){
+            return Response.getError("请求失败");
+        }
+    }
+    
     @RequestMapping(value="batchRead",method=RequestMethod.POST)
     public Response batchRead(@RequestBody MyOrderReq myOrderReq){
         try{

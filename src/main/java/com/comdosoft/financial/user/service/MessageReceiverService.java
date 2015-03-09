@@ -24,7 +24,7 @@ public class MessageReceiverService {
 
     public Page<Object> findAll(MyOrderReq myOrderReq) {
         PageRequest request = new PageRequest(myOrderReq.getPage(),myOrderReq.getPageSize());
-        int count = messageReceiverMapper.count(myOrderReq.getCustomer_id());
+        int count = messageReceiverMapper.count(myOrderReq);
         List<MessageReceiver> centers = messageReceiverMapper.findAll(myOrderReq);
         List<Object> list = new ArrayList<Object>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -66,6 +66,10 @@ public class MessageReceiverService {
     public List<Map<String,Object>> getServerDynamic(MyOrderReq myOrderReq) {
         List<Map<String,Object>> list = messageReceiverMapper.getServerDynamic(myOrderReq);
         return list;
+    }
+
+    public void deleteAll(MyOrderReq myOrderReq) {
+        messageReceiverMapper.deleteAll(myOrderReq);
     }
 
 }

@@ -11,7 +11,7 @@ public interface MessageReceiverMapper {
 
     List<MessageReceiver> findAll(MyOrderReq myOrderReq);
 
-    int count(int person_id);
+    int count(MyOrderReq myOrderReq);
 
     SysMessage findById(MyOrderReq myOrderReq);
     
@@ -27,5 +27,7 @@ public interface MessageReceiverMapper {
     void isRead(MyOrderReq myOrderReq);
 
     List<Map<String, Object>> getServerDynamic(MyOrderReq myOrderReq);
+
+    void deleteAll(MyOrderReq myOrderReq);
 
 }
