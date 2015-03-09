@@ -74,7 +74,17 @@ public class GoodService {
                 Map<String, Object> factoryMap = goodMapper.getFactoryById(factoryId);
                 goodInfoMap.put("factory", factoryMap);
             }
-
+            List<Map<String, Object>> relativeShopList = goodMapper.getRelativeShopListByGoodId(posreq);
+            if (null != relativeShopList && relativeShopList.size() > 0) {
+               for (Map<String, Object> map : relativeShopList) {
+                   // 图片
+                   List<String> goodPics2 = goodMapper.getgoodPics( SysUtils.String2int(map.get("id").toString()));
+                   if (null != goodPics2 && goodPics2.size() > 0) {
+                       map.put("url_path", goodPics2.get(0));
+                   }
+               }
+            }
+            goodInfoMap.put("relativeShopList",relativeShopList);
         }
         return goodInfoMap;
     }
