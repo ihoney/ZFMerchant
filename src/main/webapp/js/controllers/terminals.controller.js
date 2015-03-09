@@ -12,6 +12,8 @@ var terminalController = function ($scope, $http, LoginService) {
 	  $scope.pages = [];
 	  //付款筛选状态
 	  $scope.frontStatus = null;
+	  //根据终端号筛选
+	  $scope.serialNum = null;
 	  
 	  //付款状态集
 	  $scope.frontPayStatus = [];
@@ -26,7 +28,8 @@ var terminalController = function ($scope, $http, LoginService) {
     		  customersId:80,
     		  indexPage:$scope.indexPage,
     		  pageNum:$scope.pageNum,
-    		  frontStatus:$scope.frontStatus
+    		  frontStatus:$scope.frontStatus,
+    		  serialNum:$scope.serialNum
     		  };
       
       $http.post("api/terminal/getApplyList", $scope.req).success(function (data) {  //绑定
@@ -36,7 +39,6 @@ var terminalController = function ($scope, $http, LoginService) {
               if($scope.boolean){
             	  $scope.frontPayStatus = data.result.frontPayStatus;
               }
-              
           }
           $scope.pages = [];
           $scope.GenerationNum();
@@ -100,17 +102,26 @@ var terminalController = function ($scope, $http, LoginService) {
       }
 	
 	
-	//筛选
+	//筛选状态
 	$scope.screening = function(obj){
 		$scope.frontStatus = Math.ceil(obj);
 		$scope.boolean = false;
+		//取消终端号的筛选
+		$scope.serialNum = null;
+		$scope.getInfo();
+	}
+	
+	//筛选终端号
+	$scope.screeningSerialNum = function(){
+		//取消终端状态的筛选
+		$scope.frontStatus = null;
+		$scope.boolean = true;
 		$scope.getInfo();
 	}
 
 	//go to page
 	$scope.tiaoPage = 1;
 	$scope.getPage = function(){
-		alert($scope.tiaoPage);
 		$scope.indexPage = Math.ceil($scope.tiaoPage);
 		$scope.getInfo();
 	};

@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/controllers/terminals.controller.js"></script>
+<script src="js/main.js"></script>
 <div class="main_user" ng-controller="terminalController">
     	<div class="box">
             <div class="right">
@@ -16,7 +17,7 @@
                     </div>
                     <div class="seenBox clear">
                     	<ul>
-                        	<li><div class="user_search"><input name="" type="text" /><button></button></div></li>
+                        	<li><div class="user_search"><input name="" type="text" ng-model="serialNum"/><button ng-click="screeningSerialNum()"></button></div></li>
                             <li><div class="user_select">
                             	<label>状态筛选</label>
                             	<select name="">
@@ -89,3 +90,32 @@
         	</div>
     	</div>
     </div>
+    <div class="mask"></div>
+
+<div class="tab otherTerminal_tab">
+	<a href="javascript:void(0);" class="close">关闭</a>
+	<div class="tabHead">添加终端</div>
+	<div class="tabBody">
+    	<div class="item_list clear">
+        	<ul>
+            	<li><span class="labelSpan">支付通道：</span>
+                	<div class="text">
+                        <select name="">
+                            <option>111</option>
+                            <option>222</option>
+                            <option>333</option>
+                        </select>
+                    </div>
+                </li>
+                <li><span class="labelSpan">商户名称：</span>
+                	<div class="text"><input name="" type="text" /></div>
+                </li>
+                <li><span class="labelSpan">终端号：</span>
+                	<div class="text"><input name="" type="text" /></div>
+                </li>
+            </ul>
+        </div>
+	</div>
+	<div class="tabFoot"><button class="orangeBtn">确定</button></div>
+</div>
+    
