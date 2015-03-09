@@ -42,6 +42,36 @@ public class TradeRecordService {
         return terminalsMapper.getTerminals(customerId);
     }
 
+    public int getTradeRecordsCount(int tradeTypeId, String terminalNumber, String startTime, String endTime) {
+        Map<Object, Object> query = new HashMap<Object, Object>();
+        query.put("tradeTypeId", tradeTypeId);
+        query.put("terminalNumber", terminalNumber);
+        query.put("startTime", startTime);
+        query.put("endTime", endTime);
+        int count = 0;
+        switch (tradeTypeId) {
+        case TradeRecord.TRADETYPEID_1:
+            count = tradeRecordMapper.getTradeRecordsCount12(query);
+            break;
+        case TradeRecord.TRADETYPEID_2:
+            count = tradeRecordMapper.getTradeRecordsCount12(query);
+            break;
+        case TradeRecord.TRADETYPEID_3:
+            count = tradeRecordMapper.getTradeRecordsCount3(query);
+            break;
+        case TradeRecord.TRADETYPEID_4:
+            count = tradeRecordMapper.getTradeRecordsCount4(query);
+            break;
+        case TradeRecord.TRADETYPEID_5:
+            count = tradeRecordMapper.getTradeRecordsCount5(query);
+            break;
+        default:
+            count = 0;
+            break;
+        }
+        return count;
+    }
+
     public List<Map<Object, Object>> getTradeRecords(int tradeTypeId, String terminalNumber, String startTime, String endTime, int page, int rows) {
         Map<Object, Object> query = new HashMap<Object, Object>();
         query.put("tradeTypeId", tradeTypeId);
@@ -118,11 +148,15 @@ public class TradeRecordService {
         query.put("endTime", endTime);
         Map<Object, Object> result = tradeRecordMapper.getTradeRecordTotal(query);
         if (!CollectionUtils.isEmpty(result)) {// 支付通道转换
-            PayChannel payChannel = paychannelMapper.getOne((int) result.get("payChannelId"));
-            if (payChannel != null) {
-                result.put("payChannelName", payChannel.getName());
+            if (Integer.parseInt(result.get("tradeTotal").toString()) == 0) {
+                result.put("amountTotal", 0);
             } else {
-                result.put("payChannelName", null);
+                PayChannel payChannel = paychannelMapper.getOne(Integer.parseInt(result.get("payChannelId").toString()));
+                if (payChannel != null) {
+                    result.put("payChannelName", payChannel.getName());
+                } else {
+                    result.put("payChannelName", null);
+                }
             }
         }
         return result;
@@ -130,13 +164,13 @@ public class TradeRecordService {
 
     public Map<String, Object> getSevenDynamic(MyOrderReq myOrderReq) {
         List<Map<String, Object>> o = tradeRecordMapper.getSevenDynamic(myOrderReq);
-        Map<String, Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         if (o.size() > 0) {
             BigDecimal sum = new BigDecimal(0);
             BigDecimal num = new BigDecimal(0);
             for (int i = 0; i < o.size(); i++) {
-                String nn =  o.get(i).get("tread_num").toString();
-                String ss =  o.get(i).get("tread_sum").toString();
+                String nn = o.get(i).get("tread_num").toString();
+                String ss = o.get(i).get("tread_sum").toString();
                 sum = sum.add(new BigDecimal(ss));
                 num = num.add(new BigDecimal(nn));
             }

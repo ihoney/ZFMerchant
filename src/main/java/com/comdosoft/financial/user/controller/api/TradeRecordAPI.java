@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -81,6 +82,37 @@ public class TradeRecordAPI {
     }
 
     /**
+     * 查询交易流水（web用）
+     * 
+     * @param tradeTypeId
+     * @param terminalNumber
+     * @param startTime
+     * @param endTime
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping(value = "getTradeRecordsWeb/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}/{page}/{rows}", method = RequestMethod.GET)
+    public Response getTradeRecordsWeb(@PathVariable int tradeTypeId,
+                                       @PathVariable String terminalNumber,
+                                       @PathVariable String startTime,
+                                       @PathVariable String endTime,
+                                       @PathVariable int page,
+                                       @PathVariable int rows) {
+        Response sysResponse = null;
+        try {
+            Map<Object, Object> result = new HashMap<Object, Object>();
+            result.put("total", tradeRecordService.getTradeRecordsCount(tradeTypeId, terminalNumber, startTime, endTime));
+            result.put("list", tradeRecordService.getTradeRecords(tradeTypeId, terminalNumber, startTime, endTime, page, rows));
+            sysResponse = Response.getSuccess(result);
+        } catch (Exception e) {
+            logger.error("查询交易流水信息失败", e);
+            sysResponse = Response.getError("查询交易流水失败:系统异常");
+        }
+        return sysResponse;
+    }
+
+    /**
      * [03]统计交易流水
      * 
      * @param tradeTypeId
@@ -121,14 +153,12 @@ public class TradeRecordAPI {
         }
         return sysResponse;
     }
-    
+
     @RequestMapping(value = "getSevenDynamic", method = RequestMethod.POST)
     public Response getSevenDynamic(@RequestBody MyOrderReq myOrderReq) {
-        Map<String,Object> ts = tradeRecordService.getSevenDynamic(myOrderReq);
+        Map<String, Object> ts = tradeRecordService.getSevenDynamic(myOrderReq);
         Response rs = Response.buildSuccess(ts, "");
         return rs;
     }
-    
-    
 
 }

@@ -1,9 +1,10 @@
+<script type="text/javascript" src="js/page.js"></script>
 <script type="text/javascript" src="js/controllers/traderecord.js"></script>
 <div class="right" ng-controller="traderecordController">
 	<div class="breadcrumb">
 		<ul>
-			<li><a href="#">交易流水</a></li>
-			<li><a href="#">转账</a></li>
+			<li><a href="#/traderecord">交易流水</a></li>
+			<li><a href="#/traderecord">转账</a></li>
 		</ul>
 	</div>
 	<div class="content clear">
@@ -11,7 +12,7 @@
 			<a href="javascript:void(0);" class="dn_prev">上一页</a>
 			<div class="dealNavBox">
 				<ul class="li_show">
-					<li><a href="#" class="hover">转账</a></li>
+					<li><a href="#/traderecord" class="hover">转账</a></li>
 					<li><a href="#">还款</a></li>
 					<li><a href="#">消费</a></li>
 					<li><a href="#">话费充值</a></li>
@@ -30,13 +31,13 @@
 						<label>选择终端</label><select ng-model="terminalNumber" ng-options="t.serialNum for t in terminals"></select>
 					</div></li>
 				<li><div class="user_date">
-						<label>选择日期</label><input type="text" ng-model="startTime"/>&nbsp;-&nbsp;<input type="text" ng-model="endTime"/>
+						<label>选择日期</label><input type="text" ng-model="startTime" />&nbsp;-&nbsp;<input type="text" ng-model="endTime" />
 					</div></li>
 				<li><button class="ghostBtn" ng-click="search()">搜索</button></li>
 			</ul>
 		</div>
 		<div class="user_statistics">
-			2014年12月1日~2014年12月31日&nbsp;转账交易共&nbsp;<strong>6</strong>&nbsp;笔&nbsp;交易金额总计&nbsp;<strong>￥4200.00</strong>
+			{{startTime}}~{{endTime}}&nbsp;转账交易共&nbsp;<strong>{{tradeRecordTotal.tradeTotal}}</strong>&nbsp;笔&nbsp;交易金额总计&nbsp;<strong>{{tradeRecordTotal.amountTotal}}</strong>
 		</div>
 		<div class="user_table">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
@@ -60,53 +61,31 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>123654789</td>
-						<td>2014/12/12 20:20:20</td>
-						<td>AF456699452</td>
-						<td><strong>￥485.00</strong></td>
-						<td><strong>￥10.00</strong></td>
-						<td><strong class="strong_status">已完成</strong></td>
-						<td><a href="#" class="a_btn">查看详情</a></td>
-					</tr>
-					<tr>
-						<td>123654789</td>
-						<td>2014/12/12 20:20:20</td>
-						<td>AF456699452</td>
-						<td><strong>￥485.00</strong></td>
-						<td><strong>￥10.00</strong></td>
-						<td><strong class="strong_status">已完成</strong></td>
-						<td><a href="#" class="a_btn">查看详情</a></td>
-					</tr>
-					<tr>
-						<td>123654789</td>
-						<td>2014/12/12 20:20:20</td>
-						<td>AF456699452</td>
-						<td><strong>￥485.00</strong></td>
-						<td><strong>￥10.00</strong></td>
-						<td><strong class="strong_status">已完成</strong></td>
-						<td><a href="#" class="a_btn">查看详情</a></td>
-					</tr>
-					<tr>
-						<td>123654789</td>
-						<td>2014/12/12 20:20:20</td>
-						<td>AF456699452</td>
-						<td><strong>￥485.00</strong></td>
-						<td><strong>￥10.00</strong></td>
-						<td><strong class="strong_status">已完成</strong></td>
-						<td><a href="#" class="a_btn">查看详情</a></td>
+					<tr ng-repeat="t in tradeRecords">
+						<td>{{t.trade_number}}</td>
+						<td>{{t.tradedTimeStr}}</td>
+						<td>{{t.terminalNumber}}</td>
+						<td>{{t.amount}}</td>
+						<td>{{t.poundage}}</td>
+						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">待付款</strong></td>
+						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易完成</strong></td>
+						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易失败</strong></td>
+						<td><a href="javascript:void(0)" class="a_btn">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="pageTurn">
-			<div class="p_num">
-				<a href="#" class="disabled">上一页</a> <a href="#" class="current">1</a> <a href="#?page=2">2</a> <a href="#?page=3">3</a> <a href="#?page=4">4</a> <a href="#?page=5">5</a> ... <a href="#?page=199">199</a> <a href="#?page=200">200</a> <a href="#?page=2">下一页</a>
+			<div class="p_num" ng-show="totalPage>1">
+				<a ng-class="{true:'disabled'}[indexPage==1]" href="javascript:void(0)" ng-click="indexPage=1;list()">首页</a>
+				<a ng-class="{true:'disabled'}[indexPage==1]" href="javascript:void(0)" ng-click="prev()">上一页</a>
+				<a ng-class="{true:'current'}[indexPage==currentPage]" ng-repeat="currentPage in pages" href="javascript:void(0)" ng-click="loadPage(currentPage)">{{currentPage}}</a>
+				<a ng-class="{true:'disabled'}[indexPage==totalPage]" href="javascript:void(0)" ng-click="next()">下一页</a>
+				<a ng-class="{true:'disabled'}[indexPage==totalPage]" href="javascript:void(0)" ng-click="indexPage=totalPage;list()">末页</a>
 			</div>
 			<div class="p_skip">
-				<span>共24页</span> <span>到第&nbsp;&nbsp;<input name="" type="text" />&nbsp;&nbsp;页
-				</span>
-				<button>确定</button>
+				<span>共&nbsp;{{totalPage}}&nbsp;页</span>&nbsp;<span>到第&nbsp;<input type="text" ng-model="gotoPage">&nbsp;页</span>
+				<button ng-click="getPage()">确定</button>
 			</div>
 		</div>
 	</div>

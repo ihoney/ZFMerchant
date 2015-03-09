@@ -33,4 +33,12 @@ public interface TradeRecordMapper {
 
     List<Map<String, Object>> getSevenDynamic(MyOrderReq myOrderReq);
 
+    int getTradeRecordsCount12(Map<Object, Object> query);
+
+    int getTradeRecordsCount3(Map<Object, Object> query);
+
+    int getTradeRecordsCount4(Map<Object, Object> query);
+
+    int getTradeRecordsCount5(Map<Object, Object> query);
+
 }

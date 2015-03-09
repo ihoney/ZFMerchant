@@ -2,11 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.trades.record.TradeRecordMapper">
 
+	<select id="getTradeRecordsCount12" resultType="int">
+	<![CDATA[
+		SELECT COUNT(r.id)
+		  FROM trade_records r JOIN trade_transfer_repayment_records t ON r.id = t.id
+		 WHERE r.trade_type_id = #{tradeTypeId}
+		   AND r.terminal_number = #{terminalNumber}
+		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
+	]]>
+	</select>
+
 	<select id="getTradeRecords12" resultType="map">
 	<![CDATA[
 		SELECT r.id,
 			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.trade_number,
 			   r.amount,
+			   r.poundage,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
 			   t.pay_from_account payFromAccount,
@@ -41,10 +53,21 @@
 	]]>
 	</select>
 
+	<select id="getTradeRecordsCount3" resultType="int">
+	<![CDATA[
+		SELECT COUNT(r.id)
+		  FROM trade_records r JOIN trade_consume_records t ON r.id = t.id
+		 WHERE r.trade_type_id = #{tradeTypeId}
+		   AND r.terminal_number = #{terminalNumber}
+		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
+	]]>
+	</select>
+
 	<select id="getTradeRecords3" resultType="map">
 	<![CDATA[
 		SELECT r.id,
 			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.trade_number,
 			   r.amount,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
@@ -79,11 +102,23 @@
 	]]>
 	</select>
 
+	<select id="getTradeRecordsCount4" resultType="int">
+	<![CDATA[
+		SELECT COUNT(r.id)
+		  FROM trade_records r
+		 WHERE r.trade_type_id = #{tradeTypeId}
+		   AND r.terminal_number = #{terminalNumber}
+		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
+	]]>
+	</select>
+
 	<select id="getTradeRecords4" resultType="map">
 	<![CDATA[
 		SELECT r.id,
 			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.trade_number,
 			   r.amount,
+			   r.poundage,			   
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
 			   r.account_name,
@@ -103,6 +138,7 @@
 			   r.merchant_number merchantNumber,
 			   r.merchant_name merchantName,
 			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.trade_number,
 			   r.amount,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
@@ -118,11 +154,23 @@
 	]]>
 	</select>
 
+	<select id="getTradeRecordsCount5" resultType="int">
+	<![CDATA[
+		SELECT COUNT(r.id)
+		  FROM trade_records r JOIN trade_recharge_records t ON r.id = t.id
+		 WHERE r.trade_type_id = #{tradeTypeId}
+		   AND r.terminal_number = #{terminalNumber}
+		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
+	]]>
+	</select>
+
 	<select id="getTradeRecords5" resultType="map">
 	<![CDATA[
 		SELECT r.id,
 			   DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
+			   r.trade_number,
 			   r.amount,
+			   r.poundage,
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
 			   t.phone
@@ -168,7 +216,7 @@
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
 	]]>
 	</select>
-	
+
 	<select id="getSevenDynamic" resultType="map">
 	<![CDATA[
 		SELECT SUM(t.amount) as tread_sum,
