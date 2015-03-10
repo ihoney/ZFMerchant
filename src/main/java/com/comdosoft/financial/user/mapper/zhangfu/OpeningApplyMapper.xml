@@ -9,8 +9,14 @@
  	</insert>
  	
  	<insert id="addOpeningApply" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
-		INSERT INTO `opening_applies` (`apply_customer_id`,`terminal_id`,`status`,`created_at`,`updated_at`,`types`,`merchant_id`,`merchant_name`,`sex`,`birthday`,`card_id`,`phone`,`email`,`city_id`) 
-		VALUES (#{applyCustomerId},#{terminalId},#{status},now(),now(),#{types},#{merchantId},#{merchantName},#{sex},#{birthday},#{cardId},#{phone},#{email},#{cityId});
+		INSERT INTO `opening_applies` (`apply_customer_id`,`terminal_id`,`status`,`created_at`,
+		`updated_at`,`types`,`merchant_id`,`merchant_name`,`sex`,`birthday`,`card_id`,`phone`,
+		`email`,`city_id`,`name`,`pay_channel_id`,`account_bank_num`,`account_bank_name`,
+		`account_bank_code`,`tax_registered_no`,`organization_code_no`) 
+		VALUES (#{applyCustomerId},#{terminalId},#{status},now(),now(),#{types},#{merchantId},
+		#{merchantName},#{sex},#{birthday},#{cardId},#{phone},#{email},#{cityId},#{name},
+		#{payChannelId},#{accountBankNum},#{accountBankName},#{accountBankCode},#{taxRegisteredNo},
+		#{organizationCodeNo});
  	</insert>
  
  	<select id="getApplyList" parameterType="map" resultType="map">

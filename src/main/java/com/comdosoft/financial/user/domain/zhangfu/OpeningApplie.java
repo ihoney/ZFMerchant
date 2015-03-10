@@ -72,6 +72,20 @@ public class OpeningApplie {
 	
 	private Integer cityId; 
 	
+	private String name;
+	
+	private Integer payChannelId;
+	
+	private String accountBankNum;
+	
+	private String accountBankName;
+	
+	private String accountBankCode;
+	
+	private String taxRegisteredNo;
+	
+	private String organizationCodeNo;
+	
 	
 	
 	public Integer getMerchantId() {
@@ -140,6 +154,64 @@ public class OpeningApplie {
 
 	public Integer getId() {
 		return id;
+	}
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPayChannelId() {
+		return payChannelId;
+	}
+
+	public void setPayChannelId(Integer payChannelId) {
+		this.payChannelId = payChannelId;
+	}
+
+	public String getAccountBankNum() {
+		return accountBankNum;
+	}
+
+	public void setAccountBankNum(String accountBankNum) {
+		this.accountBankNum = accountBankNum;
+	}
+
+	public String getAccountBankName() {
+		return accountBankName;
+	}
+
+	public void setAccountBankName(String accountBankName) {
+		this.accountBankName = accountBankName;
+	}
+
+	public String getAccountBankCode() {
+		return accountBankCode;
+	}
+
+	public void setAccountBankCode(String accountBankCode) {
+		this.accountBankCode = accountBankCode;
+	}
+
+	public String getTaxRegisteredNo() {
+		return taxRegisteredNo;
+	}
+
+	public void setTaxRegisteredNo(String taxRegisteredNo) {
+		this.taxRegisteredNo = taxRegisteredNo;
+	}
+
+	public String getOrganizationCodeNo() {
+		return organizationCodeNo;
+	}
+
+	public void setOrganizationCodeNo(String organizationCodeNo) {
+		this.organizationCodeNo = organizationCodeNo;
 	}
 
 	/**

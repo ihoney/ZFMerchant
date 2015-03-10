@@ -28,6 +28,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               $scope.MaterialLevel = data.result.MaterialLevel;
               //城市级联
               $scope.Cities = data.result.Cities;
+              //支付通道
+              $scope.channels = data.result.channels;
           }
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -52,6 +54,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   //性别单选
   $scope.butSex = function(num){
 		  $scope.sex=num;
+  }
+  
+  //获得通道ID
+  $scope.getChannels = function(chanId){
+	  $scope.chanId = Math.ceil(chanId);
   }
   
 //级联
@@ -136,18 +143,25 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  $scope.list = [
 	                 {
 	                     status:1,
-	                     terminalId:$scope.terminalId,
-	                     publicPrivateStatus: $scope.publicPrivateStatus,
-	                     applyCustomerId: $scope.customerId,
-	                     merchantId: $scope.merchantId,
+	                     terminalId:Math.ceil($scope.terminalId),
+	                     publicPrivateStatus: Math.ceil($scope.publicPrivateStatus),
+	                     applyCustomerId: Math.ceil($scope.customerId),
+	                     merchantId: Math.ceil($scope.merchantId),
 	                     merchantName:$scope.merchantNamed,
-	                     sex:$scope.sex,
+	                     sex:Math.ceil($scope.sex),
 	                     birthday: $("#selYear").val()+"/"+$("#selMonth").val()+"/"+$("#selDay").val(),
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
-	                     cityId:$scope.citiesId
-	                 },
+	                     cityId:Math.ceil($scope.citiesId),
+	                     name:$("#valueName").val(),
+	                     channel:$scope.chanId,
+	                     bankNum:$("#bankNumValue").val(),
+	                     bankName:$("#bankNameValue").val(),
+	                     bankCode:$("#bankCodeValue").val(),
+	                     organizationNo:$("#organizationNoValue").val(),
+	                     registeredNo:$("#registeredNoValue").val()
+	                 }
 	             ];
 	  
 	  $scope.listOne=[];
@@ -162,9 +176,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 			  $scope.listOne[countOne] = {
 					  key:keys,
 					  value:values,
-					  types:$scope.result[y].info_type,
-					  openingRequirementId:$scope.MaterialLevel[i].id,
-					  targetId:id
+					  types:Math.ceil($scope.result[y].info_type),
+					  openingRequirementId:Math.ceil($scope.MaterialLevel[i].id),
+					  targetId:Math.ceil(id)
 			  }
 			  countOne++;
 			  alert(values);

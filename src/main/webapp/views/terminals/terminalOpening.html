@@ -89,6 +89,29 @@
                                         </select>
                                      </div>
                                 </li>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="channelKey">支付通道：</span>
+                                	<div class="text">
+                                	<select name="">
+                                          <option ng-repeat="chan in channels" ng-click="getChannels(chan.id)">{{chan.name}}</option>
+                                    </select>
+                                	</div>
+                                </li>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="bankNumKey">结算银行账号：</span>
+                                	<div class="text"><input name="" type="text" id="bankNumValue"/>
+                                	</div>
+                                </li>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="bankNameKey">结算银行名称：</span>
+                                	<div class="text"><input name="" type="text" id="bankNameValue"/></div>
+                                </li>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="bankCodeKey">结算银行代码：</span>
+                                	<div class="text"><input name="" type="text" id="bankCodeValue"/></div>
+                                </li>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
+                                	<div class="text"><input name="" type="text" id="organizationNoValue"/></div>
+                                </li>
+                                <li ng-if="$index == 0"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
+                                	<div class="text"><input name="" type="text" id="registeredNoValue"/></div>
+                                </li>
                                 <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3">
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 	<div class="text">

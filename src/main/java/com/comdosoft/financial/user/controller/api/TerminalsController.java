@@ -392,6 +392,8 @@ public class TerminalsController {
 			map.put("MaterialLevel", openingApplyService.getMaterialLevel(maps.get("terminalsId")));
 			//城市级联
 			map.put("Cities", terminalsService.getCities());
+			//支付通道
+			map.put("channels", terminalsService.getChannels());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -454,7 +456,7 @@ public class TerminalsController {
 				Set<String> keys = map.keySet();
 				if (y == 0) {
 					status = (Integer) map.get("status");
-					terminalId = Integer.parseInt((String)map.get("terminalId"));
+					terminalId = (Integer)map.get("terminalId");
 					if (status == 2) {
 						openingAppliesId = String.valueOf(openingApplyService
 								.getApplyesId(terminalId));
@@ -462,8 +464,8 @@ public class TerminalsController {
 						openingApplyService.deleteOpeningInfos(Integer
 								.valueOf(openingAppliesId));
 					} else {
-						openingApplie.setTerminalId(Integer.parseInt((String) map
-								.get("terminalId")));
+						openingApplie.setTerminalId((Integer) map
+								.get("terminalId"));
 						openingApplie.setApplyCustomerId((Integer) map
 								.get("applyCustomerId"));
 						openingApplie.setStatus((Integer) map
@@ -485,6 +487,20 @@ public class TerminalsController {
 								.get("email"));
 						openingApplie.setCityId((Integer) map
 								.get("cityId"));
+						openingApplie.setName((String) map
+								.get("name"));
+						openingApplie.setPayChannelId((Integer) map
+								.get("channel"));
+						openingApplie.setAccountBankNum((String) map
+								.get("bankNum"));
+						openingApplie.setAccountBankName((String) map
+								.get("bankName"));
+						openingApplie.setAccountBankCode((String) map
+								.get("bankCode"));
+						openingApplie.setTaxRegisteredNo((String) map
+								.get("organizationNo"));
+						openingApplie.setOrganizationCodeNo((String) map
+								.get("registeredNo"));
 						openingApplyService.addOpeningApply(openingApplie);
 						openingAppliesId = String
 								.valueOf(openingApplie.getId());
@@ -500,7 +516,7 @@ public class TerminalsController {
 						if (i == 3)
 							openingRequirementId = (Integer) map.get(str);
 						if (i == 4)
-							targetId = Integer.parseInt((String) map.get(str));
+							targetId =(Integer) map.get(str);
 						i++;
 					}
 					openingApplyService.addApply(key, value,types, openingAppliesId,openingRequirementId,targetId);
