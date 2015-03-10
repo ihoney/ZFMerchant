@@ -85,6 +85,12 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
    		$scope.req.indexPage = Math.ceil($scope.req.gotoPage);
    		$scope.commentList();
    	};
+   	
+ // 跳转到XX页
+   	$scope.picnb=2;
+   	$scope.tt = function(nb) {
+   		$scope.picnb=nb;
+   	};
 };
 
 
