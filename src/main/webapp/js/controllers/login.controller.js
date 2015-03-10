@@ -3,7 +3,7 @@
 // 主页面路由模块，用于控制主页面的菜单导航(注入了登陆服务LoginService)
 var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
 
-var loginController = function($scope, $location, $http, LoginService) {
+var loginController = function($scope, $location, $http, LoginService,$cookieStore) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	
 
@@ -21,11 +21,10 @@ var loginController = function($scope, $location, $http, LoginService) {
 	$scope.RememberPass = false;
 
 
-	$scope.username = "";
 	$scope.password1 = "";
 	$scope.password2 = "";
 	$scope.codeNumber = "";
-	$scope.code = "";
+	$scope.code = "";//图片验证
 	$scope.codeBei = "";
 	
 	$scope.jsons = {
@@ -34,6 +33,8 @@ var loginController = function($scope, $location, $http, LoginService) {
 	};
 
 	$scope.login = function() {
+		alert($scope.RememberPass);
+		
 		LoginService.login($scope);
 	};
 	
@@ -45,6 +46,19 @@ var loginController = function($scope, $location, $http, LoginService) {
 		$('#mainindex').hide();
 		//加载登陆样式
 		$scope.dynamicLoadingCss("style/login.css");
+	}
+	
+	//退出页面(清除$cookieStore)
+	$scope.escLogin = function(){
+		$cookieStore.put("loginUserName",null);
+    	$cookieStore.put("loginUserId",0);
+    	
+    	$scope.password1 = "";
+    	$scope.code = "";
+    	$scope.hideAll();
+		//登陆前首页
+		$('#maintop').show();
+		$('#mainindex').show();
 	}
 
 	// 登陆前首页跳转手机注册
@@ -58,13 +72,14 @@ var loginController = function($scope, $location, $http, LoginService) {
 		$('#emailRetrieveHtml').hide();
 	};
 
-	// 图片验证码
+	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
+	
 	// 找回密码
 	$scope.findPass = function() {
-		$('#login').hide();
+		$scope.hideAll();
 		$('#findPassOne').show();
 		$scope.reGetRandCodeImg();
 		$scope.dynamicLoadingCss("style/retrieve.css");
@@ -74,6 +89,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
+		alert($scope.phone_email);
 		$http.post("api/user/getFindUser", {
 			username : $scope.username
 		}).success(function(data) {
@@ -92,14 +108,11 @@ var loginController = function($scope, $location, $http, LoginService) {
 							$http.post("api/user/sendEmailVerificationCode").success(function(data) {
 								if (data.code == 1) {
 									alert("重置邮件发送成功！");
-									$('#findPassOne').hide();
+									$scope.hideAll();
 									$('#findPassTwo').show();
-									$("#ulPhone").hide();
-									$("#updown").hide();
 								} else {
 									alert("重置密码邮件发送失败！");
 								}
-
 							})
 						} else {
 							$http.post("api/user/sendPhoneVerificationCodeFind", {
@@ -109,7 +122,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 									alert(data.result);
 									$scope.code = data.result;
 									$scope.codeNumber = "";
-									$('#findPassOne').hide();
+									$scope.hideAll();
 									$('#findPassTwo').show();
 								} else {
 									alert("发送手机验证码失败！");

@@ -28,8 +28,11 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			           if(data.code == -1){//用户或者密码错误！
    			        	   $scope.message = data.message; 
    			           }else{
+   			        	   //记住密码
    			        	   if($scope.RememberPass == true){
-   			        		   $cookieStore.put("password",data.result.password);
+   			        		   $cookieStore.put("loginPass",data.result.password);
+   			        	   }else{
+   			        		   $cookieStore.remove("loginPass");
    			        	   }
    			        	   $cookieStore.put("loginUserName",data.result.username);
    			        	   $cookieStore.put("loginUserId",data.result.id);
