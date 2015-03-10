@@ -59,7 +59,7 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
     		score = 3;
     	}
     	$scope.req.score = score*10;
-    	$scope.req.customer_id = 80;
+    	$scope.req.customer_id = LoginService.userid;
     	
     	$http.post("api/order/saveComment", $scope.req).success(function (data) {  
     		if (data.code==1) {

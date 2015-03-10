@@ -9,7 +9,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 	$scope.submitSearch = function(){
 		initSystemPage($scope);// 初始化分页参数
 		$scope.req = {
-			customer_id : 80,
+			customer_id : LoginService.userid,
 			search : $scope.search,
 			page : $scope.indexPage,
 			pageSize : $scope.rows
@@ -27,7 +27,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 	$scope.submitScreen = function(){
 		initSystemPage($scope);// 初始化分页参数
 		$scope.req = {
-			customer_id : 80,
+			customer_id : LoginService.userid,
 			search : $scope.search,
 			q : $scope.screen,
 			page : $scope.indexPage,
@@ -45,7 +45,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 	
 	$scope.submitPage = function(){
 		$scope.req = {
-			customer_id : 80,
+			customer_id : LoginService.userid,
 			search : $scope.search,
 			q : $scope.screen,
 			page : $scope.indexPage,
@@ -63,7 +63,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 	//订单列表
 	$scope.orderlist = function () {
 		initSystemPage($scope);// 初始化分页参数
-        $scope.req={customer_id:80,
+        $scope.req={customer_id:LoginService.userid,
         		page:$scope.indexPage,
         		pageSize:$scope.rows};
         $http.post("api/cs/cancels/getAll", $scope.req).success(function (data) {  //绑定

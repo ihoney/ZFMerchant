@@ -3,10 +3,21 @@
 $(function(){
 	$("input").focus(function(){
 		$(this).addClass("focus");
-	})
+	});
 	$("input").blur(function(){
 		$(this).removeClass("focus");
-	})
+	});
+	//左侧样式调整
+	$("#left_common li").unbind("click").bind("click", function(){
+		$(this).children('a').addClass("hover");
+		$(this).siblings().children('a').removeClass("hover");
+		if (!$(this).hasClass("second") ){ //判断是否有子节点
+			if ( !$(this).parents().hasClass("second") ){
+				$(".second").children('ol').children('li').children('a').removeClass("hover");
+			}
+		}
+   });
+
 })
 
 //input默认值
