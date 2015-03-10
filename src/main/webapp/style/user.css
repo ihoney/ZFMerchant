@@ -245,12 +245,6 @@ td a.a_btn:hover { text-decoration: underline;}
 	width: 70px;
 }
 
-.hide{
-	display:none;
-}
-.show{
-	display:block;
-}
 /*-----tab----*/
 .tab { 
 	border: 3px #eeeeee solid; 
@@ -261,6 +255,7 @@ td a.a_btn:hover { text-decoration: underline;}
 	border-radius: 5px;
 	padding: 10px;
 	z-index:1000;
+	display: none;
 }
 .tab a.close { 
 	width: 22px; 

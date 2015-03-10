@@ -3,21 +3,10 @@
 $(function(){
 	$("input").focus(function(){
 		$(this).addClass("focus");
-	});
+	})
 	$("input").blur(function(){
 		$(this).removeClass("focus");
-	});
-	//左侧样式调整
-	$("#left_common li").unbind("click").bind("click", function(){
-		$(this).children('a').addClass("hover");
-		$(this).siblings().children('a').removeClass("hover");
-		if (!$(this).hasClass("second") ){ //判断是否有子节点
-			if ( !$(this).parents().hasClass("second") ){
-				$(".second").children('ol').children('li').children('a').removeClass("hover");
-			}
-		}
-   });
-
+	})
 })
 
 //input默认值
@@ -72,8 +61,12 @@ $(function(){
 })
 
 //首页hotPOS机，处理图片大小
-$(function(){
-	$(".pro_img_a img").each(function(i){
+$(function(){	
+	proImg(".pro_img_a img");
+	proImg(".td_proBox a.cn_img img");
+})
+function proImg(e){
+	$(e).each(function(i){
 		
         var img = $(this);
         var realWidth;//真实的宽度
@@ -89,8 +82,8 @@ $(function(){
                       $(img).css("height","140").css("width","auto");
                     }
             })
-    });	
-})
+    });
+}
 
 
 //商品分类 category_item_con
@@ -262,11 +255,15 @@ function popup(t,b){
 	})
 }
 $(function(){
+	popup(".buyIntention_tab",".buyIntention_a");//首页购买意向
 	popup(".payTab",".goPay");//其它筛选条件
 	popup(".starGrade_tab",".starGrade_a");//评分
 	popup(".otherTerminal_tab",".addOtherTerminal_a");//添加其他终端
 	popup(".leaseExplain_tab",".leaseExplain_a");//租赁说明
 	popup(".creditsExchange_tab",".ce_a");//兑换积分
+	popup(".logistics_tab",".logistics_a");//提交物流信息
+	popup(".seeNumber_tab",".seeNumber_a");//查看终端号
+	popup(".posPassword_tab",".posPassword_a");//找回POS机密码
 })
 
 

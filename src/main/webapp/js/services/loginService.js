@@ -90,12 +90,62 @@ var loginService = function ($http, $rootScope, $cookieStore) {
             $("#indexDiv").hide();
         },
         
-      //创建订单传值
+        //创建订单传值
         tomakeorder: function (val) {
             var self = this;
             self.goods=val;
         },
-
+        //隐藏所有
+        hideAll: function () {
+        	$('#login').hide();
+    		$('#findPassOne').hide();
+    		$('#findPassTwo').hide();
+    		$('#findPassThree').hide();
+    		$('#retrieveHtml').hide();
+    		$('#emailRetrieveHtml').hide();
+    		$('#maintop').hide();
+    		$('#maintopTwo').hide();
+    		$('#headClear').hide();
+    		$('#shopmain').hide();
+    		$('#mainuser').hide();
+    		$('#mainindex').hide();
+        },
+        //未登录
+        unLoginShow: function () {
+        	$('#login').hide();
+    		$('#findPassOne').hide();
+    		$('#findPassTwo').hide();
+    		$('#findPassThree').hide();
+    		$('#retrieveHtml').hide();
+    		$('#emailRetrieveHtml').hide();
+    		//$('#maintop').hide();
+    		$('#maintopTwo').hide();
+    		//$('#headClear').hide();
+    		$('#shopmain').hide();
+    		$('#mainuser').hide();
+    		//$('#mainindex').hide();
+    		$('#maintop').show();
+    		$('#headClear').show();
+    		$('#mainindex').show();
+        },
+        //已登录
+        hadLoginShow: function () {
+        	$('#login').hide();
+    		$('#findPassOne').hide();
+    		$('#findPassTwo').hide();
+    		$('#findPassThree').hide();
+    		$('#retrieveHtml').hide();
+    		$('#emailRetrieveHtml').hide();
+    		$('#maintop').hide();
+    		//$('#maintopTwo').hide();
+    		//$('#headClear').hide();
+    		$('#shopmain').hide();
+    		//$('#mainuser').hide();
+    		$('#mainindex').hide();
+    		$('#maintopTwo').show();
+    		$('#headClear').show();
+    		$('#mainuser').show();
+        },
         //检验当前是否为已登录状态，或Cookie中仍存在登陆记录
         checkAuthorization: function () {
             var self = this;

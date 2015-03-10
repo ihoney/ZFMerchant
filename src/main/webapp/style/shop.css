@@ -614,6 +614,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .pro_show { width: 390px; float: left;}
 
 .bigImg { width: 388px; height:330px; overflow: hidden; border: 1px #CCCCCC solid; margin-bottom: 10px;}
+.bigImg img { width: 388px; height: 330px;}
 .picBox { height: 75px; overflow: hidden; position: relative; padding: 0 20px;}
 .prev, .next { 
 	width: 15px; 
@@ -642,6 +643,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 	overflow: hidden;
 }
 .smallImg li:hover, .smallImg li.hover { border: 1px #ff5f2b solid;}
+.smallImg li img { width: 55px; height: 55px;}
 
 .proInfo_area { float: left; width: 530px; padding-left: 20px;}
 .proInfo_area h1 { font-size: 16px; line-height: 32px;}

@@ -6,32 +6,17 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginro
 var loginController = function($scope, $location, $http, LoginService) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	
-	$scope.hideAll = function() {
-		$('#login').hide();
-		$('#findPassOne').hide();
-		$('#findPassTwo').hide();
-		$('#findPassThree').hide();
-		$('#retrieveHtml').hide();
-		$('#emailRetrieveHtml').hide();
-		$('#maintopTwo').hide();
-		$('#headClear').hide();
-		$('#shopmain').hide();
-		$('#mainuser').hide();
-		$('#mainindex').hide();
-		$('#maintop').hide();
-		$('#mainindex').hide();
-	};
-	if(LoginService.userid == 0){
-		$scope.hideAll();
-		//登陆前首页
-		$('#maintop').show();
-		$('#mainindex').show();
-	}else{
-		$scope.hideAll();
-		$('#maintopTwo').show();
-     	$('#headClear').show();
-     	$('#mainuser').show();
-	}
+
+	
+	$scope.$on('$routeChangeStart', function (scope, next, current) {                          
+		if(LoginService.userid == 0){
+			LoginService.unLoginShow();
+		}else{
+			LoginService.hadLoginShow();
+		}               
+    });
+	
+	
 
 	$scope.RememberPass = false;
 
