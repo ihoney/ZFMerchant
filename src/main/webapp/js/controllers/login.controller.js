@@ -7,7 +7,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
 	$('#login').hide();
-	$('#index').hide();
+	$('#index').show();
 
 	$('#findPassOne').hide();
 	$('#findPassTwo').hide();
@@ -17,7 +17,6 @@ var loginController = function($scope, $location, $http, LoginService) {
 
 	$scope.RememberPass = false;
 
-	$scope.HtmlCss = 'style/login.css';
 
 	$scope.username = "";
 	$scope.password1 = "";
@@ -158,7 +157,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 		head.appendChild(link);
 	};
 
-	// $scope.dynamicLoadingCss("style/login.css");
+	 //$scope.dynamicLoadingCss("style/login.css");
 
 	// ===============================
 	// 注册
