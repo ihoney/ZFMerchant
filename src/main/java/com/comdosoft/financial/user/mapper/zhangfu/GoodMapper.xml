@@ -193,5 +193,9 @@
 		LEFT JOIN goods g on g.id=gr.relative_good_id
 		where gr.good_id=#{goodId}
     </select>
+    
+     <select id="getAdId" resultType="int" >
+        SELECT id from customer_addresses WHERE customer_id=#{customerId} and is_default=1
+     </select>
 	
 </mapper>

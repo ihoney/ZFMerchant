@@ -69,6 +69,7 @@ var shopcartController = function($scope,$http,LoginService) {
 				$http.post("api/cart/update", {id:one.id,quantity:one.quantity});
 			}
 		}
+		$scope.setCheck();
 	}
 	$scope.del= function(id) {
 		$http.post("api/cart/delete", {id:id});

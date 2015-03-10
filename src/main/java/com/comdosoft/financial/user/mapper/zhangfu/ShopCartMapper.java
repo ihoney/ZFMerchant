@@ -29,6 +29,7 @@ public interface ShopCartMapper {
     Map<String, Object> getShopOne(CartReq cartreq);
 
     Map<String, Object> getLeaseOne(CartReq cartreq);
+
     
     
 }

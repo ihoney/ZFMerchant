@@ -12,6 +12,7 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 	$scope.req.city_id=LoginService.city;
 	$scope.init = function () {
 		initSystemPage($scope.creq);// 初始化分页参数
+		LoginService.hadLoginShow();
 		$("#leftRoute").hide();
 		$scope.getGoodInfo();
 		
@@ -83,6 +84,12 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
    	$scope.getPage = function() {
    		$scope.req.indexPage = Math.ceil($scope.req.gotoPage);
    		$scope.commentList();
+   	};
+   	
+ // 跳转到XX页
+   	$scope.picnb=2;
+   	$scope.tt = function(nb) {
+   		$scope.picnb=nb;
    	};
 };
 
