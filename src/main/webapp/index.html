@@ -202,16 +202,16 @@
 				<div class="lr_b">
 					<div class="login_area">
 						<ul>
-							<li><input name="" type="text" value="ID" class="error" ng-model="username" />
+							<li><input name="" type="text" placeholder="ID" class="error" ng-model="username" />
 								<p class="red" ng-bind="message"></p></li>
-							<li><input name="" type="text" value="密码" ng-model="password1" /></li>
-							<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code" />
+							<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
+							<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
 								<div class="yzm">
 									<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 								</div></li>
 						</ul>
 						<div class="forget">
-							<span><input name="" type="checkbox" value="" ng-model="RememberPass" /> 忘记密码</span> <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
+							<span><input name="" type="checkbox" value="" ng-model="RememberPass" />记住密码</span> <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
 						</div>
 						<div class="btn">
 							<button ng-click="login()">登录</button>
@@ -252,8 +252,8 @@
 			</div>
 			<div class="ret_b">
 				<ul>
-					<li><input name="" type="text" value="手机号/邮箱" ng-model="username" /></li>
-					<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="code" /><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" /></li>
+					<li><input name="" type="text" placeholder="手机号/邮箱" ng-model="phone_email" /></li>
+					<li><input name="" type="text" placeholder="输入图片校验码"  class="l" ng-model="code" /><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" /></li>
 				</ul>
 				<div class="btn">
 					<button ng-click="findPassOnes()">下一步</button>
@@ -393,7 +393,7 @@
 				</ul>
 			</div>
 			<div class="top_user">
-				<a href="#">王小小</a><a href="#">退出</a><a href="#">掌富APP</a>
+				<a href="#">王小小</a><a href="javascript:void(0)" ng-click="escLogin()">退出</a><a href="#">掌富APP</a>
 			</div>
 		</div>
 		<div class="clear"></div>
