@@ -5,7 +5,7 @@ var orderModule = angular.module("orderModule",[]);
 
 var orderController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
-	
+	initSystemPage($scope);// 初始化分页参数
 	// 搜索
 	$scope.submitSearch = function(){
 		initSystemPage($scope);// 初始化分页参数
@@ -122,7 +122,7 @@ var orderController = function ($scope, $http, LoginService) {
 		$scope.submitPage();
 	};
 
-    $scope.orderlist();
+    $scope.submitPage();
 //    $scope.submitSearch();
 //    $scope.orderinfo();
 };
