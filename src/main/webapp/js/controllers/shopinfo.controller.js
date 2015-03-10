@@ -12,6 +12,7 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 	$scope.req.city_id=LoginService.city;
 	$scope.init = function () {
 		initSystemPage($scope.creq);// 初始化分页参数
+		LoginService.hadLoginShow();
 		$("#leftRoute").hide();
 		$scope.getGoodInfo();
 		
