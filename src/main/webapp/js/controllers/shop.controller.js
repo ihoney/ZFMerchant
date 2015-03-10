@@ -9,8 +9,8 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req.city_id=LoginService.city;
 	$scope.req.orderType=1;
 	
-	//$scope.req.has_purchase=1;
-	//$scope.req.keys=0;
+	$scope.req.has_purchase=false;
+	//$scope.req.keys="";
 	//$scope.req.minPrice=0;
 	//$scope.req.maxPrice=0;
 	
@@ -22,9 +22,28 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req.sale_slip_id=[];
 	$scope.req.tDate=[];
 	
+	
+	$scope.shopcount=LoginService.shopcount;
+	$scope.searchShop=function(){
+		//window.location.href = '#/shop';
+		$('#login').hide();
+		$('#index').hide();
+		$('#mainuser').hide();
+		$('#findPassOne').hide();
+		$('#findPassTwo').hide();
+		$('#findPassThree').hide();
+		$('#retrieveHtml').hide();
+		$('#emailRetrieveHtml').hide();
+		
+		$('#mainindex').hide();
+		$('#shopmain').show();
+		
+		$scope.init();
+	};
+	
 	$scope.init = function () {
 		initSystemPage($scope.req);// 初始化分页参数
-		$("#leftRoute").hide();
+		//$("#leftRoute").hide();
 		$scope.searchinfo();
 		$scope.list();
     };
@@ -42,10 +61,21 @@ var shopController = function ($scope, $http, LoginService) {
         });
     }
     $scope.list = function () {
+    	if($scope.req.has_purchase){
+    		$scope.req.has_purchase=1;
+    	}else{
+    		$scope.req.has_purchase=0;
+    	}
 		$http.post("api/good/list", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.goodList=data.result.list;
             	calcSystemPage($scope.req, data.result.total);// 计算分页
+            	if($scope.req.has_purchase==1){
+            		$scope.req.has_purchase=true;
+            	}else{
+            		$scope.req.has_purchase=false;
+            	}
+            	
             }
         });
     };
@@ -327,7 +357,7 @@ var shopController = function ($scope, $http, LoginService) {
     	window.location.href = '#/shopinfo';
     }
     
-    $scope.init();
+    
     
 
 };

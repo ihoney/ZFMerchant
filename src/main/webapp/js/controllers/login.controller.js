@@ -10,7 +10,8 @@ var loginController = function($scope, $location, $http, LoginService) {
 
 	$('#index').hide();
 	$('#mainuser').hide();
-
+	$('#shopmain').hide();
+	
 
 
 	$('#findPassOne').hide();
