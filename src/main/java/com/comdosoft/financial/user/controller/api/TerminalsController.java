@@ -568,6 +568,22 @@ public class TerminalsController {
 			return Response.getError("请求失败！");
 		}
 	}
+	/**
+	 *获得省
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value = "getCities", method = RequestMethod.POST)
+	public Response getCities() {
+		try {
+			return Response.getSuccess(terminalsService.getCities());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
 	
 	/**
 	 *很据省获得市

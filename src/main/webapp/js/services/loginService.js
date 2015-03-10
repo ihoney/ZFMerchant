@@ -22,12 +22,18 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         	
    		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
    			 if(data.code == -1){
-   				 $scope.message = data.message;
+   				 $scope.imgMessage = data.message;
+   				 $("#loginImg").attr("class","error");
    			 }else{
+   				 $("#loginImg").attr("class","");
    				 $http.post("api/user/studentLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
    			           if(data.code == -1){//用户或者密码错误！
-   			        	   $scope.message = data.message; 
+   			        	   $scope.nameMessage = data.message; 
+   			        	   $("#loginUname").attr("class","error");
    			           }else{
+   			        	 $("#loginUname").attr("class","");
+   			        	   $scope.nameMessag = "";
+   			        	   $scope.code = "";
    			        	   //记住密码
    			        	   if($scope.RememberPass == true){
    			        		   $cookieStore.put("loginPass",data.result.password);
@@ -42,6 +48,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			        	   $('#maintopTwo').show();
    			        	   $('#headClear').show();
    			        	   $('#mainuser').show();
+   			        	   $("link[href='style/global.css']").remove();
    			        	   $scope.dynamicLoadingCss("style/global.css");
    			           }
    			        }).error(function (data) {

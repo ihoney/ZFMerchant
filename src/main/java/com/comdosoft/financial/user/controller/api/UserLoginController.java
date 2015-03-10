@@ -167,6 +167,7 @@ public class UserLoginController {
                 }
             }
         } catch (Exception e) {
+        	e.printStackTrace();
             return Response.getError("获取验证码失败！");
         }
     }
@@ -190,8 +191,6 @@ public class UserLoginController {
     @RequestMapping(value = "webFicationCode", method = RequestMethod.POST)
     public Response webFicationCode(@RequestBody Customer customer) {
         try {
-        	System.out.println(customer.getCode()+"验证码1");
-        	System.out.println(userLoginService.findCode(customer)+"验证码2");
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
                 	
                     return Response.getSuccess("验证码正确！");
@@ -266,14 +265,13 @@ public class UserLoginController {
                         customer.setPhone(customer.getUsername());
                         customer.setStatus(Customer.STATUS_NORMAL);
                         userLoginService.updateUser(customer);
-                        return Response.getSuccess("注册成功！");
+                        return Response.getSuccess("注册成功!");
                     } else {
                         return Response.getError("验证码错误！");
                     }
                 } else {
-                    customer.setEmail(customer.getUsername());
                     customer.setStatus(Customer.STATUS_NON_ACTIVE);
-                    userLoginService.updateUser(customer);
+                    userLoginService.addUser(customer);
                     return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
                 }
             } else {
@@ -314,4 +312,25 @@ public class UserLoginController {
            // logger.error("验证码图片显示异常", ioEx);
         }
     }
+    
+    
+    /**
+     * 检查该邮箱是否注册
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "jusEmail", method = RequestMethod.POST)
+    public Response jusEmail(@RequestBody Customer customer) {
+        try {
+            if (userLoginService.findUname(customer) == 0) {
+            	 return Response.getSuccess("该邮箱可以使用！");
+            } else {
+                return Response.getError("该邮箱已经注册！");
+            }
+        } catch (Exception e) {
+            return Response.getError("请求失败！");
+        }
+    }
+    
 }

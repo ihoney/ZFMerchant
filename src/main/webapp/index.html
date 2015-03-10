@@ -11,7 +11,7 @@
 			<!--user.css用户后台页-->
 			<link href="style/user.css" rel="stylesheet" type="text/css" />
 			<!--global.css全局公用-->
-			<link href="style/global.css" rel="stylesheet" type="text/css" />
+			<!-- <link href="style/global.css" rel="stylesheet" type="text/css" /> -->
 			<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
 
 			<script src="js/jQuery-1.11.2.js"></script>
@@ -185,7 +185,7 @@
 </div>
 
 	<div id="login">
-		<div class="logo">
+		<div class="login_logo">
 			<img src="images/logo.png" />
 		</div>
 		<div class="login">
@@ -202,10 +202,10 @@
 				<div class="lr_b">
 					<div class="login_area">
 						<ul>
-							<li><input name="" type="text" placeholder="ID" class="error" ng-model="username" />
-								<p class="red" ng-bind="message"></p></li>
+							<li><input id="loginUname" name="" type="text" placeholder="ID" ng-model="username" />
+								<p class="red" ng-bind="nameMessage"></p></li>
 							<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
-							<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
+							<li><input id="loginImg" name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
 								<div class="yzm">
 									<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 								</div></li>
@@ -245,9 +245,9 @@
 		<div class="retrieve">
 			<div class="ret_h">
 				<ul>
-					<li><a href="#" class="hover">第一步</a></li>
-					<li><a href="#">第二步</a></li>
-					<li><a href="#">第三步</a></li>
+					<li><a href="javascript:void(0)" class="hover">第一步</a></li>
+					<li><a href="javascript:void(0)">第二步</a></li>
+					<li><a href="javascript:void(0)">第三步</a></li>
 				</ul>
 			</div>
 			<div class="ret_b">
@@ -269,14 +269,14 @@
 		<div class="retrieve">
 			<div class="ret_h">
 				<ul>
-					<li><a href="#">第一步</a></li>
-					<li><a href="#" class="hover">第二步</a></li>
-					<li><a href="#">第三步</a></li>
+					<li><a href="javascript:void(0)">第一步</a></li>
+					<li><a href="javascript:void(0)" class="hover">第二步</a></li>
+					<li><a href="javascript:void(0)">第三步</a></li>
 				</ul>
 			</div>
 			<div class="ret_b">
 				<ul id="ulPhone">
-					<li><input name="" type="text" value="输入图片校验码" class="m" ng-model="codeNumber" />
+					<li><input name="" type="text" placeholder="输入图片校验码" class="m" ng-model="codeNumber" />
 						<button class="send_btn">重新发送验证码（119秒）</button></li>
 				</ul>
 				<div class="btn" id="updown">
@@ -294,15 +294,15 @@
 		<div class="retrieve">
 			<div class="ret_h">
 				<ul>
-					<li><a href="#">第一步</a></li>
-					<li><a href="#">第二步</a></li>
-					<li><a href="#" class="hover">第三步</a></li>
+					<li><a href="javascript:void(0)">第一步</a></li>
+					<li><a href="javascript:void(0)">第二步</a></li>
+					<li><a href="javascript:void(0)" class="hover">第三步</a></li>
 				</ul>
 			</div>
 			<div class="ret_b">
 				<ul>
-					<li><input name="" type="text" value="输入新密码" ng-model="password1" /></li>
-					<li><input name="" type="text" value="确认新密码" ng-model="password2" /></li>
+					<li><input name="" type="text" placeholder="输入新密码" ng-model="password1" /></li>
+					<li><input name="" type="text" placeholder="确认新密码" ng-model="password2" /></li>
 				</ul>
 				<div class="btn">
 					<button ng-click="findPassEnd()">去登陆</button>
@@ -318,28 +318,29 @@
 		<div class="register">
 			<div class="res_h">
 				<ul>
-					<li><a href="#" class="hover" ng-click="register()">手机注册</a></li>
-					<li><a href="#" ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
+					<li><a href="javascript:void(0)" class="hover" ng-click="register()">手机注册</a></li>
+					<li><a href="javascript:void(0)" ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
 				</ul>
 			</div>
 			<div class="res_b">
 				<ul>
-					<li><label>所在地</label> <select name="">
-							<option>省</option>
+					<li><label>所在地</label> 
+					<select name="">
+							<option ng-repeat="ci in cities" ng-if="ci.parent_id == 0" ng-click="getShicit(ci.id)">{{ci.name}}</option>
 					</select> <select name="">
-							<option>市</option>
+							<option ng-repeat="si in getShi" ng-click="getsShiId(si.id)">{{si.name}}</option>
 					</select></li>
-					<li><input name="" type="text" value="手机号码" class="l" ng-model="username" />
+					<li><input name="" type="text" placeholder="手机号码" class="l" ng-model="rename" />
 						<button class="yzm_btn" ng-click="getRegisterCode()">获取验证码</button></li>
-					<li><input name="" type="text" value="验证码" ng-model="codeNumber" /></li>
-					<li><input name="" type="text" value="用户名（可选）" ng-model="name" /></li>
-					<li><input name="" type="text" value="密码" ng-model="password1" /></li>
-					<li><input name="" type="text" value="确认密码" ng-model="password2" /></li>
-					<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei" />
+					<li><input name="" type="text" placeholder="验证码" ng-model="codeNumber" /></li>
+					<li><input name="" type="text" placeholder="用户名（可选）" ng-model="name" /></li>
+					<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
+					<li><input name="" type="text" placeholder="确认密码" ng-model="password2" /></li>
+					<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="codeBei" />
 						<div>
 							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 						</div></li>
-					<li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+					<li><input  name="ridel" type="radio" value="" ng-click="ridel_xy = !ridel_xy" /> <a href="#">同意《掌富服务协议》</a></li>
 				</ul>
 				<div class="btn">
 					<button ng-click="getImgCode()">注册</button>
@@ -355,31 +356,32 @@
 		<div class="register">
 			<div class="res_h">
 				<ul>
-					<li><a href="#" ng-click="register()">手机注册</a></li>
-					<li><a href="#" class="hover">邮箱注册</a></li>
+					<li><a href="javascript:void(0)" ng-click="register()">手机注册</a></li>
+					<li><a href="javascript:void(0)" ng-click="gotoEmailRetrieve()" class="hover">邮箱注册</a></li>
 				</ul>
 			</div>
 			<div class="res_b">
-				<ul>
-					<li><label>所在地</label> <select name="">
-							<option>省</option>
+				<ul id="emailUl">
+					<li><label>所在地</label> 
+					<select name="">
+							<option ng-repeat="ci in cities" ng-if="ci.parent_id == 0" ng-click="getShicit(ci.id)">{{ci.name}}</option>
 					</select> <select name="">
-							<option>市</option>
+							<option ng-repeat="si in getShi" ng-click="getsShiId(si.id)">{{si.name}}</option>
 					</select></li>
-					<li><input name="" type="text" value="邮箱" ng-model="username" /></li>
-					<li><input name="" type="text" value="用户名（可选）" ng-model="name" /></li>
-					<li><input name="" type="text" value="密码" ng-model="password1" /></li>
-					<li><input name="" type="text" value="确认密码" ng-model="password2" /></li>
-					<li><input name="" type="text" value="输入图片校验码" class="l" ng-model="codeBei" />
+					<li><input name="" type="text" placeholder="邮箱" ng-model="emailname" /></li>
+					<li><input name="" type="text" placeholder="用户名（可选）" ng-model="name" /></li>
+					<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
+					<li><input name="" type="text" placeholder="确认密码" ng-model="password2" /></li>
+					<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="codeBei" />
 						<div class="jym">
 							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 						</div></li>
-					<li><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+					<li><input name="ridel" ng-click="ridel_xy = !ridel_xy" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
 				</ul>
-				<div class="btn">
+				<div class="btn" id="butEmail">
 					<button ng-click="getImgEmailCode()">注册</button>
 				</div>
-				<div class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
+				<div id="clodeText" class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
 			</div>
 		</div>
 	</div>

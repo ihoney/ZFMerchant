@@ -6,7 +6,7 @@ a { text-decoration: none;}
 
 .red { color: #F00;}
 
-.logo { height: 50px; width: 1200px; margin: 20px auto;}
+.login_logo { height: 50px; width: 1200px; margin: 20px auto;}
 .login { width: 1200px; height: 420px; background: #FFF; margin: 50px auto;}
 .login_left { width: 780px; float: left; height: 420px; font-size: 0; margin-right: 20px;}
 .login_right { width: 398px; float: left; height: 418px; border: 1px #ccc solid;}
