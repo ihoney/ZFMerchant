@@ -5,33 +5,32 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginro
 
 var loginController = function($scope, $location, $http, LoginService) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-
-	/*if(LoginService.userid==0){
+	$scope.hideAll = function() {
+		$('#login').hide();
+		$('#findPassOne').hide();
+		$('#findPassTwo').hide();
+		$('#findPassThree').hide();
+		$('#retrieveHtml').hide();
+		$('#emailRetrieveHtml').hide();
+		$('#maintopTwo').hide();
+		$('#headClear').hide();
+		$('#shopmain').hide();
+		$('#mainuser').hide();
+		$('#mainindex').hide();
+		$('#maintop').hide();
+		$('#mainindex').hide();
+	};
+	if(LoginService.userid == 0){
+		$scope.hideAll();
 		//登陆前首页
 		$('#maintop').show();
 		$('#mainindex').show();
 	}else{
-		//登陆前首页
-		$('#maintop').hide();
-		$('#mainindex').hide();
-	}*/
-	//登陆模块
-	$('#login').hide();
-	
-	//登陆前首页
-	$('#maintop').show();
-	$('#mainindex').show();
-	//登陆后首页
-	$('#index').hide();
-	$('#mainuser').hide();
-	$('#shopmain').hide();
-	
-	//找回密码页面
-	$('#findPassOne').hide();
-	$('#findPassTwo').hide();
-	$('#findPassThree').hide();
-	$('#retrieveHtml').hide();
-	$('#emailRetrieveHtml').hide();
+		$scope.hideAll();
+		$('#maintopTwo').show();
+     	$('#headClear').show();
+     	$('#mainuser').show();
+	}
 
 	$scope.RememberPass = false;
 
