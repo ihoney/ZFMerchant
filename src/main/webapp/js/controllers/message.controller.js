@@ -10,6 +10,7 @@ var messageController = function($scope, $location, $http, LoginService) {
 	$scope.isSelectAll=false;
 	$scope.req.customer_id=LoginService.userid;
 	$scope.init = function() {
+		initSystemPage($scope.req);// 初始化分页参数
 		$("#leftRoute").show();
 		$scope.req.id=$location.search()['id'];
 		if($scope.req.id>0){
@@ -20,9 +21,12 @@ var messageController = function($scope, $location, $http, LoginService) {
 		
 	};
 	$scope.getlist=function() {
+		$scope.req.page=$scope.req.indexPage;
+		$scope.req.pageSize=$scope.req.rows;
 		$http.post("api/message/receiver/getAll",$scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.list=data.result.content;
+				calcSystemPage($scope.req, data.result.total);// 计算分页
 			} 
 		});
 	};
@@ -92,6 +96,34 @@ var messageController = function($scope, $location, $http, LoginService) {
 		$scope.getlist();
 	}
 	$scope.init();
+	
+	 // 上一页
+	$scope.prev = function() {
+		if ($scope.req.indexPage > 1) {
+			$scope.req.indexPage--;
+			$scope.getlist();
+		}
+	};
+
+	// 当前页
+	$scope.loadPage = function(currentPage) {
+		$scope.req.indexPage = currentPage;
+		$scope.getlist();
+	};
+
+	// 下一页
+	$scope.next = function() {
+		if ($scope.req.indexPage < $scope.req.totalPage) {
+			$scope.req.indexPage++;
+			$scope.getlist();
+		}
+	};
+
+	// 跳转到XX页
+	$scope.getPage = function() {
+		$scope.req.indexPage = Math.ceil($scope.req.gotoPage);
+		$scope.getlist();
+	};
 };
 
 
