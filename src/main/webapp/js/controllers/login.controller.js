@@ -6,6 +6,15 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginro
 var loginController = function($scope, $location, $http, LoginService) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
+	/*if(LoginService.userid==0){
+		//登陆前首页
+		$('#maintop').show();
+		$('#mainindex').show();
+	}else{
+		//登陆前首页
+		$('#maintop').hide();
+		$('#mainindex').hide();
+	}*/
 	//登陆模块
 	$('#login').hide();
 	
@@ -14,9 +23,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 	$('#mainindex').show();
 	//登陆后首页
 	$('#index').hide();
-	
 	$('#mainuser').hide();
-	
 	$('#shopmain').hide();
 	
 	//找回密码页面

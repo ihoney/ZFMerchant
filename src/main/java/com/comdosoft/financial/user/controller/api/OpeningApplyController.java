@@ -170,7 +170,7 @@ public class OpeningApplyController {
 				Set<String> keys = map.keySet();
 				if (y == 0) {
 					status = (Integer) map.get("status");
-					terminalId = Integer.parseInt((String)map.get("terminalId"));
+					terminalId = (Integer)map.get("terminalId");
 					if (status == 2) {
 						openingAppliesId = String.valueOf(openingApplyService
 								.getApplyesId(terminalId));
@@ -178,8 +178,8 @@ public class OpeningApplyController {
 						openingApplyService.deleteOpeningInfos(Integer
 								.valueOf(openingAppliesId));
 					} else {
-						openingApplie.setTerminalId(Integer.parseInt((String) map
-								.get("terminalId")));
+						openingApplie.setTerminalId((Integer) map
+								.get("terminalId"));
 						openingApplie.setApplyCustomerId((Integer) map
 								.get("applyCustomerId"));
 						openingApplie.setStatus((Integer) map
@@ -201,6 +201,20 @@ public class OpeningApplyController {
 								.get("email"));
 						openingApplie.setCityId((Integer) map
 								.get("cityId"));
+						openingApplie.setName((String) map
+								.get("name"));
+						openingApplie.setPayChannelId((Integer) map
+								.get("channel"));
+						openingApplie.setAccountBankNum((String) map
+								.get("bankNum"));
+						openingApplie.setAccountBankName((String) map
+								.get("bankName"));
+						openingApplie.setAccountBankCode((String) map
+								.get("bankCode"));
+						openingApplie.setTaxRegisteredNo((String) map
+								.get("organizationNo"));
+						openingApplie.setOrganizationCodeNo((String) map
+								.get("registeredNo"));
 						openingApplyService.addOpeningApply(openingApplie);
 						openingAppliesId = String
 								.valueOf(openingApplie.getId());
