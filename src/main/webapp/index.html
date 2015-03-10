@@ -3,150 +3,189 @@
 <head ng-controller="loginController">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
 
-	<title></title> <!--shop.css 商品列表 商品详情页-->
-	<link href="style/shop.css" rel="stylesheet" type="text/css" />
-	<!--user.css用户后台页-->
-	<link href="style/user.css" rel="stylesheet" type="text/css" />
-	<!--global.css全局公用-->
-	<link href="style/global.css" rel="stylesheet" type="text/css" />
-	<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
+			<title></title> <!--shop.css 商品列表 商品详情页-->
+			<link href="style/shop.css" rel="stylesheet" type="text/css" />
+			<!--user.css用户后台页-->
+			<link href="style/user.css" rel="stylesheet" type="text/css" />
+			<!--global.css全局公用-->
+			<link href="style/global.css" rel="stylesheet" type="text/css" />
+			<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
 
-	<script src="js/jQuery-1.11.2.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/Chart.min.js"></script>
+			<script src="js/jQuery-1.11.2.js"></script>
+			<script src="js/main.js"></script>
+			<script src="js/Chart.min.js"></script>
+			<script type="text/javascript" src="js/unslider.js"></script>
+			<!--星型评分插件http://www.wbotelhos.com/raty/-->
+			<script src="js/jquery.raty.js"></script>
 
-	<!--星型评分插件http://www.wbotelhos.com/raty/-->
-	<script src="js/jquery.raty.js"></script>
+			<!--放大产品-->
+			<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
+			<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
+			<script type="text/javascript" src="js/pro-show.js"></script>
 
-	<!--放大产品-->
-	<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
-	<script type="text/javascript" src="js/pro-show.js"></script>
+			<script type="text/javascript" src="js/libs/angular.js"></script>
+			<script type="text/javascript" src="js/libs/angular-route.js"></script>
+			<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
+			<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
+			<script type="text/javascript" src="js/libs/ng-csv.js"></script>
+			<script type="text/javascript" src="js/index.js"></script>
+			<!-- 系统分页 -->
+			<script type="text/javascript" src="js/page.js"></script>
 
-	<script type="text/javascript" src="js/libs/angular.js"></script>
-	<script type="text/javascript" src="js/libs/angular-route.js"></script>
-	<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
-	<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
-	<script type="text/javascript" src="js/libs/ng-csv.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
-	<!-- 系统分页 -->
-	<script type="text/javascript" src="js/page.js"></script>
+			<!-- Services -->
+			<script type="text/javascript" src="js/services/loginService.js"></script>
+			<!-- Directives -->
+			<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
+			<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
+			<!-- Controllers -->
+			<script type="text/javascript" src="js/controllers/route.controller.js"></script>
+			<script type="text/javascript" src="js/controllers/head.controller.js"></script>
+			<script type="text/javascript" src="js/controllers/login.controller.js"></script>
+			<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
 
-	<!-- Services -->
-	<script type="text/javascript" src="js/services/loginService.js"></script>
-	<!-- Directives -->
-	<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
-	<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
-	<!-- Controllers -->
-	<script type="text/javascript" src="js/controllers/route.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/head.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/login.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
+			<script type="text/javascript">
+				//登录
+				// 切换
+				$(function() {
+					$(".lr_b > div").not(":first").hide();
+					$(".lr_h li").unbind("click").bind("click", function() {
+						$(this).addClass("hover").siblings().removeClass("hover");
+						var index = $(".lr_h li").index($(this));
+						$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
+					});
+				});
 
-	<script type="text/javascript">
-		//登录
-		// 切换
-		$(function() {
-			$(".lr_b > div").not(":first").hide();
-			$(".lr_h li").unbind("click").bind("click", function() {
-				$(this).addClass("hover").siblings().removeClass("hover");
-				var index = $(".lr_h li").index($(this));
-				$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
-			});
-		});
-
-		//input默认值
-		function focusBlur(e) {
-			$(e).focus(function() {
-				var thisVal = $(this).val();
-				if (thisVal == this.defaultValue) {
-					$(this).val('');
+				//input默认值
+				function focusBlur(e) {
+					$(e).focus(function() {
+						var thisVal = $(this).val();
+						if (thisVal == this.defaultValue) {
+							$(this).val('');
+						}
+					})
+					$(e).blur(function() {
+						var thisVal = $(this).val();
+						if (thisVal == '') {
+							$(this).val(this.defaultValue);
+						}
+					})
 				}
-			})
-			$(e).blur(function() {
-				var thisVal = $(this).val();
-				if (thisVal == '') {
-					$(this).val(this.defaultValue);
-				}
-			})
-		}
 
-		$(function() {
-			focusBlur('.login_area input');//登录
-		})
-	</script>
+				$(function() {
+					focusBlur('.login_area input');//登录
+				})
+			</script>
 
-	<script type="text/javascript">
-		//input默认值findpassone
-		function focusBlur(e) {
-			$(e).focus(function() {
-				var thisVal = $(this).val();
-				if (thisVal == this.defaultValue) {
-					$(this).val('');
+			<script type="text/javascript">
+				//input默认值findpassone
+				function focusBlur(e) {
+					$(e).focus(function() {
+						var thisVal = $(this).val();
+						if (thisVal == this.defaultValue) {
+							$(this).val('');
+						}
+					})
+					$(e).blur(function() {
+						var thisVal = $(this).val();
+						if (thisVal == '') {
+							$(this).val(this.defaultValue);
+						}
+					})
 				}
-			})
-			$(e).blur(function() {
-				var thisVal = $(this).val();
-				if (thisVal == '') {
-					$(this).val(this.defaultValue);
-				}
-			})
-		}
 
-		$(function() {
-			focusBlur('.ret_b input');//登录
-		})
-	</script>
+				$(function() {
+					focusBlur('.ret_b input');//登录
+				})
+			</script>
 
-	<script type="text/javascript">
-		//input默认值findTwo
-		function focusBlur(e) {
-			$(e).focus(function() {
-				var thisVal = $(this).val();
-				if (thisVal == this.defaultValue) {
-					$(this).val('');
+			<script type="text/javascript">
+				//input默认值findTwo
+				function focusBlur(e) {
+					$(e).focus(function() {
+						var thisVal = $(this).val();
+						if (thisVal == this.defaultValue) {
+							$(this).val('');
+						}
+					})
+					$(e).blur(function() {
+						var thisVal = $(this).val();
+						if (thisVal == '') {
+							$(this).val(this.defaultValue);
+						}
+					})
 				}
-			})
-			$(e).blur(function() {
-				var thisVal = $(this).val();
-				if (thisVal == '') {
-					$(this).val(this.defaultValue);
-				}
-			})
-		}
 
-		$(function() {
-			focusBlur('.ret_b input');//登录
-		})
-	</script>
+				$(function() {
+					focusBlur('.ret_b input');//登录
+				})
+			</script>
 
-	<script type="text/javascript">
-		//input默认值注册
-		function focusBlur(e) {
-			$(e).focus(function() {
-				var thisVal = $(this).val();
-				if (thisVal == this.defaultValue) {
-					$(this).val('');
+			<script type="text/javascript">
+				//input默认值注册
+				function focusBlur(e) {
+					$(e).focus(function() {
+						var thisVal = $(this).val();
+						if (thisVal == this.defaultValue) {
+							$(this).val('');
+						}
+					})
+					$(e).blur(function() {
+						var thisVal = $(this).val();
+						if (thisVal == '') {
+							$(this).val(this.defaultValue);
+						}
+					})
 				}
-			})
-			$(e).blur(function() {
-				var thisVal = $(this).val();
-				if (thisVal == '') {
-					$(this).val(this.defaultValue);
-				}
-			})
-		}
 
-		$(function() {
-			focusBlur('.res_b input');//登录
-		});
-	</script>
+				$(function() {
+					focusBlur('.res_b input');//登录
+				});
+			</script>
 </head>
 
 <body ng-controller="loginController">
+
+<div id="maintop" class="topInfo clear">
+	<div class="box">
+    	<div class="address">
+        	<div class="addr_h"><span>上海</span><i class="down"></i></div>
+            <div class="addr_b">
+            	<ul>
+                	<li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                    <li><a href="#">北京</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="topNav">
+        	<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a>
+            <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
+        </div>
+        <div class="loginInfo">
+        	<a href="#">登录</a>
+            <a href="#">注册</a>
+            <a href="#">代理商入口</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
 	<div id="login">
 		<div class="logo">
 			<img src="images/logo.png" />
@@ -394,7 +433,7 @@
 		</div>
 	</div>
 
-	<div class="main_user">
+	<div class="main_user" id="mainuser">
 		<div class="box">
 			<div class="left" id="leftRoute">
 				<ul>
@@ -420,6 +459,317 @@
 		</div>
 	</div>
 
+
+
+
+
+
+	<div id="mainindex">
+		<div class="ad">
+			<div class="banner">
+				<ul class="show">
+					<li style="background-image: url(images/ad1.jpg);"></li>
+					<li style="background-image: url(images/ad2.jpg);"></li>
+					<li style="background-image: url(images/ad3.jpg);"></li>
+					<li style="background-image: url(images/ad4.jpg);"></li>
+					<li style="background-image: url(images/ad5.jpg);"></li>
+				</ul>
+			</div>
+			<script>
+				$(function() {
+					$('.banner').unslider({
+						speed : 500,
+						delay : 3000,
+						complete : function() {
+						},
+						keys : true,
+						dots : true,
+						fluid : false
+					});
+				});
+			</script>
+		</div>
+		<div class="main">
+
+
+			<div class="box">
+				<div class="i_category">
+					<ul>
+						<li><a href="#" class="pos01"><i></i>
+							<p>传统POS机</p></a></li>
+						<li><a href="#" class="pos02"><i></i>
+							<p>智能手机插件POS</p></a></li>
+						<li><a href="#" class="pos03"><i></i>
+							<p>功能手机插件POS</p></a></li>
+						<li><a href="#" class="pos04"><i></i>
+							<p>音频外插件POS</p></a></li>
+						<li><a href="#" class="pos05"><i></i>
+							<p>蓝牙插件POS</p></a></li>
+						<li><a href="#" class="pos06"><i></i>
+							<p>其它POS</p></a></li>
+					</ul>
+				</div>
+				<div class="searchProgress">
+					<div class="title">申请进度查询</div>
+					<div class="sp_con">
+						<div class="sp_search">
+							<input name="" type="text" value="请输入XXXX" />
+							<button>搜索</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="hotPro">
+					<div class="title">
+						热卖POS<a href="#" class="more">更多&gt;&gt;</a>
+					</div>
+					<div class="hp_con">
+						<ul>
+							<li><a href="#" class="pro_img_a"><img src="images/ad1.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/i_category.png" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+						</ul>
+					</div>
+				</div>
+				<div class="notice">
+					<div class="title">网站公告</div>
+					<div class="no_con">
+						<ul>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="organization">
+					<div class="title">收单机构</div>
+					<div class="org_con">
+						<ul>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="contact">
+				<div class="box">
+					<h1>和我们的专家进行及时沟通</h1>
+					<ul>
+						<li><a href="#"><i class="intention"></i>
+							<p>填写购买意向</p></a></li>
+						<li><a href="#"><i class="qqContact"></i>
+							<p>联系24小时在线客服</p></a></li>
+						<li><a href="#"><i class="phoneContact"></i>
+							<p>400-009-0876</p></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="serviceContent">
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<div class="ewm">
+						<img src="images/ewm.jpg" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
 	<div class="foot">
 		<div class="box">
 			<ul class="foot_nav">
@@ -435,7 +785,7 @@
 		</div>
 	</div>
 
-<div class="mask"></div>
+	<div class="mask"></div>
 
 </body>
 </html>
