@@ -25,9 +25,6 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    				 $scope.message = data.message;
    			 }else{
    				 $http.post("api/user/studentLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
-   			           alert(data.code);
-   			           alert($scope.password1);
-   			        alert($scope.username);
    			           if(data.code == -1){//用户或者密码错误！
    			        	   $scope.message = data.message; 
    			           }else{
@@ -39,7 +36,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			        	   
    			        	   $scope.message = data.message; //登陆成功，跳转页面
    			        	   $('#login').hide();
-   			        	   $('#index').show();
+   			        	   $('#maintopTwo').show();
    			        	   $('#headClear').show();
    			        	   $('#mainuser').show();
    			        	   $scope.dynamicLoadingCss("style/global.css");
