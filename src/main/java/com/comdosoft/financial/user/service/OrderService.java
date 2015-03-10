@@ -40,6 +40,9 @@ public class OrderService {
 
     @Transactional(value = "transactionManager-zhangfu")
     public int createOrderFromCart(OrderReq orderreq) throws LowstocksException {
+        if (0 == orderreq.getAddressId()) {
+            orderreq.setAddressId(goodMapper.getAdId(orderreq.getCustomerId()));
+        }
         orderreq.setCartids(SysUtils.Arry2Str(orderreq.getCartid()));
         int totalprice = 0;
         int count = 0;
@@ -53,7 +56,7 @@ public class OrderService {
                 int goodId = SysUtils.String2int("" + map.get("goodid"));
                 PosReq posreq = new PosReq();
                 posreq.setGoodId(goodId);
-                posreq.setCity_id(count2-quantity);
+                posreq.setCity_id(count2 - quantity);
                 goodMapper.upQuantity(posreq);
             }
         }
@@ -88,74 +91,79 @@ public class OrderService {
     }
 
     @Transactional(value = "transactionManager-zhangfu")
-    public int createOrderFromShop(OrderReq orderreq) throws LowstocksException{
-            Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
-            int retail_price = SysUtils.String2int("" + goodMap.get("retail_price"));
-            int quantity = orderreq.getQuantity();
-            int count = SysUtils.String2int("" + goodMap.get("count"));
-            if (count < quantity) {
-                throw new LowstocksException("库存不足");
-            } else {
-                int goodId = SysUtils.String2int("" + goodMap.get("goodid"));
-                PosReq posreq = new PosReq();
-                posreq.setGoodId(goodId);
-                posreq.setCity_id(count-quantity);
-                goodMapper.upQuantity(posreq);
-            }
-            int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
-            int totalprice = (retail_price + opening_cost) * quantity;
-            orderreq.setTotalcount(quantity);
-            orderreq.setTotalprice(totalprice);
-            orderreq.setOrdernumber(SysUtils.getOrderNum(1));
-            orderreq.setType(1);
-            orderMapper.addOrder(orderreq);
-            int price = SysUtils.String2int("" + goodMap.get("price"));
-            orderreq.setPrice(price + opening_cost);
-            orderreq.setRetail_price(retail_price + opening_cost);
-            orderMapper.addOrderGood(orderreq);
-            return orderreq.getId();
+    public int createOrderFromShop(OrderReq orderreq) throws LowstocksException {
+        if (0 == orderreq.getAddressId()) {
+            orderreq.setAddressId(goodMapper.getAdId(orderreq.getCustomerId()));
+        }
+        Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
+        int retail_price = SysUtils.String2int("" + goodMap.get("retail_price"));
+        int quantity = orderreq.getQuantity();
+        int count = SysUtils.String2int("" + goodMap.get("count"));
+        if (count < quantity) {
+            throw new LowstocksException("库存不足");
+        } else {
+            int goodId = SysUtils.String2int("" + goodMap.get("goodid"));
+            PosReq posreq = new PosReq();
+            posreq.setGoodId(goodId);
+            posreq.setCity_id(count - quantity);
+            goodMapper.upQuantity(posreq);
+        }
+        int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
+        int totalprice = (retail_price + opening_cost) * quantity;
+        orderreq.setTotalcount(quantity);
+        orderreq.setTotalprice(totalprice);
+        orderreq.setOrdernumber(SysUtils.getOrderNum(1));
+        orderreq.setType(1);
+        orderMapper.addOrder(orderreq);
+        int price = SysUtils.String2int("" + goodMap.get("price"));
+        orderreq.setPrice(price + opening_cost);
+        orderreq.setRetail_price(retail_price + opening_cost);
+        orderMapper.addOrderGood(orderreq);
+        return orderreq.getId();
     }
 
     @Transactional(value = "transactionManager-zhangfu")
-    public int createOrderFromLease(OrderReq orderreq) throws LowstocksException{
-            Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
-            int lease_deposit = SysUtils.String2int("" + goodMap.get("lease_deposit"));
-            int quantity = orderreq.getQuantity();
-            int count = SysUtils.String2int("" + goodMap.get("count"));
-            if (count < quantity) {
-                throw new LowstocksException("库存不足");
-            } else {
-                int goodId = SysUtils.String2int("" + goodMap.get("goodid"));
-                PosReq posreq = new PosReq();
-                posreq.setGoodId(goodId);
-                posreq.setCity_id(count-quantity);
-                goodMapper.upQuantity(posreq);
-            }
-            int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
-            int totalprice = (lease_deposit + opening_cost) * quantity;
-            orderreq.setTotalcount(quantity);
-            orderreq.setTotalprice(totalprice);
-            orderreq.setOrdernumber(SysUtils.getOrderNum(2));
-            orderreq.setType(2);
-            orderMapper.addOrder(orderreq);
-            orderreq.setPrice(lease_deposit + opening_cost);
-            orderreq.setRetail_price(lease_deposit + opening_cost);
-            orderMapper.addOrderGood(orderreq);
-            return orderreq.getId();
+    public int createOrderFromLease(OrderReq orderreq) throws LowstocksException {
+        if (0 == orderreq.getAddressId()) {
+            orderreq.setAddressId(goodMapper.getAdId(orderreq.getCustomerId()));
+        }
+        Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
+        int lease_deposit = SysUtils.String2int("" + goodMap.get("lease_deposit"));
+        int quantity = orderreq.getQuantity();
+        int count = SysUtils.String2int("" + goodMap.get("count"));
+        if (count < quantity) {
+            throw new LowstocksException("库存不足");
+        } else {
+            int goodId = SysUtils.String2int("" + goodMap.get("goodid"));
+            PosReq posreq = new PosReq();
+            posreq.setGoodId(goodId);
+            posreq.setCity_id(count - quantity);
+            goodMapper.upQuantity(posreq);
+        }
+        int opening_cost = SysUtils.String2int("" + goodMap.get("opening_cost"));
+        int totalprice = (lease_deposit + opening_cost) * quantity;
+        orderreq.setTotalcount(quantity);
+        orderreq.setTotalprice(totalprice);
+        orderreq.setOrdernumber(SysUtils.getOrderNum(2));
+        orderreq.setType(2);
+        orderMapper.addOrder(orderreq);
+        orderreq.setPrice(lease_deposit + opening_cost);
+        orderreq.setRetail_price(lease_deposit + opening_cost);
+        orderMapper.addOrderGood(orderreq);
+        return orderreq.getId();
     }
 
-    
     public Map<String, Object> payOrder(OrderReq orderreq) {
-        Map<String, Object> map=orderMapper.getPayOrder(orderreq);
+        Map<String, Object> map = orderMapper.getPayOrder(orderreq);
         map.put("good", orderMapper.getPayOrderGood(orderreq));
         return map;
     }
-    
+
     public void payFinish(OrderReq orderreq) {
-        Map<String,Object> map=orderMapper.getOrderByMumber(orderreq);
+        Map<String, Object> map = orderMapper.getOrderByMumber(orderreq);
         try {
-            int id=SysUtils.String2int(map.get("id").toString());
-            int total_price=SysUtils.String2int(map.get("total_price").toString());
+            int id = SysUtils.String2int(map.get("id").toString());
+            int total_price = SysUtils.String2int(map.get("total_price").toString());
             orderreq.setId(id);
             orderreq.setType(1);
             orderreq.setPrice(total_price);
@@ -166,9 +174,7 @@ public class OrderService {
     }
 
     /**
-     * 上jwb
-     * -------------------------------------------------------------
-     * 下gch
+     * 上jwb ------------------------------------------------------------- 下gch
      */
 
     public Page<Object> findMyOrderAll(MyOrderReq myOrderReq) {
@@ -181,27 +187,27 @@ public class OrderService {
 
     public List<Object> putDate(List<Order> centers) {
         List<Object> obj_list = new ArrayList<Object>();
-        Map<String,Object> map = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-        for(Order o : centers){
+        Map<String, Object> map = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (Order o : centers) {
             map = new HashMap<String, Object>();
-            map.put("order_id", o.getId()+"");
-            map.put("order_type", o.getTypes()==null?"":o.getTypes()+"");
-            map.put("order_number", o.getOrderNumber()==null?"":o.getOrderNumber());
-            if(o.getCreatedAt()!=null){
+            map.put("order_id", o.getId() + "");
+            map.put("order_type", o.getTypes() == null ? "" : o.getTypes() + "");
+            map.put("order_number", o.getOrderNumber() == null ? "" : o.getOrderNumber());
+            if (o.getCreatedAt() != null) {
                 String d = sdf.format(o.getCreatedAt());
                 map.put("order_createTime", d);
-            }else{
+            } else {
                 map.put("order_createTime", "");
             }
-            map.put("order_status", o.getStatus()==null?"":o.getStatus());
+            map.put("order_status", o.getStatus() == null ? "" : o.getStatus());
             map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
-            map.put("order_totalPrice", o.getActualPrice()==null?"":o.getActualPrice());
-            map.put("order_psf", "0");//配送费
+            map.put("order_totalPrice", o.getActualPrice() == null ? "" : o.getActualPrice());
+            map.put("order_psf", "0");// 配送费
             List<OrderGood> olist = o.getOrderGoodsList();
             List<Object> newObjList = new ArrayList<Object>();
             Map<String, Object> omap = null;
-//            map.put("goods_list_size", olist.size()); 
+            // map.put("goods_list_size", olist.size());
             if (olist.size() > 0) {
                 for (OrderGood od : olist) {
                     omap = new HashMap<String, Object>();
@@ -214,15 +220,15 @@ public class OrderService {
                     omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName()+"");
                     omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()==null?"":od.getPayChannel().getName());
                     String good_logo = "";
-                    if(null !=od.getGood()){
+                    if (null != od.getGood()) {
                         Good g = od.getGood();
                         Integer gid = g.getId();
                         List<GoodsPicture> list = orderMapper.findPicByGoodId(gid);
-                        if(list.size()>0){
-                            GoodsPicture gp  = list.get(0);
+                        if (list.size() > 0) {
+                            GoodsPicture gp = list.get(0);
                             good_logo = gp.getUrlPath();
                         }
-                     } 
+                    }
                     omap.put("good_logo", good_logo);
                     newObjList.add(omap);
                 }
@@ -235,72 +241,75 @@ public class OrderService {
 
     /**
      * 订单详情
+     * 
      * @param id
      * @return
-     * @throws ParseException 
+     * @throws ParseException
      */
     public Object findMyOrderById(Integer id) throws ParseException {
         Order o = orderMapper.findMyOrderById(id);
         List<Object> obj_list = new ArrayList<Object>();
-        Map<String,Object> map = new HashMap<String, Object>();
-//        String oid = o.getId()==null ?"":o.getId().toString();
+        Map<String, Object> map = new HashMap<String, Object>();
+        // String oid = o.getId()==null ?"":o.getId().toString();
         map.put("order_id", id);
+ 
         map.put("order_type", o.getTypes()==null?"":o.getTypes()+"");
         map.put("order_number", o.getOrderNumber()==null?"":o.getOrderNumber());//订单编号
         map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+ 
         String d = sdf.format(o.getCreatedAt());
-        map.put("order_createTime", d);//订单日期
-//        map.put("order_pay_status", o.getPayStatus().getName());
+        map.put("order_createTime", d);// 订单日期
+        // map.put("order_pay_status", o.getPayStatus().getName());
         map.put("order_status", o.getStatus());
         map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
-        map.put("order_totalPrice", o.getActualPrice()+"");//订单总额
-        map.put("order_price", o.getTotalPrice()+"");//订单原价
-        map.put("order_psf", "0");//配送费
-        map.put("order_receiver", o.getCustomerAddress()==null ?"":o.getCustomerAddress().getReceiver());
-        map.put("order_address", o.getCustomerAddress()==null ?"":o.getCustomerAddress().getAddress());
-        map.put("order_receiver_phone", o.getCustomerAddress()==null ?"":o.getCustomerAddress().getMoblephone());
-        map.put("order_comment", o.getComment()==null?"":o.getComment());//留言
+        map.put("order_totalPrice", o.getActualPrice() + "");// 订单总额
+        map.put("order_price", o.getTotalPrice() + "");// 订单原价
+        map.put("order_psf", "0");// 配送费
+        map.put("order_receiver", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getReceiver());
+        map.put("order_address", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getAddress());
+        map.put("order_receiver_phone", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getMoblephone());
+        map.put("order_comment", o.getComment() == null ? "" : o.getComment());// 留言
         Integer invoce_type = o.getInvoiceType();
-        String invoce_name ="";
-        if(null != invoce_type && invoce_type==1){//个人
+        String invoce_name = "";
+        if (null != invoce_type && invoce_type == 1) {// 个人
             invoce_name = "个人";
-        }else if(null != invoce_type && invoce_type==0){//公司
+        } else if (null != invoce_type && invoce_type == 0) {// 公司
             invoce_name = "公司";
         }
-        map.put("order_invoce_type", invoce_name);//发票类型
-        map.put("order_invoce_info", o.getInvoiceInfo());//发票抬头
+        map.put("order_invoce_type", invoce_name);// 发票类型
+        map.put("order_invoce_info", o.getInvoiceInfo());// 发票抬头
         List<OrderGood> olist = o.getOrderGoodsList();
         List<Object> newObjList = new ArrayList<Object>();
         Map<String, Object> omap = null;
         if (olist.size() > 0) {
             OrderGood og = olist.get(0);
-            map.put("good_merchant", og.getGood() == null ? "" : og.getGood().getFactory()==null?"":og.getGood().getFactory().getName()==null?"":og.getGood().getFactory().getName());//供货商
+            map.put("good_merchant", og.getGood() == null ? "" : og.getGood().getFactory() == null ? "" : og.getGood().getFactory().getName() == null ? "" : og.getGood().getFactory().getName());// 供货商
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
-//                omap.put("order_good_id", od.getId().toString());
-                String good_id = od.getGood() == null ? "" : od.getGood().getId()==null?"":od.getGood().getId().toString();
+                // omap.put("order_good_id", od.getId().toString());
+                String good_id = od.getGood() == null ? "" : od.getGood().getId() == null ? "" : od.getGood().getId().toString();
                 omap.put("good_id", good_id);
-                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
-                omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
-                omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle());
+                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice() + "");
+                omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity() + "");
+                omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle() == null ? "" : od.getGood().getTitle());
                 omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
-                omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()==null?"":od.getPayChannel().getName());
-                if(good_id !=""){
-                    List<Terminal> terminals = orderMapper.getTerminsla(id,Integer.valueOf(good_id));
+                omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName() == null ? "" : od.getPayChannel().getName());
+                if (good_id != "") {
+                    List<Terminal> terminals = orderMapper.getTerminsla(id, Integer.valueOf(good_id));
                     StringBuffer sb = new StringBuffer();
-                    for(Terminal t:terminals){
-                        sb.append(t.getSerialNum()+" ");
+                    for (Terminal t : terminals) {
+                        sb.append(t.getSerialNum() + " ");
                     }
                     omap.put("terminals", sb.toString());
-                }else{
+                } else {
                     omap.put("terminals", "");
                 }
                 String good_logo = "";
-                if(null !=od.getGood()){
+                if (null != od.getGood()) {
                     Good g = od.getGood();
-                    if(g.getPicsList().size()>0){
-                        GoodsPicture gp  = g.getPicsList().get(0);
+                    if (g.getPicsList().size() > 0) {
+                        GoodsPicture gp = g.getPicsList().get(0);
                         good_logo = gp.getUrlPath();
                     }
                 }
@@ -308,11 +317,11 @@ public class OrderService {
                 newObjList.add(omap);
             }
         }
-       
+
         map.put("order_goodsList", newObjList);
         MyOrderReq myOrderReq = new MyOrderReq();
         myOrderReq.setId(id);
-        List<Map<String,Object>> list = orderMapper.findTraceById(myOrderReq);
+        List<Map<String, Object>> list = orderMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         obj_list.add(map);
         return obj_list;
@@ -336,7 +345,5 @@ public class OrderService {
         List<Object> obj_list = putDate(centers);
         return new Page<Object>(request, obj_list, count);
     }
-
-   
 
 }
