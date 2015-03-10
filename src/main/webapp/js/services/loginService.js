@@ -10,10 +10,10 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         //isAuthorized: typeof($cookieStore.get("loginInfo")) == 'undefined' ? false : true,
     	isAuthorized:true,
     	//当前登陆的用户名
-        //loginUserName: typeof($cookieStore.get("loginInfo")) == 'undefined' ? "" : $cookieStore.get("loginInfo"),
+        loginUserName: typeof($cookieStore.get("loginUserName")) == 'undefined' ? "" : $cookieStore.get("loginUserName"),
     	shopcount: "123",
         userPower : "11",
-        userid: 80,
+        userid: typeof($cookieStore.get("loginUserId")) == 'undefined' ? 0 : $cookieStore.get("loginUserId"),
         userLogo:"123",
         city:1,
         goods: [],
@@ -113,26 +113,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
             } else {
                 $("#indexDiv").hide();
             }
-        },
-        //检查用户权限
-        check : function(idStr,state) {
-        	var id= new Array(); //定义一数组
-        	if(idStr!=null&&idStr!=""){
-        		id=idStr.split(","); //字符分割 
-        		for(var i=0;i<id.length;i++){
-        			if(this.userPower.indexOf(id[i])>-1){
-    	    			if(state==0){
-    	    				$("#"+id).remove();//移除
-    	    			}else if(state==1){
-    	    				 $("#"+id).hide();//隐藏
-    	    			}else if(state==2){
-    	    				 $("#"+id).attr("disabled", true);//不可用
-    	    			}
-    		    	}
-        		}
-        	}
-	    	
-	    }
+        }
     };
 };
 
