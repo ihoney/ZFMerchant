@@ -164,7 +164,7 @@ public class UserLoginController {
             customer.setCityId(0);
             customer.setDentcode(str);
             customer.setStatus(Customer.STATUS_NON_END);
-            String phone = "";//手机号
+            String phone = "13390892325";//手机号
             try {
                 Boolean is_sucess = sendPhoneCode(str, phone);
                 System.err.println("发送验证："+is_sucess);
@@ -185,11 +185,6 @@ public class UserLoginController {
                     
                 }
             }
-<<<<<<< HEAD
-        } catch (Exception e) {
-        	e.printStackTrace();
-            return Response.getError("获取验证码失败！");
-=======
 //        } catch (Exception e) {
 //            return Response.getError("获取验证码失败！");
 //        }
@@ -216,7 +211,6 @@ public class UserLoginController {
                     return true;
                 }
             }
->>>>>>> origin/master
         }
         return false;
     }
