@@ -84,7 +84,11 @@
 				</dl>
 				<dl>
 					<dt>订单类型：</dt>
-					<dd>在线订单</dd>
+					<dd ng-if="o.order_type==1">类型：用户订购</dd> 
+						<dd ng-if="o.order_type==2">类型：用户租赁</dd> 
+						<dd ng-if="o.order_type==3">类型：代理商代购</dd> 
+						<dd ng-if="o.order_type==4">类型：代理商代租赁</dd> 
+						<dd ng-if="o.order_type==5">类型：代理商批购 </dd> 
 					<dt>订单编号：</dt>
 					<dd>{{o.order_number}}</dd>
 				</dl>

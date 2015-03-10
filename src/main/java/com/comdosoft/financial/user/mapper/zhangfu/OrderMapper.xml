@@ -136,7 +136,7 @@
 			or g.key_worlds like "%"#{search}"%" ) 
 		</if>
 		<if test="q !=null and q!=''">
-		and o.front_pay_status = #{q}
+		and o.status = #{q}
 		</if>
 	</select>
 
@@ -162,7 +162,7 @@
 			or g.key_worlds like "%"#{search}"%" ) 
 		</if>
 		<if test="q !=null and q!=''">
-		and o.front_pay_status = #{q}
+		and o.status = #{q}
 		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{pageSize}
@@ -172,7 +172,7 @@
 		SELECT
 		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,g.volume_number,
 		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
-		pc.name as channel_name,og.price ,	og.quantity ,o.types,
+		pc.name as channel_name,og.price ,og.actual_price as order_good_price,	og.quantity ,o.types,
 		o.actual_price ,total_price,o.total_quantity as total_num
 		FROM	
 		orders o
@@ -201,27 +201,27 @@
 	</select>
 	
 	<select id="findMyOrderById" resultMap="orderMap">
-		SELECT
-		o.id as id,og.id as order_good_id,g.id as good_id,o.total_quantity,p.pay_type,g.factory_id,
-		o.order_number,	o.created_at,	o.status,o.pay_status,gp.id as pic_id,o.invoice_type,
-		gp.url_path ,g.title,gb.name , gb.id as good_brands_id,o.comment,f.name as factory_name,
-		pc.name as channel_name,og.price ,	og.quantity ,o.invoice_info,
-		o.actual_price ,o.total_price,o.total_quantity as total_num,om.customer_id as om_customer_id,om.order_id as om_order_id,
-		ca.receiver ,ca.address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name 
-		FROM	
-		orders o
-		LEFT JOIN order_goods og ON o.id = og.order_id
-		LEFT JOIN goods g ON og.good_id = g.id
-		LEFT JOIN goods_pictures gp ON g.id = gp.good_id
-		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
-		LEFT JOIN factories f ON g.factory_id = f.id
-		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
-		LEFT JOIN customer_addresses ca on o.customer_address_id = ca.id 
-		LEFT JOIN order_marks om on o.id = om.order_id 
-		LEFT JOIN customers c on om.customer_id = c.id
-		LEFT JOIN order_payments p on o.id= p.order_id
-		WHERE
-		o.id = #{param1}
+	SELECT
+	o.id as id,og.id as order_good_id,g.id as good_id,o.total_quantity,p.pay_type,g.factory_id,
+	o.order_number, o.created_at, o.status,o.pay_status,gp.id as pic_id,o.invoice_type,
+	gp.url_path ,g.title,gb.name , gb.id as good_brands_id,o.comment,f.name as factory_name,o.types,
+	pc.name as channel_name,og.price , og.quantity ,o.invoice_info,
+	o.actual_price ,o.total_price,o.total_quantity as total_num,om.customer_id as om_customer_id,om.order_id as om_order_id,
+	ca.receiver ,ca.address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name
+	FROM
+	orders o
+	LEFT JOIN order_goods og ON o.id = og.order_id
+	LEFT JOIN goods g ON og.good_id = g.id
+	LEFT JOIN goods_pictures gp ON g.id = gp.good_id
+	LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+	LEFT JOIN factories f ON g.factory_id = f.id
+	LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
+	LEFT JOIN customer_addresses ca on o.customer_address_id = ca.id
+	LEFT JOIN order_marks om on o.id = om.order_id
+	LEFT JOIN customers c on om.customer_id = c.id
+	LEFT JOIN order_payments p on o.id= p.order_id
+	WHERE
+	o.id = #{param1}
 	</select>
     
 	<update id="changeStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Order">
