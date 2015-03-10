@@ -176,15 +176,13 @@
             <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
         </div>
         <div class="loginInfo">
-        	<a href="#">登录</a>
-            <a href="#">注册</a>
+        	<a href="javascript:void(0)" ng-click="goToLogin()">登录</a>
+            <a href="javascript:void(0)" ng-click="register()">注册</a>
             <a href="#">代理商入口</a>
         </div>
     </div>
     <div class="clear"></div>
 </div>
-
-
 
 	<div id="login">
 		<div class="logo">
@@ -217,9 +215,6 @@
 						</div>
 						<div class="btn">
 							<button ng-click="login()">登录</button>
-						</div>
-						<div class="btn">
-							<button ng-click="register()">注册</button>
 						</div>
 					</div>
 					<div class="login_area">
@@ -405,7 +400,7 @@
 	</div>
 
 	<div ng-controller="shopController">
-		<div class="head clear">
+		<div class="head clear" id="headClear">
 			<div class="box">
 				<div class="logo">华尔街金融</div>
 				<div class="search">

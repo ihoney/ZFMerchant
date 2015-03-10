@@ -6,14 +6,20 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginro
 var loginController = function($scope, $location, $http, LoginService) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
+	//登陆模块
 	$('#login').hide();
-
+	
+	//登陆前首页
+	$('#maintop').show();
+	$('#mainindex').show();
+	//登陆后首页
 	$('#index').hide();
+	
 	$('#mainuser').hide();
+	
 	$('#shopmain').hide();
 	
-
-
+	//找回密码页面
 	$('#findPassOne').hide();
 	$('#findPassTwo').hide();
 	$('#findPassThree').hide();
@@ -29,6 +35,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 	$scope.codeNumber = "";
 	$scope.code = "";
 	$scope.codeBei = "";
+	
 	$scope.jsons = {
 		username : $scope.username,
 		password : $scope.password
@@ -37,12 +44,25 @@ var loginController = function($scope, $location, $http, LoginService) {
 	$scope.login = function() {
 		LoginService.login($scope);
 	};
+	
+	//登陆前首页跳转登陆页面
+	$scope.goToLogin = function(){
+		$('#login').show();
+		$('#headClear').hide()
+		$('#maintop').hide();
+		$('#mainindex').hide();
+		//加载登陆样式
+		$scope.dynamicLoadingCss("style/login.css");
+	}
 
-	// 跳转手机注册
+	// 登陆前首页跳转手机注册
 	$scope.register = function() {
 		$scope.dynamicLoadingCss("style/register.css");
-		$('#login').hide();
 		$('#retrieveHtml').show();
+		$('#login').hide();
+		$('#headClear').hide()
+		$('#maintop').hide();
+		$('#mainindex').hide();
 		$('#emailRetrieveHtml').hide();
 	};
 
@@ -162,7 +182,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 		head.appendChild(link);
 	};
 
-	 //$scope.dynamicLoadingCss("style/login.css");
+	 
 
 	// ===============================
 	// 注册
@@ -213,7 +233,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 		$('#emailRetrieveHtml').show();
 		$('#retrieveHtml').hide();
 	}
-
+	
 	// 邮箱注册用户
 	$scope.addUserEmail = function() {
 		$http.post("api/user/userRegistration", {
