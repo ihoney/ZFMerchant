@@ -5,7 +5,7 @@ var orderModule = angular.module("orderModule",[]);
 
 var orderController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
-	
+	initSystemPage($scope);// 初始化分页参数
 	// 搜索
 	$scope.submitSearch = function(){
 		initSystemPage($scope);// 初始化分页参数
@@ -90,8 +90,9 @@ var orderController = function ($scope, $http, LoginService) {
     	window.location.href = '#/orderinfo';
     };
     $scope.topay = function(o) {
-    	var g_name = $("#g_name").val();
-    	window.open("alipayapi.jsp?WIDtotal_fee="+o.order_totalPrice/100+"&WIDsubject="+g_name+"&WIDout_trade_no="+o.order_number);  
+//    	var g_name = $("#g_name").val();
+    	window.open("#/pay?id="+o.order_id) ;  
+//    	window.open("alipayapi.jsp?WIDtotal_fee="+o.order_totalPrice/100+"&WIDsubject="+g_name+"&WIDout_trade_no="+o.order_number);  
 	};
 	
 	// 上一页
@@ -122,7 +123,7 @@ var orderController = function ($scope, $http, LoginService) {
 		$scope.submitPage();
 	};
 
-    $scope.orderlist();
+    $scope.submitPage();
 //    $scope.submitSearch();
 //    $scope.orderinfo();
 };

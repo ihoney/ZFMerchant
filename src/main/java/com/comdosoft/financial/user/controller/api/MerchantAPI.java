@@ -144,10 +144,10 @@ public class MerchantAPI {
      * @return
      */
     @RequestMapping(value = "upload/file", method = RequestMethod.POST)
-    public Response upload(MultipartFile fileName, HttpServletRequest request) {
+    public Response upload(MultipartFile fileImg, HttpServletRequest request) {
         Response sysResponse = null;
         try {
-            String path = commonService.saveTmpImage(request, fileName, uploadMerchantFilePath);
+            String path = commonService.saveTmpImage(request, fileImg, uploadMerchantFilePath);
             sysResponse = Response.getSuccess(path);
         } catch (Exception e) {
             logger.error("上传文件失败", e);

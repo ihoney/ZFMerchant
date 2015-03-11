@@ -48,7 +48,7 @@
 		String subject =new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
 		//必填
 		//付款金额
-		String total_fee ="0.01";//new String(request.getParameter("WIDtotal_fee").getBytes("ISO-8859-1"),"UTF-8");
+		String total_fee =new String(request.getParameter("WIDtotal_fee").getBytes("ISO-8859-1"),"UTF-8");
 		//必填
 		//订单描述
 		String body ="掌富订单"; //new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");

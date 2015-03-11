@@ -119,7 +119,7 @@
 		FROM orders o
 		where o.customer_id = #{customer_id}
 		<if test="q !=null and q!=''">
-		and o.types = #{q}
+		and o.status = #{q}
 		</if>
 	</select>
 	
@@ -172,7 +172,7 @@
 		SELECT
 		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,g.volume_number,
 		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
-		pc.name as channel_name,og.price ,og.actual_price as order_good_price,	og.quantity ,o.types,
+		pc.name as channel_name,og.price ,og.actual_price ,	og.quantity ,o.types,
 		o.actual_price ,total_price,o.total_quantity as total_num
 		FROM	
 		orders o
@@ -183,7 +183,7 @@
 		WHERE
 		o.customer_id = #{customer_id}
 		<if test="q !=null and q!=''">
-		and o.types = #{q}
+		and o.status = #{q}
 		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{pageSize}
@@ -203,7 +203,7 @@
 	<select id="findMyOrderById" resultMap="orderMap">
 	SELECT
 	o.id as id,og.id as order_good_id,g.id as good_id,o.total_quantity,p.pay_type,g.factory_id,
-	o.order_number, o.created_at, o.status,o.pay_status,gp.id as pic_id,o.invoice_type,
+	o.order_number, o.created_at, o.status,o.pay_status,gp.id as pic_id,o.invoice_type,og.actual_price,
 	gp.url_path ,g.title,gb.name , gb.id as good_brands_id,o.comment,f.name as factory_name,o.types,
 	pc.name as channel_name,og.price , og.quantity ,o.invoice_info,
 	o.actual_price ,o.total_price,o.total_quantity as total_num,om.customer_id as om_customer_id,om.order_id as om_order_id,

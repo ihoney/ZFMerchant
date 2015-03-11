@@ -216,7 +216,6 @@ public class UserLoginController {
                     return true;
                 }
             }
-
         }
         return false;
     }
