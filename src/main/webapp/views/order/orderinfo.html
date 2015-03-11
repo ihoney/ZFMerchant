@@ -106,10 +106,10 @@
 				</dl>
 				<dl>
 					<dt>订单原金额：</dt>
-					<dd class="line_through">{{o.order_price/100 |currency : "￥"}}</dd>
+					<dd class="line_through">{{o.order_totalprice/100 |currency : "￥"}}</dd>
 					<dt>订单金额：</dt>
 					<dd>
-						<strong>{{o.order_totalPrice/100 |currency : "￥"}}</strong>
+						<strong>{{o.order_actualPrice/100 |currency : "￥"}}</strong>
 					</dd>
 				</dl>
 			</div>
@@ -153,9 +153,9 @@
 								</div>
 							</div>
 						</td>
-						<td><strong>{{g.good_price/100 |currency : "￥"}} </strong></td>
+						<td><strong>{{g.good_actualprice/100 |currency : "￥"}} </strong></td>
 						<td>{{g.good_num}}</td>
-						<td><strong>{{o.order_totalPrice/100 |currency : "￥"}} </strong></td>
+						<td><strong>{{o.order_actualPrice/100 |currency : "￥"}} </strong></td>
 						<td ><a href="javascript:void(0);" ng-click="topay(o)" class="a_btn" ng-if="o.order_status==1">付款</a> 
 						<a href="javascript:void(0)" ng-click="cancelApply(o.order_id)"  ng-if="o.order_status==1" class="a_btn">取消</a>
 						 <a class="a_btn starGrade_a" ng-if="o.order_status==3"  ng-click="s_comment(g)">评价</a><a href="javascript:void(0)" ng-click="t_comment(g)" ng-if="o.order_status==3" class="a_btn">查看终端号</a>

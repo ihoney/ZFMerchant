@@ -202,7 +202,7 @@ public class OrderService {
             }
             map.put("order_status", o.getStatus() == null ? "" : o.getStatus());
             map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
-            map.put("order_totalPrice", o.getActualPrice() == null ? "" : o.getActualPrice());
+            map.put("order_actualPrice", o.getActualPrice() == null ? "" : o.getActualPrice());
             map.put("order_psf", "0");// 配送费
             List<OrderGood> olist = o.getOrderGoodsList();
             List<Object> newObjList = new ArrayList<Object>();
@@ -213,7 +213,7 @@ public class OrderService {
                     omap = new HashMap<String, Object>();
                     omap.put("good_id",  od.getGood() == null ? "" : od.getGood().getId()==null?"":od.getGood().getId());
                     omap.put("good_volume_number",  od.getGood() == null ? "" : od.getGood().getVolumeNumber()==null?"":od.getGood().getVolumeNumber());//热销量
-                    omap.put("good_price", od.getActualPrice() == null ? "" : od.getActualPrice());//商品单价
+                    omap.put("good_actualprice", od.getActualPrice() == null ? "" : od.getActualPrice());//商品单价
 //                    omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
                     omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
                     omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle());
@@ -263,8 +263,8 @@ public class OrderService {
         // map.put("order_pay_status", o.getPayStatus().getName());
         map.put("order_status", o.getStatus());
         map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
-        map.put("order_totalPrice", o.getActualPrice() + "");// 订单总额
-        map.put("order_price", o.getTotalPrice() + "");// 订单原价
+        map.put("order_actualPrice", o.getActualPrice() + "");// 订单总额
+        map.put("order_totalprice", o.getTotalPrice() + "");// 订单原价
         map.put("order_psf", "0");// 配送费
         map.put("order_receiver", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getReceiver());
         map.put("order_address", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getAddress());
@@ -290,7 +290,7 @@ public class OrderService {
                 // omap.put("order_good_id", od.getId().toString());
                 String good_id = od.getGood() == null ? "" : od.getGood().getId() == null ? "" : od.getGood().getId().toString();
                 omap.put("good_id", good_id);
-                omap.put("good_price", od.getActualPrice() == null ? "" : od.getActualPrice());//商品单价
+                omap.put("good_actualprice", od.getActualPrice() == null ? "" : od.getActualPrice());//商品单价
 //                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice() + "");
                 omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity() + "");
                 omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle() == null ? "" : od.getGood().getTitle());

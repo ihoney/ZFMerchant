@@ -87,12 +87,12 @@
 		<id property="id" column="id" />
 		<result property="orderNumber" column="order_number" />
 		<result property="customerId" column="customer_id" />
-		<result property="totalPrice" column="total_price" />
+		<result property="totalPrice" column="o_total_price" />
 		<result property="status" column="status"/>
 		<result property="payedAt" column="payed_at" />
 		<result property="types" column="types" />
 		<result property="needInvoice" column="need_invoice" />
-		<result property="actualPrice" column="actual_price" />
+		<result property="actualPrice" column="o_actual_price" />
 		<result property="frontMoney" column="front_money" />
 		<result property="frontPayStatus" column="front_pay_status" />
 		<result property="createdUserId" column="created_userId" />
@@ -143,10 +143,23 @@
 	 
 	<select id="orderSearch" resultMap="orderMap" >
 		SELECT
-		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,g.volume_number,
-		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
-		pc.name as channel_name,og.price ,	og.quantity ,o.types,
-		o.actual_price ,total_price,o.total_quantity as total_num
+		o.id as id,
+		og.id as order_good_id,
+		g.id as good_id,
+		 o.total_quantity,
+		 g.volume_number,
+		o.order_number,
+		o.created_at,	
+		o.status,g.title,gb.name , 
+		gb.id as good_brands_id,
+		pc.name as channel_name,
+		og.price ,
+		og.actual_price ,
+		og.quantity ,
+		o.types,
+		o.actual_price as o_actual_price,
+		o.total_price as o_total_price,
+		o.total_quantity as total_num
 		FROM	
 		orders o
 		LEFT JOIN order_goods og ON o.id = og.order_id
@@ -155,12 +168,6 @@
 		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		WHERE
 		o.customer_id = #{customer_id}
-		<if test="search !=null and search!=''">
-		and (o.order_number like "%"#{search}"%" 
-			or g.title like "%"#{search}"%" 
-			or g.second_title like "%"#{search}"%"  
-			or g.key_worlds like "%"#{search}"%" ) 
-		</if>
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
 		</if>
@@ -170,10 +177,23 @@
 	
 	<select id="findMyOrderAll" resultMap="orderMap" >
 		SELECT
-		o.id as id,og.id as order_good_id,g.id as good_id, o.total_quantity,g.volume_number,
-		o.order_number,	o.created_at,	o.status,g.title,gb.name , gb.id as good_brands_id,
-		pc.name as channel_name,og.price ,og.actual_price ,	og.quantity ,o.types,
-		o.actual_price ,total_price,o.total_quantity as total_num
+		o.id as id,
+		og.id as order_good_id,
+		g.id as good_id,
+		 o.total_quantity,
+		 g.volume_number,
+		o.order_number,
+		o.created_at,	
+		o.status,g.title,gb.name , 
+		gb.id as good_brands_id,
+		pc.name as channel_name,
+		og.price ,
+		og.actual_price ,
+		og.quantity ,
+		o.types,
+		o.actual_price as o_actual_price,
+		o.total_price as o_total_price,
+		o.total_quantity as total_num
 		FROM	
 		orders o
 		LEFT JOIN order_goods og ON o.id = og.order_id
@@ -202,11 +222,34 @@
 	
 	<select id="findMyOrderById" resultMap="orderMap">
 	SELECT
-	o.id as id,og.id as order_good_id,g.id as good_id,o.total_quantity,p.pay_type,g.factory_id,
-	o.order_number, o.created_at, o.status,o.pay_status,gp.id as pic_id,o.invoice_type,og.actual_price,
-	gp.url_path ,g.title,gb.name , gb.id as good_brands_id,o.comment,f.name as factory_name,o.types,
-	pc.name as channel_name,og.price , og.quantity ,o.invoice_info,
-	o.actual_price ,o.total_price,o.total_quantity as total_num,om.customer_id as om_customer_id,om.order_id as om_order_id,
+	o.id as id,
+	og.id as order_good_id,
+	g.id as good_id,
+	o.total_quantity,
+	p.pay_type,
+	g.factory_id,
+	o.order_number,
+	 o.created_at,
+	  o.status,
+	  o.pay_status,
+	  gp.id as pic_id,
+	  o.invoice_type,
+	  og.actual_price,
+	gp.url_path ,
+	g.title,gb.name ,
+	 gb.id as good_brands_id,
+	 o.comment,
+	 f.name as factory_name,
+	 o.types,
+	pc.name as channel_name,
+	og.price , 
+	og.quantity ,
+	o.invoice_info,
+	o.actual_price as o_actual_price,
+	o.total_price as o_total_price,
+	o.total_quantity as total_num,
+	om.customer_id as om_customer_id,
+	om.order_id as om_order_id,
 	ca.receiver ,ca.address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name
 	FROM
 	orders o
