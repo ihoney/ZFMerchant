@@ -68,8 +68,7 @@
  	<select id="getMaterialName" resultType="map" parameterType="map">
  		select * from dictionary_open_private_infos where id in(
 		select l.requirement_setting_id
-		from terminals t LEFT JOIN pay_channels p on t.pay_channel_id=p.id
-		LEFT JOIN opening_requirements o on p.id = o.pay_channel_id 
+		from terminals t LEFT JOIN opening_requirements o on t.pay_channel_id = o.pay_channel_id 
 		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id
 		where t.id=#{terminalsId} AND l.requirement_type=#{status}
 		)

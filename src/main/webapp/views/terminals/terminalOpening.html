@@ -44,7 +44,7 @@
                         <div class="item_list clear">
                             <ul>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="keyNmae">姓名：</span>
-                                	<div class="text"><input name="valueName" type="text" id="valueName"/></div></li>
+                                	<div class="text"><input name="valueName" type="text" id="valueName" value="{{merchant.legal_person_name}}"/></div></li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="sexName">性别：</span>
                                 	<div class="text">
                                     	<span class="checkboxRadio_span"><input name="valueSex" type="radio" value="" ng-click="butSex(1)"/> 男</span>
@@ -71,7 +71,7 @@
                                     </div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="cirdKey">身份证：</span>
-                                	<div class="text"><input name="" type="text" id="cirdValue"/></div>
+                                	<div class="text"><input name="" type="text" id="cirdValue" value="{{merchant.legal_person_card_id}}"/></div>
                                 </li>
                                  <li ng-if="$index == 0"><span class="labelSpan" id="phoneKey">电话：</span>
                                 	<div class="text"><input name="" type="text" id="phoneValue"/></div>
@@ -97,7 +97,7 @@
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNumKey">结算银行账号：</span>
-                                	<div class="text"><input name="" type="text" id="bankNumValue"/>
+                                	<div class="text"><input name="" type="text" id="bankNumValue" value="{{merchant.account_bank_num}}" />
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNameKey">结算银行名称：</span>
@@ -107,10 +107,10 @@
                                 	<div class="text"><input name="" type="text" id="bankCodeValue"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
-                                	<div class="text"><input name="" type="text" id="organizationNoValue"/></div>
+                                	<div class="text"><input name="" type="text" id="organizationNoValue" value="{{merchant.organization_code_no}}" /></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
-                                	<div class="text"><input name="" type="text" id="registeredNoValue"/></div>
+                                	<div class="text"><input name="" type="text" id="registeredNoValue" value="{{merchant.tax_registered_no}}" /></div>
                                 </li>
                                 <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3">
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
@@ -123,12 +123,12 @@
                                     	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="code in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,code)">{{code}}</a>
                                     </div>
                                 </li>
-                                <li ng-repeat="r in result" ng-if="r.info_type == 0">
+                                <li ng-repeat="r in result" ng-if="r.info_type == 1">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span id="key_{{ma.level+'_'+$index}}" class="labelSpan">{{r.name}}:</span>
                                 <div class="text"><input id="value_{{ma.level+'_'+$index}}" name="" type="text"/></div>
                                 </li>
-                                <li  ng-repeat="r in result" ng-if="r.info_type == 1">
+                                <li  ng-repeat="r in result" ng-if="r.info_type == 2">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}:</span>
                                 <div class="text" >

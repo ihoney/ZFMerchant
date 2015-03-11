@@ -601,4 +601,22 @@ public class TerminalsController {
 			return Response.getError("请求失败！");
 		}
 	}
+	
+	/**
+	 * 根据商户id获得商户详细信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getMerchant", method = RequestMethod.POST)
+	public Response getMerchant(@RequestBody Map<String, Object> map) {
+		try {
+			Map<String, String> merchant = new HashMap<String, String>();
+			merchant = openingApplyService.getMerchant((Integer)map.get("merchantId"));
+			return Response.getSuccess(merchant);
+		} catch (Exception e) {
+			return Response.getError("请求失败！");
+		}
+
+	}
 }

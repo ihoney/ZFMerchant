@@ -59,7 +59,6 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   //记录citId
  	 
   	$scope.shiId = function(citId){
-  		alert(citId);
   		$scope.citId = citId;
   	}
   	

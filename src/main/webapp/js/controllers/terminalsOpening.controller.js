@@ -17,7 +17,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {
-      alert($scope.terminalId);
       $http.post("api/terminal/getApplyOpenDetails", {customerId:$scope.customerId,terminalsId:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
@@ -43,12 +42,24 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  $(".leaseExplain_tab").show();
   }
   
-  //动态显示
-  
-
+  //动态显示商户
   $scope.angu = function(obj1,obj2){
 	  $scope.merchantNamed = obj1;
-	  $scope.merchantId = obj2;
+	  $scope.merchantId = obj2;//商户Id
+	  //获得商户详情
+	  $http.post("api/terminal/getMerchant", {merchantId:Math.ceil( $scope.merchantId)}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == 1){
+        		//终端信息
+                  $scope.merchant = data.result;
+        	  }else{
+        		  alert("商户信息加载失败！");
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("获取列表失败");
+          /*$("#serverErrorModal").modal({show: true});*/
+      });
   }
   
   //性别单选
@@ -63,19 +74,16 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   
 //级联
   
-  $scope.leng = 0;
-  $scope.jilianChneg = function(num){
-	  for(var i=0;i<$scope.Cities.length;i++){
-		  if($scope.Cities[i].parent_id == num){
-			  $scope.shiLian[$scope.leng] = {
-					  name:$scope.Cities[i].name,
-					  id:$scope.Cities[i].id
-			  }
-			  $scope.leng++;
-		  }
-	  }
-  }
+//获得市级
+	$scope.jilianChneg = function(parentId){
+		$http.post("api/terminal/getShiCities", {
+			parentId : parentId
+		}).success(function(data) {
+			$scope.shiLian = data.result;
+		})
+	}
   
+	
   $scope.citiesId = 0;
   $scope.jilianShi = function(num){
 	  $scope.citiesId = num;
@@ -171,7 +179,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 			  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
 			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html());
 			  keys = keys.replace(":","");
-			  alert(keys);
 			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
 			  $scope.listOne[countOne] = {
 					  key:keys,
@@ -181,7 +188,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 					  targetId:Math.ceil(id)
 			  }
 			  countOne++;
-			  alert(values);
 		  }
 	  }
 	  $scope.leng = $scope.list.length;
