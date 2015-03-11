@@ -524,10 +524,10 @@
             	<label>到账时间</label>
                 <div class="selectBox">
                 	<i></i>
-                	<div class="tag_select"><span>选择到账时间选择到账时间</span></div>
-                    <input name="" type="text" value="" class="tag_input">
-                    <ul>
-                        <li ng-repeat="one in tDate">{{one.value}}<input name="" type="text" value="{{one.id}}"></li>
+                	<div class="tag_select"><span>{{xxx==""?"选择到账时间选择到账时间":sbxxx}}</span></div>
+                    <input  type="text" ng-model="xxx" class="tag_input">
+                    <ul id="xx">
+                        <li ng-repeat="one in tDate" ng-click="sb(one)">{{one.value}}</li>
                 	</ul>
                </div>
             </div>

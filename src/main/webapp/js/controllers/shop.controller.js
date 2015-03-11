@@ -22,6 +22,14 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req.sale_slip_id=[];
 	$scope.req.tDate=[];
 	
+	$scope.xxx="";
+	$scope.sb=function(one){
+		$('#xx').hide();
+		$scope.sbxxx=one.value;
+		$scope.req.tDate=[];
+		$scope.req.tDate.push(one.id);
+		$scope.list();
+	}
 	
 	$scope.searchShop=function(){
 		//window.location.href = '#/shop';
