@@ -39,6 +39,14 @@
  		SELECT id,title FROM merchants where customer_id =#{customerId}
  	</select>
  	
+ 	<select id="getOppinfo" resultType="map"  parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
+ 		SELECT * FROM opening_applies
+		WHERE  terminal_id = #{terminalId}
+		AND types = #{types}
+ 	</select>
+ 	
+ 	
+ 	
  	<select id="getChannels" resultType="map">
  		SELECT id,name FROM pay_channels
  	</select>

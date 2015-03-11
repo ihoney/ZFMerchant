@@ -230,7 +230,6 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
 			codeNumber : $scope.rename
 		}).success(function(data) {
 			if(data.code == 1){
-				alert(data.result);
 				$scope.code = data.result;
 			}else{
 				alert(data.message);
@@ -256,7 +255,7 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
 					alert("密码不一致！");
 				}
 			}else{
-				alert("验证码错误");
+				alert("图片验证码错误12");
 			}
 		}
 	}
@@ -276,6 +275,7 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
 				$('#login').show();
 				$scope.password1 = "";
 				$scope.codeNumber = "";
+				$scope.code = "";
 				$scope.dynamicLoadingCss("style/login.css");
 			} else if (data.code == -1) {
 				alert(data.message);

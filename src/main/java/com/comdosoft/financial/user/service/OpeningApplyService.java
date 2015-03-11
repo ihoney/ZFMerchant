@@ -48,6 +48,20 @@ public class OpeningApplyService {
 	}
 	
 	/**
+	 * 获得申请开通已有基本信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Map<String, Object> getOppinfo(Integer terminalsId,Integer status) {
+		OpeningApplie openingApplie =new OpeningApplie();
+		openingApplie.setTerminalId(terminalsId);
+		openingApplie.setTypes(status);
+		return openingApplyMapper.getOppinfo(openingApplie);
+	}
+	
+	
+	/**
 	 * 获得终端材料等级个数
 	 * 
 	 * @param id

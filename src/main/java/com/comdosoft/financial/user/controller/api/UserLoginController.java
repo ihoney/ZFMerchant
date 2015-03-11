@@ -151,7 +151,7 @@ public class UserLoginController {
      */
     @RequestMapping(value = "sendPhoneVerificationCodeReg", method = RequestMethod.POST)
     public Response sendPhoneVerificationCodeReg(@RequestBody Map<String, Object> map) {
-//        try {
+        try {
             Customer customer = new Customer();
             customer.setUsername((String)map.get("codeNumber") );
             char[] randchar = SysUtils.getRandNum(6);
@@ -159,19 +159,23 @@ public class UserLoginController {
             for (int i = 0; i < randchar.length; i++) {
                 str += randchar[i];
             }
-            customer.setUsername("lizhangfu");
+           //customer.setUsername("lizhangfu");
             customer.setPassword("0");
             customer.setCityId(0);
             customer.setDentcode(str);
             customer.setStatus(Customer.STATUS_NON_END);
-            String phone = "13390892325";//手机号
+            //String phone = "18761913514";//手机号
+            String phone = (String)map.get("codeNumber");//手机号
             try {
                 Boolean is_sucess = sendPhoneCode(str, phone);
+                System.err.println("验证码是："+str);
                 System.err.println("发送验证："+is_sucess);
+                if(!is_sucess){
+                	return Response.getError("获取验证码失败！");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
             if (userLoginService.findUname(customer) == 0) {
                 // 添加假状态
                 userLoginService.addUser(customer);
@@ -185,9 +189,10 @@ public class UserLoginController {
                     
                 }
             }
-//        } catch (Exception e) {
-//            return Response.getError("获取验证码失败！");
-//        }
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return Response.getError("获取验证码失败！");
+        }
     }
 
     /**
