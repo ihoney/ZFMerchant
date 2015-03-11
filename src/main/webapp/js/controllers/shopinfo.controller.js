@@ -1,8 +1,5 @@
 'user strict';
 
-//系统设置模块
-var shopinfoModule = angular.module("shopinfoModule",[]);
-
 var shopinfoController = function ($scope,$location, $http, LoginService) {
 	$scope.req={};
 	$scope.creq={};
@@ -38,6 +35,7 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             if (data.code==1) {
             	//$scope.paychannel=data.result;
             	//LoginService.shopcount+=1;
+            	$scope.$emit('shopcartcountchange');
             	window.location.href = '#/shopcart';
             }
         });
@@ -94,7 +92,4 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 };
 
 
-
-
-
-shopinfoModule.controller("shopinfoController", shopinfoController);
+shopModule.controller("shopinfoController", shopinfoController);

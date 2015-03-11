@@ -7,7 +7,16 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	
 	$scope.ridel_xy = false;
-	
+	$scope.shopcount=22;
+	$scope.shopcartcount=function () {
+    	if(LoginService.userid>0){
+    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
+                if (data.code==1) {
+                	$scope.shopcount= data.result;
+                }
+            });
+    	}
+    };
 	$scope.$on('$routeChangeStart', function (scope, next, current) {                          
 		if(LoginService.userid == 0){
 			//加载登陆前样式
@@ -323,4 +332,19 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
 			})
 		}
 	}
+	
+	$scope.shopcount=0;
+	$scope.$on('shopcartcountchange', function() {
+		$scope.shopcartcount();
+	});
+	$scope.shopcartcount=function () {
+    	if(LoginService.userid>0){
+    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
+                if (data.code==1) {
+                	$scope.shopcount= data.result;
+                }
+            });
+    	}
+    };
+    $scope.shopcartcount();
 }

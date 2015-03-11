@@ -38,7 +38,7 @@ public class PayChannelService {
         //收单机构
         int factoryId = SysUtils.String2int("" + map.get("factory_id"));
         if (factoryId > 0) {
-            Map<String, Object> factoryMap = pcMapper.getFactoryById(pcid);
+            Map<String, Object> factoryMap = pcMapper.getFactoryById(factoryId);
             map.put("pcfactory", factoryMap);
         }
         return map;

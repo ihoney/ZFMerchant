@@ -23,7 +23,6 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req.tDate=[];
 	
 	
-	$scope.shopcount=LoginService.shopcount;
 	$scope.searchShop=function(){
 		//window.location.href = '#/shop';
 		$('#login').hide();
@@ -44,8 +43,10 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.init = function () {
 		initSystemPage($scope.req);// 初始化分页参数
 		//$("#leftRoute").hide();
+		$scope.shopcartcount();
 		$scope.searchinfo();
 		$scope.list();
+		
     };
     $scope.searchinfo=function(){
     	$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
@@ -361,4 +362,35 @@ var shopController = function ($scope, $http, LoginService) {
     
 
 };
+
+var cartcount= function($scope, $http){
+	
+	$scope.shopcount=0;
+	//alert(shopcartcount());
+	
+	$scope.$on('shopcartcountchange', function() {
+		if(LoginService.userid>0){
+    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
+                if (data.code==1) {
+                	alert(data.result);
+                	$scope.shopcount= data.result;
+                }
+            });
+    	}
+	});
+	
+	//购物车数量
+	$scope.shopcartcount=function () {
+    	if(LoginService.userid>0){
+    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
+                if (data.code==1) {
+                	alert(data.result);
+                	$scope.shopcount= data.result;
+                }
+            });
+    	}
+    };
+}
+
 shopModule.controller("shopController", shopController);
+shopModule.controller("cartcount", cartcount);
