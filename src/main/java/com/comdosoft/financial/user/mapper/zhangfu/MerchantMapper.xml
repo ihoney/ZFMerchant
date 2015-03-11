@@ -2,9 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.MerchantMapper">
 
+	<select id="getListCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(id)
+		  FROM merchants
+		 WHERE customer_id = #{customerId}
+	]]>
+	</select>
+
 	<select id="getList" resultType="map">
 	<![CDATA[
-		SELECT id, title, legal_person_name
+		SELECT id, title, IFNULL(legal_person_name, '')
 		  FROM merchants
 		 WHERE customer_id = #{customerId}
 	  ORDER BY created_at DESC
@@ -24,6 +32,8 @@
 			   city_id,
 			   account_bank_name,
 			   bank_open_account,
+			   account_bank_address,
+			   account_bank_num,
 			   card_id_front_photo_path,
 			   card_id_back_photo_path,
 			   body_photo_path,
@@ -46,6 +56,8 @@
 							   organization_code_no,
 							   city_id, account_bank_name,
 							   bank_open_account,
+							   account_bank_address,
+							   account_bank_num,
 							   card_id_front_photo_path,
 							   card_id_back_photo_path,
 							   body_photo_path,
@@ -64,6 +76,8 @@
 				#{cityId},
 				#{accountBankName},
 				#{bankOpenAccount},
+				#{accountBankAddress},
+				#{accountBankNum},
 				#{cardIdFrontPhotoPath},
 				#{cardIdBackPhotoPath},
 				#{bodyPhotoPath},
@@ -88,6 +102,8 @@
 			<if test="cityId != null and cityId !=0">city_id = #{cityId},</if>
 			<if test="accountBankName != null and accountBankName !=''">account_bank_name = #{accountBankName},</if>
 			<if test="bankOpenAccount != null and bankOpenAccount !=''">bank_open_account = #{bankOpenAccount},</if>
+			<if test="accountBankAddress != null and accountBankAddress !=''">account_bank_address = #{accountBankAddress},</if>
+			<if test="accountBankNum != null and accountBankNum !=''">account_bank_num = #{accountBankNum},</if>
 			<if test="cardIdFrontPhotoPath != null and cardIdFrontPhotoPath !=''">card_id_front_photo_path = #{cardIdFrontPhotoPath},</if>
 			<if test="cardIdBackPhotoPath != null and cardIdBackPhotoPath !=''">card_id_back_photo_path = #{cardIdBackPhotoPath},</if>
 			<if test="bodyPhotoPath != null and bodyPhotoPath !=''">body_photo_path = #{bodyPhotoPath},</if>

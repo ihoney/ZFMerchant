@@ -1,0 +1,71 @@
+<script type="text/javascript" src="js/controllers/merchant/merchantOne.js"></script>
+<div class="right" ng-controller="merchantOneController">
+	<div class="breadcrumb">
+		<ul>
+			<li><a href="#/merchantList">商户资料</a></li>
+			<li><a href="#/merchantOne?merchantId={{merchant.id}}">商户资料详情</a></li>
+		</ul>
+	</div>
+	<div class="content clear">
+		<div class="user_title">
+			<h1>商户资料详情</h1>
+		</div>
+		<div class="attributes_box">
+			<div class="item_list user_xq clear">
+				<ul>
+					<li><span class="labelSpan">商户名称：</span>
+						<div class="text">{{merchant.title}}</div></li>
+					<li><span class="labelSpan">商户法人姓名：</span>
+						<div class="text">{{merchant.legal_person_name}}</div></li>
+					<li><span class="labelSpan">商户法人身份证号码：</span>
+						<div class="text">{{merchant.legal_person_card_id}}</div></li>
+					<li><span class="labelSpan">开户行名称：</span>
+						<div class="text">{{merchant.account_bank_name}}</div></li>
+					<li><span class="labelSpan">开户行地址：</span>
+						<div class="text">{{merchant.account_bank_address}}</div></li>
+					<li><span class="labelSpan">银行账号：</span>
+						<div class="text">{{merchant.account_bank_num}}</div></li>
+					<li><span class="labelSpan">营业执照登记号：</span>
+						<div class="text">{{merchant.business_license_no}}</div></li>
+					<li><span class="labelSpan">税务登记号：</span>
+						<div class="text">{{merchant.tax_registered_no}}</div></li>
+					<li><span class="labelSpan">组织机构代码证号：</span>
+						<div class="text">{{merchant.organization_code_no}}</div></li>
+					<li><span class="labelSpan">银行开户许可证号：</span>
+						<div class="text">{{merchant.bank_open_account}}</div></li>
+					<li><span class="labelSpan">法人身份证照片正面：</span>
+						<div class="text">
+							<img src="{{merchant.card_id_front_photo_path}}" class="cover" />
+						</div></li>
+					<li><span class="labelSpan">法人身份证照片背面：</span>
+						<div class="text">
+							<img src="{{merchant.card_id_back_photo_path}}" class="cover" />
+						</div></li>
+					<li><span class="labelSpan">法人上半身照片：</span>
+						<div class="text">
+							<img src="{{merchant.body_photo_path}}" class="cover" />
+						</div></li>
+					<li><span class="labelSpan">营业执照照片：</span>
+						<div class="text">
+							<img src="{{merchant.license_no_pic_path}}" class="cover" />
+						</div></li>
+					<li><span class="labelSpan">税务登记证照片：</span>
+						<div class="text">
+							<img src="{{merchant.tax_no_pic_path}}" class="cover" />
+						</div></li>
+					<li><span class="labelSpan">组织机构代码证照片：</span>
+						<div class="text">
+							<img src="{{merchant.org_code_no_pic_path}}" class="cover" />
+						</div></li>
+					<li><span class="labelSpan">银行开户许可证照片：</span>
+						<div class="text">
+							<img src="{{merchant.account_pic_path}}" class="cover" />
+						</div></li>
+				</ul>
+				<div class="img_info">
+					<img src="{{merchant.card_id_front_photo_path}}" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

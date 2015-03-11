@@ -25,6 +25,10 @@ public class MerchantService {
     @Resource
     private MerchantMapper merchantMapper;
 
+    public int getListCount(int customerId) {
+        return merchantMapper.getListCount(customerId);
+    }
+
     public List<Map<Object, Object>> getList(int customerId, int page, int rows) {
         Map<Object, Object> query = new HashMap<Object, Object>();
         query.put("customerId", customerId);

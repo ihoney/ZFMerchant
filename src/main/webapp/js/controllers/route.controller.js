@@ -37,6 +37,14 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/customer/myinfointegral.html'
 	}).when('/traderecord', {
 		templateUrl : 'views/traderecord/traderecord.html'
+	}).when('/merchantList', {
+		templateUrl : 'views/merchant/merchantList.html'
+	}).when('/merchantAdd', {
+		templateUrl : 'views/merchant/merchantAdd.html'
+	}).when('/merchantUpdate', {
+		templateUrl : 'views/merchant/merchantUpdate.html'
+	}).when('/merchantOne', {
+		templateUrl : 'views/merchant/merchantOne.html'
 	}).when('/cs_cencel', {
 		templateUrl : 'views/cs/cencel.html'
 	}).when('/cs_cencelinfo', {
