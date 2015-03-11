@@ -46,6 +46,7 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 		}
 	}
     $scope.commentList = function() {
+    	$scope.creq.page=$scope.creq.indexPage;
     	$http.post("api/comment/list",$scope.creq ).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.comment=data.result.list;

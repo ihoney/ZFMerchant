@@ -67,6 +67,7 @@ var shopController = function ($scope, $http, LoginService) {
     	}else{
     		$scope.req.has_purchase=0;
     	}
+    	$scope.req.page=$scope.req.indexPage;
 		$http.post("api/good/list", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.goodList=data.result.list;

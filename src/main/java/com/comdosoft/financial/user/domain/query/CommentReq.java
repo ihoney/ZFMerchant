@@ -15,17 +15,17 @@ public class CommentReq {
         this.goodId = goodId;
     }
 
-    private int indexPage;
+    private int page;
     private int rows;
     private int offset;
 
 
-    public int getIndexPage() {
-        return indexPage;
+    public int getPage() {
+        return page;
     }
 
-    public void setIndexPage(int indexPage) {
-        this.indexPage = indexPage;
+    public void setPage(int page) {
+        this.page = page;
     }
 
     public int getRows() {
@@ -40,8 +40,8 @@ public class CommentReq {
     }
 
     public int getOffset() {
-        if (indexPage > 0 && rows > 0) {
-            offset = (indexPage - 1) * rows;
+        if (page > 0 && rows > 0) {
+            offset = (page - 1) * rows;
         } else {
             offset = 0;
         }
