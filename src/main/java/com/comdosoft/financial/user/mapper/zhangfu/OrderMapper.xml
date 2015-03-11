@@ -119,7 +119,7 @@
 		FROM orders o
 		where o.customer_id = #{customer_id}
 		<if test="q !=null and q!=''">
-		and o.types = #{q}
+		and o.status = #{q}
 		</if>
 	</select>
 	
@@ -183,7 +183,7 @@
 		WHERE
 		o.customer_id = #{customer_id}
 		<if test="q !=null and q!=''">
-		and o.types = #{q}
+		and o.status = #{q}
 		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{pageSize}
