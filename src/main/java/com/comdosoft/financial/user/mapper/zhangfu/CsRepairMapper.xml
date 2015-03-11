@@ -35,7 +35,7 @@
 		WHERE
 			o.customer_id = #{customer_id}
 			<if test="search !=null and search!=''">
-		        and  o.apply_num like "%"#{search}"%" 
+		        and (o.apply_num like "%"#{search}"%"  or t.serial_num like "%"#{search}"%") 
 		   </if>
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
@@ -45,7 +45,7 @@
 		
 	</select>
 	
-	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsRepair">
+	<select id="findAll" resultType="map"  >
 			SELECT
 			o.id,o.repair_price,
 			o.created_at,
@@ -71,7 +71,7 @@
 		
 	</select>
 	
-	<select id="search" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsRepair">
+	<select id="search" resultType="map"  >
 			SELECT
 			o.id,
 			o.created_at,
@@ -92,7 +92,7 @@
 		WHERE
 			o.customer_id = #{customer_id}
 			<if test="search !=null and search!=''">
-		        and  o.apply_num like "%"#{search}"%" 
+		       and (o.apply_num like "%"#{search}"%"  or t.serial_num like "%"#{search}"%") 
 		   </if>
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
@@ -103,7 +103,7 @@
 		
 	</select>
 	
-	<select id="findById" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsRepair">
+	<select id="findById" resultType="map"  >
 		SELECT
 			o.id,o.repair_price,
 			o.`status` AS apply_status,
