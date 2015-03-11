@@ -13,11 +13,11 @@
     </delete>
     
     <update id="update" parameterType="com.comdosoft.financial.user.domain.query.CartReq">
-       UPDATE shopping_carts set quantity=#{quantity} where id=#{id}
+       UPDATE shopping_carts set quantity=#{quantity} ,updated_at= NOW() where id=#{id}
     </update>
     
     <update id="update2" parameterType="com.comdosoft.financial.user.domain.query.CartReq">
-       UPDATE shopping_carts set quantity=#{quantity}  where customer_id=#{customerId} and 
+       UPDATE shopping_carts set quantity=#{quantity} ,updated_at= NOW()  where customer_id=#{customerId} and 
          good_id=#{goodId} and pay_channel_id=#{paychannelId}
     </update>
   
@@ -37,6 +37,7 @@
        LEFT JOIN goods g on g.id=sc.good_id
 			 LEFT JOIN good_brands b on g.good_brands_id=b.id
        where sc.customer_id=#{customerId}
+       ORDER BY SC.updated_at DESC
     </select>
     
     <select id="getTotal" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="int">
