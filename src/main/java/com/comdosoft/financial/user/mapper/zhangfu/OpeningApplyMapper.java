@@ -26,10 +26,17 @@ public interface OpeningApplyMapper {
 	
 	/**
 	 * 根据终端id获得该终端详情
+	 * @param terminalsId
+	 * @return
+	 */
+	Map<String, Object> getApplyDetails(int terminalsId);
+	
+	/**
+	 * 获得已有开通申请基本申请信息
 	 * @param id
 	 * @return
 	 */
-	Map<String, Object> getApplyDetails(Integer id);
+	Map<String, Object> getOppinfo(OpeningApplie openingApplie);
 	
 	/**
 	 * 获得所有商户
