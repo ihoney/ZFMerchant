@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.query.Intentionreq;
 import com.comdosoft.financial.user.mapper.zhangfu.PaychannelMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
 
@@ -42,5 +43,15 @@ public class PayChannelService {
             map.put("pcfactory", factoryMap);
         }
         return map;
+    }
+
+    public  int addIntention(Intentionreq req) {
+        try {
+            pcMapper.addIntention(req);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.query.Intentionreq;
 import com.comdosoft.financial.user.domain.query.PayChannelReq;
 import com.comdosoft.financial.user.service.PayChannelService;
 
@@ -26,5 +27,17 @@ public class PaychannelController {
         response.setCode(Response.SUCCESS_CODE);
         response.setResult(pcInfo);
         return response;
+    }
+    
+    @RequestMapping(value = "intention/add", method = RequestMethod.POST)
+    public Response intention(@RequestBody Intentionreq req) {
+        Response resp = new Response();
+        int result=pcService.addIntention(req);
+        if(result==1){
+            resp.setCode(Response.SUCCESS_CODE);
+        }else{
+            resp.setCode(Response.ERROR_CODE);
+        }
+        return resp;
     }
 }

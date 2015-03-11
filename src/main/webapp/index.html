@@ -45,6 +45,7 @@
 			<script type="text/javascript" src="js/controllers/shop.controller.js"></script>
 			<script type="text/javascript" src="js/controllers/login.controller.js"></script>
 			<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
+			<script type="text/javascript" src="js/controllers/mainindex.controller.js"></script>
 
 			<script type="text/javascript">
 				//登录
@@ -641,7 +642,7 @@
 		</div>
 	</div>
 
-	<div id="mainindex">
+	<div id="mainindex" ng-controller="mainindexController">
 		<div class="ad">
 			<div class="banner">
 				<ul class="show">
@@ -690,8 +691,8 @@
 					<div class="title">申请进度查询</div>
 					<div class="sp_con">
 						<div class="sp_search">
-							<input name="" type="text" value="请输入XXXX" />
-							<button>搜索</button>
+							<input ng-model="req.phone" type="text" placeholder="请输入手机号" />
+							<button ng-click="searchhh()">搜索</button>
 						</div>
 					</div>
 				</div>
@@ -852,7 +853,7 @@
 				<div class="box">
 					<h1>和我们的专家进行及时沟通</h1>
 					<ul>
-						<li><a href="#"><i class="intention"></i>
+						<li><a href="javascript:void(0);" class="buyIntention_a"><i class="intention"></i>
 							<p>填写购买意向</p></a></li>
 						<li><a href="#"><i class="qqContact"></i>
 							<p>联系24小时在线客服</p></a></li>
@@ -939,7 +940,35 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
+		
+		<div class="tab buyIntention_tab">
+			<a href="javascript:void(0);" class="close">关闭</a>
+			<div class="tabHead">购买意向</div>
+			<div class="tabBody">
+		    	<div class="item_list">
+		        	<ul>
+		            	<li><span class="labelSpan">意向人：</span><div class="text"><input ng-model="req.name" type="text" /></div></li>
+		                <li><span class="labelSpan">联系电话：</span><div class="text"><input ng-model="req.phone" type="text" /></div></li>
+		                <li><span class="labelSpan">咨询内容：</span><div class="text"><textarea ng-model="req.content" cols="" rows="" class="textarea_l"></textarea></div></li>
+		            </ul>
+		        </div>
+			</div>
+		    <div class="tabFoot"><button class="orangeBtn" ng-click="addBuy()">提交</button></div>
+		</div>
+		
+		<div class="tab" id="qwert">
+			<a href="javascript:void(0);" class="close">关闭</a>
+			<div class="tabHead">查询进度</div>
+			<div class="tabBody">
+		    	<div class="seen_progress">
+		        	<ul>
+		            	<li><span>终端号：</span>1269474662</li>
+		                <li><span>当前进度：</span>处理中...</li>
+		            </ul>
+		        </div>
+			</div>
+		    <div class="tabFoot"><button class="orangeBtn">确定</button></div>
 		</div>
 	</div>
 

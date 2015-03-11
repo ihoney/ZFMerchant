@@ -3,6 +3,7 @@ package com.comdosoft.financial.user.mapper.zhangfu;
 import java.util.List;
 import java.util.Map;
 
+import com.comdosoft.financial.user.domain.query.Intentionreq;
 import com.comdosoft.financial.user.domain.zhangfu.PayChannel;
 
 public interface PaychannelMapper {
@@ -24,5 +25,7 @@ public interface PaychannelMapper {
     Map<String, Object> getPcinfo(int pcid);
 
     Map<String, Object> getFactoryById(int factoryId);
+
+    void addIntention(Intentionreq req);
 
 }

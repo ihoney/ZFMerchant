@@ -910,3 +910,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .payAD { text-align: center; padding: 20px;}
 .payAD img { display: inline-block;}
 
+
+.seen_progress { color: #ff5f2b; font-family: "microsoft yahei";}
+.seen_progress li { height: 36px; line-height: 36px; font-size: 18px;}
+.seen_progress li span { color: #333;}

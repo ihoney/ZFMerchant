@@ -74,5 +74,10 @@
 		 WHERE id = #{payChannelId}
 	]]>
 	</select>
+	
+	<insert id="addIntention" >
+       INSERT into customer_intentions(intention_name,intention_phone,content,intention_marks_id,STATUS)
+	  VALUES (#{name},#{phone},#{content},0,1)
+     </insert>
 
 </mapper>
