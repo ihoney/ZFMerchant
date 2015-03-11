@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -174,55 +175,79 @@ public class OpeningApplyController {
 			for (Map<String, Object> map : paramMap) {
 				Set<String> keys = map.keySet();
 				if (y == 0) {
-					status = (Integer) map.get("status");
-					terminalId = (Integer)map.get("terminalId");
-					if (status == 2) {
-						openingAppliesId = String.valueOf(openingApplyService
-								.getApplyesId(terminalId));
-						// 删除旧数据
-						openingApplyService.deleteOpeningInfos(Integer
-								.valueOf(openingAppliesId));
-					} else {
-						openingApplie.setTerminalId((Integer) map
-								.get("terminalId"));
-						openingApplie.setApplyCustomerId((Integer) map
-								.get("applyCustomerId"));
-						openingApplie.setStatus((Integer) map
-								.get("status"));
-						openingApplie.setTypes((Integer) map
-								.get("publicPrivateStatus"));
-						openingApplie.setMerchantId((Integer) map
-								.get("merchantId"));
-						openingApplie.setMerchantName((String) map
-								.get("merchantName"));
-						openingApplie.setSex((Integer) map
-								.get("sex"));
-						openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
-						openingApplie.setCardId((String) map
-								.get("cardId"));
-						openingApplie.setPhone((String) map
-								.get("phone"));
-						openingApplie.setEmail((String) map
-								.get("email"));
-						openingApplie.setCityId((Integer) map
-								.get("cityId"));
-						openingApplie.setName((String) map
+					//判断该商户是否存在
+					int count =  openingApplyService.getMerchantsIsNo((String) map.get("cardId"));
+					if(count == 0){
+						//添加商户
+						Merchant merchant = new Merchant();
+						merchant.setLegalPersonName((String) map
 								.get("name"));
-						openingApplie.setPayChannelId((Integer) map
-								.get("channel"));
-						openingApplie.setAccountBankNum((String) map
-								.get("bankNum"));
-						openingApplie.setAccountBankName((String) map
-								.get("bankName"));
-						openingApplie.setAccountBankCode((String) map
-								.get("bankCode"));
-						openingApplie.setTaxRegisteredNo((String) map
-								.get("organizationNo"));
-						openingApplie.setOrganizationCodeNo((String) map
+						merchant.setLegalPersonCardId((String) map
+								.get("cardId"));
+						merchant.setTitle((String) map
+								.get("merchantName"));
+						merchant.setTaxRegisteredNo((String) map
 								.get("registeredNo"));
-						openingApplyService.addOpeningApply(openingApplie);
-						openingAppliesId = String
-								.valueOf(openingApplie.getId());
+						merchant.setOrganizationCodeNo((String) map
+								.get("organizationNo"));
+						merchant.setAccountBankNum((String) map
+								.get("bankNum"));
+						merchant.setCustomerId((Integer) map
+								.get("customersId"));
+						openingApplyService.addMerchan(merchant);
+						//获得添加后商户Id
+						map.put("merchantId", merchant.getId());
+					}else if(count > 0){
+						status = (Integer) map.get("status");
+						terminalId = (Integer)map.get("terminalId");
+						if (status == 2) {
+							openingAppliesId = String.valueOf(openingApplyService
+									.getApplyesId(terminalId));
+							// 删除旧数据
+							openingApplyService.deleteOpeningInfos(Integer
+									.valueOf(openingAppliesId));
+						} else {
+							openingApplie.setTerminalId((Integer) map
+									.get("terminalId"));
+							openingApplie.setApplyCustomerId((Integer) map
+									.get("applyCustomerId"));
+							openingApplie.setStatus((Integer) map
+									.get("status"));
+							openingApplie.setTypes((Integer) map
+									.get("publicPrivateStatus"));
+							openingApplie.setMerchantId((Integer) map
+									.get("merchantId"));
+							openingApplie.setMerchantName((String) map
+									.get("merchantName"));
+							openingApplie.setSex((Integer) map
+									.get("sex"));
+							openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
+							openingApplie.setCardId((String) map
+									.get("cardId"));
+							openingApplie.setPhone((String) map
+									.get("phone"));
+							openingApplie.setEmail((String) map
+									.get("email"));
+							openingApplie.setCityId((Integer) map
+									.get("cityId"));
+							openingApplie.setName((String) map
+									.get("name"));
+							openingApplie.setPayChannelId((Integer) map
+									.get("channel"));
+							openingApplie.setAccountBankNum((String) map
+									.get("bankNum"));
+							openingApplie.setAccountBankName((String) map
+									.get("bankName"));
+							openingApplie.setAccountBankCode((String) map
+									.get("bankCode"));
+							openingApplie.setTaxRegisteredNo((String) map
+									.get("organizationNo"));
+							openingApplie.setOrganizationCodeNo((String) map
+									.get("registeredNo"));
+							openingApplyService.addOpeningApply(openingApplie);
+							openingAppliesId = String
+									.valueOf(openingApplie.getId());
+						}
 					}
 				} else {
 					for (String str : keys) {

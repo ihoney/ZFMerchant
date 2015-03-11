@@ -45,6 +45,18 @@ public interface OpeningApplyMapper {
 	List<Merchant> getMerchants(int customerId);
 	
 	/**
+	 * 申请开通时判断商户是否存在
+	 * @return
+	 */
+	int getMerchantsIsNo(String legalPersonCardId);
+	
+	/**
+	 * 添加商户
+	 * @return
+	 */
+	void addMerchan(Merchant merchant);
+	
+	/**
 	 * 获得所有通道
 	 * @return
 	 */

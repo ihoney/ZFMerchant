@@ -18,7 +18,12 @@
 		#{payChannelId},#{accountBankNum},#{accountBankName},#{accountBankCode},#{taxRegisteredNo},
 		#{organizationCodeNo});
  	</insert>
- 
+ 	
+ 	<insert id="addMerchan" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Merchant">
+		 INSERT into merchants(legal_person_name,legal_person_card_id,title,tax_registered_no,organization_code_no,created_at,updated_at,account_bank_num,customer_id)
+		 VALUES(#{legalPersonName},#{legalPersonCardId},#{title},#{taxRegisteredNo},#{organizationCodeNo},now(),now(),#{accountBankNum},#{customerId})
+ 	</insert>
+
  	<select id="getApplyList" parameterType="map" resultType="map">
  		SELECT id,serial_num,status
  		FROM terminals
@@ -45,6 +50,10 @@
 		AND types = #{types}
  	</select>
  	
+ 	<select id="getMerchantsIsNo" resultType="int"  parameterType="string">
+ 		SELECT count(*) FROM merchants 
+ 		WHERE legal_person_card_id = #{legalPersonCardId}
+ 	</select>
  	
  	
  	<select id="getChannels" resultType="map">

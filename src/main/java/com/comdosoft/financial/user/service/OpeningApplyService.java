@@ -70,8 +70,6 @@ public class OpeningApplyService {
 	public List<Map<Object, Object>> getMaterialLevel( int terminalsId) {
 		return openingApplyMapper.getMaterialLevel(terminalsId);
 	}
-	
-	
 
 	/**
 	 * 获得所有商户列表
@@ -80,6 +78,24 @@ public class OpeningApplyService {
 	 */
 	public List<Merchant> getMerchants(int customerId) {
 		return openingApplyMapper.getMerchants(customerId);
+	}
+	
+	/**
+	 * 申请开通时判断商户是否存在
+	 * 
+	 * @return
+	 */
+	public int getMerchantsIsNo(String legalPersonCardId) {
+		return openingApplyMapper.getMerchantsIsNo(legalPersonCardId);
+	}
+	
+	/**
+	 * 申请开通时判断商户是否存在
+	 * 
+	 * @return
+	 */
+	public void addMerchan(Merchant merchant) {
+		openingApplyMapper.addMerchan(merchant);
 	}
 	
 	/**
