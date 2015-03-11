@@ -21,7 +21,7 @@
 		WHERE
 			o.customer_id = #{customer_id}
 			<if test="search !=null and search!=''">
-		        and  o.apply_num like "%"#{search}"%" 
+		        and (o.apply_num like "%"#{search}"%"  or t.serial_num like "%"#{search}"%") 
 		   </if>
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
@@ -43,7 +43,7 @@
 		LIMIT 0,2
 	</select>
 	
-	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReturn">
+	<select id="findAll" resultType="map"  >
 		SELECT
 			o.id,
 			o.created_at,
@@ -68,7 +68,7 @@
 		LIMIT #{offset},#{pageSize}
 	</select>
 	
-	<select id="search" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReturn">
+	<select id="search" resultType="map"  >
 		SELECT
 			o.id,
 			o.created_at,
@@ -89,7 +89,7 @@
 		WHERE
 			o.customer_id = #{customer_id}
 			<if test="search !=null and search!=''">
-		        and  o.apply_num like "%"#{search}"%" 
+		      and (o.apply_num like "%"#{search}"%"  or t.serial_num like "%"#{search}"%") 
 		   </if>
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
@@ -99,7 +99,7 @@
 		LIMIT #{offset},#{pageSize}
 	</select>
 	
-		<select id="findById" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReturn">
+		<select id="findById" resultType="map"  >
 		SELECT
 			o.id,
 			o.`status` AS apply_status,

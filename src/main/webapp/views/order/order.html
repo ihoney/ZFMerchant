@@ -79,10 +79,10 @@
 								</div>
 							</div>
 						</td>
-						<td><strong>{{g.good_actualprice/100 |currency : "￥"}} </strong></td>
+						<td><strong>{{g.good_price/100 |currency : "￥"}} </strong></td>
 						<td>{{g.good_num}}</td>
 
-						<td><strong>{{o.order_actualPrice/100 |currency : "￥"}} </strong></td>
+						<td><strong>{{o.order_totalPrice/100 |currency : "￥"}} </strong></td>
 
 						<td>
 							<strong ng-if="o.order_status==1" class="strong_status">未付款</strong>
