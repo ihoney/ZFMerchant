@@ -290,7 +290,8 @@ public class OrderService {
                 // omap.put("order_good_id", od.getId().toString());
                 String good_id = od.getGood() == null ? "" : od.getGood().getId() == null ? "" : od.getGood().getId().toString();
                 omap.put("good_id", good_id);
-                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice() + "");
+                omap.put("good_price", od.getActualPrice() == null ? "" : od.getActualPrice());//商品单价
+//                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice() + "");
                 omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity() + "");
                 omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle() == null ? "" : od.getGood().getTitle());
                 omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
