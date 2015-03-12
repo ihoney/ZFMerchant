@@ -1,5 +1,5 @@
-<div>
-	<div id="findPassOne">
+<div ng-controller="findpassController">
+	<div id="findPassOne" ng-show="one">
 		<div class="logo">
 			<img src="images/logo.png" />
 		</div>
@@ -23,7 +23,7 @@
 		</div>
 	</div>
 
-	<div id="findPassTwo">
+	<div id="findPassTwo" ng-show="two">
 		<div class="logo">
 			<img src="images/logo.png" />
 		</div>
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<div id="findPassThree">
+	<div id="findPassThree" ng-show="three">
 		<div class="logo">
 			<img src="images/logo.png" />
 		</div>
@@ -75,25 +75,23 @@
 </div>
 <link href="style/retrieve.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
+	//input默认值
+	function focusBlur(e) {
+		$(e).focus(function() {
+			var thisVal = $(this).val();
+			if (thisVal == this.defaultValue) {
+				$(this).val('');
+			}
+		})
+		$(e).blur(function() {
+			var thisVal = $(this).val();
+			if (thisVal == '') {
+				$(this).val(this.defaultValue);
+			}
+		})
+	}
 
-//input默认值
-function focusBlur(e){
-	$(e).focus(function(){
-		var thisVal = $(this).val();
-		if(thisVal == this.defaultValue){
-			$(this).val('');
-		}	
-	})	
-	$(e).blur(function(){
-		var thisVal = $(this).val();
-		if(thisVal == ''){
-			$(this).val(this.defaultValue);
-		}	
-	})	
-}
-
-$(function(){
-	focusBlur('.ret_b input');//登录
-})
-
+	$(function() {
+		focusBlur('.ret_b input');//登录
+	})
 </script>

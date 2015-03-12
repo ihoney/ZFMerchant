@@ -8,7 +8,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	
 	$scope.loginUserName = LoginService.loginUserName;
 	$scope.ridel_xy = false;
-	$scope.shopcount=22;
+	$scope.shopcount=0;
 	$scope.shopcartcount=function () {
     	if(LoginService.userid>0){
     		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
@@ -31,10 +31,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		$scope.searchview=true;
 		$scope.ngshow=true;
     });
-	
-	
-
-	$scope.RememberPass = false;
 
 
 	$scope.password1 = "";
@@ -48,17 +44,15 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		password : $scope.password
 	};
 
-	$scope.login = function() {
-		LoginService.login($scope);
-	};
 	
-	//登陆前首页跳转登陆页面
-	$scope.goToLogin = function(){
-		LoginService.hideAll();
-		$('#login').show();
-		//加载登陆样式
-		$scope.dynamicLoadingCss("style/login.css");
-	}
+	
+//	//登陆前首页跳转登陆页面
+//	$scope.goToLogin = function(){
+//		LoginService.hideAll();
+//		$('#login').show();
+//		//加载登陆样式
+//		$scope.dynamicLoadingCss("style/login.css");
+//	}
 	
 	//退出页面(清除$cookieStore)
 	$scope.escLogin = function(){
@@ -74,44 +68,39 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	}
 
 	// 登陆前首页跳转手机注册
-	$scope.register = function() {
-		$http.post("api/terminal/getCities").success(function(data) {
-			if (data.code == 1) {
-				$scope.cities = data.result;
-			} else {
-				alert("城市加载失败！");
-			}
-		})
-		
-		$scope.dynamicLoadingCss("style/register.css");
-		LoginService.hideAll();
-		$('#retrieveHtml').show();
-		$("link[href='style/global.css']").remove();
-	};
+//	$scope.register = function() {
+//		$http.post("api/terminal/getCities").success(function(data) {
+//			if (data.code == 1) {
+//				$scope.cities = data.result;
+//			} else {
+//				alert("城市加载失败！");
+//			}
+//		})
+//		
+//		$scope.dynamicLoadingCss("style/register.css");
+//		LoginService.hideAll();
+//		$('#retrieveHtml').show();
+//		$("link[href='style/global.css']").remove();
+//	};
 	
 	// 跳转邮箱注册用户
-	$scope.gotoEmailRetrieve = function() {
-		$("#clodeText").hide();
-		$scope.dynamicLoadingCss("style/register.css");
-		LoginService.hideAll();
-		$('#emailRetrieveHtml').show();
-		$("link[href='style/global.css']").remove();
-	}
+//	$scope.gotoEmailRetrieve = function() {
+//		$("#clodeText").hide();
+//		$scope.dynamicLoadingCss("style/register.css");
+//		LoginService.hideAll();
+//		$('#emailRetrieveHtml').show();
+//		$("link[href='style/global.css']").remove();
+//	}
 
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
 	
-	
 
 	$scope.reGetRandCodeImg();
-
 	
 
-
-
-	
 	// 动态加载css样式
 //	$scope.dynamicLoadingCss = function(path) {
 //		if (!path || path.length == 0) {
@@ -166,13 +155,19 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 var loginController=function($scope, $location, $http, LoginService){
 	//隐藏中间搜索
 	$scope.$emit('changesearchview',false);
-	
+	$scope.RememberPass = false;
+	$scope.login = function() {
+		LoginService.login($scope);
+	};
 };
 
 var registerController=function($scope, $location, $http, LoginService){
-	//隐藏中间搜索
-	$scope.$emit('changesearchview',false);
-	
+	$scope.init= function() {
+		//隐藏中间搜索
+		$scope.$emit('changesearchview',false);
+		//获得省级
+		$scope.getShengcit();
+	};
 	// 邮箱注册用户
 	$scope.addUserEmail = function() {
 		$http.post("api/user/userRegistration", {
@@ -217,6 +212,18 @@ var registerController=function($scope, $location, $http, LoginService){
 			}
 		})
 	};
+	
+	//获得省级
+	$scope.getShengcit= function(){
+		$http.post("api/terminal/getCities").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
+		})
+	};
+	
 	
 	//获得市级
 	$scope.getShicit = function(parentId){
@@ -295,12 +302,33 @@ var registerController=function($scope, $location, $http, LoginService){
 			})
 		}
 	};
+	$scope.init();
 	
 };
 
 var findpassController=function($scope, $location, $http, LoginService){
-	//隐藏中间搜索
-	$scope.$emit('changesearchview',false);
+	
+	$scope.init=function() {
+		//隐藏中间搜索
+		$scope.$emit('changesearchview',false);
+		$scope.onestep();
+	};
+	
+	$scope.onestep=function() {
+		$scope.one=true;
+		$scope.two=false;
+		$scope.three=false;
+	};
+	$scope.twostep=function() {
+		$scope.one=false;
+		$scope.two=true;
+		$scope.three=false;	
+	};
+	$scope.threestep=function() {
+		$scope.one=false;
+		$scope.two=false;
+		$scope.three=true;
+	};
 	
 	// 找回密码
 	$scope.findPass = function() {
@@ -396,4 +424,5 @@ var findpassController=function($scope, $location, $http, LoginService){
 			})
 		}
 	};
+	$scope.init();
 };

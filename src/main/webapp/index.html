@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" ng-controller="indexController">
-<head >
+<head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
 			<!--user.css用户后台页-->
 			<link href="style/user.css" rel="stylesheet" type="text/css" />
 			<!--global.css全局公用-->
-			  <link href="style/global.css" rel="stylesheet" type="text/css" /> 
+			<link href="style/global.css" rel="stylesheet" type="text/css" />
 			<!-- <link href="style/register.css" rel="stylesheet" type="text/css" /> -->
 
 			<script src="js/jQuery-1.11.2.js"></script>
@@ -48,131 +48,31 @@
 			<script type="text/javascript" src="js/controllers/mainindex.controller.js"></script>
 
 			<script src="js/left.js"></script>
-			
-			<script type="text/javascript">
-				//登录
-				// 切换
-				$(function() {
-					$(".lr_b > div").not(":first").hide();
-					$(".lr_h li").unbind("click").bind("click", function() {
-						$(this).addClass("hover").siblings().removeClass("hover");
-						var index = $(".lr_h li").index($(this));
-						$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
-					});
-				});
-
-				//input默认值
-				function focusBlur(e) {
-					$(e).focus(function() {
-						var thisVal = $(this).val();
-						if (thisVal == this.defaultValue) {
-							$(this).val('');
-						}
-					})
-					$(e).blur(function() {
-						var thisVal = $(this).val();
-						if (thisVal == '') {
-							$(this).val(this.defaultValue);
-						}
-					})
-				}
-
-				$(function() {
-					focusBlur('.login_area input');//登录
-				})
-			</script>
-
-			<script type="text/javascript">
-				//input默认值findpassone
-				function focusBlur(e) {
-					$(e).focus(function() {
-						var thisVal = $(this).val();
-						if (thisVal == this.defaultValue) {
-							$(this).val('');
-						}
-					})
-					$(e).blur(function() {
-						var thisVal = $(this).val();
-						if (thisVal == '') {
-							$(this).val(this.defaultValue);
-						}
-					})
-				}
-
-				$(function() {
-					focusBlur('.ret_b input');//登录
-				})
-			</script>
-
-			<script type="text/javascript">
-				//input默认值findTwo
-				function focusBlur(e) {
-					$(e).focus(function() {
-						var thisVal = $(this).val();
-						if (thisVal == this.defaultValue) {
-							$(this).val('');
-						}
-					})
-					$(e).blur(function() {
-						var thisVal = $(this).val();
-						if (thisVal == '') {
-							$(this).val(this.defaultValue);
-						}
-					})
-				}
-
-				$(function() {
-					focusBlur('.ret_b input');//登录
-				})
-			</script>
-
-			<script type="text/javascript">
-				//input默认值注册
-				function focusBlur(e) {
-					$(e).focus(function() {
-						var thisVal = $(this).val();
-						if (thisVal == this.defaultValue) {
-							$(this).val('');
-						}
-					})
-					$(e).blur(function() {
-						var thisVal = $(this).val();
-						if (thisVal == '') {
-							$(this).val(this.defaultValue);
-						}
-					})
-				}
-
-				$(function() {
-					focusBlur('.res_b input');//登录
-				});
-			</script>
 </head>
 
 <body>
- 	<div id="maintop" class="topInfo clear" ng-show="!loginshow" ng-init="loginshow=false">
+	<div id="maintop" class="topInfo clear" ng-show="!loginshow" ng-init="loginshow=false">
 		<div class="box">
-	    	<div class="address">
-	        	<div class="addr_h"><span>上海</span><i class="down"></i></div>
-	            <div class="addr_b">
-	            	<ul>
-	                	<li><a href="#">北京</a></li>
-	                </ul>
-	            </div>
-	        </div>
-	        <div class="topNav">
-	        	<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a>
-	            <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
-	        </div>
-	        <div class="loginInfo">
-	        	<a href="#/login">登录</a>
-	            <a href="#/register">注册</a>
-	            <a href="#">代理商入口</a>
-	        </div>
-	    </div>
-    	<div class="clear"></div>
+			<div class="address">
+				<div class="addr_h">
+					<span>上海</span><i class="down"></i>
+				</div>
+				<div class="addr_b">
+					<ul>
+						<li><a href="#">北京</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="topNav">
+				<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a> <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
+			</div>
+			<div class="loginInfo">
+				<a href="#/login">登录</a> <a href="#/register">注册</a> <a href="#">代理商入口</a>
+			</div>
+		</div>
+		<div class="clear"></div>
 	</div>
-	
+
 	<div id="maintopTwo" class="topInfo clear" ng-show="loginshow">
 		<div class="box">
 			<div class="top_kf">
@@ -187,15 +87,15 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-		
 
-	
+
+
 	<div class="head clear" ng-show="searchview" ng-init="searchview=true">
 		<div class="box">
 			<div class="logo">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
-					<input ng-model="keys" type="text"  placeholder="请输入pos机信息"/>
+					<input ng-model="keys" type="text" placeholder="请输入pos机信息" />
 					<button ng-click="searchShop()">搜索</button>
 				</div>
 				<div class="hotwords">
@@ -205,7 +105,7 @@
 			<div class="phone">
 				<img src="images/dh.png" />
 			</div>
-			<div class="shoppingCart" >
+			<div class="shoppingCart">
 				<div class="sCart_h">
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
@@ -216,7 +116,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 
 	<div ng-show="!ngshow" class="main_user" id="mainuser">
@@ -244,11 +144,11 @@
 			<div ng-view></div>
 		</div>
 	</div>
-	
-	
+
+
 	<div ng-view ng-show="ngshow"></div>
 
-	
+
 
 	<div class="foot">
 		<div class="box">
