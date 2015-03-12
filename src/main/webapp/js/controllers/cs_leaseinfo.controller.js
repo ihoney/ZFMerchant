@@ -5,6 +5,12 @@ var cs_leaseinfoModule = angular.module("cs_leaseinfoModule",[]);
 
 var cs_leaseinfoController = function ($scope,$location, $http, LoginService) {
 	$("#leftRoute").show();
+	if(LoginService.userid == 0){
+		window.location.href = '#/login';
+	}else{
+		//显示用户登录部分
+		$scope.$emit('changeshow',false);
+	}
 	$scope.req={};
 	$scope.req.id=$location.search()['infoId'];
     $scope.getInfo = function () {
