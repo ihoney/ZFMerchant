@@ -169,6 +169,8 @@ var loginController=function($scope, $location, $http, LoginService){
 	
 	//登陆
 	$scope.login = function() {
+		//移除样式
+		$("link[href='style/global.css']").remove();
 		LoginService.login($scope,$http);
 	};
 	
@@ -178,13 +180,7 @@ var loginController=function($scope, $location, $http, LoginService){
 	$scope.ridel_xy = false;
 	
 	//登陆页面文本框得到光标的时候失去错误提示信息
-	 $("#loginUname").focus(function(){
-		  // $("#pName").html("");
-     	   $("#loginUname").attr("class","");
-		});
-	 $("#loginImg").focus(function(){
-     	   $("#loginImg").attr("class","");
-		});
+	 
 	 
 	 
 	$scope.RememberPass = false;
@@ -308,12 +304,112 @@ var loginController=function($scope, $location, $http, LoginService){
 };
 
 var registerController=function($scope, $location, $http, LoginService){
+	//手机邮箱注册显示
+	$scope.show = true;
+	//勾选协议
+	$scope.ridel_xy = true;
+	
+	// 初始化图片验证码
+	$scope.reGetRandCodeImg = function() {
+		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
+	};
+	
 	$scope.init= function() {
+		//移除样式
+		$("link[href='style/global.css']").remove();
 		//隐藏中间搜索
 		$scope.$emit('changesearchview',false);
 		//获得省级
 		$scope.getShengcit();
 	};
+	
+	// 跳转手机注册
+	$scope.register = function() {
+		$scope.show = true;
+		$http.post("api/terminal/getCities").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
+		})
+	};
+	
+	// 跳转邮箱注册用户
+	$scope.gotoEmailRetrieve = function() {
+		$scope.show = false;
+	}
+	
+	// 获取手机验证码
+	$scope.getRegisterCode = function() {
+		$http.post("api/user/sendPhoneVerificationCodeReg", {
+			codeNumber : $scope.rename
+		}).success(function(data) {
+			if(data.code == 1){
+				$scope.code = data.result;
+			}else{
+				alert(data.message);
+			}
+		})
+	};
+	
+	// 手机校验图片验证码
+	$scope.getImgCode = function() {
+		alert($scope.ridel_xy);
+		if($scope.ridel_xy == true){
+			if($scope.code == $scope.codeNumber){
+				if($scope.password1 == $scope.password2){
+					$http.post("api/user/sizeUpImgCode", {
+						imgnum : $scope.codeBei
+					}).success(function(data) {
+						if (data.code == 1) {
+							$scope.addUser();
+						} else if (data.code == -1) {
+							alert(data.message);
+						}
+					})
+				}else{
+					alert("密码不一致！");
+				}
+			}else{
+				alert("验证码错误!");
+			}
+		}
+	};
+	
+	// 注册用户
+	$scope.addUser = function() {
+		$http.post("api/user/userRegistration", {
+			username : $scope.rename,
+			accountType : false,
+			code : $scope.codeNumber,
+			cityId : Math.ceil($scope.siId),
+			password : $scope.password1
+		}).success(function(data) {
+			if (data.code == 1) {
+				$scope.ridel_xy = false;
+				//LoginService.hideAll();
+				//$('#login').show();
+				$scope.password1 = "";
+				$scope.codeNumber = "";
+				$scope.code = "";
+				//$scope.dynamicLoadingCss("style/login.css");
+			} else if (data.code == -1) {
+				alert(data.message);
+			}
+		})
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 邮箱注册用户
 	$scope.addUserEmail = function() {
 		$http.post("api/user/userRegistration", {
@@ -336,28 +432,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		})
 	};
 	
-	// 注册用户
-	$scope.addUser = function() {
-		$http.post("api/user/userRegistration", {
-			username : $scope.rename,
-			accountType : false,
-			code : $scope.codeNumber,
-			cityId : Math.ceil($scope.siId),
-			password : $scope.password1
-		}).success(function(data) {
-			if (data.code == 1) {
-				$scope.ridel_xy = false;
-				LoginService.hideAll();
-				$('#login').show();
-				$scope.password1 = "";
-				$scope.codeNumber = "";
-				$scope.code = "";
-				$scope.dynamicLoadingCss("style/login.css");
-			} else if (data.code == -1) {
-				alert(data.message);
-			}
-		})
-	};
+	
 	
 	//获得省级
 	$scope.getShengcit= function(){
@@ -385,41 +460,9 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.siId = siId;
 	};
 	
-	// 获取手机验证码
-	$scope.getRegisterCode = function() {
-		$http.post("api/user/sendPhoneVerificationCodeReg", {
-			codeNumber : $scope.rename
-		}).success(function(data) {
-			if(data.code == 1){
-				$scope.code = data.result;
-			}else{
-				alert(data.message);
-			}
-		})
-	};
+	
 
-	// 手机校验图片验证码
-	$scope.getImgCode = function() {
-		if($scope.ridel_xy == true){
-			if($scope.code == $scope.codeNumber){
-				if($scope.password1 == $scope.password2){
-					$http.post("api/user/sizeUpImgCode", {
-						imgnum : $scope.codeBei
-					}).success(function(data) {
-						if (data.code == 1) {
-							$scope.addUser();
-						} else if (data.code == -1) {
-							alert(data.message);
-						}
-					})
-				}else{
-					alert("密码不一致！");
-				}
-			}else{
-				alert("图片验证码错误12");
-			}
-		}
-	};
+	
 
 
 	// 校验图片验证码
@@ -448,8 +491,8 @@ var registerController=function($scope, $location, $http, LoginService){
 			})
 		}
 	};
+	$scope.reGetRandCodeImg();
 	$scope.init();
-	
 };
 
 var findpassController=function($scope, $location, $http, LoginService){
@@ -572,3 +615,4 @@ var findpassController=function($scope, $location, $http, LoginService){
 	};
 	$scope.init();
 };
+

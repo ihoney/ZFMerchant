@@ -21,7 +21,6 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         login: function ($scope,$http) {
    		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
    			 if(data.code == -1){
-   				 alert(data.code);
    				$scope.imgMessage = data.message;
    				$scope.imgClass = true;
    			 }else{

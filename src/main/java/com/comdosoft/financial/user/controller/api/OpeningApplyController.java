@@ -51,7 +51,7 @@ public class OpeningApplyController {
 
 			int offSetPage = PageRequest.getOffset();
 			return Response.getSuccess(openingApplyService.getApplyList(
-					((Integer)map.get("	")),
+					((Integer)map.get("customersId")),
 					offSetPage, 
 					((Integer)map.get("rows"))));
 		} catch (Exception e) {
@@ -238,7 +238,7 @@ public class OpeningApplyController {
 									.get("merchantName"));
 							openingApplie.setSex((Integer) map
 									.get("sex"));
-							openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse("2013/12/1"));
+							openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
 							openingApplie.setCardId((String) map
 									.get("cardId"));
 							openingApplie.setPhone((String) map

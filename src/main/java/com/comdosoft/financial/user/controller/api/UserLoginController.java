@@ -71,7 +71,9 @@ public class UserLoginController {
             if (userLoginService.findUname(customer) == 0) {
             try {
                 Boolean is_sucess = sendPhoneCode(str, phone);
-                if(!is_sucess){
+                System.out.println("验证码："+str);
+               // if(!is_sucess)
+                if(is_sucess){
                 	return Response.getError("获取验证码失败！");
                 }else{
                 	// 添加假状态
@@ -283,12 +285,12 @@ public class UserLoginController {
     public Response sizeUpImgCode(@RequestBody Map<String, String> map ,HttpSession session) {
         try {
         	if((String) session.getAttribute("imageCode") == null){
-        		return Response.getError("验证码错误！");
+        		return Response.getError("图片验证码错误！");
         	}else{
         		if(((String) session.getAttribute("imageCode")).equalsIgnoreCase(map.get("imgnum"))){
                	 return Response.getSuccess("true");
                }else{
-               	return Response.getError("验证码错误！");
+               	return Response.getError("图片验证码错误！");
                }
         	}
         } catch (Exception e) {
