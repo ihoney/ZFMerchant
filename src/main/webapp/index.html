@@ -537,9 +537,9 @@
             <div class="lease"><input ng-model="req.has_purchase" type="checkbox" value="1" /> 支持租赁</div>
             <div class="sortBtn"><button class="btn" ng-click="searchShop()">确定</button></div>
             <div class="page_top">
-            	<div class="page_info"><span>2</span>/20</div>
-                <a href="javascript:void(0);" class="page_prev"><i></i></a>
-                <a href="javascript:void(0);" class="page_next"><i></i></a>
+            	<div class="page_info"><span>{{req.indexPage}}</span>/{{req.totalPage}}</div>
+                <a href="javascript:void(0);" class="page_prev" ng-click="prev()"><i></i></a>
+                <a href="javascript:void(0);" class="page_next"	ng-click="next()"><i></i></a>
             </div>
         </div>
         

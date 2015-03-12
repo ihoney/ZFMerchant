@@ -36,7 +36,7 @@
                 	<ul>
                     	<li class="price_li"><span>原价</span><div class="text"><strong class="original">{{(paychannel.opening_cost+good.goodinfo.price)/100|currency : "￥"}}</strong></div></li>
                     	<li class="price_li"><span>现价</span><div class="text"><strong>{{(paychannel.opening_cost+good.goodinfo.retail_price)/100|currency : "￥"}}</strong></div></li>
-                        <li class="deposit_li"><span>租赁押金</span><div class="text"><strong>{{good.goodinfo.lease_deposit/100|currency : "￥"}}</strong></div></li>
+                        <li class="deposit_li"><span>租赁押金</span><div class="text"><strong>{{(good.goodinfo.lease_deposit+paychannel.opening_cost)/100|currency : "￥"}}</strong></div></li>
                         <li class="selected_li"><span>支付通道</span>
                         	<div class="text">
                             	<a href="javascript:void(0);"  ng-repeat="one in good.payChannelList" class="{{one.id==paychannel.id?'hover':''}}" ng-click="getPayChannelInfo(one.id)">{{one.name}}</a>
