@@ -30,7 +30,7 @@ public class CsCencelsService {
     @Resource
     private CsCencelsMapper csCencelsMapper;
     public Page<List<Object>>  findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         int count = csCencelsMapper.count(myOrderReq);
         List<Map<String, Object>> o = csCencelsMapper.findAll(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -154,7 +154,7 @@ public class CsCencelsService {
     }
 
     public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         int count = csCencelsMapper.countSearch(myOrderReq);
         List<Map<String, Object>> o = csCencelsMapper.search(myOrderReq);
         List<Map<String, Object>> list = putDate(o);

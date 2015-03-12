@@ -172,7 +172,7 @@
 		and o.status = #{q}
 		</if>
 		order by o.created_at desc
-		LIMIT #{offset},#{pageSize}
+		LIMIT #{offset},#{rows}
 	</select>
 	
 	<select id="findMyOrderAll" resultMap="orderMap" >
@@ -206,7 +206,7 @@
 		and o.status = #{q}
 		</if>
 		order by o.created_at desc
-		LIMIT #{offset},#{pageSize}
+		LIMIT #{offset},#{rows}
 	</select>
 	
 	<select id="findPicByGoodId" resultMap="picsResultMap" >

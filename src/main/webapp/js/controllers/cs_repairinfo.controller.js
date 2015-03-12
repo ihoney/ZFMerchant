@@ -39,7 +39,7 @@ var cs_repairinfoController = function ($scope,$location, $http, LoginService) {
 		});
 	};
 	   $scope.topay = function(id) {
-	    	window.open("#/pay?id="+id) ;  
+	    	window.open("#/repair_pay?repair_id="+id) ;  
 		};
     $scope.getInfo();
 

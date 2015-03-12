@@ -7,6 +7,9 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
 	$scope.order.customerId=LoginService.userid;
 	//$scope.order.addressId=1;
+	
+	
+	
 	$scope.totalMoney=0;
 	$scope.init = function() {
 		if(LoginService.goods.length==0){
@@ -135,6 +138,26 @@ var addressController=function($scope, $location, $http, LoginService){
 		$scope.address.isDefault = "2";
 		$scope.list();
 	};
+	
+	$scope.getShengcit = function(parentId){
+		$http.post("api/terminal/getCities").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
+		});
+	};
+	
+	//获得市级
+	$scope.getShicit = function(parentId){
+		$http.post("api/terminal/getShiCities", {
+			parentId : parentId
+		}).success(function(data) {
+			$scope.getShi = data.result;
+		})
+	}
+	
 	$scope.init();
 }
 

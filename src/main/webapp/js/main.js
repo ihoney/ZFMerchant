@@ -7,6 +7,7 @@ $(function(){
 	$("input").blur(function(){
 		$(this).removeClass("focus");
 	})
+	
 })
 
 //input默认值
@@ -268,18 +269,6 @@ $(function(){
 
 
 /*--------------------------------------------------------------------------------------*/
-
-/*------用户后台导航菜单--------*/
-$(function(){
-	$("li.second > a").click(function(){
-		$(this).parent().find("ol").toggle();
-		if(!$(this).parent().find("ol").is(":visible")){
-			$(this).find("i").removeClass("on").addClass("off");
-		}else{
-			$(this).find("i").removeClass("off").addClass("on");
-		}
-	});
-})
 
 //鼠标经过小图提示大图
 function infoTab(i_tab,i_box){

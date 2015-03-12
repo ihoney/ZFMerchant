@@ -21,7 +21,7 @@ public class WebMessageService {
     private WebMessageMapper webMessageMapper;
     
     public Page<Object> findAll(MyOrderReq myOrderReq) {
-        PageRequest request = new PageRequest(myOrderReq.getPage(),myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(),myOrderReq.getRows());
         int count = webMessageMapper.count();
         List<WebMessage> centers = webMessageMapper.findAll(myOrderReq);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 

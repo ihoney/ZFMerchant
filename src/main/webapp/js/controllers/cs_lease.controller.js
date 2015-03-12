@@ -10,7 +10,7 @@ var cs_leaseController = function ($scope, $http, LoginService) {
 		initSystemPage($scope);// 初始化分页参数
 		$scope.req={customer_id:LoginService.userid,search:$scope.search,
 				page : $scope.indexPage,
-				pageSize : $scope.rows};
+				rows : $scope.rows};
 		$http.post("api/cs/lease/returns/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result;
@@ -26,7 +26,7 @@ var cs_leaseController = function ($scope, $http, LoginService) {
 		$scope.req={customer_id:LoginService.userid,search:$scope.search,q:$scope.screen,
 				q : $scope.screen,
 				page : $scope.indexPage,
-				pageSize : $scope.rows};
+				rows : $scope.rows};
 		$http.post("api/cs/lease/returns/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result;
@@ -41,7 +41,7 @@ var cs_leaseController = function ($scope, $http, LoginService) {
 		$scope.req={customer_id:LoginService.userid,search:$scope.search,q:$scope.screen,
 				q : $scope.screen,
 				page : $scope.indexPage,
-				pageSize : $scope.rows};
+				rows : $scope.rows};
 		$http.post("api/cs/lease/returns/search", $scope.req).success(function (data) {  //绑定
 			if (data != null && data != undefined) {
 				$scope.list = data.result;
@@ -56,7 +56,7 @@ var cs_leaseController = function ($scope, $http, LoginService) {
 		initSystemPage($scope);// 初始化分页参数
         $scope.req={customer_id:LoginService.userid,
 				page : $scope.indexPage,
-				pageSize : $scope.rows};
+				rows : $scope.rows};
         $http.post("api/cs/lease/returns/getAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result;

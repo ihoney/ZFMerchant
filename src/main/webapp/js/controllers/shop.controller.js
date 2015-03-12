@@ -6,6 +6,7 @@ var shopModule = angular.module("shopModule",[]);
 var shopController = function ($scope, $http, LoginService) {
 	
 	$scope.req={};
+	$scope.req.keys=LoginService.keys;
 	$scope.req.city_id=LoginService.city;
 	$scope.req.orderType=1;
 	
@@ -31,24 +32,25 @@ var shopController = function ($scope, $http, LoginService) {
 		$scope.list();
 	}
 	
-	$scope.searchShop=function(){
-		//window.location.href = '#/shop';
-		$('#login').hide();
-		$('#index').hide();
-		$('#mainuser').hide();
-		$('#findPassOne').hide();
-		$('#findPassTwo').hide();
-		$('#findPassThree').hide();
-		$('#retrieveHtml').hide();
-		$('#emailRetrieveHtml').hide();
-		
-		$('#mainindex').hide();
-		$('#shopmain').show();
-		
-		$scope.init();
-	};
+//	$scope.searchShop=function(){
+//		//window.location.href = '#/shop';
+//		$('#login').hide();
+//		$('#index').hide();
+//		$('#mainuser').hide();
+//		$('#findPassOne').hide();
+//		$('#findPassTwo').hide();
+//		$('#findPassThree').hide();
+//		$('#retrieveHtml').hide();
+//		$('#emailRetrieveHtml').hide();
+//		
+//		$('#mainindex').hide();
+//		$('#shopmain').show();
+//		
+//		
+//	};
 	
 	$scope.init = function () {
+		$scope.$emit('changesearchview',false);
 		initSystemPage($scope.req);// 初始化分页参数
 		//$("#leftRoute").hide();
 		$scope.shopcartcount();
@@ -367,8 +369,8 @@ var shopController = function ($scope, $http, LoginService) {
     	window.location.href = '#/shopinfo';
     }
     
-    
-    
+
+    $scope.init();
 
 };
 

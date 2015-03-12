@@ -10,6 +10,12 @@ var messageController = function($scope, $location, $http, LoginService) {
 	$scope.isSelectAll=false;
 	$scope.req.customer_id=LoginService.userid;
 	$scope.init = function() {
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}else{
+			//显示用户登录部分
+			$scope.$emit('changeshow',false);
+		}
 		initSystemPage($scope.req);// 初始化分页参数
 		$("#leftRoute").show();
 		$scope.req.id=$location.search()['id'];
@@ -22,7 +28,7 @@ var messageController = function($scope, $location, $http, LoginService) {
 	};
 	$scope.getlist=function() {
 		$scope.req.page=$scope.req.indexPage;
-		$scope.req.pageSize=$scope.req.rows;
+		$scope.req.rows=$scope.req.rows;
 		$http.post("api/message/receiver/getAll",$scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.list=data.result.content;

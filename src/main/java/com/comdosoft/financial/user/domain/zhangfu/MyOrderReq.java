@@ -2,6 +2,7 @@ package com.comdosoft.financial.user.domain.zhangfu;
 
 import java.util.Arrays;
 
+
 public class MyOrderReq {
     private Integer id;//业务id
     private String[] ids;
@@ -9,7 +10,7 @@ public class MyOrderReq {
     private Integer offset;
     private String search;//搜索条件
     private String q;//状态值
-    private Integer pageSize ;//每页大小
+    private Integer rows ;//每页大小
     private Integer customer_id;//用户id
     private String content;//内容
     private PayType payType;
@@ -237,16 +238,16 @@ public class MyOrderReq {
      * 获取 pageSize  
      * @return pageSize
      */
-    public Integer getPageSize() {
-        if(null == pageSize) pageSize = 10;
-        return pageSize;
+    public Integer getRows() {
+        if(null == rows) rows = 10;
+        return rows;
     }
     /**  
      * 设置 pageSize  
      * @param pageSize
      */
     public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+        this.rows = pageSize;
     }
     
    
@@ -268,17 +269,18 @@ public class MyOrderReq {
         super();
     }
      
+    public int getOffset() {
+        if(page>0){
+            return (page - 1) * rows;
+        }
+        return 0;
+    }
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", offset=" + offset + ", search=" + search + ", q=" + q + ", pageSize=" + pageSize + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", score=" + score + ", good_id=" + good_id + ", computer_name=" + computer_name + ", track_number=" + track_number + "]";
+        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", offset=" + offset + ", search=" + search + ", q=" + q + ", rows=" + rows + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + ", updateStatus=" + updateStatus + ", score=" + score + ", good_id=" + good_id + ", computer_name=" + computer_name + ", track_number=" + track_number + "]";
     }
-    public int getOffset() {
-        if(page>0){
-            return (page - 1) * pageSize;
-        }
-        return 0;
-    }
+    
 }

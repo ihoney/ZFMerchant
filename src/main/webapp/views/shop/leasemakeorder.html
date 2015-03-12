@@ -8,7 +8,7 @@
         </div>
         <div class="inner">
         
-          <div class="myAddress" ng-controller="addressController">
+         <div class="myAddress" ng-controller="addressController">
           	<h3>确认收货地址</h3>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
                  <colgroup>
@@ -46,25 +46,23 @@
                   
                   <tr class="addAddr_box" ng-show="addadd">
                     <td>&nbsp;</td>
-                    <td><input ng-model="ad.receiver" type="text" ng-init="ad.receiver='收件人姓名'" /></td>
+                    <td><input ng-model="ad.receiver" type="text" placeholder="收件人姓名" /></td>
                     <td>
-                    	<select name="">
-                    	  <option>省</option>
-                    	  <option>江苏省</option>
-                    	</select>
-                        <select ng-model="ad.cityId" ng-init="ad.cityId=1">
-                    	  <option>市</option>
-                    	  <option>南京市</option>
-                    	</select>
+	                    <select style="width: 90px;">
+								<option  ng-repeat="ci in cities" ng-if="ci.parent_id == 0" ng-click="getShicit(ci.id)">{{ci.name}}</option>
+						</select> 
+						<select style="width: 90px;" ng-model="ad.cityId">
+								<option ng-repeat="si in getShi" ng-value="si.id">{{si.name}}</option>
+						</select>
                     </td>
-                    <td><input ng-model="ad.address" type="text" class="w" ng-init="ad.address='详细地址'" /></td>
-                    <td><input ng-model="ad.zipCode" type="text"  ng-init="ad.zipCode='邮编'" /></td>
-                    <td><input ng-model="ad.moblephone" type="text" ng-init="ad.moblephone='手机号码'" /></td>
+                    <td><input ng-model="ad.address" type="text" class="w" placeholder="详细地址" /></td>
+                    <td><input ng-model="ad.zipCode" type="text"  placeholder="邮编" /></td>
+                    <td><input ng-model="ad.moblephone" type="text" placeholder="手机号码" /></td>
                     <td><a href="javascript:void(0);" class="a_btn" ng-click="addad()">确定</a></td>
                     <td>&nbsp;</td>
                   </tr>
                 </table>
-    			<div class="addAddr_btn" ng-click="addadd=true"><button>使用新地址</button></div>
+    			<div class="addAddr_btn" ng-click="addadd=true;getShengcit();"><button>使用新地址</button></div>
             </div>
            
            
