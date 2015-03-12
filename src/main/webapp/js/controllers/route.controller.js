@@ -6,7 +6,13 @@ var routeModule = angular.module("routeModule", [ 'loginServiceModule', 'ngRoute
 // 路由器的具体分发
 function routeConfig($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl : 'views/myapp.html'
+		templateUrl : 'views/index/mainindex.html'
+	}).when('/login', {
+		templateUrl : 'views/index/login.html'
+	}).when('/register', {
+		templateUrl : 'views/index/register.html'
+	}).when('/findpass', {
+		templateUrl : 'views/index/findpass.html'
 	}).when('/order', {
 		templateUrl : 'views/order/order.html'
 	}).when('/orderinfo', {
