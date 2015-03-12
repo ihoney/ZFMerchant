@@ -62,6 +62,7 @@ public class CsLeaseReturnsService {
 //        logger.debug("one_d==="+one_d+"===>>>two_d=="+two_d);
         int day = OrderUtils.compareDate(one_d, two_d);// 租赁时长
         map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        map.put("lease_time", two_d);//租赁日期
         map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
         map.put("apply_num", o.get("apply_num")==null?"":o.get("apply_num"));
         map.put("brand_name", o.get("brand_name")==null?"":o.get("brand_name"));

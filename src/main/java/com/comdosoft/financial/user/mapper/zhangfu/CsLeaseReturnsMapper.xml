@@ -30,7 +30,7 @@
 			o.created_at DESC
 	</select>
 	
-	<select id="findAll" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsLeaseReturn">
+	<select id="findAll" resultType="map" >
 		SELECT
 			o.id,
 			o.created_at,
@@ -55,7 +55,7 @@
 		LIMIT #{offset},#{pageSize}
 	</select>
 	
-	<select id="search" resultType="map" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsLeaseReturn">
+	<select id="search" resultType="map"  >
 		SELECT
 			o.id,
 			o.created_at,

@@ -38,6 +38,9 @@ var cs_repairinfoController = function ($scope,$location, $http, LoginService) {
 			$("#serverErrorModal").modal({show: true});
 		});
 	};
+	   $scope.topay = function(id) {
+	    	window.open("#/pay?id="+id) ;  
+		};
     $scope.getInfo();
 
 };
