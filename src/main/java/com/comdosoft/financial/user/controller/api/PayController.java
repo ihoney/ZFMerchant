@@ -26,4 +26,9 @@ public class PayController {
         orderreq.setOrdernumber(ordernumber);
         orderService.payFinish(orderreq);
     }
+    
+    @RequestMapping(value = "repair_alipayback", method = RequestMethod.POST)
+    public void repair_alipayback(@RequestParam("ordernumber") String ordernumber) {
+        System.err.println("test repair pay.....");
+    }
 }

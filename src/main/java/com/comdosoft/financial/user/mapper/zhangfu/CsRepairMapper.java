@@ -27,4 +27,11 @@ public interface CsRepairMapper {
     void changeStatus(MyOrderReq myOrderReq);
     
     List<Map<String, Object>> wxlist(MyOrderReq myOrderReq);
+
+    /**
+     * 根据维修编号查询是否存在支付成功，如果存在返回id号
+     * @param myOrderReq
+     * @return
+     */
+    Map<String, Object> repairPayFinish(MyOrderReq myOrderReq);
 }

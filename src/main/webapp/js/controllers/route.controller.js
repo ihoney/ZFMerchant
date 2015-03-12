@@ -123,6 +123,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/myapp.html'
 	}).when('/webmessageinfo', {
 		templateUrl : 'views/message/webmessageinfo.html'
+	}).when('/repair_pay', {
+		templateUrl : 'views/cs/repair_pay.html'
 	}).otherwise({
 		redirectTo : "/"
 	});

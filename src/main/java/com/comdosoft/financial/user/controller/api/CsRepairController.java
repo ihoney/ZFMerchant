@@ -97,6 +97,19 @@ public class CsRepairController {
         }
     }
     
+    @RequestMapping(value="repairPayFinish" ,method=RequestMethod.POST)
+    public Response repairPayFinish(@RequestBody MyOrderReq myOrderReq){
+        try{
+            Map<String,Object> centers = csRepairService.repairPayFinish(myOrderReq);
+            if(null == centers){
+                return Response.getError("数据不存在");  
+            }
+            return Response.getSuccess(centers);
+        }catch(Exception e){
+            return Response.getError("请求失败,获取数据出错。");
+        }
+    }
+    
     /**
      * 根据维修id查询追踪记录
      * @param myOrderReq
