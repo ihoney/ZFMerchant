@@ -28,7 +28,7 @@ var messageController = function($scope, $location, $http, LoginService) {
 	};
 	$scope.getlist=function() {
 		$scope.req.page=$scope.req.indexPage;
-		$scope.req.pageSize=$scope.req.rows;
+		$scope.req.rows=$scope.req.rows;
 		$http.post("api/message/receiver/getAll",$scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.list=data.result.content;

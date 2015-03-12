@@ -39,7 +39,7 @@
 			and m.`status` = 1
 		</if>
 		order by s.created_at desc
-		LIMIT #{offset},#{pageSize}
+		LIMIT #{offset},#{rows}
 	</select>
 	
 	<select id="getServerDynamic" resultType="map">
