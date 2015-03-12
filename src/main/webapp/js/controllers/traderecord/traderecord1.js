@@ -49,6 +49,14 @@ var traderecordController = function($scope, $http, LoginService) {
 		$scope.list();
 	};
 	$scope.init = function() {
+
+		// 判断是否已登录
+		if (LoginService.userid == 0) {
+			window.location.href = '#/login';
+		} else {
+			$scope.$emit('changeshow', false);
+		}
+
 		$scope.getTerminals();
 	};
 	$scope.init();

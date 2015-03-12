@@ -11,7 +11,6 @@ var myinfointegralController = function($scope, $http, LoginService) {
 				$scope.integralList = data.result.list;
 				calcSystemPage($scope, data.result.total);// 计算分页
 			} else {
-				// 提示错误信息
 				alert(data.message);
 			}
 		}).error(function(data) {
@@ -50,6 +49,14 @@ var myinfointegralController = function($scope, $http, LoginService) {
 		}
 	};
 	$scope.init = function() {
+
+		// 判断是否已登录
+		if (LoginService.userid == 0) {
+			window.location.href = '#/login';
+		} else {
+			$scope.$emit('changeshow', false);
+		}
+
 		$scope.list();
 		$scope.getIntegralTotal();
 	};

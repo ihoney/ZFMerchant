@@ -69,6 +69,14 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		}
 	};
 	$scope.init = function() {
+
+		// 判断是否已登录
+		if (LoginService.userid == 0) {
+			window.location.href = '#/login';
+		} else {
+			$scope.$emit('changeshow', false);
+		}
+
 		$scope.address = {};
 		$scope.address.isDefault = "2";
 		$scope.list();
