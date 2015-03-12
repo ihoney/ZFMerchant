@@ -60,7 +60,7 @@ public class CsLeaseReturnsService {
         String one_d = _sdf.format(_sdf.parse(one_time));
         String two_d = _sdf.format(_sdf.parse(two_time));
 //        logger.debug("one_d==="+one_d+"===>>>two_d=="+two_d);
-        int day = OrderUtils.compareDate(one_d, two_d);// 租赁时长
+        int day = OrderUtils.compareDate(two_d,one_d );// 租赁时长
         map.put("apply_time", sdf.format(sdf.parse(apply_time)));
         map.put("lease_time", two_d);//租赁日期
         map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
@@ -73,7 +73,9 @@ public class CsLeaseReturnsService {
         map.put("receiver_name", o.get("receiver")==null?"":o.get("receiver"));
         map.put("receiver_phone", o.get("receiver_phone") ==null?"":o.get("receiver_phone"));
         map.put("receiver_addr", o.get("address") ==null?"":o.get("address"));
-      
+        if(day<0){
+            day = 0;
+        }
         float f = day / 30;
         int month = 1;
         if (f > 1) {
