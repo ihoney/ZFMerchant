@@ -166,8 +166,144 @@ var loginController=function($scope, $location, $http, LoginService){
 	//隐藏中间搜索
 	$scope.$emit('changesearchview',false);
 	$scope.RememberPass = false;
+	
+	//登陆
 	$scope.login = function() {
-		LoginService.login($scope);
+		LoginService.login($scope,$http);
+	};
+	
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	$scope.loginUserName = LoginService.loginUserName;
+	//勾选协议
+	$scope.ridel_xy = false;
+	
+	//登陆页面文本框得到光标的时候失去错误提示信息
+	 $("#loginUname").focus(function(){
+		  // $("#pName").html("");
+     	   $("#loginUname").attr("class","");
+		});
+	 $("#loginImg").focus(function(){
+     	   $("#loginImg").attr("class","");
+		});
+	 
+	 
+	$scope.RememberPass = false;
+
+	$scope.password1 = "";
+	$scope.password2 = "";
+	$scope.codeNumber = "";
+	$scope.code = "";//图片验证
+	$scope.codeBei = "";
+	
+	$scope.jsons = {
+		username : $scope.username,
+		password : $scope.password
+	};
+
+	
+	
+//	//登陆前首页跳转登陆页面
+//	$scope.goToLogin = function(){
+//		LoginService.hideAll();
+//		$('#login').show();
+//		//加载登陆样式
+//		$scope.dynamicLoadingCss("style/login.css");
+//	}
+	
+	//退出页面(清除$cookieStore)
+	$scope.escLogin = function(){
+		$cookieStore.put("loginUserName",null);
+    	$cookieStore.put("loginUserId",0);
+    	
+    	$scope.password1 = "";
+    	$scope.code = "";
+    	LoginService.hideAll();
+		//登陆前首页
+		$('#maintop').show();
+		$('#mainindex').show();
+	}
+
+	// 登陆前首页跳转手机注册
+//	$scope.register = function() {
+//		$http.post("api/terminal/getCities").success(function(data) {
+//			if (data.code == 1) {
+//				$scope.cities = data.result;
+//			} else {
+//				alert("城市加载失败！");
+//			}
+//		})
+//		
+//		$scope.dynamicLoadingCss("style/register.css");
+//		LoginService.hideAll();
+//		$('#retrieveHtml').show();
+//		$("link[href='style/global.css']").remove();
+//	};
+	
+	// 跳转邮箱注册用户
+//	$scope.gotoEmailRetrieve = function() {
+//		$("#clodeText").hide();
+//		$scope.dynamicLoadingCss("style/register.css");
+//		LoginService.hideAll();
+//		$('#emailRetrieveHtml').show();
+//		$("link[href='style/global.css']").remove();
+//	}
+
+	// 初始化图片验证码
+	$scope.reGetRandCodeImg = function() {
+		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
+	};
+	
+
+	$scope.reGetRandCodeImg();
+	
+
+	// 动态加载css样式
+//	$scope.dynamicLoadingCss = function(path) {
+//		if (!path || path.length == 0) {
+//			throw new Error('argument "path" is required !');
+//		}
+//		var head = document.getElementsByTagName('head')[0];
+//		var link = document.createElement('link');
+//		link.href = path;
+//		link.rel = 'stylesheet';
+//		link.type = 'text/css';
+//		head.appendChild(link);
+//	};
+
+	 
+
+	// ===============================
+	// 注册
+	
+	
+	
+	$scope.shopcount=0;
+	$scope.$on('shopcartcountchange', function() {
+		$scope.shopcartcount();
+	});
+	$scope.shopcartcount=function () {
+    	if(LoginService.userid>0){
+    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
+                if (data.code==1) {
+                	$scope.shopcount= data.result;
+                }
+            });
+    	}
+    };
+    $scope.shopcartcount();
+    
+    $scope.ngshow=true;
+	$scope.$on('changeshow', function(d,data) {
+		$scope.ngshow=data;
+	});
+	$scope.$on('changesearchview', function(d,data) {
+		$scope.searchview=data;
+	});
+	
+	$scope.searchShop=function() {
+		//$scope.$broadcast('shopsearch',$scope.keys);
+		LoginService.keys=$scope.keys;
+		window.location.href = '#/shop';
 	};
 };
 

@@ -18,20 +18,20 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         city:1,
         goods: [],
         //用户登陆功能
-        login: function ($scope) {
-        	
+        login: function ($scope,$http) {
    		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
    			 if(data.code == -1){
+   				 alert(data.code);
    				$scope.imgMessage = data.message;
-   				 $("#loginImg").attr("class","l error");
+   				 //$("#loginImg").attr("class","l error");
    			 }else{
-   				 $("#loginImg").attr("class","");
+   				//$("#loginImg").attr("class","");
    				 $http.post("api/user/studentLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
    			           if(data.code == -1){//用户或者密码错误！
    			        	$scope.nameMessage = data.message; 
-   			        	   $("#loginUname").attr("class","error");
+   			        	  // $("#loginUname").attr("class","error");
    			           }else{
-   			        	 $("#loginUname").attr("class","");
+   			        	 //$("#loginUname").attr("class","");
    			        	   $scope.nameMessag = "";
    			        	   $scope.code = "";
    			        	   //记住密码
@@ -43,15 +43,16 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			        	   $cookieStore.put("loginUserName",data.result.username);
    			        	   $cookieStore.put("loginUserId",data.result.id);
    			        	   //刷新
-   			        	   location.reload();
+   			        	   
    			        	   $scope.message = data.message; //登陆成功，跳转页面
-   			        	   $('#login').hide();
+   			        	   /*$('#login').hide();
    			        	   $('#maintopTwo').show();
    			        	   $('#headClear').show();
    			        	   $('#mainuser').show();
    			        	   $("link[href='style/global.css']").remove();
-   			        	   $scope.dynamicLoadingCss("style/global.css");
-   			        	   
+   			        	   $scope.dynamicLoadingCss("style/global.css");*/
+   			        	   window.location.href = '#/';
+   			        	location.reload();
    			           }
    			        }).error(function (data) {
    			        	$scope.message = "登陆异常！"

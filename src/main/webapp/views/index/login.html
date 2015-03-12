@@ -17,12 +17,13 @@
 				<div class="login_area">
 					<ul>
 						<li><input id="loginUname" name="" type="text" placeholder="ID" ng-model="username" />
-							<p class="red" ng-bind="nameMessage"></p></li>
+							<p class="red" >{{nameMessage}}</p></li>
 						<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
 						<li><input id="loginImg" name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
 							<div class="yzm">
 								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-							</div></li>
+							</div>
+							<p class="red" >{{imgMessage}}</p></li>
 					</ul>
 					<div class="forget">
 						<span><input name="" type="checkbox" value="" ng-model="RememberPass" />记住密码</span> <a href="#/findpass" >忘记密码？</a>
