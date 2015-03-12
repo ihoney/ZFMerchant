@@ -15,71 +15,78 @@
 				<ul>
 					<li><span class="labelSpan">商户名称：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.title" />
+							<input type="text" ng-model="merchant.title" required>
 						</div></li>
 					<li><span class="labelSpan">商户法人姓名：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.legalPersonName" />
+							<input type="text" ng-model="merchant.legalPersonName" required>
 						</div></li>
 					<li><span class="labelSpan">商户法人身份证号码：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.legalPersonCardId" />
+							<input type="text" ng-model="merchant.legalPersonCardId" required>
 						</div></li>
 					<li><span class="labelSpan">开户行名称：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.accountBankName" />
+							<input type="text" ng-model="merchant.accountBankName" required>
 						</div></li>
 					<li><span class="labelSpan">开户行地址：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.accountBankAddress" />
+							<input type="text" ng-model="merchant.accountBankAddress" required>
 						</div></li>
 					<li><span class="labelSpan">银行账号：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.accountBankNum" />
+							<input type="text" ng-model="merchant.accountBankNum" required>
 						</div></li>
 					<li><span class="labelSpan">营业执照登记号：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.businessLicenseNo" />
+							<input type="text" ng-model="merchant.businessLicenseNo" required>
 						</div></li>
 					<li><span class="labelSpan">税务登记号：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.taxRegisteredNo" />
+							<input type="text" ng-model="merchant.taxRegisteredNo" required>
 						</div></li>
 					<li><span class="labelSpan">组织机构代码证号：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.organizationCodeNo" />
+							<input type="text" ng-model="merchant.organizationCodeNo" required>
 						</div></li>
 					<li><span class="labelSpan">银行开户许可证号：</span>
 						<div class="text">
-							<input type="text" ng-model="merchant.bankOpenAccount" />
+							<input type="text" ng-model="merchant.bankOpenAccount" required>
 						</div></li>
 					<li><span class="labelSpan">法人身份证照片正面：</span>
 						<div class="text">
-							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.cardIdFrontPhotoPath" type="file"></a>
+							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input type="file" name="fileImg"></a>
+							<input type="hidden" ng-model="merchant.cardIdFrontPhotoPath">
 						</div></li>
 					<li><span class="labelSpan">法人身份证照片背面：</span>
 						<div class="text">
-							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.cardIdBackPhotoPath" type="file"></a>
+							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input type="file" name="fileImg"></a>
+							<input type="hidden" ng-model="merchant.cardIdBackPhotoPath">
 						</div></li>
 					<li><span class="labelSpan">法人上半身照片：</span>
 						<div class="text">
 							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.bodyPhotoPath" type="file"></a>
+							<input type="hidden" ng-model="merchant.bodyPhotoPath">
 						</div></li>
 					<li><span class="labelSpan">营业执照照片：</span>
 						<div class="text">
-							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.licenseNoPicPath" type="file"></a>
+							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input type="file" name="fileImg"></a>
+							<input type="hidden" ng-model="merchant.licenseNoPicPath">
 						</div></li>
 					<li><span class="labelSpan">税务登记证照片：</span>
 						<div class="text">
-							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.taxNoPicPath" type="file"></a>
+							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input type="file" name="fileImg"></a>
+							<input type="hidden" ng-model="merchant.taxNoPicPath">
 						</div></li>
 					<li><span class="labelSpan">组织机构代码证照片：</span>
 						<div class="text">
-							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.orgCodeNoPicPath" type="file"></a>
+							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input type="file" name="fileImg"></a>
+							<input type="hidden" ng-model="merchant.orgCodeNoPicPath">
 						</div></li>
 					<li><span class="labelSpan">银行开户许可证照片：</span>
 						<div class="text">
-							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input ng-model="merchant.accountPicPath" type="file"></a>
+							<a href="javascript:void(0);" class="informImg_a"> <span>上传照片</span><input type="file" name="fileImg"></a>
+							<input type="hidden" ng-model="merchant.accountPicPath">
 						</div></li>
 				</ul>
 			</div>

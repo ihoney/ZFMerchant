@@ -5,7 +5,7 @@ var traderecordModule = angular.module("traderecordModule", []);
 var traderecordController = function($scope, $http, LoginService) {
 	initSystemPage($scope);// 初始化分页参数
 	$scope.getTerminals = function() {
-		var customerId = 80;
+		var customerId = LoginService.userid;
 		$http.get("api/trade/record/getTerminals/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.terminals = data.result;

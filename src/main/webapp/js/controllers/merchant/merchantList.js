@@ -5,7 +5,7 @@ var merchantListModule = angular.module("merchantListModule", []);
 var merchantListController = function($scope, $http, LoginService) {
 	initSystemPage($scope);// 初始化分页参数
 	$scope.list = function() {
-		var customerId = 80;
+		var customerId = LoginService.userid;
 		var query = customerId + "/" + $scope.indexPage + "/" + $scope.rows;
 		$http.get("api/merchant/getListWEB/" + query).success(function(data) {
 			if (data.code == 1) {
