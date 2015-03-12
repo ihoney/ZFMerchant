@@ -31,7 +31,7 @@ public class CartReq {
         this.customerId = customerId;
     }
     public int getQuantity() {
-        return quantity;
+        return quantity==0?1:quantity;
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
