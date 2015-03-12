@@ -36,6 +36,14 @@
 	]]>
 	</update>
 
+	<select id="getTradeRecordsCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(i.id)
+		  FROM customer_integral_records i LEFT JOIN orders d ON i.target_id = d.id
+		 WHERE i.customer_id = #{customerId}
+	]]>
+	</select>
+
 	<select id="getIntegralList" resultType="map">
 	<![CDATA[
 		SELECT i.quantity, i.types, i.target_type, d.order_number, d.actual_price,

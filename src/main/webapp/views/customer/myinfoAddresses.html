@@ -22,10 +22,10 @@
 			<ul>
 				<li><label><span class="red">*</span>所在地：</label><input type="text" ng-model="address.cityId" required></li>
 				<li><label><span class="red">*</span>详细地址：</label> <textarea cols="" rows="" ng-model="address.address" required></textarea></li>
-				<li><label><span class="red">*</span>邮政编码：</label><input type="text" ng-model="address.zipCode"></li>
+				<li><label><span class="red">*</span>邮政编码：</label><input type="text" ng-model="address.zipCode" required></li>
 				<li><label><span class="red">*</span>收货人姓名：</label><input type="text" ng-model="address.receiver" required></li>
 				<li><label><span class="red">*</span>手机号码：</label><input type="text" ng-model="address.moblephone" required></li>
-				<li><label><span class="red">*</span>电话号码：</label><input type="text" ng-model="address.telphone"></li>
+				<li><label><span class="red">*</span>电话号码：</label><input type="text" ng-model="address.telphone" required></li>
 				<li><label>默认地址：</label>
 					<input type="radio" value="1" ng-model="address.isDefault" >是&nbsp;&nbsp;
 					<input type="radio" value="2" ng-model="address.isDefault" checked="checked">否</li>
@@ -39,7 +39,7 @@
 				<colgroup>
 					<col width="80" />
 					<col width="200" />
-					<col width="260" />
+					<col width="240" />
 					<col width="80" />
 					<col width="80" />
 					<col width="80" />

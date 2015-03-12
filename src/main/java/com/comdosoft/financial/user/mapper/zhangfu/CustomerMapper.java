@@ -19,6 +19,8 @@ public interface CustomerMapper {
 
     void updatePassword(Map<Object, Object> param);
 
+    int getTradeRecordsCount(int customerId);
+
     List<Map<Object, Object>> getIntegralList(Map<Object, Object> param);
 
     Map<Object, Object> getIntegralTotal(int customerId);

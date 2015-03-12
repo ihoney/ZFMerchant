@@ -1,9 +1,9 @@
-<script type="text/javascript" src="js/controllers/traderecord/traderecord.js"></script>
-<div class="right" ng-controller="traderecordController">
+<script type="text/javascript" src="js/controllers/traderecord/traderecord4.js"></script>
+<div class="right" ng-controller="traderecord4Controller">
 	<div class="breadcrumb">
 		<ul>
-			<li><a href="#/traderecord">交易流水</a></li>
-			<li><a href="#/traderecord">转账</a></li>
+			<li><a href="#/traderecord1">交易流水</a></li>
+			<li><a href="#/traderecord4">话费充值</a></li>
 		</ul>
 	</div>
 	<div class="content clear">
@@ -11,18 +11,18 @@
 			<a href="javascript:void(0);" class="dn_prev">上一页</a>
 			<div class="dealNavBox">
 				<ul class="li_show">
-					<li><a href="#/traderecord" class="hover">转账</a></li>
-					<li><a href="#">还款</a></li>
-					<li><a href="#">消费</a></li>
-					<li><a href="#">话费充值</a></li>
-					<li><a href="#">生活充值</a></li>
+					<li><a href="#/traderecord1">转账</a></li>
+					<li><a href="#/traderecord2">还款</a></li>
+					<li><a href="#/traderecord3">消费</a></li>
+					<li><a href="#/traderecord4" class="hover">话费充值</a></li>
+					<li><a href="#/traderecord5">生活充值</a></li>
 				</ul>
 			</div>
 			<a href="javascript:void(0);" class="dn_next">下一页</a>
 		</div>
 
 		<div class="user_title">
-			<h1>转账交易流水</h1>
+			<h1>话费充值交易流水</h1>
 		</div>
 		<div class="seenBox clear">
 			<ul>
@@ -69,7 +69,7 @@
 						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">待付款</strong></td>
 						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易完成</strong></td>
 						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易失败</strong></td>
-						<td><a href="javascript:void(0)" class="a_btn">查看详情</a></td>
+						<td><a href="#/traderecord4One?traderecord4OneId={{t.id}}" class="a_btn">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -89,9 +89,6 @@
 		</div>
 	</div>
 </div>
-<link href="style/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery-ui.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".user_date input").datepicker();

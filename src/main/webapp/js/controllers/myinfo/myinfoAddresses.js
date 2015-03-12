@@ -4,7 +4,8 @@
 var myinfoAddressesModule = angular.module("myinfoAddressesModule", []);
 var myinfoAddressesController = function($scope, $http, LoginService) {
 	$scope.list = function() {
-		$http.get("api/customers/getAddressList/80").success(function(data) {
+		var customerId = LoginService.userid;
+		$http.get("api/customers/getAddressList/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.addressList = data.result;
 			} else {
@@ -20,7 +21,7 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 	};
 	$scope.save = function() {
 		if ($scope.address.id == undefined) {
-			$scope.address.customerId = 80;
+			$scope.address.customerId = LoginService.userid;
 			$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
 				if (data.code == 1) {
 					$scope.init();
@@ -54,8 +55,9 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.deleteAddress = function(e) {
+		var ids = [ e.id ];
 		if (confirm('确定删除？')) {
-			$http.get("api/customers/deleteAddress/" + e.id).success(function(data) {
+			$http.post("api/customers/deleteAddress", ids).success(function(data) {
 				if (data.code == 1) {
 					$scope.init();
 				} else {

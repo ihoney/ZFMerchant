@@ -45,6 +45,10 @@ public class CustomerService {
         customerMapper.updatePassword(param);
     }
 
+    public int getTradeRecordsCount(int customerId) {
+        return customerMapper.getTradeRecordsCount(customerId);
+    }
+
     public List<Map<Object, Object>> getIntegralList(int customerId, int page, int rows) {
         Map<Object, Object> param = new HashMap<Object, Object>();
         param.put("customerId", customerId);

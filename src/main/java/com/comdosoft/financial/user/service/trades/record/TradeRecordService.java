@@ -107,9 +107,9 @@ public class TradeRecordService {
         return list;
     }
 
-    public Map<Object, Object> getTradeRecord(int tradeRecordId) {
+    public Map<Object, Object> getTradeRecord(int tradeTypeId, int tradeRecordId) {
         Map<Object, Object> result = null;
-        switch (tradeRecordId) {
+        switch (tradeTypeId) {
         case TradeRecord.TRADETYPEID_1:
             result = tradeRecordMapper.getTradeRecord12(tradeRecordId);
             break;

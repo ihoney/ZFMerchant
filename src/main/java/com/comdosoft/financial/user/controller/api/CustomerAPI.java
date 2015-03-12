@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -108,7 +109,10 @@ public class CustomerAPI {
     public Response getIntegralList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
-            sysResponse = Response.getSuccess(customerService.getIntegralList(customerId, page, rows));
+            Map<Object, Object> result = new HashMap<Object, Object>();
+            result.put("total", customerService.getTradeRecordsCount(customerId));
+            result.put("list", customerService.getIntegralList(customerId, page, rows));
+            sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("获取积分列表失败", e);
             sysResponse = Response.getError("获取积分列表失败:系统异常");

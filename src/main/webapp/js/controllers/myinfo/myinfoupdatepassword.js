@@ -5,7 +5,7 @@ var myinfoupdatepasswordModule = angular.module("myinfoupdatepasswordModule", []
 var myinfoupdatepasswordController = function($scope, $http, LoginService) {
 	$scope.updatepassword = function() {
 		$scope.updateCustomer = {
-			id : 8,
+			id : LoginService.userid,
 			passwordOld : $scope.customer.passwordOld,
 			password : $scope.customer.password
 		};
