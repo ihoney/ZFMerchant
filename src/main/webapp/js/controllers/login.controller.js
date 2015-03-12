@@ -103,6 +103,205 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
 	
+	
+
+	$scope.reGetRandCodeImg();
+
+	
+
+
+
+	
+	// 动态加载css样式
+//	$scope.dynamicLoadingCss = function(path) {
+//		if (!path || path.length == 0) {
+//			throw new Error('argument "path" is required !');
+//		}
+//		var head = document.getElementsByTagName('head')[0];
+//		var link = document.createElement('link');
+//		link.href = path;
+//		link.rel = 'stylesheet';
+//		link.type = 'text/css';
+//		head.appendChild(link);
+//	};
+
+	 
+
+	// ===============================
+	// 注册
+	
+	
+	
+	$scope.shopcount=0;
+	$scope.$on('shopcartcountchange', function() {
+		$scope.shopcartcount();
+	});
+	$scope.shopcartcount=function () {
+    	if(LoginService.userid>0){
+    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
+                if (data.code==1) {
+                	$scope.shopcount= data.result;
+                }
+            });
+    	}
+    };
+    $scope.shopcartcount();
+    
+    $scope.ngshow=true;
+	$scope.$on('changeshow', function(d,data) {
+		$scope.ngshow=data;
+	});
+	$scope.$on('changesearchview', function(d,data) {
+		$scope.searchview=data;
+	});
+	
+	$scope.searchShop=function() {
+		//$scope.$broadcast('shopsearch',$scope.keys);
+		LoginService.keys=$scope.keys;
+		window.location.href = '#/shop';
+	};
+};
+
+
+var loginController=function($scope, $location, $http, LoginService){
+	//隐藏中间搜索
+	$scope.$emit('changesearchview',false);
+	
+};
+
+var registerController=function($scope, $location, $http, LoginService){
+	//隐藏中间搜索
+	$scope.$emit('changesearchview',false);
+	
+	// 邮箱注册用户
+	$scope.addUserEmail = function() {
+		$http.post("api/user/userRegistration", {
+			username : $scope.emailname,
+			accountType : true,
+			cityId : Math.ceil($scope.siId),
+			password : $scope.password1
+		}).success(function(data) {
+			if (data.code == 1) {
+				$scope.ridel_xy = false;
+				$scope.password1 = "";
+				$scope.password2 = "";
+				$scope.codeBei = "";
+				$("#emailUl").hide();
+				$("#butEmail").hide();
+				$("#clodeText").show();
+			} else if (data.code == -1) {
+				alert(data.code);
+			}
+		})
+	};
+	
+	// 注册用户
+	$scope.addUser = function() {
+		$http.post("api/user/userRegistration", {
+			username : $scope.rename,
+			accountType : false,
+			code : $scope.codeNumber,
+			cityId : Math.ceil($scope.siId),
+			password : $scope.password1
+		}).success(function(data) {
+			if (data.code == 1) {
+				$scope.ridel_xy = false;
+				LoginService.hideAll();
+				$('#login').show();
+				$scope.password1 = "";
+				$scope.codeNumber = "";
+				$scope.code = "";
+				$scope.dynamicLoadingCss("style/login.css");
+			} else if (data.code == -1) {
+				alert(data.message);
+			}
+		})
+	};
+	
+	//获得市级
+	$scope.getShicit = function(parentId){
+		$http.post("api/terminal/getShiCities", {
+			parentId : parentId
+		}).success(function(data) {
+			$scope.getShi = data.result;
+		})
+	};
+	
+	//获得市ID
+	$scope.getsShiId = function(siId){
+		$scope.siId = siId;
+	};
+	
+	// 获取手机验证码
+	$scope.getRegisterCode = function() {
+		$http.post("api/user/sendPhoneVerificationCodeReg", {
+			codeNumber : $scope.rename
+		}).success(function(data) {
+			if(data.code == 1){
+				$scope.code = data.result;
+			}else{
+				alert(data.message);
+			}
+		})
+	};
+
+	// 手机校验图片验证码
+	$scope.getImgCode = function() {
+		if($scope.ridel_xy == true){
+			if($scope.code == $scope.codeNumber){
+				if($scope.password1 == $scope.password2){
+					$http.post("api/user/sizeUpImgCode", {
+						imgnum : $scope.codeBei
+					}).success(function(data) {
+						if (data.code == 1) {
+							$scope.addUser();
+						} else if (data.code == -1) {
+							alert(data.message);
+						}
+					})
+				}else{
+					alert("密码不一致！");
+				}
+			}else{
+				alert("图片验证码错误12");
+			}
+		}
+	};
+
+
+	// 校验图片验证码
+	$scope.getImgEmailCode = function(){
+		if($scope.ridel_xy == true){
+			$http.post("api/user/jusEmail", {
+				username : $scope.emailname
+			}).success(function(data) {
+				if(data.code == 1){
+					if($scope.password1 == $scope.password2){
+						$http.post("api/user/sizeUpImgCode", {
+							imgnum : $scope.codeBei
+						}).success(function(data) {
+							if (data.code == 1) {
+								$scope.addUserEmail();
+							} else if (data.code == -1) {
+								alert(data.message);
+							}
+						})
+					}else{
+						alert("密码不一致！");
+					}
+				}else{
+					alert(data.message);
+				}
+			})
+		}
+	};
+	
+};
+
+var findpassController=function($scope, $location, $http, LoginService){
+	//隐藏中间搜索
+	$scope.$emit('changesearchview',false);
+	
 	// 找回密码
 	$scope.findPass = function() {
 		LoginService.hideAll();
@@ -111,9 +310,9 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		$("link[href='style/global.css']").remove();
 		$scope.dynamicLoadingCss("style/retrieve.css");
 	};
+	
 
-	$scope.reGetRandCodeImg();
-
+	
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
 		$http.post("api/user/getFindUser", {
@@ -160,8 +359,8 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 				})
 			}
 		})
-	}
-
+	};
+	
 	// 找回密码第三步
 	$scope.findPassThree = function() {
 		$http.post("api/user/webFicationCode", {
@@ -176,8 +375,8 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 			}
 
 		})
-	}
-
+	};
+	
 	// 开始找回
 	$scope.findPassEnd = function() {
 		if ($scope.password1 != $scope.password2) {
@@ -196,190 +395,5 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 				}
 			})
 		}
-	}
-	// 动态加载css样式
-	$scope.dynamicLoadingCss = function(path) {
-		if (!path || path.length == 0) {
-			throw new Error('argument "path" is required !');
-		}
-		var head = document.getElementsByTagName('head')[0];
-		var link = document.createElement('link');
-		link.href = path;
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
-		head.appendChild(link);
 	};
-
-	 
-
-	// ===============================
-	// 注册
-	
-	//获得市级
-	$scope.getShicit = function(parentId){
-		$http.post("api/terminal/getShiCities", {
-			parentId : parentId
-		}).success(function(data) {
-			$scope.getShi = data.result;
-		})
-	}
-	
-	//获得市ID
-	$scope.getsShiId = function(siId){
-		$scope.siId = siId;
-	}
-	
-	// 获取手机验证码
-	$scope.getRegisterCode = function() {
-		$http.post("api/user/sendPhoneVerificationCodeReg", {
-			codeNumber : $scope.rename
-		}).success(function(data) {
-			if(data.code == 1){
-				$scope.code = data.result;
-			}else{
-				alert(data.message);
-			}
-		})
-	}
-
-	// 手机校验图片验证码
-	$scope.getImgCode = function() {
-		if($scope.ridel_xy == true){
-			if($scope.code == $scope.codeNumber){
-				if($scope.password1 == $scope.password2){
-					$http.post("api/user/sizeUpImgCode", {
-						imgnum : $scope.codeBei
-					}).success(function(data) {
-						if (data.code == 1) {
-							$scope.addUser();
-						} else if (data.code == -1) {
-							alert(data.message);
-						}
-					})
-				}else{
-					alert("密码不一致！");
-				}
-			}else{
-				alert("图片验证码错误12");
-			}
-		}
-	}
-
-	// 注册用户
-	$scope.addUser = function() {
-		$http.post("api/user/userRegistration", {
-			username : $scope.rename,
-			accountType : false,
-			code : $scope.codeNumber,
-			cityId : Math.ceil($scope.siId),
-			password : $scope.password1
-		}).success(function(data) {
-			if (data.code == 1) {
-				$scope.ridel_xy = false;
-				LoginService.hideAll();
-				$('#login').show();
-				$scope.password1 = "";
-				$scope.codeNumber = "";
-				$scope.code = "";
-				$scope.dynamicLoadingCss("style/login.css");
-			} else if (data.code == -1) {
-				alert(data.message);
-			}
-		})
-	}
-	
-	
-	// 邮箱注册用户
-	$scope.addUserEmail = function() {
-		$http.post("api/user/userRegistration", {
-			username : $scope.emailname,
-			accountType : true,
-			cityId : Math.ceil($scope.siId),
-			password : $scope.password1
-		}).success(function(data) {
-			if (data.code == 1) {
-				$scope.ridel_xy = false;
-				$scope.password1 = "";
-				$scope.password2 = "";
-				$scope.codeBei = "";
-				$("#emailUl").hide();
-				$("#butEmail").hide();
-				$("#clodeText").show();
-			} else if (data.code == -1) {
-				alert(data.code);
-			}
-		})
-	}
-
-	// 校验图片验证码
-	$scope.getImgEmailCode = function(){
-		if($scope.ridel_xy == true){
-			$http.post("api/user/jusEmail", {
-				username : $scope.emailname
-			}).success(function(data) {
-				if(data.code == 1){
-					if($scope.password1 == $scope.password2){
-						$http.post("api/user/sizeUpImgCode", {
-							imgnum : $scope.codeBei
-						}).success(function(data) {
-							if (data.code == 1) {
-								$scope.addUserEmail();
-							} else if (data.code == -1) {
-								alert(data.message);
-							}
-						})
-					}else{
-						alert("密码不一致！");
-					}
-				}else{
-					alert(data.message);
-				}
-			})
-		}
-	}
-	
-	$scope.shopcount=0;
-	$scope.$on('shopcartcountchange', function() {
-		$scope.shopcartcount();
-	});
-	$scope.shopcartcount=function () {
-    	if(LoginService.userid>0){
-    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
-                if (data.code==1) {
-                	$scope.shopcount= data.result;
-                }
-            });
-    	}
-    };
-    $scope.shopcartcount();
-    
-    $scope.ngshow=true;
-	$scope.$on('changeshow', function(d,data) {
-		$scope.ngshow=data;
-	});
-	$scope.$on('changesearchview', function(d,data) {
-		$scope.searchview=data;
-	});
-	
-	$scope.searchShop=function() {
-		//$scope.$broadcast('shopsearch',$scope.keys);
-		LoginService.keys=$scope.keys;
-		window.location.href = '#/shop';
-	};
-};
-
-
-var loginController=function($scope, $location, $http, LoginService){
-	//隐藏中间搜索
-	$scope.$emit('changesearchview',false);
-	
-};
-var registerController=function($scope, $location, $http, LoginService){
-	//隐藏中间搜索
-	$scope.$emit('changesearchview',false);
-};
-
-var findpassController=function($scope, $location, $http, LoginService){
-	//隐藏中间搜索
-	$scope.$emit('changesearchview',false);
 };
