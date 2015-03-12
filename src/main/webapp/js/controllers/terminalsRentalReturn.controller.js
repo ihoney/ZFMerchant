@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalRentalReturnModule = angular.module("terminalRentalReturnModule",[]);
+var terminalRentalReturnModule = angular.module("terminalRentalReturnModule",['loginServiceModule']);
 
 var terminalRentalReturnController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=$location.search()['terminalId'];
-	$scope.customerId = 80;
+	$scope.customerId = LoginService.userid;
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		

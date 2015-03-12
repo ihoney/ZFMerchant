@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalExchangeGoodsModule = angular.module("terminalExchangeGoodsModule",[]);
+var terminalExchangeGoodsModule = angular.module("terminalExchangeGoodsModule",['loginServiceModule']);
 
 var terminalExchangeGoodsController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
-	$scope.customerId = 80;
+	$scope.customerId = loginServiceModule;
 	$scope.shiCities = [];
 	//查看终端详情
 	$scope.terminalDetail = function () {

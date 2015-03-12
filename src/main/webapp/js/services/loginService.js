@@ -42,7 +42,8 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			        	   }
    			        	   $cookieStore.put("loginUserName",data.result.username);
    			        	   $cookieStore.put("loginUserId",data.result.id);
-   			        	   
+   			        	   //刷新
+   			        	   location.reload();
    			        	   $scope.message = data.message; //登陆成功，跳转页面
    			        	   $('#login').hide();
    			        	   $('#maintopTwo').show();
@@ -50,6 +51,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			        	   $('#mainuser').show();
    			        	   $("link[href='style/global.css']").remove();
    			        	   $scope.dynamicLoadingCss("style/global.css");
+   			        	   
    			           }
    			        }).error(function (data) {
    			        	$scope.message = "登陆异常！"

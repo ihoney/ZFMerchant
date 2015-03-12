@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalCancellationModule = angular.module("terminalCancellationModule",[]);
+var terminalCancellationModule = angular.module("terminalCancellationModule",['loginServiceModule']);
 
 var terminalCancellationController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
-	$scope.customerId = 80;
+	$scope.customerId = LoginService.userid;
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		
