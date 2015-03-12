@@ -33,7 +33,7 @@ public class CsLeaseReturnsService {
     private CsCencelsService csCencelsService;
     
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csLeaseReturnsMapper.findAll(myOrderReq);
         int count = csLeaseReturnsMapper.count(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -92,8 +92,8 @@ public class CsLeaseReturnsService {
         int max = (int) o.get("return_time");// 租赁归还时间，月为单位
         map.put("lease_min_time", min * 30); // 最短时间 天
         map.put("lease_max_time", max * 30); // 最长时间 天
-//        logger.debug("租赁id为"+id+"的租赁押金："+o.get("lease_deposit")+" 租金："+zj*month+
-//                "  租赁时长:"+day+"天"+"  最长租赁时间："+max * 30+"天"+" 最短租赁时间:"+min*30+"天");
+         logger.debug("租赁id为"+id+"的租赁押金："+o.get("lease_deposit")+" 租金："+zj*month+
+                 "  租赁时长:"+day+"天"+"  最长租赁时间："+max * 30+"天"+" 最短租赁时间:"+min*30+"天");
         myOrderReq.setId(Integer.parseInt(id));
         List<Map<String, Object>> list = csLeaseReturnsMapper.findTraceById(myOrderReq);
         String json = o.get("templete_info_xml")+"";
@@ -112,7 +112,7 @@ public class CsLeaseReturnsService {
     }
 
     public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csLeaseReturnsMapper.search(myOrderReq);
         int count = csLeaseReturnsMapper.countSearch(myOrderReq);
         List<Map<String, Object>> list = putDate(o);

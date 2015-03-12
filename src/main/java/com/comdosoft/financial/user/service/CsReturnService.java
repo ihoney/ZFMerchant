@@ -28,7 +28,7 @@ public class CsReturnService {
     private CsCencelsService csCencelsService;
     
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csReturnMapper.findAll(myOrderReq);
         int count = csReturnMapper.count(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -111,7 +111,7 @@ public class CsReturnService {
     }
 
     public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csReturnMapper.search(myOrderReq);
         int count = csReturnMapper.countSearch(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
