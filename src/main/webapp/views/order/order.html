@@ -103,7 +103,7 @@
 		</div>
 		
 		<div class="pageTurn">
-			<div class="p_num" ng-show="list.totalPage >1">
+			<div class="p_num" ng-show="totalPage >1">
 				<a ng-class="{true:'disabled'} " href="javascript:void(0)" ng-click="indexPage=1;submitPage">首页</a>
 				<a ng-class="{true:'disabled'} " href="javascript:void(0)" ng-click="prev()">上一页</a>
 				<a ng-class="{true:'current'}[indexPage==currentPage]" ng-repeat="currentPage in pages" href="javascript:void(0)" ng-click="loadPage(currentPage)">{{currentPage}}</a>

@@ -6,7 +6,7 @@ var myappModule = angular.module("myappModule",[]);
 var myappController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
 	$scope.my_message_list = function(){
-		$scope.req={customer_id:LoginService.userid,pageSize:8};
+		$scope.req={customer_id:LoginService.userid,rows:8};
 		$http.post("api/message/receiver/getAll", $scope.req).success(function (data) {   
             if (data != null && data != undefined) {
                 $scope.my_list = data.result.content;
@@ -16,7 +16,7 @@ var myappController = function ($scope, $http, LoginService) {
         });
 	};
 	$scope.web_message_list = function(){
-		$scope.req={customer_id:LoginService.userid,pageSize:8};
+		$scope.req={customer_id:LoginService.userid,rows:8};
 		$http.post("api/web/message/getAll", $scope.req).success(function (data) {  
 			if (data != null && data != undefined) {
 				$scope.web_list = data.result.content;
@@ -56,7 +56,7 @@ var myappController = function ($scope, $http, LoginService) {
 		$http.post("api/trade/record/getSevenDynamic", $scope.req).success(function (data) {   
 			if (data != null && data != undefined && data.code == 1) {
 				$scope.trade = data.result;
-				if(data.result!=null && data.result != undefined){
+				if(data.result!=null && data.result.daylist != undefined){
 					$scope.t_list = data.result.daylist;
 					var myobj=eval($scope.t_list);
 					var data_sum =  new Array();
@@ -90,6 +90,33 @@ var myappController = function ($scope, $http, LoginService) {
 			         $(function(){
 			             showBarChart();
 			         });
+				}else{
+					var randomScalingFactor = function(){ return 0};
+					var barChartData = {
+				             labels : ["1","2","3","4","5","6","7"],
+				             datasets : [
+				                 {
+				                     fillColor : "rgba(151,187,205,0.5)",
+				                     strokeColor : "rgba(151,187,205,0.8)",
+				                     highlightFill : "rgba(151,187,205,0.75)",
+				                     highlightStroke : "rgba(151,187,205,1)",
+				                     data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				                 }
+				             ]		
+				         }
+				         var globalGraphSettings = {
+				             responsive : true,
+				             barStrokeWidth : 1,
+				             barValueSpacing : 10,
+				         };
+				         function showBarChart(){
+				             var ctx = document.getElementById("myChart").getContext("2d");
+				             new Chart(ctx).Bar(barChartData,globalGraphSettings);
+				         };
+				         
+				         $(function(){
+				             showBarChart();
+				         });
 				}
 			}
 		}).error(function (data) {
