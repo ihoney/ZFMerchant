@@ -18,6 +18,8 @@ function initSystemPage(page) {
 function calcSystemPage(page, total) {
 	if (total != null && total > 0) {
 		page.total = total;
+	} else {
+		initSystemPage(page);
 	}
 	page.totalPage = Math.ceil(page.total / page.rows); // 获取总页数
 	if (page.indexPage >= 1 && page.indexPage < page.totalPage) { // 生成数字链接

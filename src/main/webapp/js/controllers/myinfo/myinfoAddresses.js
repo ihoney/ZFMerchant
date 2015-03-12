@@ -55,9 +55,11 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.deleteAddress = function(e) {
-		var ids = [ e.id ];
+		var idsReq = {
+			ids : [ e.id ]
+		};
 		if (confirm('确定删除？')) {
-			$http.post("api/customers/deleteAddress", ids).success(function(data) {
+			$http.post("api/customers/deleteAddress", idsReq).success(function(data) {
 				if (data.code == 1) {
 					$scope.init();
 				} else {

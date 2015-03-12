@@ -20,9 +20,11 @@ var merchantListController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.merchantDelete = function(e) {
-		var ids = [ e.id ];
+		var idsReq = {
+			ids : [ e.id ]
+		};
 		if (confirm('确定删除？')) {
-			$http.post("api/merchant/delete", ids).success(function(data) {
+			$http.post("api/merchant/delete", idsReq).success(function(data) {
 				if (data.code == 1) {
 					$scope.init();
 				} else {

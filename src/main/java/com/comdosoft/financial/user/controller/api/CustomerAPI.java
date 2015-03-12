@@ -1,6 +1,8 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -236,10 +238,12 @@ public class CustomerAPI {
      * @param id
      * @return
      */
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "deleteAddress", method = RequestMethod.POST)
-    public Response deleteAddress(@RequestBody int[] ids) {
+    public Response deleteAddress(@RequestBody Map<Object, Object> param) {
         Response sysResponse = null;
         try {
+            List<Integer> ids = (ArrayList<Integer>) param.get("ids");
             for (int id : ids) {
                 customerService.deleteAddress(id);
             }
