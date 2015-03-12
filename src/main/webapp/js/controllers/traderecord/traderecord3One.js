@@ -5,7 +5,7 @@ var traderecord3OneModule = angular.module("traderecord3OneModule", []);
 var traderecord3OneController = function($scope, $http, $location, LoginService) {
 	$scope.traderecord3One = function(e) {
 		var traderecord3OneId = $location.search()['traderecord3OneId'];
-		$http.get("api/trade/record/getTradeRecord/3/" + traderecord3OneId).success(function(data) {
+		$http.post("api/trade/record/getTradeRecord/3/" + traderecord3OneId).success(function(data) {
 			if (data.code == 1) {
 				$scope.traderecord = data.result;
 			} else {

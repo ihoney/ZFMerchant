@@ -5,7 +5,7 @@ var traderecord5OneModule = angular.module("traderecord5OneModule", []);
 var traderecord5OneController = function($scope, $http, $location, LoginService) {
 	$scope.traderecord5One = function(e) {
 		var traderecord5OneId = $location.search()['traderecord5OneId'];
-		$http.get("api/trade/record/getTradeRecord/5/" + traderecord5OneId).success(function(data) {
+		$http.post("api/trade/record/getTradeRecord/5/" + traderecord5OneId).success(function(data) {
 			if (data.code == 1) {
 				$scope.traderecord = data.result;
 			} else {

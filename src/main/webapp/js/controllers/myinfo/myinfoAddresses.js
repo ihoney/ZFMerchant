@@ -5,7 +5,7 @@ var myinfoAddressesModule = angular.module("myinfoAddressesModule", []);
 var myinfoAddressesController = function($scope, $http, LoginService) {
 	$scope.list = function() {
 		var customerId = LoginService.userid;
-		$http.get("api/customers/getAddressList/" + customerId).success(function(data) {
+		$http.post("api/customers/getAddressList/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.addressList = data.result;
 			} else {

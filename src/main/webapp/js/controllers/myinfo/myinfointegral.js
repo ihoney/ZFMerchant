@@ -6,7 +6,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 	initSystemPage($scope);// 初始化分页参数
 	$scope.list = function() {
 		var query = LoginService.userid + "/" + $scope.indexPage + "/" + $scope.rows;
-		$http.get("api/customers/getIntegralList/" + query).success(function(data) {
+		$http.post("api/customers/getIntegralList/" + query).success(function(data) {
 			if (data.code == 1) {
 				$scope.integralList = data.result.list;
 				calcSystemPage($scope, data.result.total);// 计算分页
@@ -20,7 +20,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 	};
 	$scope.getIntegralTotal = function() {
 		var customerId = LoginService.userid;
-		$http.get("api/customers/getIntegralTotal/" + customerId).success(function(data) {
+		$http.post("api/customers/getIntegralTotal/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.integralTotal = data.result;
 			} else {

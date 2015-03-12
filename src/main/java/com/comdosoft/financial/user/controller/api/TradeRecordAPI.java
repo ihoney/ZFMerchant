@@ -41,7 +41,7 @@ public class TradeRecordAPI {
      * @param customerId
      * @return
      */
-    @RequestMapping(value = "getTerminals/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "getTerminals/{customerId}", method = RequestMethod.POST)
     public Response getAPPLatestVersion(@PathVariable int customerId) {
         Response sysResponse = null;
         try {
@@ -64,7 +64,7 @@ public class TradeRecordAPI {
      * @param rows
      * @return
      */
-    @RequestMapping(value = "getTradeRecords/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}/{page}/{rows}", method = RequestMethod.GET)
+    @RequestMapping(value = "getTradeRecords/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}/{page}/{rows}", method = RequestMethod.POST)
     public Response getTradeRecords(@PathVariable int tradeTypeId,
                                     @PathVariable String terminalNumber,
                                     @PathVariable String startTime,
@@ -93,7 +93,7 @@ public class TradeRecordAPI {
      * @param endTime
      * @return
      */
-    @RequestMapping(value = "getTradeRecordTotal/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}", method = RequestMethod.GET)
+    @RequestMapping(value = "getTradeRecordTotal/{tradeTypeId}/{terminalNumber}/{startTime}/{endTime}", method = RequestMethod.POST)
     public Response getTradeRecordTotal(@PathVariable int tradeTypeId,
                                         @PathVariable String terminalNumber,
                                         @PathVariable String startTime,
@@ -114,7 +114,7 @@ public class TradeRecordAPI {
      * @param tradeRecordId
      * @return
      */
-    @RequestMapping(value = "getTradeRecord/{tradeTypeId}/{tradeRecordId}", method = RequestMethod.GET)
+    @RequestMapping(value = "getTradeRecord/{tradeTypeId}/{tradeRecordId}", method = RequestMethod.POST)
     public Response getTradeRecord(@PathVariable int tradeTypeId, @PathVariable int tradeRecordId) {
         Response sysResponse = null;
         try {

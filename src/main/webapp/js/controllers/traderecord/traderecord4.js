@@ -6,7 +6,7 @@ var traderecord4Controller = function($scope, $http, LoginService) {
 	initSystemPage($scope);// 初始化分页参数
 	$scope.getTerminals = function() {
 		var customerId = LoginService.userid;
-		$http.get("api/trade/record/getTerminals/" + customerId).success(function(data) {
+		$http.post("api/trade/record/getTerminals/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.terminals = data.result;
 			} else {
@@ -18,7 +18,7 @@ var traderecord4Controller = function($scope, $http, LoginService) {
 	};
 	$scope.getTradeRecordTotal = function() {// 交易笔数和交易总额
 		var query = 4 + "/" + $scope.terminalNumber.serialNum + "/" + $scope.startTime + "/" + $scope.endTime;
-		$http.get("api/trade/record/getTradeRecordTotal/" + query).success(function(data) {
+		$http.post("api/trade/record/getTradeRecordTotal/" + query).success(function(data) {
 			if (data.code == 1) {
 				$scope.tradeRecordTotal = data.result;
 			} else {
@@ -30,7 +30,7 @@ var traderecord4Controller = function($scope, $http, LoginService) {
 	};
 	$scope.list = function() {
 		var query = 4 + "/" + $scope.terminalNumber.serialNum + "/" + $scope.startTime + "/" + $scope.endTime + "/" + $scope.indexPage + "/" + $scope.rows;
-		$http.get("api/trade/record/getTradeRecords/" + query).success(function(data) {
+		$http.post("api/trade/record/getTradeRecords/" + query).success(function(data) {
 			if (data.code == 1) {
 				$scope.tradeRecords = data.result.list;
 				calcSystemPage($scope, data.result.total);// 计算分页

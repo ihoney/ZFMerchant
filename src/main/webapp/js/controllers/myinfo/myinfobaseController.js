@@ -5,7 +5,7 @@ var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http, LoginService) {
 	var customerId = LoginService.userid;
 	$scope.init = function() {
-		$http.get("api/customers/getOne/" + customerId).success(function(data) {
+		$http.post("api/customers/getOne/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
 			}

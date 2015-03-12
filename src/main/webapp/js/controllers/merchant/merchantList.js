@@ -7,7 +7,7 @@ var merchantListController = function($scope, $http, LoginService) {
 	$scope.list = function() {
 		var customerId = LoginService.userid;
 		var query = customerId + "/" + $scope.indexPage + "/" + $scope.rows;
-		$http.get("api/merchant/getList/" + query).success(function(data) {
+		$http.post("api/merchant/getList/" + query).success(function(data) {
 			if (data.code == 1) {
 				$scope.merchantList = data.result.list;
 				calcSystemPage($scope, data.result.total);// 计算分页
