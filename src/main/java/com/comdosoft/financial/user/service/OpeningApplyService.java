@@ -102,10 +102,18 @@ public class OpeningApplyService {
 	 * 获得所有通道
 	 * @return
 	 */
-	public List<Map<String, String>> getChannels(){
+	public List<Map<Object, Object>> getChannels(){
 		return openingApplyMapper.getChannels();
 	}
-
+	
+	/**
+	 * 获得所有通道周期
+	 * @return
+	 */
+	public List<Map<Object, Object>> channelsT(int id){
+		return openingApplyMapper.channelsT(id);
+	}
+	
 	/**
 	 * 申请资料数据回显
 	 * 

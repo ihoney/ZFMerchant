@@ -23,8 +23,8 @@ var terminalController = function ($scope, $http, LoginService) {
 	$scope.getInfo = function () {
       $scope.req={
     		  customersId:$scope.customersId,
-    		  indexPage:$scope.indexPage,
-    		  pageNum:$scope.rows,
+    		  page:$scope.indexPage,
+    		  rows:$scope.rows,
     		  frontStatus:$scope.frontStatus,
     		  serialNum:$scope.serialNum
     		  };
@@ -32,7 +32,7 @@ var terminalController = function ($scope, $http, LoginService) {
       $http.post("api/terminal/getApplyList", $scope.req).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               $scope.list = data.result.list;
-              $scope.total = data.result.totalSize;
+              $scope.total = data.result.total;
               //所有通道
               $scope.channels = data.result.channels;
               if($scope.boolean){

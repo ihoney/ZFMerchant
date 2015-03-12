@@ -38,13 +38,11 @@ public class CommentController {
     
     @RequestMapping(value = "upload/tempImage", method = RequestMethod.POST)
     public Response tempImage(@RequestParam(value="img") MultipartFile img, HttpServletRequest request) {
-        Response response = new Response();
         try {
-            response.setResult(commentService.saveTmpImage(img, request));
+        	return Response.getSuccess(commentService.saveTmpImage(img, request));
         } catch (IOException e) {
-        	response.setResult("error");
+        	return Response.getError("请求失败！");
         }
-        return response;
     }
     
     /**

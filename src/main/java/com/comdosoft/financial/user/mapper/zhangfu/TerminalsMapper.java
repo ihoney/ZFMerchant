@@ -57,6 +57,14 @@ public interface TerminalsMapper {
     void addCostometAddress(CustomerAddress customerAddress);
     
     /**
+     * 根据通道id获得周期
+     * 
+     * @param map
+     * @return
+     */
+    List<Map<Object, Object>> channelsT(int id);
+    
+    /**
      * 根据用户id获得终端列表
      * 
      * @param map
@@ -183,7 +191,7 @@ public interface TerminalsMapper {
      * 
      * @return
      */
-    List<Map<String, String>> channels();
+    List<Map<Object, Object>> channels();
 
     /**
      * 判断该终端号是否存在

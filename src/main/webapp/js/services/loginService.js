@@ -22,13 +22,13 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         	
    		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
    			 if(data.code == -1){
-   				 $scope.imgMessage = data.message;
-   				 $("#loginImg").attr("class","error");
+   				$scope.imgMessage = data.message;
+   				 $("#loginImg").attr("class","l error");
    			 }else{
    				 $("#loginImg").attr("class","");
    				 $http.post("api/user/studentLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
    			           if(data.code == -1){//用户或者密码错误！
-   			        	   $scope.nameMessage = data.message; 
+   			        	$scope.nameMessage = data.message; 
    			        	   $("#loginUname").attr("class","error");
    			           }else{
    			        	 $("#loginUname").attr("class","");

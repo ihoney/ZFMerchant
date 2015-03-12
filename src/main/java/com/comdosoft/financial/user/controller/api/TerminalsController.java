@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,27 +63,28 @@ public class TerminalsController {
 	public Response getApplyList(@RequestBody Map<String, Object> map) {
 		try {
 			Map<Object, Object> maps = new HashMap<Object, Object>();
-			PageRequest PageRequest = new PageRequest((Integer)map.get("indexPage"),
-					(Integer)map.get("pageNum"));
+			PageRequest PageRequest = new PageRequest((Integer)map.get("page"),
+					(Integer)map.get("rows"));
 			int offSetPage = PageRequest.getOffset();
 			
-			
-			maps.put("indexPage", (Integer)map.get("indexPage"));
-			maps.put("pageNum", (Integer)map.get("pageNum"));
-			maps.put("totalSize", terminalsService.getTerminalListNums(
+			maps.put("total", terminalsService.getTerminalListNums(
 					((Integer)map.get("customersId")),
 					offSetPage,
-					(Integer)map.get("pageNum"),
+					(Integer)map.get("rows"),
 					(Integer)map.get("frontStatus"),
 					(String)map.get("serialNum")));
 			//终端付款状态（2 已付   1未付  3已付定金）
 			maps.put("frontPayStatus", terminalsService.getFrontPayStatus());
-			//通道
-			maps.put("channels", terminalsService.getChannels());
+			//支付通道和周期列表
+			List<Map<Object, Object>> list = terminalsService.getChannels();
+			 for(Map<Object, Object> m:list){
+				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
+			 }
+			maps.put("channels",list);
 			maps.put("list", terminalsService.getTerminalList(
 					((Integer)map.get("customersId")),
 					offSetPage,
-					(Integer)map.get("pageNum"),
+					(Integer)map.get("rows"),
 					(Integer)map.get("frontStatus"),
 					(String)map.get("serialNum")));
 			return Response.getSuccess(maps);
@@ -98,7 +100,12 @@ public class TerminalsController {
 	@RequestMapping(value = "getFactories", method = RequestMethod.POST)
 	public Response getFactories() {
 		try {
-			return Response.getSuccess(terminalsService.getChannels());
+			//支付通道和周期列表
+			List<Map<Object, Object>> list = terminalsService.getChannels();
+			 for(Map<Object, Object> m:list){
+				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
+			 }
+			return Response.getSuccess(list);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
@@ -150,7 +157,7 @@ public class TerminalsController {
 	public Response Encryption(@RequestBody Map<String, Object> map) {
 		try {
 			String pass = SysUtils.Decrypt(
-					terminalsService.findPassword(Integer.parseInt((String)map.get("terminalid"))),passPath);
+					terminalsService.findPassword((Integer)map.get("terminalid")),passPath);
 			return Response.getSuccess(pass);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -196,6 +203,33 @@ public class TerminalsController {
 					terminalsService.getApplyDetails((Integer)maps.get("terminalsId")));
 			// 终端交易类型
 			map.put("rates", terminalsService.getRate((Integer)maps.get("terminalsId")));
+			// 追踪记录
+			map.put("trackRecord", terminalsService.getTrackRecord((Integer)maps.get("terminalsId")));
+			// 开通详情
+			map.put("openingDetails",
+					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
+			return Response.getSuccess(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	
+	/**
+	 * 进入终端详情(Web)
+	 * 
+	 * @param id
+	 */
+	@RequestMapping(value = "getWebApplyDetails", method = RequestMethod.POST)
+	public Response getWebApplyDetails(@RequestBody Map<Object, Object> maps) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			// 获得终端详情
+			map.put("applyDetails",
+					terminalsService.getApplyDetails((Integer)maps.get("terminalsId")));
+			// 终端交易类型
+			map.put("rates", terminalsService.getRate((Integer)maps.get("terminalsId")));
 			//获得租赁信息
 			map.put("tenancy", terminalsService.getTenancy((Integer)maps.get("terminalsId")));
 			// 追踪记录
@@ -208,7 +242,7 @@ public class TerminalsController {
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
 			//城市级联
-			map.put("Cities", terminalsService.getCities());
+			//map.put("Cities", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -392,8 +426,12 @@ public class TerminalsController {
 			map.put("MaterialLevel", openingApplyService.getMaterialLevel(maps.get("terminalsId")));
 			//城市级联
 			map.put("Cities", terminalsService.getCities());
-			//支付通道
-			map.put("channels", terminalsService.getChannels());
+			//支付通道和周期列表
+			List<Map<Object, Object>> list = terminalsService.getChannels();
+			 for(Map<Object, Object> m:list){
+				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
+			 }
+			map.put("channels", list);
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -422,12 +460,16 @@ public class TerminalsController {
 	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
 	public Response ChooseBank() {
 		try {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("code1", "中国农业银行");
-			map.put("code2", "中国工商银行");
-			map.put("code3", "美国农业银行");
-			map.put("code4", "美国工商银行");
-			return Response.getSuccess(map);
+			List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+			Map<String, String> map1 = new HashMap<String, String>();
+			map1.put("name", "中国农业银行");
+			map1.put("code", "111111");
+			Map<String, String> map2 = new HashMap<String, String>();
+			map2.put("name", "中国工商银行");
+			map2.put("code", "222222");
+			list.add(map1);
+			list.add(map2);
+			return Response.getSuccess(list);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
@@ -541,6 +583,8 @@ public class TerminalsController {
 	@RequestMapping(value = "getMaterialName", method = RequestMethod.POST)
 	public Response getMaterialName(@RequestBody Map<String, Integer> map) {
 		try {
+			System.out.println("id:"+map.get("terminalId"));
+			System.out.println("状态："+map.get("status"));
 			return Response.getSuccess(openingApplyService.getMaterialName(
 					map.get("terminalId")
 					,map.get("status")));

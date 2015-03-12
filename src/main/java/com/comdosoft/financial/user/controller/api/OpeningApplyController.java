@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class OpeningApplyController {
 
 	@Resource
 	private OpeningApplyService openingApplyService;
-
+	
 	/**
 	 * 根据用户ID获得开通申请列表
 	 * 
@@ -45,20 +46,20 @@ public class OpeningApplyController {
 		try {
 			// PageRequest PageRequest = new PageRequest(page,
 			// Constants.PAGE_SIZE);
-			PageRequest PageRequest = new PageRequest((Integer)(map.get("indexPage")),
-					(Integer)map.get("pageNum"));
+			PageRequest PageRequest = new PageRequest((Integer)(map.get("page")),
+					(Integer)map.get("rows"));
 
 			int offSetPage = PageRequest.getOffset();
 			return Response.getSuccess(openingApplyService.getApplyList(
-					((Integer)map.get("customersId")),
+					((Integer)map.get("	")),
 					offSetPage, 
-					((Integer)map.get("pageNum"))));
+					((Integer)map.get("rows"))));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("获取列表失败！");
 		}
 	}
-
+	
 	/**
 	 * 进入申请开通
 	 * 
@@ -73,7 +74,7 @@ public class OpeningApplyController {
 					openingApplyService.getApplyDetails((Integer)maps.get("terminalsId")));
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants((Integer)maps.get("customerId")));
-			// 数据回显(针对重新开通申请)
+			// 数据回显(重新开通申请)
 			map.put("applyFor", openingApplyService.ReApplyFor((Integer)maps.get("terminalsId")));
 			// 材料名称
 			map.put("materialName",
@@ -89,7 +90,7 @@ public class OpeningApplyController {
 			return Response.getError("请求失败！");
 		}
 	}
-
+	
 	/**
 	 * 根据商户id获得商户详细信息
 	 * 
@@ -107,34 +108,50 @@ public class OpeningApplyController {
 		}
 
 	}
-
+	
 	/**
 	 * 获得所有通道
 	 */
 	@RequestMapping(value = "getChannels", method = RequestMethod.POST)
 	public Response getChannels() {
 		try {
-			return Response.getSuccess(openingApplyService.getChannels());
+			//支付通道和周期列表
+			List<Map<Object, Object>> list = openingApplyService.getChannels();
+			 for(Map<Object, Object> m:list){
+				 List<Map<Object, Object>> listT = openingApplyService.channelsT(Integer.parseInt(m.get("id").toString()));
+				 if(listT == null){
+					 m.put("billings","");
+				 }else if(listT != null){
+					 m.put("billings",listT);
+				 }
+			 }
+			 return Response.getSuccess(list);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
 	}
-
+	
 	/**
 	 * 从第三方接口获得银行
 	 */
 	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
 	public Response ChooseBank() {
 		try {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("code1", "中国农业银行");
-			map.put("code2", "中国工商银行");
-			return Response.getSuccess(map);
+			List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+			Map<String, String> map1 = new HashMap<String, String>();
+			map1.put("name", "中国农业银行");
+			map1.put("code", "111111");
+			Map<String, String> map2 = new HashMap<String, String>();
+			map2.put("name", "中国工商银行");
+			map2.put("code", "222222");
+			list.add(map1);
+			list.add(map2);
+			return Response.getSuccess(list);
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
 	}
-
+	
 	/**
 	 * 对公对私材料名称(0 对公， 1对私)
 	 * 
@@ -152,7 +169,7 @@ public class OpeningApplyController {
 			return Response.getError("请求失败！");
 		}
 	}
-
+	
 	/**
 	 * 添加申请信息
 	 * 
@@ -221,7 +238,7 @@ public class OpeningApplyController {
 									.get("merchantName"));
 							openingApplie.setSex((Integer) map
 									.get("sex"));
-							openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
+							openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse("2013/12/1"));
 							openingApplie.setCardId((String) map
 									.get("cardId"));
 							openingApplie.setPhone((String) map
@@ -234,6 +251,8 @@ public class OpeningApplyController {
 									.get("name"));
 							openingApplie.setPayChannelId((Integer) map
 									.get("channel"));
+							openingApplie.setPayChannelId((Integer) map
+									.get("billingId"));
 							openingApplie.setAccountBankNum((String) map
 									.get("bankNum"));
 							openingApplie.setAccountBankName((String) map
@@ -260,7 +279,7 @@ public class OpeningApplyController {
 						if (i == 3)
 							openingRequirementId = (Integer) map.get(str);
 						if (i == 4)
-							targetId = Integer.parseInt((String) map.get(str));
+							targetId = (Integer) map.get(str);
 						i++;
 					}
 					openingApplyService.addApply(key, value,types, openingAppliesId,openingRequirementId,targetId);
@@ -274,7 +293,7 @@ public class OpeningApplyController {
 			return Response.getError("请求失败！");
 		}
 	}
-
+	
 	/**
 	 * 视频认证
 	 */

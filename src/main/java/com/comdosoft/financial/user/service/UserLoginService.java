@@ -1,5 +1,7 @@
 package com.comdosoft.financial.user.service;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class UserLoginService {
 	 * @param customer
 	 * @return
 	 */
-	public Customer doLogin(Customer customer){
+	public Map<Object, Object> doLogin(Customer customer){
 		return userLoginMapper.doLogin(customer);
 	}
 	

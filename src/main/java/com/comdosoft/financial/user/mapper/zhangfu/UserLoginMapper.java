@@ -2,6 +2,8 @@ package com.comdosoft.financial.user.mapper.zhangfu;
 
 
 
+import java.util.Map;
+
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
 
 
@@ -18,7 +20,7 @@ public interface UserLoginMapper {
 	 * @param customer
 	 * @return
 	 */
-	Customer doLogin(Customer customer);
+	Map<Object, Object> doLogin(Customer customer);
 	
 	/**
 	 * 找回密码

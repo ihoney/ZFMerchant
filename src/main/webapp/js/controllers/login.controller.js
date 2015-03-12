@@ -5,7 +5,6 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginro
 
 var loginController = function($scope, $location, $http, LoginService,$cookieStore) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	
 	$scope.loginUserName = LoginService.loginUserName;
 	$scope.ridel_xy = false;
 	$scope.shopcount=22;
@@ -28,8 +27,16 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
 		}               
     });
 	
-	
-
+	//登陆页面文本框得到光标的时候失去错误提示信息
+	 $("#loginUname").focus(function(){
+		  // $("#pName").html("");
+     	   $("#loginUname").attr("class","");
+		});
+	 $("#loginImg").focus(function(){
+     	   $("#loginImg").attr("class","");
+		});
+	 
+	 
 	$scope.RememberPass = false;
 
 

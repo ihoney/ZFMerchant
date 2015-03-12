@@ -10,7 +10,7 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 	$("#pass").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {
-      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;

@@ -60,7 +60,13 @@ public interface OpeningApplyMapper {
 	 * 获得所有通道
 	 * @return
 	 */
-	List<Map<String, String>> getChannels();
+	List<Map<Object, Object>> getChannels();
+	
+	/**
+	 * 获得所有通道周期
+	 * @return
+	 */
+	List<Map<Object, Object>> channelsT(int id);
 	
 	/**
 	 * 申请资料数据回显

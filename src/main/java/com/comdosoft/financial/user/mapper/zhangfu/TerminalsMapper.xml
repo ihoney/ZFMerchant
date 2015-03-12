@@ -210,6 +210,14 @@
 		SELECT s.id,s.`name`
 		FROM pay_channels s
 	</select>
+	
+	<select id="channelsT" resultType="map">
+		SELECT d.id,d.`name`
+		FROM pay_channels s
+		LEFT JOIN pay_channel_billing_cycles p ON p.pay_channel_id = s.id
+		LEFT JOIN dictionary_billing_cycles d ON d.id = p.billing_cycles_id
+		WHERE s.id = #{id}
+	</select>
 
 	<select id="isExistence" resultType="int" parameterType="String">
 		SELECT count(*) FROM terminals

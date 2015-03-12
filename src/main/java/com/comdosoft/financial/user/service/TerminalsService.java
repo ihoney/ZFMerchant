@@ -218,9 +218,18 @@ public class TerminalsService {
 	 * 支付通道列表
 	 * @return
 	 */
-	public List<Map<String, String>> getChannels(){
+	public List<Map<Object, Object>> getChannels(){
 		return terminalsMapper.channels();
 	}
+	
+	/**
+	 * 支付通道周期
+	 * @return
+	 */
+	public  List<Map<Object, Object>> channelsT(int id){
+		return terminalsMapper.channelsT(id);
+	}
+	
 	
 	/**
 	 * 判断该终端号是否存在
