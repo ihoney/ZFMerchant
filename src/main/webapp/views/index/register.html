@@ -1,5 +1,5 @@
 <div ng-controller="registerController">
-	<div id="retrieveHtml">
+	<div id="retrieveHtml" ng-show="show">
 		<div class="logo">
 			<img src="images/logo.png" />
 		</div>
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="emailRetrieveHtml">
+	<div id="emailRetrieveHtml" ng-show="!show">
 		<div class="logo">
 			<img src="images/logo.png" />
 		</div>
@@ -73,3 +73,24 @@
 </div>
 
 <link href="style/register.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	//input默认值
+	function focusBlur(e) {
+		$(e).focus(function() {
+			var thisVal = $(this).val();
+			if (thisVal == this.defaultValue) {
+				$(this).val('');
+			}
+		})
+		$(e).blur(function() {
+			var thisVal = $(this).val();
+			if (thisVal == '') {
+				$(this).val(this.defaultValue);
+			}
+		})
+	}
+
+	$(function() {
+		focusBlur('.res_b input');//登录
+	})
+</script>
