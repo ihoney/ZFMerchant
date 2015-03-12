@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalToUpdateModule = angular.module("terminalToUpdateModule",[]);
+var terminalToUpdateModule = angular.module("terminalToUpdateModule",['loginServiceModule']);
 
 var terminalToUpdateController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
-	$scope.customerId = 80;
+	$scope.customerId = LoginService.userid;
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {

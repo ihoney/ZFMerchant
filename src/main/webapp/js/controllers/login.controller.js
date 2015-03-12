@@ -6,6 +6,7 @@ var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginro
 var loginController = function($scope, $location, $http, LoginService,$cookieStore) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	
+	$scope.loginUserName = LoginService.loginUserName;
 	$scope.ridel_xy = false;
 	$scope.shopcount=22;
 	$scope.shopcartcount=function () {
