@@ -19,12 +19,12 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     };
 	$scope.$on('$routeChangeStart', function (scope, next, current) {                          
 		if(LoginService.userid == 0){
-			loginshow=false;
+			$scope.loginshow=false;
 //			//加载登陆前样式
 //			$scope.dynamicLoadingCss("style/global.css");
 //			LoginService.unLoginShow();
 		}else{
-			loginshow=true;
+			$scope.loginshow=true;
 //			LoginService.hadLoginShow();
 		}  
 		$scope.searchview=true;
