@@ -21,6 +21,12 @@ var terminalController = function ($scope, $http, LoginService) {
 	
 	//获得终端列表
 	$scope.getInfo = function () {
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}else{
+			//显示用户登录部分
+			$scope.$emit('changeshow',false);
+		}
       $scope.req={
     		  customersId:$scope.customersId,
     		  page:$scope.indexPage,

@@ -1,3 +1,38 @@
+<link href="style/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+//登录
+// 切换
+$(function(){
+	$(".login_area").hide();
+	$(".lr_b > div").not(":first").hide();
+	$(".lr_h li").unbind("click").bind("click", function(){
+		$(this).addClass("hover").siblings().removeClass("hover");
+		var index = $(".lr_h li").index( $(this) );
+		$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
+   });
+});
+
+//input默认值
+function focusBlur(e){
+	$(e).focus(function(){
+		var thisVal = $(this).val();
+		if(thisVal == this.defaultValue){
+			$(this).val('');
+		}	
+	})	
+	$(e).blur(function(){
+		var thisVal = $(this).val();
+		if(thisVal == ''){
+			$(this).val(this.defaultValue);
+		}	
+	})	
+}
+
+$(function(){
+	focusBlur('.login_area input');//登录
+})
+
+</script>
 <div id="login" ng-controller="loginController">
 	<div class="login_logo">
 		<img src="images/logo.png" />
@@ -16,10 +51,10 @@
 			<div class="lr_b">
 				<div class="login_area">
 					<ul>
-						<li><input id="loginUname" name="" type="text" placeholder="ID" ng-model="username" />
+						<li><input ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="ID1" ng-model="username" />
 							<p class="red" >{{nameMessage}}</p></li>
 						<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
-						<li><input id="loginImg" name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
+						<li><input ng-class="{true:'l error'}[imgClass==true]" name="" type="text" placeholder="输入图片校验码" ng-model="code" />
 							<div class="yzm">
 								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 							</div>
@@ -34,7 +69,7 @@
 				</div>
 				<div class="login_area">
 					<ul>
-						<li><input name="" type="text" value="ID" /></li>
+						<li><input name="" type="text" value="ID2" /></li>
 						<li><input name="" type="text" value="密码" /></li>
 						<li><input name="" type="text" value="输入图片校验码" class="l" />
 							<div class="yzm">
@@ -52,37 +87,5 @@
 		</div>
 	</div>
 </div>
-<link href="style/login.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript">
-	//登录
-	// 切换
-	$(function() {
-		$(".lr_b > div").not(":first").hide();
-		$(".lr_h li").unbind("click").bind("click", function() {
-			$(this).addClass("hover").siblings().removeClass("hover");
-			var index = $(".lr_h li").index($(this));
-			$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
-		});
-	});
 
-	//input默认值
-	function focusBlur(e) {
-		$(e).focus(function() {
-			var thisVal = $(this).val();
-			if (thisVal == this.defaultValue) {
-				$(this).val('');
-			}
-		})
-		$(e).blur(function() {
-			var thisVal = $(this).val();
-			if (thisVal == '') {
-				$(this).val(this.defaultValue);
-			}
-		})
-	}
-
-	$(function() {
-		focusBlur('.login_area input');//登录
-	})
-</script>

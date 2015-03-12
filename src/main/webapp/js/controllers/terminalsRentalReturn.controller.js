@@ -8,7 +8,13 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
 	$scope.customerId = LoginService.userid;
 	//查看终端详情
 	$scope.terminalDetail = function () {
-		
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}else{
+			//显示用户登录部分
+			$scope.$emit('changeshow',false);
+		}
+
       $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
