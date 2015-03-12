@@ -55,23 +55,6 @@ public class MerchantAPI {
     public Response getList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
-            sysResponse = Response.getSuccess(merchantService.getList(customerId, page, rows));
-        } catch (Exception e) {
-            logger.error("获取商户信息列表失败", e);
-            sysResponse = Response.getError("获取商户信息列表失败:系统异常");
-        }
-        return sysResponse;
-    }
-
-    /**
-     * 获取商户信息列表(web)
-     * 
-     * @param customerId
-     */
-    @RequestMapping(value = "getListWEB/{customerId}/{page}/{rows}", method = RequestMethod.GET)
-    public Response getListWEB(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
-        Response sysResponse = null;
-        try {
             Map<Object, Object> result = new HashMap<Object, Object>();
             result.put("total", merchantService.getListCount(customerId));
             result.put("list", merchantService.getList(customerId, page, rows));
@@ -170,8 +153,10 @@ public class MerchantAPI {
     public Response upload(MultipartFile fileImg, HttpServletRequest request) {
         Response sysResponse = null;
         try {
-            String path = commonService.saveTmpImage(request, fileImg, uploadMerchantFilePath);
-            sysResponse = Response.getSuccess(path);
+            String filePath = commonService.saveTmpImage(request, fileImg, uploadMerchantFilePath);
+            Map<Object, Object> result = new HashMap<Object, Object>();
+            result.put("filePath", filePath);
+            sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("上传文件失败", e);
             sysResponse = Response.getError("上传文件失败:系统异常");

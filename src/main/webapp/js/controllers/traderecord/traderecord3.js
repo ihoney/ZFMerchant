@@ -1,11 +1,11 @@
 'user strict';
 
 // 交易流水
-var traderecordModule = angular.module("traderecordModule", []);
-var traderecordController = function($scope, $http, LoginService) {
+var traderecord3Module = angular.module("traderecord3Module", []);
+var traderecord3Controller = function($scope, $http, LoginService) {
 	initSystemPage($scope);// 初始化分页参数
 	$scope.getTerminals = function() {
-		var customerId = 80;
+		var customerId = LoginService.userid;
 		$http.get("api/trade/record/getTerminals/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.terminals = data.result;
@@ -17,7 +17,7 @@ var traderecordController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.getTradeRecordTotal = function() {// 交易笔数和交易总额
-		var query = 1 + "/" + $scope.terminalNumber.serialNum + "/" + $scope.startTime + "/" + $scope.endTime;
+		var query = 3 + "/" + $scope.terminalNumber.serialNum + "/" + $scope.startTime + "/" + $scope.endTime;
 		$http.get("api/trade/record/getTradeRecordTotal/" + query).success(function(data) {
 			if (data.code == 1) {
 				$scope.tradeRecordTotal = data.result;
@@ -29,8 +29,8 @@ var traderecordController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.list = function() {
-		var query = 1 + "/" + $scope.terminalNumber.serialNum + "/" + $scope.startTime + "/" + $scope.endTime + "/" + $scope.indexPage + "/" + $scope.rows;
-		$http.get("api/trade/record/getTradeRecordsWeb/" + query).success(function(data) {
+		var query = 3 + "/" + $scope.terminalNumber.serialNum + "/" + $scope.startTime + "/" + $scope.endTime + "/" + $scope.indexPage + "/" + $scope.rows;
+		$http.get("api/trade/record/getTradeRecords/" + query).success(function(data) {
 			if (data.code == 1) {
 				$scope.tradeRecords = data.result.list;
 				calcSystemPage($scope, data.result.total);// 计算分页
@@ -82,4 +82,4 @@ var traderecordController = function($scope, $http, LoginService) {
 	};
 
 };
-traderecordModule.controller("traderecordController", traderecordController);
+traderecord3Module.controller("traderecord3Controller", traderecord3Controller);

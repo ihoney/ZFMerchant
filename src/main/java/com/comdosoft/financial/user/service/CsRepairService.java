@@ -27,7 +27,7 @@ public class CsRepairService {
     private CsRepairMapper repairMapper;
 
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = repairMapper.findAll(myOrderReq);
         int count = repairMapper.count(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -107,7 +107,7 @@ public class CsRepairService {
     }
 
     public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = repairMapper.search(myOrderReq);
         int count = repairMapper.countSearch(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -116,5 +116,41 @@ public class CsRepairService {
     
     public List<Map<String, Object>> wxlist(MyOrderReq myOrderReq) {
         return repairMapper.wxlist(myOrderReq);
+    }
+
+    /**
+     * 终端：{{order.serial_num}}维修的费用
+     * @param myOrderReq
+     * @return
+     */
+    public Map<String, Object> repairPay(MyOrderReq myOrderReq) {
+        Map<String, Object> o = repairMapper.findById(myOrderReq);
+        Map<String,Object> map = new HashMap<String,Object>();
+        String id = o.get("id").toString();
+        map.put("id", id);
+        map.put("apply_num", o.get("apply_num"));//维修编号
+        map.put("repair_price", o.get("repair_price")==null?"":o.get("repair_price"));
+        map.put("receiver_addr", o.get("address")==null?"":o.get("address"));
+        map.put("receiver_person", o.get("receiver")==null?"":o.get("receiver"));
+        map.put("receiver_phone", o.get("receiver_phone")==null?"":o.get("receiver_phone"));
+        map.put("miaoshu", o.get("serial_num")==null?"":"终端："+o.get("serial_num")+"维修的费用");//付款描述  终端：维修的费用
+        return map;
+    }
+
+    public Map<String, Object> repairPayFinish(MyOrderReq myOrderReq) {
+        Map<String, Object> paymap = repairMapper.repairPayFinish(myOrderReq);
+        String pay_id = paymap.get("id")==null?"":paymap.get("id")+"";
+        Map<String, Object> o = repairMapper.findById(myOrderReq);
+        Map<String,Object> map = new HashMap<String,Object>();
+        if(pay_id.equals("")){
+            map.put("pay_status", false);
+        }else{
+            map.put("pay_status", true);
+        }
+        String id = o.get("id").toString();
+        map.put("id", id);
+        map.put("apply_num", o.get("apply_num"));//维修编号
+        map.put("repair_price", o.get("repair_price")==null?"":o.get("repair_price"));
+        return map;
     }
 }

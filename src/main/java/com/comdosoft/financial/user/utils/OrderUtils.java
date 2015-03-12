@@ -23,7 +23,7 @@ public class OrderUtils {
      * @throws ParseException
      */
     public static Page<List<Object>> getTraceByVoId(MyOrderReq myOrderReq, List<Map<String,Object>> list) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         SimpleDateFormat sdf = null;
         Map<String,Object> childrenMap = null;
         List<Map<String,Object>> childrenList = new LinkedList<Map<String,Object>>();

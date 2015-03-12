@@ -178,7 +178,7 @@ public class OrderService {
      */
 
     public Page<Object> findMyOrderAll(MyOrderReq myOrderReq) {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         int count = orderMapper.countMyOrder(myOrderReq);
         List<Order> centers = orderMapper.findMyOrderAll(myOrderReq);
         List<Object> obj_list = putDate(centers);
@@ -226,7 +226,7 @@ public class OrderService {
                         List<GoodsPicture> list = orderMapper.findPicByGoodId(gid);
                         if (list.size() > 0) {
                             GoodsPicture gp = list.get(0);
-                            good_logo = gp.getUrlPath();
+                            good_logo = gp.getUrlPath()==null?"":gp.getUrlPath();
                         }
                     }
                     omap.put("good_logo", good_logo);
@@ -340,7 +340,7 @@ public class OrderService {
     }
 
     public Page<Object> orderSearch(MyOrderReq myOrderReq) {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         int count = orderMapper.countOrderSearch(myOrderReq);
         List<Order> centers = orderMapper.orderSearch(myOrderReq);
         List<Object> obj_list = putDate(centers);

@@ -12,7 +12,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 			customer_id : LoginService.userid,
 			search : $scope.search,
 			page : $scope.indexPage,
-			pageSize : $scope.rows
+			rows : $scope.rows
 		};
 		$http.post("api/cs/cancels/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
@@ -31,7 +31,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 			search : $scope.search,
 			q : $scope.screen,
 			page : $scope.indexPage,
-			pageSize : $scope.rows
+			rows : $scope.rows
 		};
 		$http.post("api/cs/cancels/search", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
@@ -49,7 +49,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 			search : $scope.search,
 			q : $scope.screen,
 			page : $scope.indexPage,
-			pageSize : $scope.rows
+			rows : $scope.rows
 		};
 		$http.post("api/cs/cancels/search", $scope.req).success(function (data) {  //绑定
 			if (data != null && data != undefined) {
@@ -65,7 +65,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 		initSystemPage($scope);// 初始化分页参数
         $scope.req={customer_id:LoginService.userid,
         		page:$scope.indexPage,
-        		pageSize:$scope.rows};
+        		rows:$scope.rows};
         $http.post("api/cs/cancels/getAll", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
                 $scope.list = data.result;

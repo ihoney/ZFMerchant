@@ -86,8 +86,18 @@ public class OpeningApplie {
 	
 	private String organizationCodeNo;
 	
+	private int billingCydeId;
 	
 	
+	
+	public int getBillingCydeId() {
+		return billingCydeId;
+	}
+
+	public void setBillingCydeId(int billingCydeId) {
+		this.billingCydeId = billingCydeId;
+	}
+
 	public Integer getMerchantId() {
 		return merchantId;
 	}

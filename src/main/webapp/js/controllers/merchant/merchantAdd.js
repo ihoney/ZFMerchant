@@ -4,10 +4,10 @@
 var merchantAddModule = angular.module("merchantAddModule", []);
 var merchantAddController = function($scope, $http, $location, LoginService) {
 	$scope.merchantAdd = function() {
-		$scope.merchant.customerId = 80;
+		$scope.merchant.customerId = LoginService.userid;
 		$http.post("api/merchant/insert", $scope.merchant).success(function(data) {
 			if (data.code == 1) {
-
+				window.location.href = '#/merchantList';
 			} else {
 				alert(data.message);
 			}

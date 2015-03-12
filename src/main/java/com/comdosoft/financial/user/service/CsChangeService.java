@@ -28,7 +28,7 @@ public class CsChangeService {
     private CsCencelsService csCencelsService;
     
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csChangeMapper.findAll(myOrderReq);
         int count = csChangeMapper.count(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -78,7 +78,7 @@ public class CsChangeService {
     }
 
     public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csChangeMapper.search(myOrderReq);
         int count = csChangeMapper.countSearch(myOrderReq);
         List<Map<String, Object>> list = putDate(o);

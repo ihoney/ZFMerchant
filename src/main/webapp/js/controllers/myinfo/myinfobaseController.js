@@ -3,10 +3,9 @@
 // 系统设置模块
 var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http, LoginService) {
-	$scope.req = {};
-	$scope.req.id = 8;
+	var customerId = LoginService.userid;
 	$scope.init = function() {
-		$http.get("api/customers/getOne/8", $scope.req).success(function(data) {
+		$http.get("api/customers/getOne/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
 			}
@@ -24,10 +23,8 @@ var myinfobaseController = function($scope, $http, LoginService) {
 		};
 		$http.post("api/customers/update", $scope.updateCustomer).success(function(data) {
 			if (data.code == 1) {
-				// 提示保存成功
 				alert("保存成功");
 			} else {
-				// 提示错误信息
 				alert(data.message);
 			}
 		}).error(function(data) {

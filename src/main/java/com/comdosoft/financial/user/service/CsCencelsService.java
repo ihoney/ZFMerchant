@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
@@ -24,11 +26,11 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class CsCencelsService {
-
+    private static final Logger logger = LoggerFactory.getLogger(CsCencelsService.class);
     @Resource
     private CsCencelsMapper csCencelsMapper;
     public Page<List<Object>>  findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         int count = csCencelsMapper.count(myOrderReq);
         List<Map<String, Object>> o = csCencelsMapper.findAll(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -97,6 +99,7 @@ public class CsCencelsService {
     @SuppressWarnings("unchecked")
     public Map<String,Object> getTemplePaths(Map<String, Object> map, String json) {
         ObjectMapper mapper = new ObjectMapper();
+        logger.debug("templete_info_xml==>>"+json);
         if(!json.equals("")){
             Map<String,Object> child_map = null;
             List<LinkedHashMap<String, Object>> list_json;
@@ -107,7 +110,9 @@ public class CsCencelsService {
                 for(int i=0;i<list_json.size();i++){
                     String c_id = list_json.get(i).get("id")+"";
                     ids[i]= c_id;
+                    logger.debug("ids["+i+"]"+ids[i]);
                 }
+//                logger.debug("ids[]==>>"+ids);
                 MyOrderReq mo = new MyOrderReq();
                 mo.setIds(ids);
                 List<Map<String, Object>> childsList = csCencelsMapper.findTemplete(mo);
@@ -149,7 +154,7 @@ public class CsCencelsService {
     }
 
     public Page<List<Object>> search(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         int count = csCencelsMapper.countSearch(myOrderReq);
         List<Map<String, Object>> o = csCencelsMapper.search(myOrderReq);
         List<Map<String, Object>> list = putDate(o);

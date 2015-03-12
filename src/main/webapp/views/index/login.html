@@ -1,0 +1,87 @@
+<div id="login" ng-controller="loginController">
+	<div class="login_logo">
+		<img src="images/logo.png" />
+	</div>
+	<div class="login">
+		<div class="login_left">
+			<img src="images/ad.jpg" />
+		</div>
+		<div class="login_right">
+			<div class="lr_h">
+				<ul>
+					<li class="hover">普通用户</li>
+					<li>代理商</li>
+				</ul>
+			</div>
+			<div class="lr_b">
+				<div class="login_area">
+					<ul>
+						<li><input id="loginUname" name="" type="text" placeholder="ID" ng-model="username" />
+							<p class="red" ng-bind="nameMessage"></p></li>
+						<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
+						<li><input id="loginImg" name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
+							<div class="yzm">
+								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
+							</div></li>
+					</ul>
+					<div class="forget">
+						<span><input name="" type="checkbox" value="" ng-model="RememberPass" />记住密码</span> <a href="#/findpass" >忘记密码？</a>
+					</div>
+					<div class="btn">
+						<button ng-click="login()">登录</button>
+					</div>
+				</div>
+				<div class="login_area">
+					<ul>
+						<li><input name="" type="text" value="ID" /></li>
+						<li><input name="" type="text" value="密码" /></li>
+						<li><input name="" type="text" value="输入图片校验码" class="l" />
+							<div class="yzm">
+								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
+							</div></li>
+					</ul>
+					<div class="forget">
+						<span><input name="" type="checkbox" value="" /> 忘记密码</span> <a href="#/findpass">忘记密码？</a>
+					</div>
+					<div class="btn">
+						<button>登录</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link href="style/login.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+	//登录
+	// 切换
+	$(function() {
+		$(".lr_b > div").not(":first").hide();
+		$(".lr_h li").unbind("click").bind("click", function() {
+			$(this).addClass("hover").siblings().removeClass("hover");
+			var index = $(".lr_h li").index($(this));
+			$(".lr_b > div").eq(index).siblings(".lr_b > div").hide().end().fadeIn(300);
+		});
+	});
+
+	//input默认值
+	function focusBlur(e) {
+		$(e).focus(function() {
+			var thisVal = $(this).val();
+			if (thisVal == this.defaultValue) {
+				$(this).val('');
+			}
+		})
+		$(e).blur(function() {
+			var thisVal = $(this).val();
+			if (thisVal == '') {
+				$(this).val(this.defaultValue);
+			}
+		})
+	}
+
+	$(function() {
+		focusBlur('.login_area input');//登录
+	})
+</script>

@@ -28,7 +28,7 @@ public class CsUpdateInfoService {
     private CsCencelsService csCencelsService;
     
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csUpdateInfoMapper.findAll(myOrderReq);
         int count = csUpdateInfoMapper.count(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
@@ -90,7 +90,7 @@ public class CsUpdateInfoService {
     }
 
     public Page<List<Object>> orderSearch(MyOrderReq myOrderReq) throws ParseException {
-        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getPageSize());
+        PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = csUpdateInfoMapper.search(myOrderReq);
         int count = csUpdateInfoMapper.countSearch(myOrderReq);
         List<Map<String, Object>> list = putDate(o);
