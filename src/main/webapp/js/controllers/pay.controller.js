@@ -11,7 +11,9 @@ var payController = function($scope, $http,$location) {
 	$scope.payway=1;
 	$scope.req.id=$location.search()['id'];
 	$scope.init = function() {
-		$("#leftRoute").hide();
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}
 		$scope.getOrder();
 	};
 	$scope.getOrder = function() {

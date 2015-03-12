@@ -12,10 +12,11 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 	
 	$scope.totalMoney=0;
 	$scope.init = function() {
-		if(LoginService.goods.length==0){
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}else if(LoginService.goods.length==0){
 			window.location.href = '#/shopcart';
 		}else{
-			$("#leftRoute").hide();
 			$scope.list=LoginService.goods;
 			$scope.order.cartid=[];
 			angular.forEach($scope.list, function(one) {
@@ -50,7 +51,9 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.order.customerId=LoginService.userid;
 	//$scope.order.addressId=1;
 	$scope.init = function() {
-		$("#leftRoute").hide();
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}
 		$scope.order.goodId=$location.search()['goodId'];
 		$scope.order.type=parseInt($location.search()['type']);
 		//$scope.order.quantity=$location.search()['quantity'];

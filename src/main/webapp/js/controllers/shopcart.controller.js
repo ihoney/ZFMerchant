@@ -12,7 +12,9 @@ var shopcartController = function($scope,$http,LoginService) {
 	$scope.isSelectAll = false;
 	$scope.req.customerId = LoginService.userid;
 	$scope.init = function() {
-		$("#leftRoute").hide();
+		if(LoginService.userid == 0){
+			window.location.href = '#/login';
+		}
 		$scope.list();
 
 	};

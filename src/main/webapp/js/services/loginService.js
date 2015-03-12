@@ -62,31 +62,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			 $scope.message = "获取验证码失败！"
    		 });
         	
-        	
-        	
-//        	alert("login");
-//            var self = this;
-//            $http.post("api/user/studentLogin", $scope).success(function (data) {
-//            	if (data.code != 10) {
-//                    self.mobile = user.mobile;
-//                    self.isAuthorized = true;
-//                    self.userCD = data.userinfo.userCD;
-//                    self.fullName = data.userinfo.fullName;
-//                    self.userLogo = data.userinfo.picurl;
-//                    $cookieStore.put("loginInfo", user.mobile);
-//                    $cookieStore.put("loginUserName", self.fullName);
-//                    $cookieStore.put("shopLogo", self.userLogo);
-//                    $("#loginModal").modal('hide'); //登陆成功，则隐藏登陆窗口，并且显示主页面
-//                    $("#userPwd").val("");
-//                    $("#indexDiv").show();
-//                    $rootScope.$broadcast('Login.Success', self.mobile);
-//                } else {
-//                    $("#resetPwd-success-msg").hide();
-//                    $("#login-danger-msg").show();
-//                }
-//        }).error(function (data) {
-//            console.log("Login error!");
-//        });
+
         },
 
         //用户登出功能
@@ -123,42 +99,8 @@ var loginService = function ($http, $rootScope, $cookieStore) {
     		$('#mainuser').hide();
     		$('#mainindex').hide();
         },
-        //未登录
-        unLoginShow: function () {
-        	$('#login').hide();
-    		$('#findPassOne').hide();
-    		$('#findPassTwo').hide();
-    		$('#findPassThree').hide();
-    		$('#retrieveHtml').hide();
-    		$('#emailRetrieveHtml').hide();
-    		//$('#maintop').hide();
-    		$('#maintopTwo').hide();
-    		//$('#headClear').hide();
-    		$('#shopmain').hide();
-    		$('#mainuser').hide();
-    		//$('#mainindex').hide();
-    		$('#maintop').show();
-    		$('#headClear').show();
-    		$('#mainindex').show();
-        },
-        //已登录
-        hadLoginShow: function () {
-        	$('#login').hide();
-    		$('#findPassOne').hide();
-    		$('#findPassTwo').hide();
-    		$('#findPassThree').hide();
-    		$('#retrieveHtml').hide();
-    		$('#emailRetrieveHtml').hide();
-    		$('#maintop').hide();
-    		//$('#maintopTwo').hide();
-    		//$('#headClear').hide();
-    		$('#shopmain').hide();
-    		//$('#mainuser').hide();
-    		$('#mainindex').hide();
-    		$('#maintopTwo').show();
-    		$('#headClear').show();
-    		$('#mainuser').show();
-        },
+       
+        
         //检验当前是否为已登录状态，或Cookie中仍存在登陆记录
         checkAuthorization: function () {
             var self = this;
