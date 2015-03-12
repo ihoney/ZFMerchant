@@ -1,0 +1,329 @@
+<div id="mainindex" ng-controller="mainindexController">
+		<div class="ad">
+			<div class="banner">
+				<ul class="show">
+					<li style="background-image: url(images/ad1.jpg);"></li>
+					<li style="background-image: url(images/ad2.jpg);"></li>
+					<li style="background-image: url(images/ad3.jpg);"></li>
+					<li style="background-image: url(images/ad4.jpg);"></li>
+					<li style="background-image: url(images/ad5.jpg);"></li>
+				</ul>
+			</div>
+			<script>
+				$(function() {
+					$('.banner').unslider({
+						speed : 500,
+						delay : 3000,
+						complete : function() {
+						},
+						keys : true,
+						dots : true,
+						fluid : false
+					});
+				});
+			</script>
+		</div>
+		<div class="main">
+
+
+			<div class="box">
+				<div class="i_category">
+					<ul>
+						<li><a href="#" class="pos01"><i></i>
+							<p>传统POS机</p></a></li>
+						<li><a href="#" class="pos02"><i></i>
+							<p>智能手机插件POS</p></a></li>
+						<li><a href="#" class="pos03"><i></i>
+							<p>功能手机插件POS</p></a></li>
+						<li><a href="#" class="pos04"><i></i>
+							<p>音频外插件POS</p></a></li>
+						<li><a href="#" class="pos05"><i></i>
+							<p>蓝牙插件POS</p></a></li>
+						<li><a href="#" class="pos06"><i></i>
+							<p>其它POS</p></a></li>
+					</ul>
+				</div>
+				<div class="searchProgress">
+					<div class="title">申请进度查询</div>
+					<div class="sp_con">
+						<div class="sp_search">
+							<input ng-model="req.phone" type="text" placeholder="请输入手机号" />
+							<button ng-click="searchhh()">搜索</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="hotPro">
+					<div class="title">
+						热卖POS<a href="#" class="more">更多&gt;&gt;</a>
+					</div>
+					<div class="hp_con">
+						<ul>
+							<li><a href="#" class="pro_img_a"><img src="images/ad1.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/i_category.png" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
+								<div class="pro_text">
+									<h3>POS机品牌型号</h3>
+									<p>支持平台</p>
+									<p>支持交易类型</p>
+									<p>费率</p>
+									<p>到账日期</p>
+									<a class="pro_text_a">查看详情 &gt;&gt;</a>
+								</div></li>
+						</ul>
+					</div>
+				</div>
+				<div class="notice">
+					<div class="title">网站公告</div>
+					<div class="no_con">
+						<ul>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+							<li><i></i>
+							<p>
+									<a href="#">华尔街商城上线好礼送不停！！</a>
+								</p> <span>2014-12-22 10:57</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="organization">
+					<div class="title">收单机构</div>
+					<div class="org_con">
+						<ul>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+							<li><a href="#"> <img src="images/qf.jpg" />
+									<h4>钱方</h4>
+									<p>钱方是国内技术领先的移动...</p>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="contact">
+				<div class="box">
+					<h1>和我们的专家进行及时沟通</h1>
+					<ul>
+						<li><a href="javascript:void(0);" class="buyIntention_a"><i class="intention"></i>
+							<p>填写购买意向</p></a></li>
+						<li><a href="#"><i class="qqContact"></i>
+							<p>联系24小时在线客服</p></a></li>
+						<li><a href="#"><i class="phoneContact"></i>
+							<p>400-009-0876</p></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="serviceContent">
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a href="#" class="sc01"><i></i>服务内容</a>
+						</dt>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+						<dd>
+							<a href="#">指引的超连接</a>
+						</dd>
+					</dl>
+					<div class="ewm">
+						<img src="images/ewm.jpg" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="tab buyIntention_tab">
+			<a href="javascript:void(0);" class="close">关闭</a>
+			<div class="tabHead">购买意向</div>
+			<div class="tabBody">
+		    	<div class="item_list">
+		        	<ul>
+		            	<li><span class="labelSpan">意向人：</span><div class="text"><input ng-model="req.name" type="text" /></div></li>
+		                <li><span class="labelSpan">联系电话：</span><div class="text"><input ng-model="req.phone" type="text" /></div></li>
+		                <li><span class="labelSpan">咨询内容：</span><div class="text"><textarea ng-model="req.content" cols="" rows="" class="textarea_l"></textarea></div></li>
+		            </ul>
+		        </div>
+			</div>
+		    <div class="tabFoot"><button class="orangeBtn" ng-click="addBuy()">提交</button></div>
+		</div>
+		
+		<div class="tab" id="qwert">
+			<a href="javascript:void(0);" class="close">关闭</a>
+			<div class="tabHead">查询进度</div>
+			<div class="tabBody">
+		    	<div class="seen_progress">
+		        	<ul>
+		            	<li><span>终端号：</span>1269474662</li>
+		                <li><span>当前进度：</span>处理中...</li>
+		            </ul>
+		        </div>
+			</div>
+		    <div class="tabFoot"><button class="orangeBtn">确定</button></div>
+		</div>
+	</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" ng-controller="loginController">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" ng-controller="indexController">
 <head >
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -148,246 +148,30 @@
 </head>
 
 <body>
-
-<div id="maintop" class="topInfo clear">
-	<div class="box">
-    	<div class="address">
-        	<div class="addr_h"><span>上海</span><i class="down"></i></div>
-            <div class="addr_b">
-            	<ul>
-                	<li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                    <li><a href="#">北京</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="topNav">
-        	<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a>
-            <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
-        </div>
-        <div class="loginInfo">
-        	<a href="javascript:void(0)" ng-click="goToLogin()">登录</a>
-            <a href="javascript:void(0)" ng-click="register()">注册</a>
-            <a href="#">代理商入口</a>
-        </div>
-    </div>
-    <div class="clear"></div>
-</div>
-
-	<div id="login">
-		<div class="login_logo">
-			<img src="images/logo.png" />
-		</div>
-		<div class="login">
-			<div class="login_left">
-				<img src="images/ad.jpg" />
-			</div>
-			<div class="login_right">
-				<div class="lr_h">
-					<ul>
-						<li class="hover">普通用户</li>
-						<li>代理商</li>
-					</ul>
-				</div>
-				<div class="lr_b">
-					<div class="login_area">
-						<ul>
-							<li><input id="loginUname" name="" type="text" placeholder="ID" ng-model="username" />
-								<p class="red" ng-bind="nameMessage"></p></li>
-							<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
-							<li><input id="loginImg" name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
-								<div class="yzm">
-									<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-								</div></li>
-						</ul>
-						<div class="forget">
-							<span><input name="" type="checkbox" value="" ng-model="RememberPass" />记住密码</span> <a href="javascript:void(0)" ng-click="findPass()">忘记密码？</a>
-						</div>
-						<div class="btn">
-							<button ng-click="login()">登录</button>
-						</div>
-					</div>
-					<div class="login_area">
-						<ul>
-							<li><input name="" type="text" value="ID" /></li>
-							<li><input name="" type="text" value="密码" /></li>
-							<li><input name="" type="text" value="输入图片校验码" class="l" />
-								<div class="yzm">
-									<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-								</div></li>
-						</ul>
-						<div class="forget">
-							<span><input name="" type="checkbox" value="" /> 忘记密码</span> <a href="#">忘记密码？</a>
-						</div>
-						<div class="btn">
-							<button>登录</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+ 	<div id="maintop" class="topInfo clear" ng-show="!loginshow" ng-init="loginshow=false">
+		<div class="box">
+	    	<div class="address">
+	        	<div class="addr_h"><span>上海</span><i class="down"></i></div>
+	            <div class="addr_b">
+	            	<ul>
+	                	<li><a href="#">北京</a></li>
+	                </ul>
+	            </div>
+	        </div>
+	        <div class="topNav">
+	        	<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a>
+	            <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
+	        </div>
+	        <div class="loginInfo">
+	        	<a href="#/login">登录</a>
+	            <a href="#/register">注册</a>
+	            <a href="#">代理商入口</a>
+	        </div>
+	    </div>
+    	<div class="clear"></div>
 	</div>
-
-	<div id="findPassOne">
-		<div class="logo">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)" class="hover">第一步</a></li>
-					<li><a href="javascript:void(0)">第二步</a></li>
-					<li><a href="javascript:void(0)">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul>
-					<li><input name="" type="text" placeholder="手机号/邮箱" ng-model="phone_email" /></li>
-					<li><input name="" type="text" placeholder="输入图片校验码"  class="l" ng-model="code" /><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" /></li>
-				</ul>
-				<div class="btn">
-					<button ng-click="findPassOnes()">下一步</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="findPassTwo">
-		<div class="logo">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)">第一步</a></li>
-					<li><a href="javascript:void(0)" class="hover">第二步</a></li>
-					<li><a href="javascript:void(0)">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul id="ulPhone">
-					<li><input name="" type="text" placeholder="输入图片校验码" class="m" ng-model="codeNumber" />
-						<button class="send_btn">重新发送验证码（119秒）</button></li>
-				</ul>
-				<div class="btn" id="updown">
-					<button ng-click="findPassThree()">下一步</button>
-				</div>
-				<div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="findPassThree">
-		<div class="logo">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)">第一步</a></li>
-					<li><a href="javascript:void(0)">第二步</a></li>
-					<li><a href="javascript:void(0)" class="hover">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul>
-					<li><input name="" type="text" placeholder="输入新密码" ng-model="password1" /></li>
-					<li><input name="" type="text" placeholder="确认新密码" ng-model="password2" /></li>
-				</ul>
-				<div class="btn">
-					<button ng-click="findPassEnd()">去登陆</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="retrieveHtml">
-		<div class="logo">
-			<img src="images/logo.png" />
-		</div>
-		<div class="register">
-			<div class="res_h">
-				<ul>
-					<li><a href="javascript:void(0)" class="hover" ng-click="register()">手机注册</a></li>
-					<li><a href="javascript:void(0)" ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
-				</ul>
-			</div>
-			<div class="res_b">
-				<ul>
-					<li><label>所在地</label> 
-					<select name="">
-							<option ng-repeat="ci in cities" ng-if="ci.parent_id == 0" ng-click="getShicit(ci.id)">{{ci.name}}</option>
-					</select> <select name="">
-							<option ng-repeat="si in getShi" ng-click="getsShiId(si.id)">{{si.name}}</option>
-					</select></li>
-					<li><input name="" type="text" placeholder="手机号码" class="l" ng-model="rename" />
-						<button class="yzm_btn" ng-click="getRegisterCode()">获取验证码</button></li>
-					<li><input name="" type="text" placeholder="验证码" ng-model="codeNumber" /></li>
-					<li><input name="" type="text" placeholder="用户名（可选）" ng-model="name" /></li>
-					<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
-					<li><input name="" type="text" placeholder="确认密码" ng-model="password2" /></li>
-					<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="codeBei" />
-						<div>
-							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-						</div></li>
-					<li><input  name="ridel" type="radio" value="" ng-click="ridel_xy = !ridel_xy" /> <a href="#">同意《掌富服务协议》</a></li>
-				</ul>
-				<div class="btn">
-					<button ng-click="getImgCode()">注册</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="emailRetrieveHtml">
-		<div class="logo">
-			<img src="images/logo.png" />
-		</div>
-		<div class="register">
-			<div class="res_h">
-				<ul>
-					<li><a href="javascript:void(0)" ng-click="register()">手机注册</a></li>
-					<li><a href="javascript:void(0)" ng-click="gotoEmailRetrieve()" class="hover">邮箱注册</a></li>
-				</ul>
-			</div>
-			<div class="res_b">
-				<ul id="emailUl">
-					<li><label>所在地</label> 
-					<select name="">
-							<option ng-repeat="ci in cities" ng-if="ci.parent_id == 0" ng-click="getShicit(ci.id)">{{ci.name}}</option>
-					</select> <select name="">
-							<option ng-repeat="si in getShi" ng-click="getsShiId(si.id)">{{si.name}}</option>
-					</select></li>
-					<li><input name="" type="text" placeholder="邮箱" ng-model="emailname" /></li>
-					<li><input name="" type="text" placeholder="用户名（可选）" ng-model="name" /></li>
-					<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
-					<li><input name="" type="text" placeholder="确认密码" ng-model="password2" /></li>
-					<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="codeBei" />
-						<div class="jym">
-							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-						</div></li>
-					<li><input name="ridel" ng-click="ridel_xy = !ridel_xy" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
-				</ul>
-				<div class="btn" id="butEmail">
-					<button ng-click="getImgEmailCode()">注册</button>
-				</div>
-				<div id="clodeText" class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="maintopTwo" class="topInfo clear">
+	
+	<div id="maintopTwo" class="topInfo clear" ng-show="loginshow">
 		<div class="box">
 			<div class="top_kf">
 				<ul>
@@ -396,226 +180,44 @@
 				</ul>
 			</div>
 			<div class="top_user">
-				<a href="#">{{loginUserName}}</a><a href="javascript:void(0)" ng-click="escLogin()">退出</a><a href="#">掌富APP</a>
+				<a href="#/myapp">{{loginUserName}}</a><a href="javascript:void(0)" ng-click="escLogin()">退出</a><a href="#">掌富APP</a>
 			</div>
 		</div>
 		<div class="clear"></div>
 	</div>
+		
 
-	<div  ng-controller="shopController">
-		<div class="head clear" id="headClear">
-			<div class="box">
-				<div class="logo">华尔街金融</div>
-				<div class="search">
-					<div class="search_box">
-						<input ng-model="req.keys" type="text"  placeholder="请输入pos机信息"/>
-						<button ng-click="searchShop()">搜索</button>
-					</div>
-					<div class="hotwords">
-						<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
-					</div>
+	
+	<div class="head clear" ng-show="searchview" ng-init="searchview=true">
+		<div class="box">
+			<div class="logo">华尔街金融</div>
+			<div class="search">
+				<div class="search_box">
+					<input ng-model="keys" type="text"  placeholder="请输入pos机信息"/>
+					<button ng-click="searchShop()">搜索</button>
 				</div>
-				<div class="phone">
-					<img src="images/dh.png" />
+				<div class="hotwords">
+					<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
 				</div>
-				<div class="shoppingCart" >
-					<div class="sCart_h">
-						<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
-					</div>
-					<div class="sCart_b" ng-if="shopcount>0">
-						您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a>
-					</div>
-					<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
+			</div>
+			<div class="phone">
+				<img src="images/dh.png" />
+			</div>
+			<div class="shoppingCart" >
+				<div class="sCart_h">
+					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
+				<div class="sCart_b" ng-if="shopcount>0">
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a>
+				</div>
+				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
 			</div>
 		</div>
-		<div class="main" id="shopmain">
-		<div class="box">
-    	<div class="category_group">
-        	<div class="crumbs_nav">
-            	<ul>
-                	<li ng-show="chli1show||chli2show||chli3show||chli4show||chli5show||chli6show||chli7show" class="crumbs_nav_li_h">您当前选择<i></i></li>
-                    <li ng-show="chli1show" class="crumbs_nav_drop" id="chli1"><a href="javascript:void(0)" ng-click="chli1del()" class="hover"><span class="cnd_p">POS机品牌：{{chli1val}}</span><span class="cnd_x"></span></a><i></i></li>
-                    <li ng-show="chli2show" class="crumbs_nav_drop" id="chli2"><a href="javascript:void(0)" ng-click="chli2del()" class="hover"><span class="cnd_p">POS机类型：{{chli2val}}</span><span class="cnd_x"></span></a><i></i></li>
-                    <li ng-show="chli3show" class="crumbs_nav_drop" id="chli3"><a href="javascript:void(0)" ng-click="chli3del()" class="hover"><span class="cnd_p">支付通道：{{chli3val}}</span><span class="cnd_x"></span></a><i></i></li>
-                    <li ng-show="chli4show" class="crumbs_nav_drop" id="chli4"><a href="javascript:void(0)" ng-click="chli4del()" class="hover"><span class="cnd_p">支持卡类型：{{chli4val}}</span><span class="cnd_x"></span></a><i></i></li>
-                    <li ng-show="chli5show" class="crumbs_nav_drop" id="chli5"><a href="javascript:void(0)" ng-click="chli5del()" class="hover"><span class="cnd_p">支持交易类型：{{chli5val}}</span><span class="cnd_x"></span></a><i></i></li>
-                    <li ng-show="chli6show" class="crumbs_nav_drop" id="chli6"><a href="javascript:void(0)" ng-click="chli6del()" class="hover"><span class="cnd_p">签购单方式：{{chli6val}}</span><span class="cnd_x"></span></a><i></i></li>
-                </ul>
-            </div>
-        	<div class="category_item">
-            	<h4>POS机品牌：</h4>
-                <a href="javascript:void(0);" class="more">更多<i></i></a>
-                <div class="category_item_con">
-                	<ul >
-                    	<li ng-repeat="one in brands">
-                    	  <a href="javascript:void(0)" ng-click="check1(one)" class="{{one.clazz}}">{{one.value}}</a>
-                    	</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="category_item">
-            	<h4>POS机类型：</h4>
-                <div class="category_item_con">
-                	<ul>
-                    	<li ng-repeat="one in category">
-                    	  <a href="javascript:void(0)" ng-click="check2(one)" class="{{one.clazz}}">{{one.value}}</a>
-                    	</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="category_item">
-            	<h4>支付通道：</h4>
-                <div class="category_item_con">
-                	<ul>
-                    	<li ng-repeat="one in pay_channel">
-                    	  <a href="javascript:void(0)" ng-click="check3(one)" class="{{one.clazz}}">{{one.value}}</a>
-                    	</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="category_item">
-            	<h4>支持卡类型：</h4>
-                <div class="category_item_con">
-                	<ul>
-                    	<li ng-repeat="one in pay_card">
-                    	  <a href="javascript:void(0)" ng-click="check4(one)" class="{{one.clazz}}">{{one.value}}</a>
-                    	</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="category_item">
-            	<h4>支持交易类型：</h4>
-                <div class="category_item_con">
-                	<ul>
-                    	<li ng-repeat="one in trade_type">
-                    	  <a href="javascript:void(0)" ng-click="check5(one)" class="{{one.clazz}}">{{one.value}}</a>
-                    	</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="category_item category_item_noBorder">
-            	<h4>签购单方式：</h4>
-                <div class="category_item_con">
-                	<ul>
-                    	<li ng-repeat="one in sale_slip">
-                    	  <a href="javascript:void(0)" ng-click="check6(one)" class="{{one.clazz}}">{{one.value}}</a>
-                    	</li>
-                    </ul>
-                	
-                </div>
-            </div>
-        </div>
-        <div class="sortbar clear">
-        	<div class="sortbar_ul">
-                <ul>
-                    <li class="default_sort hover"><a href="javasrcipt:void(0);" ng-click="order(0)">综合排序</a></li>
-                    <li class="on_1"><span>按价格</span>
-                        <div class="droplist">
-                            <a href="javascript:void(0);" class="dashed" ng-click="order(2)">按价格从高到低</a>
-                            <a href="javascript:void(0);" ng-click="order(3)">按价格从低到高</a>
-                        </div>
-                    </li>
-                    <li class="default_sort" title="按销量从高到低"><a href="javascript:void(0);" ng-click="order(1)">按销量</a></li>
-                    <li class="default_sort" title="按评价从多到少"><a href="javascript:void(0);" ng-click="order(4)">按评价</a></li>
-                </ul>
-            </div>
-            <div class="accountTime">
-            	<label>到账时间</label>
-                <div class="selectBox">
-                	<i></i>
-                	<div class="tag_select"><span>{{xxx==""?"选择到账时间选择到账时间":xxx}}</span></div>
-                    <ul id="xx">
-                        <li ng-repeat="one in tDate" ng-click="sb(one)">{{one.value}}</li>
-                	</ul>
-               </div>
-            </div>
-            <div class="price">
-            	<label>价格</label>
-                <input ng-model="req.minPrice" type="text" placeholder="¥" /> - <input ng-model="req.maxPrice" type="text" placeholder="¥" />
-            </div>
-            <div class="lease"><input ng-model="req.has_purchase" type="checkbox" value="1" /> 支持租赁</div>
-            <div class="sortBtn"><button class="btn" ng-click="searchShop()">确定</button></div>
-            <div class="page_top">
-            	<div class="page_info"><span>{{req.indexPage}}</span>/{{req.totalPage}}</div>
-                <a href="javascript:void(0);" class="page_prev" ng-click="prev()"><i></i></a>
-                <a href="javascript:void(0);" class="page_next"	ng-click="next()"><i></i></a>
-            </div>
-        </div>
-        
-        <div class="commodityBox">
-        	<table width="100%" cellspacing="0" cellpadding="0" class="b_table">
-            <colgroup>
-                <col width="640" />
-                <col />
-                <col />
-                <col />
-                <col />
-             </colgroup>
-             <thead>
-              <tr>
-                <th width="640">商品</th>
-                <th>价格</th>
-                <th>支持租赁</th>
-                <th>销量</th>
-                <th>评价</th>
-              </tr>
-             </thead>
-             
-             
-             
-              <tr ng-repeat="one in goodList">
-                <td>
-                	<div class="td_proBox clear">
-                    	<a href="#/shopinfo?goodId={{one.id}}" class="cn_img"><img src="{{one.url_path}}" /></a>
-                        <div class="td_proBox_info">
-                        	<h1><a href="#/shopinfo?goodId={{one.id}}" >{{one.Title}}</a></h1>
-                            <h3>{{one.second_title}}</h3>
-                            <ul>
-                            	<li><span>品牌型号：</span><div class="c_text">{{one.good_brand}}{{one.Model_number}}</div></li>
-                                <li><span>支付通道：</span><div class="c_text">{{one.pay_channe}}</div></li>
-                            </ul>
-                        </div>
-                    </div>
-                </td>
-                <td><a href="javascript:void(0);"><strong>{{one.retail_price/100 |currency : "￥"}}</strong></a></td>
-                <td><span class="{{one.has_lease?'lease_t':'lease_t no'}}">支持租赁</span></td>
-                <td><a href="javascript:void(0);">月销量<em>{{one.volume_number }}</em>件</a></td>
-                <td>
-                	<div class="evaluate">
-                    	<a href="javascript:void(0);">
-                        <ul>
-                            <li class="{{one.total_score>9?'p_li_o':(one.total_score>4?'p_li_b':'')}}" ></li>
-                            <li class="{{one.total_score>19?'p_li_o':(one.total_score>14?'p_li_b':'')}}"></li>
-                            <li class="{{one.total_score>29?'p_li_o':(one.total_score>24?'p_li_b':'')}}"></li>
-                            <li class="{{one.total_score>39?'p_li_o':(one.total_score>34?'p_li_b':'')}}"></li>
-                            <li class="{{one.total_score>49?'p_li_o':(one.total_score>44?'p_li_b':'')}}"></li>
-                        </ul>
-                        </a>
-                    </div>
-                </td>
-              </tr>
-            </table>
-			<div class="pageTurn">
-			<div class="p_num" ng-show="req.totalPage>1">
-				<a ng-class="{true:'disabled'}[req.indexPage==1]" href="javascript:void(0)" ng-click="req.indexPage=1;list()">首页</a>
-				<a ng-class="{true:'disabled'}[req.indexPage==1]" href="javascript:void(0)" ng-click="prev()">上一页</a>
-				<a ng-class="{true:'current'}[req.indexPage==currentPage]" ng-repeat="currentPage in req.pages" href="javascript:void(0)" ng-click="loadPage(currentPage)">{{currentPage}}</a>
-				<a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]" href="javascript:void(0)" ng-click="next()">下一页</a>
-				<a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]" href="javascript:void(0)" ng-click="req.indexPage=req.totalPage;list()">末页</a>
-			</div>
-			<div class="p_skip">
-				<span>共&nbsp;{{req.totalPage}}&nbsp;页</span>&nbsp;<span>到第&nbsp;<input type="text" ng-model="gotoPage">&nbsp;页</span>
-				<button ng-click="getPage()">确定</button>
-			</div>
-			</div>
-        </div>
-    </div>
-</div>
 	</div>
+	
 
 
-	<div class="main_user" id="mainuser">
+	<div ng-show="!ngshow" class="main_user" id="mainuser">
 		<div class="box">
 			<div class="left" id="leftRoute">
 				<ul id="left_common">
@@ -640,336 +242,11 @@
 			<div ng-view></div>
 		</div>
 	</div>
+	
+	
+	<div ng-view ng-show="ngshow"></div>
 
-	<div id="mainindex" ng-controller="mainindexController">
-		<div class="ad">
-			<div class="banner">
-				<ul class="show">
-					<li style="background-image: url(images/ad1.jpg);"></li>
-					<li style="background-image: url(images/ad2.jpg);"></li>
-					<li style="background-image: url(images/ad3.jpg);"></li>
-					<li style="background-image: url(images/ad4.jpg);"></li>
-					<li style="background-image: url(images/ad5.jpg);"></li>
-				</ul>
-			</div>
-			<script>
-				$(function() {
-					$('.banner').unslider({
-						speed : 500,
-						delay : 3000,
-						complete : function() {
-						},
-						keys : true,
-						dots : true,
-						fluid : false
-					});
-				});
-			</script>
-		</div>
-		<div class="main">
-
-
-			<div class="box">
-				<div class="i_category">
-					<ul>
-						<li><a href="#" class="pos01"><i></i>
-							<p>传统POS机</p></a></li>
-						<li><a href="#" class="pos02"><i></i>
-							<p>智能手机插件POS</p></a></li>
-						<li><a href="#" class="pos03"><i></i>
-							<p>功能手机插件POS</p></a></li>
-						<li><a href="#" class="pos04"><i></i>
-							<p>音频外插件POS</p></a></li>
-						<li><a href="#" class="pos05"><i></i>
-							<p>蓝牙插件POS</p></a></li>
-						<li><a href="#" class="pos06"><i></i>
-							<p>其它POS</p></a></li>
-					</ul>
-				</div>
-				<div class="searchProgress">
-					<div class="title">申请进度查询</div>
-					<div class="sp_con">
-						<div class="sp_search">
-							<input ng-model="req.phone" type="text" placeholder="请输入手机号" />
-							<button ng-click="searchhh()">搜索</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="box">
-				<div class="hotPro">
-					<div class="title">
-						热卖POS<a href="#" class="more">更多&gt;&gt;</a>
-					</div>
-					<div class="hp_con">
-						<ul>
-							<li><a href="#" class="pro_img_a"><img src="images/ad1.jpg" /></a>
-								<div class="pro_text">
-									<h3>POS机品牌型号</h3>
-									<p>支持平台</p>
-									<p>支持交易类型</p>
-									<p>费率</p>
-									<p>到账日期</p>
-									<a class="pro_text_a">查看详情 &gt;&gt;</a>
-								</div></li>
-							<li><a href="#" class="pro_img_a"><img src="images/i_category.png" /></a>
-								<div class="pro_text">
-									<h3>POS机品牌型号</h3>
-									<p>支持平台</p>
-									<p>支持交易类型</p>
-									<p>费率</p>
-									<p>到账日期</p>
-									<a class="pro_text_a">查看详情 &gt;&gt;</a>
-								</div></li>
-							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-								<div class="pro_text">
-									<h3>POS机品牌型号</h3>
-									<p>支持平台</p>
-									<p>支持交易类型</p>
-									<p>费率</p>
-									<p>到账日期</p>
-									<a class="pro_text_a">查看详情 &gt;&gt;</a>
-								</div></li>
-							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-								<div class="pro_text">
-									<h3>POS机品牌型号</h3>
-									<p>支持平台</p>
-									<p>支持交易类型</p>
-									<p>费率</p>
-									<p>到账日期</p>
-									<a class="pro_text_a">查看详情 &gt;&gt;</a>
-								</div></li>
-							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-								<div class="pro_text">
-									<h3>POS机品牌型号</h3>
-									<p>支持平台</p>
-									<p>支持交易类型</p>
-									<p>费率</p>
-									<p>到账日期</p>
-									<a class="pro_text_a">查看详情 &gt;&gt;</a>
-								</div></li>
-							<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-								<div class="pro_text">
-									<h3>POS机品牌型号</h3>
-									<p>支持平台</p>
-									<p>支持交易类型</p>
-									<p>费率</p>
-									<p>到账日期</p>
-									<a class="pro_text_a">查看详情 &gt;&gt;</a>
-								</div></li>
-						</ul>
-					</div>
-				</div>
-				<div class="notice">
-					<div class="title">网站公告</div>
-					<div class="no_con">
-						<ul>
-							<li><i></i>
-							<p>
-									<a href="#">华尔街商城上线好礼送不停华尔街商城上线好礼送不停！！</a>
-								</p> <span>2014-12-22 10:57</span></li>
-							<li><i></i>
-							<p>
-									<a href="#">华尔街商城上线好礼送不停！！</a>
-								</p> <span>2014-12-22 10:57</span></li>
-							<li><i></i>
-							<p>
-									<a href="#">华尔街商城上线好礼送不停！！</a>
-								</p> <span>2014-12-22 10:57</span></li>
-							<li><i></i>
-							<p>
-									<a href="#">华尔街商城上线好礼送不停！！</a>
-								</p> <span>2014-12-22 10:57</span></li>
-							<li><i></i>
-							<p>
-									<a href="#">华尔街商城上线好礼送不停！！</a>
-								</p> <span>2014-12-22 10:57</span></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="box">
-				<div class="organization">
-					<div class="title">收单机构</div>
-					<div class="org_con">
-						<ul>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-							<li><a href="#"> <img src="images/qf.jpg" />
-									<h4>钱方</h4>
-									<p>钱方是国内技术领先的移动...</p>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="contact">
-				<div class="box">
-					<h1>和我们的专家进行及时沟通</h1>
-					<ul>
-						<li><a href="javascript:void(0);" class="buyIntention_a"><i class="intention"></i>
-							<p>填写购买意向</p></a></li>
-						<li><a href="#"><i class="qqContact"></i>
-							<p>联系24小时在线客服</p></a></li>
-						<li><a href="#"><i class="phoneContact"></i>
-							<p>400-009-0876</p></a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="box">
-				<div class="serviceContent">
-					<dl>
-						<dt>
-							<a href="#" class="sc01"><i></i>服务内容</a>
-						</dt>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-					</dl>
-					<dl>
-						<dt>
-							<a href="#" class="sc01"><i></i>服务内容</a>
-						</dt>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-					</dl>
-					<dl>
-						<dt>
-							<a href="#" class="sc01"><i></i>服务内容</a>
-						</dt>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-					</dl>
-					<dl>
-						<dt>
-							<a href="#" class="sc01"><i></i>服务内容</a>
-						</dt>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-					</dl>
-					<dl>
-						<dt>
-							<a href="#" class="sc01"><i></i>服务内容</a>
-						</dt>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-						<dd>
-							<a href="#">指引的超连接</a>
-						</dd>
-					</dl>
-					<div class="ewm">
-						<img src="images/ewm.jpg" />
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="tab buyIntention_tab">
-			<a href="javascript:void(0);" class="close">关闭</a>
-			<div class="tabHead">购买意向</div>
-			<div class="tabBody">
-		    	<div class="item_list">
-		        	<ul>
-		            	<li><span class="labelSpan">意向人：</span><div class="text"><input ng-model="req.name" type="text" /></div></li>
-		                <li><span class="labelSpan">联系电话：</span><div class="text"><input ng-model="req.phone" type="text" /></div></li>
-		                <li><span class="labelSpan">咨询内容：</span><div class="text"><textarea ng-model="req.content" cols="" rows="" class="textarea_l"></textarea></div></li>
-		            </ul>
-		        </div>
-			</div>
-		    <div class="tabFoot"><button class="orangeBtn" ng-click="addBuy()">提交</button></div>
-		</div>
-		
-		<div class="tab" id="qwert">
-			<a href="javascript:void(0);" class="close">关闭</a>
-			<div class="tabHead">查询进度</div>
-			<div class="tabBody">
-		    	<div class="seen_progress">
-		        	<ul>
-		            	<li><span>终端号：</span>1269474662</li>
-		                <li><span>当前进度：</span>处理中...</li>
-		            </ul>
-		        </div>
-			</div>
-		    <div class="tabFoot"><button class="orangeBtn">确定</button></div>
-		</div>
-	</div>
+	
 
 	<div class="foot">
 		<div class="box">

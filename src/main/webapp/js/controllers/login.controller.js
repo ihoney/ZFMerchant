@@ -3,7 +3,7 @@
 // 主页面路由模块，用于控制主页面的菜单导航(注入了登陆服务LoginService)
 var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
 
-var loginController = function($scope, $location, $http, LoginService,$cookieStore) {
+var indexController = function($scope, $location, $http, LoginService,$cookieStore) {
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	
 	$scope.loginUserName = LoginService.loginUserName;
@@ -20,12 +20,16 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
     };
 	$scope.$on('$routeChangeStart', function (scope, next, current) {                          
 		if(LoginService.userid == 0){
-			//加载登陆前样式
-			$scope.dynamicLoadingCss("style/global.css");
-			LoginService.unLoginShow();
+			loginshow=false;
+//			//加载登陆前样式
+//			$scope.dynamicLoadingCss("style/global.css");
+//			LoginService.unLoginShow();
 		}else{
-			LoginService.hadLoginShow();
-		}               
+			loginshow=true;
+//			LoginService.hadLoginShow();
+		}  
+		$scope.searchview=true;
+		$scope.ngshow=true;
     });
 	
 	
@@ -348,4 +352,34 @@ var loginController = function($scope, $location, $http, LoginService,$cookieSto
     	}
     };
     $scope.shopcartcount();
-}
+    
+    $scope.ngshow=true;
+	$scope.$on('changeshow', function(d,data) {
+		$scope.ngshow=data;
+	});
+	$scope.$on('changesearchview', function(d,data) {
+		$scope.searchview=data;
+	});
+	
+	$scope.searchShop=function() {
+		//$scope.$broadcast('shopsearch',$scope.keys);
+		LoginService.keys=$scope.keys;
+		window.location.href = '#/shop';
+	};
+};
+
+
+var loginController=function($scope, $location, $http, LoginService){
+	//隐藏中间搜索
+	$scope.$emit('changesearchview',false);
+	
+};
+var registerController=function($scope, $location, $http, LoginService){
+	//隐藏中间搜索
+	$scope.$emit('changesearchview',false);
+};
+
+var findpassController=function($scope, $location, $http, LoginService){
+	//隐藏中间搜索
+	$scope.$emit('changesearchview',false);
+};
