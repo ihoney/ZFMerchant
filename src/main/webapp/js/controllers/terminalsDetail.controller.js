@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalDetailModule = angular.module("terminalDetailModule",[]);
+var terminalDetailModule = angular.module("terminalDetailModule",['loginServiceModule']);
 
 var terminalDetailController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
-	$scope.customerId = 80;
+	$scope.customerId = LoginService.userid;;
 	$(".leaseExplain_tab").hide();
 	$("#pass").hide();
 	//查看终端详情

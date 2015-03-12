@@ -47,7 +47,7 @@ public class ShopCartService {
             if(0==quantity){
                 shopCartMapper.add(cartreq);
             }else{
-                cartreq.setQuantity(quantity+1);
+                cartreq.setQuantity(quantity+cartreq.getQuantity());
                 shopCartMapper.update2(cartreq);
             }
             return 1;

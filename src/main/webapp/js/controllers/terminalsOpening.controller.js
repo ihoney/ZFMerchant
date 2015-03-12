@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalOpenModule = angular.module("terminalOpenModule",[]);
+var terminalOpenModule = angular.module("terminalOpenModule",['loginServiceModule']);
 
 var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=$location.search()['terminalId'];
-	$scope.customerId = 80;
+	$scope.customerId = LoginService.userid;
 	$scope.img = null;
 	$scope.merchantNamed = "";
 	$scope.bankCode="";

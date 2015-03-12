@@ -355,9 +355,12 @@ public class SysUtils {
         if (null == multiFile || StringUtils.isEmpty(multiFile.getOriginalFilename())) {
             return null;
         }
-        String originalFileName = multiFile.getOriginalFilename();// 源文件全名
+        String originalFileName = multiFile.getOriginalFilename();// 原文件全名
         StringBuffer newFileName = new StringBuffer(UUID.randomUUID().toString());// 生成系统唯一文件名
-        newFileName.append(originalFileName.substring(originalFileName.lastIndexOf(".")));// 拼接源文件扩展名
+        int index = originalFileName.lastIndexOf(".");
+        if (index != -1) {
+            newFileName.append(originalFileName.substring(index));// 原文件扩展名
+        }
         String realPath = request.getServletContext().getRealPath(uploadFilePath);
         FileUtils.copyInputStreamToFile(multiFile.getInputStream(), new File(realPath, newFileName.toString()));
         return newFileName.toString();

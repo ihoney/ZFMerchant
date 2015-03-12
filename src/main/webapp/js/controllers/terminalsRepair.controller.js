@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalRepairModule = angular.module("terminalRepairModule",[]);
+var terminalRepairModule = angular.module("terminalRepairModule",['loginServiceModule']);
 
 var terminalRepairController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
-	$scope.customerId = 80;
+	$scope.customerId = LoginService.userid;
 	$scope.citOn = false;
 	$scope.num = -1;
 	

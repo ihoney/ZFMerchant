@@ -170,8 +170,10 @@ public class MerchantAPI {
     public Response upload(MultipartFile fileImg, HttpServletRequest request) {
         Response sysResponse = null;
         try {
-            String path = commonService.saveTmpImage(request, fileImg, uploadMerchantFilePath);
-            sysResponse = Response.getSuccess(path);
+            String filePath = commonService.saveTmpImage(request, fileImg, uploadMerchantFilePath);
+            Map<Object, Object> result = new HashMap<Object, Object>();
+            result.put("filePath", filePath);
+            sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("上传文件失败", e);
             sysResponse = Response.getError("上传文件失败:系统异常");

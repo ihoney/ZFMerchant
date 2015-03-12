@@ -1,11 +1,11 @@
 'user strict';
 
 //系统设置模块
-var terminalModule = angular.module("terminalModule",[]);
+var terminalModule = angular.module("terminalModule",['loginServiceModule']);
 
 var terminalController = function ($scope, $http, LoginService) {
 	  initSystemPage($scope);// 初始化分页参数
-	
+	  $scope.customersId = LoginService.userid;
 	  $scope.total = 0;
 	  //付款筛选状态
 	  $scope.frontStatus = null;
@@ -22,7 +22,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	//获得终端列表
 	$scope.getInfo = function () {
       $scope.req={
-    		  customersId:80,
+    		  customersId:$scope.customersId,
     		  indexPage:$scope.indexPage,
     		  pageNum:$scope.rows,
     		  frontStatus:$scope.frontStatus,
@@ -53,7 +53,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	//添加終端$scope.channels
 	$scope.addChannel = function(){
 		 $scope.addChan={
-				  customerId:80,
+				  customerId:$scope.customersId,
 	    		  title:$scope.title,
 	    		  payChannelId:$scope.payChannelId,
 	    		  serialNum:$scope.serialNum
