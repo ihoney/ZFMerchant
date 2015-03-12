@@ -133,7 +133,12 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 		$scope.indexPage = Math.ceil($scope.gotoPage);
 		$scope.submitPage();
 	};
-
+	if(LoginService.userid == 0){
+		window.location.href = '#/login';
+	}else{
+		//显示用户登录部分
+		$scope.$emit('changeshow',false);
+	}
     $scope.orderlist();
 };
 

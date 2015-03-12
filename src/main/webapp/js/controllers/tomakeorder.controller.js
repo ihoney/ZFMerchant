@@ -107,7 +107,7 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 
 var addressController=function($scope, $location, $http, LoginService){
 	$scope.list = function() {
-		$http.get("api/customers/getAddressList/"+LoginService.userid).success(function(data) {
+		$http.post("api/customers/getAddressList/"+LoginService.userid).success(function(data) {
 			if (data.code == 1) {
 				$scope.addressList = data.result;
 			} else {

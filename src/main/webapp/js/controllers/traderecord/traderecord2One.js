@@ -5,7 +5,7 @@ var traderecord2OneModule = angular.module("traderecord2OneModule", []);
 var traderecord2OneController = function($scope, $http, $location, LoginService) {
 	$scope.traderecord2One = function(e) {
 		var traderecord2OneId = $location.search()['traderecord2OneId'];
-		$http.get("api/trade/record/getTradeRecord/2/" + traderecord2OneId).success(function(data) {
+		$http.post("api/trade/record/getTradeRecord/2/" + traderecord2OneId).success(function(data) {
 			if (data.code == 1) {
 				$scope.traderecord = data.result;
 			} else {
@@ -16,6 +16,14 @@ var traderecord2OneController = function($scope, $http, $location, LoginService)
 		});
 	};
 	$scope.init = function() {
+
+		// 判断是否已登录
+		if (LoginService.userid == 0) {
+			window.location.href = '#/login';
+		} else {
+			$scope.$emit('changeshow', false);
+		}
+
 		$scope.traderecord2One();
 	};
 	$scope.init();

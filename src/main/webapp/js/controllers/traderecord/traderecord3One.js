@@ -5,7 +5,7 @@ var traderecord3OneModule = angular.module("traderecord3OneModule", []);
 var traderecord3OneController = function($scope, $http, $location, LoginService) {
 	$scope.traderecord3One = function(e) {
 		var traderecord3OneId = $location.search()['traderecord3OneId'];
-		$http.get("api/trade/record/getTradeRecord/3/" + traderecord3OneId).success(function(data) {
+		$http.post("api/trade/record/getTradeRecord/3/" + traderecord3OneId).success(function(data) {
 			if (data.code == 1) {
 				$scope.traderecord = data.result;
 			} else {
@@ -16,6 +16,14 @@ var traderecord3OneController = function($scope, $http, $location, LoginService)
 		});
 	};
 	$scope.init = function() {
+
+		// 判断是否已登录
+		if (LoginService.userid == 0) {
+			window.location.href = '#/login';
+		} else {
+			$scope.$emit('changeshow', false);
+		}
+
 		$scope.traderecord3One();
 	};
 	$scope.init();

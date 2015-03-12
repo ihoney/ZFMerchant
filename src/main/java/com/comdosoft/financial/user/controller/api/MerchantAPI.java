@@ -51,7 +51,7 @@ public class MerchantAPI {
      * 
      * @param customerId
      */
-    @RequestMapping(value = "getList/{customerId}/{page}/{rows}", method = RequestMethod.GET)
+    @RequestMapping(value = "getList/{customerId}/{page}/{rows}", method = RequestMethod.POST)
     public Response getList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
@@ -71,7 +71,7 @@ public class MerchantAPI {
      * 
      * @param id
      */
-    @RequestMapping(value = "getOne/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "getOne/{id}", method = RequestMethod.POST)
     public Response getOne(@PathVariable int id) {
         Response sysResponse = null;
         try {

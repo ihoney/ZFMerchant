@@ -5,6 +5,12 @@ var webmessageModule = angular.module("webmessageModule", []);
 
 var webmessageController = function($scope, $location, $http, LoginService) {
 	$("#leftRoute").show();
+	if(LoginService.userid == 0){
+		window.location.href = '#/login';
+	}else{
+		//显示用户登录部分
+		$scope.$emit('changeshow',false);
+	}
 	 $scope.getInfo = function () {
 		$("#leftRoute").show();
 		$scope.req={};

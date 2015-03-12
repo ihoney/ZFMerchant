@@ -5,13 +5,22 @@ var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http, LoginService) {
 	var customerId = LoginService.userid;
 	$scope.init = function() {
-		$http.get("api/customers/getOne/" + customerId).success(function(data) {
+
+		// 判断是否已登录
+		if (LoginService.userid == 0) {
+			window.location.href = '#/login';
+		} else {
+			$scope.$emit('changeshow', false);
+		}
+
+		$http.post("api/customers/getOne/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
 			}
 		}).error(function(data) {
 
 		});
+
 	};
 	$scope.save = function() {
 		$scope.updateCustomer = {

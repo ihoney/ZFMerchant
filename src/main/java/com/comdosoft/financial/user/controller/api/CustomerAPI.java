@@ -39,7 +39,7 @@ public class CustomerAPI {
      * 
      * @param id
      */
-    @RequestMapping(value = "getOne/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "getOne/{id}", method = RequestMethod.POST)
     public Response getOne(@PathVariable int id) {
         Response sysResponse = null;
         try {
@@ -105,7 +105,7 @@ public class CustomerAPI {
      * 
      * @param customerId
      */
-    @RequestMapping(value = "getIntegralList/{customerId}/{page}/{rows}", method = RequestMethod.GET)
+    @RequestMapping(value = "getIntegralList/{customerId}/{page}/{rows}", method = RequestMethod.POST)
     public Response getIntegralList(@PathVariable int customerId, @PathVariable int page, @PathVariable int rows) {
         Response sysResponse = null;
         try {
@@ -125,7 +125,7 @@ public class CustomerAPI {
      * 
      * @param customerId
      */
-    @RequestMapping(value = "getIntegralTotal/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "getIntegralTotal/{customerId}", method = RequestMethod.POST)
     public Response getIntegralTotal(@PathVariable int customerId) {
         Response sysResponse = null;
         try {
@@ -161,7 +161,7 @@ public class CustomerAPI {
      * 
      * @param customerId
      */
-    @RequestMapping(value = "getAddressList/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "getAddressList/{customerId}", method = RequestMethod.POST)
     public Response getAddressList(@PathVariable int customerId) {
         Response sysResponse = null;
         try {

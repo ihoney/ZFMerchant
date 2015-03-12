@@ -5,6 +5,12 @@ var orderModule = angular.module("orderModule",[]);
 
 var orderController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
+	if(LoginService.userid == 0){
+		window.location.href = '#/login';
+	}else{
+		//显示用户登录部分
+		$scope.$emit('changeshow',false);
+	}
 	initSystemPage($scope);// 初始化分页参数
 	// 搜索
 	$scope.submitSearch = function(){

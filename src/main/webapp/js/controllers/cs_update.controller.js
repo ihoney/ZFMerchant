@@ -5,6 +5,12 @@ var cs_updateModule = angular.module("cs_updateModule",[]);
 
 var cs_updateController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
+	if(LoginService.userid == 0){
+		window.location.href = '#/login';
+	}else{
+		//显示用户登录部分
+		$scope.$emit('changeshow',false);
+	}
 	//搜索
 	$scope.submitSearch = function(){
 		initSystemPage($scope);// 初始化分页参数
