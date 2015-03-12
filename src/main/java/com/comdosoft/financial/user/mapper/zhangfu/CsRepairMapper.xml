@@ -33,7 +33,7 @@
 		cr.`status` != 1
 		AND cr.customer_id =#{customer_id}
 	ORDER BY
-		cr.created_at DESC
+		cr.updated_at DESC
 		LIMIT 0,2
 	</select>
 	

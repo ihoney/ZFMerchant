@@ -3,7 +3,6 @@
 // 系统设置模块
 var repair_payModule = angular.module("repair_payModule", []);
 
-
 var repair_payController = function($scope, $http,$location) {
 	$scope.pay=true;
 	$scope.req={};
