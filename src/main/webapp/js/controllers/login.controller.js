@@ -4,10 +4,8 @@
 var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
 
 var indexController = function($scope, $location, $http, LoginService,$cookieStore) {
-	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	$scope.loginUserName = LoginService.loginUserName;
-	$scope.ridel_xy = false;
-	
+	$scope.ngshow=true;
+	$scope.ngshow2=false;
 	$scope.shopcount=0;
 	$scope.shopcartcount=function () {
     	if(LoginService.userid>0){
@@ -18,52 +16,43 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
             });
     	}
     };
-	$scope.$on('$routeChangeStart', function (scope, next, current) {                          
+    $scope.$on('$locationChangeStart', function (scope, next, current) {                          
+		var strs= new Array(); //定义一数组
+		strs=next.split("/#/"); //字符分割
+		strs=strs[1].split("?")
+		//alert(strs[0]);
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
-//			//加载登陆前样式
-//			$scope.dynamicLoadingCss("style/global.css");
-//			LoginService.unLoginShow();
 		}else{
 			$scope.loginshow=true;
-//			LoginService.hadLoginShow();
 		}  
 		$scope.searchview=true;
-		$scope.ngshow=true;
+		if(check(strs[0])){
+			$scope.ngshow=false;
+			$scope.ngshow2=true;
+		}else{
+			$scope.ngshow=true;
+			$scope.ngshow2=false;
+		}
     });
 	
-	//登陆页面文本框得到光标的时候失去错误提示信息
-	 $("#loginUname").focus(function(){
-		  // $("#pName").html("");
-     	   $("#loginUname").attr("class","");
-		});
-	 $("#loginImg").focus(function(){
-     	   $("#loginImg").attr("class","");
-		});
-	 
-	 
-	$scope.RememberPass = false;
-
-	$scope.password1 = "";
-	$scope.password2 = "";
-	$scope.codeNumber = "";
-	$scope.code = "";//图片验证
-	$scope.codeBei = "";
+	var check=function(str){
+		var arry=["myapp",
+		          "order","orderinfo",
+		          "terminal","terminalOpening","terminalDetail",
+		          "cs_cencel","cs_return","cs_change","cs_repair","cs_update","cs_lease",
+		          "traderecord1","traderecord2","traderecord3","traderecord4","traderecord5",
+		          "myinfobase","myinfoupdatepassword","myinfoAddresses","myinfointegral",
+		          "merchantList","merchantOne",
+		          "message","messageinfo"];
+		for (var i = 0; i < arry.length; i++) {
+			if(str==arry[i]){
+				return true;
+			}
+		}
+		return false;
+	}
 	
-	$scope.jsons = {
-		username : $scope.username,
-		password : $scope.password
-	};
-
-	
-	
-//	//登陆前首页跳转登陆页面
-//	$scope.goToLogin = function(){
-//		LoginService.hideAll();
-//		$('#login').show();
-//		//加载登陆样式
-//		$scope.dynamicLoadingCss("style/login.css");
-//	}
 	
 	//退出页面(清除$cookieStore)
 	$scope.escLogin = function(){
@@ -77,59 +66,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		$('#maintop').show();
 		$('#mainindex').show();
 	}
-
-	// 登陆前首页跳转手机注册
-//	$scope.register = function() {
-//		$http.post("api/terminal/getCities").success(function(data) {
-//			if (data.code == 1) {
-//				$scope.cities = data.result;
-//			} else {
-//				alert("城市加载失败！");
-//			}
-//		})
-//		
-//		$scope.dynamicLoadingCss("style/register.css");
-//		LoginService.hideAll();
-//		$('#retrieveHtml').show();
-//		$("link[href='style/global.css']").remove();
-//	};
-	
-	// 跳转邮箱注册用户
-//	$scope.gotoEmailRetrieve = function() {
-//		$("#clodeText").hide();
-//		$scope.dynamicLoadingCss("style/register.css");
-//		LoginService.hideAll();
-//		$('#emailRetrieveHtml').show();
-//		$("link[href='style/global.css']").remove();
-//	}
-
-	// 初始化图片验证码
-	$scope.reGetRandCodeImg = function() {
-		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
-	};
-	
-
-	$scope.reGetRandCodeImg();
-	
-
-	// 动态加载css样式
-//	$scope.dynamicLoadingCss = function(path) {
-//		if (!path || path.length == 0) {
-//			throw new Error('argument "path" is required !');
-//		}
-//		var head = document.getElementsByTagName('head')[0];
-//		var link = document.createElement('link');
-//		link.href = path;
-//		link.rel = 'stylesheet';
-//		link.type = 'text/css';
-//		head.appendChild(link);
-//	};
-
-	 
-
-	// ===============================
-	// 注册
-	
 	
 	
 	$scope.shopcount=0;
@@ -147,7 +83,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     };
     $scope.shopcartcount();
     
-    $scope.ngshow=true;
+    
 	$scope.$on('changeshow', function(d,data) {
 		$scope.ngshow=data;
 	});
@@ -156,7 +92,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	});
 	
 	$scope.searchShop=function() {
-		//$scope.$broadcast('shopsearch',$scope.keys);
 		LoginService.keys=$scope.keys;
 		window.location.href = '#/shop';
 	};
