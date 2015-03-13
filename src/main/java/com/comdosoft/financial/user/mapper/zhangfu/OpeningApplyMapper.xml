@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.OpeningApplyMapper">
 	
+	<resultMap type="com.comdosoft.financial.user.domain.zhangfu.OpeningRequirement" id="op_Map">
+		<id property="id" column="id"/>
+		<result property="level_title" column="levelTitle"/>
+		<result property="level_description" column="levelDescription"/>
+		<result property="pay_channel_id" column="payChannelId"/>
+		<result property="has_video_verify" column="hasVideoVerify"/>
+		<result property="level" column="level"/>
+		<result property="video_verify_status" column="videoVerifyStatus"/>
+	</resultMap>
+	
 	
 	<insert id="addApply" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT INTO `terminal_opening_infos` (`key`, `value`,`types`,`opening_applies_id`,`target_id`,`opening_requirement_id`,`created_at`,`updated_at`) 
@@ -74,15 +84,14 @@
  	</select>
  	
  	<select id="getMaterialName" resultType="map" parameterType="map">
- 		select * from dictionary_open_private_infos where id in(
-		select l.requirement_setting_id
-		from terminals t LEFT JOIN opening_requirements o on t.pay_channel_id = o.pay_channel_id 
-		LEFT JOIN opening_requirement_lists l on o.id=l.opening_requirements_id
-		where t.id=#{terminalsId} AND l.requirement_type=#{status}
-		)
+		select  dop.*, l.opening_requirements_id from  dictionary_open_private_infos dop
+		LEFT JOIN opening_requirement_lists l on dop.id=l.requirement_setting_id
+		LEFT JOIN opening_requirements o ON o.id = l.opening_requirements_id
+		left join terminals t  on t.pay_channel_id = o.pay_channel_id
+		where t.id=#{terminalsId} AND l.requirement_type=#{status} order by l.opening_requirements_id
  	</select>
  	
- 	<select id="getMaterialLevel" resultType="map" parameterType="int">
+ 	<select id="getMaterialLevel" resultMap="op_Map" parameterType="int">
  		select o.*
 		from terminals t 
 		LEFT JOIN opening_requirements o on t.pay_channel_id = o.pay_channel_id 

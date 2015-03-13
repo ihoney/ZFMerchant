@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
+import com.comdosoft.financial.user.domain.zhangfu.OpeningRequirement;
 
 
 
@@ -106,7 +107,7 @@ public interface OpeningApplyMapper {
 	 * @param id
 	 * @return
 	 */
-	List<Map<Object, Object>> getMaterialLevel(int terminalsId);
+	List<OpeningRequirement> getMaterialLevel(int terminalsId);
 	
 	/**
 	 * 获得申请表的id

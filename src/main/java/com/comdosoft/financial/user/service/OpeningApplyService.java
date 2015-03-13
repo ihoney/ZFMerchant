@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
+import com.comdosoft.financial.user.domain.zhangfu.OpeningRequirement;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.mapper.zhangfu.OpeningApplyMapper;
 
@@ -67,7 +68,7 @@ public class OpeningApplyService {
 	 * @param id
 	 * @return
 	 */
-	public List<Map<Object, Object>> getMaterialLevel( int terminalsId) {
+	public List<OpeningRequirement> getMaterialLevel( int terminalsId) {
 		return openingApplyMapper.getMaterialLevel(terminalsId);
 	}
 

@@ -63,8 +63,11 @@
                             <span ng-if="nums.status == 3"> 未开通</span>  
                            </strong></td>
                             <td><a href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a><a href="#" class="a_btn">视频认证</a>
-                            <span ng-if="nums.status != 1">
-                            <a href="#/terminalOpening?terminalId={{nums.id}}" class="a_btn">申请开通</a>
+                            <span ng-if="nums.appid != null">
+                            <a href="#/terminalOpening?terminalId={{nums.id}}" class="a_btn">从新开通</a>
+                            </span>
+                            <span ng-if="nums.appid == null">
+                            <a href="#/terminalOpening?terminalId={{nums.id}}" class="a_btn">申请开通}</a>
                             </span>
                             </td>
                           </tr>

@@ -77,6 +77,16 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   //获得通道ID
   $scope.getChannels = function(chanId){
 	  $scope.chanId = Math.ceil(chanId);
+	  for(var i=0;i<$scope.channels.length;i++){
+		  if($scope.channels[i].id == $scope.chanId){
+			  $scope.chanTs = $scope.channels[i].billings;
+		  }
+	  }
+  }
+  
+  //获得通道周期时间ID
+  $scope.getChannelT = function(Tid){
+	  $scope.Tid = Math.ceil(Tid);
   }
   
 //级联
@@ -171,6 +181,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     cityId:Math.ceil($scope.citiesId),
 	                     name:$("#valueName").val(),
 	                     channel:$scope.chanId,
+	                     billingId:$scope.Tid,
 	                     bankNum:$("#bankNumValue").val(),
 	                     bankName:$("#bankNameValue").val(),
 	                     bankCode:$("#bankCodeValue").val(),
@@ -183,18 +194,19 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  var countOne=0;
 	  for(var i=0;i<$scope.MaterialLevel.length;i++){
 		  for(var y=0;y<$scope.result.length;y++){
-			  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
-			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html());
-			  keys = keys.replace(":","");
-			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
-			  $scope.listOne[countOne] = {
-					  key:keys,
-					  value:values,
-					  types:Math.ceil($scope.result[y].info_type),
-					  openingRequirementId:Math.ceil($scope.MaterialLevel[i].id),
-					  targetId:Math.ceil(id)
+			  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
+				  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
+				  			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
+				  			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
+				  			  $scope.listOne[countOne] = {
+				  					  key:keys,
+				  					  value:values,
+				  					  types:Math.ceil($scope.result[y].info_type),
+				  					  openingRequirementId:Math.ceil($scope.MaterialLevel[i].id),
+				  					  targetId:Math.ceil(id)
+				  			  }
+				  			  countOne++;
 			  }
-			  countOne++;
 		  }
 	  }
 	  $scope.leng = $scope.list.length;
@@ -205,7 +217,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  
 	  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
           if (data != null && data != undefined) {
-        	  alert(data.code);
+        	  if(data.code == 1){
+        		  //跳转
+        		  window.location.href = '#/terminal';
+        	  }
+        	  
           }
       }).error(function (data) {
     	  alert("获取列表失败");

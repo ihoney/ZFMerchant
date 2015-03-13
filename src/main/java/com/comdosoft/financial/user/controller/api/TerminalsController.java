@@ -208,6 +208,8 @@ public class TerminalsController {
 			// 开通详情
 			map.put("openingDetails",
 					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
+			//城市级联
+			map.put("Cities", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -242,7 +244,7 @@ public class TerminalsController {
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
 			//城市级联
-			//map.put("Cities", terminalsService.getCities());
+			map.put("Cities", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -535,6 +537,8 @@ public class TerminalsController {
 								.get("channel"));
 						openingApplie.setAccountBankNum((String) map
 								.get("bankNum"));
+						openingApplie.setBillingCydeId((Integer) map
+								.get("billingId"));
 						openingApplie.setAccountBankName((String) map
 								.get("bankName"));
 						openingApplie.setAccountBankCode((String) map
@@ -583,8 +587,6 @@ public class TerminalsController {
 	@RequestMapping(value = "getMaterialName", method = RequestMethod.POST)
 	public Response getMaterialName(@RequestBody Map<String, Integer> map) {
 		try {
-			System.out.println("id:"+map.get("terminalId"));
-			System.out.println("状态："+map.get("status"));
 			return Response.getSuccess(openingApplyService.getMaterialName(
 					map.get("terminalId")
 					,map.get("status")));

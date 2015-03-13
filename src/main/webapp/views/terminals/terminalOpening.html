@@ -94,6 +94,9 @@
                                 	<select name="">
                                           <option ng-repeat="chan in channels" ng-click="getChannels(chan.id)">{{chan.name}}</option>
                                     </select>
+                                    <select name="">
+                                          <option ng-repeat="ts in chanTs" ng-click="getChannelT(ts.id)">{{ts.name}}</option>
+                                    </select>
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNumKey">结算银行账号：</span>
@@ -112,7 +115,7 @@
                                 <li ng-if="$index == 0"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
                                 	<div class="text"><input name="" type="text" id="registeredNoValue" value="{{merchant.tax_registered_no}}" /></div>
                                 </li>
-                                <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3">
+                                <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3 && r.opening_requirements_id == ma.id">
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 	<div class="text">
                                 	<input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
@@ -123,12 +126,12 @@
                                     	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="code in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,code)">{{code}}</a>
                                     </div>
                                 </li>
-                                <li ng-repeat="r in result" ng-if="r.info_type == 1">
+                                <li ng-repeat="r in result" ng-if="r.info_type == 1 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span id="key_{{ma.level+'_'+$index}}" class="labelSpan">{{r.name}}:</span>
                                 <div class="text"><input id="value_{{ma.level+'_'+$index}}" name="" type="text"/></div>
                                 </li>
-                                <li  ng-repeat="r in result" ng-if="r.info_type == 2">
+                                <li  ng-repeat="r in result" ng-if="r.info_type == 2 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}:</span>
                                 <div class="text" >
