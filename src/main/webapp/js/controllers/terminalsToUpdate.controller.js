@@ -16,7 +16,7 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 			$scope.$emit('changeshow',false);
 		}
 
-      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
@@ -47,15 +47,20 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 		 }
 		
 		$scope.message = {
-				terminalsId:$scope.terminalId,
-				customerId:$scope.customerId,
+				terminalsId:Math.ceil($scope.terminalId),
+				customerId:Math.ceil($scope.customerId),
 				status:1,
 				templeteInfoXml :$scope.array,
 				};
 		
   $http.post("api/terminal/getApplyToUpdate", $scope.message).success(function (data) {  //绑定
       if (data != null && data != undefined) {
-        window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+    	  if(data.code == 1){
+    		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+    	  }else{
+    		  alert("跟新失败！");
+    	  }
+        
       }
   }).error(function (data) {
 	  alert("操作失败");
@@ -72,6 +77,7 @@ function setSpanName(obj){
 	//改变下载模板初始状态
 	$(obj).parent("a").children("span").html("重新上传")
 	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
+	
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
 			$(obj).siblings("input").val(data.result);

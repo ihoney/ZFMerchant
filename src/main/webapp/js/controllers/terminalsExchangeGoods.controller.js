@@ -5,7 +5,7 @@ var terminalExchangeGoodsModule = angular.module("terminalExchangeGoodsModule",[
 
 var terminalExchangeGoodsController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
-	$scope.customerId = loginServiceModule;
+	$scope.customerId = LoginService.userid;
 	$scope.shiCities = [];
 	//查看终端详情
 	$scope.terminalDetail = function () {
@@ -16,7 +16,7 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 			$scope.$emit('changeshow',false);
 		}
 
-      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
@@ -118,8 +118,8 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 		
 		$scope.message = {
 				reason:$scope.reason,
-				terminalsId:$scope.terminalId,
-				customerId:$scope.customerId,
+				terminalsId:Math.ceil($scope.terminalId),
+				customerId:Math.ceil($scope.customerId),
 				address:$scope.address,
 				phone:$scope.phonee,
 				zipCode:$scope.zipCodee,
@@ -132,7 +132,11 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 				};
       $http.post("api/terminal/subChange", $scope.message).success(function (data) {  //绑定
           if (data != null && data != undefined) {
-            window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+        	  if(data.code == 1){
+        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+        	  }else{
+        		  alert("换货失败！");
+        	  }
           }
       }).error(function (data) {
     	  alert("操作失败");

@@ -208,8 +208,6 @@ public class TerminalsController {
 			// 开通详情
 			map.put("openingDetails",
 					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
-			//城市级联
-			map.put("Cities", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,7 +308,7 @@ public class TerminalsController {
 		try {
 			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 			CsCancel csCancel =new CsCancel();
-			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalsId")));
+			csCancel.setTerminalId((Integer)maps.get("terminalsId"));
 			csCancel.setStatus((Integer)maps.get("status"));
 			csCancel.setTempleteInfoXml(maps.get("templeteInfoXml").toString());
 			csCancel.setTypes((Integer)maps.get("type"));
@@ -319,8 +317,9 @@ public class TerminalsController {
 			terminalsService.subRentalReturn(csCancel);
 			maps.put("csCencelId", csCancel.getId());
 			}else{
-				terminalsService.subReturn(maps);
+				maps.put("csCencelId", null);
 			}
+			terminalsService.subReturn(maps);
 			return Response.getSuccess("操作成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -382,7 +381,7 @@ public class TerminalsController {
 		try {
 			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 				CsCancel csCancel =new CsCancel();
-				csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalsId")));
+				csCancel.setTerminalId((Integer)maps.get("terminalsId"));
 				csCancel.setStatus((Integer)maps.get("status"));
 				csCancel.setTempleteInfoXml((maps.get("templeteInfoXml").toString()));
 				csCancel.setTypes((Integer)maps.get("type"));
