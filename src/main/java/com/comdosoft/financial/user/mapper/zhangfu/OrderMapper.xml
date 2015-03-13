@@ -16,7 +16,7 @@
 	
 	<resultMap id="goodBrandResultMap" type="com.comdosoft.financial.user.domain.zhangfu.GoodBrand">
 		 <id property="id" column="good_brands_id" />  
-         <result property="name" column="name" /> 
+         <result property="name" column="brand_name" /> 
 	</resultMap>
 	
 	<resultMap id="payChannelMap" type="com.comdosoft.financial.user.domain.zhangfu.PayChannel">
@@ -45,6 +45,7 @@
 		 <id property="id" column="good_id" />  
             <result property="title" column="title" /> 
             <result property="volumeNumber" column="volume_number" />
+            <result property="modelNumber" column="brand_number" />
             <association property="factory" javaType="com.comdosoft.financial.user.domain.zhangfu.Factory" resultMap="factoryResultMap" />  
             <association property="goodsBrand" javaType="com.comdosoft.financial.user.domain.zhangfu.GoodBrand" resultMap="goodBrandResultMap" />  
             <collection property="picsList" ofType="com.comdosoft.financial.user.domain.zhangfu.GoodsPicture" resultMap="picsResultMap" />  
@@ -140,17 +141,18 @@
 		</if>
 	</select>
 
-	 
 	<select id="orderSearch" resultMap="orderMap" >
 		SELECT
 		o.id as id,
+		g.model_number AS brand_number,
+		gb. NAME AS brand_name,
 		og.id as order_good_id,
 		g.id as good_id,
 		 o.total_quantity,
 		 g.volume_number,
 		o.order_number,
 		o.created_at,	
-		o.status,g.title,gb.name , 
+		o.status,g.title, 
 		gb.id as good_brands_id,
 		pc.name as channel_name,
 		og.price ,
@@ -177,14 +179,15 @@
 	
 	<select id="findMyOrderAll" resultMap="orderMap" >
 		SELECT
-		o.id as id,
+		o.id as id,g.model_number AS brand_number,
+		gb. NAME AS brand_name,
 		og.id as order_good_id,
 		g.id as good_id,
 		 o.total_quantity,
 		 g.volume_number,
 		o.order_number,
 		o.created_at,	
-		o.status,g.title,gb.name , 
+		o.status,g.title,  
 		gb.id as good_brands_id,
 		pc.name as channel_name,
 		og.price ,
@@ -222,7 +225,8 @@
 	
 	<select id="findMyOrderById" resultMap="orderMap">
 	SELECT
-	o.id as id,
+	o.id as id,g.model_number AS brand_number,
+		gb. NAME AS brand_name,
 	og.id as order_good_id,
 	g.id as good_id,
 	o.total_quantity,
@@ -236,7 +240,7 @@
 	  o.invoice_type,
 	  og.actual_price,
 	gp.url_path ,
-	g.title,gb.name ,
+	g.title, 
 	 gb.id as good_brands_id,
 	 o.comment,
 	 f.name as factory_name,
