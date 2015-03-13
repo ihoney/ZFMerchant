@@ -63,13 +63,11 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	$scope.escLogin = function(){
 		$cookieStore.put("loginUserName",null);
     	$cookieStore.put("loginUserId",0);
-    	
     	$scope.password1 = "";
     	$scope.code = "";
-    	LoginService.hideAll();
-		//登陆前首页
-		$('#maintop').show();
-		$('#mainindex').show();
+    	location.reload();
+    	window.location.href = '#/';
+    	
 	}
 	
 	
@@ -130,6 +128,7 @@ var loginController=function($scope, $location, $http, LoginService){
 	$scope.$emit('changesearchview',false);
 	$scope.RememberPass = false;
 	
+	$scope.loginAngShow = true;
 	//登陆
 	$scope.login = function() {
 		//移除样式

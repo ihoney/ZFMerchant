@@ -73,12 +73,12 @@ public interface TerminalsMapper {
     List<Map<Object, Object>> getTerminalList(Map<String, Object> map);
     
     /**
-     * 获得所有终端付款状态
+     * 获得终端状态
      * 
      * @param map
      * @return
      */
-    List<Map<Object, Object>> getFrontPayStatus();
+    List<Map<Object, Object>> getTerminStatus();
     
     /**
      * 根据用户id获得终端列总记录数

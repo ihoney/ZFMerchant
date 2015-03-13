@@ -53,7 +53,7 @@
 	
 	<insert id="subToUpdate" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT INTO cs_update_infos(terminal_id,status,templete_info_xml,created_at,updated_at,customer_id,apply_num)
-		VALUES(#{terminalsId},#{status},#{templeteInfoXml},new(),now(),#{customerId},unix_timestamp(now()))
+		VALUES(#{terminalsId},#{status},#{templeteInfoXml},now(),now(),#{customerId},unix_timestamp(now()))
 	</insert>
 
 	<!-- 查询交易流水用 -->
@@ -108,11 +108,11 @@
 		ORDER BY t.created_at DESC
 	</select>
 	
-	<select id="getFrontPayStatus" resultType="map">
-		SELECT e.front_pay_status
-		FROM orders e 
-		GROUP BY e.front_pay_status
-		HAVING e.front_pay_status is not NULL
+	<select id="getTerminStatus" resultType="map">
+		SELECT t.`status`
+		FROM terminals t 
+		GROUP BY t.`status`
+		HAVING t.`status` is not NULL
 	</select>
 	
 	

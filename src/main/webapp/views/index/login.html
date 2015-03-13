@@ -1,5 +1,5 @@
 <link href="style/login.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 //登录
 // 切换
@@ -33,7 +33,7 @@ $(function(){
 	focusBlur('.login_area input');//登录
 })
 
-</script>
+</script> -->
 <div id="login" ng-controller="loginController">
 	<div class="login_logo">
 		<img src="images/logo.png" />
@@ -50,11 +50,11 @@ $(function(){
 				</ul>
 			</div>
 			<div class="lr_b">
-				<div class="login_area">
+				<div class="login_area" ng-show="loginAngShow">
 					<ul>
 						<li><input id="loginUname" onFocus="inputOnFous()" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="ID" ng-model="username" />
 							<p class="red" >{{nameMessage}}</p></li>
-						<li><input name="" type="text" placeholder="密码" ng-model="password1" /></li>
+						<li><input name="" type="password" placeholder="密码" ng-model="password1" /></li>
 						<li><input ng-class="{true:'l error'}[imgClass==true]" name="" class="l" type="text" placeholder="输入图片校验码" ng-model="code" />
 							<div class="yzm">
 								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
@@ -68,7 +68,7 @@ $(function(){
 						<button ng-click="login()">登录</button>
 					</div>
 				</div>
-				<div class="login_area">
+				<div class="login_area" ng-show="!loginAngShow">
 					<ul>
 						<li><input name="" type="text" value="ID2" /></li>
 						<li><input name="" type="text" value="密码" /></li>

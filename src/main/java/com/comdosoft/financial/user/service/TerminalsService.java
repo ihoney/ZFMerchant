@@ -104,12 +104,12 @@ public class TerminalsService {
 		return terminalsMapper.getShiCities(parentId);
 	}
 	/**
-	 * 获得所有终端付款状态
+	 * 获得终端状态
 	 * @param id
 	 * @return
 	 */
 	public List<Map<Object, Object>> getFrontPayStatus(){
-		return terminalsMapper.getFrontPayStatus();
+		return terminalsMapper.getTerminStatus();
 	}
 	
 	/**
