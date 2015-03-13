@@ -98,6 +98,12 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		LoginService.keys=$scope.keys;
 		window.location.href = '#/shop';
 	};
+	
+	$scope.index=function() {
+		LoginService.keys=$scope.keys;
+		window.location.href = '#/';
+	};
+	
 };
 
 
