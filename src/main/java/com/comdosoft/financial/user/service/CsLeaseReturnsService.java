@@ -80,6 +80,8 @@ public class CsLeaseReturnsService {
         int month = 1;
         if (f > 1) {
             month = (int) Math.ceil(f);
+        }else{
+            month = 1;
         }
         int zj = (int) o.get("lease_price");// 每个月的租金
         Integer total_zj = zj * month;
