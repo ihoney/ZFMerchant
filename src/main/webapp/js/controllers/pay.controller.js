@@ -4,7 +4,7 @@
 var payModule = angular.module("payModule", []);
 
 
-var payController = function($scope, $http,$location) {
+var payController = function($scope, $http,$location,LoginService) {
 	$scope.pay=true;
 	$scope.req={};
 	$scope.order={};
