@@ -66,14 +66,14 @@ public class UserLoginController {
             customer.setCityId(0);
             customer.setDentcode(str);
             customer.setStatus(Customer.STATUS_NON_END);
-            String phone = "18761913514";//手机号
-            //String phone = (String)map.get("codeNumber");//手机号
+            //String phone = "18761913514";//手机号
+            String phone = (String)map.get("codeNumber");//手机号
             if (userLoginService.findUname(customer) == 0) {
             try {
                 Boolean is_sucess = sendPhoneCode(str, phone);
                 System.out.println("验证码："+str);
-               // if(!is_sucess)
-                if(is_sucess){
+                //if(!is_sucess)
+                if(!is_sucess){
                 	return Response.getError("获取验证码失败！");
                 }else{
                 	// 添加假状态
@@ -228,7 +228,8 @@ public class UserLoginController {
                 return Response.getError("用户不存在！");
             } else {
                 userLoginService.updateCode(customer);
-                Boolean is_sucess = sendPhoneCode(str, "18761913514");
+                //Boolean is_sucess = sendPhoneCode(str, "18761913514");
+                Boolean is_sucess = sendPhoneCode(str, (String)map.get("codeNumber"));
                 if(!is_sucess){
                 	return Response.getError("获取验证码失败！");
                 }else{
@@ -308,7 +309,6 @@ public class UserLoginController {
     public Response getFindUser(@RequestBody Map<String, Object> map,HttpSession session) {
         try {
             Customer customer = new Customer();
-            System.out.println(map.get("username")+"查看姓名！");
             customer.setUsername((String)map.get("username"));
             if (userLoginService.findUname(customer) == 0) {
                 return Response.getError("用户不存在！");
@@ -331,7 +331,6 @@ public class UserLoginController {
     public Response webFicationCode(@RequestBody Customer customer) {
         try {
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
-                	
                     return Response.getSuccess("验证码正确！");
                 } else {
                     return Response.getError("验证码错误！");

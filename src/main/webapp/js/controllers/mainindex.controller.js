@@ -27,8 +27,42 @@ var mainindexController = function ($scope, $http) {
         });
 	}
     
-    
+	//公告
+	$scope.web_message_list = function(){
+		$scope.req={rows:7};
+		$http.post("api/web/message/getAll", $scope.req).success(function (data) {  
+			if (data != null && data != undefined) {
+				$scope.web_list = data.result.content;
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
+	};
+	//热卖POS
+	$scope.web_pos_list = function(){
+		$scope.req={rows:6};
+		$http.post("api/index/pos_list", $scope.req).success(function (data) {  
+			if (data != null && data != undefined) {
+				$scope.pos_list = data.result;
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
+	};
+	//收单机构
+	$scope.factory_list = function(){
+		$http.post("api/index/factory_list", $scope.req).success(function (data) {  
+			if (data != null && data != undefined) {
+				$scope.factory_list = data.result;
+			}
+		}).error(function (data) {
+			$("#serverErrorModal").modal({show: true});
+		});
+	};
 
+	$scope.web_message_list();
+	$scope.factory_list();
+	$scope.web_pos_list();
 };
 
 

@@ -61,60 +61,17 @@
 				</div>
 				<div class="hp_con">
 					<ul>
-						<li><a href="#" class="pro_img_a"><img src="images/ad1.jpg" /></a>
+						<li ng-repeat="p in pos_list">
+						<a href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img src="{{p.good_logo}}" /></a>
 							<div class="pro_text">
-								<h3>POS机品牌型号</h3>
+								<h3>{{p.brand_name}} {{p.brand_number}}</h3>
 								<p>支持平台</p>
 								<p>支持交易类型</p>
 								<p>费率</p>
 								<p>到账日期</p>
-								<a class="pro_text_a">查看详情 &gt;&gt;</a>
-							</div></li>
-						<li><a href="#" class="pro_img_a"><img src="images/i_category.png" /></a>
-							<div class="pro_text">
-								<h3>POS机品牌型号</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a">查看详情 &gt;&gt;</a>
-							</div></li>
-						<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-							<div class="pro_text">
-								<h3>POS机品牌型号</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a">查看详情 &gt;&gt;</a>
-							</div></li>
-						<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-							<div class="pro_text">
-								<h3>POS机品牌型号</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a">查看详情 &gt;&gt;</a>
-							</div></li>
-						<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-							<div class="pro_text">
-								<h3>POS机品牌型号</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a">查看详情 &gt;&gt;</a>
-							</div></li>
-						<li><a href="#" class="pro_img_a"><img src="images/pro_img.jpg" /></a>
-							<div class="pro_text">
-								<h3>POS机品牌型号</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a">查看详情 &gt;&gt;</a>
-							</div></li>
+								<a class="pro_text_a" href="#/shopinfo?goodId={{p.id}}">查看详情 &gt;&gt;</a>
+							</div>
+							</li>
 					</ul>
 				</div>
 			</div>
@@ -122,26 +79,11 @@
 				<div class="title">网站公告</div>
 				<div class="no_con">
 					<ul>
-						<li><i></i>
+						<li ng-repeat="m in web_list"><i></i>
 							<p>
-								<a href="#">华尔街商城上线好礼送不停华尔街商城上线好礼送不停！！</a>
-							</p> <span>2014-12-22 10:57</span></li>
-						<li><i></i>
-							<p>
-								<a href="#">华尔街商城上线好礼送不停！！</a>
-							</p> <span>2014-12-22 10:57</span></li>
-						<li><i></i>
-							<p>
-								<a href="#">华尔街商城上线好礼送不停！！</a>
-							</p> <span>2014-12-22 10:57</span></li>
-						<li><i></i>
-							<p>
-								<a href="#">华尔街商城上线好礼送不停！！</a>
-							</p> <span>2014-12-22 10:57</span></li>
-						<li><i></i>
-							<p>
-								<a href="#">华尔街商城上线好礼送不停！！</a>
-							</p> <span>2014-12-22 10:57</span></li>
+								<a href="#/webmessageinfo?infoId={{m.id}}">{{m.title}}</a>
+							</p> <span>{{m.create_at}}</span>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -152,53 +94,9 @@
 				<div class="title">收单机构</div>
 				<div class="org_con">
 					<ul>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
-						</a></li>
-						<li><a href="#"> <img src="images/qf.jpg" />
-								<h4>钱方</h4>
-								<p>钱方是国内技术领先的移动...</p>
+						<li ng-repeat="f in factory_list"><a href="{{f.website_url}}"> <img src="{{f.logo_file_path}}" width="80px;" height="60px;"/>
+								<h4>{{f.name}}</h4>
+								<p>{{f.description}}</p>
 						</a></li>
 					</ul>
 				</div>

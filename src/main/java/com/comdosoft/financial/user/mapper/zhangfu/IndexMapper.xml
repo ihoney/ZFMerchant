@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.IndexMapper">
+<!--首页 收单机构 -->
+	<select id="getFactoryList" resultType="map" >
+	SELECT
+		f.logo_file_path,
+		f.`name`,
+		f.description,
+		f.website_url
+	FROM
+		factories f
+	WHERE
+		f.types = 1 and f.`status`=5
+	ORDER BY
+			f.created_at DESC
+			limit 0,12
+	</select>
+	<!-- 热卖pos -->
+	<select id="getPosList" resultType="map" >
+	SELECT
+		g.id,
+		g.model_number AS brand_number,
+		g.volume_number,
+		g.title,
+		gb. NAME AS brand_name,
+		gp.url_path
+	FROM
+		goods g
+	LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+	LEFT JOIN (select * from goods_pictures   LIMIT 1) as gp ON g.id = gp.good_id
+	ORDER BY
+		g.volume_number DESC
+	limit 0,6
+	</select>
+	
+</mapper>
