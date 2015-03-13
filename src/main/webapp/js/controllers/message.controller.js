@@ -17,7 +17,6 @@ var messageController = function($scope, $location, $http, LoginService) {
 			$scope.$emit('changeshow',false);
 		}
 		initSystemPage($scope.req);// 初始化分页参数
-		$("#leftRoute").show();
 		$scope.req.id=$location.search()['id'];
 		if($scope.req.id>0){
 			$scope.getinfo();
@@ -28,7 +27,6 @@ var messageController = function($scope, $location, $http, LoginService) {
 	};
 	$scope.getlist=function() {
 		$scope.req.page=$scope.req.indexPage;
-		$scope.req.rows=$scope.req.rows;
 		$http.post("api/message/receiver/getAll",$scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.list=data.result.content;

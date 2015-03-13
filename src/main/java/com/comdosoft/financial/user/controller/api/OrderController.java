@@ -112,8 +112,10 @@ public class OrderController {
                 resp.setResult(result);
             } catch (LowstocksException e) {
                 resp.setCode(-2);
+                resp.setMessage("库存不足");
             } catch (Exception e) {
                 resp.setCode(Response.ERROR_CODE);
+                resp.setMessage("系统出错");
                 e.printStackTrace();
             }
         }
@@ -129,8 +131,10 @@ public class OrderController {
             resp.setResult(result);
         } catch (LowstocksException e) {
             resp.setCode(-2);
+            resp.setMessage("库存不足");
         } catch (Exception e) {
             resp.setCode(Response.ERROR_CODE);
+            resp.setMessage("系统出错");
             e.printStackTrace();
         }
         return resp;
@@ -145,8 +149,10 @@ public class OrderController {
             resp.setResult(result);
         } catch (LowstocksException e) {
             resp.setCode(-2);
+            resp.setMessage("库存不足");
         } catch (Exception e) {
             resp.setCode(Response.ERROR_CODE);
+            resp.setMessage("系统出错");
             e.printStackTrace();
         }
         return resp;
@@ -161,6 +167,7 @@ public class OrderController {
             resp.setResult(result);
         }catch (Exception e) {
             resp.setCode(Response.ERROR_CODE);
+            resp.setMessage("系统出错");
             e.printStackTrace();
         }
         return resp;
