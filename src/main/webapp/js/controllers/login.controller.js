@@ -5,6 +5,7 @@
 
 var indexController = function($scope, $location, $http, LoginService,$cookieStore) {
 	$scope.loginUserName=LoginService.loginUserName;
+	$scope.city_name = $cookieStore.get("city_name")==null?"上海市":$cookieStore.get("city_name");
 	$scope.ngshow=true;
 	$scope.ngshow2=false;
 	$scope.shopcount=0;
@@ -106,6 +107,22 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		window.location.href = '#/';
 	};
 	
+	$scope.city_list = function(){
+		$http.post("api/index/getCity").success(function (data) {   
+            if (data != null && data != undefined) {
+                $scope.city_list = data.result;
+            }
+        });
+	};
+	
+	$scope.submit_city = function(){
+//		$("#city_name").html($scope.selected_city.name);
+		$cookieStore.put("city_name", $scope.selected_city.name);
+		$cookieStore.put("city_id", $scope.selected_city.id);
+		$scope.city_name = $scope.selected_city.name;
+	};
+	
+	$scope.city_list();
 };
 
 

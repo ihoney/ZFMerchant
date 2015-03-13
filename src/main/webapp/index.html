@@ -53,18 +53,26 @@
 	<script src="js/left.js"></script>
 </head>
 <body>
-	<div  class="topInfo clear" ng-show="!loginshow" ng-init="loginshow=false">
+	<div  class="topInfo clear" >
 		<div class="box">
 			<div class="address">
-				<div class="addr_h">
-					<span>上海</span><i class="down"></i>
-				</div>
-				<div class="addr_b">
-					<ul>
-						<li><a href="#">北京</a></li>
-					</ul>
-				</div>
-			</div>
+        	<div class="addr_h"><span id="city_name" ng-bind="city_name">{{city_name}}</span><i class="down"></i></div>
+            <div class="addr_b">
+            	<ul>
+                	<li><label>省</label>
+                	 <select ng-model="selected" ng-options="s.name for s in city_list" >
+		              <option value="">请选择</option>
+		          </select>
+                    </li>
+                    <li><label>市</label>
+                     <select ng-model="selected_city" ng-options="x.name for x in selected.childrens" >
+			               <option value="">请选择</option>
+			          </select>
+                    </li>  
+                    <li><button class="addr_btn" ng-click="submit_city()">确定</button></li>
+                </ul>
+            </div>
+        </div>
 			<div class="topNav">
 				<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a> <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
 			</div>

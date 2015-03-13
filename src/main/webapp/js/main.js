@@ -41,8 +41,16 @@ $(function(){
 			$(this).find(".addr_b").css("display","block");
 		},
 		function(){
-			$(this).find(".addr_h").removeClass("addr_h_hover");
-			$(this).find(".addr_b").css("display","none");
+			$(".addr_btn").click(function(){
+				$(this).parents(".address").find(".addr_h").removeClass("addr_h_hover");
+				$(this).parents(".address").find(".addr_b").css("display","none");
+			});
+			$(document).bind('click', function(e) {
+				var $clicked = $(e.target);
+				if (! $clicked.parents().hasClass("address"))
+				$(".address").find(".addr_b").css("display","none");
+				$(".address").find(".addr_h").removeClass("addr_h_hover");
+			});
 		}
 	)
 })

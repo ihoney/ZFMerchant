@@ -28,11 +28,20 @@ public class IndexController {
         List<Map<String,Object>> result= indexService.getFactoryList();
         return Response.buildSuccess(result, "查询成功");
     }
-    
+    /**
+     * 热卖pos
+     * @return
+     */
     @RequestMapping(value = "pos_list", method = RequestMethod.POST)
     public Response getPosList(){
         List<Map<String,Object>> result= indexService.getPosList();
         return Response.buildSuccess(result, "查询成功");
     }
     
+    
+    @RequestMapping(value = "getCity", method = RequestMethod.POST)
+    public Response getCity(){
+        List<Map<String,Object>> citys = indexService.findAllCity();
+        return Response.buildSuccess(citys, "");
+    }
 }
