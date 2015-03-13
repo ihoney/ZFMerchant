@@ -96,7 +96,7 @@
                                 <ul>
                                     <li><span>品牌型号：</span><div class="c_text">{{shop.good_brands}}{{shop.Model_number}}</div></li>
                                     <li><span>支付通道：</span><div class="c_text">{{shop.name}}</div></li>
-                                    <li><span>月租金：</span><div class="c_text">{{shop.lease_price|currency : "￥"}}</div></li>
+                                    <li><span>月租金：</span><div class="c_text">{{shop.lease_price/100|currency : "￥"}}</div></li>
                                     <li><span>最短租赁：</span><div class="c_text">{{shop.lease_time}}月</div></li>
                                     <li><span>最长租赁：</span><div class="c_text">{{shop.return_time}}月</div></li>
                                 </ul>

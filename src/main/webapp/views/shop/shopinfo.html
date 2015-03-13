@@ -42,10 +42,10 @@
                             	<a href="javascript:void(0);"  ng-repeat="one in good.payChannelList" class="{{one.id==paychannel.id?'hover':''}}" ng-click="getPayChannelInfo(one.id)">{{one.name}}</a>
                             </div>
                         </li>
-                        <li class="selected_li"><span>购买{{good.goodinfo.has_lease?'/租赁':''}}</span>
+                        <li class="selected_li" ng-show="good.goodinfo.has_lease"><span>购买/租赁:</span>
                         	<div class="text">
                             	<a href="javascript:void(0);" class="buy_a hover">购买</a>
-                            	<a href="javascript:void(0);" ng-show="good.goodinfo.has_lease" class="lease_a">租赁</a>
+                            	<a href="javascript:void(0);" class="lease_a">租赁</a>
                             </div>
                         </li>
                         <li><span>购买数量</span>
