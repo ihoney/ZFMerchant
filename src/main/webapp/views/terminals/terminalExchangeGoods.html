@@ -72,13 +72,12 @@
                                     <td>&nbsp;</td>
                                     <td><input name="" type="text" value="收件人姓名" ng-model="receiver"/></td>
                                     <td>
-                                        <select name="" >
-                                          <option ng-repeat="ci in Cities" ng-if="ci.parent_id == 0" ng-click="changCit(ci.id)">{{ci.name}}</option>
-                                        </select>
-                                        
-                                        <select name="">
-                                          <option ng-repeat="shi in shiCitie" ng-click="shiId(shi.id)">{{shi.name}}</option>
-                                        </select>
+                                        <select  ng-model="selected" ng-options="s.name for s in city_list" >
+		             		 				<option value="">请选择</option>
+		          						</select>
+						 				<select ng-model="citId" ng-options="x.id as x.name for x in selected.childrens"  >
+			               					<option value="">请选择</option>
+			          					</select>
                                     </td>
                                     <td><input name="" type="text" value="详细地址" class="l" ng-model="address"/></td>
                                     <td><input name="" type="text" value="邮编" ng-model="zipCode"/></td>

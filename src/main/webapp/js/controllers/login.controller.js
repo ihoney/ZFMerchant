@@ -126,12 +126,12 @@ var loginController=function($scope, $location, $http, LoginService){
 	//隐藏中间搜索
 	$scope.$emit('changesearchview',false);
 	$scope.RememberPass = false;
-	
+	//普通用户代理商登陆
 	$scope.loginAngShow = true;
 	//登陆
 	$scope.login = function() {
 		//移除样式
-		$("link[href='style/global.css']").remove();
+	/*	$("link[href='style/global.css']").remove();*/
 		LoginService.login($scope,$http);
 	};
 	
@@ -356,10 +356,10 @@ var registerController=function($scope, $location, $http, LoginService){
 		})
 	};
 	
-	//获得市ID
+/*	//获得市ID
 	$scope.getsShiId = function(siId){
 		$scope.siId = siId;
-	};
+	};*/
 	
 
 	$scope.reGetRandCodeImg();

@@ -60,11 +60,11 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
         });
   	}
   	
-  	//记录citId
+  	/*//记录citId
   	 
   	$scope.shiId = function(citId){
   		$scope.citId = citId;
-  	}
+  	}*/
   	
   	//添加地址
   	$scope.addCostometAddress = function(){

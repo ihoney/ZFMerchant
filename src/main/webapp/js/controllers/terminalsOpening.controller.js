@@ -100,12 +100,12 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		})
 	}
   
-	
+/*	
   $scope.citiesId = 0;
   $scope.jilianShi = function(num){
 	  $scope.citiesId = num;
   }
-  
+  */
 //动态加载银行
   $scope.bankName ="";
   $scope.bank = function(){

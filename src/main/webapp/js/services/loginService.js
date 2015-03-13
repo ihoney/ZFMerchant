@@ -42,12 +42,6 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    			        	   //刷新
    			        	   
    			        	   $scope.message = data.message; //登陆成功，跳转页面
-   			        	   /*$('#login').hide();
-   			        	   $('#maintopTwo').show();
-   			        	   $('#headClear').show();
-   			        	   $('#mainuser').show();
-   			        	   $("link[href='style/global.css']").remove();
-   			        	   $scope.dynamicLoadingCss("style/global.css");*/
    			        	   window.location.href = '#/';
    			        	location.reload();
    			           }

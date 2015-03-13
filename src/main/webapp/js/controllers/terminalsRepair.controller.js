@@ -64,9 +64,9 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   	
   //记录citId
  	 
-  	$scope.shiId = function(citId){
+  /*	$scope.shiId = function(citId){
   		$scope.citId = citId;
-  	}
+  	}*/
   	
   //添加地址
   	$scope.addCostometAddress = function(){
