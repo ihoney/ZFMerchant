@@ -37,7 +37,11 @@ public class IndexService {
             }
             map.put("logo_file_path", m.get("logo_file_path")==null?"":m.get("logo_file_path"));
             map.put("name", m.get("name")==null?"":m.get("name"));
-            map.put("description", m.get("description")==null?"":m.get("description"));
+            String des =  m.get("description")==null?"":m.get("description").toString();
+            if(des.length()>12){
+                des = des.substring(0, 12)+"...";
+            }
+            map.put("description",des);
             map.put("website_url", m.get("website_url")==null?"": m.get("website_url"));
             newlist.add(map);
         }
