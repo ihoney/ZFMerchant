@@ -1,7 +1,7 @@
 'use strict';
 
 // 主页面路由模块，用于控制主页面的菜单导航(注入了登陆服务LoginService)
-var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
+//var indexModule = angular.module("indexModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
 
 var indexController = function($scope, $location, $http, LoginService,$cookieStore) {
 	$scope.loginUserName=LoginService.loginUserName;
@@ -38,10 +38,11 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     });
 	
 	var check=function(str){
-		var arry=["myapp","webmessageinfo",
+		var arry=["myapp","webmessageinfo","traderecord1One",
 		          "order","orderinfo",
 		          "terminal","terminalOpening","terminalDetail",
 		          "cs_cencel","cs_return","cs_change","cs_repair","cs_update","cs_lease",
+		          "cs_cencelinfo","cs_returninfo","cs_changeinfo","cs_repairinfo","cs_updateinfo","cs_leaseinfo",
 		          "traderecord1","traderecord2","traderecord3","traderecord4","traderecord5",
 		          "myinfobase","myinfoupdatepassword","myinfoAddresses","myinfointegral",
 		          "merchantList","merchantOne",
@@ -467,3 +468,8 @@ var findpassController=function($scope, $location, $http, LoginService){
 	$scope.init();
 };
 
+
+indexModule.controller("indexController", indexController);
+indexModule.controller("loginController", loginController);
+indexModule.controller("registerController", registerController);
+indexModule.controller("findpassController", findpassController);
