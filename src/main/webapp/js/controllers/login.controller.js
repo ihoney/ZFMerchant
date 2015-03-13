@@ -103,7 +103,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	};
 	
 	$scope.index=function() {
-		LoginService.keys=$scope.keys;
 		window.location.href = '#/';
 	};
 	

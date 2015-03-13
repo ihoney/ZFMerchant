@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.MailReq;
+import com.sun.mail.util.MailSSLSocketFactory;
 
 /**
  * 邮件发送
@@ -36,19 +37,19 @@ public class MailService {
     private static final Log logger = LogFactory.getLog(MailService.class);
 
     // 邮件服务器
-    //@Value("${mailServerHost}")
+    // @Value("${mailServerHost}")
     private String mailServerHost = "smtp.exmail.qq.com";
 
     // 邮件服务器端口
-   // @Value("${mailServerPort}")
+    // @Value("${mailServerPort}")
     private String mailServerPort = "465";
 
     // 邮件发送端帐号
-    //@Value("${mailUserName}")
+    // @Value("${mailUserName}")
     private String mailUserName = "ebank007@epalmpay.cn";
 
     // 邮件发送端密码
-    //@Value("${mailPassword}")
+    // @Value("${mailPassword}")
     private String mailPassword = "ebank007";
 
     /**
@@ -86,6 +87,12 @@ public class MailService {
             properties.put("mail.smtp.port", mailServerPort);
             properties.put("mail.smtp.auth", true);
 
+            // 设置SSL
+            MailSSLSocketFactory sf = new MailSSLSocketFactory();
+            sf.setTrustAllHosts(true);
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.ssl.socketFactory", sf);
+
             // 创建邮件Session对象
             Session session = Session.getInstance(properties, new Authenticator() {
                 public PasswordAuthentication getPasswordAuthentication() {// 以匿名内部类的形式创建登录服务器的认证对象
@@ -114,26 +121,27 @@ public class MailService {
             multipart.addBodyPart(bodyText);
 
             // 加入附件内容
-//            MimeBodyPart bodyFile = null;
-//            if (!CollectionUtils.isEmpty(files)) {
-//                for (File file : files) {
-//                    bodyFile = new MimeBodyPart();
-//                    FileDataSource fileDataSource = new FileDataSource(file);
-//                    bodyFile.setDataHandler(new DataHandler(fileDataSource));
-//                    bodyFile.setDisposition(Part.ATTACHMENT);
-//                    bodyFile.setFileName(MimeUtility.encodeText(fileDataSource.getName())); // 设置附件名
-//                    multipart.addBodyPart(bodyFile);
-//                }
-//            }
+            // MimeBodyPart bodyFile = null;
+            // if (!CollectionUtils.isEmpty(files)) {
+            // for (File file : files) {
+            // bodyFile = new MimeBodyPart();
+            // FileDataSource fileDataSource = new FileDataSource(file);
+            // bodyFile.setDataHandler(new DataHandler(fileDataSource));
+            // bodyFile.setDisposition(Part.ATTACHMENT);
+            // bodyFile.setFileName(MimeUtility.encodeText(fileDataSource.getName())); // 设置附件名
+            // multipart.addBodyPart(bodyFile);
+            // }
+            // }
 
             message.setContent(multipart);// 发送内容
             message.setSentDate(new Date()); // 发送时间
 
             Transport.send(message);
 
-            logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]成功");
+            //logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]成功");
         } catch (Exception e) {
-            logger.error("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]失败", e);
+            e.printStackTrace();
+           // logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]失败", e);
         }
     }
 
@@ -143,11 +151,11 @@ public class MailService {
      * @param args
      */
     public static void main(String[] args) {
-        MailReq req=new MailReq();
+        MailReq req = new MailReq();
         req.setAddress("445875775@qq.com");
         req.setUrl("www.baidu.com");
         req.setUserName("jjj");
-      new MailService().sendMailWithFiles(req);
+        new MailService().sendMailWithFiles(req);
     }
 
     /**
@@ -159,11 +167,11 @@ public class MailService {
      */
     private static String getEmailContent(MailReq req) {
         StringBuffer sb = new StringBuffer();
-        sb.append(req.getUserName()+",<br>");
+        sb.append(req.getUserName() + ",<br>");
         sb.append("感谢您注册 ebank007.com! <br>");
         sb.append("请点击以下链接激活你的账户并设置您的账号密码：<br>");
         sb.append("The download link for Android is: this link<br>");
-        sb.append(req.getUrl()+"<br>");
+        sb.append(req.getUrl() + "<br>");
         sb.append("请勿回复此邮件，如果有疑问，请联系我们：<br>");
         sb.append("support@ebank007.com<b>");
         return sb.toString();

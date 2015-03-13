@@ -32,7 +32,9 @@ var shopController = function ($scope, $http, LoginService) {
 		$scope.list();
 	}
 	
-	
+	$scope.index=function() {
+		window.location.href = '#/';
+	};
 	$scope.init = function () {
 		$scope.$emit('changesearchview',false);
 		initSystemPage($scope.req);// 初始化分页参数
