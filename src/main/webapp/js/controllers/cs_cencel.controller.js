@@ -5,6 +5,12 @@ var cs_cencelModule = angular.module("cs_cencelModule",[]);
 
 var cs_cencelController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
+	if(LoginService.userid == 0){
+		window.location.href = '#/login';
+	}else{
+		//显示用户登录部分
+		$scope.$emit('changeshow',false);
+	}
 	//搜索
 	$scope.submitSearch = function(){
 		initSystemPage($scope);// 初始化分页参数
@@ -133,12 +139,7 @@ var cs_cencelController = function ($scope, $http, LoginService) {
 		$scope.indexPage = Math.ceil($scope.gotoPage);
 		$scope.submitPage();
 	};
-	if(LoginService.userid == 0){
-		window.location.href = '#/login';
-	}else{
-		//显示用户登录部分
-		$scope.$emit('changeshow',false);
-	}
+	
     $scope.orderlist();
 };
 
