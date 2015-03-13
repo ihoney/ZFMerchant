@@ -92,10 +92,12 @@ var messageController = function($scope, $location, $http, LoginService) {
 		});
 	}
 	$scope.unread = function() {
+		$scope.req.indexPage=1;
 		$scope.req.q=0;
 		$scope.getlist();
 	}
 	$scope.read = function() {
+		$scope.req.indexPage=1;
 		$scope.req.q=2;
 		$scope.getlist();
 	}

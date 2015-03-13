@@ -4,6 +4,7 @@
 var loginModule = angular.module("loginModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
 
 var indexController = function($scope, $location, $http, LoginService,$cookieStore) {
+	$scope.loginUserName=LoginService.loginUserName;
 	$scope.ngshow=true;
 	$scope.ngshow2=false;
 	$scope.shopcount=0;
@@ -82,6 +83,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     	}
     };
     $scope.shopcartcount();
+    
     
     
 	$scope.$on('changeshow', function(d,data) {

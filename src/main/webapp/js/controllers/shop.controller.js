@@ -32,27 +32,10 @@ var shopController = function ($scope, $http, LoginService) {
 		$scope.list();
 	}
 	
-//	$scope.searchShop=function(){
-//		//window.location.href = '#/shop';
-//		$('#login').hide();
-//		$('#index').hide();
-//		$('#mainuser').hide();
-//		$('#findPassOne').hide();
-//		$('#findPassTwo').hide();
-//		$('#findPassThree').hide();
-//		$('#retrieveHtml').hide();
-//		$('#emailRetrieveHtml').hide();
-//		
-//		$('#mainindex').hide();
-//		$('#shopmain').show();
-//		
-//		
-//	};
 	
 	$scope.init = function () {
 		$scope.$emit('changesearchview',false);
 		initSystemPage($scope.req);// 初始化分页参数
-		//$("#leftRoute").hide();
 		$scope.shopcartcount();
 		$scope.searchinfo();
 		$scope.list();
@@ -71,6 +54,10 @@ var shopController = function ($scope, $http, LoginService) {
             }
         });
     }
+    $scope.search=function () {
+	    $scope.req.indexPage=1
+	    $scope.list();
+    };
     $scope.list = function () {
     	if($scope.req.has_purchase){
     		$scope.req.has_purchase=1;
@@ -149,7 +136,7 @@ var shopController = function ($scope, $http, LoginService) {
     		$scope.req.brands_id.push(p.id);
     		p.clazz="hover";
     	}
-    	$scope.list();
+    	$scope.search();
     }
     $scope.chli1del=function () {
     	$scope.chli1show=false;
@@ -157,7 +144,7 @@ var shopController = function ($scope, $http, LoginService) {
     	 angular.forEach($scope.brands, function (one) {
     		 one.clazz="";
          });
-    	 $scope.list();
+    	 $scope.search();
     }
     
   //POS机类型
@@ -189,7 +176,7 @@ var shopController = function ($scope, $http, LoginService) {
     		$scope.req.category.push(p.id);
     		p.clazz="hover";
     	}
-    	$scope.list();
+    	$scope.search();
     }
     $scope.chli2del=function () {
     	$scope.chli2show=false;
@@ -197,7 +184,7 @@ var shopController = function ($scope, $http, LoginService) {
     	 angular.forEach($scope.category, function (one) {
     		 one.clazz="";
          });
-    	 $scope.list();
+    	 $scope.search();
     }
   //支付通道
     $scope.check3=function (p) {
@@ -228,7 +215,7 @@ var shopController = function ($scope, $http, LoginService) {
     		$scope.req.pay_channel_id.push(p.id);
     		p.clazz="hover";
     	}
-    	$scope.list();
+    	$scope.search();
     }
     $scope.chli3del=function () {
     	$scope.chli3show=false;
@@ -236,7 +223,7 @@ var shopController = function ($scope, $http, LoginService) {
     	 angular.forEach($scope.pay_channel, function (one) {
     		 one.clazz="";
          });
-    	 $scope.list();
+    	 $scope.search();
     }
     
   //支持卡类型
@@ -268,7 +255,7 @@ var shopController = function ($scope, $http, LoginService) {
     		$scope.req.pay_card_id.push(p.id);
     		p.clazz="hover";
     	}
-    	$scope.list();
+    	$scope.search();
     }
     $scope.chli4del=function () {
     	$scope.chli4show=false;
@@ -276,7 +263,7 @@ var shopController = function ($scope, $http, LoginService) {
     	 angular.forEach($scope.pay_card, function (one) {
     		 one.clazz="";
          });
-    	 $scope.list();
+    	 $scope.search();
     }
     
     //支持交易类型
@@ -308,7 +295,7 @@ var shopController = function ($scope, $http, LoginService) {
     		$scope.req.trade_type_id.push(p.id);
     		p.clazz="hover";
     	}
-    	$scope.list();
+    	$scope.search();
     }
     $scope.chli5del=function () {
     	$scope.chli5show=false;
@@ -316,7 +303,7 @@ var shopController = function ($scope, $http, LoginService) {
     	 angular.forEach($scope.trade_type, function (one) {
     		 one.clazz="";
          });
-    	 $scope.list();
+    	 $scope.search();
     }
     
     //签购单方式
@@ -348,7 +335,7 @@ var shopController = function ($scope, $http, LoginService) {
     		$scope.req.sale_slip_id.push(p.id);
     		p.clazz="hover";
     	}
-    	$scope.list();
+    	$scope.search();
     }
     $scope.chli6del=function () {
     	$scope.chli6show=false;
@@ -356,7 +343,7 @@ var shopController = function ($scope, $http, LoginService) {
     	 angular.forEach($scope.sale_slip, function (one) {
     		 one.clazz="";
          });
-    	 $scope.list();
+    	 $scope.search();
     }
     
     $scope.order=function (p) {
