@@ -38,7 +38,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     });
 	
 	var check=function(str){
-		var arry=["myapp",
+		var arry=["myapp","webmessageinfo",
 		          "order","orderinfo",
 		          "terminal","terminalOpening","terminalDetail",
 		          "cs_cencel","cs_return","cs_change","cs_repair","cs_update","cs_lease",
