@@ -52,7 +52,7 @@ $(function(){
 						<div>
 							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 						</div></li>
-					<li><input name="ridel" type="radio" value="" ng-click="ridel_xy = !ridel_xy" /> <a href="#">同意《掌富服务协议》</a></li>
+					<li><input name="" type="radio" ng-model="ridel_xy" value="" ng-click="ridel_xy = !ridel_xy" /> <a href="#">同意《掌富服务协议》</a></li>
 				</ul>
 				<div class="btn">
 					<button ng-click="getImgCode()">注册</button>
@@ -72,7 +72,7 @@ $(function(){
 				</ul>
 			</div>
 			<div class="res_b">
-				<ul id="emailUl">
+				<ul id="emailUl"  ng-show="!successEmailShow">
 					<li><label>所在地</label> <select name="">
 							<option ng-repeat="ci in cities" ng-if="ci.parent_id == 0" ng-click="getShicit(ci.id)">{{ci.name}}</option>
 					</select> <select name="">
@@ -86,12 +86,12 @@ $(function(){
 						<div class="jym">
 							<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 						</div></li>
-					<li><input name="ridel" ng-click="ridel_xy = !ridel_xy" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
+					<li><input name="" ng-model="ridel_xy" ng-click="ridel_xy = !ridel_xy" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></li>
 				</ul>
-				<div class="btn" id="butEmail">
+				<div class="btn" id="butEmail"  ng-show="!successEmailShow">
 					<button ng-click="getImgEmailCode()">注册</button>
 				</div>
-				<div id="clodeText" class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
+				<div ng-show="successEmailShow" id="clodeText" class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
 			</div>
 		</div>
 	</div>

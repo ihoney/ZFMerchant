@@ -1,3 +1,25 @@
+<link href="style/retrieve.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	//input默认值
+	function focusBlur(e) {
+		$(e).focus(function() {
+			var thisVal = $(this).val();
+			if (thisVal == this.defaultValue) {
+				$(this).val('');
+			}
+		})
+		$(e).blur(function() {
+			var thisVal = $(this).val();
+			if (thisVal == '') {
+				$(this).val(this.defaultValue);
+			}
+		})
+	}
+
+	$(function() {
+		focusBlur('.ret_b input');//登录
+	})
+</script>
 <div ng-controller="findpassController">
 	<div id="findPassOne" ng-show="one">
 		<div class="logo">
@@ -36,14 +58,14 @@
 				</ul>
 			</div>
 			<div class="ret_b">
-				<ul id="ulPhone">
+				<ul id="ulPhone" ng-show="!songToEmail">
 					<li><input name="" type="text" placeholder="输入图片校验码" class="m" ng-model="codeNumber" />
 						<button class="send_btn">重新发送验证码（119秒）</button></li>
 				</ul>
-				<div class="btn" id="updown">
+				<div class="btn" id="updown" ng-show="!songToEmail">
 					<button ng-click="findPassThree()">下一步</button>
 				</div>
-				<div class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
+				<div ng-show="songToEmail" class="win" id="emailtext">已向你的邮箱 XXX@XXX.com 发送了密码重置邮件，请登录邮箱重置密码！</div>
 			</div>
 		</div>
 	</div>
@@ -73,25 +95,3 @@
 	</div>
 
 </div>
-<link href="style/retrieve.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
-	//input默认值
-	function focusBlur(e) {
-		$(e).focus(function() {
-			var thisVal = $(this).val();
-			if (thisVal == this.defaultValue) {
-				$(this).val('');
-			}
-		})
-		$(e).blur(function() {
-			var thisVal = $(this).val();
-			if (thisVal == '') {
-				$(this).val(this.defaultValue);
-			}
-		})
-	}
-
-	$(function() {
-		focusBlur('.ret_b input');//登录
-	})
-</script>

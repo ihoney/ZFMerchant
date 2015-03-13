@@ -7,6 +7,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	$scope.loginUserName = LoginService.loginUserName;
 	$scope.ridel_xy = false;
+	
 	$scope.shopcount=0;
 	$scope.shopcartcount=function () {
     	if(LoginService.userid>0){
@@ -180,33 +181,19 @@ var loginController=function($scope, $location, $http, LoginService){
 	$scope.ridel_xy = false;
 	
 	//登陆页面文本框得到光标的时候失去错误提示信息
-	 
-	 
-	 
 	$scope.RememberPass = false;
 
 	$scope.password1 = "";
 	$scope.password2 = "";
 	$scope.codeNumber = "";
 	$scope.code = "";//图片验证
-	$scope.codeBei = "";
 	
 	$scope.jsons = {
 		username : $scope.username,
 		password : $scope.password
 	};
 
-	
-	
-//	//登陆前首页跳转登陆页面
-//	$scope.goToLogin = function(){
-//		LoginService.hideAll();
-//		$('#login').show();
-//		//加载登陆样式
-//		$scope.dynamicLoadingCss("style/login.css");
-//	}
-	
-	//退出页面(清除$cookieStore)
+	/*//退出页面(清除$cookieStore)
 	$scope.escLogin = function(){
 		$cookieStore.put("loginUserName",null);
     	$cookieStore.put("loginUserId",0);
@@ -217,32 +204,7 @@ var loginController=function($scope, $location, $http, LoginService){
 		//登陆前首页
 		$('#maintop').show();
 		$('#mainindex').show();
-	}
-
-	// 登陆前首页跳转手机注册
-//	$scope.register = function() {
-//		$http.post("api/terminal/getCities").success(function(data) {
-//			if (data.code == 1) {
-//				$scope.cities = data.result;
-//			} else {
-//				alert("城市加载失败！");
-//			}
-//		})
-//		
-//		$scope.dynamicLoadingCss("style/register.css");
-//		LoginService.hideAll();
-//		$('#retrieveHtml').show();
-//		$("link[href='style/global.css']").remove();
-//	};
-	
-	// 跳转邮箱注册用户
-//	$scope.gotoEmailRetrieve = function() {
-//		$("#clodeText").hide();
-//		$scope.dynamicLoadingCss("style/register.css");
-//		LoginService.hideAll();
-//		$('#emailRetrieveHtml').show();
-//		$("link[href='style/global.css']").remove();
-//	}
+	}*/
 
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
@@ -265,49 +227,15 @@ var loginController=function($scope, $location, $http, LoginService){
 //		link.type = 'text/css';
 //		head.appendChild(link);
 //	};
-
-	 
-
-	// ===============================
-	// 注册
-	
-	
-	
-	$scope.shopcount=0;
-	$scope.$on('shopcartcountchange', function() {
-		$scope.shopcartcount();
-	});
-	$scope.shopcartcount=function () {
-    	if(LoginService.userid>0){
-    		$http.post("api/cart/total", {customerId:LoginService.userid}).success(function (data) {  //绑定
-                if (data.code==1) {
-                	$scope.shopcount= data.result;
-                }
-            });
-    	}
-    };
-    $scope.shopcartcount();
-    
-    $scope.ngshow=true;
-	$scope.$on('changeshow', function(d,data) {
-		$scope.ngshow=data;
-	});
-	$scope.$on('changesearchview', function(d,data) {
-		$scope.searchview=data;
-	});
-	
-	$scope.searchShop=function() {
-		//$scope.$broadcast('shopsearch',$scope.keys);
-		LoginService.keys=$scope.keys;
-		window.location.href = '#/shop';
-	};
 };
 
 var registerController=function($scope, $location, $http, LoginService){
 	//手机邮箱注册显示
 	$scope.show = true;
 	//勾选协议
-	$scope.ridel_xy = true;
+	$scope.ridel_xy = false;
+	//邮箱注册显示状态
+	$scope.successEmailShow = false;
 	
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
@@ -338,6 +266,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	// 跳转邮箱注册用户
 	$scope.gotoEmailRetrieve = function() {
 		$scope.show = false;
+		$scope.successEmailShow = false;
 	}
 	
 	// 获取手机验证码
@@ -355,8 +284,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
-		alert($scope.ridel_xy);
-		if($scope.ridel_xy == true){
+		if($scope.ridel_xy != true){
 			if($scope.code == $scope.codeNumber){
 				if($scope.password1 == $scope.password2){
 					$http.post("api/user/sizeUpImgCode", {
@@ -388,27 +316,44 @@ var registerController=function($scope, $location, $http, LoginService){
 		}).success(function(data) {
 			if (data.code == 1) {
 				$scope.ridel_xy = false;
-				//LoginService.hideAll();
-				//$('#login').show();
 				$scope.password1 = "";
+				$scope.password2 = "";
 				$scope.codeNumber = "";
 				$scope.code = "";
-				//$scope.dynamicLoadingCss("style/login.css");
+				$scope.codeBei = "";
+				window.location.href = '#/login';
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
 		})
 	};
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 校验图片验证码
+	$scope.getImgEmailCode = function(){
+		if($scope.ridel_xy != true){
+			$http.post("api/user/jusEmail", {
+				username : $scope.emailname
+			}).success(function(data) {
+				if(data.code == 1){
+					if($scope.password1 == $scope.password2){
+						$http.post("api/user/sizeUpImgCode", {
+							imgnum : $scope.codeBei
+						}).success(function(data) {
+							if (data.code == 1) {
+								$scope.addUserEmail();
+							} else if (data.code == -1) {
+								alert(data.message);
+							}
+						})
+					}else{
+						alert("密码不一致！");
+					}
+				}else{
+					alert(data.message);
+				}
+			})
+		}
+	};
 	
 	// 邮箱注册用户
 	$scope.addUserEmail = function() {
@@ -423,16 +368,12 @@ var registerController=function($scope, $location, $http, LoginService){
 				$scope.password1 = "";
 				$scope.password2 = "";
 				$scope.codeBei = "";
-				$("#emailUl").hide();
-				$("#butEmail").hide();
-				$("#clodeText").show();
+				$scope.successEmailShow = true;
 			} else if (data.code == -1) {
 				alert(data.code);
 			}
 		})
 	};
-	
-	
 	
 	//获得省级
 	$scope.getShengcit= function(){
@@ -460,42 +401,20 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.siId = siId;
 	};
 	
-	
 
-	
-
-
-	// 校验图片验证码
-	$scope.getImgEmailCode = function(){
-		if($scope.ridel_xy == true){
-			$http.post("api/user/jusEmail", {
-				username : $scope.emailname
-			}).success(function(data) {
-				if(data.code == 1){
-					if($scope.password1 == $scope.password2){
-						$http.post("api/user/sizeUpImgCode", {
-							imgnum : $scope.codeBei
-						}).success(function(data) {
-							if (data.code == 1) {
-								$scope.addUserEmail();
-							} else if (data.code == -1) {
-								alert(data.message);
-							}
-						})
-					}else{
-						alert("密码不一致！");
-					}
-				}else{
-					alert(data.message);
-				}
-			})
-		}
-	};
 	$scope.reGetRandCodeImg();
 	$scope.init();
 };
-
+	
 var findpassController=function($scope, $location, $http, LoginService){
+	//检验邮箱格式
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	//隐藏想邮箱发送邮件状态
+	$scope.songToEmail = false;
+	// 初始化图片验证码
+	$scope.reGetRandCodeImg = function() {
+		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
+	};
 	
 	$scope.init=function() {
 		//隐藏中间搜索
@@ -519,16 +438,8 @@ var findpassController=function($scope, $location, $http, LoginService){
 		$scope.three=true;
 	};
 	
-	// 找回密码
-	$scope.findPass = function() {
-		LoginService.hideAll();
-		$('#findPassOne').show();
-		$scope.reGetRandCodeImg();
-		$("link[href='style/global.css']").remove();
-		$scope.dynamicLoadingCss("style/retrieve.css");
-	};
-	
-
+	//移除样式
+	$("link[href='style/global.css']").remove();
 	
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
@@ -547,11 +458,13 @@ var findpassController=function($scope, $location, $http, LoginService){
 						// 下一步
 						if (myreg.test($scope.phone_email)) {
 							// 向邮箱发送密码重置邮件！
-							$http.post("api/user/sendEmailVerificationCode").success(function(data) {
+							$http.post("api/user/sendEmailVerificationCode", {
+								codeNumber : $scope.phone_email,
+							}).success(function(data) {
 								if (data.code == 1) {
 									alert("重置邮件发送成功！");
-									LoginService.hideAll();
-									$('#findPassTwo').show();
+									$scope.songToEmail = true;
+									$scope.twostep();
 								} else {
 									alert("重置密码邮件发送失败！");
 								}
@@ -564,13 +477,11 @@ var findpassController=function($scope, $location, $http, LoginService){
 									alert(data.result);
 									$scope.code = data.result;
 									$scope.codeNumber = "";
-									LoginService.hideAll();
-									$('#findPassTwo').show();
+									$scope.twostep();
 								} else {
 									alert("发送手机验证码失败！");
 								}
 							})
-							$("#emailtext").hide();
 						}
 					}
 				})
@@ -580,18 +491,20 @@ var findpassController=function($scope, $location, $http, LoginService){
 	
 	// 找回密码第三步
 	$scope.findPassThree = function() {
-		$http.post("api/user/webFicationCode", {
+		if($scope.code == $scope.codeNumber){
+			$http.post("api/user/webFicationCode", {
 			code : $scope.codeNumber,
 			username : $scope.phone_email
-		}).success(function(data) {
+			}).success(function(data) {
 			if (data.code == 1) {
-				LoginService.hideAll();
-				$('#findPassThree').show();
+				$scope.threestep();
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
-
-		})
+			})
+		}else{
+			alert("验证码错误！");
+		}
 	};
 	
 	// 开始找回
@@ -604,15 +517,16 @@ var findpassController=function($scope, $location, $http, LoginService){
 				username : $scope.phone_email
 			}).success(function(data) {
 				if (data.code == 1) {
-					LoginService.hideAll();
 					$('#login').show();
-					$scope.dynamicLoadingCss("style/login.css");
+					 window.location.href = '#/login';
 				} else if (data.code == -1) {
 					alert(data.message);
 				}
 			})
 		}
 	};
+	
+	$scope.reGetRandCodeImg();
 	$scope.init();
 };
 
