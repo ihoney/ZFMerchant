@@ -217,7 +217,9 @@ public class OrderService {
 //                    omap.put("good_price", od.getPrice() == null ? "" : od.getPrice()+"");
                     omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity()+"");
                     omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle()==null?"":od.getGood().getTitle());
-                    omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName()+"");
+                    String brand = od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName();
+                    String type = od.getGood() == null ? "" : od.getGood().getModelNumber() == null ? "" : od.getGood().getModelNumber();
+                    omap.put("good_brand", brand+" "+type);//品牌型号
                     omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName()==null?"":od.getPayChannel().getName());
                     String good_logo = "";
                     if (null != od.getGood()) {
@@ -294,7 +296,9 @@ public class OrderService {
 //                omap.put("good_price", od.getPrice() == null ? "" : od.getPrice() + "");
                 omap.put("good_num", od.getQuantity() == null ? "" : od.getQuantity() + "");
                 omap.put("good_name", od.getGood() == null ? "" : od.getGood().getTitle() == null ? "" : od.getGood().getTitle());
-                omap.put("good_brand", od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName());
+                String brand = od.getGood() == null ? "" : od.getGood().getGoodsBrand() == null ? "" : od.getGood().getGoodsBrand().getName();
+                String type = od.getGood() == null ? "" : od.getGood().getModelNumber() == null ? "" : od.getGood().getModelNumber();
+                omap.put("good_brand", brand+" "+type);//品牌型号
                 omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName() == null ? "" : od.getPayChannel().getName());
                 if (good_id != "") {
                     List<Terminal> terminals = orderMapper.getTerminsla(id, Integer.valueOf(good_id));
