@@ -113,7 +113,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	};
 	
 	$scope.submit_city = function(){
-//		$("#city_name").html($scope.selected_city.name);
 		$cookieStore.put("city_name", $scope.selected_city.name);
 		$cookieStore.put("city_id", $scope.selected_city.id);
 		$scope.city_name = $scope.selected_city.name;

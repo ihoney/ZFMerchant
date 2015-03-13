@@ -23,12 +23,14 @@
 				<li><label>姓名：</label><input type="text" ng-model="customer.name" required /></li>
 				<li><label>电话：</label><input type="text" ng-model="customer.phone" disabled="disabled" /><a href="#">修改手机号</a></li>
 				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="#">修改邮箱</a></li>
-				<li><label>所在地：</label><select>
-						<option>江苏省</option>
-				</select><select ng-model="customer.city_id">
-						<option value="1">南京市</option>
-						<option value="2">苏州市</option>
-				</select></li>
+				<li><label>所在地：</label>
+				<select ng-model="selected" ng-options="s.name for s in city_list" ng-change="ch_city()">
+		              <option value="">{{selected.name}}</option>
+		          </select>
+				<select ng-model="selected_city" ng-options="x.name for x in selected.childrens" >
+		               <option value="">{{selected_city.name}}</option>
+		          </select>
+				</li>
 			</ul>
 			<div class="myInfoBox_btn">
 				<button type="button" class="orangeBtn" ng-click="save()">保存</button>

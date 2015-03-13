@@ -12,7 +12,12 @@ var myinfobaseController = function($scope, $http, LoginService) {
 		} else {
 			$scope.$emit('changeshow', false);
 		}
-
+		$scope.selected={};
+		$scope.selected_city={};
+	    $scope.selected.id = "1";
+	    $scope.selected.name = "江苏省";
+        $scope.selected_city.id = "2";
+        $scope.selected_city.name = "苏州市";
 		$http.post("api/customers/getOne/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
@@ -22,13 +27,29 @@ var myinfobaseController = function($scope, $http, LoginService) {
 		});
 
 	};
+	
+	$scope.city_list = function(){
+		$http.post("api/index/getCity").success(function (data) {   
+            if (data != null && data != undefined) {
+                $scope.city_list = data.result;
+            }
+        });
+	};
+	
+	$scope.ch_city = function(){
+//		$scope.selected_city = "";
+	};
+	
 	$scope.save = function() {
+		console.log("==>"+$scope.selected_city.name);
+		console.log("==>"+$scope.selected_city.id);
+		return ;
 		$scope.updateCustomer = {
 			id : $scope.req.id,
 			name : $scope.customer.name,
 			phone : $scope.customer.phone,
 			email : $scope.customer.email,
-			cityId : $scope.customer.city_id
+			cityId : $scope.selected_city.id
 		};
 		$http.post("api/customers/update", $scope.updateCustomer).success(function(data) {
 			if (data.code == 1) {
@@ -41,5 +62,6 @@ var myinfobaseController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.init();
+	$scope.city_list();
 };
 myinfobaseModule.controller("myinfobaseController", myinfobaseController);
