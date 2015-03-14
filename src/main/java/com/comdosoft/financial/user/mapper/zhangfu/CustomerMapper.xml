@@ -36,7 +36,7 @@
 	LEFT JOIN cities t ON c.city_id = t.id
 	LEFT JOIN cities tt ON t.parent_id = tt.id
 	WHERE
-		 id = #{id}
+		 c.id = #{id}
 	]]>
 	</select>
 
