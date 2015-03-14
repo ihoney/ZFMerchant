@@ -271,7 +271,7 @@ var registerController=function($scope, $location, $http, LoginService){
 			username : $scope.rename,
 			accountType : false,
 			code : $scope.codeNumber,
-			cityId : Math.ceil($scope.siId),
+			cityId : Math.ceil($scope.CityId.id),
 			password : $scope.password1
 		}).success(function(data) {
 			if (data.code == 1) {
@@ -320,7 +320,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$http.post("api/user/userRegistration", {
 			username : $scope.emailname,
 			accountType : true,
-			cityId : Math.ceil($scope.siId),
+			cityId : Math.ceil($scope.CityId.id),
 			password : $scope.password1
 		}).success(function(data) {
 			if (data.code == 1) {

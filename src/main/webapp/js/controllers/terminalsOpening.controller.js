@@ -178,7 +178,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
-	                     cityId:Math.ceil($scope.citiesId),
+	                     cityId:Math.ceil($scope.citiesId.id),
 	                     name:$("#valueName").val(),
 	                     channel:$scope.chanId,
 	                     billingId:$scope.Tid,

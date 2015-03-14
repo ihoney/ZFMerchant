@@ -70,7 +70,7 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	$scope.addCostometAddress = function(){
   		
   		 $scope.CostometAddress = {
-  				cityId :$scope.citId,
+  				cityId :$scope.citId.id,
   				receiver :$scope.receiver,
   				address :$scope.address,
   				moblephone :$scope.moblephone,
