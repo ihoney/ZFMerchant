@@ -133,7 +133,7 @@ var headerController = function($scope, $location, $http, LoginService,$cookieSt
 	};
 	
 	$scope.submit_city = function(){
-		alert($scope.selected_city.id);
+		//alert($scope.selected_city.id);
 		$cookieStore.put("city_name", $scope.selected_city.name);
 		$cookieStore.put("city_id", $scope.selected_city.id);
 		$scope.city_name = $scope.selected_city.name;
