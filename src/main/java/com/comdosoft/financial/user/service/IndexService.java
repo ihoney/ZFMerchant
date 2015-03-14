@@ -79,7 +79,7 @@ public class IndexService {
             Map<String,Object> cmap = null;
             for(Map<String,Object> c:children_list){
                 cmap = new HashMap<String,Object>();
-                String cid =  c.get("id")==null?"":m.get("id").toString();
+                String cid =  c.get("id")==null?"":c.get("id").toString();
                 cmap.put("id", cid);
                 cmap.put("name", c.get("name")==null?"":c.get("name"));
                 new_children_list.add(cmap);
