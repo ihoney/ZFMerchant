@@ -119,6 +119,7 @@ var addressController=function($scope, $location, $http, LoginService){
 	$scope.addad = function(id) {
 		$scope.ad.customerId=LoginService.userid;
 		$scope.ad.isDefault=2;
+		$scope.ad.cityId=$scope.city.id;
 		$http.post("api/customers/insertAddress", $scope.ad).success(function(data) {
 			if (data.code == 1) {
 				$scope.init();
@@ -138,6 +139,7 @@ var addressController=function($scope, $location, $http, LoginService){
 	};
 	$scope.init = function() {
 		$scope.address = {};
+		$scope.ad = {};
 		$scope.address.isDefault = "2";
 		$scope.list();
 	};
@@ -152,14 +154,7 @@ var addressController=function($scope, $location, $http, LoginService){
 		});
 	};
 	
-	//获得市级
-	$scope.getShicit = function(parentId){
-		$http.post("api/terminal/getShiCities", {
-			parentId : parentId
-		}).success(function(data) {
-			$scope.getShi = data.result;
-		})
-	}
+
 	
 	$scope.init();
 }
