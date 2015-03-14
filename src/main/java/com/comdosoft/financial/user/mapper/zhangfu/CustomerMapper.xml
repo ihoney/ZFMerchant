@@ -17,6 +17,28 @@
 		 WHERE id = #{id}
 	]]>
 	</select>
+	
+	<select id="findCustById" resultType="map">
+	<![CDATA[
+	SELECT
+		c. NAME,
+		c.phone,
+		c.email,
+		c.city_id,
+		c.integral,
+		c. PASSWORD,
+		t.id,
+		t.`name` as c_name,
+		t.parent_id,
+		tt.`name` as p_name
+	FROM
+		customers c
+	LEFT JOIN cities t ON c.city_id = t.id
+	LEFT JOIN cities tt ON t.parent_id = tt.id
+	WHERE
+		 id = #{id}
+	]]>
+	</select>
 
 	<update id="update">
 		UPDATE customers

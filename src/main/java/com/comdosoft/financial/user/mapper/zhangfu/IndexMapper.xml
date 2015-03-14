@@ -7,7 +7,7 @@
 		f.logo_file_path,
 		f.`name`,
 		f.description,
-		f.website_url
+		f.website_url,f.created_at
 	FROM
 		factories f
 	WHERE

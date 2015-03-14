@@ -18,7 +18,8 @@ var myinfobaseController = function($scope, $http, LoginService) {
 	    $scope.selected.name = "江苏省";
         $scope.selected_city.id = "2";
         $scope.selected_city.name = "苏州市";
-		$http.post("api/customers/getOne/" + customerId).success(function(data) {
+        $scope.req = { id : customerId }
+		$http.post("api/customers/findCustById" + $scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
 			}

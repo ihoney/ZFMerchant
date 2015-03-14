@@ -26,10 +26,9 @@ public class IndexService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         for(Map<String,Object> m: list){
             map = new HashMap<String,Object>();
-            String d = (m.get("created_at")+"");
-            Date date;
             try {
-                date = sdf.parse(d);
+                String d = (m.get("created_at")+"");
+                Date date = sdf.parse(d);
                 String c_date = sdf.format(date);
                 map.put("created_at", c_date);
             } catch (ParseException e) {

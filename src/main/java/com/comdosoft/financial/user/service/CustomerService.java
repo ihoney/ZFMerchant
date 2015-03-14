@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.comdosoft.financial.user.domain.Paging;
 import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.SysConfig;
 import com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper;
 
@@ -129,6 +130,10 @@ public class CustomerService {
 
     public void deleteAddress(int id) {
         customerMapper.deleteAddress(id);
+    }
+
+    public Map<String, Object> findCustById(MyOrderReq req) {
+        return customerMapper.findCustById(req);
     }
 
 }

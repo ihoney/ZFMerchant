@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.CustomerService;
 
 /**
@@ -51,6 +52,12 @@ public class CustomerAPI {
             sysResponse = Response.getError("获取用户信息失败:系统异常");
         }
         return sysResponse;
+    }
+    
+    @RequestMapping(value = "findCustById", method = RequestMethod.POST)
+    public Response findCustById(@RequestBody MyOrderReq req) {
+            Map<String,Object> m = customerService.findCustById(req);
+        return Response.buildSuccess(m, "success");
     }
 
     /**
