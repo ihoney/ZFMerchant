@@ -19,23 +19,33 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     	}
     };
     $scope.$on('$locationChangeStart', function (scope, next, current) {                          
-		var strs= new Array(); //定义一数组
-		strs=next.split("/#/"); //字符分割
-		strs=strs[1].split("?")
+		
 		//alert(strs[0]);
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
-		}else{
-			$scope.loginshow=true;
-		}  
-		$scope.searchview=true;
-		if(check(strs[0])){
-			$scope.ngshow=false;
-			$scope.ngshow2=true;
-		}else{
 			$scope.ngshow=true;
 			$scope.ngshow2=false;
+		}else{
+			$scope.loginshow=true;
+			var strs= new Array(); //定义一数组
+			strs=next.split("/#/"); //字符分割
+			if(strs.length==2){
+				strs=strs[1].split("?")
+				if(check(strs[0])){
+					$scope.ngshow=false;
+					$scope.ngshow2=true;
+				}else{
+					$scope.ngshow=true;
+					$scope.ngshow2=false;
+				}
+			}else{
+				$scope.ngshow=true;
+				$scope.ngshow2=false;
+			}
 		}
+		$scope.searchview=true;
+		
+		
     });
 	
 	var check=function(str){
@@ -113,6 +123,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	};
 	
 	$scope.submit_city = function(){
+		alert($scope.selected_city.id);
 		$cookieStore.put("city_name", $scope.selected_city.name);
 		$cookieStore.put("city_id", $scope.selected_city.id);
 		$scope.city_name = $scope.selected_city.name;
