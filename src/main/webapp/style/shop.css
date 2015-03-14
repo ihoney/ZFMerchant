@@ -30,7 +30,7 @@
 .address .addr_h_hover i { background: url(../images/icons.png) no-repeat 0 -5px;}
 
 .address .addr_b { 
-	width: 280px; 
+	width: 260px; 
 	background: #FFF; 
 	border: 1px #CCC solid; 
 	padding: 20px; 
@@ -123,13 +123,13 @@
 .selectBox ul li:hover { background: #f2f2f1;}
 
 /*--首页轮播--*/
-.head_index { position: absolute; top: 40px; left: 0px; width: 100%; z-index: 10000;}
+.head_index { position: absolute; top: 40px; left: 0px; width: 100%; z-index: 5;}
 .ad { font-size: 0px; width: 100%;}
 .banner { position: relative; overflow: auto; }
 .banner li { list-style: none; height: 466px;}
 .banner ul li { float: left; background-size: cover; background-position: center 0px;}
 
-.dots { position:absolute; bottom:3px; z-index:11000; left: 50%; margin-left: -14px;}
+.dots { position:absolute; bottom:3px; z-index:10; left: 50%; margin-left: -14px;}
 .dots li { 
 	float:left; 
 	width:15px; 
@@ -242,15 +242,15 @@
 .hp_con ul li:hover { box-shadow: 0 0 3px rgba(0,0,0,0.3);}
 .pro_img_a { 
 	width: 150px; 
-	height: 140px; 
-	display: block; 
+	height: 140px;  
 	overflow: hidden; 
 	font-size: 0;
 	float: left;
 	margin-right: 10px;
 	text-align: center;
+	display:table-cell;
 }
-.pro_img_a img { display: inline-block;}
+.pro_img_a img { vertical-align:middle;}
 
 .pro_text { color: #333; line-height: 24px;}
 .pro_text h3 { font-size: 14px;}
@@ -258,7 +258,7 @@
 .pro_text_a { color: #ff5f2b;}
 .pro_text_a:hover { color: #ff9b00;}
 
-
+/*公告*/
 .notice  { width: 280px; float: left; margin-left: 20px;}
 .no_con { margin-top: 15px; border: 1px #CCCCCC solid; height: 372px; overflow: hidden;}
 .no_con li { position: relative; padding-left: 30px; margin: 10px;}
@@ -280,6 +280,15 @@
 .no_con li p a { color: #333;}
 .no_con li p a:hover { text-decoration: underline; color: #ff9b00;}
 .no_con li span { color: #999;}
+
+/*公告tab*/
+.notice_tab { z-index: 1000;}
+.notice_tab_con {}
+.notice_tab_title { margin-bottom: 20px;}
+.notice_tab_title h1 { color: #ff5f2b; font-family: "microsoft yahei"; font-size: 18px; line-height: 36px;}
+.notice_tab_title p { color: #999;}
+.notice_tab_text { overflow-y: auto; height: 300px; margin: 15px 0;}
+.notice_tab_text p { line-height: 24px; margin-bottom: 10px;}
 
 /*--收单机构--*/
 .org_con { overflow: hidden; padding: 10px 0px;}
@@ -813,7 +822,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .manufacturer { border-bottom: 1px #CCCCCC solid; margin-bottom:10px;}
 .manufacturer h2 { font-size: 14px; line-height: 28px; margin-bottom:10px; color: #666;}
 .mf_title { overflow: hidden; margin-bottom: 10px;}
-.mf_logo { float: left; margin-right: 10px;}
+.mf_logo { float: left; margin-right: 10px; width: 89px; height: 42px; overflow: hidden;}
 .mf_name { line-height: 20px; font-size: 14px;}
 .mf_text { color: #666; line-height: 24px; padding: 5px 0;}
 
@@ -822,6 +831,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .hot_product h1 { font-size: 14px; line-height: 28px; height: 28px;}
 .hot_product li { margin: 10px 0; border: 1px  #CCCCCC solid; padding: 10px;}
 .hot_product .hotPro_img { text-align: center; margin-bottom: 10px;}
+.hot_product .hotPro_img a {height: 140px; display: block; overflow: hidden;}
 .hot_product .hotPro_img img { display: inline-block;}
 .hot_product a { color: #333;}
 .hot_product a:hover { color: #ff5f2b; text-decoration: underline;}
@@ -917,3 +927,6 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .seen_progress { color: #ff5f2b; font-family: "microsoft yahei";}
 .seen_progress li { height: 36px; line-height: 36px; font-size: 18px;}
 .seen_progress li span { color: #333;}
+
+
+
