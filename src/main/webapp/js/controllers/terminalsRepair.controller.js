@@ -25,8 +25,7 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
               //用户收货地址
               $scope.addressList = data.result.address;
             //城市级联
-              $scope.Cities = data.result.Cities;
-              $scope.shiCities = [];
+              $scope.getShengcit();
           }
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -49,18 +48,16 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   		$scope.num = num;
   		}
   	
-  //城市及联
-  	$scope.count = 0;
-  	$scope.changCit = function(citid){
-  		$http.post("api/terminal/getShiCities", {parentId:citid}).success(function (data) {  //绑定
-            if (data != null && data != undefined) {
-              //市
-                $scope.shiCitie = data.result;
-            }
-        }).error(function (data) {
-      	  alert("获取列表失败");
-        });
-  	}
+  //获得省级
+	$scope.getShengcit= function(){
+		$http.post("api/index/getCity").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
+		})
+	};
   	
   //记录citId
  	 
@@ -71,7 +68,7 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   //添加地址
   	$scope.addCostometAddress = function(){
   		 $scope.CostometAddress = {
-  				cityId :$scope.citId,
+  				cityId :Math.ceil($scope.shiList.id),
   				receiver :$scope.receiver,
   				address :$scope.address,
   				moblephone :$scope.moblephone,

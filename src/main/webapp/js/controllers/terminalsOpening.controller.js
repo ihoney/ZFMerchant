@@ -33,7 +33,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               //材料等级
               $scope.MaterialLevel = data.result.MaterialLevel;
               //城市级联
-              $scope.Cities = data.result.Cities;
+              $scope.getShengci();
               //支付通道
               $scope.channels = data.result.channels;
           }
@@ -91,14 +91,16 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   
 //级联
   
-//获得市级
-	$scope.jilianChneg = function(parentId){
-		$http.post("api/terminal/getShiCities", {
-			parentId : parentId
-		}).success(function(data) {
-			$scope.shiLian = data.result;
+//获得省级
+	$scope.getShengcit= function(){
+		$http.post("api/index/getCity").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
 		})
-	}
+	};
   
 /*	
   $scope.citiesId = 0;
@@ -178,7 +180,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
-	                     cityId:Math.ceil($scope.citiesId.id),
+	                     cityId:Math.ceil($scope.shiList.id),
 	                     name:$("#valueName").val(),
 	                     channel:$scope.chanId,
 	                     billingId:$scope.Tid,

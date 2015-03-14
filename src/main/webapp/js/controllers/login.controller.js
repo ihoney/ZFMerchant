@@ -269,8 +269,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	}
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
-		alert($scope.shiList.id);
-		/*if($scope.ridel_xy != true){
+		if($scope.ridel_xy != true){
 			if($scope.code == $scope.codeNumber){
 				if($scope.password1 == $scope.password2){
 					$http.post("api/user/sizeUpImgCode", {
@@ -288,7 +287,7 @@ var registerController=function($scope, $location, $http, LoginService){
 			}else{
 				alert("验证码错误!");
 			}
-		}*/
+		}
 	};
 	
 	// 注册用户

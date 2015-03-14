@@ -25,11 +25,13 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
               //下载模板
               $scope.ReModel = data.result.ReModel;
             //城市级联
-              $scope.Cities = data.result.Cities;
+              $scope.getShengcit();
           }
       }).error(function (data) {
     	  alert("获取列表失败");
       });
+      
+      
   };
   
   //替换添加新地址
@@ -47,8 +49,17 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   		$scope.num = num;
   		}
   	
-  	//城市及联
-  	$scope.count = 0;
+  //获得省级
+	$scope.getShengcit= function(){
+		$http.post("api/index/getCity").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
+		})
+	};
+  /*	$scope.count = 0;
   	$scope.changCit = function(citid){
   		$http.post("api/terminal/getShiCities", {parentId:citid}).success(function (data) {  //绑定
             if (data != null && data != undefined) {
@@ -58,7 +69,7 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
         }).error(function (data) {
       	  alert("获取列表失败");
         });
-  	}
+  	}*/
   	
   	/*//记录citId
   	 
@@ -70,7 +81,7 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	$scope.addCostometAddress = function(){
   		
   		 $scope.CostometAddress = {
-  				cityId :$scope.citId.id,
+  				cityId :Math.ceil($scope.shiList.id),
   				receiver :$scope.receiver,
   				address :$scope.address,
   				moblephone :$scope.moblephone,
