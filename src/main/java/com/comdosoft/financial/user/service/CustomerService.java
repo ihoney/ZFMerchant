@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.comdosoft.financial.user.domain.Paging;
+import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.SysConfig;
@@ -134,6 +135,10 @@ public class CustomerService {
 
     public Map<String, Object> findCustById(MyOrderReq req) {
         return customerMapper.findCustById(req);
+    }
+
+    public void cust_update(Customer c) {
+        customerMapper.cust_update(c);
     }
 
 }

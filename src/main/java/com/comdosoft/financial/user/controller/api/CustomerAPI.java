@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.CustomerService;
 
@@ -26,7 +27,7 @@ import com.comdosoft.financial.user.service.CustomerService;
  *
  */
 @RestController
-@RequestMapping(value = "api/customers")
+@RequestMapping(value = "/api/customers")
 public class CustomerAPI {
 
     @Resource
@@ -77,6 +78,14 @@ public class CustomerAPI {
             sysResponse = Response.getError("修改用户信息失败:系统异常");
         }
         return sysResponse;
+    }
+    
+    
+    @RequestMapping(value = "cust_update", method = RequestMethod.POST)
+    public Response cust_update(@RequestBody Customer c) {
+        logger.debug("更新用户信息:"+c);
+        customerService.cust_update(c);
+        return Response.buildSuccess("", "更新成功");
     }
 
     /**

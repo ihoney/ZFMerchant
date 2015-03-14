@@ -170,6 +170,12 @@
 		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
 		WHERE
 		o.customer_id = #{customer_id}
+		<if test="search !=null and search!=''">
+		and (o.order_number like "%"#{search}"%" 
+			or g.title like "%"#{search}"%" 
+			or g.second_title like "%"#{search}"%"  
+			or g.key_worlds like "%"#{search}"%" ) 
+		</if>
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
 		</if>

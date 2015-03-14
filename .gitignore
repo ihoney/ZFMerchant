@@ -5,3 +5,4 @@
 /.springBeans
 /.idea/
 /ZFManager.iml
+src/main/resources/logback.xml
