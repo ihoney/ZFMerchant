@@ -15,7 +15,7 @@ var terminalCancellationController = function ($scope, $http,$location, LoginSer
 			$scope.$emit('changeshow',false);
 		}
 
-      $http.post("api/terminal/getApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;

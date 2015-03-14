@@ -92,11 +92,17 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="channelKey">支付通道：</span>
                                 	<div class="text">
-                                	<select  ng-model="chanList" ng-options="s.name for s in channels" >
+                                	<!-- <select  ng-model="chanList" ng-options="s.name for s in channels" >
 		             		 				<option value="">请选择</option>
 		          						</select>
 						 				<select ng-model="chanTs" ng-options="x.name for x in chanList.billings"  >
 			               					<option value="">请选择</option>
+			          					</select> -->
+			          					<select>
+		             		 				<option value="" ng-click="chanfunction(chanTs.id)" ng-repeat="chanTs in channels">{{chanTs.name}}</option>
+		          						</select>
+						 				<select>
+			               					<option value="" ng-click="tsfunction(tsObje.id)" ng-repeat="tsObje in tsSelectList">{{tsObje.name}}</option>
 			          					</select>
                                 	<!-- <select name="">
                                           <option ng-repeat="chan in channels" ng-click="getChannels(chan.id)">{{chan.name}}</option>
