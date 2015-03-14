@@ -20,6 +20,7 @@
 		focusBlur('.ret_b input');//登录
 	})
 </script>
+
 <div ng-controller="findpassController">
 	<div id="findPassOne" ng-show="one">
 		<div class="logo" style="cursor: pointer" ng-click="index()">
@@ -60,7 +61,7 @@
 			<div class="ret_b">
 				<ul id="ulPhone" ng-show="!songToEmail">
 					<li><input name="" type="text" placeholder="输入图片校验码" class="m" ng-model="codeNumber" />
-						<button class="send_btn">重新发送验证码（119秒）</button></li>
+						<button id="day_show" ng-click="newCode()" class="send_btn">重新发送验证码（120秒）</button></li>
 				</ul>
 				<div class="btn" id="updown" ng-show="!songToEmail">
 					<button ng-click="findPassThree()">下一步</button>
