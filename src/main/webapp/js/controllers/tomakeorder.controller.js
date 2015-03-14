@@ -4,7 +4,7 @@
 var tomakeorderModule = angular.module("tomakeorderModule", []);
 
 var cartmakeorderController = function($scope, $location, $http, LoginService) {
-	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
+	$scope.order={invoice_type:1};
 	$scope.order.customerId=LoginService.userid;
 	//$scope.order.addressId=1;
 	
@@ -47,7 +47,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 };
 
 var shopmakeorderController = function($scope, $location, $http, LoginService) {
-	$scope.order={invoice_type:1,invoice_info:'发票抬头'};
+	$scope.order={invoice_type:1};
 	$scope.order.customerId=LoginService.userid;
 	//$scope.order.addressId=1;
 	$scope.init = function() {
