@@ -824,7 +824,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .mf_title { overflow: hidden; margin-bottom: 10px;}
 .mf_logo { float: left; margin-right: 10px; width: 89px; height: 42px; overflow: hidden;}
 .mf_name { line-height: 20px; font-size: 14px;}
-.mf_text { color: #666; line-height: 24px; padding: 5px 0;}
+.mf_text { color: #666; line-height: 24px; padding: 5px 0; overflow:hidden; word-break:break-all;}
 
 /*-----推荐产品hot------*/
 .hot_product { margin: 10px 0;}
