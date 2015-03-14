@@ -104,12 +104,22 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		window.location.href = '#/';
 	};
 	
+};
+
+var headerController = function($scope, $location, $http, LoginService,$cookieStore) {
+	$scope.loginUserName=LoginService.loginUserName;
+	$scope.city_name = $cookieStore.get("city_name")==null?"上海市":$cookieStore.get("city_name");
+	 
+	$scope.index=function() {
+		window.location.href = '#/';
+	};
+	
 	$scope.city_list = function(){
 		$http.post("api/index/getCity").success(function (data) {   
-            if (data != null && data != undefined) {
-                $scope.city_list = data.result;
-            }
-        });
+			if (data != null && data != undefined) {
+				$scope.city_list = data.result;
+			}
+		});
 	};
 	
 	$scope.submit_city = function(){
@@ -492,6 +502,7 @@ var findpassController=function($scope, $location, $http, LoginService){
 
 
 indexModule.controller("indexController", indexController);
+indexModule.controller("headerController", headerController);
 indexModule.controller("loginController", loginController);
 indexModule.controller("registerController", registerController);
 indexModule.controller("findpassController", findpassController);

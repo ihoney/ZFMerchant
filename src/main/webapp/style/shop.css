@@ -30,10 +30,10 @@
 .address .addr_h_hover i { background: url(../images/icons.png) no-repeat 0 -5px;}
 
 .address .addr_b { 
-	width: 350px; 
+	width: 280px; 
 	background: #FFF; 
 	border: 1px #CCC solid; 
-	padding: 10px; 
+	padding: 20px; 
 	line-height: 24px;
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
 	position: absolute;
@@ -41,9 +41,11 @@
 	top: 39px;
 	display: none;
 }
-.address .addr_b li { display: inline; margin: 5px;}
-.address .addr_b li a { color: #666;}
-.address .addr_b li a:hover {color: #ff5f2b; text-decoration: underline;}
+.address .addr_b li { display: inline; margin: 5px; color: #333;}
+.address .addr_b li label { display: inline-block;}
+.address .addr_b li select { height: 24px; border: 1px #CCCCCC solid;}
+.address .addr_b li button { height: 24px; border: 1px #CCCCCC solid; background: #f5f5f5; padding: 0 5px;}
+
 
 .topNav { float: left; margin-left: 50px;}
 .topNav a { 
@@ -833,6 +835,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 
 /*---购物车 订单----*/
 .myShopOrder { overflow: hidden; margin: 10px 0;}
+.myShopOrder input[type="checkbox"] { float: left;}
 .myShopOrder h3 { font-size: 12px; line-height: 24px; margin-bottom: 5px;}
 .myShopOrder table { text-align: center;}
 .myShopOrder_bottom { background: #eee;}
