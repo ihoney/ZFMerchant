@@ -33,7 +33,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               //材料等级
               $scope.MaterialLevel = data.result.MaterialLevel;
               //城市级联
-              $scope.Cities = data.result.Cities;
+              $scope.getShengcit();
               //支付通道
               $scope.channels = data.result.channels;
           }
@@ -75,31 +75,46 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
   //获得通道ID
-  $scope.getChannels = function(chanId){
+ /* $scope.getChannels = function(chanId){
 	  $scope.chanId = Math.ceil(chanId);
 	  for(var i=0;i<$scope.channels.length;i++){
 		  if($scope.channels[i].id == $scope.chanId){
 			  $scope.chanTs = $scope.channels[i].billings;
 		  }
 	  }
-  }
+  }*/
   
   //获得通道周期时间ID
-  $scope.getChannelT = function(Tid){
+  /*$scope.getChannelT = function(Tid){
 	  $scope.Tid = Math.ceil(Tid);
-  }
+  }*/
   
 //级联
   
-//获得市级
-	$scope.jilianChneg = function(parentId){
-		$http.post("api/terminal/getShiCities", {
-			parentId : parentId
-		}).success(function(data) {
-			$scope.shiLian = data.result;
+//获得省级
+	$scope.getShengcit= function(){
+		$http.post("api/index/getCity").success(function(data) {
+			if (data.code == 1) {
+				$scope.cities = data.result;
+			} else {
+				alert("城市加载失败！");
+			}
 		})
-	}
+	};
   
+	//-------------
+	$scope.shiSelectList = {};
+	$scope.citfunction = function(citId){
+		for(var i=0;i<$scope.cities.length;i++){
+			if($scope.cities[i].id == citId){
+				$scope.shiSelectList = $scope.cities[i].childrens;
+			}
+		}
+	}
+	
+	$scope.shifunction = function(shiId){
+		$scope.shiId = shiId;
+	}
 /*	
   $scope.citiesId = 0;
   $scope.jilianShi = function(num){
@@ -162,9 +177,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           /*$("#serverErrorModal").modal({show: true});*/
       });
   }
-  
 //提交申请
   $scope.addApply = function(){
+	  alert($scope.shiId);
 	  $scope.list = [
 	                 {
 	                     status:1,
@@ -178,10 +193,10 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
-	                     cityId:Math.ceil($scope.citiesId.id),
+	                     cityId:Math.ceil($scope.shiId),
 	                     name:$("#valueName").val(),
-	                     channel:$scope.chanId,
-	                     billingId:$scope.Tid,
+	                     channel:Math.ceil($scope.chanList.id),
+	                     billingId:Math.ceil($scope.chanTs.id),
 	                     bankNum:$("#bankNumValue").val(),
 	                     bankName:$("#bankNameValue").val(),
 	                     bankCode:$("#bankCodeValue").val(),

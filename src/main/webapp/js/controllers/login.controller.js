@@ -237,13 +237,15 @@ var registerController=function($scope, $location, $http, LoginService){
 	// 跳转手机注册
 	$scope.register = function() {
 		$scope.show = true;
-		$http.post("api/terminal/getCities").success(function(data) {
+		//获得省级
+		$scope.getShengcit();
+		/*$http.post("api/terminal/getCities").success(function(data) {
 			if (data.code == 1) {
 				$scope.cities = data.result;
 			} else {
 				alert("城市加载失败！");
 			}
-		})
+		})*/
 	};
 	
 	// 跳转邮箱注册用户
@@ -264,7 +266,9 @@ var registerController=function($scope, $location, $http, LoginService){
 			}
 		})
 	};
-	
+	$scope.deleteShiId = function(){
+		$scope.shiId= "";
+	}
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
 		if($scope.ridel_xy != true){
@@ -294,7 +298,7 @@ var registerController=function($scope, $location, $http, LoginService){
 			username : $scope.rename,
 			accountType : false,
 			code : $scope.codeNumber,
-			cityId : Math.ceil($scope.CityId.id),
+			cityId : Math.ceil($scope.phoneShiList.id),
 			password : $scope.password1
 		}).success(function(data) {
 			if (data.code == 1) {
@@ -343,7 +347,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$http.post("api/user/userRegistration", {
 			username : $scope.emailname,
 			accountType : true,
-			cityId : Math.ceil($scope.CityId.id),
+			cityId : Math.ceil($scope.emailShiList.id),
 			password : $scope.password1
 		}).success(function(data) {
 			if (data.code == 1) {
@@ -360,7 +364,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	//获得省级
 	$scope.getShengcit= function(){
-		$http.post("api/terminal/getCities").success(function(data) {
+		$http.post("api/index/getCity").success(function(data) {
 			if (data.code == 1) {
 				$scope.cities = data.result;
 			} else {
@@ -370,14 +374,14 @@ var registerController=function($scope, $location, $http, LoginService){
 	};
 	
 	
-	//获得市级
+/*	//获得市级
 	$scope.getShicit = function(parentId){
 		$http.post("api/terminal/getShiCities", {
 			parentId : parentId
 		}).success(function(data) {
 			$scope.getShi = data.result;
 		})
-	};
+	};*/
 	
 /*	//获得市ID
 	$scope.getsShiId = function(siId){
@@ -389,7 +393,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	$scope.init();
 };
 	
-var findpassController=function($scope, $location, $http, LoginService){
+var findpassController=function($scope, $location, $http, LoginService,$timeout){
 	//检验邮箱格式
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	//隐藏想邮箱发送邮件状态
@@ -420,6 +424,43 @@ var findpassController=function($scope, $location, $http, LoginService){
 		$scope.two=false;
 		$scope.three=true;
 	};
+	//从新获得验证码
+	$scope.codeStatus = false;
+	$scope.newCode = function(){
+		if($scope.codeStatus == true){
+			$http.post("api/user/sendPhoneVerificationCodeFind", {
+				codeNumber : $scope.phone_email,
+			}).success(function(data) {
+				if (data.code == 1) {
+					alert(data.result);
+					$scope.code = data.result;
+					$scope.codeNumber = "";
+					$scope.twostep();
+					//倒计时
+					$scope.intDiff = 120;
+					$scope.rountTime();
+				} else {
+					alert("发送手机验证码失败！");
+				}
+			})
+		}
+	}
+	
+	//倒计时
+	$scope.intDiff = 120;
+	$scope.rountTime=function() {
+	    window.setInterval(function(){
+	    	if($scope.intDiff == 0){
+	    		$('#day_show').html("点击获得验证码！");
+	    		$scope.codeStatus = true;
+	    	}else{
+	    		$('#day_show').html("重新发送验证码（"+$scope.intDiff+"秒）");
+	    	    $scope.intDiff--;
+	    	}
+	    }, 1000);
+	};
+	
+	
 	
 	//移除样式
 	$("link[href='style/global.css']").remove();
@@ -461,8 +502,11 @@ var findpassController=function($scope, $location, $http, LoginService){
 									$scope.code = data.result;
 									$scope.codeNumber = "";
 									$scope.twostep();
+									//倒计时
+									$scope.intDiff = 120;
+									$scope.rountTime();
 								} else {
-									alert("发送手机验证码失败！");
+									alert(data.message);
 								}
 							})
 						}
@@ -512,7 +556,6 @@ var findpassController=function($scope, $location, $http, LoginService){
 	$scope.reGetRandCodeImg();
 	$scope.init();
 };
-
 
 indexModule.controller("indexController", indexController);
 indexModule.controller("headerController", headerController);

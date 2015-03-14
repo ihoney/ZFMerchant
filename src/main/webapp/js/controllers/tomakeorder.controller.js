@@ -144,17 +144,13 @@ var addressController=function($scope, $location, $http, LoginService){
 		$scope.list();
 	};
 	
-	$scope.getShengcit = function(parentId){
-		$http.post("api/terminal/getCities").success(function(data) {
-			if (data.code == 1) {
-				$scope.cities = data.result;
-			} else {
-				alert("城市加载失败！");
+	$scope.city_list = function(){
+		$http.post("api/index/getCity").success(function (data) {   
+			if (data != null && data != undefined) {
+				$scope.city_list = data.result;
 			}
 		});
 	};
-	
-
 	
 	$scope.init();
 }
