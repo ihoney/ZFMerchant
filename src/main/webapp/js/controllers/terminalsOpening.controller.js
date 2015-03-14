@@ -75,21 +75,19 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
   //获得通道ID
- /* $scope.getChannels = function(chanId){
+  $scope.getChannels = function(chanId){
 	  $scope.chanId = Math.ceil(chanId);
 	  for(var i=0;i<$scope.channels.length;i++){
 		  if($scope.channels[i].id == $scope.chanId){
 			  $scope.chanTs = $scope.channels[i].billings;
 		  }
 	  }
-  }*/
+  }
   
   //获得通道周期时间ID
-  /*$scope.getChannelT = function(Tid){
+  $scope.getChannelT = function(Tid){
 	  $scope.Tid = Math.ceil(Tid);
-  }*/
-  
-//级联
+  }
   
 //获得省级
 	$scope.getShengcit= function(){
@@ -102,7 +100,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		})
 	};
   
-	//-------------
+	//更具省获得市
 	$scope.shiSelectList = {};
 	$scope.citfunction = function(citId){
 		for(var i=0;i<$scope.cities.length;i++){
@@ -111,16 +109,26 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 			}
 		}
 	}
-	
+	//获得市ID
 	$scope.shifunction = function(shiId){
 		$scope.shiId = shiId;
 	}
-/*	
-  $scope.citiesId = 0;
-  $scope.jilianShi = function(num){
-	  $scope.citiesId = num;
-  }
-  */
+	
+	//根据通道获得通道周期
+	$scope.tsSelectList = {};
+	$scope.chanfunction = function(chanId){
+		
+		for(var i=0;i<$scope.channels.length;i++){
+			if($scope.channels[i].id == chanId){
+				$scope.chanId = chanId;
+				$scope.tsSelectList = $scope.channels[i].billings;
+			}
+		}
+	}
+	//获得通道周期ID
+	$scope.tsfunction = function(tsId){
+		$scope.tsId = tsId;
+	}
 //动态加载银行
   $scope.bankName ="";
   $scope.bank = function(){
@@ -179,7 +187,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
 //提交申请
   $scope.addApply = function(){
-	  alert($scope.shiId);
+	  alert($scope.chanId);
+	  alert($scope.tsId);
 	  $scope.list = [
 	                 {
 	                     status:1,
@@ -195,8 +204,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     email:$("#emailValue").val(),
 	                     cityId:Math.ceil($scope.shiId),
 	                     name:$("#valueName").val(),
-	                     channel:Math.ceil($scope.chanList.id),
-	                     billingId:Math.ceil($scope.chanTs.id),
+	                     channel:Math.ceil($scope.chanId),
+	                     billingId:Math.ceil($scope.tsId),
 	                     bankNum:$("#bankNumValue").val(),
 	                     bankName:$("#bankNameValue").val(),
 	                     bankCode:$("#bankCodeValue").val(),

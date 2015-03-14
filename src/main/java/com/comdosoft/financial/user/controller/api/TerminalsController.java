@@ -133,7 +133,7 @@ public class TerminalsController {
 				terminalsService.addMerchants(merchants);
 				// 添加终端
 				map.put("merchantId", merchants.getId().toString());
-				map.put("status", String.valueOf(Terminal.TerminalTYPEID_3));
+				map.put("status", String.valueOf(Terminal.TerminalTYPEID_1));
 				map.put("isReturnCsDepots", String.valueOf(Terminal.IS_RETURN_CS_DEPOTS_NO));
 				map.put("type", String.valueOf(Terminal.SYSTYPE));
 				map.put("payChannelId", map.get("payChannelId"));
@@ -242,7 +242,7 @@ public class TerminalsController {
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
 			//城市级联
-			map.put("Cities", terminalsService.getCities());
+			/*map.put("Cities", terminalsService.getCities());*/
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -336,12 +336,12 @@ public class TerminalsController {
 	public Response subRentalReturn(@RequestBody Map<Object, Object> maps) {
 		try {
 			CsCancel csCancel =new CsCancel();
-			csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+			csCancel.setTerminalId((Integer)maps.get("terminalId"));
 			csCancel.setStatus((Integer)maps.get("status"));
 			csCancel.setTempleteInfoXml(maps.get("templeteInfoXml").toString());
 			csCancel.setTypes((Integer)maps.get("type"));
 			csCancel.setCustomerId((Integer)maps.get("customerId"));
-			//先注销
+			//注销
 			terminalsService.subRentalReturn(csCancel);
 			return Response.getSuccess("操作成功！");
 		} catch (Exception e) {

@@ -69,13 +69,15 @@ var terminalController = function ($scope, $http, LoginService) {
 		$http.post("api/terminal/addTerminal", $scope.addChan).success(function (data) {  //绑定
 	          if (data != null && data != undefined) {
 	        	  if(data.code == 1){
+	        		 // location.reload();
 	        		  $("#closeWin").css('display','none');
 	        		  $(".mask").css('display','none');
 	        		  
 	        		  $scope.serialNum = null;
 	        		  $scope.getInfo();
+	        		 
 	        	  }else{
-	        		  alert(data.result);
+	        		  alert(data.message);
 	        	  }
 	          }
 	      }).error(function (data) {
