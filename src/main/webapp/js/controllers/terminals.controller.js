@@ -85,7 +85,13 @@ var terminalController = function ($scope, $http, LoginService) {
 	
 	//筛选状态
 	$scope.screening = function(obj){
-		$scope.frontStatus = Math.ceil(obj);
+		//再一次初始化分页
+		initSystemPage($scope);
+		if(obj == 0){
+			$scope.frontStatus = null;
+		}else{
+			$scope.frontStatus = Math.ceil(obj);
+		}
 		$scope.boolean = false;
 		//取消终端号的筛选
 		$scope.serialNum = null;
