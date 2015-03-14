@@ -105,11 +105,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		$scope.searchview=data;
 	});
 	
-	$scope.searchShop=function() {
-		LoginService.keys=$scope.keys;
-		window.location.href = '#/shop';
-	};
-	
 	$scope.index=function() {
 		window.location.href = '#/';
 	};
@@ -140,6 +135,13 @@ var headerController = function($scope, $location, $http, LoginService,$cookieSt
 	};
 	
 	$scope.city_list();
+};
+
+var searchController = function($scope, LoginService) {
+	$scope.searchShop=function() {
+		LoginService.keys=$scope.haha;
+		window.location.href = '#/shop';
+	};
 };
 
 
