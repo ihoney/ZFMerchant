@@ -12,16 +12,18 @@ var myinfobaseController = function($scope, $http, LoginService) {
 		} else {
 			$scope.$emit('changeshow', false);
 		}
-		$scope.selected={};
-		$scope.selected_city={};
-	    $scope.selected.id = "1";
-	    $scope.selected.name = "江苏省";
-        $scope.selected_city.id = "2";
-        $scope.selected_city.name = "苏州市";
-        $scope.req = { id : customerId }
-		$http.post("api/customers/findCustById" + $scope.req).success(function(data) {
+		$scope.req = {
+				customer_id : LoginService.userid
+			};
+		 $scope.selected={};
+		 $scope.selected_city={};
+		 $http.post("api/customers/findCustById", $scope.req).success(function (data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
+			    $scope.selected.id = data.result.parent_id;
+			    $scope.selected.name = data.result.p_name;
+		        $scope.selected_city.id = data.result.id;
+		        $scope.selected_city.name = data.result.c_name;
 			}
 		}).error(function(data) {
 
@@ -42,21 +44,19 @@ var myinfobaseController = function($scope, $http, LoginService) {
 	};
 	
 	$scope.save = function() {
-		console.log("==>"+$scope.selected_city.name);
-		console.log("==>"+$scope.selected_city.id);
-		return ;
 		$scope.updateCustomer = {
-			id : $scope.req.id,
+			id : $scope.customer.id,
 			name : $scope.customer.name,
 			phone : $scope.customer.phone,
 			email : $scope.customer.email,
 			cityId : $scope.selected_city.id
 		};
-		$http.post("api/customers/update", $scope.updateCustomer).success(function(data) {
+		$http.post("api/customers/cust_update", $scope.updateCustomer).success(function(data) {
+			console.log("==>>>"+$scope.updateCustomer);
 			if (data.code == 1) {
-				alert("保存成功");
-			} else {
-				alert(data.message);
+//				alert("保存成功");
+//			} else {
+//				alert(data.message);
 			}
 		}).error(function(data) {
 

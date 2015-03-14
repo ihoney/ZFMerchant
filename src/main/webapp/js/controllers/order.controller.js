@@ -32,7 +32,7 @@ var orderController = function ($scope, $http, LoginService) {
 	};
 	//筛选
 	$scope.submitScreen = function(){
-		initSystemPage($scope);// 初始化分页参数
+//		initSystemPage($scope);// 初始化分页参数
 		$scope.req = {
 			customer_id : LoginService.userid,
 			search : $scope.search,

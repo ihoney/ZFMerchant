@@ -21,12 +21,12 @@
 	<select id="findCustById" resultType="map">
 	<![CDATA[
 	SELECT
-		c. NAME,
+		c.name,
 		c.phone,
 		c.email,
 		c.city_id,
 		c.integral,
-		c. PASSWORD,
+		c.password,
 		t.id,
 		t.`name` as c_name,
 		t.parent_id,
@@ -36,7 +36,7 @@
 	LEFT JOIN cities t ON c.city_id = t.id
 	LEFT JOIN cities tt ON t.parent_id = tt.id
 	WHERE
-		 c.id = #{id}
+		 c.id = #{customer_id}
 	]]>
 	</select>
 
@@ -51,7 +51,13 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="updatePassword">
+	<update id="cust_update" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		update customers
+		set name = #{name},phone = #{phone},email = #{email},city_id = #{cityId}
+		where id = #{id}
+	</update>
+
+	<update id="updatePassword" >
 	<![CDATA[
 		UPDATE customers SET password = #{password}
 		 WHERE id = #{id}

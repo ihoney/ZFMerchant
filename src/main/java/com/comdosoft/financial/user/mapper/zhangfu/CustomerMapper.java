@@ -3,6 +3,7 @@ package com.comdosoft.financial.user.mapper.zhangfu;
 import java.util.List;
 import java.util.Map;
 
+import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 
 /**
@@ -48,5 +49,7 @@ public interface CustomerMapper {
     void deleteAddress(int id);
 
     Map<String, Object> findCustById(MyOrderReq req);
+
+    void cust_update(Customer c);
 
 }
