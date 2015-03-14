@@ -237,13 +237,15 @@ var registerController=function($scope, $location, $http, LoginService){
 	// 跳转手机注册
 	$scope.register = function() {
 		$scope.show = true;
-		$http.post("api/terminal/getCities").success(function(data) {
+		//获得省级
+		$scope.getShengcit();
+		/*$http.post("api/terminal/getCities").success(function(data) {
 			if (data.code == 1) {
 				$scope.cities = data.result;
 			} else {
 				alert("城市加载失败！");
 			}
-		})
+		})*/
 	};
 	
 	// 跳转邮箱注册用户
@@ -296,7 +298,7 @@ var registerController=function($scope, $location, $http, LoginService){
 			username : $scope.rename,
 			accountType : false,
 			code : $scope.codeNumber,
-			cityId : Math.ceil($scope.CityId.id),
+			cityId : Math.ceil($scope.phoneShiList.id),
 			password : $scope.password1
 		}).success(function(data) {
 			if (data.code == 1) {
@@ -345,7 +347,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$http.post("api/user/userRegistration", {
 			username : $scope.emailname,
 			accountType : true,
-			cityId : Math.ceil($scope.CityId.id),
+			cityId : Math.ceil($scope.emailShiList.id),
 			password : $scope.password1
 		}).success(function(data) {
 			if (data.code == 1) {
@@ -372,14 +374,14 @@ var registerController=function($scope, $location, $http, LoginService){
 	};
 	
 	
-	//获得市级
+/*	//获得市级
 	$scope.getShicit = function(parentId){
 		$http.post("api/terminal/getShiCities", {
 			parentId : parentId
 		}).success(function(data) {
 			$scope.getShi = data.result;
 		})
-	};
+	};*/
 	
 /*	//获得市ID
 	$scope.getsShiId = function(siId){

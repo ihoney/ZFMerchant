@@ -425,8 +425,6 @@ public class TerminalsController {
 			map.put("merchants", openingApplyService.getMerchants(maps.get("customerId")));
 			// 获得材料等级
 			map.put("MaterialLevel", openingApplyService.getMaterialLevel(maps.get("terminalsId")));
-			//城市级联
-			map.put("Cities", terminalsService.getCities());
 			//支付通道和周期列表
 			List<Map<Object, Object>> list = terminalsService.getChannels();
 			 for(Map<Object, Object> m:list){
