@@ -1,12 +1,39 @@
 <div id="mainindex" ng-controller="mainindexController">
+	<div class="clear"></div>
+	<div class="head head_index clear">
+		<div class="box" ng-controller="searchController">
+			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
+			<div class="search">
+				<div class="search_box">
+					<input ng-model="haha" type="text" placeholder="请输入pos机信息" />
+					<button ng-click="searchShop()">搜索</button>
+				</div>
+				<div class="hotwords">
+					<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
+				</div>
+			</div>
+			<div class="phone">
+				<img src="images/dh.png" />
+			</div>
+			<div class="shoppingCart">
+				<div class="sCart_h">
+					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
+				</div>
+				<div class="sCart_b" ng-if="shopcount>0">
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a>
+				</div>
+				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
+			</div>
+		</div>
+	</div>
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
-				<li style="background-image: url(images/ad1.jpg);"></li>
-				<li style="background-image: url(images/ad2.jpg);"></li>
-				<li style="background-image: url(images/ad3.jpg);"></li>
-				<li style="background-image: url(images/ad4.jpg);"></li>
-				<li style="background-image: url(images/ad5.jpg);"></li>
+				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
+				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
+				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
+				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
+				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
 			</ul>
 		</div>
 		<script>
@@ -61,8 +88,7 @@
 				</div>
 				<div class="hp_con">
 					<ul>
-						<li ng-repeat="p in pos_list |orderBy : 'volume_number'">
-						<a href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img src="{{p.good_logo}}" style="width: 150px; height: auto;"/></a>
+						<li ng-repeat="p in pos_list |orderBy : 'volume_number'"><a href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img src="{{p.good_logo}}" style="width: 150px; height: auto;" /></a>
 							<div class="pro_text">
 								<h3>{{p.brand_name}} {{p.brand_number}}</h3>
 								<p>支持平台</p>
@@ -70,8 +96,7 @@
 								<p>费率</p>
 								<p>到账日期</p>
 								<a class="pro_text_a" href="#/shopinfo?goodId={{p.id}}">查看详情 &gt;&gt;</a>
-							</div>
-							</li>
+							</div></li>
 					</ul>
 				</div>
 			</div>
@@ -82,8 +107,7 @@
 						<li ng-repeat="m in web_list"><i></i>
 							<p>
 								<a href="#/webmessageinfo?infoId={{m.id}}">{{m.title}}</a>
-							</p> <span>{{m.create_at}}</span>
-						</li>
+							</p> <span>{{m.create_at}}</span></li>
 					</ul>
 				</div>
 			</div>
@@ -94,7 +118,7 @@
 				<div class="title">收单机构</div>
 				<div class="org_con">
 					<ul>
-						<li ng-repeat="f in factory_list"><a href="javascript:void()"> <img src="{{f.logo_file_path}}" width="80px;" height="60px;"/>
+						<li ng-repeat="f in factory_list"><a href="javascript:void()"> <img src="{{f.logo_file_path}}" width="80px;" height="60px;" />
 								<h4>{{f.name}}</h4>
 								<p>{{f.description}}</p>
 						</a></li>
@@ -203,15 +227,15 @@
 			<div class="item_list">
 				<ul>
 					<li><span class="labelSpan">意向人：</span>
-					<div class="text">
+						<div class="text">
 							<input ng-model="req.name" type="text" />
 						</div></li>
 					<li><span class="labelSpan">联系电话：</span>
-					<div class="text">
+						<div class="text">
 							<input ng-model="req.phone" type="text" />
 						</div></li>
 					<li><span class="labelSpan">咨询内容：</span>
-					<div class="text">
+						<div class="text">
 							<textarea ng-model="req.content" cols="" rows="" class="textarea_l"></textarea>
 						</div></li>
 				</ul>

@@ -18,8 +18,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
             });
     	}
     };
-    $scope.$on('$locationChangeStart', function (scope, next, current) {                          
-		
+    $scope.$on('$locationChangeStart', function (scope, next, current) {                          		
 		//alert(strs[0]);
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
@@ -43,9 +42,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 				$scope.ngshow2=false;
 			}
 		}
-		$scope.searchview=true;
-		
-		
+		//$scope.searchview=true;
     });
 	
 	var check=function(str){
@@ -98,9 +95,9 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     
     
     
-	$scope.$on('changeshow', function(d,data) {
-		$scope.ngshow=data;
-	});
+//	$scope.$on('changeshow', function(d,data) {
+//		$scope.ngshow=data;
+//	});
 	$scope.$on('changesearchview', function(d,data) {
 		$scope.searchview=data;
 	});

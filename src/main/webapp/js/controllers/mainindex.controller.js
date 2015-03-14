@@ -34,8 +34,6 @@ var mainindexController = function ($scope, $http) {
 			if (data != null && data != undefined) {
 				$scope.web_list = data.result.content;
 			}
-		}).error(function (data) {
-			$("#serverErrorModal").modal({show: true});
 		});
 	};
 	//热卖POS
@@ -45,8 +43,6 @@ var mainindexController = function ($scope, $http) {
 			if (data != null && data != undefined) {
 				$scope.pos_list = data.result;
 			}
-		}).error(function (data) {
-			$("#serverErrorModal").modal({show: true});
 		});
 	};
 	//收单机构
@@ -55,14 +51,24 @@ var mainindexController = function ($scope, $http) {
 			if (data != null && data != undefined) {
 				$scope.factory_list = data.result;
 			}
-		}).error(function (data) {
-			$("#serverErrorModal").modal({show: true});
 		});
 	};
-
-	$scope.web_message_list();
-	$scope.factory_list();
-	$scope.web_pos_list();
+	
+	//轮播图
+	$scope.pic_list = function(){
+		$http.post("api/index/sysshufflingfigure/getList", $scope.req).success(function (data) {  
+			if (data != null && data != undefined) {
+				$scope.pic_list = data.result;
+			}
+		});
+	};
+	$scope.init = function(){
+		$scope.web_message_list();
+		$scope.factory_list();
+		$scope.web_pos_list();
+		$scope.pic_list();
+	};
+	$scope.init();
 };
 
 

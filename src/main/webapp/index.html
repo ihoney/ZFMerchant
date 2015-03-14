@@ -1,77 +1,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" ng-controller="indexController">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IEs=edge">
-	<meta name="renderer" content="webkit">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IEs=edge" />
+<meta name="renderer" content="webkit" />
 
-	<title>掌富用户版首页</title>
+<title>掌富用户版首页</title>
+<!--shop.css 商品列表 商品详情页-->
+<link href="style/shop.css" rel="stylesheet" type="text/css" />
+<!--user.css用户后台页-->
+<link href="style/user.css" rel="stylesheet" type="text/css" />
+<!--global.css全局公用-->
+<link href="style/global.css" rel="stylesheet" type="text/css" />
+<!-- 日历控件 -->
+<link href="style/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="js/jQuery-1.11.2.js"></script>
+<script src="js/main.js"></script>
+<script src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/unslider.js"></script>
+<!--星型评分插件http://www.wbotelhos.com/raty/-->
+<script src="js/jquery.raty.js"></script>
 
-	<!--shop.css 商品列表 商品详情页-->
-	<link href="style/shop.css" rel="stylesheet" type="text/css" />
-	<!--user.css用户后台页-->
-	<link href="style/user.css" rel="stylesheet" type="text/css" />
-	<!--global.css全局公用-->
-	<link href="style/global.css" rel="stylesheet" type="text/css" /> 
-	<!-- 日历控件 -->
-	<link href="style/jquery-ui.css" rel="stylesheet" type="text/css">
+<!--放大产品-->
+<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
+<script type="text/javascript" src="js/pro-show.js"></script>
 
-	<script src="js/jQuery-1.11.2.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/Chart.min.js"></script>
-	<script type="text/javascript" src="js/unslider.js"></script>
-	<!--星型评分插件http://www.wbotelhos.com/raty/-->
-	<script src="js/jquery.raty.js"></script>
-
-	<!--放大产品-->
-	<link href="style/jqzoom.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="js/jquery.jqzoom.min.js"></script>
-	<script type="text/javascript" src="js/pro-show.js"></script>
-
-	<script type="text/javascript" src="js/libs/angular.js"></script>
-	<script type="text/javascript" src="js/libs/angular-route.js"></script>
-	<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
-	<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
-	<script type="text/javascript" src="js/libs/ng-csv.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
-	<!-- 系统分页 -->
-	<script type="text/javascript" src="js/page.js"></script>
-	<!-- 日历控件 -->
-	<script type="text/javascript" src="js/jquery-ui.js"></script>
-	<script src="js/left.js"></script>
-	<!-- Services -->
-	<script type="text/javascript" src="js/services/loginService.js"></script>
-	<!-- Directives -->
-	<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
-	<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
-	<!-- Controllers -->
-	<script type="text/javascript" src="js/controllers/route.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/shop.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/login.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/mainindex.controller.js"></script>
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/libs/angular-route.js"></script>
+<script type="text/javascript" src="js/libs/angular-cookies.js"></script>
+<script type="text/javascript" src="js/libs/angular-sanitize.js"></script>
+<script type="text/javascript" src="js/libs/ng-csv.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!-- 系统分页 -->
+<script type="text/javascript" src="js/page.js"></script>
+<!-- 日历控件 -->
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script src="js/left.js"></script>
+<!-- Services -->
+<script type="text/javascript" src="js/services/loginService.js"></script>
+<!-- Directives -->
+<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
+<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="js/controllers/route.controller.js"></script>
+<script type="text/javascript" src="js/controllers/shop.controller.js"></script>
+<script type="text/javascript" src="js/controllers/login.controller.js"></script>
+<script type="text/javascript" src="js/controllers/pay.controller.js"></script>
+<script type="text/javascript" src="js/controllers/mainindex.controller.js"></script>
 </head>
-<body >
-	<div  class="topInfo clear" ng-if="!loginshow">
+<body>
+	<div class="topInfo clear" ng-if="!loginshow">
 		<div class="box" ng-controller="headerController">
 			<div class="address">
-        	<div class="addr_h"><span id="city_name" ng-bind="city_name">{{city_name}}</span><i class="down"></i></div>
-            <div class="addr_b">
-            	<ul>
-                	<li><label>省</label>
-                	 <select ng-model="selected" ng-options="s.name for s in city_list" >
-		              <option value="">请选择</option>
-		          </select>
-                    </li>
-                    <li><label>市</label>
-                     <select ng-model="selected_city" ng-options="x.name for x in selected.childrens" >
-			               <option value="">请选择</option>
-			          </select>
-                    </li>  
-                    <li><button class="addr_btn" ng-click="submit_city()">确定</button></li>
-                </ul>
-            </div>
-        </div>
+				<div class="addr_h">
+					<span id="city_name" ng-bind="city_name">{{city_name}}</span><i class="down"></i>
+				</div>
+				<div class="addr_b">
+					<ul>
+						<li><label>省</label> <select ng-model="selected" ng-options="s.name for s in city_list">
+								<option value="">请选择</option>
+						</select></li>
+						<li><label>市</label> <select ng-model="selected_city" ng-options="x.name for x in selected.childrens">
+								<option value="">请选择</option>
+						</select></li>
+						<li><button class="addr_btn" ng-click="submit_city()">确定</button></li>
+					</ul>
+				</div>
+			</div>
 			<div class="topNav">
 				<a href="#">选购POS机</a><a href="#">收单机构</a><a href="#">APP下载</a><a href="#">查看交易流水</a> <a href="#">POS机构认证</a><a href="#">打造精致小店</a>
 			</div>
@@ -82,7 +78,7 @@
 		<div class="clear"></div>
 	</div>
 
-	<div  class="topInfo clear" ng-if="loginshow">
+	<div class="topInfo clear" ng-if="loginshow">
 		<div class="box">
 			<div class="top_kf">
 				<ul>
@@ -97,7 +93,7 @@
 		<div class="clear"></div>
 	</div>
 
-	<div class="head clear" ng-if="searchview" ng-init="searchview=true">
+	<div class="head clear" ng-if="ngshow2">
 		<div class="box" ng-controller="searchController">
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
@@ -123,12 +119,12 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div ng-if="ngshow2" class="main_user">
 		<div class="box">
 			<div class="left">
 				<ul id="left_common">
-					<li><a href="#/myapp" class="hover">我的掌富</a></li>
+					<li><a href="#/myapp">我的掌富</a></li>
 					<li><a href="#/order">我的订单</a></li>
 					<li><a href="#/terminal">我的终端</a></li>
 					<li class="second"><a href="javascript:void(0);">售后记录<i class="off"></i></a>
@@ -151,7 +147,7 @@
 		</div>
 	</div>
 	<div ng-view ng-if="ngshow"></div>
-	
+
 
 	<div class="foot">
 		<div class="box">
