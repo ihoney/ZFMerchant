@@ -250,18 +250,26 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.show = false;
 		$scope.successEmailShow = false;
 	}
-	
+	//获取验证码后动态显示倒计时
+	$scope.registreTime = true;
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
-		$http.post("api/user/sendPhoneVerificationCodeReg", {
-			codeNumber : $scope.rename
-		}).success(function(data) {
-			if(data.code == 1){
-				$scope.code = data.result;
-			}else{
-				alert(data.message);
-			}
-		})
+		if($scope.registreTime == true){
+			alert($scope.registreTime );
+			$scope.registreTime = false;
+			$http.post("api/user/sendPhoneVerificationCodeReg", {
+				codeNumber : $scope.rename
+			}).success(function(data) {
+				if(data.code == -1){
+					$scope.code = data.result;
+					//倒计时
+					$scope.intDiff = 120;
+					$scope.rountTime();
+				}else{
+					alert(data.message);
+				}
+			})
+		}
 	};
 	$scope.deleteShiId = function(){
 		$scope.shiId= "";
@@ -368,6 +376,20 @@ var registerController=function($scope, $location, $http, LoginService){
 				alert("城市加载失败！");
 			}
 		})
+	};
+	
+	//倒计时
+	$scope.intDiff = 120;
+	$scope.rountTime=function() {
+	    window.setInterval(function(){
+	    	if($scope.intDiff == 0){
+	    		$('#time_show').html("获取验证码！");
+	    		$scope.registreTime = true;
+	    	}else{
+	    		$('#time_show').html("重新发送（"+$scope.intDiff+"秒）");
+	    	    $scope.intDiff--;
+	    	}
+	    }, 1000);
 	};
 	
 	
