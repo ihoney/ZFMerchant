@@ -64,7 +64,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           }
       }).error(function (data) {
     	  alert("获取列表失败");
-          /*$("#serverErrorModal").modal({show: true});*/
       });
   }
   
@@ -74,19 +73,19 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
   //获得通道ID
-  $scope.getChannels = function(chanId){
+ /* $scope.getChannels = function(chanId){
 	  $scope.chanId = Math.ceil(chanId);
 	  for(var i=0;i<$scope.channels.length;i++){
 		  if($scope.channels[i].id == $scope.chanId){
 			  $scope.chanTs = $scope.channels[i].billings;
 		  }
 	  }
-  }
+  }*/
   
   //获得通道周期时间ID
-  $scope.getChannelT = function(Tid){
+  /*$scope.getChannelT = function(Tid){
 	  $scope.Tid = Math.ceil(Tid);
-  }
+  }*/
   
 //获得省级
 	$scope.getShengcit= function(){
@@ -100,21 +99,21 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	};
   
 	//更具省获得市
-	$scope.shiSelectList = {};
+	/*$scope.shiSelectList = {};
 	$scope.citfunction = function(citId){
 		for(var i=0;i<$scope.cities.length;i++){
 			if($scope.cities[i].id == citId){
 				$scope.shiSelectList = $scope.cities[i].childrens;
 			}
 		}
-	}
+	}*/
 	//获得市ID
-	$scope.shifunction = function(shiId){
+	/*$scope.shifunction = function(shiId){
 		$scope.shiId = shiId;
-	}
+	}*/
 	
 	//根据通道获得通道周期
-	$scope.tsSelectList = {};
+	/*$scope.tsSelectList = {};
 	$scope.chanfunction = function(chanId){
 		
 		for(var i=0;i<$scope.channels.length;i++){
@@ -123,11 +122,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 				$scope.tsSelectList = $scope.channels[i].billings;
 			}
 		}
-	}
+	}*/
 	//获得通道周期ID
-	$scope.tsfunction = function(tsId){
+	/*$scope.tsfunction = function(tsId){
 		$scope.tsId = tsId;
-	}
+	}*/
 //动态加载银行
   $scope.bankName ="";
   $scope.bank = function(){
@@ -185,9 +184,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
       });
   }
 //提交申请
+  $scope.req={};
+  
+  $scope.chan={};
+  $scope.tln={};
   $scope.addApply = function(){
-	  alert($scope.chanId);
-	  alert($scope.tsId);
 	  $scope.list = [
 	                 {
 	                     status:1,
@@ -197,14 +198,14 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     merchantId: Math.ceil($scope.merchantId),
 	                     merchantName:$scope.merchantNamed,
 	                     sex:Math.ceil($scope.sex),
-	                     birthday: $("#selYear").val()+"/"+$("#selMonth").val()+"/"+$("#selDay").val(),
+	                     birthday: $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val(),
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
-	                     cityId:Math.ceil($scope.shiId),
+	                     cityId:Math.ceil($scope.req.shiList.id),
 	                     name:$("#valueName").val(),
-	                     channel:Math.ceil($scope.chanId),
-	                     billingId:Math.ceil($scope.tsId),
+	                     channel:Math.ceil($scope.chan.chanList.id),
+	                     billingId:Math.ceil($scope.tln.chanTs.id),
 	                     bankNum:$("#bankNumValue").val(),
 	                     bankName:$("#bankNameValue").val(),
 	                     bankCode:$("#bankCodeValue").val(),

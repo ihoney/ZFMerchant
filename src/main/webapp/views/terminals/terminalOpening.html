@@ -1,8 +1,7 @@
-
+<script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
 <script src="js/main.js"></script>
 <script src="js/jquery.form.min.js"></script>
 <script type="text/javascript" src="js/dateSelector.js"></script>
-<script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
  <div class="right" ng-controller="terminalOpenController">
             	<div class="breadcrumb">
                     <ul>
@@ -82,28 +81,34 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">地址：</span>
                                 	<div class="text">
-                                		<select>
+                                	<select  ng-model="selected" ng-options="s.name for s in cities" >
+		             		 				<option value="">请选择</option>
+		          						</select>
+						 				<select ng-model="req.shiList" ng-options="x.name for x in selected.childrens"  >
+			               					<option value="">请选择</option>
+			          					</select>
+                                		<!-- <select>
 		             		 				<option value="" ng-click="citfunction(cit.id)" ng-repeat="cit in cities">{{cit.name}}</option>
 		          						</select>
 						 				<select>
 			               					<option value="" ng-click="shifunction(shiObje.id)" ng-repeat="shiObje in shiSelectList">{{shiObje.name}}</option>
-			          					</select>
+			          					</select> -->
                                      </div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="channelKey">支付通道：</span>
                                 	<div class="text">
-                                	<!-- <select  ng-model="chanList" ng-options="s.name for s in channels" >
+                                	<select  ng-model="chan.chanList" ng-options="s.name for s in channels" >
 		             		 				<option value="">请选择</option>
 		          						</select>
-						 				<select ng-model="chanTs" ng-options="x.name for x in chanList.billings"  >
+						 				<select ng-model="tln.chanTs" ng-options="x.name for x in chan.chanList.billings"  >
 			               					<option value="">请选择</option>
-			          					</select> -->
-			          					<select>
+			          					</select>
+			          					<!-- <select>
 		             		 				<option value="" ng-click="chanfunction(chanTs.id)" ng-repeat="chanTs in channels">{{chanTs.name}}</option>
 		          						</select>
 						 				<select>
 			               					<option value="" ng-click="tsfunction(tsObje.id)" ng-repeat="tsObje in tsSelectList">{{tsObje.name}}</option>
-			          					</select>
+			          					</select> -->
                                 	<!-- <select name="">
                                           <option ng-repeat="chan in channels" ng-click="getChannels(chan.id)">{{chan.name}}</option>
                                     </select>

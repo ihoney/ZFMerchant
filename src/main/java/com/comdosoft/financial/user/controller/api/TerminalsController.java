@@ -490,10 +490,8 @@ public class TerminalsController {
 			Integer types = null;
 			Integer openingRequirementId = null;
 			Integer targetId =null;
-			int i = 0;
 			int y = 0;
 			for (Map<String, Object> map : paramMap) {
-				Set<String> keys = map.keySet();
 				if (y == 0) {
 					terminalId = (Integer)map.get("terminalId");
 					//获得开通基本资料
@@ -511,7 +509,7 @@ public class TerminalsController {
 							.get("merchantName"));
 					openingApplie.setSex((Integer) map
 							.get("sex"));
-					openingApplie.setBirthday( new SimpleDateFormat("yyyy/MM/dd").parse((String) map.get("birthday")));
+					openingApplie.setBirthday( new SimpleDateFormat("yyyy-MM-dd").parse((String) map.get("birthday")));
 					openingApplie.setCardId((String) map
 							.get("cardId"));
 					openingApplie.setPhone((String) map
@@ -579,21 +577,12 @@ public class TerminalsController {
 								.valueOf(openingApplie.getId());
 					}
 				} else {
-					for (String str : keys) {
-						if (i == 0)
-							key = (String) map.get(str);
-						if (i == 1)
-							value =  map.get(str);
-						if (i == 2)
-							types = (Integer) map.get(str);
-						if (i == 3)
-							openingRequirementId = (Integer) map.get(str);
-						if (i == 4)
-							targetId =(Integer) map.get(str);
-						i++;
-					}
+							key = (String) map.get("key");
+							value =  map.get("value");
+							types = (Integer) map.get("types");
+							openingRequirementId = (Integer) map.get("openingRequirementId");
+							targetId =(Integer) map.get("targetId");
 					openingApplyService.addApply(key, value,types, openingAppliesId,openingRequirementId,targetId);
-					i = 0;
 				}
 				y++;
 			}
