@@ -353,4 +353,9 @@ public class OrderService {
         return new Page<Object>(request, obj_list, count);
     }
 
+    public void batchSaveComment(MyOrderReq myOrderReq) {
+        orderMapper.batchSaveComment(myOrderReq.getJson());
+        
+    }
+    
 }

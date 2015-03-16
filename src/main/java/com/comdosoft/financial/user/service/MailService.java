@@ -151,8 +151,9 @@ public class MailService {
      */
     public static void main(String[] args) {
         MailReq req = new MailReq();
-        req.setAddress("445875775@qq.com");
-        req.setUrl("www.baidu.com");
+        //req.setAddress("445875775@qq.com");
+        req.setAddress("531950712@qq.com");
+        req.setUrl("<a href='localhost:8080/ZFMerchant/#/findpassEmail'>激活账号</a>");
         req.setUserName("jjj");
         new MailService().sendMailWithFiles(req);
     }

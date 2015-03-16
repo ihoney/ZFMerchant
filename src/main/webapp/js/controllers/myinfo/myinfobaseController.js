@@ -43,6 +43,10 @@ var myinfobaseController = function($scope, $http, LoginService) {
 //		$scope.selected_city = "";
 	};
 	
+	$scope.changePhone_show = function(){
+		$("#show_phone_input").css('display', 'block');
+	};
+	
 	$scope.save = function() {
 		$scope.req = {
 			"id" : LoginService.userid,

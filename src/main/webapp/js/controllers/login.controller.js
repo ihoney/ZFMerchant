@@ -211,8 +211,36 @@ var loginController=function($scope, $location, $http, LoginService){
 };
 
 var registerController=function($scope, $location, $http, LoginService){
-	//手机邮箱注册显示
-	$scope.show = true;
+	$scope.usernameLocal=$location.search()['sendusername'];
+	$scope.sendStatus=Math.ceil($location.search()['sendStatus']);
+	//邮箱激活链接判断
+	if($scope.sendStatus == -1){
+		$scope.show = false;
+		$http.post("api/user/activationEmail", {
+			username : $scope.usernameLocal
+		}).success(function(data) {
+			if(data.code == 1){
+				$scope.sendEmailShow = false;
+				$scope.miao = 5;
+				 window.setInterval(function(){
+				    	if($scope.miao == 0){
+				    		window.location.href = '#/login';
+				    	}else{
+				    		$(".winSkip").html("账号激活成功！<span>"+$scope.miao+"秒</span>后跳转至登录页！");
+				    	    $scope.miao--;
+				    	}
+				    }, 1000);
+			}else{
+				alert("激活失败！");
+			}
+		})
+	}else{
+		//手机邮箱注册显示
+		$scope.show = true;
+		//发送邮件状态
+		$scope.sendEmailShow = true;
+	}
+	
 	//勾选协议
 	$scope.ridel_xy = false;
 	//邮箱注册显示状态
@@ -249,7 +277,9 @@ var registerController=function($scope, $location, $http, LoginService){
 	// 跳转邮箱注册用户
 	$scope.gotoEmailRetrieve = function() {
 		$scope.show = false;
+		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		
 	}
 	//获取验证码后动态显示倒计时
 	$scope.registreTime = true;
@@ -417,6 +447,8 @@ var registerController=function($scope, $location, $http, LoginService){
 };
 	
 var findpassController=function($scope, $location, $http, LoginService,$timeout){
+	$scope.usernameLocal=$location.search()['sendusername'];
+	$scope.sendStatus=Math.ceil($location.search()['sendStatus']);
 	//检验邮箱格式
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	//隐藏想邮箱发送邮件状态
@@ -429,8 +461,14 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	$scope.init=function() {
 		//隐藏中间搜索
 		$scope.$emit('changesearchview',false);
-		$scope.onestep();
+		if($scope.sendStatus == -1){
+			$scope.phone_email = $scope.usernameLocal;
+			$scope.threestep();
+		}else{
+			$scope.onestep();
+		}
 	};
+	
 	
 	$scope.onestep=function() {
 		$scope.one=true;

@@ -80,12 +80,13 @@ public class TerminalsController {
 				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
 			 }
 			maps.put("channels",list);
-			maps.put("list", terminalsService.getTerminalList(
+			List<Map<Object, Object>> li = terminalsService.getTerminalList(
 					((Integer)map.get("customersId")),
 					offSetPage,
 					(Integer)map.get("rows"),
 					(Integer)map.get("frontStatus"),
-					(String)map.get("serialNum")));
+					(String)map.get("serialNum"));
+			maps.put("list", li == null?new ArrayList<Object>():li);
 			return Response.getSuccess(maps);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -554,10 +555,11 @@ public class TerminalsController {
 								.get("customersId"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
-						terminalId = merchant.getId();
-					}else if(count > 0){
+						//terminalId = merchant.getId();
+						openingApplie.setMerchantId(merchant.getId());
+					}/*else if(count > 0){
 						terminalId = (Integer)map.get("terminalId");
-					}
+					}*/
 					
 					//判断该终端是申请开通还是从新申请
 					if(terminalsService.judgeOpen(terminalId) != 0){

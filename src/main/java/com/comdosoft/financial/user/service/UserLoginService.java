@@ -48,6 +48,14 @@ public class UserLoginService {
 	}
 	
 	/**
+	 * 修改邮箱注册状态
+	 * @param customer
+	 */
+	public void activationEmail(Customer customer){
+		userLoginMapper.activationEmail(customer);
+	}
+	
+	/**
 	 * 查找用户
 	 * @param customer
 	 * @return

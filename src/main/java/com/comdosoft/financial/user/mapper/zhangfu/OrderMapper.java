@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.comdosoft.financial.user.domain.query.OrderReq;
+import com.comdosoft.financial.user.domain.zhangfu.CommentsJson;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
@@ -51,6 +52,8 @@ public interface OrderMapper {
     List<Order> orderSearch(MyOrderReq myOrderReq);
 
     List<Terminal> getTerminsla(Integer order_id,Integer goods_id);
+
+    void batchSaveComment(List<CommentsJson> list);
 
 // ------gch end ---------------------
 }

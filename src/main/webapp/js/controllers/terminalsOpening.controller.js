@@ -97,7 +97,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 			}
 		})
 	};
-  
 	//更具省获得市
 	/*$scope.shiSelectList = {};
 	$scope.citfunction = function(citId){
@@ -138,13 +137,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
         		  alert("获取银行失败！");
         	  }
           }
-      }).error(function (data) {
+      }).error(function (data){
     	  alert("银行加载失败！");
       });
 	  $("#div_"+obj).show();
-	  $scope.bankCode=[1,2,3,4,5];
   }
-  
 //动态显示银行代码号
   $scope.bankNum = function(obj,number,backName){
 	  $scope.bankCode = "";

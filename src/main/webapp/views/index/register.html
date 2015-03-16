@@ -74,7 +74,7 @@ $(function(){
 					<li><a href="javascript:void(0)" ng-click="gotoEmailRetrieve()" class="hover">邮箱注册</a></li>
 				</ul>
 			</div>
-			<div class="res_b">
+			<div class="res_b" ng-show="sendEmailShow">
 				<ul id="emailUl"  ng-show="!successEmailShow">
 					<li><label>所在地</label>
 					 <select  ng-model="selected" ng-options="s.name for s in cities" >
@@ -98,6 +98,9 @@ $(function(){
 					<button ng-click="getImgEmailCode()">注册</button>
 				</div>
 				<div ng-show="successEmailShow" id="clodeText" class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
+			</div>
+			<div class="res_b" ng-show="!sendEmailShow">
+			<div class="winSkip" >账号激活成功！<span>5秒</span>后跳转至登录页！</div>
 			</div>
 		</div>
 	</div>

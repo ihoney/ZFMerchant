@@ -94,9 +94,14 @@ public class OrderController {
             orderService.comment(myOrderReq);
             return Response.buildSuccess(null, "评论成功");
         } catch (Exception e) {
-            logger.debug("取消我的订单详情出错" + e);
             return Response.getError("评论失败");
         }
+    }
+    
+    @RequestMapping(value = "batchSaveComment", method = RequestMethod.POST)
+    public Response batchSaveComment(@RequestBody MyOrderReq myOrderReq) {
+            orderService.batchSaveComment(myOrderReq);
+            return Response.buildSuccess(null, "评论成功");
     }
 
     // gch end

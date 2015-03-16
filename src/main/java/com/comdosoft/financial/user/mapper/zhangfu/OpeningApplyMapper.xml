@@ -72,14 +72,14 @@
  	
  	<select id="getApplyDetails" parameterType="int" resultType="map">
  		SELECT t.serial_num,g.model_number,b.name as brandName,c.name as channelName
-		FROM terminals t LEFT JOIN goods g on t.good_id=g.id
+		FROM terminals t LEFT JOIN goods g on t.good_id=g.id and o.good_id = t.good_id
 		LEFT JOIN good_brands b on g.good_brands_id=b.id 
 		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
 		WHERE t.id=#{terminalsId}
  	</select>
  	
  	<select id="getMerchants" resultType="map"  parameterType="int">
- 		SELECT id,title FROM merchants where customer_id =#{customerId}
+ 		SELECT id,title FROM merchants where customer_id =#{customerId} and 
  	</select>
  	
  	<select id="getOppinfo" resultType="map"  parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
@@ -127,7 +127,9 @@
  	</select>
  	
  	<select id="ReApplyFor" parameterType="int" resultType="map">
- 		SELECT * FROM terminal_opening_infos t LEFT JOIN opening_applies e on t.opening_applies_id=e.id
+		SELECT t.*,e.*,p.`name` as channelname,b.`name` as billingname FROM terminal_opening_infos t LEFT JOIN opening_applies e on t.opening_applies_id=e.id
+		LEFT JOIN pay_channels p on p.id = e.pay_channel_id
+		LEFT JOIN dictionary_billing_cycles b on b.id = e.billing_cyde_id
 		WHERE e.terminal_id = #{terminalsId}
  	</select>
  	
