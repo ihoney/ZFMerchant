@@ -91,9 +91,15 @@ public interface OpeningApplyMapper {
 	
 	/**
 	 * 添加开通关联信息
-	 * @param map
+	 * @param openingApplie
 	 */
 	void addOpeningApply(OpeningApplie openingApplie);
+	
+	/**
+	 * 修改开通关联基本信息
+	 * @param openingApplie
+	 */
+	void updateApply(OpeningApplie openingApplie);
 	
 	/**
 	 * 获得材料名字

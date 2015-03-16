@@ -254,18 +254,21 @@ var registerController=function($scope, $location, $http, LoginService){
 	$scope.registreTime = true;
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
+		
 		if($scope.registreTime == true){
-			alert($scope.registreTime );
+			alert("开始");
 			$scope.registreTime = false;
 			$http.post("api/user/sendPhoneVerificationCodeReg", {
 				codeNumber : $scope.rename
 			}).success(function(data) {
-				if(data.code == -1){
+				alert(data.code);
+				if(data.code == 1){
 					$scope.code = data.result;
 					//倒计时
 					$scope.intDiff = 120;
 					$scope.rountTime();
 				}else{
+					$scope.registreTime = true
 					alert(data.message);
 				}
 			})

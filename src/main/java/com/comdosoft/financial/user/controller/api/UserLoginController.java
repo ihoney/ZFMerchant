@@ -160,6 +160,8 @@ public class UserLoginController {
             customer.setStatus(Customer.STATUS_NON_END);
             if (userLoginService.findUserAndStatus(customer) == 0) {
             	//getAccountType(0)手机(1)邮箱
+            	//加密
+                customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
                 if (!customer.getAccountType()) {
                     if (customer.getCode().equals(userLoginService.findCode(customer))) {
                         customer.setPhone(customer.getUsername());

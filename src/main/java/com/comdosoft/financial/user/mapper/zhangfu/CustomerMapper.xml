@@ -17,7 +17,7 @@
 		 WHERE id = #{id}
 	]]>
 	</select>
-	
+
 	<select id="findCustById" resultType="map">
 	<![CDATA[
 	SELECT
@@ -57,7 +57,7 @@
 		where id = #{id}
 	</update>
 
-	<update id="updatePassword" >
+	<update id="updatePassword">
 	<![CDATA[
 		UPDATE customers SET password = #{password}
 		 WHERE id = #{id}
@@ -114,10 +114,12 @@
 
 	<select id="getAddressList" resultType="map">
 	<![CDATA[
-		SELECT id, city_id cityId, address, zip_code zipCode, receiver, moblephone, telphone, is_default isDefault, customer_id customerId
-		  FROM customer_addresses
+	     SELECT ca.id, city_id cityId,concat(IFNULL(c2.name,''),IFNULL(c.name,'')) as city, address, zip_code zipCode, receiver, moblephone, telphone, is_default isDefault, customer_id customerId
+		 FROM customer_addresses ca 
+  		 LEFT JOIN cities c on ca.city_id=c.id
+   		 LEFT JOIN cities c2 on c.parent_id=c2.id
 		 WHERE customer_id = #{customerId}
-	  ORDER BY created_at DESC
+	  	 ORDER BY ca.created_at DESC
 	]]>
 	</select>
 
