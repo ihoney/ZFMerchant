@@ -71,6 +71,16 @@ public class TerminalsService {
 		 terminalsMapper.addCostometAddress(customerAddress);
 	}
 	
+	
+	/**
+     * 判断该终端是否开通
+     * 
+     * @param map
+     * @return
+     */
+    public int judgeOpen(int terminalId){
+    	return terminalsMapper.judgeOpen(terminalId);
+    }
 	/**
 	 * 获得该用户收获地址
 	 * 

@@ -158,6 +158,16 @@ public class OpeningApplyService {
 		openingApplyMapper.addOpeningApply(openingApplie);
 
 	}
+	
+	/**
+	 * 修改开通申请资料
+	 */
+	public void updateApply(OpeningApplie openingApplie) {
+		openingApplyMapper.updateApply(openingApplie);
+
+	}
+	
+	
 
 	/**
 	 * 获得材料名字

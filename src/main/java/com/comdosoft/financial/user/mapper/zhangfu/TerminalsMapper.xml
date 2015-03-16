@@ -134,6 +134,11 @@
 		WHERE customer_id = #{customerId}
 	</select>
 	
+	<select id="judgeOpen"  resultType="int" parameterType="int">
+		select count(*) from opening_applies
+		where terminal_id = #{terminalId}
+	</select>
+	
 	<select id="getModule"  resultType="map">
 		SELECT o.* 
 		FROM terminals t LEFT JOIN other_requirements o ON t.pay_channel_id = o.pay_channel_id
