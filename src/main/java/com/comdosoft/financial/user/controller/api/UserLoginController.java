@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comdosoft.financial.user.domain.Response;
+import com.comdosoft.financial.user.domain.query.MailReq;
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
+import com.comdosoft.financial.user.service.MailService;
 import com.comdosoft.financial.user.service.UserLoginService;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -46,6 +48,9 @@ public class UserLoginController {
 
     @Value("${passPath}")
     private String passPath;
+    
+    @Resource
+    private MailService MailService;
     
     /**
      * 发送手机验证码(注册)
@@ -174,6 +179,11 @@ public class UserLoginController {
                 } else {
                     customer.setStatus(Customer.STATUS_NON_ACTIVE);
                     userLoginService.addUser(customer);
+                    MailReq req = new MailReq();
+                    req.setUserName(customer.getUsername());
+                    req.setAddress(customer.getUsername());
+                    req.setUrl("<a href='http://localhost:8080/ZFMerchant/#/register?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
+                    MailService.sendMailWithFilesAsynchronous(req);
                     return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
                 }
             } else {
@@ -182,6 +192,24 @@ public class UserLoginController {
         } catch (Exception e) {
             e.printStackTrace();
             return Response.getError("注册失败！系统异常");
+        }
+    }
+    
+    /**
+     * 激活邮箱账号状态
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "activationEmail", method = RequestMethod.POST)
+    public Response activationEmail(@RequestBody Customer customer) {
+        try {
+            customer.setStatus(Customer.STATUS_NORMAL);
+            userLoginService.activationEmail(customer);
+                return Response.getSuccess("激活成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.getError("系统异常！");
         }
     }
     
@@ -196,6 +224,7 @@ public class UserLoginController {
         try {
             customer.setTypes(Customer.TYPE_CUSTOMER);
             customer.setStatus(Customer.STATUS_NORMAL);
+            customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
             Map<Object, Object> tomer = userLoginService.doLogin(customer);
             if (tomer != null) {
             	//修改登陆时间
@@ -254,6 +283,7 @@ public class UserLoginController {
         try {
             if (userLoginService.findUname(customer) > 0) {
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
+                	customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
                     userLoginService.updatePassword(customer);
                     return Response.getSuccess("找回密码成功！");
                 } else {
@@ -268,13 +298,23 @@ public class UserLoginController {
     }
 
     /**
-     * 发送邮箱验证
+     * 发送邮箱验证(找回密码)
      * 
      * @param number
      */
     @RequestMapping(value = "sendEmailVerificationCode", method = RequestMethod.POST)
-    public Response sendEmailVerificationCode(@RequestBody Map<String, Object> map) {
-    	 return Response.getSuccess("发送邮件成功！");
+    public Response sendEmailVerificationCode(@RequestBody Map<String, String> map) {
+    	 try{
+    		 MailReq req = new MailReq();
+    		 req.setUserName(map.get("codeNumber"));
+    		 req.setAddress(map.get("codeNumber"));
+    		 req.setUrl("<a href='http://localhost:8080/ZFMerchant/#/findpassEmail?sendStatus=-1&sendusername="+map.get("codeNumber")+"'>找回密码！</a>");
+    		 MailService.sendMailWithFilesAsynchronous(req);
+    		 return Response.getSuccess("发送邮件成功！");
+    	 }catch(Exception e){
+    		 e.printStackTrace();
+    		 return Response.getSuccess("发送邮件失败！");
+    	 }
     }
     
     
@@ -352,6 +392,7 @@ public class UserLoginController {
     public Response webUpdatePass(@RequestBody Customer customer) {
         try {
             if (userLoginService.findUname(customer) > 0) {
+            	customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
                     userLoginService.updatePassword(customer);
                     return Response.getSuccess("找回密码成功！");
             } else {

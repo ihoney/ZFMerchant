@@ -41,6 +41,12 @@ public interface UserLoginMapper {
 	void updateUser(Customer customer);
 	
 	/**
+	 * 修改邮箱注册状态
+	 * @param customer
+	 */
+	void activationEmail(Customer customer);
+	
+	/**
 	 * 查找用户
 	 * @param customer
 	 * @return

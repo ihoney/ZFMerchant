@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -193,6 +192,7 @@ public class OpeningApplyController {
 			int y = 0;
 			for (Map<String, Object> map : paramMap) {
 				if (y == 0) {
+					terminalId = (Integer)map.get("terminalId");
 					//获得申请基本资料
 					openingApplie.setTerminalId((Integer) map
 							.get("terminalId"));
@@ -254,10 +254,11 @@ public class OpeningApplyController {
 								.get("customersId"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
-						terminalId = merchant.getId();
-					}else if(count > 0){
+						//terminalId = merchant.getId();
+						openingApplie.setMerchantId(merchant.getId());
+					}/*else if(count > 0){
 						terminalId = (Integer)map.get("terminalId");
-					}
+					}*/
 					//判断该申请是否为从新申请
 					if(terminalsService.judgeOpen(terminalId) != 0){
 						openingAppliesId = String.valueOf(openingApplyService

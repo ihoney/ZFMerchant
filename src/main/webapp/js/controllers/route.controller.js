@@ -15,6 +15,10 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/index/findpass.html'
 	}).when('/userdown', {
 		templateUrl : 'views/index/userdown.html'
+	}).when('/findpassEmail', {
+		templateUrl : 'views/index/findpassEmail.html'
+	}).when('/registerEmail', {
+		templateUrl : 'views/index/registerEmail.html'
 	}).when('/order', {
 		templateUrl : 'views/order/order.html'
 	}).when('/orderinfo', {

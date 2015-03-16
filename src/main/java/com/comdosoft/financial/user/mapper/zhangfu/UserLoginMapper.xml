@@ -31,6 +31,11 @@
 		WHERE username=#{username}
 	</update>
 	
+	<update id="activationEmail" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+		update customers SET `status` = #{status}
+		where username = #{username}
+	</update>
+	
 	<select id="findUname" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
 		SELECT COUNT(*) from customers 
 		WHERE username=#{username}
