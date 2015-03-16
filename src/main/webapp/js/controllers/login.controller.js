@@ -287,12 +287,10 @@ var registerController=function($scope, $location, $http, LoginService){
 	$scope.getRegisterCode = function() {
 		
 		if($scope.registreTime == true){
-			alert("开始");
 			$scope.registreTime = false;
 			$http.post("api/user/sendPhoneVerificationCodeReg", {
 				codeNumber : $scope.rename
 			}).success(function(data) {
-				alert(data.code);
 				if(data.code == 1){
 					$scope.code = data.result;
 					//倒计时

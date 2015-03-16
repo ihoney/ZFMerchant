@@ -79,7 +79,7 @@
  	</select>
  	
  	<select id="getMerchants" resultType="map"  parameterType="int">
- 		SELECT id,title FROM merchants where customer_id =#{customerId} and 
+ 		SELECT id,title FROM merchants where customer_id =#{customerId}
  	</select>
  	
  	<select id="getOppinfo" resultType="map"  parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
