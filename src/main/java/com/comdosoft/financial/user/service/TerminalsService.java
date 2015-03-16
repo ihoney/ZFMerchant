@@ -333,9 +333,13 @@ public class TerminalsService {
     public List<Map<String,Object>> openStatus(Map<String, Object> paramMap) {
         List<Map<String,Object>> listmap=terminalsMapper.getTerminalListByPhone(paramMap);
         if(null!=listmap&&listmap.size()>0){
+            int a=SysUtils.String2int(paramMap.get("type")+"");
             List<Map<String,Object>> listmap2=null;
             int id=0;
             for (Map<String, Object> map : listmap) {
+                if(a!=0){
+                    map.put("serial_num",SysUtils.toPro(map.get("serial_num").toString()));
+                }
                 id=SysUtils.String2int(""+map.get("id"));
                 listmap2=terminalsMapper.getTerminalOpenStatus(id);
                 map.put("openStatus", listmap2);

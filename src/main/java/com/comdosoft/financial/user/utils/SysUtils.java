@@ -431,5 +431,17 @@ public class SysUtils {
         String s = new String(a);  
         return s;  
   
+    }
+
+    /**
+     *  string转****
+     * @param string
+     * @return
+     */
+    public static String toPro(String s) {
+        String s2=s.substring(0,6);
+        String s3=s.substring(s.length()-2,s.length());
+        return s2+"****"+s3;
     }  
+    
 }

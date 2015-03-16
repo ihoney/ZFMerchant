@@ -17,15 +17,16 @@ var mainindexController = function ($scope, $http) {
 	}
 	
 	$scope.searchhh= function(){
-		//$scope.req.id=80;
-		$http.post("api/terminal/openStatus", {id:80,phpne:$scope.req.phone2}).success(function (data) {  //绑定
+		$http.post("api/terminal/openStatus", {type:8,phone:$scope.req.phone2}).success(function (data) {  //绑定
             if (data.code==1) {
-            	$('.tab').show();
-            	alert(0);
-            	$('#qwert').show();
+            	$scope.ttt=data.result;
             }
         });
-	}
+	};
+	$scope.close= function(){
+		$('.mask').hide();
+		$('#qwert').hide();
+	};
     
 	//公告
 	$scope.web_message_list = function(){
@@ -61,6 +62,10 @@ var mainindexController = function ($scope, $http) {
 				$scope.pic_list = data.result;
 			}
 		});
+	};
+	$scope.gotoo = function(url){
+		window.open(url);  
+		//window.location.href = url;
 	};
 	$scope.init = function(){
 		$scope.web_message_list();
