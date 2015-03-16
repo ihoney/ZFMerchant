@@ -17,8 +17,8 @@ var mainindexController = function ($scope, $http) {
 	}
 	
 	$scope.searchhh= function(){
-		$scope.req.id=80;
-		$http.post("api/terminal/openStatus", $scope.req).success(function (data) {  //绑定
+		//$scope.req.id=80;
+		$http.post("api/terminal/openStatus", {id:80,phpne:$scope.req.phone2}).success(function (data) {  //绑定
             if (data.code==1) {
             	$('.tab').show();
             	alert(0);

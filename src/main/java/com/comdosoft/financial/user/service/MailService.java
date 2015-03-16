@@ -50,7 +50,7 @@ public class MailService {
 
     // 邮件发送端密码
     // @Value("${mailPassword}")
-    private String mailPassword = "ebank007";
+    private String mailPassword = "007ebank";
 
     /**
      * 发送邮件 (异步)<br>
@@ -138,10 +138,9 @@ public class MailService {
 
             Transport.send(message);
 
-            //logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]成功");
+            logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]成功");
         } catch (Exception e) {
-            e.printStackTrace();
-           // logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]失败", e);
+            logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]失败", e);
         }
     }
 
