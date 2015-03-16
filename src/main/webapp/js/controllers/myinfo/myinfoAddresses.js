@@ -18,9 +18,11 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 	};
 	$scope.openUpdateAddress = function(e) {
 		$scope.address = e;
+		$scope.address.city = "kkkk";
 	};
 	$scope.save = function() {
 		if ($scope.address.id == undefined) {
+			$scope.address.cityId = $scope.selected_city.id;
 			$scope.address.customerId = LoginService.userid;
 			$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
 				if (data.code == 1) {
@@ -82,6 +84,14 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		$scope.address = {};
 		$scope.address.isDefault = "2";
 		$scope.list();
+		$scope.city_list();
+	};
+	$scope.city_list = function(){
+		$http.post("api/index/getCity").success(function (data) {   
+            if (data != null && data != undefined) {
+                $scope.city_list = data.result;
+            }
+        });
 	};
 	$scope.init();
 };

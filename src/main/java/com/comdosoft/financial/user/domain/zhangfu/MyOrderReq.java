@@ -1,6 +1,8 @@
 package com.comdosoft.financial.user.domain.zhangfu;
 
 import java.util.Arrays;
+import java.util.List;
+
 
 
 public class MyOrderReq {
@@ -21,7 +23,24 @@ public class MyOrderReq {
     private Integer good_id;
     private String computer_name;
     private String track_number;
+    private List<CommentsJson> json;
     
+   
+    
+    /**  
+     * 获取 json  
+     * @return json
+     */
+    public List<CommentsJson> getJson() {
+        return json;
+    }
+    /**  
+     * 设置 json  
+     * @param json
+     */
+    public void setJson(List<CommentsJson> json) {
+        this.json = json;
+    }
     /**  
      * 获取 search  
      * @return search
@@ -280,7 +299,8 @@ public class MyOrderReq {
      */
     @Override
     public String toString() {
-        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", offset=" + offset + ", search=" + search + ", q=" + q + ", rows=" + rows + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + ", updateStatus=" + updateStatus + ", score=" + score + ", good_id=" + good_id + ", computer_name=" + computer_name + ", track_number=" + track_number + "]";
+        return "MyOrderReq [id=" + id + ", ids=" + Arrays.toString(ids) + ", page=" + page + ", offset=" + offset + ", search=" + search + ", q=" + q + ", rows=" + rows + ", customer_id=" + customer_id + ", content=" + content + ", payType=" + payType + ", orderStatus=" + orderStatus + ", repairStatus=" + repairStatus + ", updateStatus=" + updateStatus + ", score=" + score + ", good_id=" + good_id + ", computer_name=" + computer_name + ", track_number=" + track_number + ", json=" + json + "]";
     }
+  
     
 }

@@ -19,8 +19,16 @@
 			<h1>管理收货地址</h1>
 		</div>
 		<div class="myInfoBox">
+		<form name="addAddressForm" ng-submit="save()"  >
 			<ul>
-				<li><label><span class="red">*</span>所在地：</label><input type="text" ng-model="address.cityId" required></li>
+			<li><label><span class="red">*</span>所在地：</label>
+				<select ng-model="selected" ng-options="s.name for s in city_list" ng-change="ch_city()">
+		              <option value="">{{selected.name}}</option>
+		          </select>
+				<select ng-model="selected_city" ng-options="x.name for x in selected.childrens" >
+		               <option value="">{{selected_city.name}}</option>
+		          </select>
+                </li>
 				<li><label><span class="red">*</span>详细地址：</label> <textarea cols="" rows="" ng-model="address.address" required></textarea></li>
 				<li><label><span class="red">*</span>邮政编码：</label><input type="text" ng-model="address.zipCode" required></li>
 				<li><label><span class="red">*</span>收货人姓名：</label><input type="text" ng-model="address.receiver" required></li>
@@ -31,8 +39,9 @@
 					<input type="radio" value="2" ng-model="address.isDefault" checked="checked">否</li>
 			</ul>
 			<div class="myInfoBox_btn">
-				<button type="button" class="orangeBtn" ng-click="save()">保存</button>
+				<input type="submit"  style="cursor: pointer;" class="orangeBtn" ng-disabled="addAddressForm.$invalid" value="保存">
 			</div>
+			</form>
 		</div>
 		<div class="myAddress">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="b_table">
@@ -59,6 +68,7 @@
 					</tr>
 				</thead>
 				<tr ng-repeat="e in addressList">
+				<input type="hidden" value="{{e.}}" name="">
 					<td>{{e.receiver}}</td>
 					<td>{{e.city}}</td>
 					<td>{{e.address}}</td>

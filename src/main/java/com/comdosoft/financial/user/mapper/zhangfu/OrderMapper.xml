@@ -303,6 +303,15 @@
 		crm.order_id = #{id}
 	</select>
 	
+	<insert id="batchSaveComment">
+		INSERT into good_comments 
+		(score,content,customer_id,good_id,created_at)
+		VALUES
+		 <foreach collection="list" item="item" index="index" separator="," > 
+			(#{item.score},#{item.content},#{item.customer_id},#{item.good_id},NOW())
+    	</foreach> 
+	</insert>
+	
 	  <select id="getTerminsla" resultMap="terResultMap" >
 		select  t.serial_num from terminals t where t.order_id=#{param1} and t.good_id=#{param2}
 	</select>
