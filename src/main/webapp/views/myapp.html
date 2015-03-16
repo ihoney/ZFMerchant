@@ -26,21 +26,8 @@
                     	<div class="cu_title">业务处理</div>
                         <div class="user_news_con">
                         	<ul>
-                            	<li ng-repeat="m in cc_list">1条换货申请    
-								 <strong ng-if="m.status==2"  >换货中</strong> 
-								 <strong ng-if="m.status==4"  >处理完成</strong> 
-						 		<strong ng-if="m.status==5"  >已取消</strong>
-                            	</li>
-                            	<li ng-repeat="m in cr_list">1条退货申请    
-								 <strong ng-if="m.status==2"  >退货中</strong> 
-								 <strong ng-if="m.status==4" >处理完成</strong> 
-						 		<strong ng-if="m.status==5"  >已取消</strong>
-                            	</li>
-                            	<li ng-repeat="m in cp_list">1条维修申请    
-								 <strong ng-if="m.status==2"  >待发回</strong> 
-								 <strong ng-if="m.status==3"  >维修中</strong> 
-								 <strong ng-if="m.status==4"  >处理完成</strong> 
-						 		<strong ng-if="m.status==5"  >已取消</strong>
+                            	<li ng-repeat="m in cp_list">
+						 		<strong >{{m.status}}</strong>
                             	</li>
                                  
                             </ul>

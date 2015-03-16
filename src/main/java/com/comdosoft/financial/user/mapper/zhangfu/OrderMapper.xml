@@ -88,6 +88,7 @@
 		<id property="id" column="id" />
 		<result property="orderNumber" column="order_number" />
 		<result property="customerId" column="customer_id" />
+		<result property="needInvoice" column="need_invoice" />
 		<result property="totalPrice" column="o_total_price" />
 		<result property="status" column="status"/>
 		<result property="payedAt" column="payed_at" />
@@ -232,7 +233,7 @@
 	<select id="findMyOrderById" resultMap="orderMap">
 	SELECT
 	o.id as id,g.model_number AS brand_number,
-		gb. NAME AS brand_name,
+		gb. NAME AS brand_name,o.need_invoice,
 	og.id as order_good_id,
 	g.id as good_id,
 	o.total_quantity,

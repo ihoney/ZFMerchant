@@ -26,15 +26,60 @@
 	
 	<select id="wxlist" resultType="map">
 	SELECT
-		cr.`status`
+		`status`,
+		updated_at
 	FROM
-		cs_repairs cr
-	WHERE
-		cr.`status` != 1
-		AND cr.customer_id =#{customer_id}
+		(
+			SELECT
+				CASE `status`
+			WHEN 2 THEN
+				'1条维修申请待发回'
+			WHEN 3 THEN
+				'1条维修申请维修中'
+			WHEN 4 THEN
+				'1条维修申请处理完成'
+			WHEN 5 THEN
+				'1条维修申请已取消'
+			END AS `status`,
+			updated_at
+		FROM
+			cs_repairs
+		WHERE
+			`status` != 1
+		UNION ALL
+			SELECT
+					CASE `status`
+			WHEN 2 THEN
+				'1条退货申请退货中'
+			WHEN 4 THEN
+				'1条退货申请处理完成'
+			WHEN 5 THEN
+				'1条退货申请已取消'
+			END AS `status`,
+				updated_at
+			FROM
+				cs_returns
+			WHERE
+				`status` != 1
+			UNION ALL
+				SELECT
+						CASE `status`
+			WHEN 2 THEN
+				'1条换货申请换货中'
+			WHEN 4 THEN
+				'1条换货申请处理完成'
+			WHEN 5 THEN
+				'1条换货申请已取消'
+			END AS `status`,
+					updated_at
+				FROM
+					cs_changes
+				WHERE
+					`status` != 1
+		) cs
 	ORDER BY
-		cr.updated_at DESC
-		LIMIT 0,2
+		cs.updated_at DESC
+	LIMIT 0, 6
 	</select>
 	
 	<select id="countSearch" resultType="int" >

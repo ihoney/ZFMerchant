@@ -136,7 +136,7 @@ public class CustomerService {
     public Map<String, Object> findCustById(MyOrderReq req) {
         return customerMapper.findCustById(req);
     }
-
+    @Transactional(value = "transactionManager-zhangfu")
     public void cust_update(Customer c) {
         customerMapper.cust_update(c);
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper">
-
+	
 	<select id="getSysConfig" resultType="map">
 	<![CDATA[
 		SELECT param_name, param_value, remark
@@ -51,9 +51,9 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="cust_update" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
+	<update id="cust_update" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" flushCache="true" >
 		update customers
-		set name = #{name},phone = #{phone},email = #{email},city_id = #{cityId}
+		set name = #{name},phone = #{phone},email = #{email},city_id = #{cityId},updated_at = NOW()
 		where id = #{id}
 	</update>
 

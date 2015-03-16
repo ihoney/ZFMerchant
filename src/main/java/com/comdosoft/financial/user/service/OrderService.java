@@ -264,6 +264,7 @@ public class OrderService {
         map.put("order_createTime", d);// 订单日期
         // map.put("order_pay_status", o.getPayStatus().getName());
         map.put("order_status", o.getStatus());
+        map.put("need_invoice", o.getNeedInvoice()+"");//是否需要显示开票信息  1需要 0 不需要
         map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
         map.put("order_totalprice", o.getActualPrice() + "");// 订单总额
         map.put("order_oldprice", o.getTotalPrice() + "");// 订单原价
