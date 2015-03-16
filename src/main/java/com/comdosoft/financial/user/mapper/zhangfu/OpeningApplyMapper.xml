@@ -33,6 +33,34 @@
 		 INSERT into merchants(legal_person_name,legal_person_card_id,title,tax_registered_no,organization_code_no,created_at,updated_at,account_bank_num,customer_id)
 		 VALUES(#{legalPersonName},#{legalPersonCardId},#{title},#{taxRegisteredNo},#{organizationCodeNo},now(),now(),#{accountBankNum},#{customerId})
  	</insert>
+ 	
+ 	<update id="updateApply" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
+ 		update  `opening_applies` set `apply_customer_id` = #{applyCustomerId}
+		,`terminal_id` = #{terminalId}
+		,`status` = #{status}
+		,`created_at` = now()
+		,`updated_at` = now()
+		,`types` = #{types}
+		,`merchant_id` = #{merchantId}
+		,`merchant_name` = #{merchantName}
+		,`sex` = #{sex}
+		,`birthday` = #{birthday}
+		,`card_id` =#{cardId}
+		,`phone` = #{phone}
+		,`email` =#{email}
+		,`city_id` = #{cityId}
+		,`name` = #{name}
+		,`pay_channel_id` = #{payChannelId}
+		,`account_bank_num` = #{accountBankNum}
+		,`account_bank_name` =#{accountBankName}
+		,`account_bank_code` = #{accountBankCode}
+		,`tax_registered_no` = #{taxRegisteredNo}
+		,`organization_code_no` = #{organizationCodeNo}
+		,`billing_cyde_id` =#{billingCydeId}
+		where id = #{id}
+ 	</update>
+ 	
+ 	
 
  	<select id="getApplyList" parameterType="map" resultType="map">
  		SELECT id,serial_num,status

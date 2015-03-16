@@ -65,6 +65,14 @@ public interface TerminalsMapper {
     List<Map<Object, Object>> channelsT(int id);
     
     /**
+     * 判断该终端是否开通
+     * 
+     * @param map
+     * @return
+     */
+    int judgeOpen(int terminalId);
+    
+    /**
      * 根据用户id获得终端列表
      * 
      * @param map

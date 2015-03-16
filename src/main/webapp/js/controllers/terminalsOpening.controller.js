@@ -39,7 +39,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           }
       }).error(function (data) {
     	  alert("获取列表失败");
-          /*$("#serverErrorModal").modal({show: true});*/
       });
   };
   
