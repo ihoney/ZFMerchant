@@ -257,9 +257,11 @@
 				<ul ng-repeat="tt in ttt">
 					<li><span>终端号：</span>{{tt.serial_num}}</li>
 					<li><span>当前进度：</span>
+					<div class="nr">
+                		<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
+					     {{t.status==1?"已开通":(t.status==2?"部分开通":(t.status==3?"未开通":(t.status==4?"已注销":"已停用")))}}</p>
+                	</div>
 					</li>
-					<li ng-repeat="t in tt.openStatus"><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>{{t.trade_value}}:
-					     {{t.status==1?"已开通":(t.status==2?"部分开通":(t.status==3?"未开通":(t.status==4?"已注销":"已停用")))}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li>
 				</ul>
 			</div>
 		</div>

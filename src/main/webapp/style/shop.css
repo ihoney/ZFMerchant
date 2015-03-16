@@ -924,9 +924,9 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .payAD img { display: inline-block;}
 
 
-.seen_progress { color: #ff5f2b; font-family: "microsoft yahei";}
-.seen_progress li { height: 36px; line-height: 36px; font-size: 18px;}
-.seen_progress li span { color: #333;}
-
-
+.seen_progress { color: #ff5f2b; font-family: "microsoft yahei"; margin-top: 20px; max-height: 180px; overflow-y: auto;}
+.seen_progress li { line-height: 36px; font-size: 18px; overflow: hidden;}
+.seen_progress li span { color: #333; width: 100px; display: inline-block; float: left;}
+.seen_progress li div.nr { width: 360px; float: left;}
+.seen_progress li div p { display: inline-block; margin-right: 20px;}
 
