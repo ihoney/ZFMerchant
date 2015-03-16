@@ -273,6 +273,7 @@ $(function(){
 	popup(".logistics_tab",".logistics_a");//提交物流信息
 	popup(".seeNumber_tab",".seeNumber_a");//查看终端号
 	popup(".posPassword_tab",".posPassword_a");//找回POS机密码
+	popup("#qwert","#qwert_btn");//查询进度
 })
 
 

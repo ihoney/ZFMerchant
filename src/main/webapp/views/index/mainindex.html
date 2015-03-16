@@ -29,11 +29,14 @@
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
-				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
-				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
-				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
-				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
-				<li style="background-image: url(http://upload.cankaoxiaoxi.com/2015/0311/1426062616492.jpg);"></li>
+				<!-- 
+			     <li ng-repeat="a in pic_list" style="background-image: url({{a.picture_url}});" ng-click=""></li>
+				-->
+				<li style="background-image: url({{pic_list[0].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[0].website_url)"></li>
+				<li style="background-image: url({{pic_list[1].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[1].website_url)"></li>
+				<li style="background-image: url({{pic_list[2].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[2].website_url)"></li>
+				<li style="background-image: url({{pic_list[3].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[3].website_url)"></li>
+
 			</ul>
 		</div>
 		<script>
@@ -75,7 +78,7 @@
 				<div class="sp_con">
 					<div class="sp_search">
 						<input ng-model="req.phone2" type="text" placeholder="请输入手机号" />
-						<button ng-click="searchhh()">搜索</button>
+						<button ng-click="searchhh()" id="qwert_btn">搜索</button>
 					</div>
 				</div>
 			</div>
@@ -88,8 +91,7 @@
 				</div>
 				<div class="hp_con">
 					<ul>
-						<li ng-repeat="p in pos_list |orderBy : '-volume_number'">
-						<a href="#/shopinfo?goodId={{p.id}}" class="pro_img_a" ><img src="{{p.good_logo}}" style="width: 150px; height: auto;"/></a>
+						<li ng-repeat="p in pos_list |orderBy : '-volume_number'"><a href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img src="{{p.good_logo}}" style="width: 150px; height: auto;" /></a>
 							<div class="pro_text">
 								<h3>{{p.brand_name}} {{p.brand_number}}</h3>
 								<p>支持平台</p>
@@ -252,14 +254,17 @@
 		<div class="tabHead">查询进度</div>
 		<div class="tabBody">
 			<div class="seen_progress">
-				<ul>
-					<li><span>终端号：</span>1269474662</li>
-					<li><span>当前进度：</span>处理中...</li>
+				<ul ng-repeat="tt in ttt">
+					<li><span>终端号：</span>{{tt.serial_num}}</li>
+					<li><span>当前进度：</span>
+					</li>
+					<li ng-repeat="t in tt.openStatus"><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>{{t.trade_value}}:
+					     {{t.status==1?"已开通":(t.status==2?"部分开通":(t.status==3?"未开通":(t.status==4?"已注销":"已停用")))}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li>
 				</ul>
 			</div>
 		</div>
 		<div class="tabFoot">
-			<button class="orangeBtn">确定</button>
+			<button class="orangeBtn" ng-click="close()">确定</button>
 		</div>
 	</div>
 

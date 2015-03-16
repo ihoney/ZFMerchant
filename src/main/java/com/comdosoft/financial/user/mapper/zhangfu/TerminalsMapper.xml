@@ -120,7 +120,7 @@
 		FROM terminals t
     	LEFT JOIN merchants m on t.merchant_id=m.id 
 		WHERE
-		t.customer_id=#{id} and m.phone=#{phone}
+		m.phone=#{phone}
 	</select>
 	
 	<select id="getTerminalOpenStatus"  resultType="map">
