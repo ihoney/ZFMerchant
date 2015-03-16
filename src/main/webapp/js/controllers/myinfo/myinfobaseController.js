@@ -44,18 +44,17 @@ var myinfobaseController = function($scope, $http, LoginService) {
 	};
 	
 	$scope.save = function() {
-		$scope.updateCustomer = {
-			id : $scope.customer.id,
-			name : $scope.customer.name,
-			phone : $scope.customer.phone,
-			email : $scope.customer.email,
-			cityId : $scope.selected_city.id
+		$scope.req = {
+			"id" : LoginService.userid,
+			"name" : $scope.customer.name,
+			"phone" : $scope.customer.phone,
+			"email" : $scope.customer.email,
+			"cityId" : $scope.selected_city.id
 		};
-		$http.post("api/customers/cust_update", $scope.updateCustomer).success(function(data) {
-			console.log("==>>>"+$scope.updateCustomer);
+		$http.post("api/customers/cust_update", $scope.req).success(function(data) {
 			if (data.code == 1) {
-//				alert("保存成功");
-//			} else {
+				alert("保存成功");
+			} else {
 //				alert(data.message);
 			}
 		}).error(function(data) {

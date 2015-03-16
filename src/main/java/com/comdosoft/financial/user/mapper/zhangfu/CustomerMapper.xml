@@ -51,7 +51,7 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="cust_update" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" flushCache="true" >
+	<update id="cust_update" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" flushCache="true"  statementType="PREPARED">
 		update customers
 		set name = #{name},phone = #{phone},email = #{email},city_id = #{cityId},updated_at = NOW()
 		where id = #{id}
