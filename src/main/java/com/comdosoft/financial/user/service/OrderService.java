@@ -69,6 +69,7 @@ public class OrderService {
             totalprice += (retail_price + opening_cost) * quantity;
             count += quantity;
         }
+        orderreq.setType(1);
         orderreq.setTotalcount(count);
         orderreq.setTotalprice(totalprice);
         orderreq.setOrdernumber(SysUtils.getOrderNum(0));

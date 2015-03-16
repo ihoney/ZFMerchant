@@ -13,7 +13,7 @@ import com.comdosoft.financial.user.service.MailService;
 
 
 @RestController
-@RequestMapping(value = "/api/mail")
+@RequestMapping(value = "api/mail")
 public class MailController {
     
     @Resource
