@@ -129,25 +129,28 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	}*/
 //动态加载银行
   $scope.bankName ="";
-  $scope.bank = function(){
-	/*  $http.post("api/terminal/ChooseBank", {}).success(function (data) {  //绑定
+  $scope.bank = function(obj){
+	  $http.post("api/terminal/ChooseBank", null).success(function (data) {  //绑定
           if (data != null && data != undefined) {
-              //终端信息
-              $scope.applyDetails = data.result.applyDetails;
-              //获得商户集合
-              $scope.merchantList = data.result.merchants;
+        	  if(data.code == 1){
+        		  $scope.bankCode = data.result;
+        	  }else{
+        		  alert("获取银行失败！");
+        	  }
           }
       }).error(function (data) {
-    	  alert("获取列表失败");
-          $("#serverErrorModal").modal({show: true});
-      });*/
+    	  alert("银行加载失败！");
+      });
+	  $("#div_"+obj).show();
 	  $scope.bankCode=[1,2,3,4,5];
   }
   
 //动态显示银行代码号
-  $scope.bankNum = function(obj,number){
+  $scope.bankNum = function(obj,number,backName){
 	  $scope.bankCode = "";
 	  $("#"+obj).siblings("input").val(number)
+	  $("#"+obj).parent("div").hide();
+	  $("#"+obj).parent("div").siblings("div").children("input[type='text']").val(backName)
   }
   
 //对私按钮
@@ -256,6 +259,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   $scope.getMaterialName();
 
 };
+$(".suggest").hide();
 
 
 terminalOpenModule.$inject = ['$scope', '$http', '$cookieStore'];
