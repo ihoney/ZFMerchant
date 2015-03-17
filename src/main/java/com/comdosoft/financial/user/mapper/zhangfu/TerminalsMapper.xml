@@ -204,11 +204,16 @@
 	</select>
 	
 	<select id="getTenancy" parameterType="int" resultType="map">
+	<![CDATA[
 		SELECT
-		g.has_lease,g.lease_price,g.lease_time,g.lease_deposit,g.return_time,g.lease_description,g.created_at
+		g.has_lease,g.lease_price,g.lease_time,g.lease_deposit,
+		g.return_time
+		,g.lease_description,
+		date_format(g.created_at,'%Y-%m-%d') as created_at
 		FROM terminals t LEFT JOIN
 		goods g ON t.good_id = g.id
 		where t.id = #{id}
+		 ]]>
 	</select>
 
 	<select id="channels" resultType="map">
