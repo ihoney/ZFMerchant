@@ -15,7 +15,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.sex="";
 	$scope.shiLian =[];
 	//
-	//$scope.sex
+	$scope.sex = 1;
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {
@@ -45,6 +45,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               //数据替换
               $scope.merchantNamed = $scope.applyMes.merchant_name;
               $scope.merchantId  = $scope.applyMes.merchant_id;
+              $scope.sex = $scope.applyMes.sex;
               $scope.merchant = {
             		  legal_person_name:$scope.applyMes.name,
             		  legal_person_card_id:$scope.applyMes.card_id,

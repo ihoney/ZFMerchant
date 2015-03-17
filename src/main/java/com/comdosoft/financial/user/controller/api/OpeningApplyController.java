@@ -88,6 +88,7 @@ public class OpeningApplyController {
 			
 			return Response.getSuccess(map);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}
