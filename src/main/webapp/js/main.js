@@ -275,6 +275,7 @@ $(function(){
 	popup(".seeNumber_tab",".seeNumber_a");//查看终端号
 	popup(".posPassword_tab",".posPassword_a");//找回POS机密码
 	popup("#qwert","#qwert_btn");//查询进度
+	popup(".notice_tab",".no_con ul li");//首页公告
 })
 
 

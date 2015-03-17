@@ -37,6 +37,37 @@ var mainindexController = function ($scope, $http) {
 			}
 		});
 	};
+	
+	//公告显示
+	$scope.notice_show = function(e){
+		$("#notice_title").html(e.title);
+		$("#notice_time").html(e.create_at);
+		$("#notice_contnet").html(e.content);
+		var doc_height = $(document).height();
+		var doc_width = $(document).width();
+		var win_height = $(window).height();
+		var win_width = $(window).width();
+
+		var layer_height = $(".notice_tab").height();
+		var layer_width = $(".notice_tab").width();
+
+		var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+
+		$(".mask").css({
+			display : 'block',
+			height : doc_height
+		});
+		$(".notice_tab").css('top', (win_height - layer_height) / 2);
+		$(".notice_tab").css('left', (win_width - layer_width) / 2);
+		$(".notice_tab").css('display', 'block');
+		return false;
+	};
+	
+	$scope.notice_close = function(){
+		$(".notice_tab").css('display','none');
+		$(".mask").css('display','none');
+	};
+	
 	//热卖POS
 	$scope.web_pos_list = function(){
 		$scope.req={rows:6};
