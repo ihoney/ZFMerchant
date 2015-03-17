@@ -97,7 +97,7 @@ $(function(){
 				<div class="btn" id="butEmail"  ng-show="!successEmailShow">
 					<button ng-click="getImgEmailCode()">注册</button>
 				</div>
-				<div ng-show="successEmailShow" id="clodeText" class="win">已向你的邮箱 XXX@XXX.com 发送了激活邮件，请登录邮箱激活账号！</div>
+				<div ng-show="successEmailShow" id="clodeText" class="win">已向你的邮箱 {{emailname}} 发送了激活邮件，请登录邮箱激活账号！</div>
 			</div>
 			<div class="res_b" ng-show="!sendEmailShow">
 			<div class="winSkip" >账号激活成功！<span>5秒</span>后跳转至登录页！</div>

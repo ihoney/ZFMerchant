@@ -261,6 +261,11 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 跳转手机注册
 	$scope.register = function() {
+		$scope.emailname = null;
+		$scope.name = null;
+		$scope.password1 = null;
+		$scope.password2 = null;
+		$scope.codeBei = null;
 		$scope.show = true;
 		//获得省级
 		$scope.getShengcit();
@@ -275,6 +280,12 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 跳转邮箱注册用户
 	$scope.gotoEmailRetrieve = function() {
+		$scope.rename = null;
+		$scope.codeNumber = null;
+		$scope.name = null;
+		$scope.password1 = null;
+		$scope.password2 = null;
+		$scope.codeBei = null;
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;

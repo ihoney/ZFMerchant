@@ -190,7 +190,20 @@ public class OpeningApplyService {
 		map.put("status", status);
 		return openingApplyMapper.getMaterialName(map);
 	}
-
+	
+	/**
+	 * 获得材料名字
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<Map<Object, Object>> getMaterialNameMap(Integer id, Integer status) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("terminalsId", id);
+		map.put("status", status);
+		return openingApplyMapper.getMaterialNameMap(map);
+	}
+	
 	/**
 	 * 获得申请表的id
 	 * 

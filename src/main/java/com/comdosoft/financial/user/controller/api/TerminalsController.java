@@ -597,7 +597,6 @@ public class TerminalsController {
 			return Response.getError("请求失败！");
 		}
 	}
-	
 	/**
 	 * 对公对私材料名称(0 对公， 1对私)
 	 * 
@@ -608,9 +607,20 @@ public class TerminalsController {
 	@RequestMapping(value = "getMaterialName", method = RequestMethod.POST)
 	public Response getMaterialName(@RequestBody Map<String, Integer> map) {
 		try {
-			return Response.getSuccess(openingApplyService.getMaterialName(
+			
+			// 数据回显(重新开通申请)
+			List<Map<String, String>> list = openingApplyService.ReApplyFor((Integer)map.get("terminalId"));
+			List<Map<Object, Object>> listMap = openingApplyService.getMaterialNameMap(
 					map.get("terminalId")
-					,map.get("status")));
+					,map.get("status"));
+			for(Map<Object, Object> mp:listMap){
+				for(Map<String, String> mp1:list){
+					if(mp.get("id").equals(mp1.get("target_id"))){
+						mp.put("value", mp1.get("value"));
+					}
+				}
+			}
+			return Response.getSuccess(listMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");

@@ -148,10 +148,14 @@
                                     	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="codes in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,codes.code,codes.name)">{{codes.name}}</a>
                                     </div>
                                 </li>
-                                <li ng-repeat="r in result" ng-if="r.info_type == 1 && r.opening_requirements_id == ma.id">
+                                
+                                
+                                <li ng-repeat="r in result " ng-if="r.info_type == 1 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span id="key_{{ma.level+'_'+$index}}" class="labelSpan">{{r.name}}：</span>
-                                <div class="text"><input id="value_{{ma.level+'_'+$index}}" name="" type="text"/></div>
+                               	<div class="text">
+                                <input id="value_{{ma.level+'_'+$index}}" value="{{r.value}}" name="" type="text"/>
+                                </div>
                                 </li>
                                 <li  ng-repeat="r in result" ng-if="r.info_type == 2 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
@@ -160,8 +164,9 @@
                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 	<img src="images/zp.jpg" class="cover" />
                                 	<a href="javascript:void(0);" class="informImg_a" >
-                                    <span>上传</span>
-                                    <input type="text" id="value_{{ma.level+'_'+$index}}"/>
+                                    <span ng-if="r.value == ''">上传</span>
+                                    <span ng-if="r.value != ''">重新上传</span>
+                                    <input type="text" id="value_{{ma.level+'_'+$index}}" value="{{r.value}}"/>
                                     <input  name="img" multiple type="file" onchange="showImage(this)">
                                     </a>
                                 </form>

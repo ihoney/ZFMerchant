@@ -109,6 +109,13 @@ public interface OpeningApplyMapper {
 	List<Merchant> getMaterialName(Map<Object, Object> map);
 	
 	/**
+	 * 获得材料名字
+	 * @param id
+	 * @return
+	 */
+	List<Map<Object,Object>> getMaterialNameMap(Map<Object, Object> map);
+	
+	/**
 	 * 查看该终端材料等级个数
 	 * @param id
 	 * @return

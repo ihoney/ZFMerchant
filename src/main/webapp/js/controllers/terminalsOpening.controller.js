@@ -7,14 +7,17 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.customerId = LoginService.userid;
 	$scope.img = null;
+	$scope.MaterialLevel = [];
 	$scope.merchantNamed = "";
 	$scope.bankCode="";
-	$scope.status=0;
-	$scope.siClass = "toPrivate";
-	$scope.gongClass = "toPublic hover";
 	$scope.sex="";
 	$scope.shiLian =[];
-	//
+	$scope.applyFor = [];
+	//对公对私（0.公 1.私）
+	$scope.status=1;
+	//显示对公对私按钮
+	$scope.siClass = "toPrivate";
+	$scope.gongClass = "toPublic hover";
 	$scope.sex = 1;
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
@@ -42,25 +45,59 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               //支付通道
               $scope.channels = data.result.channels;
               
-              //数据替换
-              $scope.merchantNamed = $scope.applyMes.merchant_name;
-              $scope.merchantId  = $scope.applyMes.merchant_id;
-              $scope.sex = $scope.applyMes.sex;
-              $scope.merchant = {
-            		  legal_person_name:$scope.applyMes.name,
-            		  legal_person_card_id:$scope.applyMes.card_id,
-            		  account_bank_num:$scope.applyMes.account_bank_num,
-            		  organization_code_no:$scope.applyMes.organization_code_no,
-            		  tax_registered_no:$scope.applyMes.tax_registered_no
-              };
-              $scope.birthday = $scope.applyMes.birthday;
-              $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
-              $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
-              $scope.day = Math.ceil($scope.birthday.split("-")[2]);
+              if($scope.applyMes != null && $scope.applyMes!= undefined){
+            	//数据替换
+                  $scope.status = $scope.applyMes.types;
+                  $scope.merchantNamed = $scope.applyMes.merchant_name;
+                  $scope.merchantId  = $scope.applyMes.merchant_id;
+                  $scope.sex = $scope.applyMes.sex;
+                  $scope.merchant = {
+                		  legal_person_name:$scope.applyMes.name,
+                		  legal_person_card_id:$scope.applyMes.card_id,
+                		  account_bank_num:$scope.applyMes.account_bank_num,
+                		  organization_code_no:$scope.applyMes.organization_code_no,
+                		  tax_registered_no:$scope.applyMes.tax_registered_no
+                  };
+                  $scope.birthday = $scope.applyMes.birthday;
+                  $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
+                  $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
+                  $scope.day = Math.ceil($scope.birthday.split("-")[2]);
+                  
+                  
+                  
+                 /* var countOne=0;
+            	  for(var i=0;i<$scope.MaterialLevel.length;i++){
+            		  for(var y=0;y<$scope.result.length;y++){
+            			  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
+            				  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
+            				  			  //var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
+            				 // alert($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html());
+            				  			 for(var m=0;m<$scope.applyFor.length;m++){
+            				  				 if(keys == $scope.applyFor[m].key){
+            				  					$('#value_'+$scope.MaterialLevel[i].level+'_'+y).val($scope.applyFor[m].value);
+            				  				 }
+            			                  }
+            				  			  countOne++;
+            			  }
+            		  }
+            	  }*/
+                  
+                  
+                  
+                 
+              }
           }
       }).error(function (data) {
     	  alert("获取列表失败");
       });
+      //根据对公对私状态显示按钮
+      if($scope.status == 0){
+    	  $scope.siClass = "toPrivate";
+    	  $scope.gongClass = "toPublic hover";
+      }else if($scope.status == 1){
+    	  $scope.siClass = "toPublic hover";
+    	  $scope.gongClass = "toPrivate";
+      }
   };
   
 //弹出层
@@ -206,12 +243,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
 //提交申请
   $scope.req={};
-  
   $scope.chan={};
   $scope.tln={};
-  $scope.birthday = $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val();
   $scope.addApply = function(){
-	  
 	  $scope.list = [
 	                 {
 	                     status:1,
@@ -221,7 +255,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     merchantId: Math.ceil($scope.merchantId),
 	                     merchantName:$scope.merchantNamed,
 	                     sex:Math.ceil($scope.sex),
-	                     birthday: $scope.birthday,
+	                     birthday: $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val(),
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
@@ -260,8 +294,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  for(var i=0;i<$scope.listOne.length;i++){
 		  $scope.list[$scope.leng+i] = $scope.listOne[i];
 	  }
-	  
-	  
 	  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == 1){
@@ -275,9 +307,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           $("#serverErrorModal").modal({show: true});
       });
   }
+  
   $scope.terminalDetail();
   $scope.getMaterialName();
-
 };
 $(".suggest").hide();
 
