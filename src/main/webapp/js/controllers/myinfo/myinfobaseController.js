@@ -5,7 +5,7 @@ var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http, LoginService) {
 	var customerId = LoginService.userid;
 	$scope.init = function() {
-
+		$scope.intDiff=120;
 		// 判断是否已登录
 		if (LoginService.userid == 0) {
 			window.location.href = '#/login';
@@ -58,24 +58,51 @@ var myinfobaseController = function($scope, $http, LoginService) {
 	    	$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
 	            if (data != null && data != undefined) {
 	                $scope.phone_code = data.result;
+    				 var v3 = window.setInterval(function(){
+    					$('#show_phone_input_my_o_btn').html();
+    			    	if($scope.intDiff == 0){
+    			    		$('#show_phone_input_my_o_btn').html("发送验证码！");
+    			    		$scope.intDiff =120;
+    			    		clearInterval(v3);
+    			    	}else{
+    			    		$('#show_phone_input_my_o_btn').html("重新发送验证码（"+$scope.intDiff+"秒）");
+    			    	    $scope.intDiff--;
+    			    	}
+    			    }, 1000);
 	            	alert("发送成功");
 	            }
 	        });
 	    } 
 	};
-	
+ 
 	//第一次发送验证码   //
 	$scope.send_code_one = function(){
-		var sMobile = $scope.customer.phone; 
-		$scope.i_phone_new = ""; 
-		$scope.i_phone_code = ""; 
-		$scope.phone_code_i_o = ""; 
-		$scope.req ={phone:sMobile};
-		$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
-			if (data != null && data != undefined) {
-				$scope.phone_code = data.result;
-			}
-		});
+		if($scope.intDiff ==120 ){
+			 var v1 = window.setInterval(function(){
+				$('#send_code_one').html();
+		    	if($scope.intDiff == 0){
+		    		$('#send_code_one').html("发送验证码！");
+		    		$scope.intDiff =120;
+		    		clearInterval(v1);
+		    	}else{
+		    		$('#send_code_one').html("重新发送验证码（"+$scope.intDiff+"秒）");
+		    	    $scope.intDiff--;
+		    	}
+		    }, 1000);
+			var sMobile = $scope.customer.phone; 
+			$scope.i_phone_new = ""; 
+			$scope.i_phone_code = ""; 
+			$scope.phone_code_i_o = ""; 
+			$scope.req ={phone:sMobile};
+			$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
+				if (data != null && data != undefined) {
+					$scope.phone_code = data.result;
+				}
+			});
+		}else if($scope.intDiff ==0){
+			$scope.intDiff =120;
+		}
+		
 	};
 	//确认验证码，（第一次）
 	$scope.yz_phone_code = function(){
@@ -100,6 +127,9 @@ var myinfobaseController = function($scope, $http, LoginService) {
 			$("#show_phone_input_my_t").css('left',(win_width-layer_width)/2);
 			$("#show_phone_input_my_t").css('display','block');
 			
+			//第二个验证框显示
+			$('#show_phone_input_my_o_btn').html("发送验证码！");
+			$scope.intDiff =120;
 		}else{
 			alert("验证码错误");
 		}
@@ -121,6 +151,8 @@ var myinfobaseController = function($scope, $http, LoginService) {
 					alert("修改成功");
 				}
 			});
+		}else{
+			alert("验证码错误");
 		}
 	};
 	
