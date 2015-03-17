@@ -62,7 +62,9 @@
 		SELECT serial_num serialNum,
 			   pay_channel_id payChannelId
 		  FROM terminals
-		 WHERE customer_id = #{customerId}
+		 WHERE customer_id = #{customerId} 
+		 and serial_num is not null 
+		 and pay_channel_id is not null
 	]]>
 	</select>
 
