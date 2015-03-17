@@ -53,8 +53,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		          "terminal","terminalOpening","terminalDetail",
 		          "cs_cencel","cs_return","cs_change","cs_repair","cs_update","cs_lease",
 		          "cs_cencelinfo","cs_returninfo","cs_changeinfo","cs_repairinfo","cs_updateinfo","cs_leaseinfo",
-		          "traderecord1","traderecord2","traderecord3","traderecord4","traderecord5",
-		          "traderecord1One","traderecord2One","traderecord3One","traderecord4One","traderecord5One",
+		          "traderecord","tradeinfo",
 		          "myinfobase","myinfoupdatepassword","myinfoAddresses","myinfointegral",
 		          "merchantList","merchantOne",
 		          "message","messageinfo"];

@@ -47,26 +47,10 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/customer/myinfoAddresses.html'
 	}).when('/myinfointegral', {
 		templateUrl : 'views/customer/myinfointegral.html'
-	}).when('/traderecord1', {
-		templateUrl : 'views/traderecord/traderecord1.html'
-	}).when('/traderecord2', {
-		templateUrl : 'views/traderecord/traderecord2.html'
-	}).when('/traderecord3', {
-		templateUrl : 'views/traderecord/traderecord3.html'
-	}).when('/traderecord4', {
-		templateUrl : 'views/traderecord/traderecord4.html'
-	}).when('/traderecord5', {
-		templateUrl : 'views/traderecord/traderecord5.html'
-	}).when('/traderecord1One', {
-		templateUrl : 'views/traderecord/traderecord1One.html'
-	}).when('/traderecord2One', {
-		templateUrl : 'views/traderecord/traderecord2One.html'
-	}).when('/traderecord3One', {
-		templateUrl : 'views/traderecord/traderecord3One.html'
-	}).when('/traderecord4One', {
-		templateUrl : 'views/traderecord/traderecord4One.html'
-	}).when('/traderecord5One', {
-		templateUrl : 'views/traderecord/traderecord5One.html'
+	}).when('/traderecord', {
+		templateUrl : 'views/traderecord/traderecord.html' 
+	}).when('/tradeinfo', {
+		templateUrl : 'views/traderecord/tradeinfo.html'
 	}).when('/merchantList', {
 		templateUrl : 'views/merchant/merchantList.html'
 	}).when('/merchantAdd', {

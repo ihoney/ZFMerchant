@@ -1,9 +1,9 @@
 'user strict';
 
 // 交易流水
-var traderecord4Module = angular.module("traderecord4Module", []);
-var traderecord4Controller = function($scope, $http, LoginService) {
-	$scope.req={tradeTypeId:4,startTime:"",endTime:"",terminalNumber:""};
+var traderecordModule = angular.module("traderecordModule", []);
+var traderecordController = function($scope, $http, LoginService) {
+	$scope.req={tradeTypeId:1,startTime:"",endTime:"",terminalNumber:""};
 	$scope.show={};
 	$scope.getTerminals = function() {
 		var customerId = LoginService.userid;
@@ -15,10 +15,27 @@ var traderecord4Controller = function($scope, $http, LoginService) {
 			}
 		});
 	};
-
+	$scope.getTradeType = function() {
+		$http.post("api/web/trade/record/getTradeType").success(function(data) {
+			if (data.code == 1) {
+				$scope.tradeType=data.result;
+				$scope.typeName=$scope.tradeType[0].value;
+			} else {
+				// 提示错误信息
+				alert(data.message);
+			}
+		});
+	};
+	$scope.changeType = function(one) {
+		$scope.req={startTime:"",endTime:"",terminalNumber:""};
+		$scope.req.tradeTypeId=one.id;
+		initSystemPage($scope.req);// 初始化分页参数
+		$scope.typeName=one.value;
+		$scope.list();
+	};
 	$scope.list = function() {
 		$scope.req.page=$scope.req.indexPage;
-		$http.post("api/web/trade/record/getTradeRecords/"  ,$scope.req).success(function(data) {
+		$http.post("api/web/trade/record/getTradeRecords/" ,$scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.tradeRecords = data.result;
 				$scope.show.startTime=$scope.req.startTime;
@@ -31,21 +48,22 @@ var traderecord4Controller = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.search = function() {
-		initSystemPage($scope.req);// 初始化分页参数
+		initSystemPage($scope);// 初始化分页参数
 		$scope.list();
 	};
 	$scope.init = function() {
 		// 判断是否已登录
 		if (LoginService.userid == 0) {
 			window.location.href = '#/login';
-		} else {
-			$scope.$emit('changeshow', false);
-		}
+		} 
 		initSystemPage($scope.req);// 初始化分页参数
 		$scope.getTerminals();
+		$scope.getTradeType();
 		$scope.list();
 	};
 	$scope.init();
+	
+	
 
 	// 上一页
 	$scope.prev = function() {
@@ -76,4 +94,4 @@ var traderecord4Controller = function($scope, $http, LoginService) {
 	};
 
 };
-traderecord4Module.controller("traderecord4Controller", traderecord4Controller);
+traderecordModule.controller("traderecordController", traderecordController);

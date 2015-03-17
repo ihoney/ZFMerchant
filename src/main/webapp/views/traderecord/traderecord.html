@@ -1,9 +1,9 @@
-<script type="text/javascript" src="js/controllers/traderecord/traderecord1.js"></script>
+<script type="text/javascript" src="js/controllers/traderecord/traderecord.js"></script>
 <div class="right" ng-controller="traderecordController">
 	<div class="breadcrumb">
 		<ul>
-			<li><a href="#/traderecord1">交易流水</a></li>
-			<li><a href="#/traderecord1">转账</a></li>
+			<li><a href="#/traderecord">交易流水</a></li>
+			<li><a href="#/traderecord">{{typeName}}</a></li>
 		</ul>
 	</div>
 	<div class="content clear">
@@ -11,11 +11,7 @@
 			<a href="javascript:void(0);" class="dn_prev">上一页</a>
 			<div class="dealNavBox">
 				<ul class="li_show">
-					<li><a href="#/traderecord1" class="hover">转账</a></li>
-					<li><a href="#/traderecord2">还款</a></li>
-					<li><a href="#/traderecord3">消费</a></li>
-					<li><a href="#/traderecord4">话费充值</a></li>
-					<li><a href="#/traderecord5">生活充值</a></li>
+					<li ng-repeat="one in tradeType"><a href="javascript:void(0);" ng-click="changeType(one)" class="{{one.id==req.tradeTypeId?'hover':''}}">{{one.value}}</a></li>
 				</ul>
 			</div>
 			<a href="javascript:void(0);" class="dn_next">下一页</a>
@@ -40,7 +36,7 @@
 			<span ng-show="show.startTime.length>5&&show.endTime.length>5">{{show.startTime}}至{{show.endTime}}&nbsp;</span>
 			<span ng-show="show.startTime.length>5&&show.endTime.length<5">{{show.startTime}}至今&nbsp;</span>
 			<span ng-show="show.startTime.length<5&&show.endTime.length>5">{{show.endTime}}之前&nbsp;</span>
-			转账交易共&nbsp;<strong>{{tradeRecords.total}}</strong>&nbsp;笔&nbsp;
+			{{typeName}}&nbsp;&nbsp;共&nbsp;<strong>{{tradeRecords.total}}</strong>&nbsp;笔&nbsp;
 			交易金额总计&nbsp;<strong>{{tradeRecords.amountTotal/100|currency : "￥"}}</strong>
 		</div>
 		<div class="user_table">
@@ -74,7 +70,7 @@
 						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">待付款</strong></td>
 						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易完成</strong></td>
 						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易失败</strong></td>
-						<td><a href="#/traderecord1One?traderecord1OneId={{t.id}}" class="a_btn">查看详情</a></td>
+						<td><a href="#/tradeinfo?id={{t.id}}&type={{req.tradeTypeId}}" class="a_btn">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
