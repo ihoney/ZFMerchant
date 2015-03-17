@@ -63,7 +63,6 @@
 			   pay_channel_id payChannelId
 		  FROM terminals
 		 WHERE customer_id = #{customerId}
-		   AND status = 2
 	]]>
 	</select>
 
