@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +123,15 @@ public class OpeningApplyService {
 	 * @return
 	 */
 	public List<Map<String, String>> ReApplyFor(Integer id) {
-		return openingApplyMapper.ReApplyFor(id);
+		
+		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
+		 List<Map<String, String>> list = openingApplyMapper.ReApplyFor(id);
+			for(Map<String, String> map:list){
+				map.put("birthday", sdf.format(map.get("birthday")));
+				map.put("created_at", sdf.format(map.get("created_at")));
+				map.put("updated_at", sdf.format(map.get("updated_at")));
+			}
+		return list;
 	}
 
 	/**
@@ -181,7 +190,20 @@ public class OpeningApplyService {
 		map.put("status", status);
 		return openingApplyMapper.getMaterialName(map);
 	}
-
+	
+	/**
+	 * 获得材料名字
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<Map<Object, Object>> getMaterialNameMap(Integer id, Integer status) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("terminalsId", id);
+		map.put("status", status);
+		return openingApplyMapper.getMaterialNameMap(map);
+	}
+	
 	/**
 	 * 获得申请表的id
 	 * 

@@ -65,7 +65,8 @@ var terminalController = function ($scope, $http, LoginService) {
 	    		  payChannelId:$scope.payChannelId,
 	    		  serialNum:$scope.serialNum
 	    		  };
-		
+		 alert($scope.payChannelId);
+		/*
 		$http.post("api/terminal/addTerminal", $scope.addChan).success(function (data) {  //绑定
 	          if (data != null && data != undefined) {
 	        	  if(data.code == 1){
@@ -74,7 +75,10 @@ var terminalController = function ($scope, $http, LoginService) {
 	        		  $(".mask").css('display','none');
 	        		  
 	        		  $scope.serialNum = null;
+	        		  $scope.list = [];
+	                  $scope.total = null;
 	        		  $scope.getInfo();
+	        		  location.reload();
 	        		 
 	        	  }else{
 	        		  alert(data.message);
@@ -82,7 +86,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	          }
 	      }).error(function (data) {
 	    	  alert("获取列表失败");
-	      });
+	      });*/
 	}
 	
 	//筛选状态

@@ -39,6 +39,12 @@ public class UserLoginController {
     @Value("${passPath}")
     private String passPath;
     
+    @Value("${sendEmailRegisterServicsePath}")
+    private String sendEmailRegisterServicsePath;
+    
+    @Value("${sendEmailFindServicsePath}")
+    private String sendEmailFindServicsePath;
+    
     @Resource
     private MailService MailService;
     
@@ -124,7 +130,7 @@ public class UserLoginController {
                     MailReq req = new MailReq();
                     req.setUserName(customer.getUsername());
                     req.setAddress(customer.getUsername());
-                    req.setUrl("<a href='http://localhost:8080/ZFMerchant/#/register?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
+                    req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
                     MailService.sendMailWithFilesAsynchronous(req);
                     return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
                 }
@@ -250,7 +256,7 @@ public class UserLoginController {
     		 MailReq req = new MailReq();
     		 req.setUserName(map.get("codeNumber"));
     		 req.setAddress(map.get("codeNumber"));
-    		 req.setUrl("<a href='http://localhost:8080/ZFMerchant/#/findpassEmail?sendStatus=-1&sendusername="+map.get("codeNumber")+"'>找回密码！</a>");
+    		 req.setUrl("<a href='"+sendEmailFindServicsePath+"?sendStatus=-1&sendusername="+map.get("codeNumber")+"'>找回密码！</a>");
     		 MailService.sendMailWithFilesAsynchronous(req);
     		 return Response.getSuccess("发送邮件成功！");
     	 }catch(Exception e){

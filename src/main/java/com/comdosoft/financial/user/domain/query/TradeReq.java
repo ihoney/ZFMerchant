@@ -3,6 +3,7 @@ package com.comdosoft.financial.user.domain.query;
 
 public class TradeReq {
 
+    private int id;
     private int tradeTypeId;
     private String terminalNumber;
     private String startTime;
@@ -76,6 +77,14 @@ public class TradeReq {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

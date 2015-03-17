@@ -10,5 +10,11 @@
 		 LIMIT 0, 4
 	]]>
 	</select>
+	
+	<select id="getTradeType" resultType="map">
+	<![CDATA[
+		SELECT id,trade_value value from dictionary_trade_types ORDER BY id 
+	]]>
+	</select>
 
 </mapper>

@@ -53,8 +53,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		          "terminal","terminalOpening","terminalDetail",
 		          "cs_cencel","cs_return","cs_change","cs_repair","cs_update","cs_lease",
 		          "cs_cencelinfo","cs_returninfo","cs_changeinfo","cs_repairinfo","cs_updateinfo","cs_leaseinfo",
-		          "traderecord1","traderecord2","traderecord3","traderecord4","traderecord5",
-		          "traderecord1One","traderecord2One","traderecord3One","traderecord4One","traderecord5One",
+		          "traderecord","tradeinfo",
 		          "myinfobase","myinfoupdatepassword","myinfoAddresses","myinfointegral",
 		          "merchantList","merchantOne",
 		          "message","messageinfo"];
@@ -262,6 +261,11 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 跳转手机注册
 	$scope.register = function() {
+		$scope.emailname = null;
+		$scope.name = null;
+		$scope.password1 = null;
+		$scope.password2 = null;
+		$scope.codeBei = null;
 		$scope.show = true;
 		//获得省级
 		$scope.getShengcit();
@@ -276,6 +280,12 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 跳转邮箱注册用户
 	$scope.gotoEmailRetrieve = function() {
+		$scope.rename = null;
+		$scope.codeNumber = null;
+		$scope.name = null;
+		$scope.password1 = null;
+		$scope.password2 = null;
+		$scope.codeBei = null;
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
