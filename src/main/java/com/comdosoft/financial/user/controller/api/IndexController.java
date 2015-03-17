@@ -1,9 +1,14 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.IndexService;
+import com.comdosoft.financial.user.utils.SysUtils;
 
 @RestController
 @RequestMapping("api/index")
@@ -69,6 +75,41 @@ public class IndexController {
     public Response changePhone(@RequestBody MyOrderReq req){
         indexService.changePhone(req);
         return Response.getSuccess();
+    }
+    
+    //更新手机号  根据用户id查询，更新 新手机号
+    @RequestMapping(value = "change_email", method = RequestMethod.POST)
+    public Response change_email(@RequestBody MyOrderReq req,HttpServletRequest request){
+        indexService.change_email(request,req);
+        return Response.getSuccess();
+    }
+    
+    //跳转页面修改邮箱
+    @RequestMapping(value = "to_change_email/{id}/{name}/{str}")
+    public void to_change_email(@PathVariable String id,@PathVariable String name, @PathVariable String str,HttpServletRequest request,HttpServletResponse response){
+        String data = SysUtils.string2MD5(name+"zf_vc");
+        String   url  = request.getScheme()+"://";  
+        url+=request.getHeader("host");   
+        url+=request.getContextPath();  
+        if(data.equals(str)){
+            try {
+//                Cookie cookie_name = new Cookie("loginUserName",name);   
+//                Cookie cookie_id = new Cookie("loginUserId",id);    
+//                cookie_name.setMaxAge(Integer.MAX_VALUE);           
+//                cookie_id.setMaxAge(Integer.MAX_VALUE);           
+//                response.addCookie(cookie_id);                    
+//                response.addCookie(cookie_name);                     
+                response.sendRedirect(url+"/#/email_up");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                response.sendRedirect(url+"/#");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     

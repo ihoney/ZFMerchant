@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.query.MailReq;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.mapper.zhangfu.IndexMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
@@ -23,7 +25,9 @@ public class IndexService {
     
     @Resource
     private IndexMapper indexMapper;
-
+    @Resource
+    private MailService MailService;
+    
     public List<Map<String, Object>> getFactoryList() {
         List<Map<String, Object>> list = indexMapper.getFactoryList();
         List<Map<String, Object>> newlist = new ArrayList<Map<String,Object>>();
@@ -100,7 +104,7 @@ public class IndexService {
         String code = SysUtils.getCode();
         if(SysUtils.isMobileNO(phone)){
             try {
-                Boolean b = SysUtils.sendPhoneCode("您的验证是："+code, phone);
+                Boolean b = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+code, phone);
                 if(!b) return "-1";
             } catch (JsonParseException e) {
                 e.printStackTrace();
@@ -115,6 +119,25 @@ public class IndexService {
 
     public void changePhone(MyOrderReq req) {
         indexMapper.changePhone(req);
+    }
+
+    public void change_email(HttpServletRequest request, MyOrderReq myOrderReq) {
+        String   url  = request.getScheme()+"://";  
+        String name = myOrderReq.getQ();
+        String id = myOrderReq.getId().toString();
+        url+=request.getHeader("host");   
+        url+=request.getContextPath();      
+        MailReq req = new MailReq();
+        req.setUserName(myOrderReq.getQ());//姓名
+        req.setAddress(myOrderReq.getContent());//邮箱
+        String data;
+        try {
+             data = SysUtils.string2MD5(name+"zf_vc");
+            req.setUrl("<a href='"+url+"/api/index/to_change_email/"+id+"/"+name+"/"+data+"'>点击修改</a>");
+            MailService.sendMail(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

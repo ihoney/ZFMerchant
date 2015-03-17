@@ -274,23 +274,12 @@ $(function(){
 	popup(".posPassword_tab",".posPassword_a");//找回POS机密码
 	popup("#qwert","#qwert_btn");//查询进度
 	popup("#show_phone_input_my_o","#show_phone_input_my_btn");//我的信息 根据原来手机号发送验证码
-//	popup("#show_phone_input_my_t","#show_phone_input_my_o_btn");//我的信息 根据修改后的手机号发送验证码
+	popup("#email_send_tab","#email_send_btn");//
 })
 
 
 /*--------------------------------------------------------------------------------------*/
 
-/*------用户后台导航菜单--------*/
-$(function(){
-	$("li.second > a").click(function(){
-		$(this).parent().find("ol").toggle();
-		if(!$(this).parent().find("ol").is(":visible")){
-			$(this).find("i").removeClass("on").addClass("off");
-		}else{
-			$(this).find("i").removeClass("off").addClass("on");
-		}
-	});
-})
 
 //鼠标经过小图提示大图
 function infoTab(i_tab,i_box){

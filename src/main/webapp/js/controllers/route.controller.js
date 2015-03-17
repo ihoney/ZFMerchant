@@ -131,6 +131,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/message/webmessageinfo.html'
 	}).when('/repair_pay', {
 		templateUrl : 'views/cs/repair_pay.html'
+	}).when('/email_up', {
+		templateUrl : 'views/customer/up_email.html'
 	}).otherwise({
 		redirectTo : "/"
 	});

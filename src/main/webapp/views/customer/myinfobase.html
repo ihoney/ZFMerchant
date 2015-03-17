@@ -1,37 +1,38 @@
 <script type="text/javascript" src="js/controllers/myinfo/myinfobaseController.js"></script>
 <div class="right" ng-controller="myinfobaseController">
-<div class="tab" id="show_phone_input_my_t" >
+<div class="tab"   id="show_phone_input_my_o">
 	<a href="javascript:void(0);" class="close" ng-click="close_show_two()">关闭</a>
 	<div class="tabBody">
 		<div class="modification">
 			<p>为了修改您的手机号，我们向您的手机发送了验证码， 请输入您收到的验证码。</p>
 			<ul>
-				<li><input name="i_phone_new" id="i_phone_new" ng-model="i_phone_new" type="text" maxlength="11" /><a href="javascript:void(0)" id="show_phone_input_my_o_btn" ng-click="sendPhoneCode()"> </a></li>
-				<li><input name="i_phone_code" type="text" ng-model="i_phone_code" value="验证码" maxlength="6" /></li>
+			<li><input name="phone_code_i_o" type="text" ng-model="phone_code_i_o" value="验证码" maxlength="6" title="请输入验证码"/><a href="javascript:void(0)" ng-click="send_code_one()" id="send_code_one"></a></li>
+			<li><input name="i_phone_new" id="i_phone_new" ng-model="i_phone_new" type="text" maxlength="11" value="新手机号码" title="请输入新手机号"/></li>
 			</ul>
 		</div>
 	</div>
 	<div class="tabFoot">
-		<button class="orangeBtn" id="show_phone_input_btn" ng-click="change_phone_btn()">确定</button>
+		
+		<button class="orangeBtn" id="show_phone_input_btn" ng-click="yz_phone_code()">确定</button>
 	</div>
 </div>
 
-<div class="tab" id="show_phone_input_my_o">
+<div class="tab" id="show_phone_input_my_t">
 	<a href="javascript:void(0);" class="close">关闭</a>
 	<div class="tabBody">
 		<div class="modification">
 			<p>我们向您的新手机号发送了验证码。</p>
 			<ul>
-				<li><input name="" type="text" ng-model="phone_code_i_o" maxlength="6"/><a href="javascript:void(0)" ng-click="send_code_one()" id="send_code_one"></a></li>
+			 <li><input name="i_phone_code" type="text" ng-model="i_phone_code"  maxlength="6"  /><a href="javascript:void(0)" id="show_phone_input_my_o_btn" ng-click="sendPhoneCode()"> </a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="tabFoot">
-		<button class="orangeBtn" id="show_phone_two" ng-click="yz_phone_code()">确定</button>
+		<button class="orangeBtn" id="show_phone_two"  ng-click="change_phone_btn()"  >确定</button>
 	</div>
 </div>
 
-<div class="tab" style="display: none; top: 460px; right: 100px;">
+<div class="tab" id="email_send_tab">
 	<a href="javascript:void(0);" class="close">关闭</a>
 	<div class="tabBody">
 		<div class="modification">
@@ -67,7 +68,7 @@
 				<input type="text" ng-model="customer.name" required maxlength="45" />
 				</li>
 				<li><label>电话：</label><input type="text" ng-model="customer.phone" disabled="disabled" /><a href="javascript:void(0)" id="show_phone_input_my_btn" ng-click="send_code_one()">修改手机号</a></li>
-				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="javascript:void(0)"  >修改邮箱</a></li>
+				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="javascript:void(0)" id="email_send_btn" ng-click="up_email()">修改邮箱</a></li>
 				<li><label>所在地：</label>
 				<select ng-model="selected" ng-options="s.name for s in city_list" ng-change="ch_city()">
 		              <option value="">{{selected.name}}</option>
