@@ -105,7 +105,7 @@
 					<ul>
 						<li ng-repeat="m in web_list"><i></i>
 							<p>
-								<a href="#/webmessageinfo?infoId={{m.id}}">{{m.title}}</a>
+								<a href="javascript:void(0)"  ng-click="notice_show(m)" >{{m.title}}</a>
 							</p> <span>{{m.create_at}}</span></li>
 					</ul>
 				</div>
@@ -265,6 +265,20 @@
 			<button class="orangeBtn" ng-click="close()">确定</button>
 		</div>
 	</div>
+	
+	<div class="tab notice_tab" id="notice_tab_show">
+	<a href="javascript:void(0);" class="close" ng-click="notice_close()">关闭</a>
+	<div class="tabBody">
+    	<div class="notice_tab_con">
+        	<div class="notice_tab_title">
+            	<h1 id="notice_title"></h1>
+                <p id="notice_time"></p>
+            </div>
+            <div class="notice_tab_text" id="notice_contnet">
+            </div>
+        </div>
+	</div>
+</div>
 
 </div>
 

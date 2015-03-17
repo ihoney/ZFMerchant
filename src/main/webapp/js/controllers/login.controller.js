@@ -439,6 +439,10 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.siId = siId;
 	};*/
 	
+	$scope.toIndex = function(){
+    	window.location.href = '#/';
+    	location.reload();
+	};
 
 	$scope.reGetRandCodeImg();
 	$scope.init();

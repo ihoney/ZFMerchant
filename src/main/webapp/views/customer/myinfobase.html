@@ -23,8 +23,8 @@
 				<li><label>姓名：</label>
 				<input type="text" ng-model="customer.name" required maxlength="45" />
 				</li>
-				<li><label>电话：</label><input type="text" ng-model="customer.phone" disabled="disabled" /><a href="javascript:void(0)" ng-click="changePhone_show()">修改手机号</a></li>
-				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="javascript:void(0)" ng-click="">修改邮箱</a></li>
+				<li><label>电话：</label><input type="text" ng-model="customer.phone" disabled="disabled" /><a href="javascript:void(0)" >修改手机号</a></li>
+				<li><label>邮箱：</label><input type="text" ng-model="customer.email" disabled="disabled" /><a href="javascript:void(0)"  >修改邮箱</a></li>
 				<li><label>所在地：</label>
 				<select ng-model="selected" ng-options="s.name for s in city_list" ng-change="ch_city()">
 		              <option value="">{{selected.name}}</option>
@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<div class="tabFoot">
-		<button class="orangeBtn">确定</button>
+		<button class="orangeBtn" id="show_phone_input_btn">确定</button>
 	</div>
 </div>
 
@@ -85,3 +85,4 @@
 		<button class="orangeBtn">确定</button>
 	</div>
 </div>
+<script src="js/main.js"></script>
