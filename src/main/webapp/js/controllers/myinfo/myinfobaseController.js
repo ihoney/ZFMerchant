@@ -54,12 +54,10 @@ var myinfobaseController = function($scope, $http, LoginService) {
 	        $("#i_phone_new").focus(); 
 	        return false; 
 	    }else{
-	    	console.log("手机号码正确");
 	    	$scope.req ={phone:sMobile};
 	    	$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
 	            if (data != null && data != undefined) {
 	                $scope.phone_code = data.result;
-	                console.log("$scope.phone_code==>>"+$scope.phone_code);
 	            	alert("发送成功");
 	            }
 	        });
@@ -69,12 +67,13 @@ var myinfobaseController = function($scope, $http, LoginService) {
 	//第一次发送验证码   //
 	$scope.send_code_one = function(){
 		var sMobile = $scope.customer.phone; 
-		console.log("old phone==>"+sMobile);
+		$scope.i_phone_new = ""; 
+		$scope.i_phone_code = ""; 
+		$scope.phone_code_i_o = ""; 
 		$scope.req ={phone:sMobile};
 		$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
 			if (data != null && data != undefined) {
 				$scope.phone_code = data.result;
-				console.log($scope.phone_code);
 			}
 		});
 	};

@@ -62,6 +62,6 @@
 	UPDATE customers
 	SET phone = #{phone}
 	WHERE
-	id = #{id}
+	id = #{customer_id}
 	</update>
 </mapper>
