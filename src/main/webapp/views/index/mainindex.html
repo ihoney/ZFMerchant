@@ -29,14 +29,10 @@
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
-				<!-- 
-			     <li ng-repeat="a in pic_list" style="background-image: url({{a.picture_url}});" ng-click=""></li>
-				-->
-				<li style="background-image: url({{pic_list[0].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[0].website_url)"></li>
-				<li style="background-image: url({{pic_list[1].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[1].website_url)"></li>
-				<li style="background-image: url({{pic_list[2].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[2].website_url)"></li>
-				<li style="background-image: url({{pic_list[3].picture_url}}); cursor: pointer;" ng-click="gotoo(pic_list[3].website_url)"></li>
-
+				<li ng-style="getBackgroundStyle(pic_0)" ng-click="gotoo(pic_list[0].website_url)"></li>
+				<li ng-style="getBackgroundStyle(pic_1)" ng-click="gotoo(pic_list[1].website_url)"></li>
+				<li ng-style="getBackgroundStyle(pic_2)" ng-click="gotoo(pic_list[2].website_url)"></li>
+				<li ng-style="getBackgroundStyle(pic_3)" ng-click="gotoo(pic_list[3].website_url)"></li>
 			</ul>
 		</div>
 		<script>
