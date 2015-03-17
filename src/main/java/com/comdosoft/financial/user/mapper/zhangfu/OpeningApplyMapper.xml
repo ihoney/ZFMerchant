@@ -127,7 +127,7 @@
  	</select>
  	
  	<select id="ReApplyFor" parameterType="int" resultType="map">
-		SELECT t.*,e.*,p.`name` as channelname,b.`name` as billingname FROM terminal_opening_infos t LEFT JOIN opening_applies e on t.opening_applies_id=e.id
+		SELECT t.*,e.*,p.`name` as channelname,b.`name` as billingname,e.merchant_name FROM terminal_opening_infos t LEFT JOIN opening_applies e on t.opening_applies_id=e.id
 		LEFT JOIN pay_channels p on p.id = e.pay_channel_id
 		LEFT JOIN dictionary_billing_cycles b on b.id = e.billing_cyde_id
 		WHERE e.terminal_id = #{terminalsId}

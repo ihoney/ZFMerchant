@@ -42,8 +42,8 @@
 	</insert>
 	
 	<insert id="subChange" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-		INSERT into cs_changes(terminal_id,status,receive_address_id,templete_info_xml,created_at,updated_at,reason,customer_id,should_cancel,cs_cencel_id,apply_num,return_address_id)
-		VALUES(#{terminalsId},#{status},#{receiveAddressId},#{templeteInfoXml},now(),now(),#{reason},#{customerId},1,#{csCencelId},unix_timestamp(now()),#{returnAddressId})
+		INSERT into cs_changes(terminal_id,status,receive_address_id,templete_info_xml,created_at,updated_at,reason,customer_id,should_cancel,cs_cencel_id,apply_num)
+		VALUES(#{terminalsId},#{status},#{receiveAddressId},#{templeteInfoXml},now(),now(),#{reason},#{customerId},1,#{csCencelId},unix_timestamp(now()))
 	</insert>
 	
 	<insert id="subReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
@@ -63,7 +63,6 @@
 			   pay_channel_id payChannelId
 		  FROM terminals
 		 WHERE customer_id = #{customerId}
-		   AND status = 2
 	]]>
 	</select>
 
@@ -156,7 +155,7 @@
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
 		SELECT t.id,t.serial_num,t.`status`,g.model_number,b.name as
-		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.`name` as channelName,l.`status` as applieStatus
+		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.`name` as channelName,l.`status` as applieStatus,e.types
 		FROM terminals t 
 		LEFT JOIN order_goods o on o.order_id = t.order_id and o.good_id = t.good_id
 		LEFT JOIN goods g on o.good_id=g.id

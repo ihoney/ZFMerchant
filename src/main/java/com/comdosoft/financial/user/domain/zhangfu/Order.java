@@ -543,4 +543,29 @@ public class Order {
 	public void setInvoiceInfo(String invoiceInfo) {
 		this.invoiceInfo = invoiceInfo;
 	}
+	
+	/**
+	 * 1.用户订购
+	 */
+	public static final Integer TYPE_1 = 1;
+	
+	/**
+	 * 2.用户代购
+	 */
+	public static final Integer TYPE_2 = 2;
+	
+	/**
+	 * 3.代理商代购
+	 */
+	public static final Integer TYPE_3 = 3;
+	
+	/**
+	 * 4.代理商代购
+	 */
+	public static final Integer TYPE_4 = 4;
+	
+	/**
+	 * 5.代理商批购
+	 */
+	public static final Integer TYPE_5 = 5;
 }

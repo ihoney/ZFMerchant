@@ -40,7 +40,7 @@
 			<span ng-show="show.startTime.length>5&&show.endTime.length>5">{{show.startTime}}至{{show.endTime}}&nbsp;</span>
 			<span ng-show="show.startTime.length>5&&show.endTime.length<5">{{show.startTime}}至今&nbsp;</span>
 			<span ng-show="show.startTime.length<5&&show.endTime.length>5">{{show.endTime}}之前&nbsp;</span>
-			转账交易共&nbsp;<strong>{{tradeRecords.total}}</strong>&nbsp;笔&nbsp;
+			生活充值共&nbsp;<strong>{{tradeRecords.total}}</strong>&nbsp;笔&nbsp;
 			交易金额总计&nbsp;<strong>{{tradeRecords.amountTotal/100|currency : "￥"}}</strong>
 		</div>
 		<div class="user_table">

@@ -7,7 +7,6 @@ $(function(){
 	$("input").blur(function(){
 		$(this).removeClass("focus");
 	})
-	
 })
 
 //input默认值
@@ -35,24 +34,21 @@ $(function(){
 
 //topinfo 地址
 $(function(){
-	$(".address").hover(
-		function(){
-			$(this).find(".addr_h").addClass("addr_h_hover");
-			$(this).find(".addr_b").css("display","block");
-		},
-		function(){
-			$(".addr_btn").click(function(){
-				$(this).parents(".address").find(".addr_h").removeClass("addr_h_hover");
-				$(this).parents(".address").find(".addr_b").css("display","none");
-			});
-			$(document).bind('click', function(e) {
-				var $clicked = $(e.target);
-				if (! $clicked.parents().hasClass("address"))
-				$(".address").find(".addr_b").css("display","none");
-				$(".address").find(".addr_h").removeClass("addr_h_hover");
-			});
+	$(".address").mouseover(function(){
+		$(this).find(".addr_h").addClass("addr_h_hover");
+		$(this).find(".addr_b").css("display","block");
+	});
+	$(".addr_btn").click(function(){
+		$(this).parents(".address").find(".addr_h").removeClass("addr_h_hover");
+		$(this).parents(".address").find(".addr_b").css("display","none");
+	});
+	$(document).bind('click', function(e) {
+		var $clicked = $(e.target);
+		if (! $clicked.parents().hasClass("address")){
+			$(".address").find(".addr_b").css("display","none");
+			$(".address").find(".addr_h").removeClass("addr_h_hover");
 		}
-	)
+	});
 })
 
 //购物车
@@ -69,14 +65,17 @@ $(function(){
 	)
 })
 
-//首页hotPOS机，处理图片大小
+//首页hotPOS机，处理图片大小--jQuery.autoIMG
+
+/*
 $(function(){	
-	proImg(".pro_img_a img");
+	//proImg(".pro_img_a img");
 	proImg(".td_proBox a.cn_img img");
 	proImg(".hotPro_img img");
 })
 function proImg(e){
-	$(e).each(function(i){
+	$(e).each(function(){
+		
         var img = $(this);
         var realWidth;//真实的宽度
         var realHeight;//真实的高度
@@ -93,7 +92,7 @@ function proImg(e){
             })
     });
 }
-
+*/
 
 //商品分类 category_item_con
 $(function(){
@@ -251,7 +250,6 @@ function popup(t,b){
 	
 	//tab
 	$(b).bind('click',function(){
-		
 		    $(".mask").css({display:'block',height:doc_height});
 			$(t).css('top',(win_height-layer_height)/2);
 			$(t).css('left',(win_width-layer_width)/2);
@@ -281,6 +279,18 @@ $(function(){
 
 
 /*--------------------------------------------------------------------------------------*/
+
+/*------用户后台导航菜单--------*/
+$(function(){
+	$("li.second > a").click(function(){
+		$(this).parent().find("ol").toggle();
+		if(!$(this).parent().find("ol").is(":visible")){
+			$(this).find("i").removeClass("on").addClass("off");
+		}else{
+			$(this).find("i").removeClass("off").addClass("on");
+		}
+	});
+})
 
 //鼠标经过小图提示大图
 function infoTab(i_tab,i_box){

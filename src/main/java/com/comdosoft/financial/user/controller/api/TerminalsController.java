@@ -421,6 +421,9 @@ public class TerminalsController {
 			// 获得终端详情
 			map.put("applyDetails",
 					terminalsService.getApplyDetails(maps.get("terminalsId")));
+			// 数据回显(重新开通申请)
+			map.put("applyFor", openingApplyService.ReApplyFor((Integer)maps.get("terminalsId")));
+			
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants(maps.get("customerId")));
 			// 获得材料等级
@@ -556,6 +559,7 @@ public class TerminalsController {
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
 						//terminalId = merchant.getId();
+						System.out.println("哈哈哈");
 						openingApplie.setMerchantId(merchant.getId());
 					}/*else if(count > 0){
 						terminalId = (Integer)map.get("terminalId");

@@ -14,6 +14,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.gongClass = "toPublic hover";
 	$scope.sex="";
 	$scope.shiLian =[];
+	//
+	//$scope.sex
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {
@@ -28,6 +30,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
+            //终端数据回显
+              $scope.applyFor = data.result.applyFor;
+              $scope.applyMes = data.result.applyFor[0];
               //获得商户集合
               $scope.merchantList = data.result.merchants;
               //材料等级
@@ -36,6 +41,18 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               $scope.getShengcit();
               //支付通道
               $scope.channels = data.result.channels;
+              
+              //数据替换
+              $scope.merchantNamed = $scope.applyMes.merchant_name;
+              $scope.merchantId  = $scope.applyMes.merchant_id;
+              $scope.merchant = {
+            		  legal_person_name:$scope.applyMes.name,
+            		  legal_person_card_id:$scope.applyMes.card_id,
+            		  account_bank_num:$scope.applyMes.account_bank_num,
+            		  organization_code_no:$scope.applyMes.organization_code_no,
+            		  tax_registered_no:$scope.applyMes.tax_registered_no
+              };
+              
           }
       }).error(function (data) {
     	  alert("获取列表失败");
