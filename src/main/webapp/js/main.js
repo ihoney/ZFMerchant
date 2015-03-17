@@ -272,7 +272,9 @@ $(function(){
 	popup(".logistics_tab",".logistics_a");//提交物流信息
 	popup(".seeNumber_tab",".seeNumber_a");//查看终端号
 	popup(".posPassword_tab",".posPassword_a");//找回POS机密码
-	popup(".notice_tab",".no_con li a");
+	popup("#qwert","#qwert_btn");//查询进度
+	popup("#show_phone_input_my_o","#show_phone_input_my_btn");//我的信息 根据原来手机号发送验证码
+//	popup("#show_phone_input_my_t","#show_phone_input_my_o_btn");//我的信息 根据修改后的手机号发送验证码
 })
 
 
