@@ -255,7 +255,7 @@
 					<li><span>当前进度：</span>
 					<div class="nr">
                 		<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
-					     {{t.status==1?"已开通":(t.status==2?"部分开通":(t.status==3?"未开通":(t.status==4?"已注销":"已停用")))}}</p>
+					     {{t.status==1?"未开通  ":(t.status==2?"审核中":"已开通")}}</p>
                 	</div>
 					</li>
 				</ul>
