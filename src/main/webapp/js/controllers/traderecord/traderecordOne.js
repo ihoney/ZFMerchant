@@ -4,8 +4,8 @@
 var traderecordOneModule = angular.module("traderecord1OneModule", []);
 var traderecordOneController = function($scope, $http, $location, LoginService) {
 	$scope.traderecord1One = function() {
+		$scope.req={};
 		$scope.req.id = $location.search()['id'];
-		$scope.req.tradeTypeId = $location.search()['type'];
 		$http.post("api/web/trade/record/getTradeRecord",$scope.req).success(function(data) {
 			if (data.code == 1) {
 				$scope.traderecord = data.result;

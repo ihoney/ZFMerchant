@@ -3,7 +3,7 @@
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="#/traderecord">交易流水</a></li>
-			<li><a href="#/traderecord">{{typeName}}</a></li>
+			<li><a href="javascript:void(0)">{{typeName}}</a></li>
 		</ul>
 	</div>
 	<div class="content clear">
@@ -70,7 +70,7 @@
 						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">待付款</strong></td>
 						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易完成</strong></td>
 						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易失败</strong></td>
-						<td><a href="#/tradeinfo?id={{t.id}}&type={{req.tradeTypeId}}" class="a_btn">查看详情</a></td>
+						<td><a href="#/tradeinfo?id={{t.id}}" class="a_btn">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
