@@ -46,17 +46,13 @@
                                 <li ng-if="$index == 0"><span class="labelSpan" id="keyNmae">姓名：</span>
                                 	<div class="text"><input name="valueName" type="text" id="valueName"  value="{{merchant.legal_person_name}}"/></div></li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="sexName">性别：</span>
-                                	<div class="text" ng-if="applyMes.sex == 1">
+                                	<div class="text" ng-if="sex == 1">
                                     	<span class="checkboxRadio_span"><input checked  name="valueSex" type="radio" value="" ng-click="butSex(1)"/> 男</span>
                                         <span class="checkboxRadio_span"><input name="valueSex" type="radio" value="" ng-click="butSex(0)"> 女</span>
                                     </div>
-                                    <div class="text" ng-if="applyMes.sex == 0">
+                                    <div class="text" ng-if="sex == 0">
                                     	<span class="checkboxRadio_span"><input  name="valueSex" type="radio" value="" ng-click="butSex(1)"/> 男</span>
                                         <span class="checkboxRadio_span"><input checked name="valueSex" type="radio" value="" ng-click="butSex(0)"> 女</span>
-                                    </div>
-                                    <div class="text" ng-if="applyMes.sex != 0 && applyMes.sex != 1">
-                                    	<span class="checkboxRadio_span"><input checked name="valueSex" type="radio" value="" ng-click="butSex(1)"/> 男</span>
-                                        <span class="checkboxRadio_span"><input name="valueSex" type="radio" value="" ng-click="butSex(0)"> 女</span>
                                     </div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
