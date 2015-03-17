@@ -251,6 +251,7 @@ function popup(t,b){
 	
 	//tab
 	$(b).bind('click',function(){
+		
 		    $(".mask").css({display:'block',height:doc_height});
 			$(t).css('top',(win_height-layer_height)/2);
 			$(t).css('left',(win_width-layer_width)/2);
