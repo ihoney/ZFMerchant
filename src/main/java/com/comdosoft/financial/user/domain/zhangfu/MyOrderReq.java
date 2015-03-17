@@ -11,6 +11,7 @@ public class MyOrderReq {
     private Integer page ;//当前页数
     private Integer offset;
     private String search;//搜索条件
+    private String phone;//手机号
     private String q;//状态值
     private Integer rows ;//每页大小
     private Integer customer_id;//用户id
@@ -27,6 +28,20 @@ public class MyOrderReq {
     
    
     
+    /**  
+     * 获取 phone  
+     * @return phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+    /**  
+     * 设置 phone  
+     * @param phone
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     /**  
      * 获取 json  
      * @return json

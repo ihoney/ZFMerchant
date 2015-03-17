@@ -9,13 +9,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,9 +21,6 @@ import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.service.MailService;
 import com.comdosoft.financial.user.service.UserLoginService;
 import com.comdosoft.financial.user.utils.SysUtils;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -38,7 +29,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author xfh 2015年2月7日
  *
  */
-@SuppressWarnings("deprecation")
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserLoginController {
@@ -75,7 +65,7 @@ public class UserLoginController {
             String phone = (String)map.get("codeNumber");//手机号
             if (userLoginService.findUname(customer) == 0) {
             try {
-                Boolean is_sucess = sendPhoneCode(str, phone);
+                Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
                 System.out.println("验证码："+str);
                 //if(!is_sucess)
                 if(!is_sucess){
@@ -103,54 +93,6 @@ public class UserLoginController {
         }
     }
 
-    /**
-     * 发送验证码  
-     * @param str
-     * @param phone
-     * @return 是否成功
-     * @throws IOException
-     * @throws JsonParseException
-     * @throws JsonMappingException
-     */
-    @SuppressWarnings("unchecked")
-    public Boolean sendPhoneCode(String str, String phone) throws IOException, JsonParseException, JsonMappingException {
-        String smsUrl = "http://mt.10690404.com/send.do?Account=zf&Password=111111&Mobile="+phone+"&Content=感谢您注册华尔街金融，您的验证码为："+str+"&Exno=0&Fmt=json";
-        String resStr = doGetRequest(smsUrl.toString());
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Object> reslt_map = mapper.readValue(resStr,Map.class);
-        for (Map.Entry<String, Object> entry : reslt_map.entrySet()) {
-            if(entry.getKey().equals("code")){
-                if(entry.getValue().equals("9001")){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @SuppressWarnings({ "resource", "rawtypes" })
-    public static String doGetRequest(String urlstr) {
-        HttpClient client = new DefaultHttpClient();
-//        client.getParams().setIntParameter("http.socket.timeout", 10000);
-//        client.getParams().setIntParameter("http.connection.timeout", 5000);
-        HttpEntity entity = null;
-        String entityContent = null;
-        try {
-            HttpGet httpGet = new HttpGet(urlstr.toString());
-            HttpResponse httpResponse = client.execute(httpGet);
-            entityContent = EntityUtils.toString(httpResponse.getEntity());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (entity != null) {
-                try {
-                    ((org.apache.http.HttpEntity) entity).consumeContent();
-                } catch (Exception e) {
-                }
-            }
-        }
-        return entityContent;
-    }
     
     /**
      * 注册用户
@@ -260,7 +202,7 @@ public class UserLoginController {
             } else {
                 userLoginService.updateCode(customer);
                 //Boolean is_sucess = sendPhoneCode(str, "18761913514");
-                Boolean is_sucess = sendPhoneCode(str, (String)map.get("codeNumber"));
+                Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, (String)map.get("codeNumber"));
                 if(!is_sucess){
                 	return Response.getError("获取验证码失败！");
                 }else{

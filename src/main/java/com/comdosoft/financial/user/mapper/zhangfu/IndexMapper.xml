@@ -58,4 +58,10 @@
 		c.sort_index
 	</select>
 	
+	<update id="changePhone" flushCache="true">
+	UPDATE customers
+	SET phone = #{phone}
+	WHERE
+	id = #{id}
+	</update>
 </mapper>
