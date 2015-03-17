@@ -57,9 +57,9 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
                                 	<div class="text">
-                                	<select id="selYear" ></select> 
-                                	<select id="selMonth"></select>
-                                	<select id="selDay"></select>
+                                	<select id="selYear" ng-model="nian" ></select> 
+                                	<select id="selMonth" ng-model="yue"></select>
+                                	<select id="selDay" ng-model="day"></select>
 							<script type="text/javascript">
 								var selYear = window.document
 										.getElementById("selYear");

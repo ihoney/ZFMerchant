@@ -53,7 +53,10 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
             		  organization_code_no:$scope.applyMes.organization_code_no,
             		  tax_registered_no:$scope.applyMes.tax_registered_no
               };
-              
+              $scope.birthday = $scope.applyMes.birthday;
+              $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
+              $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
+              $scope.day = Math.ceil($scope.birthday.split("-")[2]);
           }
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -206,7 +209,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   
   $scope.chan={};
   $scope.tln={};
+  $scope.birthday = $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val();
   $scope.addApply = function(){
+	  
 	  $scope.list = [
 	                 {
 	                     status:1,
@@ -216,7 +221,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     merchantId: Math.ceil($scope.merchantId),
 	                     merchantName:$scope.merchantNamed,
 	                     sex:Math.ceil($scope.sex),
-	                     birthday: $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val(),
+	                     birthday: $scope.birthday,
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),

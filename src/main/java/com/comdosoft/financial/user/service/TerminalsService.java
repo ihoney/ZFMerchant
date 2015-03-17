@@ -1,5 +1,7 @@
 package com.comdosoft.financial.user.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +92,12 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
-		return terminalsMapper.getCustomerAddress(id);
+		 SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd" );
+		List<Map<Object, Object>> list = terminalsMapper.getCustomerAddress(id);
+		for(Map<Object, Object> map:list){
+			map.put("created_at", sdf.format(map.get("created_at")));
+		}
+		return list;
 	}
 	
 	/**
