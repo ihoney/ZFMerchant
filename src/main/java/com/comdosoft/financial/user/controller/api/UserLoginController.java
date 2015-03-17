@@ -231,7 +231,7 @@ public class UserLoginController {
                 userLoginService.updateLastLoginedAt(customer);
                 return Response.getSuccess(tomer);
             } else {
-                return Response.getError("用户名或密码错误！");
+                return Response.getError("用户名/密码错误！账号不可用！");
             }
         } catch (Exception e) {
             e.printStackTrace();

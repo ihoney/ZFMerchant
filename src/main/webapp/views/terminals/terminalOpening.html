@@ -44,7 +44,7 @@
                         <div class="item_list clear">
                             <ul>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="keyNmae">姓名：</span>
-                                	<div class="text"><input name="valueName" type="text" id="valueName" value="{{merchant.legal_person_name}}"/></div></li>
+                                	<div class="text"><input name="valueName" type="text" id="valueName"  value="{{merchant.legal_person_name}}"/></div></li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="sexName">性别：</span>
                                 	<div class="text">
                                     	<span class="checkboxRadio_span"><input name="valueSex" type="radio" value="" ng-click="butSex(1)"/> 男</span>
@@ -74,10 +74,10 @@
                                 	<div class="text"><input name="" type="text" id="cirdValue" value="{{merchant.legal_person_card_id}}"/></div>
                                 </li>
                                  <li ng-if="$index == 0"><span class="labelSpan" id="phoneKey">电话：</span>
-                                	<div class="text"><input name="" type="text" id="phoneValue"/></div>
+                                	<div class="text"><input name="" type="text" id="phoneValue" value="{{applyMes.phone}}"/></div>
                                 </li>
                                  <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">邮箱：</span>
-                                	<div class="text"><input name="" type="text" id="emailValue"/></div>
+                                	<div class="text"><input name="" type="text" id="emailValue" value="{{applyMes.email}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">地址：</span>
                                 	<div class="text">
@@ -122,10 +122,10 @@
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNameKey">结算银行名称：</span>
-                                	<div class="text"><input name="" type="text" id="bankNameValue"/></div>
+                                	<div class="text"><input name="" type="text" id="bankNameValue" value="{{applyMes.account_bank_code}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankCodeKey">结算银行代码：</span>
-                                	<div class="text"><input name="" type="text" id="bankCodeValue"/></div>
+                                	<div class="text"><input name="" type="text" id="bankCodeValue" value="{{applyMes.account_bank_name}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
                                 	<div class="text"><input name="" type="text" id="organizationNoValue" value="{{merchant.organization_code_no}}" /></div>

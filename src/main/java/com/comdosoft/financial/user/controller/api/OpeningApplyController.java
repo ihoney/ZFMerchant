@@ -47,8 +47,6 @@ public class OpeningApplyController {
 	@RequestMapping(value = "getApplyList", method = RequestMethod.POST)
 	public Response getApplyList(@RequestBody Map<String, Object> map) {
 		try {
-			// PageRequest PageRequest = new PageRequest(page,
-			// Constants.PAGE_SIZE);
 			PageRequest PageRequest = new PageRequest((Integer)(map.get("page")),
 					(Integer)map.get("rows"));
 
