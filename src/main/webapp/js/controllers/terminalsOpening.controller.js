@@ -14,6 +14,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.gongClass = "toPublic hover";
 	$scope.sex="";
 	$scope.shiLian =[];
+	//
+	//$scope.sex
 	$(".leaseExplain_tab").hide();
 	//查看终端详情
 	$scope.terminalDetail = function () {

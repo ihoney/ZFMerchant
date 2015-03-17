@@ -136,7 +136,7 @@ public class OpeningApplyController {
 	 * 从第三方接口获得银行
 	 */
 	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
-	public Response ChooseBank() {
+	public Response ChooseBank(@RequestBody Map<String, Object> map) {
 		try {
 			List<Map<String, String>> list = new ArrayList<Map<String,String>>();
 			Map<String, String> map1 = new HashMap<String, String>();
@@ -177,7 +177,8 @@ public class OpeningApplyController {
 	 * @param paramMap
 	 */
 	@RequestMapping(value = "addOpeningApply", method = RequestMethod.POST)
-	public Response addOpeningApply(@RequestBody List<Map<String, Object>> paramMap) {
+	//public Response addOpeningApply(@RequestBody List<Map<String, Object>> paramMap) {
+		public Response addOpeningApply(@RequestBody Map<Object, Object> applyMap) {
 		try {
 			OpeningApplie openingApplie = new OpeningApplie();
 			String openingAppliesId = null;
@@ -187,8 +188,11 @@ public class OpeningApplyController {
 			Integer types = null;
 			Integer openingRequirementId = null;
 			Integer targetId =null;
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> list = (List<Map<String, Object>>) applyMap.get("paramMap");
+			
 			int y = 0;
-			for (Map<String, Object> map : paramMap) {
+			for (Map<String, Object> map : list) {
 				if (y == 0) {
 					terminalId = (Integer)map.get("terminalId");
 					//获得申请基本资料
