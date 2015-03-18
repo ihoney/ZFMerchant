@@ -37,6 +37,10 @@
 				<tbody>
 					<tr ng-repeat="e in integralList">
 						<td ng-if="e.target_type == 1">交易</td>
+						<td ng-if="e.target_type == 2">购买终端</td>
+						<td ng-if="e.target_type == 3">购买终端</td>
+						<td ng-if="e.target_type == 4">兑换</td>
+						<td ng-if="e.target_type == ''"></td>
 						<td>{{e.payedAt}}</td>
 						<td>{{e.order_number}}</td>
 						<td>{{e.quantity}}</td>

@@ -58,7 +58,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 			if (data != null && data != undefined) {
 				alert("修改成功");
 				window.location.href = '#/myinfobase';
-//				$scope.city_list = data.result;
+				location.reload();
 			}
 		});
 	};
