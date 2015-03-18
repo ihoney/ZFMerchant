@@ -104,7 +104,7 @@ public class IndexService {
         String code = SysUtils.getCode();
         if(SysUtils.isMobileNO(phone)){
             try {
-                Boolean b = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+code, phone);
+                Boolean b = SysUtils.sendPhoneCode("感谢您使用华尔街金融，您的验证码为："+code, phone);
                 if(!b) return "-1";
             } catch (JsonParseException e) {
                 e.printStackTrace();
