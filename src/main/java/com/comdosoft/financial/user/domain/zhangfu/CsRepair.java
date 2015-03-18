@@ -288,4 +288,29 @@ public class CsRepair {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	/**
+	 * 1.未付款
+	 */
+	public static final Integer STATUS_1 = 1;
+	
+	/**
+	 * 2.待发回
+	 */
+	public static final Integer STATUS_2 = 2;
+	
+	/**
+	 * 3.维修中
+	 */
+	public static final Integer STATUS_3 = 3;
+	
+	/**
+	 * 4.处理完成
+	 */
+	public static final Integer STATUS_4 = 4;
+	
+	/**
+	 * 5.已取消
+	 */
+	public static final Integer STATUS_5 = 5;
 }

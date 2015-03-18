@@ -15,8 +15,9 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 			//显示用户登录部分
 			$scope.$emit('changeshow',false);
 		}
-
-      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+		//0 注销， 1 更新
+	  $scope.types = 1;
+      $http.post("api/terminal/getWebApplyDetails", {types:$scope.types,terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
@@ -33,6 +34,23 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
   $scope.popup = function(t,b){
 	  $(".mask").show();
 	  $(".leaseExplain_tab").show();
+  }
+  
+  //下载模版
+  $scope.downModel = function(modelPath){
+	  alert("开始");
+	  $http.post("api/comment/downLoadManagerTemplate", {modelPath:modelPath}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == 1){
+        		  alert("下载成功");
+        	  }else if(data.code == -1){
+        		  alert("下载失败");
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("获取列表失败");
+          /*$("#serverErrorModal").modal({show: true});*/
+      });;
   }
   
 //提交

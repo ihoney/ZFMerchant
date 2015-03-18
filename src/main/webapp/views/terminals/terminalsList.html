@@ -1,7 +1,6 @@
 <script type="text/javascript" src="js/controllers/terminals.controller.js"></script>
 <script src="js/main.js"></script>
-<div class="main_user" ng-controller="terminalController">
-    	<div class="box">
+    	<div class="box" ng-controller="terminalController">
             <div class="right">
             	<div class="breadcrumb">
                     <ul>
@@ -98,7 +97,7 @@
             	</div>
         	</div>
     	</div>
-    	 <div class="mask"></div>
+    	 <div class="mask" ng-controller="terminalController"></div>
 
 <div id="closeWin" class="tab otherTerminal_tab" ng-controller="terminalController">
 	<a href="javascript:void(0);" class="close">关闭</a>
@@ -109,6 +108,7 @@
             	<li><span class="labelSpan">支付通道：</span>
                 	<div class="text">
                         <select name="">
+                        	<option>请选择</option>
                             <option ng-repeat="chan in channels" ng-click="channelId(chan.id)">{{chan.name}}</option>
                         </select>
                     </div>
@@ -124,6 +124,4 @@
 	</div>
 	<div class="tabFoot"><button class="orangeBtn" ng-click="addChannel('1')">确定</button></div>
 </div>
-    
-    </div>
    

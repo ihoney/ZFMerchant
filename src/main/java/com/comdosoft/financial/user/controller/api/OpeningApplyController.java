@@ -83,8 +83,7 @@ public class OpeningApplyController {
 					(Integer)maps.get("status")));
 			// 获得已有申请开通基本信息
 			map.put("openingInfos",
-					openingApplyService.getOppinfo((Integer)maps.get("terminalsId"),
-					(Integer)maps.get("status")));
+					openingApplyService.getOppinfo((Integer)maps.get("terminalsId")));
 			
 			return Response.getSuccess(map);
 		} catch (Exception e) {

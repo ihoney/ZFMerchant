@@ -33,41 +33,63 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
-            //终端数据回显
+              //终端动态数据回显
               $scope.applyFor = data.result.applyFor;
-              $scope.applyMes = data.result.applyFor[0];
+              //终端基本数据回显
+              $scope.openingInfos = data.result.openingInfos;
               //获得商户集合
               $scope.merchantList = data.result.merchants;
               //材料等级
               $scope.MaterialLevel = data.result.MaterialLevel;
               //城市级联
               $scope.getShengcit();
+              //所有省
+              $scope.CitieChen= data.result.CitieChen;
               //支付通道
               $scope.channels = data.result.channels;
               
-              if($scope.applyMes != null && $scope.applyMes!= undefined){
+              if($scope.openingInfos != null && $scope.openingInfos!= undefined){
             	//数据替换
-                  $scope.status = $scope.applyMes.types;
-                  $scope.merchantNamed = $scope.applyMes.merchant_name;
-                  $scope.merchantId  = $scope.applyMes.merchant_id;
-                  $scope.sex = $scope.applyMes.sex;
+                  $scope.status = $scope.openingInfos.types;
+                  $scope.merchantNamed = $scope.openingInfos.merchant_name
+                  $scope.merchantId  = $scope.openingInfos.merchant_id;
+                  $scope.sex = $scope.openingInfos.sex;
                   $scope.merchant = {
-                		  legal_person_name:$scope.applyMes.name,
-                		  legal_person_card_id:$scope.applyMes.card_id,
-                		  account_bank_num:$scope.applyMes.account_bank_num,
-                		  organization_code_no:$scope.applyMes.organization_code_no,
-                		  tax_registered_no:$scope.applyMes.tax_registered_no
+                		  legal_person_name:$scope.openingInfos.name,
+                		  legal_person_card_id:$scope.openingInfos.card_id,
+                		  account_bank_num:$scope.openingInfos.account_bank_num,
+                		  organization_code_no:$scope.openingInfos.organization_code_no,
+                		  tax_registered_no:$scope.openingInfos.tax_registered_no
                   };
-                  $scope.birthday = $scope.applyMes.birthday;
+                  $scope.birthday = $scope.openingInfos.birthday;
                   $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
                   $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
                   $scope.day = Math.ceil($scope.birthday.split("-")[2]);
                   //获得城市
-                  $scope.cityId = $scope.applyMes.city_id;
+                  $scope.cityId = $scope.openingInfos.city_id;
+                  for(var i=0;i<$scope.CitieChen.length;i++){
+                	  if($scope.CitieChen[i].id == $scope.cityId){
+                		  $scope.addressShi = $scope.CitieChen[i].name;
+                		  for(var y=0;y<$scope.CitieChen.length;y++){
+                			  if($scope.CitieChen[i].parent_id == $scope.CitieChen[y].id){
+                				  $scope.addressShen = $scope.CitieChen[y].name;
+                			  }
+                		  }
+                	  }
+                  }
                   //通道Id
-                  $scope.channel = $scope.applyMes.pay_channel_id;;
-              	  $scope.billingId = $scope.applyMes.billing_cyde_id;;
-                  
+                  $scope.channel = $scope.openingInfos.pay_channel_id;
+              	  $scope.billingId = $scope.openingInfos.billing_cyde_id;
+              	  for(var i=0;i<$scope.channels.length;i++){
+              		  if($scope.channels[i].id == $scope.channel){
+              			$scope.channelName = $scope.channels[i].name;
+              			for(var y=0;y<$scope.channels[i].billings.length;y++){
+              				if($scope.channels[i].billings[y].id == $scope.billingId){
+              					 $scope.channelTsName = $scope.channels[i].billings[y].name;
+              				}
+              			}
+              		  }
+              	  }
               }
           }
       }).error(function (data) {
@@ -112,7 +134,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   $scope.butSex = function(num){
 		  $scope.sex=num;
   }
-  
+  $scope.channelName = "请选择";
+  $scope.channelTsName = "请选择";
   //获得通道ID
  /* $scope.getChannels = function(chanId){
 	  $scope.chanId = Math.ceil(chanId);
@@ -128,7 +151,10 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  $scope.Tid = Math.ceil(Tid);
   }*/
   
-//获得省级
+  $scope.addressShen = "请选择";
+  $scope.addressShi = "请选择";
+  $scope.cities = [];
+  //获得省级
 	$scope.getShengcit= function(){
 		$http.post("api/index/getCity").success(function(data) {
 			if (data.code == 1) {
@@ -138,6 +164,22 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 			}
 		})
 	};
+	//取消城市数据回显值
+	$scope.delectChit = function(){
+		$scope.addressShen = "请选择";
+	}
+	$scope.delectShi = function(){
+		$scope.addressShi = "请选择";
+	}
+	//取消通道数据回显
+	$scope.delectChanl = function(){
+		$scope.channelName = "请选择";
+	}
+	$scope.delectChanlTs = function(){
+		$scope.channelTsName = "请选择";
+	}
+	
+	
 	//更具省获得市
 	/*$scope.shiSelectList = {};
 	$scope.citfunction = function(citId){
@@ -230,6 +272,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   	$scope.tln={};
   	//生日
   	$scope.birthday = null;
+  	$scope.nian = "请选择";
+    $scope.yue = "请选择";
+    $scope.day = "请选择";
   	//城市回显ID
 	$scope.cityId = null;
 	//通道数据回显ID
