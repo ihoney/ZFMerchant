@@ -35,7 +35,7 @@ public class CommentService {
     @Value("${downloadAdminFileModelTemplatePath}")
     private String downloadAdminFileModelTemplatePath;
 
-    //private static final String managerTemplateFileName = "管理员导入模板.xls";
+    private static final String managerTemplateFileName = "java.txt";
 
     public Map<String, Object> getList(CommentReq req) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -82,7 +82,9 @@ public class CommentService {
             // 获取文件的真实磁盘路径
             String realPath = request.getServletContext().getRealPath(downloadAdminFileModelTemplatePath);
             // 实体文件名
-            String fileName = (String)map.get("modelPath");
+            //String fileName = (String)map.get("modelPath");
+            String fileName = managerTemplateFileName;
+            
             System.out.println("文件名字"+fileName);
             // 解决中文文件名获取不到，乱码，空格等问题
             String attachFileName = new String(StringUtils.replace(fileName, " ", "+").getBytes("UTF-8"), "ISO8859-1");

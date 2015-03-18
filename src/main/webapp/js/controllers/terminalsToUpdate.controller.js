@@ -36,23 +36,6 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 	  $(".leaseExplain_tab").show();
   }
   
-  //下载模版
-  $scope.downModel = function(modelPath){
-	  alert("开始");
-	  $http.post("api/comment/downLoadManagerTemplate", {modelPath:modelPath}).success(function (data) {  //绑定
-          if (data != null && data != undefined) {
-        	  if(data.code == 1){
-        		  alert("下载成功");
-        	  }else if(data.code == -1){
-        		  alert("下载失败");
-        	  }
-          }
-      }).error(function (data) {
-    	  alert("获取列表失败");
-          /*$("#serverErrorModal").modal({show: true});*/
-      });;
-  }
-  
 //提交
 	$scope.subToUpdate = function () {
 		

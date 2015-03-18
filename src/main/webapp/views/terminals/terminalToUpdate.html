@@ -27,7 +27,7 @@
                     	<h2>更新申请资料</h2>
                         <div class="applyFor_list clear">
                            <div class="af_con" ng-repeat="re in ReModel">
-                            	<div class="af_con_n">{{re.title}}<a ng-click="downModel(re.templet_file_path)" class="a_btn">下载模版</a></div>
+                            	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}"  target="Blank" class="a_btn">下载模版</a></div>
                                 <div class="af_con_b">
                                 <form  method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 <i></i>

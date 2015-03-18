@@ -19,13 +19,13 @@
                         	<li><div class="user_search"><input name="" type="text" ng-model="serialNum"/><button ng-click="screeningSerialNum()"></button></div></li>
                             <li><div class="user_select">
                             	<label>状态筛选</label>
-                            	<select name="">
-                            	  <option ng-click="indexPage=1;screening(0)">请选择</option>
-                            	  <option ng-click="indexPage=1;screening(2)">部分开通</option>
-                            	  <option ng-click="indexPage=1;screening(1)">已开通</option>
-                            	  <option ng-click="indexPage=1;screening(3)">未开通</option>
-                            	  <option ng-click="indexPage=1;screening(4)">已注销</option>
-                            	  <option ng-click="indexPage=1;screening(5)">已停用</option>
+                            	<select name="" ng-model="screeningStatus" ng-change="screening()">
+                            	  <option value="">请选择</option>
+                            	  <option value="2">部分开通</option>
+                            	  <option value="1">已开通</option>
+                            	  <option value="3">未开通</option>
+                            	  <option value="4">已注销</option>
+                            	  <option value="5">已停用</option>
                             	</select>
                             </div></li>
                         </ul>
@@ -79,8 +79,8 @@
                           </tbody>                          
                         </table>
                     </div>
-                    <div class="pageTurn"> 
-            	<div class="p_num" ng-show="totalPage>1">
+                    <div class="pageTurn"  ng-show="totalPage>1"> 
+            	<div class="p_num">
                 <!-- <a href="#" class="current">1</a>  -->
                 <a ng-class="{true:'disabled'}[indexPage==1]" href="javascript:void(0)" ng-click="indexPage=1;getInfo()">首页</a>
                 <a ng-class="{true:'disabled'}[indexPage==1]" href="javascript:void(0);" ng-click="prev()">上一页</a>
