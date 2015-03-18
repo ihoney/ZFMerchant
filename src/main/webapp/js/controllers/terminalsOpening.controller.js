@@ -62,29 +62,12 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
                   $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
                   $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
                   $scope.day = Math.ceil($scope.birthday.split("-")[2]);
+                  //获得城市
+                  $scope.cityId = $scope.applyMes.city_id;
+                  //通道Id
+                  $scope.channel = $scope.applyMes.pay_channel_id;;
+              	  $scope.billingId = $scope.applyMes.billing_cyde_id;;
                   
-                  
-                  
-                 /* var countOne=0;
-            	  for(var i=0;i<$scope.MaterialLevel.length;i++){
-            		  for(var y=0;y<$scope.result.length;y++){
-            			  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
-            				  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
-            				  			  //var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
-            				 // alert($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html());
-            				  			 for(var m=0;m<$scope.applyFor.length;m++){
-            				  				 if(keys == $scope.applyFor[m].key){
-            				  					$('#value_'+$scope.MaterialLevel[i].level+'_'+y).val($scope.applyFor[m].value);
-            				  				 }
-            			                  }
-            				  			  countOne++;
-            			  }
-            		  }
-            	  }*/
-                  
-                  
-                  
-                 
               }
           }
       }).error(function (data) {
@@ -241,11 +224,30 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           /*$("#serverErrorModal").modal({show: true});*/
       });
   }
-//提交申请
-  $scope.req={};
-  $scope.chan={};
-  $scope.tln={};
+  	//提交申请
+  	$scope.req={};
+  	$scope.chan={};
+  	$scope.tln={};
+  	//生日
+  	$scope.birthday = null;
+  	//城市回显ID
+	$scope.cityId = null;
+	//通道数据回显ID
+	$scope.channel = null;
+	$scope.billingId = null;
   $scope.addApply = function(){
+	  if($scope.cityId == null){
+		  $scope.cityId == Math.ceil($scope.req.shiList.id);
+	  }
+	  if($scope.channel == null){
+		  $scope.channel = Math.ceil($scope.chan.chanList.id);
+	  }
+	  if($scope.billingId == null){
+		  $scope.billingId = Math.ceil($scope.tln.chanTs.id);
+	  }
+	  if($scope.birthday == null){
+		  $scope.birthday = $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val();
+	  }
 	  $scope.list = [
 	                 {
 	                     status:1,
@@ -255,14 +257,14 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	                     merchantId: Math.ceil($scope.merchantId),
 	                     merchantName:$scope.merchantNamed,
 	                     sex:Math.ceil($scope.sex),
-	                     birthday: $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val(),
+	                     birthday: $scope.birthday,
 	                     cardId:$("#cirdValue").val(),
 	                     phone:$("#phoneValue").val(),
 	                     email:$("#emailValue").val(),
-	                     cityId:Math.ceil($scope.req.shiList.id),
+	                     cityId:$scope.cityId,
 	                     name:$("#valueName").val(),
-	                     channel:Math.ceil($scope.chan.chanList.id),
-	                     billingId:Math.ceil($scope.tln.chanTs.id),
+	                     channel:$scope.channel,
+	                     billingId:$scope.billingId,
 	                     bankNum:$("#bankNumValue").val(),
 	                     bankName:$("#bankNameValue").val(),
 	                     bankCode:$("#bankCodeValue").val(),
