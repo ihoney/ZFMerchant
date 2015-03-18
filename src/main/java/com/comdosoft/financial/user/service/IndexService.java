@@ -132,8 +132,8 @@ public class IndexService {
         req.setAddress(myOrderReq.getContent());//邮箱
         String data;
         try {
-             data = SysUtils.string2MD5(name+"zf_vc");
-            req.setUrl("<a href='"+url+"/api/index/to_change_email/"+id+"/"+name+"/"+data+"'>点击修改</a>");
+             data = SysUtils.string2MD5(name+"zf_vc");  ///#/myinfobase
+            req.setUrl("<a href='"+url+"/#/myinfobase?id="+id+"&q="+data+"'>点击修改</a>");
             MailService.sendMail(req);
         } catch (Exception e) {
             e.printStackTrace();

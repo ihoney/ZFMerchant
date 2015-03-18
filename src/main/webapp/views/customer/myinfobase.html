@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="tabFoot">
-		<button class="orangeBtn">确定</button>
+		<button class="orangeBtn" ng-click="colose_email()">确定</button>
 	</div>
 </div>
 <script src="js/main.js"></script>
@@ -62,7 +62,7 @@
 		<div class="user_title">
 			<h1>编辑基本信息</h1>
 		</div>
-		<div class="myInfoBox">
+		<div class="myInfoBox" id="base_box">
 			<ul>
 				<li><label>姓名：</label>
 				<input type="text" ng-model="customer.name" required maxlength="45" />
@@ -80,6 +80,15 @@
 			</ul>
 			<div class="myInfoBox_btn">
 				<button type="button" class="orangeBtn" ng-click="save()">保存</button>
+			</div>
+		</div>
+		
+		<div class="myInfoBox" id="upemail_box" style="display: none">
+			<ul>
+				<li><label>新邮箱：</label><input type="text" ng-model="customer.new_email" /></li>
+			</ul>
+			<div class="myInfoBox_btn">
+				<button type="button" class="orangeBtn" ng-click="up_save()">修改邮箱</button>
 			</div>
 		</div>
 	</div>

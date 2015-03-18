@@ -12,6 +12,7 @@ public class MyOrderReq {
     private Integer offset;
     private String search;//搜索条件
     private String phone;//手机号
+    private String email;
     private String q;//状态值
     private Integer rows ;//每页大小
     private Integer customer_id;//用户id
@@ -28,6 +29,20 @@ public class MyOrderReq {
     
    
     
+    /**  
+     * 获取 email  
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+    /**  
+     * 设置 email  
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
     /**  
      * 获取 phone  
      * @return phone

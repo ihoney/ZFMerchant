@@ -2,7 +2,8 @@
 
 // 系统设置模块
 var myinfobaseModule = angular.module("myinfobaseModule", []);
-var myinfobaseController = function($scope, $http, LoginService) {
+var myinfobaseController = function($scope, $http,$location, LoginService) {
+	var sid = $location.search()['id'];
 	var customerId = LoginService.userid;
 	$scope.init = function() {
 		$scope.intDiff=0;
@@ -11,6 +12,11 @@ var myinfobaseController = function($scope, $http, LoginService) {
 			window.location.href = '#/login';
 		} else {
 			$scope.$emit('changeshow', false);
+			if(sid == LoginService.userid ){
+				$('#base_box').hide();
+				$('#upemail_box').show();
+			}
+			
 		}
 		$scope.req = {
 			customer_id : LoginService.userid
@@ -38,9 +44,31 @@ var myinfobaseController = function($scope, $http, LoginService) {
             }
         });
 	};
+	//修改邮箱
+	$scope.up_save = function(){
+		var mail = $scope.customer.new_email;
+		var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+		if(!reg.test(mail)){
+			alert("请输入合法的邮箱地址");
+			return false;
+		}
+		$scope.req = {id:LoginService.userid,
+					  email:mail};
+		$http.post("api/customers/cust_update",$scope.req).success(function (data) {   
+			if (data != null && data != undefined) {
+				alert("修改成功");
+				window.location.href = '#/myinfobase';
+//				$scope.city_list = data.result;
+			}
+		});
+	};
 	
 	$scope.ch_city = function(){
 //		$scope.selected_city = "";
+	};
+	$scope.colose_email = function(){
+		$("#email_send_tab").css('display','none');
+		$(".mask").css('display','none');
 	};
 	$scope.close_show_two = function(){
 		$("#show_phone_input_my_t").css('display','none');
