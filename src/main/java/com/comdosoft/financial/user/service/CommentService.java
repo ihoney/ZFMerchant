@@ -32,10 +32,10 @@ public class CommentService {
     @Value("${uploadPictureTempsPath}")
     private String uploadPictureTempsPath;
 
-    @Value("${downloadAdminExeclTemplatePath}")
-    private String downloadAdminExeclTemplatePath;
+    @Value("${downloadAdminFileModelTemplatePath}")
+    private String downloadAdminFileModelTemplatePath;
 
-    private static final String managerTemplateFileName = "管理员导入模板.xls";
+    //private static final String managerTemplateFileName = "管理员导入模板.xls";
 
     public Map<String, Object> getList(CommentReq req) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -75,16 +75,15 @@ public class CommentService {
      * @param response
      * @param id
      */
-    public void downLoadManagerTemplate(HttpServletRequest request, HttpServletResponse response) {
+    public void downLoadManagerTemplate(HttpServletRequest request, HttpServletResponse response,Map<Object, Object> map) {
         OutputStream os = null;
         InputStream inputStream = null;
         try {
             // 获取文件的真实磁盘路径
-            String realPath = request.getServletContext().getRealPath(downloadAdminExeclTemplatePath);
-
+            String realPath = request.getServletContext().getRealPath(downloadAdminFileModelTemplatePath);
             // 实体文件名
-            String fileName = managerTemplateFileName;
-
+            String fileName = (String)map.get("modelPath");
+            System.out.println("文件名字"+fileName);
             // 解决中文文件名获取不到，乱码，空格等问题
             String attachFileName = new String(StringUtils.replace(fileName, " ", "+").getBytes("UTF-8"), "ISO8859-1");
 
@@ -95,6 +94,7 @@ public class CommentService {
             response.setHeader("Content-Disposition", "attachment;fileName=" + attachFileName);
 
             File file = new File(realPath, fileName);
+            System.out.println(file);
             inputStream = new FileInputStream(file);
             os = response.getOutputStream();
             byte[] bytes = new byte[1024];

@@ -17,8 +17,9 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
 			//显示用户登录部分
 			$scope.$emit('changeshow',false);
 		}
-
-      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+		//0 注销， 1 更新
+		  $scope.types = 0;
+      $http.post("api/terminal/getWebApplyDetails", {types:$scope.types,terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;

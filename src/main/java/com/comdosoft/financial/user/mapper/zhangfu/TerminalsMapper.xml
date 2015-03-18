@@ -135,6 +135,36 @@
 		WHERE customer_id = #{customerId}
 	</select>
 	
+	<select id="JudgeChangStatus"  resultType="int" parameterType="map">
+		SELECT count(*) from cs_changes
+		WHERE terminal_id = #{terminalId}
+		AND `status` in (#{statusa},#{statusb})
+	</select>
+	
+	<select id="JudgeUpdateStatus"  resultType="int" parameterType="map">
+		SELECT count(*) from cs_update_infos
+		WHERE terminal_id = #{terminalId}
+		AND `status` in (#{statusa},#{statusb})
+	</select>
+	
+	<select id="JudgeRentalReturnStatus"  resultType="int" parameterType="map">
+		SELECT count(*) from cs_cancels
+		WHERE terminal_id = #{terminalId}
+		AND `status` in (#{statusa},#{statusb})
+	</select>
+	
+	<select id="JudgeRepair"  resultType="int" parameterType="map">
+		SELECT count(*) from cs_repairs
+		WHERE terminal_id = #{terminalId}
+		AND `status` in (#{statusa},#{statusb})
+	</select>
+	
+	<select id="JudgeReturn"  resultType="int" parameterType="map">
+		SELECT count(*) from cs_returns
+		WHERE terminal_id = #{terminalId}
+		AND `status` in (#{statusa},#{statusb})
+	</select>
+	
 	<select id="judgeOpen"  resultType="int" parameterType="int">
 		select count(*) from opening_applies
 		where terminal_id = #{terminalId}

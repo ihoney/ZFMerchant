@@ -55,13 +55,17 @@ public class OpeningApplyService {
 	 * @param id
 	 * @return
 	 */
-	public Map<String, Object> getOppinfo(Integer terminalsId,Integer status) {
+	public Map<String, Object> getOppinfo(Integer terminalsId) {
 		OpeningApplie openingApplie =new OpeningApplie();
 		openingApplie.setTerminalId(terminalsId);
-		openingApplie.setTypes(status);
-		return openingApplyMapper.getOppinfo(openingApplie);
+		
+		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
+		 Map<String, Object> map = openingApplyMapper.getOppinfo(openingApplie);
+				map.put("birthday", sdf.format(map.get("birthday")));
+				map.put("created_at", sdf.format(map.get("created_at")));
+				map.put("updated_at", sdf.format(map.get("updated_at")));
+		return map;
 	}
-	
 	
 	/**
 	 * 获得终端材料等级个数
@@ -123,15 +127,15 @@ public class OpeningApplyService {
 	 * @return
 	 */
 	public List<Map<String, String>> ReApplyFor(Integer id) {
-		
+		/*
 		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
 		 List<Map<String, String>> list = openingApplyMapper.ReApplyFor(id);
 			for(Map<String, String> map:list){
 				map.put("birthday", sdf.format(map.get("birthday")));
 				map.put("created_at", sdf.format(map.get("created_at")));
 				map.put("updated_at", sdf.format(map.get("updated_at")));
-			}
-		return list;
+			}*/
+		return openingApplyMapper.ReApplyFor(id);
 	}
 
 	/**

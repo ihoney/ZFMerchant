@@ -16,8 +16,9 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 			//显示用户登录部分
 			$scope.$emit('changeshow',false);
 		}
-
-      $http.post("api/terminal/getWebApplyDetails", {terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
+		//0 注销， 1 更新
+		  $scope.types = 0;
+      $http.post("api/terminal/getWebApplyDetails", {types:$scope.types,terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
@@ -94,6 +95,85 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
       });
   }
   
+  //申请换货判断
+  $scope.judgeChang = function(){
+	  $http.post("api/terminal/judgeChang", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == -1){
+        		  alert("已有该终端换货申请！");
+        	  }else if(data.code == 1){
+        		  window.location.href = "#/terminalExchangeGoods?terminalId="+$scope.terminalId;
+        		  
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("操作失败！");
+      });
+  }
+  
+  //申请跟新判断
+  $scope.judgeUpdate = function(){
+	  $http.post("api/terminal/judgeUpdate", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == -1){
+        		  alert("已有该终端跟新申请！");
+        	  }else if(data.code == 1){
+        		  window.location.href = "#/terminalToUpdate?terminalId="+$scope.terminalId;
+        		  
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("操作失败！");
+      });
+  }
+  
+//申请注销判断
+  $scope.judgeRentalReturn = function(){
+	  $http.post("api/terminal/judgeRentalReturn", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == -1){
+        		  alert("已有该终端注销申请！");
+        	  }else if(data.code == 1){
+        		  window.location.href = "#/terminalCancellation?terminalId="+$scope.terminalId;
+        		  
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("操作失败！");
+      });
+  }
+  
+  //申请维修判断
+  $scope.judgeRepair = function(){
+	  $http.post("api/terminal/judgeRepair", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == -1){
+        		  alert("已有该终端维修申请！");
+        	  }else if(data.code == 1){
+        		  window.location.href = "#/terminalRepair?terminalId="+$scope.terminalId;
+        		  
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("操作失败！");
+      });
+  }
+  
+  //申请退货判断
+  $scope.judgeReturn = function(){
+	  $http.post("api/terminal/judgeReturn", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == -1){
+        		  alert("已有该终端退货申请！");
+        	  }else if(data.code == 1){
+        		  window.location.href = "#/terminalReturnGood?terminalId="+$scope.terminalId;
+        		  
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("操作失败！");
+      });
+  }
   $scope.terminalDetail();
 
 };
