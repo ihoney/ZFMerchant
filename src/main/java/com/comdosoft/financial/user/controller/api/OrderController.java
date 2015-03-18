@@ -113,8 +113,14 @@ public class OrderController {
         if (null != orderreq.getCartid() && orderreq.getCartid().length > 0) {
             try {
                 int result = orderService.createOrderFromCart(orderreq);
-                resp.setCode(Response.SUCCESS_CODE);
-                resp.setResult(result);
+                if(-3==result){
+                    resp.setCode(-3);
+                    resp.setMessage("购物车不存在");
+                }else{
+                    resp.setCode(Response.SUCCESS_CODE);
+                    resp.setResult(result); 
+                }
+                
             } catch (LowstocksException e) {
                 resp.setCode(-2);
                 resp.setMessage("库存不足");

@@ -4,6 +4,7 @@ package com.comdosoft.financial.user.domain.query;
 public class TradeReq {
 
     private int id;
+    private int customerId;
     private int tradeTypeId;
     private String terminalNumber;
     private String startTime;
@@ -85,6 +86,14 @@ public class TradeReq {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
     
     

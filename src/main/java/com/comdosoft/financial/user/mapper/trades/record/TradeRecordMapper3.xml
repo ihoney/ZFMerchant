@@ -5,7 +5,7 @@
 	<select id="getTradeRecordsCount" resultType="map">
 		SELECT COUNT(r.id) total,SUM(r.amount) amountTotal
 		FROM trade_records r 
-		WHERE r.trade_type_id = #{tradeTypeId}
+		WHERE r.trade_type_id = #{tradeTypeId} and customer_id=#{customerId}
 		<if test="terminalNumber!=''">
 		    <![CDATA[ AND r.terminal_number = #{terminalNumber}  ]]>
 		</if>
@@ -26,7 +26,7 @@
 		r.terminal_number terminalNumber,
 		r.traded_status tradedStatus
 		FROM trade_records r 
-		WHERE r.trade_type_id = #{tradeTypeId}
+		WHERE r.trade_type_id = #{tradeTypeId} and customer_id=#{customerId}
 		<if test="terminalNumber!=''">
 		    <![CDATA[ AND r.terminal_number = #{terminalNumber}  ]]>
 		</if>

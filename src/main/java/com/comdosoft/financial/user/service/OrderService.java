@@ -47,6 +47,9 @@ public class OrderService {
         int totalprice = 0;
         int count = 0;
         List<Map<String, Object>> checkList = orderMapper.checkList(orderreq);
+        if(checkList.size()!=orderreq.getCartid().length){
+            return -3;
+        }
         for (Map<String, Object> map : checkList) {
             int count2 = SysUtils.String2int("" + map.get("count"));
             int quantity = SysUtils.String2int("" + map.get("quantity"));
