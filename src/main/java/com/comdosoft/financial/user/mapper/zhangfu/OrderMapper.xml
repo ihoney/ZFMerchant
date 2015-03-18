@@ -284,6 +284,16 @@
 		WHERE
 			id = #{id}
     </update>
+    <!-- 清理 -->
+	<update id="changeStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Order">
+      UPDATE orders t
+		SET t.`status` = 5
+		WHERE
+				HOUR (t.created_at) < HOUR (NOW())
+		AND DATEDIFF(NOW(), t.created_at) < 2
+		AND DATEDIFF(NOW(), t.created_at) > 0
+		AND t.`status` = 1
+    </update>
     
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 
