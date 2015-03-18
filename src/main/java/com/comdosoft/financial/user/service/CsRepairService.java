@@ -40,21 +40,25 @@ public class CsRepairService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         for(Map<String,Object> m: o){
             map = new HashMap<String,Object>();
-            String d = (m.get("created_at")+"");
-            Date date = sdf.parse(d);
-            String c_date = sdf.format(date);
-            String status = (m.get("status")+"");
-            map.put("id",m.get("id"));
+            String d = (m.get("created_at")==null?"":m.get("created_at").toString());
+            if(d==""){
+                map.put("create_time", "");
+            }else{
+                Date date = sdf.parse(d);
+                String c_date = sdf.format(date);
+                map.put("create_time", c_date);
+            }
+            String status = (m.get("status")==null?"":m.get("status").toString());
+            map.put("id",m.get("id")==null?"":m.get("id"));
             map.put("status", status);
-            map.put("create_time", c_date);
-            map.put("terminal_num", m.get("serial_num"));//终端号
-            map.put("apply_num", m.get("apply_num"));//维修编号
+            map.put("terminal_num", m.get("serial_num")==null?"":m.get("serial_num"));//终端号
+            map.put("apply_num", m.get("apply_num")==null?"":m.get("apply_num"));//维修编号
             map.put("repair_price", m.get("repair_price")==null?"":m.get("repair_price"));
-            map.put("brand_name", m.get("brand_name")+"");
-            map.put("brand_number", m.get("brand_number")+"");
-            map.put("zhifu_pingtai", m.get("zhifu_pt")+"");
-            map.put("merchant_name", m.get("merchant_name")+"");
-            map.put("merchant_phone", m.get("mer_phone")+"");
+            map.put("brand_name", m.get("brand_name")==null?"":m.get("brand_name"));
+            map.put("brand_number", m.get("brand_number")==null?"":m.get("brand_number"));
+            map.put("zhifu_pingtai", m.get("zhifu_pt")==null?"":m.get("zhifu_pt"));
+            map.put("merchant_name", m.get("merchant_name")==null?"":m.get("merchant_name"));
+            map.put("merchant_phone", m.get("mer_phone")==null?"":m.get("mer_phone"));
             list.add(map);
         }
         return list;
@@ -72,9 +76,13 @@ public class CsRepairService {
         map.put("id", id);
         map.put("status", o.get("apply_status"));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String apply_time =   o.get("apply_time")+"";
+        String apply_time =   o.get("apply_time")==null?"":o.get("apply_time").toString();
         map.put("apply_num", o.get("apply_num"));//维修编号
-        map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        if(apply_time==""){
+            map.put("apply_time", "");
+        }else{
+            map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        }
         map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
         map.put("brand_name", o.get("brand_name")==null?"":o.get("brand_name"));
         map.put("brand_number", o.get("brand_number")==null?"":o.get("brand_number"));
