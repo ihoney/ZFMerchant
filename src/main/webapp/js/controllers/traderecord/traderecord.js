@@ -4,6 +4,7 @@
 var traderecordModule = angular.module("traderecordModule", []);
 var traderecordController = function($scope, $http, LoginService) {
 	$scope.req={tradeTypeId:1,startTime:"",endTime:"",terminalNumber:""};
+	$scope.req.customerId=LoginService.userid;
 	$scope.show={};
 	$scope.getTerminals = function() {
 		var customerId = LoginService.userid;
@@ -28,6 +29,7 @@ var traderecordController = function($scope, $http, LoginService) {
 	};
 	$scope.changeType = function(one) {
 		$scope.req={startTime:"",endTime:"",terminalNumber:""};
+		$scope.req.customerId=LoginService.userid;
 		$scope.req.tradeTypeId=one.id;
 		initSystemPage($scope.req);// 初始化分页参数
 		$scope.typeName=one.value;
