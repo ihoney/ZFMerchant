@@ -359,7 +359,7 @@ public class OrderService {
     }
 
     public void cleanOrder() {
-//        orderMapper.cleanOrder();
+        orderMapper.cleanOrder();
     }
     
 }

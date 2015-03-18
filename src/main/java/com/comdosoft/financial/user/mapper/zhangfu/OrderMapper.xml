@@ -285,16 +285,14 @@
 			id = #{id}
     </update>
     <!-- 清理 -->
-	<!-- <update id="cleanOrder" >
+	<update id="cleanOrder" >
       UPDATE orders t
 		SET t.`status` = 5
 		WHERE
-		HOUR(t.created_at) < HOUR(NOW())
-		AND DATEDIFF(NOW(), t.created_at) < 2
-		AND DATEDIFF(NOW(), t.created_at) > 0
+			DATE_SUB(NOW(), INTERVAL 1 DAY) > t.created_at
 		AND t.`status` = 1
     </update>
-     -->
+    
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 
 		(score,content,customer_id,good_id,created_at)

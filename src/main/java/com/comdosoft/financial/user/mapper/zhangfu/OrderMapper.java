@@ -55,6 +55,7 @@ public interface OrderMapper {
 
     void batchSaveComment(List<CommentsJson> list);
 
+    void cleanOrder();
 
 // ------gch end ---------------------
 }
