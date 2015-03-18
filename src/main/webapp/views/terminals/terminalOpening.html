@@ -57,9 +57,9 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
                                 	<div class="text">
-                                	<select id="selYear" ng-model="nian" ></select> 
-                                	<select id="selMonth" ng-model="yue"></select>
-                                	<select id="selDay" ng-model="day"></select>
+                                	<select id="selYear"></select> 
+                                	<select id="selMonth"></select>
+                                	<select id="selDay"></select>
 							<script type="text/javascript">
 								var selYear = window.document
 										.getElementById("selYear");
@@ -85,7 +85,7 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">地址：</span>
                                 	<div class="text">
-                                	<select  ng-model="selected" ng-options="s.name for s in cities" >
+                                		<select  ng-model="selected" ng-options="s.name for s in cities" >
 		             		 				<option value="">请选择</option>
 		          						</select>
 						 				<select ng-model="req.shiList" ng-options="x.name for x in selected.childrens"  >
