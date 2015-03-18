@@ -140,16 +140,14 @@
                                 <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3 && r.opening_requirements_id == ma.id">
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 	<div class="text">
-                                	<input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
+                                	<input type="hidden" id="id_{{ma.level+'_'+$index}}"/>
                                 	<input name="" type="text" ng-keyup="bank(ma.level+'_'+$index)">
                                 	</div>
                                     <div class="suggest" id="div_{{ma.level+'_'+$index}}">
-                                    	<input name="" type="hidden"  id="value_{{ma.level+'_'+$index}}" >
+                                    	<input name="" type="hidden"  id="value_{{ma.level+'_'+$index}}" value="{{r.id}}">
                                     	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="codes in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,codes.code,codes.name)">{{codes.name}}</a>
                                     </div>
                                 </li>
-                                
-                                
                                 <li ng-repeat="r in result " ng-if="r.info_type == 1 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span id="key_{{ma.level+'_'+$index}}" class="labelSpan">{{r.name}}：</span>
