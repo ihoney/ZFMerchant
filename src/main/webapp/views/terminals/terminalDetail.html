@@ -12,30 +12,31 @@
                     	<h1>终端详情</h1>
                     	<div class="userTopBtnBox">
                     	<span ng-if="applyDetails.status == 1">
-                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a>
-                    	<a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a>
-                    	<a href="#/terminalCancellation?terminalId={{applyDetails.id}}" class="ghostBtn">注销</a>
-                    	<a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a>
+                    	<!-- <a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a> -->
+                    	<a href="javascript:void(0)" ng-click="judgeChang()" class="ghostBtn">换货</a>
+                    	<a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a>
+                    	<a href="javascript:void(0)" ng-click="judgeRentalReturn()" class="ghostBtn">注销</a>
+                    	<a href="javascript:void(0)" ng-click="judgeRepair()" class="ghostBtn">维修</a>
                     	<a href="javascript:void(0)" class="ghostBtn" ng-click="findPassword()">找回POS密码</a>
-                    	<a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a>
+                    	<a href="javascript:void(0)" ng-click="judgeReturn()" class="ghostBtn">退货</a>
                     	<a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 2">
                     	<a href="#" class="ghostBtn">视频认证</a>
-                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a>
-                    	<a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a>
-                    	<a href="#/terminalCancellation?terminalId={{applyDetails.id}}" class="ghostBtn">注销</a>
-                    	<a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a>
+                    	<a href="javascript:void(0)" ng-click="judgeChang()" class="ghostBtn">换货</a>
+                    	<a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a>
+                    	<a href="javascript:void(0)" ng-click="judgeRentalReturn()" class="ghostBtn">注销</a>
+                    	<a href="javascript:void(0)" ng-click="judgeRepair()" class="ghostBtn">维修</a>
                     	<a href="javascript:void(0)" class="ghostBtn" ng-click="findPassword()">找回POS密码</a>
-                    	<a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a>
+                    	<a href="javascript:void(0)" ng-click="judgeReturn()" class="ghostBtn">退货</a>
                     	<a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 3">
                     	<a href="#" class="ghostBtn">视频认证</a>
-                    	<a href="#/terminalExchangeGoods?terminalId={{applyDetails.id}}" class="ghostBtn">换货</a>
-                    	<a href="#/terminalToUpdate?terminalId={{applyDetails.id}}" class="ghostBtn">更新资料</a>
-                    	<a href="#/terminalRepair?terminalId={{applyDetails.id}}" class="ghostBtn">维修</a>
-                    	<a href="#/terminalReturnGood?terminalId={{applyDetails.id}}" class="ghostBtn">退货</a>
+                    	<a href="javascript:void(0)" ng-click="judgeChang()" class="ghostBtn">换货</a>
+                    	<a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a>
+                    	<a href="javascript:void(0)" ng-click="judgeRepair()" class="ghostBtn">维修</a>
+                    	<a href="javascript:void(0)" ng-click="judgeReturn()" class="ghostBtn">退货</a>
                     	<a href="#" class="ghostBtn">同步</a>
                     	<a href="#/terminalOpening?terminalId={{applyDetails.id}}" class="ghostBtn">申请开通</a>
                     	</span>
@@ -84,8 +85,8 @@
                               <tr ng-repeat="rates in rateList">
                                 <td>{{rates.trade_value}}</td>
                                 <td>
-                                 <span ng-if="rates.trade_value == '消费'">{{(rates.service_rate+rates.base_rate)/100}}%</span>
-                                 <span ng-if="rates.trade_value != '消费'">{{rates.terminal_rate/100}}%</span>
+                                 <span ng-if="rates.trade_value == '消费'">{{(rates.service_rate+rates.base_rate)/1000}}%</span>
+                                 <span ng-if="rates.trade_value != '消费'">{{rates.terminal_rate/1000}}%</span>
                                 </td>
                                 <td>
                                 <span ng-if="rates.status == 1">已开通</span>
@@ -101,8 +102,8 @@
                                 <li>租赁日期：{{tenancy.created_at}}</li>
                                 <li>最短租赁时间：{{tenancy.lease_time}}个月</li>
                                 <li>最长租赁时间：{{tenancy.return_time}}个月</li>
-                                <li>租赁押金：<strong>￥{{tenancy.lease_deposit}}</strong></li>
-                                <li>租金：<strong>￥{{tenancy.lease_price}}</strong></li>
+                                <li>租赁押金：<strong>￥{{tenancy.lease_deposit/100}}</strong></li>
+                                <li>租金：<strong>￥{{tenancy.lease_price/100}}</strong></li>
                                 <li>租赁说明：<a href="javascript:void(0)" class="a_btn leaseExplain_a" ng-click="popup('.leaseExplain_tab','.leaseExplain_a')">点击查看</a></li>
                             </ul>
                         </div> 

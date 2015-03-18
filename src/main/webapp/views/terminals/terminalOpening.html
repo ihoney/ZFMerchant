@@ -57,9 +57,12 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
                                 	<div class="text">
-                                	<select id="selYear"></select> 
-                                	<select id="selMonth"></select>
-                                	<select id="selDay"></select>
+                                	<select id="selYear" ng-model="nian">
+                                	</select> 
+                                	<select id="selMonth" ng-model="yue">
+                                	</select>
+                                	<select id="selDay" ng-model="day">
+                                	</select>
 							<script type="text/javascript">
 								var selYear = window.document
 										.getElementById("selYear");
@@ -78,18 +81,18 @@
                                 	<div class="text"><input name="" type="text" id="cirdValue" value="{{merchant.legal_person_card_id}}"/></div>
                                 </li>
                                  <li ng-if="$index == 0"><span class="labelSpan" id="phoneKey">电话：</span>
-                                	<div class="text"><input name="" type="text" id="phoneValue" value="{{applyMes.phone}}"/></div>
+                                	<div class="text"><input name="" type="text" id="phoneValue" value="{{openingInfos.phone}}"/></div>
                                 </li>
                                  <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">邮箱：</span>
-                                	<div class="text"><input name="" type="text" id="emailValue" value="{{applyMes.email}}"/></div>
+                                	<div class="text"><input name="" type="text" id="emailValue" value="{{openingInfos.email}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="emailKey">地址：</span>
                                 	<div class="text">
-                                		<select  ng-model="selected" ng-options="s.name for s in cities" >
-		             		 				<option value="">请选择</option>
+                                		<select  ng-model="selected" ng-options="s.name for s in cities" ng-click="delectChit()">
+		             		 				<option value="">{{addressShen}}</option>
 		          						</select>
-						 				<select ng-model="req.shiList" ng-options="x.name for x in selected.childrens"  >
-			               					<option value="">请选择</option>
+						 				<select ng-model="req.shiList" ng-options="x.name for x in selected.childrens"  ng-click="delectShi()">
+			               					<option value="">{{addressShi}}</option>
 			          					</select>
                                 		<!-- <select>
 		             		 				<option value="" ng-click="citfunction(cit.id)" ng-repeat="cit in cities">{{cit.name}}</option>
@@ -101,11 +104,11 @@
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="channelKey">支付通道：</span>
                                 	<div class="text">
-                                	<select  ng-model="chan.chanList" ng-options="s.name for s in channels" >
-		             		 				<option value="">请选择</option>
+                                	<select  ng-model="chan.chanList" ng-options="s.name for s in channels" ng-click="delectChanl()">
+		             		 				<option value="">{{channelName}}</option>
 		          						</select>
-						 				<select ng-model="tln.chanTs" ng-options="x.name for x in chan.chanList.billings"  >
-			               					<option value="">请选择</option>
+						 				<select ng-model="tln.chanTs" ng-options="x.name for x in chan.chanList.billings" ng-click="delectChanlTs()" >
+			               					<option value="">{{channelTsName}}</option>
 			          					</select>
 			          					<!-- <select>
 		             		 				<option value="" ng-click="chanfunction(chanTs.id)" ng-repeat="chanTs in channels">{{chanTs.name}}</option>
@@ -126,10 +129,10 @@
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNameKey">结算银行名称：</span>
-                                	<div class="text"><input name="" type="text" id="bankNameValue" value="{{applyMes.account_bank_code}}"/></div>
+                                	<div class="text"><input name="" type="text" id="bankNameValue" value="{{openingInfos.account_bank_code}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankCodeKey">结算银行代码：</span>
-                                	<div class="text"><input name="" type="text" id="bankCodeValue" value="{{applyMes.account_bank_name}}"/></div>
+                                	<div class="text"><input name="" type="text" id="bankCodeValue" value="{{openingInfos.account_bank_name}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
                                 	<div class="text"><input name="" type="text" id="organizationNoValue" value="{{merchant.organization_code_no}}" /></div>

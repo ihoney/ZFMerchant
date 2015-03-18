@@ -100,6 +100,85 @@ public class TerminalsService {
 	}
 	
 	/**
+	 * 换货申请判断
+	 * 
+	 * @param terminalId
+	 * @param statusa
+	 * @param statusb
+	 * @return
+	 */
+	public int JudgeChangStatus(Integer terminalId,Integer statusa,Integer statusb) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalId", terminalId);
+		map.put("statusa", statusa);
+		map.put("statusb", statusb);
+		return terminalsMapper.JudgeChangStatus(map);
+	}
+	
+	/**
+	 * 跟新申请判断
+	 * 
+	 * @param terminalId
+	 * @param statusa
+	 * @param statusb
+	 * @return
+	 */
+	public int judgeUpdateStatus(Integer terminalId,Integer statusa,Integer statusb) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalId", terminalId);
+		map.put("statusa", statusa);
+		map.put("statusb", statusb);
+		return terminalsMapper.JudgeUpdateStatus(map);
+	}
+	
+	/**
+	 * 注销申请判断
+	 * 
+	 * @param terminalId
+	 * @param statusa
+	 * @param statusb
+	 * @return
+	 */
+	public int JudgeRentalReturnStatus(Integer terminalId,Integer statusa,Integer statusb) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalId", terminalId);
+		map.put("statusa", statusa);
+		map.put("statusb", statusb);
+		return terminalsMapper.JudgeRentalReturnStatus(map);
+	}
+	
+	/**
+	 * 维修申请判断
+	 * 
+	 * @param terminalId
+	 * @param statusa
+	 * @param statusb
+	 * @return
+	 */
+	public int JudgeRepair(Integer terminalId,Integer statusa,Integer statusb) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalId", terminalId);
+		map.put("statusa", statusa);
+		map.put("statusb", statusb);
+		return terminalsMapper.JudgeRepair(map);
+	}
+	
+	/**
+	 * 维修申请判断
+	 * @param terminalId
+	 * @param statusa
+	 * @param statusb
+	 * @return
+	 */
+	public int JudgeReturn(Integer terminalId,Integer statusa,Integer statusb) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalId", terminalId);
+		map.put("statusa", statusa);
+		map.put("statusb", statusb);
+		return terminalsMapper.JudgeReturn(map);
+	}
+		
+	/**
 	 * 城市级联
 	 * 
 	 * @param id

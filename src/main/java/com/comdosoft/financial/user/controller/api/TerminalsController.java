@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.City;
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
+import com.comdosoft.financial.user.domain.zhangfu.CsChange;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
+import com.comdosoft.financial.user.domain.zhangfu.CsRepair;
+import com.comdosoft.financial.user.domain.zhangfu.CsUpdateInfo;
 import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
@@ -238,7 +241,7 @@ public class TerminalsController {
 			map.put("openingDetails",
 					terminalsService.getOpeningDetails((Integer)maps.get("terminalsId")));
 			//获得模板路径
-			map.put("ReModel", terminalsService.getModule((Integer)maps.get("terminalsId"),1));
+			map.put("ReModel", terminalsService.getModule((Integer)maps.get("terminalsId"),(Integer)maps.get("types")));
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
 			//城市级联
@@ -260,8 +263,28 @@ public class TerminalsController {
 	public Response getApplyToUpdate(@RequestBody Map<Object, Object> maps) {
 		try {
 			maps.put("templeteInfoXml", maps.get("templeteInfoXml").toString());
+			maps.put("status", CsUpdateInfo.STATUS_1);
 			terminalsService.subToUpdate(maps);
 			return Response.getSuccess("更新成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 判断申请更新资料
+	 * @param maps
+	 */
+	@RequestMapping(value = "judgeUpdate", method = RequestMethod.POST)
+	public Response JudgeUpdate(@RequestBody Map<Object, Object> maps) {
+		try {
+			int count = terminalsService.judgeUpdateStatus((Integer)maps.get("terminalid"),CsUpdateInfo.STATUS_1,CsUpdateInfo.STATUS_2);
+			if(count == 0){
+				return Response.getSuccess("可以申请！");
+			}else{
+				return Response.getError("已有相关申请！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -292,6 +315,26 @@ public class TerminalsController {
 			//退还
 			terminalsService.subLeaseReturn(maps);
 			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 判断退货申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "judgeReturn", method = RequestMethod.POST)
+	public Response judgeReturn(@RequestBody Map<Object, Object> maps) {
+		try {
+			int count = terminalsService.JudgeReturn((Integer)maps.get("terminalid"),CsUpdateInfo.STATUS_1,CsUpdateInfo.STATUS_2);
+			if(count == 0){
+				return Response.getSuccess("可以申请！");
+			}else{
+				return Response.getError("已有相关申请！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -337,13 +380,33 @@ public class TerminalsController {
 		try {
 			CsCancel csCancel =new CsCancel();
 			csCancel.setTerminalId((Integer)maps.get("terminalId"));
-			csCancel.setStatus((Integer)maps.get("status"));
+			csCancel.setStatus(CsCancel.STATUS_1);
 			csCancel.setTempleteInfoXml(maps.get("templeteInfoXml").toString());
 			csCancel.setTypes((Integer)maps.get("type"));
 			csCancel.setCustomerId((Integer)maps.get("customerId"));
 			//注销
 			terminalsService.subRentalReturn(csCancel);
 			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 判断申请注销
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "judgeRentalReturn", method = RequestMethod.POST)
+	public Response judgeRentalReturn(@RequestBody Map<Object, Object> maps) {
+		try {
+			int count = terminalsService.JudgeRentalReturnStatus((Integer)maps.get("terminalid"),CsCancel.STATUS_1,CsCancel.STATUS_2);
+			if(count == 0){
+				return Response.getSuccess("可以申请！");
+			}else{
+				return Response.getError("已有相关申请！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -362,9 +425,50 @@ public class TerminalsController {
 			//先添加维修地址表
 			csReceiverAddress = terminalsService.subRepairAddress(maps);
 			maps.put("receiveAddressId", csReceiverAddress.getId());
-			
+			maps.put("status", CsRepair.STATUS_1);
 			terminalsService.subRepair(maps);
 			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 判断维修申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "judgeRepair", method = RequestMethod.POST)
+	public Response judgeRepair(@RequestBody Map<Object, Object> maps) {
+		try {
+			int count = terminalsService.JudgeRepair((Integer)maps.get("terminalid"),CsCancel.STATUS_1,CsCancel.STATUS_2);
+			if(count == 0){
+				return Response.getSuccess("可以申请！");
+			}else{
+				return Response.getError("已有相关申请！");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 判断换货申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "judgeChang", method = RequestMethod.POST)
+	public Response judgeChang(@RequestBody Map<Object, Object> maps) {
+		try {
+			//判断该终端是否已有未处理完的申请
+			int count = terminalsService.JudgeChangStatus((Integer)maps.get("terminalid"),CsChange.STATUS_1,CsChange.STATUS_2);
+			if(count == 0){
+				return Response.getSuccess("可以申请！");
+			}else{
+				return Response.getError("已有相关申请！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -399,9 +503,10 @@ public class TerminalsController {
 			csReceiverAddress = terminalsService.subRepairAddress(maps);
 			
 			maps.put("receiveAddressId", csReceiverAddress.getId());
-			
+			maps.put("status", CsChange.STATUS_1);
 			terminalsService.subChange(maps);
 			return Response.getSuccess("操作成功！");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -423,7 +528,9 @@ public class TerminalsController {
 					terminalsService.getApplyDetails(maps.get("terminalsId")));
 			// 数据回显(重新开通申请)
 			map.put("applyFor", openingApplyService.ReApplyFor((Integer)maps.get("terminalsId")));
-			
+			// 获得已有申请开通基本信息
+						map.put("openingInfos",
+								openingApplyService.getOppinfo((Integer)maps.get("terminalsId")));
 			// 获得所有商户
 			map.put("merchants", openingApplyService.getMerchants(maps.get("customerId")));
 			// 获得材料等级
@@ -434,6 +541,9 @@ public class TerminalsController {
 				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
 			 }
 			map.put("channels", list);
+			
+			//城市级联
+			map.put("CitieChen", terminalsService.getCities());
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();

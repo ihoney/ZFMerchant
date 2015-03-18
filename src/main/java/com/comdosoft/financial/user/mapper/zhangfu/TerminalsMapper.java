@@ -97,6 +97,46 @@ public interface TerminalsMapper {
     int getTerminalListPage(Map<String, Object> map);
     
     /**
+     * 查看换货申请是否有未处理中
+     * 
+     * @param map
+     * @return
+     */
+    int JudgeChangStatus(Map<String, Object> map);
+    
+    /**
+     * 查看跟新申请是否有未处理中
+     * 
+     * @param map
+     * @return
+     */
+    int JudgeUpdateStatus(Map<String, Object> map);
+    
+    /**
+     * 查看注销申请是否有未处理中
+     * 
+     * @param map
+     * @return
+     */
+    int JudgeRentalReturnStatus(Map<String, Object> map);
+    
+    /**
+     * 查看维修申请是否有未处理中
+     * 
+     * @param map
+     * @return
+     */
+    int JudgeRepair(Map<String, Object> map);
+    
+    /**
+     * 查看退货申请是否有未处理中
+     * 
+     * @param map
+     * @return
+     */
+    int JudgeReturn(Map<String, Object> map);
+    
+    /**
      * 申请维修添加地址
      * 
      * @param map

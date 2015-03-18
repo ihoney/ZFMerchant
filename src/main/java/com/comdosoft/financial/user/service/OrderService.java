@@ -360,5 +360,9 @@ public class OrderService {
         orderMapper.batchSaveComment(myOrderReq.getJson());
         
     }
+
+    public void cleanOrder() {
+//        orderMapper.cleanOrder();
+    }
     
 }
