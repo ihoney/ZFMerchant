@@ -29,7 +29,7 @@ $(document).ready(function(){
 		infoTab('.cover','.img_info');//首页设置弹出框
 })
 
-function DateSelector(selYear, selMonth, selDay) {
+function DateSelector(selYear, selMonth, selDay,year,month,day) {
     this.selYear = selYear;
     this.selMonth = selMonth;
     this.selDay = selDay;
@@ -131,6 +131,8 @@ DateSelector.prototype.InitDaySelect = function () {
         // 添加到天数select对象
         this.selDay.appendChild(op);
     }
+    
+    
 }
 
 // 处理年份和月份onchange事件的方法，它获取事件来源对象（即selYear或selMonth）

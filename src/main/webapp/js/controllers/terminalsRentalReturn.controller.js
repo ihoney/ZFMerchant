@@ -43,7 +43,7 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
   		 $scope.map = {
    				terminalId : Math.ceil($scope.terminalId),
    				status : 1,
-   				templeteInfoXml :$scope.array,
+   				templeteInfoXml :JSON.stringify($scope.array),
    				type : 3,
    				customerId:$scope.customerId,
    				orderTypes : 1,

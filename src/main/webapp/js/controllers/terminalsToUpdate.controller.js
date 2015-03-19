@@ -51,7 +51,7 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 				terminalsId:Math.ceil($scope.terminalId),
 				customerId:Math.ceil($scope.customerId),
 				status:1,
-				templeteInfoXml :$scope.array,
+				templeteInfoXml :JSON.stringify($scope.array),
 				};
 		
   $http.post("api/terminal/getApplyToUpdate", $scope.message).success(function (data) {  //绑定

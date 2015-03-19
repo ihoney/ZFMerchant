@@ -138,7 +138,7 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 				receiver:$scope.receiver,
 				returnAddressId:$scope.returnAddressId,
 				status:1,
-				templeteInfoXml :$scope.array,
+				templeteInfoXml :JSON.stringify($scope.array),
 				type : 3,
 				modelStatus : $("#modelStatus").val()
 				};
