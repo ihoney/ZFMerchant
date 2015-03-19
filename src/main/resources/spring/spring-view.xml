@@ -63,7 +63,7 @@
             <ref bean="orderCleanJobDetail" />
         </property>
         <property name="cronExpression">
-         <value>0 0 1 * * ?</value><!-- 每天凌晨1点启动 -->
+         <value>0 0 0/2 * * ?</value><!-- 每2个小时启动 -->
      </property>
     </bean>
      

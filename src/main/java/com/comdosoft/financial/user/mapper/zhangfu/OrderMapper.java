@@ -57,5 +57,9 @@ public interface OrderMapper {
 
     void cleanOrder();
 
+    List<Map<String, Object>>  findPersonGoodsQuantity();
+
+    void update_goods_stock(String good_id, String quantity);
+
 // ------gch end ---------------------
 }
