@@ -1,6 +1,5 @@
 package com.comdosoft.financial.user.service.trades.record;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.comdosoft.financial.user.domain.query.TradeReq;
 import com.comdosoft.financial.user.mapper.trades.record.TradeRecordMapper3;
 import com.comdosoft.financial.user.mapper.zhangfu.SysShufflingFigureMapper;
+import com.comdosoft.financial.user.utils.SysUtils;
 
 @Service
 public class TradeRecordService3 {
@@ -21,7 +21,7 @@ public class TradeRecordService3 {
     @Resource
     private SysShufflingFigureMapper tradeMapper;
 
-    public Map<String,Object> getTradeRecordsCount(TradeReq req) {
+    public Map<String, Object> getTradeRecordsCount(TradeReq req) {
         return tradeRecordMapper3.getTradeRecordsCount(req);
     }
 
@@ -35,9 +35,30 @@ public class TradeRecordService3 {
 
     public Map<String, Object> getTradeRecord(TradeReq req) {
         Map<String, Object> result = tradeRecordMapper3.getTradeRecord(req);
-       return result;
+        int type = SysUtils.String2int(result.get("types").toString());
+        int pcid = SysUtils.String2int(result.get("pay_channel_id").toString());
+        result.put("paychannel", tradeMapper.getpcname(pcid));
+        Map<String, Object> result2=null;
+        switch (type) {
+        case 2:
+            result2=tradeRecordMapper3.get23(req);
+            break;
+        case 3:
+            result2=tradeRecordMapper3.get23(req);
+            break;
+        case 4:
+            result2=tradeRecordMapper3.get4(req);
+            break;
+        case 5:
+            result2=tradeRecordMapper3.get5(req);
+            break;
+        default:
+            break;
+        }
+        if(result2!=null){
+            result.putAll(result2);
+        }
+        return result;
     }
-
-   
 
 }

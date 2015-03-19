@@ -3,7 +3,12 @@
 // 交易流水
 var traderecordModule = angular.module("traderecordModule", []);
 var traderecordController = function($scope, $http, LoginService) {
-	$scope.req={tradeTypeId:1,startTime:"",endTime:"",terminalNumber:""};
+	$scope.req={startTime:"",endTime:"",terminalNumber:""};
+	if(LoginService.tradeTypeId==0){
+		$scope.req.tradeTypeId=1
+	}else{
+		$scope.req.tradeTypeId=LoginService.tradeTypeId;
+	}
 	$scope.req.customerId=LoginService.userid;
 	$scope.show={};
 	$scope.getTerminals = function() {
@@ -31,6 +36,7 @@ var traderecordController = function($scope, $http, LoginService) {
 		$scope.req={startTime:"",endTime:"",terminalNumber:""};
 		$scope.req.customerId=LoginService.userid;
 		$scope.req.tradeTypeId=one.id;
+		LoginService.tradeTypeId=one.id;
 		initSystemPage($scope.req);// 初始化分页参数
 		$scope.typeName=one.value;
 		$scope.list();

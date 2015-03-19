@@ -14,5 +14,11 @@ public interface TradeRecordMapper3 {
 
     Map<String, Object> getTradeRecord(TradeReq req);
 
+    Map<String, Object> get23(TradeReq req);
+
+    Map<String, Object> get4(TradeReq req);
+
+    Map<String, Object> get5(TradeReq req);
+
 
 }
