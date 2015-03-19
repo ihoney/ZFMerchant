@@ -11,12 +11,10 @@ var loginService = function ($http, $rootScope, $cookieStore) {
     	isAuthorized:true,
     	//当前登陆的用户名
         loginUserName: typeof($cookieStore.get("loginUserName")) == 'undefined' ? "" : $cookieStore.get("loginUserName"),
-    	shopcount: "123",
-        userPower : "11",
         userid: typeof($cookieStore.get("loginUserId")) == 'undefined' ? 0 : $cookieStore.get("loginUserId"),
-        userLogo:"123",
         city:1,
         goods: [],
+        tradeTypeId: 0,
         //用户登陆功能
         login: function ($scope,$http) {
    		 $http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
@@ -24,7 +22,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    				$scope.imgMessage = data.message;
    				$scope.imgClass = true;
    			 }else{
-   				 $http.post("api/user/studentLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
+   				 $http.post("api/user/studentWebLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
    			           if(data.code == -1){//用户或者密码错误！
    			        	$scope.nameMessage = data.message; 
    			        	$scope.unameClass = true;

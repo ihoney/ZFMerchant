@@ -58,11 +58,7 @@ public class UserLoginController {
         try {
             Customer customer = new Customer();
             customer.setUsername((String)map.get("codeNumber") );
-            char[] randchar = SysUtils.getRandNum(6);
-            String str = "";
-            for (int i = 0; i < randchar.length; i++) {
-                str += randchar[i];
-            }
+            String str = SysUtils.getCode();
             customer.setPassword("0");
             customer.setCityId(0);
             customer.setDentcode(str);
@@ -72,8 +68,6 @@ public class UserLoginController {
             if (userLoginService.findUname(customer) == 0) {
             try {
                 Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
-                System.out.println("验证码："+str);
-                //if(!is_sucess)
                 if(!is_sucess){
                 	return Response.getError("获取验证码失败！");
                 }else{
@@ -113,8 +107,6 @@ public class UserLoginController {
             customer.setStatus(Customer.STATUS_NON_END);
             if (userLoginService.findUserAndStatus(customer) == 0) {
             	//getAccountType(0)手机(1)邮箱
-            	//加密
-                customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
                 if (!customer.getAccountType()) {
                     if (customer.getCode().equals(userLoginService.findCode(customer))) {
                         customer.setPhone(customer.getUsername());
@@ -141,6 +133,49 @@ public class UserLoginController {
             e.printStackTrace();
             return Response.getError("注册失败！系统异常");
         }
+    }
+    
+    /**
+     * 注册用户(web)
+     * 
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "userWebRegistration", method = RequestMethod.POST)
+    public Response userWebRegistration(@RequestBody Customer customer, HttpSession session) {
+    	try {
+    		customer.setTypes(Customer.TYPE_CUSTOMER);
+    		customer.setStatus(Customer.STATUS_NON_END);
+    		if (userLoginService.findUserAndStatus(customer) == 0) {
+    			//getAccountType(0)手机(1)邮箱
+    			//加密
+    			customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
+    			if (!customer.getAccountType()) {
+    				if (customer.getCode().equals(userLoginService.findCode(customer))) {
+    					customer.setPhone(customer.getUsername());
+    					customer.setStatus(Customer.STATUS_NORMAL);
+    					userLoginService.updateUser(customer);
+    					return Response.getSuccess("注册成功!");
+    				} else {
+    					return Response.getError("验证码错误！");
+    				}
+    			} else {
+    				customer.setStatus(Customer.STATUS_NON_ACTIVE);
+    				userLoginService.addUser(customer);
+    				MailReq req = new MailReq();
+    				req.setUserName(customer.getUsername());
+    				req.setAddress(customer.getUsername());
+    				req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
+    				MailService.sendMailWithFilesAsynchronous(req);
+    				return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
+    			}
+    		} else {
+    			return Response.getError("用户已注册！");
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return Response.getError("注册失败！系统异常");
+    	}
     }
     
     /**
@@ -172,7 +207,6 @@ public class UserLoginController {
         try {
             customer.setTypes(Customer.TYPE_CUSTOMER);
             customer.setStatus(Customer.STATUS_NORMAL);
-            customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
             Map<Object, Object> tomer = userLoginService.doLogin(customer);
             if (tomer != null) {
             	//修改登陆时间
@@ -188,6 +222,32 @@ public class UserLoginController {
     }
     
     /**
+     * 用户登陆(web)
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "studentWebLogin", method = RequestMethod.POST)
+    public Response studentWebLogin(@RequestBody Customer customer) {
+    	try {
+    		customer.setTypes(Customer.TYPE_CUSTOMER);
+    		customer.setStatus(Customer.STATUS_NORMAL);
+    		customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
+    		Map<Object, Object> tomer = userLoginService.doLogin(customer);
+    		if (tomer != null) {
+    			//修改登陆时间
+    			userLoginService.updateLastLoginedAt(customer);
+    			return Response.getSuccess(tomer);
+    		} else {
+    			return Response.getError("用户名/密码错误！账号不可用！");
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return Response.getError("系统异常！");
+    	}
+    }
+    
+    /**
      * 发送手机验证码(找回密码)
      * 
      * @param number
@@ -197,11 +257,7 @@ public class UserLoginController {
         try {
             Customer customer = new Customer();
             customer.setUsername(map.get("codeNumber"));
-            char[] randchar = SysUtils.getRandNum(6);
-            String str = "";
-            for (int i = 0; i < randchar.length; i++) {
-                str += randchar[i];
-            }
+            String str = SysUtils.getCode();
             customer.setDentcode(str);
             if (userLoginService.findUname(customer) == 0) {
                 return Response.getError("用户不存在！");
@@ -231,7 +287,6 @@ public class UserLoginController {
         try {
             if (userLoginService.findUname(customer) > 0) {
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
-                	customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
                     userLoginService.updatePassword(customer);
                     return Response.getSuccess("找回密码成功！");
                 } else {
@@ -244,7 +299,7 @@ public class UserLoginController {
             return Response.getError("请求失败！");
         }
     }
-
+    
     /**
      * 发送邮箱验证(找回密码)
      * 

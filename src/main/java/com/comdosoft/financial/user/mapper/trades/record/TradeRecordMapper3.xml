@@ -41,15 +41,34 @@
 	</select>
 	
 	<select id="getTradeRecord" resultType="map">
-		SELECT r.id,
-		DATE_FORMAT(r.traded_at, '%Y-%m-%d %T') tradedTimeStr,
-		r.trade_number,
-		r.amount,
-		r.poundage,
-		r.terminal_number terminalNumber,
-		r.traded_status tradedStatus
-		FROM trade_records r 
-		WHERE r.id=#{id}
+		SELECT  
+		trade_number as tradeNumber,
+		batch_number as batchNumber,
+		terminal_number as terminalNumber,pay_channel_id,
+		DATE_FORMAT(traded_at, '%Y-%m-%d %T') tradedTimeStr,
+		traded_status tradedStatus,poundage,amount,types
+		from trade_records
+		WHERE id=#{id}
+	</select>
+	
+	<select id="get23" resultType="map">
+		select IFNULL(pay_from_account,'无') payFromAccount,
+			   IFNULL(pay_into_account,'无') payIntoAccount
+			   from trade_transfer_repayment_records
+			   where id = #{id}
+	</select>
+	
+	<select id="get4" resultType="map">
+		select IFNULL(phone,'无') phone
+			   from trade_recharge_records
+			   where id = #{id}
+	</select>
+	
+	<select id="get5" resultType="map">
+		select IFNULL(account_name,'无') account_name ,
+			   IFNULL(account_number,'无') account_number	
+			   from trade_records
+			   where id = #{id}
 	</select>
 
 </mapper>

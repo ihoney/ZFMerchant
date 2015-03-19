@@ -16,5 +16,7 @@ public interface SysShufflingFigureMapper {
 
     List<Map<String, Object>> getTradeType();
 
+    String getpcname(int pcid);
+
 
 }
