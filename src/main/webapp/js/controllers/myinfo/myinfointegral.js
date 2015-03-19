@@ -19,7 +19,11 @@ var myinfointegralController = function($scope, $http, LoginService) {
 	};
 	$scope.getIntegralTotal = function() {
 		var customerId = LoginService.userid;
-		$http.post("api/customers/getIntegralTotal/" + customerId).success(function(data) {
+		$scope.req = {
+			customer_id : customerId
+		};
+		$http.post("api/customers/getjifen" , $scope.req).success(function(data) {
+//			$http.post("api/customers/getIntegralTotal/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.integralTotal = data.result;
 			} else {

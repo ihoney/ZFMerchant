@@ -52,4 +52,6 @@ public interface CustomerMapper {
 
     void cust_update(Customer c);
 
+    Object getjifen(MyOrderReq req);
+
 }

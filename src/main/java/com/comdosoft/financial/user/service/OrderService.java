@@ -209,6 +209,7 @@ public class OrderService {
             map.put("order_totalPrice", o.getActualPrice() == null ? "" : o.getActualPrice());//订单总额 实际的
             map.put("order_psf", "0");// 配送费
             List<OrderGood> olist = o.getOrderGoodsList();
+            map.put("order_goods_size", olist.size());// 
             List<Object> newObjList = new ArrayList<Object>();
             Map<String, Object> omap = null;
             // map.put("goods_list_size", olist.size());
@@ -288,6 +289,7 @@ public class OrderService {
         map.put("order_invoce_info", o.getInvoiceInfo());// 发票抬头
         List<OrderGood> olist = o.getOrderGoodsList();
         List<Object> newObjList = new ArrayList<Object>();
+        map.put("order_goods_size", olist.size());// 
         Map<String, Object> omap = null;
         if (olist.size() > 0) {
             OrderGood og = olist.get(0);

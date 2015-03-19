@@ -141,4 +141,8 @@ public class CustomerService {
         customerMapper.cust_update(c);
     }
 
+    public Object getjifen(MyOrderReq req) {
+        return customerMapper.getjifen(req);
+    }
+
 }

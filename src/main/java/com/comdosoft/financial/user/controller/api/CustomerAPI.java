@@ -60,6 +60,12 @@ public class CustomerAPI {
             Map<String,Object> m = customerService.findCustById(req);
         return Response.buildSuccess(m, "success");
     }
+    
+    @RequestMapping(value = "getjifen", method = RequestMethod.POST)
+    public Response getjifen(@RequestBody MyOrderReq req) {
+        Object m = customerService.getjifen(req);
+        return Response.buildSuccess(m, "success");
+    }
 
     /**
      * 修改用户信息
