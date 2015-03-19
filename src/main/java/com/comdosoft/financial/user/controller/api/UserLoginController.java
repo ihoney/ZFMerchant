@@ -58,11 +58,7 @@ public class UserLoginController {
         try {
             Customer customer = new Customer();
             customer.setUsername((String)map.get("codeNumber") );
-            char[] randchar = SysUtils.getRandNum(6);
-            String str = "";
-            for (int i = 0; i < randchar.length; i++) {
-                str += randchar[i];
-            }
+            String str = SysUtils.getCode();
             customer.setPassword("0");
             customer.setCityId(0);
             customer.setDentcode(str);
@@ -261,11 +257,7 @@ public class UserLoginController {
         try {
             Customer customer = new Customer();
             customer.setUsername(map.get("codeNumber"));
-            char[] randchar = SysUtils.getRandNum(6);
-            String str = "";
-            for (int i = 0; i < randchar.length; i++) {
-                str += randchar[i];
-            }
+            String str = SysUtils.getCode();
             customer.setDentcode(str);
             if (userLoginService.findUname(customer) == 0) {
                 return Response.getError("用户不存在！");
