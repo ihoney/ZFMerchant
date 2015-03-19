@@ -141,7 +141,7 @@ public class CsRepairService {
         map.put("receiver_addr", o.get("address")==null?"":o.get("address"));
         map.put("receiver_person", o.get("receiver")==null?"":o.get("receiver"));
         map.put("receiver_phone", o.get("receiver_phone")==null?"":o.get("receiver_phone"));
-        map.put("miaoshu", o.get("serial_num")==null?"":"终端："+o.get("serial_num")+"维修的费用");//付款描述  终端：维修的费用
+        map.put("miaoshu", o.get("serial_num")==null?"":"终端"+o.get("serial_num")+"维修的费用");//付款描述  终端：维修的费用
         return map;
     }
 
