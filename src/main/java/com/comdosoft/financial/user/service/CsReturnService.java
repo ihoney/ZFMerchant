@@ -69,7 +69,7 @@ public class CsReturnService {
         csReturnMapper.cancelApply(myOrderReq);
     }
 
-    public Map<String, Object> findById(MyOrderReq myOrderReq) throws ParseException {
+    public Map<String, Object> findById(MyOrderReq myOrderReq){
         Map<String, Object> o = csReturnMapper.findById(myOrderReq);
         Map<String,Object> map = new HashMap<String,Object>();
         String id = o.get("id").toString();
@@ -77,7 +77,15 @@ public class CsReturnService {
         map.put("status", o.get("apply_status")==null?"":o.get("apply_status"));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String apply_time =   o.get("apply_time")==null?"":o.get("apply_time").toString();
-        map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        if(apply_time==""){
+            map.put("apply_time", "");
+        }else{
+            try {
+                map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         map.put("apply_num", o.get("apply_num")==null?"":o.get("apply_num"));//维修编号
         map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
         map.put("bank_name", o.get("bank_name")==null?"":o.get("bank_name"));

@@ -22,7 +22,7 @@ public class OrderUtils {
      * @return
      * @throws ParseException
      */
-    public static Page<List<Object>> getTraceByVoId(MyOrderReq myOrderReq, List<Map<String,Object>> list) throws ParseException {
+    public static Page<List<Object>> getTraceByVoId(MyOrderReq myOrderReq, List<Map<String,Object>> list) {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         SimpleDateFormat sdf = null;
         Map<String,Object> childrenMap = null;
@@ -30,12 +30,18 @@ public class OrderUtils {
         for(Map<String,Object> m:list){
             childrenMap = new HashMap<String,Object>();
             sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String created_at =   m.get("created_at")+"";
-            String content = m.get("marks_content")+"";
-            String person = m.get("marks_person")+"";
-            childrenMap.put("marks_time", sdf.format(sdf.parse(created_at)));
-            childrenMap.put("marks_content", content);
-            childrenMap.put("marks_person", person);
+            String created_at =   m.get("created_at")==null?"":m.get("created_at").toString();
+            if(created_at==""){
+                childrenMap.put("marks_time","");
+            }else{
+                try {
+                    childrenMap.put("marks_time", sdf.format(sdf.parse(created_at)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            childrenMap.put("marks_content", m.get("marks_content")==null?"":m.get("marks_content"));
+            childrenMap.put("marks_person", m.get("marks_person")==null?"":m.get("marks_person") );
             childrenList.add(childrenMap);
         }
         return new Page<List<Object>>(request, childrenList,childrenList.size());

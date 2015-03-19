@@ -14,7 +14,7 @@
 	<![CDATA[
 		SELECT name, phone, email, city_id, integral, password
 		  FROM customers
-		 WHERE id = #{id}
+		 WHERE id = #{id} and status = 1
 	]]>
 	</select>
 
@@ -36,13 +36,14 @@
 	LEFT JOIN cities t ON c.city_id = t.id
 	LEFT JOIN cities tt ON t.parent_id = tt.id
 	WHERE
-		 c.id = #{customer_id}
+		 c.id = #{customer_id} and status = 1
 	]]>
 	</select>
 
-	<update id="update">
+	<update id="update" flushCache="true" >
 		UPDATE customers
 		<trim prefix="SET" suffixOverrides=",">
+			updated_at = NOW(),
 			<if test="name != null and name !=''">name = #{name},</if>
 			<if test="phone != null and phone !=''">phone = #{phone},</if>
 			<if test="email != null and email !=''">email = #{email},</if>
@@ -63,9 +64,9 @@
 		where id = #{id}
 	</update>
 
-	<update id="updatePassword">
+	<update id="updatePassword" flushCache="true">
 	<![CDATA[
-		UPDATE customers SET password = #{password}
+		UPDATE customers SET password = #{password} ,updated_at = NOW()
 		 WHERE id = #{id}
 	]]>
 	</update>
@@ -104,9 +105,9 @@
 	]]>
 	</insert>
 
-	<update id="updateIntegralTotal">
+	<update id="updateIntegralTotal" flushCache="true">
 	<![CDATA[
-		UPDATE customers SET integral = #{integralTotal}
+		UPDATE customers SET integral = #{integralTotal} ,updated_at = NOW()
 		 WHERE id = #{customerId}
 	]]>
 	</update>
@@ -124,7 +125,7 @@
 		 FROM customer_addresses ca 
   		 LEFT JOIN cities c on ca.city_id=c.id
    		 LEFT JOIN cities c2 on c.parent_id=c2.id
-		 WHERE customer_id = #{customerId}
+		 WHERE customer_id = #{customerId} and status = 1
 	  	 ORDER BY ca.created_at DESC
 	]]>
 	</select>
@@ -133,20 +134,21 @@
 	<![CDATA[
 		SELECT id, city_id, receiver, moblephone, zip_code, is_default, address
 		  FROM customer_addresses
-		 WHERE id = #{id}
+		 WHERE id = #{id} and status = 1
 	]]>
 	</select>
 
 	<insert id="insertAddress" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
-		INSERT INTO customer_addresses (city_id, receiver, moblephone, telphone, zip_code, address, is_default, customer_id, created_at)
-		VALUES (#{cityId}, #{receiver}, #{moblephone}, #{telphone}, #{zipCode}, #{address}, #{isDefault}, #{customerId}, NOW())
+		INSERT INTO customer_addresses (city_id, receiver, moblephone, telphone, zip_code, address, is_default, customer_id, created_at, status)
+		VALUES (#{cityId}, #{receiver}, #{moblephone}, #{telphone}, #{zipCode}, #{address}, #{isDefault}, #{customerId}, NOW(),1)
 	]]>
 	</insert>
 
 	<update id="updateAddress">
 		UPDATE customer_addresses
 		<trim prefix="SET" suffixOverrides=",">
+		updated_at = NOW(),
 			<if test="cityId != null">city_id = #{cityId},</if>
 			<if test="zipCode != null and zipCode !=''">zip_code = #{zipCode},</if>
 			<if test="address != null and address !=''">address = #{address},</if>
@@ -160,22 +162,29 @@
 
 	<update id="updateDefaultAddress">
 	<![CDATA[
-		UPDATE customer_addresses SET is_default = #{is_default}
+		UPDATE customer_addresses SET is_default = #{is_default} ,updated_at = NOW()
 		 WHERE customer_id = #{customerId}
 	]]>
 	</update>
 
 	<update id="setDefaultAddress">
 	<![CDATA[
-		UPDATE customer_addresses SET is_default = 1
+		UPDATE customer_addresses SET is_default = 1 ,updated_at = NOW()
 		 WHERE id = #{id}
 	]]>
 	</update>
 
-	<delete id="deleteAddress">
+	<!-- <delete id="deleteAddress">
 	<![CDATA[
 		DELETE FROM customer_addresses WHERE id = #{id}
 	]]>
-	</delete>
+	</delete> -->
+	
+	<update id="deleteAddress">
+	<![CDATA[
+		UPDATE customer_addresses SET status = 2
+		 WHERE id = #{id}
+	]]>
+	</update>
 
 </mapper>

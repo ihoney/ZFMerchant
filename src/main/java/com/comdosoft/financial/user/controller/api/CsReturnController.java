@@ -62,13 +62,14 @@ public class CsReturnController {
     
     @RequestMapping(value="getReturnById" ,method=RequestMethod.POST)
     public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
-        try{
-            Object centers = csReturnService.findById(myOrderReq);
-            return Response.getSuccess(centers);
-        }catch(Exception e){
-            logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败,获取数据出错。");
-        }
+            Object centers;
+            try {
+                centers = csReturnService.findById(myOrderReq);
+                return Response.getSuccess(centers);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Response.getError("数据出错");
     }
     
     @RequestMapping(value="addMark" ,method=RequestMethod.POST)

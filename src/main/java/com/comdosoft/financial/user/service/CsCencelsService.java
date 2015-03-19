@@ -44,12 +44,16 @@ public class CsCencelsService {
         for(Map<String,Object> m: o){
             map = new HashMap<String,Object>();
             String d = (m.get("created_at")==null?"":m.get("created_at").toString());
-            Date date = sdf.parse(d);
-            String c_date = sdf.format(date);
+            if(d==""){
+                map.put("create_time", "");
+            }else{
+                Date date = sdf.parse(d);
+                String c_date = sdf.format(date);
+                map.put("create_time", c_date);
+            }
             String status = (m.get("status")==null?"":m.get("status").toString());
             map.put("id",m.get("id"));
             map.put("status", status);
-            map.put("create_time", c_date);
             map.put("terminal_num", m.get("serial_num"));//终端号
             map.put("apply_num", m.get("apply_num"));//维修编号
             map.put("brand_name", m.get("brand_name")+"");
@@ -78,8 +82,12 @@ public class CsCencelsService {
         map.put("id", id);
         map.put("status", o.get("apply_status"));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String apply_time =   o.get("apply_time")+"";
-        map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        String apply_time =   o.get("apply_time")==null?"":o.get("apply_time").toString();
+        if(apply_time==""){
+            map.put("apply_time", "");
+        }else{
+            map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+        }
         map.put("apply_num", o.get("apply_num")==null?"":o.get("apply_num"));//维修编号
         map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
         map.put("brand_name", o.get("brand_name")==null?"":o.get("brand_name"));
@@ -123,8 +131,9 @@ public class CsCencelsService {
                     String temp_path = m.get("templet_file_path")==null?"":m.get("templet_file_path").toString();
                     String temp_up_path = "";
                     for(Map<String,Object> mm: list_json){
-                        if(temp_id.equals(mm.get("id")==null?"":m.get("id").toString())){
-                            temp_up_path = mm.get("path")==null?"":m.get("path").toString() ;
+                        String mid = mm.get("id")==null?"":mm.get("id")+"";
+                        if(temp_id !="" && temp_id.equals(mid)){
+                            temp_up_path = mm.get("path")==null?"":mm.get("path")+"" ;
                         }
                     }
                     child_map.put("id", temp_id);
