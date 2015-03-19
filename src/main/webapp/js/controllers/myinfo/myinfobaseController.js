@@ -25,6 +25,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		 $scope.selected_city={};
 		 $http.post("api/customers/findCustById", $scope.req).success(function (data) {
 			if (data.code == 1) {
+				console.log("根据id获取用户信息"+data.result.parent_id);
 				$scope.customer = data.result;
 			    $scope.selected.id = data.result.parent_id;
 			    $scope.selected.name = data.result.p_name;
@@ -214,6 +215,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	$scope.save = function() {
 		if($scope.selected_city==""){
 			alert("请选择城市");
+			return false;
 		}
 		$scope.req = {
 			"id" : LoginService.userid,

@@ -26,6 +26,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 //			$http.post("api/customers/getIntegralTotal/" + customerId).success(function(data) {
 			if (data.code == 1) {
 				$scope.integralTotal = data.result;
+				$scope.total_jifen = $scope.integralTotal.dh_total;
 			} else {
 				// 提示错误信息
 				alert(data.message);
@@ -39,6 +40,15 @@ var myinfointegralController = function($scope, $http, LoginService) {
 		popup(".creditsExchange_tab", ".ce_aaa");// 兑换积分
 	};
 	$scope.save = function() {
+		var p = $scope.integral.price;
+		if (typeof(p) == "undefined") { 
+			alert("没有填写兑换积分");
+			return false;
+		}  
+		if(p >$scope.total_jifen){
+			alert("兑换不能超过可兑换的最高金额");
+			return false;
+		}
 		if ($scope.integral.id == undefined) {
 			$scope.integral.customerId = LoginService.userid;
 			$http.post("api/customers/insertIntegralConvert", $scope.integral).success(function(data) {

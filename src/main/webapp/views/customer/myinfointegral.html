@@ -71,10 +71,10 @@
 					<li><span class="labelSpan">现有积分：</span>
 						<div class="text">{{integralTotal.quantityTotal}}</div></li>
 					<li><span class="labelSpan">最高可兑换：</span>
-						<div class="text">{{integralTotal.moneyTotal/100}}元</div></li>
+						<div class="text">{{integralTotal.dh_total}}元</div></li>
 					<li><span class="labelSpan">选择兑换：</span>
 						<div class="text">
-							<input type="text" ng-model="integral.price" required class="xl">&nbsp;元
+							<input type="text" ng-model="integral.price" required class="xl" name="price" onblur="numModify(this)">&nbsp;元
 						</div></li>
 					<li><span class="labelSpan">姓名：</span>
 						<div class="text">
@@ -91,6 +91,15 @@
 			<button class="orangeBtn" ng-click="save()">提交</button>
 		</div>
 	</div>
+	<script type="text/javascript">
+	function numModify(obj){
+		  var reg = new RegExp("^[0-9]*\.[0-9]{0,1}$");
+		  if(!reg.test(obj.value)){
+			 obj.value="";
+		  } 
+	}
+	 
+	</script>
 </div>
 <div class="mask"></div>
 <script type="text/javascript" src="js/main.js"></script>

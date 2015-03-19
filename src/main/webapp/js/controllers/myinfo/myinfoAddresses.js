@@ -34,7 +34,7 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 				if (data.code == 1) {
 					$scope.init();
 				} else {
-					alert(data.message);
+					alert("请填写正确的数据");
 				}
 			}).error(function(data) {
 
@@ -97,6 +97,9 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 //		$scope.address.isDefault = "2";
 		
 		$scope.list();
+		 $scope.address = {
+				 isDefault: '2'
+			      };
 		$http.post("api/index/getCity").success(function (data) {   
             if (data != null && data != undefined) {
                 $scope.city_list = data.result;
