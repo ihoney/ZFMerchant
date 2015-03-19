@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.CommonService;
 import com.comdosoft.financial.user.service.MerchantService;
 
@@ -60,6 +61,21 @@ public class MerchantAPI {
             Map<Object, Object> result = new HashMap<Object, Object>();
             result.put("total", merchantService.getListCount(customerId));
             result.put("list", merchantService.getList(customerId, page, rows));
+            sysResponse = Response.getSuccess(result);
+        } catch (Exception e) {
+            logger.error("获取商户信息列表失败", e);
+            sysResponse = Response.getError("获取商户信息列表失败:系统异常");
+        }
+        return sysResponse;
+    }
+    
+    @RequestMapping(value = "findList", method = RequestMethod.POST)
+    public Response findList(@RequestBody MyOrderReq req) {
+        Response sysResponse = null;
+        try {
+            Map<Object, Object> result = new HashMap<Object, Object>();
+            result.put("total", merchantService.findListCount(req));
+            result.put("list", merchantService.findList(req));
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("获取商户信息列表失败", e);

@@ -23,8 +23,8 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		$scope.selected.id = e.city_parent_id;
 		$scope.selected_city ={}
 		$scope.selected_city.id = e.cityId;
-	    $scope.selected.name = e.city_name;
-        $scope.selected_city.name = e.city_parent_name;
+	    $scope.selected.name = e.city_parent_name ;
+        $scope.selected_city.name = e.city_name;
 	};
 	$scope.save = function() {
 		if ($scope.address.id == undefined) {
@@ -80,6 +80,11 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 			});
 		}
 	};
+	
+	
+	$scope.ch_city = function() {
+		$scope.selected_city = "";
+	}
 	$scope.init = function() {
 		// 判断是否已登录
 		if (LoginService.userid == 0) {
