@@ -29,7 +29,7 @@ $(document).ready(function(){
 		infoTab('.cover','.img_info');//首页设置弹出框
 })
 
-function DateSelector(selYear, selMonth, selDay,year,month,day) {
+function DateSelector(selYear, selMonth, selDay, year, month, day) {
     this.selYear = selYear;
     this.selMonth = selMonth;
     this.selDay = selDay;

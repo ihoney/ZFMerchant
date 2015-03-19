@@ -341,7 +341,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 注册用户
 	$scope.addUser = function() {
-		$http.post("api/user/userRegistration", {
+		$http.post("api/user/userWebRegistration", {
 			username : $scope.rename,
 			accountType : false,
 			code : $scope.codeNumber,
@@ -391,7 +391,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	// 邮箱注册用户
 	$scope.addUserEmail = function() {
-		$http.post("api/user/userRegistration", {
+		$http.post("api/user/userWebRegistration", {
 			username : $scope.emailname,
 			accountType : true,
 			cityId : Math.ceil($scope.emailShiList.id),

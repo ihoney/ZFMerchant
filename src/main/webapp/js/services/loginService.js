@@ -22,7 +22,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    				$scope.imgMessage = data.message;
    				$scope.imgClass = true;
    			 }else{
-   				 $http.post("api/user/studentLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
+   				 $http.post("api/user/studentWebLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
    			           if(data.code == -1){//用户或者密码错误！
    			        	$scope.nameMessage = data.message; 
    			        	$scope.unameClass = true;
