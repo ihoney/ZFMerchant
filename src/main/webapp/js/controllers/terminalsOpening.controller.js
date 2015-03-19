@@ -65,6 +65,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
                   $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
                   $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
                   $scope.day = Math.ceil($scope.birthday.split("-")[2]);
+                  
                   //获得城市
                   $scope.cityId = $scope.openingInfos.city_id;
                   for(var i=0;i<$scope.CitieChen.length;i++){

@@ -43,7 +43,7 @@ var terminalCancellationController = function ($scope, $http,$location, LoginSer
 		 $scope.map = {
  				terminalId : $scope.terminalId,
  				status : 1,
- 				templeteInfoXml :$scope.array,
+ 				templeteInfoXml :JSON.stringify($scope.array),
  				type : 3,
  				customerId:$scope.customerId
  		 }
