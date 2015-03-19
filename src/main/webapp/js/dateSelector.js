@@ -25,8 +25,21 @@ function infoTab(i_tab,i_box){
 		}
 	);
 }
-$(document).ready(function(){
+/*$(document).ready(function(){
 		infoTab('.cover','.img_info');//首页设置弹出框
+})*/
+
+$(document).ready(function(){
+	
+	$(".covers").hover(
+			  function () {
+			    $("#shotu").addClass("img_info");
+			  },
+			  function () {
+			    $("#shotu").removeClass("hovimg_infoer");
+			  }
+			);
+	
 })
 
 function DateSelector(selYear, selMonth, selDay) {

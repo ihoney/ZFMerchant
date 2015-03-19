@@ -239,9 +239,10 @@
 		g.has_lease,g.lease_price,g.lease_time,g.lease_deposit,
 		g.return_time
 		,g.lease_description,
-		date_format(g.created_at,'%Y-%m-%d') as created_at
+		date_format(o.updated_at,'%Y-%m-%d') as created_at
 		FROM terminals t LEFT JOIN
 		goods g ON t.good_id = g.id
+		LEFT JOIN orders o ON o.id = t.order_id
 		where t.id = #{id}
 		 ]]>
 	</select>
