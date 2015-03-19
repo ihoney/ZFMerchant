@@ -18,6 +18,7 @@ import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.CustomerService;
+import com.comdosoft.financial.user.utils.SysUtils;
 
 /**
  * 我的信息<br>
@@ -108,7 +109,16 @@ public class CustomerAPI {
             Map<Object, Object> customer = customerService.getOne(id);
             if (customer != null) {
                 String passwordInDB = (String) customer.get("password");// 获取数据库中的密码
-                if (((String) param.get("passwordOld")).equals(passwordInDB)) {// 判断原密码
+                String pwd =   param.get("passwordOld")==null?"":param.get("passwordOld").toString();
+                String pwd_new =  param.get("password")==null?"":param.get("password").toString();
+                if(pwd=="" || pwd_new==""){
+                    sysResponse = Response.getError("请输入密码");
+                    return sysResponse;
+                }
+                String md5pwd = SysUtils.string2MD5(pwd);
+                String md5_new_pwd = SysUtils.string2MD5(pwd_new);
+                if ((md5pwd).equals(passwordInDB)) {// 判断原密码
+                    param.put("password", md5_new_pwd);
                     customerService.updatePassword(param);
                     sysResponse = Response.getSuccess();
                 } else {
