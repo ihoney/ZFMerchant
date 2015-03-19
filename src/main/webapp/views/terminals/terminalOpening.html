@@ -55,13 +55,13 @@
                                         <span class="checkboxRadio_span"><input checked name="valueSex" type="radio" value="" ng-click="butSex(0)"> 女</span>
                                     </div>
                                 </li>
-                                <li ng-if="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
+                                <li ng-show="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
                                 	<div class="text">
-                                	<select id="selYear" ng-model="nian">
+                                	<select id="selYear">
                                 	</select> 
-                                	<select id="selMonth" ng-model="yue">
+                                	<select id="selMonth">
                                 	</select>
-                                	<select id="selDay" ng-model="day">
+                                	<select id="selDay">
                                 	</select>
 							<script type="text/javascript">
 								var selYear = window.document
@@ -70,7 +70,6 @@
 										.getElementById("selMonth");
 								var selDay = window.document
 										.getElementById("selDay");
-
 								// 新建一个DateSelector类的实例，将三个select对象传进去
 								new DateSelector(selYear, selMonth, selDay,
 										null, null, null);
@@ -129,10 +128,10 @@
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNameKey">结算银行名称：</span>
-                                	<div class="text"><input name="" type="text" id="bankNameValue" value="{{openingInfos.account_bank_code}}"/></div>
+                                	<div class="text"><input name="" type="text" id="bankNameValue" value="{{openingInfos.account_bank_name}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankCodeKey">结算银行代码：</span>
-                                	<div class="text"><input name="" type="text" id="bankCodeValue" value="{{openingInfos.account_bank_name}}"/></div>
+                                	<div class="text"><input name="" type="text" id="bankCodeValue" value="{{openingInfos.account_bank_code}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
                                 	<div class="text"><input name="" type="text" id="organizationNoValue" value="{{merchant.organization_code_no}}" /></div>

@@ -43,10 +43,10 @@ public class CsCencelsService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         for(Map<String,Object> m: o){
             map = new HashMap<String,Object>();
-            String d = (m.get("created_at")+"");
+            String d = (m.get("created_at")==null?"":m.get("created_at").toString());
             Date date = sdf.parse(d);
             String c_date = sdf.format(date);
-            String status = (m.get("status")+"");
+            String status = (m.get("status")==null?"":m.get("status").toString());
             map.put("id",m.get("id"));
             map.put("status", status);
             map.put("create_time", c_date);
@@ -80,15 +80,15 @@ public class CsCencelsService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String apply_time =   o.get("apply_time")+"";
         map.put("apply_time", sdf.format(sdf.parse(apply_time)));
-        map.put("apply_num", o.get("apply_num"));//维修编号
-        map.put("terminal_num", o.get("serial_num")+"");
-        map.put("brand_name", o.get("brand_name")+"");
-        map.put("brand_number", o.get("brand_number")+"");
-        map.put("zhifu_pingtai", o.get("zhifu_pt")+"");
-        map.put("merchant_name", o.get("merchant_name")+"");
-        map.put("merchant_phone", o.get("mer_phone")+"");
-        map.put("receiver_addr", o.get("address")+"");
-        String json = o.get("templete_info_xml")+"";
+        map.put("apply_num", o.get("apply_num")==null?"":o.get("apply_num"));//维修编号
+        map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
+        map.put("brand_name", o.get("brand_name")==null?"":o.get("brand_name"));
+        map.put("brand_number", o.get("brand_number")==null?"":o.get("brand_number"));
+        map.put("zhifu_pingtai", o.get("zhifu_pt")==null?"":o.get("zhifu_pt"));
+        map.put("merchant_name", o.get("merchant_name")==null?"":o.get("merchant_name"));
+        map.put("merchant_phone", o.get("mer_phone")==null?"":o.get("mer_phone"));
+        map.put("receiver_addr", o.get("address")==null?"":o.get("address"));
+        String json = o.get("templete_info_xml")==null?"":o.get("templete_info_xml").toString();
         map = getTemplePaths(map, json);
         myOrderReq.setId(Integer.parseInt(id));
         List<Map<String,Object>> list = csCencelsMapper.findTraceById(myOrderReq);
@@ -118,13 +118,13 @@ public class CsCencelsService {
                 List<Map<String, Object>> childsList = csCencelsMapper.findTemplete(mo);
                 for(Map<String,Object> m: childsList){
                     child_map = new HashMap<String,Object>();
-                    String temp_id = (m.get("id")+"");
-                    String temp_title = m.get("title")+"";
-                    String temp_path = m.get("templet_file_path")+"";
+                    String temp_id = (m.get("id")==null?"":m.get("id").toString());
+                    String temp_title = m.get("title")==null?"":m.get("title").toString();
+                    String temp_path = m.get("templet_file_path")==null?"":m.get("templet_file_path").toString();
                     String temp_up_path = "";
                     for(Map<String,Object> mm: list_json){
-                        if(temp_id.equals(mm.get("id")+"")){
-                            temp_up_path = mm.get("path")+"" ;
+                        if(temp_id.equals(mm.get("id")==null?"":m.get("id").toString())){
+                            temp_up_path = mm.get("path")==null?"":m.get("path").toString() ;
                         }
                     }
                     child_map.put("id", temp_id);

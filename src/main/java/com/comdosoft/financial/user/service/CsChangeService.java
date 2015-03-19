@@ -49,19 +49,19 @@ public class CsChangeService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String apply_time =   o.get("apply_time")+"";
         map.put("apply_time", sdf.format(sdf.parse(apply_time)));
-        map.put("terminal_num", o.get("serial_num")+"");
-        map.put("apply_num", o.get("apply_num"));//维修编号
-        map.put("brand_name", o.get("brand_name")+"");
-        map.put("brand_number", o.get("brand_number")+"");
-        map.put("zhifu_pingtai", o.get("zhifu_pt")+"");
-        map.put("merchant_name", o.get("merchant_name")+"");
-        map.put("merchant_phone", o.get("mer_phone")+"");
-        map.put("receiver_addr", o.get("address")+"");
-        map.put("receiver_person", o.get("receiver")+"");
-        map.put("receiver_phone", o.get("receiver_phone")+"");
-        map.put("change_reason", o.get("reason")+"");
+        map.put("terminal_num", o.get("serial_num")==null?"": o.get("serial_num"));
+        map.put("apply_num", o.get("apply_num")==null?"": o.get("apply_num"));//维修编号
+        map.put("brand_name", o.get("brand_name")==null?"": o.get("brand_name"));
+        map.put("brand_number", o.get("brand_number")==null?"": o.get("brand_number"));
+        map.put("zhifu_pingtai", o.get("zhifu_pt")==null?"": o.get("zhifu_pt"));
+        map.put("merchant_name", o.get("merchant_name")==null?"": o.get("merchant_name"));
+        map.put("merchant_phone", o.get("mer_phone")==null?"": o.get("mer_phone"));
+        map.put("receiver_addr", o.get("address")==null?"": o.get("address"));
+        map.put("receiver_person", o.get("receiver")==null?"": o.get("receiver"));
+        map.put("receiver_phone", o.get("receiver_phone")==null?"": o.get("receiver_phone"));
+        map.put("change_reason", o.get("reason")==null?"": o.get("reason"));
         myOrderReq.setId(Integer.parseInt(id));
-        String json = o.get("templete_info_xml")+"";
+        String json = o.get("templete_info_xml")==null?"": o.get("templete_info_xml").toString();
         map = csCencelsService.getTemplePaths(map, json);
         List<Map<String,Object>> list = csChangeMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
@@ -94,17 +94,16 @@ public class CsChangeService {
             String d = (m.get("created_at")+"");
             Date date = sdf.parse(d);
             String c_date = sdf.format(date);
-            String status = (m.get("status")+"");
             map.put("id",m.get("id"));
-            map.put("status", status);
+            map.put("status", m.get("status")==null?"":m.get("status"));
             map.put("create_time", c_date);
-            map.put("terminal_num", m.get("serial_num"));//终端号
-            map.put("apply_num", m.get("apply_num"));//维修编号
-            map.put("brand_name", m.get("brand_name")+"");
-            map.put("brand_number", m.get("brand_number")+"");
-            map.put("zhifu_pingtai", m.get("zhifu_pt")+"");
-            map.put("merchant_name", m.get("merchant_name")+"");
-            map.put("merchant_phone", m.get("mer_phone")+"");
+            map.put("terminal_num", m.get("serial_num")==null?"":m.get("serial_num"));//终端号
+            map.put("apply_num", m.get("apply_num")==null?"":m.get("apply_num"));//维修编号
+            map.put("brand_name", m.get("brand_name")==null?"":m.get("brand_name"));
+            map.put("brand_number", m.get("brand_number")==null?"":m.get("brand_number"));
+            map.put("zhifu_pingtai", m.get("zhifu_pt")==null?"":m.get("zhifu_pt"));
+            map.put("merchant_name", m.get("merchant_name")==null?"":m.get("merchant_name"));
+            map.put("merchant_phone", m.get("mer_phone")==null?"":m.get("mer_phone"));
             list.add(map);
         }
         return list;

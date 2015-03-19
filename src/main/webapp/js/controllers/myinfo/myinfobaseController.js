@@ -64,7 +64,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	};
 	
 	$scope.ch_city = function(){
-//		$scope.selected_city = "";
+		$scope.selected_city = "";
 	};
 	$scope.colose_email = function(){
 		$("#email_send_tab").css('display','none');
@@ -212,6 +212,9 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	};
 	
 	$scope.save = function() {
+		if($scope.selected_city==""){
+			alert("请选择城市");
+		}
 		$scope.req = {
 			"id" : LoginService.userid,
 			"name" : $scope.customer.name,

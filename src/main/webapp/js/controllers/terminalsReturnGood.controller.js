@@ -44,7 +44,7 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
 				customerId:Math.ceil($scope.customerId),
 				returnPrice:$scope.returnPrice,
 				status:1,
-				templeteInfoXml :$scope.array,
+				templeteInfoXml :JSON.stringify($scope.array),
 				type : 3,
 				modelStatus:$("#modelStatus").val()
 				};

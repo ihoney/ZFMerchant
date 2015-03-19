@@ -11,8 +11,8 @@
 
 	<insert id="addTerminal" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT into
-		terminals(good_id,terminal_marks_id,serial_num,merchant_id,customer_id,pay_channel_id,status,is_return_cs_depots,created_at,type)
-		VALUES(0,0,#{serialNum},#{merchantId},#{customerId},#{payChannelId},#{status},#{isReturnCsDepots},now(),#{type})
+		terminals(good_id,serial_num,merchant_id,customer_id,pay_channel_id,status,is_return_cs_depots,created_at,type)
+		VALUES(0,#{serialNum},#{merchantId},#{customerId},#{payChannelId},#{status},#{isReturnCsDepots},now(),#{type})
 	</insert>
 	
 	<insert id="subRentalReturn" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsCancel" >

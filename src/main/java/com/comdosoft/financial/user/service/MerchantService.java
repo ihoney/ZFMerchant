@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.Paging;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
+import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.mapper.zhangfu.MerchantMapper;
 
 /**
@@ -56,6 +57,19 @@ public class MerchantService {
 
     public void delete(int id) {
         merchantMapper.delete(id);
+    }
+
+    public Object findListCount(MyOrderReq req) {
+        return merchantMapper.getListCount(req.getCustomer_id());
+    }
+
+    public Object findList(MyOrderReq req) {
+        Map<Object, Object> query = new HashMap<Object, Object>();
+        query.put("customerId", req.getCustomer_id());
+        Paging paging = new Paging(req.getPage(), req.getRows());
+        query.put("offset", paging.getOffset());
+        query.put("rows", paging.getRows());
+        return merchantMapper.getList(query);
     }
 
 }
