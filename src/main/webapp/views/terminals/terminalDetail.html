@@ -102,8 +102,8 @@
                                 <li>租赁日期：{{tenancy.created_at}}</li>
                                 <li>最短租赁时间：{{tenancy.lease_time}}个月</li>
                                 <li>最长租赁时间：{{tenancy.return_time}}个月</li>
-                                <li>租赁押金：<strong>￥{{tenancy.lease_deposit/100}}</strong></li>
-                                <li>租金：<strong>￥{{tenancy.lease_price/100}}</strong></li>
+                                <li>租赁押金：<strong>￥{{tenancy.lease_deposit/100 | number:2}}</strong></li>
+                                <li>租金：<strong>￥{{tenancy.lease_price/100 | number:2}}</strong></li>
                                 <li>租赁说明：<a href="javascript:void(0)" class="a_btn leaseExplain_a" ng-click="popup('.leaseExplain_tab','.leaseExplain_a')">点击查看</a></li>
                             </ul>
                         </div> 

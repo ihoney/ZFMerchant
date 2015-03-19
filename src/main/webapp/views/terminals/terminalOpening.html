@@ -1,5 +1,4 @@
 <script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
-<script src="js/main.js"></script>
 <script src="js/jquery.form.min.js"></script>
 <script type="text/javascript" src="js/dateSelector.js"></script>
  <div class="right" ng-controller="terminalOpenController">
@@ -162,7 +161,7 @@
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 <div class="text" >
                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
-                                	<img src="images/zp.jpg" class="cover" />
+                                	<img src="images/zp.jpg" class="covers" />
                                 	<a href="javascript:void(0);" class="informImg_a" >
                                     <span ng-if="r.value == ''">上传</span>
                                     <span ng-if="r.value != ''">重新上传</span>
@@ -173,7 +172,7 @@
                                 </div>
                                 </li>
                             </ul>
-                            <div class="img_info"><img src="images/ewm.jpg" /></div>
+                            <div id="shotu" class="img_info"><img src="images/ewm.jpg" /></div>
                         </div>
                     </div>
                     <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
