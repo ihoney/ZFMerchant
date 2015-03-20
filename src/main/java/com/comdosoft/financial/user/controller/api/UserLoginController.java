@@ -63,7 +63,6 @@ public class UserLoginController {
             customer.setCityId(0);
             customer.setDentcode(str);
             customer.setStatus(Customer.STATUS_NON_END);
-            //String phone = "18761913514";//手机号
             String phone = (String)map.get("codeNumber");//手机号
             if (userLoginService.findUname(customer) == 0) {
             try {
@@ -233,8 +232,6 @@ public class UserLoginController {
     		customer.setTypes(Customer.TYPE_CUSTOMER);
     		customer.setStatus(Customer.STATUS_NORMAL);
     		customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
-    		System.out.println(customer.getPassword());
-    		System.out.println(customer.getUsername());
     		Map<Object, Object> tomer = userLoginService.doLogin(customer);
     		if (tomer != null) {
     			//修改登陆时间

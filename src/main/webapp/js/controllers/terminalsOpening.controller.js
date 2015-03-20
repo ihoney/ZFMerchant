@@ -86,14 +86,17 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               	  for(var i=0;i<$scope.channels.length;i++){
               		  if($scope.channels[i].id == $scope.channel){
               			$scope.channelName = $scope.channels[i].name;
-              			for(var y=0;y<$scope.channels[i].billings.length;y++){
+              			
+              			if($scope.channels[i].billings !=""){
+              				for(var y=0;y<$scope.channels[i].billings.length;y++){
               				if($scope.channels[i].billings[y].id == $scope.billingId){
               					 $scope.channelTsName = $scope.channels[i].billings[y].name;
               				}
               			}
+              			}
               		  }
               	  }
-              }
+              }             
           }
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -359,6 +362,12 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
     	  alert("获取列表失败");
           $("#serverErrorModal").modal({show: true});
       });
+  }
+  
+  $scope.showSelect= false;
+  //显示下拉框的年月日
+  $scope.showSelectList = function(){
+	  $scope.showSelect= true;
   }
   
   $scope.terminalDetail();

@@ -1,6 +1,6 @@
-<script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
 <script src="js/jquery.form.min.js"></script>
 <script type="text/javascript" src="js/dateSelector.js"></script>
+<script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
  <div class="right" ng-controller="terminalOpenController">
             	<div class="breadcrumb">
                     <ul>
@@ -56,7 +56,19 @@
                                 </li>
                                 <li ng-show="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
                                 	<div class="text">
-                                	<select id="selYear">
+                                	<select ng-click="showSelectList()">
+                                		<option>{{nian}}</option>
+                                	</select> 
+                                	<select>
+                                		<option>{{yue}}</option>
+                                	</select>
+                                	<select>
+                                		<option>{{day}}</option>
+                                	</select>
+                                    </div>
+                                    
+                                    <div class="text" ng-show="showSelect">
+                                	<select id="selYear" onclick="showDateList()">
                                 	</select> 
                                 	<select id="selMonth">
                                 	</select>
