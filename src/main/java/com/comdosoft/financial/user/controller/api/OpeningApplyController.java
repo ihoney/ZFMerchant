@@ -236,7 +236,7 @@ public class OpeningApplyController {
 					openingApplie.setOrganizationCodeNo((String) map
 							.get("registeredNo"));
 					//判断该商户是否存在
-					int count =  openingApplyService.getMerchantsIsNo((String) map.get("cardId"));
+					int count =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
 					if(count == 0){
 						//添加商户
 						Merchant merchant = new Merchant();
@@ -254,6 +254,9 @@ public class OpeningApplyController {
 								.get("bankNum"));
 						merchant.setCustomerId((Integer) map
 								.get("customersId"));
+						merchant.setPhone((String) map
+								.get("phone"));
+						merchant.setCityId((Integer)map.get("cityId"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
 						//terminalId = merchant.getId();

@@ -125,15 +125,19 @@ public class TerminalsController {
 		try {
 			Merchant merchants = new Merchant();
 			// 判断该终端号是否存在
+			
+			Map<Object, Object> merId = terminalsService.isMerchantName(map.get("title"));
 			if (terminalsService.isExistence(map.get("serialNum")) > 0) {
 				return Response.getError("终端号已存在！");
-			} else if (terminalsService.isMerchantName(map.get("title")) > 0) {
-				return Response.getError("商户名已存在！");
 			} else {
-				merchants.setTitle(map.get("title"));
-				merchants.setCustomerId(Integer.parseInt(map.get("customerId")));
-				// 添加商户
-				terminalsService.addMerchants(merchants);
+				if (merId == null) {
+					merchants.setTitle(map.get("title"));
+					merchants.setCustomerId(Integer.parseInt(map.get("customerId")));
+					// 添加商户
+					terminalsService.addMerchants(merchants);
+				} else{
+					merchants.setId((Integer)merId.get("id"));
+				} 
 				// 添加终端
 				map.put("merchantId", merchants.getId().toString());
 				map.put("status", String.valueOf(Terminal.TerminalTYPEID_1));
@@ -145,6 +149,7 @@ public class TerminalsController {
 			}
 		} catch (Exception e) {
 			  logger.debug("添加终端 "+e);
+			  e.printStackTrace();
 			return Response.getError("请求失败");
 		}
 
@@ -648,7 +653,7 @@ public class TerminalsController {
 					openingApplie.setOrganizationCodeNo((String) map
 							.get("registeredNo"));
 					//判断该商户是否存在
-					int count =  openingApplyService.getMerchantsIsNo((String) map.get("cardId"));
+					int count =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
 					if(count == 0){
 						//添加商户
 						Merchant merchant = new Merchant();
@@ -665,12 +670,13 @@ public class TerminalsController {
 						merchant.setAccountBankNum((String) map
 								.get("bankNum"));
 						merchant.setCustomerId((Integer) map
-								.get("customersId"));
+								.get("applyCustomerId"));
 						merchant.setCityId((Integer)map.get("cityId"));
+						merchant.setPhone((String) map
+							.get("phone"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
 						//terminalId = merchant.getId();
-						System.out.println("哈哈哈");
 						openingApplie.setMerchantId(merchant.getId());
 					}/*else if(count > 0){
 						terminalId = (Integer)map.get("terminalId");

@@ -265,8 +265,8 @@
 		WHERE serial_num=#{serialNum}
 	</select>
 
-	<select id="isMerchantName" parameterType="string" resultType="int">
-		SELECT COUNT(*) from merchants
+	<select id="isMerchantName" parameterType="string" resultType="map">
+		SELECT id from merchants
 		WHERE title=#{title}
 	</select>
 

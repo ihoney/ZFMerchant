@@ -353,7 +353,7 @@ public class TerminalsService {
 	 * @param id
 	 * @return
 	 */
-	public int isMerchantName(String title){
+	public Map<Object, Object> isMerchantName(String title){
 		return terminalsMapper.isMerchantName(title);
 	}
 	

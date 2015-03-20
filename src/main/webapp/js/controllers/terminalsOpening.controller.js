@@ -177,6 +177,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	//取消通道数据回显
 	$scope.delectChanl = function(){
 		$scope.channelName = "请选择";
+		$scope.channelTsName = "请选择";
+		$scope.billingId = null;
 	}
 	$scope.delectChanlTs = function(){
 		$scope.channelTsName = "请选择";
@@ -284,18 +286,19 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.channel = null;
 	$scope.billingId = null;
   $scope.addApply = function(){
-	  if($scope.cityId == null){
-		  $scope.cityId == Math.ceil($scope.req.shiList.id);
+	  if($scope.req.shiList != undefined){
+		  $scope.cityId = Math.ceil($scope.req.shiList.id);
 	  }
-	  if($scope.channel == null){
+	  if($scope.chan.chanList != undefined){
 		  $scope.channel = Math.ceil($scope.chan.chanList.id);
 	  }
-	  if($scope.billingId == null){
+	 /* if($scope.billingId == null)*/
+	  if($scope.tln.chanTs != undefined){
 		  $scope.billingId = Math.ceil($scope.tln.chanTs.id);
 	  }
-	  if($scope.birthday == null){
+	  /*if($scope.birthday == null){
 		  $scope.birthday = $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val();
-	  }
+	  }*/
 	  $scope.list = [
 	                 {
 	                     status:1,

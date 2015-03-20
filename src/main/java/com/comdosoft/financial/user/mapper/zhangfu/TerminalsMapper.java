@@ -255,7 +255,7 @@ public interface TerminalsMapper {
      * @param id
      * @return
      */
-    int isMerchantName(String title);
+    Map<Object, Object> isMerchantName(String title);
 
     /**
      * 添加商户

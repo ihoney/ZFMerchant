@@ -116,7 +116,7 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 	  $http.post("api/terminal/judgeUpdate", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == -1){
-        		  alert("已有该终端跟新申请！");
+        		  alert("已有该终端更新申请！");
         	  }else if(data.code == 1){
         		  window.location.href = "#/terminalToUpdate?terminalId="+$scope.terminalId;
         		  
