@@ -233,6 +233,8 @@ public class UserLoginController {
     		customer.setTypes(Customer.TYPE_CUSTOMER);
     		customer.setStatus(Customer.STATUS_NORMAL);
     		customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
+    		System.out.println(customer.getPassword());
+    		System.out.println(customer.getUsername());
     		Map<Object, Object> tomer = userLoginService.doLogin(customer);
     		if (tomer != null) {
     			//修改登陆时间
