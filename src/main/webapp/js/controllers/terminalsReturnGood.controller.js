@@ -33,7 +33,7 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
 		$scope.array = [];
 		 for(var i=0;i<$scope.ReModel.length;i++){
 			$scope.array[i] = {
-					id:$scope.terminalId,
+					id:$("#upId_"+i).val(),
 					path:$("#up_"+i).val()
 			};
 		 }

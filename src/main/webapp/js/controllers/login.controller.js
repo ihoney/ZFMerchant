@@ -310,8 +310,8 @@ var registerController=function($scope, $location, $http, LoginService){
 			}).success(function(data) {
 				if(data.code == 1){
 					$scope.code = data.result;
-					//倒计时
-					$scope.intDiff = 120;
+					/*//倒计时
+					$scope.intDiff = 120;*/
 					$scope.rountTime();
 				}else{
 					$scope.registreTime = true
@@ -335,8 +335,9 @@ var registerController=function($scope, $location, $http, LoginService){
 			if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
 				alert("密码不能为空！");
 			}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
-				alert("密码受长度限制！");
-			}else if($scope.password1 == $scope.password2){
+				alert("密码由6-20位，英文字符组成！");
+			}  
+			else if($scope.password1 == $scope.password2){
 				$http.post("api/user/sizeUpImgCode", {
 				imgnum : $scope.codeBei
 			}).success(function(data) {
@@ -389,7 +390,7 @@ var registerController=function($scope, $location, $http, LoginService){
 			alert("密码不能为空！");
 		} else if ($scope.password1.length < 6 || $scope.password1.length > 20
 				|| $scope.password2.length < 6 || $scope.password2.length > 20) {
-			alert("密码受长度限制！");
+			alert("密码由6-20位，英文字符组成！");
 		} else if ($scope.password1 == $scope.password2) {
 			$http.post("api/user/sizeUpImgCode", {
 				imgnum : $scope.codeBei
@@ -447,8 +448,9 @@ var registerController=function($scope, $location, $http, LoginService){
 	};
 	
 	//倒计时
-	$scope.intDiff = 120;
+	
 	$scope.rountTime=function() {
+		$scope.intDiff = 120;
 	    window.setInterval(function(){
 	    	if($scope.intDiff == 0){
 	    		$('#time_show').html("获取验证码！");
@@ -538,7 +540,7 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 					$scope.codeNumber = "";
 					$scope.twostep();
 					//倒计时
-					$scope.intDiff = 120;
+					/*$scope.intDiff = 120;*/
 					$scope.rountTime();
 				} else {
 					alert("发送手机验证码失败！");
@@ -548,8 +550,9 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	}
 	
 	//倒计时
-	$scope.intDiff = 120;
+	
 	$scope.rountTime=function() {
+		$scope.intDiff = 120;
 	    window.setInterval(function(){
 	    	if($scope.intDiff == 0){
 	    		$('#day_show').html("点击获得验证码！");
@@ -604,8 +607,8 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 										$scope.code = data.result;
 										$scope.codeNumber = "";
 										$scope.twostep();
-										//倒计时
-										$scope.intDiff = 120;
+										/*//倒计时
+										$scope.intDiff = 120;*/
 										$scope.rountTime();
 									} else {
 										alert(data.message);
@@ -642,7 +645,7 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 		if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
 			alert("密码不能为空！");
 		}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
-			alert("密码受长度限制！");
+			alert("密码由6-20位，英文字符组成！");
 		}else if ($scope.password1 != $scope.password2) {
 			alert("密码不一致！");
 		} else {

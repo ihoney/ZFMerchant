@@ -35,7 +35,7 @@ var terminalCancellationController = function ($scope, $http,$location, LoginSer
 		$scope.array = [];
 		 for(var i=0;i<$scope.ReModel.length;i++){
 			$scope.array[i] = {
-					"id":$scope.terminalId+"",
+					"id":$("#upId_"+i).val()+"",
 					"path":$("#up_"+i).val()+""
 			};
 		 }
