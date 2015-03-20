@@ -145,4 +145,21 @@ public class CustomerService {
         return customerMapper.getjifen(req);
     }
 
+    public Boolean findUsername(String p,Integer id) {
+        List<Map<String,Object>> list = customerMapper.findUsername(p);
+        if(list.size()>1){
+            return true;
+        }else if(list.size()==1){
+            Map<String,Object> m = list.get(0);
+            String  iid = m.get("id")==null?"":m.get("id").toString();
+            if(iid.equals(id.toString())){
+                return false;
+            }else{
+                return true;
+            }
+        }else{//不存在 
+            return false;
+        }
+    }
+
 }

@@ -54,4 +54,7 @@ public interface CustomerMapper {
 
     Object getjifen(MyOrderReq req);
 
+    List<Map<String, Object>> findUsername(String p);
+
+
 }

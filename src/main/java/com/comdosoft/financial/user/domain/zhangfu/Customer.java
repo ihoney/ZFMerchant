@@ -3,7 +3,6 @@ package com.comdosoft.financial.user.domain.zhangfu;
 import java.util.Date;
 
 public class Customer {
-
 	private Integer id;
 	private String username;
 	private String password;

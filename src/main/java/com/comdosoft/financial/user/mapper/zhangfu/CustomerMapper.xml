@@ -27,6 +27,7 @@
 		c.city_id,
 		c.integral,
 		c.password,
+		c.account_type,
 		t.id,
 		t.`name` as c_name,
 		t.parent_id,
@@ -60,6 +61,8 @@
 			<if test="phone != null and phone !=''">phone = #{phone},</if>
 			<if test="email != null and email !=''">email = #{email},</if>
 			<if test="cityId != null and cityId !=''">city_id = #{cityId}</if>
+			<if test="accountType == 1">username = #{phone}</if>
+			<if test="accountType == 2">username = #{email}</if>
 		</trim>
 		where id = #{id}
 	</update>
@@ -71,6 +74,18 @@
 	]]>
 	</update>
 
+	<select id="findUsername" resultType="map">
+	<![CDATA[
+		SELECT
+			c.id
+		FROM
+			customers c
+		WHERE
+			c.username = #{param1}
+	]]>
+	</select>
+	
+	
 	<select id="getTradeRecordsCount" resultType="int">
 	<![CDATA[
 		SELECT COUNT(i.id)
@@ -81,9 +96,9 @@
 
 	<select id="getIntegralList" resultType="map">
 	<![CDATA[
-		SELECT i.quantity, i.types, i.target_type, d.order_number, d.actual_price,
-			   DATE_FORMAT(d.payed_at, '%Y-%m-%d %T') payedAt
-		  FROM customer_integral_records i LEFT JOIN orders d ON i.target_id = d.id
+		SELECT i.quantity, i.types, i.target_type,i.description as order_number,  
+			   DATE_FORMAT(i.created_at, '%Y-%m-%d %T') payedAt
+		  FROM customer_integral_records i  
 		 WHERE i.customer_id = #{customerId}
 	  ORDER BY i.created_at DESC
 		 LIMIT #{offset}, #{rows}

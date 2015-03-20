@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import com.comdosoft.financial.user.domain.query.MailReq;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.mapper.zhangfu.IndexMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 @Service
 public class IndexService {
     
@@ -99,18 +102,18 @@ public class IndexService {
     public String  getPhoneCode(MyOrderReq req) {
         String phone = req.getPhone();
         String code = SysUtils.getCode();
-//        if(SysUtils.isMobileNO(phone)){
-//            try {
-//                Boolean b = SysUtils.sendPhoneCode("感谢您使用华尔街金融，您的验证码为："+code, phone);
-//                if(!b) return "-1";
-//            } catch (JsonParseException e) {
-//                e.printStackTrace();
-//            } catch (JsonMappingException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if(SysUtils.isMobileNO(phone)){
+            try {
+                Boolean b = SysUtils.sendPhoneCode("感谢您使用华尔街金融，您的验证码为："+code, phone);
+                if(!b) return "-1";
+            } catch (JsonParseException e) {
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return code;
     }
 

@@ -30,6 +30,9 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 			if (data.code == 1) {
 				console.log("根据id获取用户信息"+data.result.parent_id);
 				$scope.customer = data.result;
+				$scope.customer.i_phone =data.result.phone;
+				$scope.customer.i_email =data.result.email;
+				$scope.cus_type = data.result.account_type;
 			    $scope.selected.id = data.result.parent_id;
 			    $scope.selected.name = data.result.p_name;
 		        $scope.selected_city.id = data.result.id;
@@ -243,7 +246,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		    	    $scope.intDiff--;
 		    	}
 		    }, 1000);
-			 console.log("发送邮箱 中。。。。。");
 				var email = $scope.customer.email;
 				$scope.req ={id:LoginService.userid,content:email,q:$scope.customer.name};
 				$http.post("api/index/change_email",$scope.req).success(function (data) {   
@@ -268,7 +270,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 				$("#email_send_tab").css('left',(win_width-layer_width)/2);
 				$("#email_send_tab").css('display','block');
 		}else{
-			console.log("时间未到==> "+$scope.intDiff);
 			return false;
 		}
 	};
@@ -276,9 +277,34 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	$scope.save = function() {
 		if($scope.selected_city==""){
 			alert("请选择城市");
-			return false;
+			return ;
 		}
-		$scope.req = {
+	/*	var email = $scope.customer.email;
+		var phone = $scope.customer.phone;
+		if(email==""){
+			alert("请输入合法的邮箱地址");
+			return ;
+		}else{
+			var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+			if(!reg.test(mail)){
+				alert("请输入合法的邮箱地址");
+				  $("#in_email").focus(); 
+				return ;
+			} 
+		}
+		if(phone==""){
+			alert("请输入正确的手机号");
+			return ;
+		}else{
+			 if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))){ 
+			        alert("请输入正确的手机号"); 
+			        $("#in_phone").focus(); 
+			        return false;
+			 }
+		}*/
+		
+		$scope.req = { 
+			"accountType":$scope.cus_type,
 			"id" : LoginService.userid,
 			"name" : $scope.customer.name,
 			"phone" : $scope.customer.phone,

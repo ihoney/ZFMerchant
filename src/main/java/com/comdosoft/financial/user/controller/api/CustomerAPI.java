@@ -88,9 +88,24 @@ public class CustomerAPI {
     }
     
     
+    @SuppressWarnings("static-access")
     @RequestMapping(value = "cust_update", method = RequestMethod.POST)
     public Response cust_update(@RequestBody Customer c) {
         logger.debug("更新用户信息:"+c);
+       /* Boolean t = c.getAccountType();
+        if(t.equals(c.TYPE_PHONE)){//手机注册
+            String p = c.getPhone();
+            Boolean b = customerService.findUsername(p,c.getId());
+            if(b){
+                return Response.getError("已存在此手机号，无法更新");
+            }
+        }else if(t.equals(c.TYPE_EMAIL)){//邮件注册
+            String email = c.getEmail();
+            Boolean b = customerService.findUsername(email,c.getId());
+            if(b){
+                return Response.getError("已存在此邮箱，无法更新");
+            }
+        }*/
         customerService.cust_update(c);
         return Response.buildSuccess("", "更新成功");
     }
