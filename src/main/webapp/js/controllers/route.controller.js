@@ -117,6 +117,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/cs/repair_pay.html'
 	}).when('/email_up', {
 		templateUrl : 'views/customer/up_email.html'
+	}).when('/order_appraise', {
+		templateUrl : 'views/order/order_appraise.html'
 	}).otherwise({
 		redirectTo : "/"
 	});

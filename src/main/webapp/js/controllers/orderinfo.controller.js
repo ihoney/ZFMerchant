@@ -58,24 +58,24 @@ var orderinfoController = function ($scope,$location, $http, LoginService) {
     };
     
     $scope.saveContent= function () {
-    	var goodid = $("#com_good_id").val();
-    	$scope.req.content = $scope.content;
-    	$scope.req.good_id = goodid;
-    	var score = $("#com_score").val();
-    	if(score == ""){
-    		score = 3;
-    	}
-    	$scope.req.score = score*10;
-    	$scope.req.customer_id = LoginService.userid;
-    	
-    	$http.post("api/order/saveComment", $scope.req).success(function (data) {  
-    		if (data.code==1) {
-//    			 $(".tab").css('display','none');
-    			 $("#od_pj_div").css('display','none');
-    		}
-    	}).error(function (data) {
-    		$("#serverErrorModal").modal({show: true});
-    	});
+//    	var goodid = $("#com_good_id").val();
+//    	$scope.req.content = $scope.content;
+//    	$scope.req.good_id = goodid;
+//    	var score = $("#com_score").val();
+//    	if(score == ""){
+//    		score = 3;
+//    	}
+//    	$scope.req.score = score*10;
+//    	$scope.req.customer_id = LoginService.userid;
+//    	
+//    	$http.post("api/order/saveComment", $scope.req).success(function (data) {  
+//    		if (data.code==1) {
+////    			 $(".tab").css('display','none');
+//    			 $("#od_pj_div").css('display','none');
+//    		}
+//    	}).error(function (data) {
+//    		$("#serverErrorModal").modal({show: true});
+//    	});
     };
     
     $scope.getOrderInfo();

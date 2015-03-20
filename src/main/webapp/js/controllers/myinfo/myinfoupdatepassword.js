@@ -4,6 +4,10 @@
 var myinfoupdatepasswordModule = angular.module("myinfoupdatepasswordModule", []);
 var myinfoupdatepasswordController = function($scope, $http, LoginService) {
 	$scope.updatepassword = function() {
+		if($scope.customer.password !=$scope.customer.repassword){
+			alert("输入的密码不一致！");
+			return ;
+		}
 		$scope.updateCustomer = {
 			id : LoginService.userid,
 			passwordOld : $scope.customer.passwordOld,

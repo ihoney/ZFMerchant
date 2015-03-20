@@ -173,3 +173,15 @@ input { border: none;}
 .foot .foot_nav li a { color: #016cb7; margin: 0 10px;}
 .foot .foot_nav li a:hover { color: #0292f7;}
 .copyright { float: right; color: #666;}
+
+
+/*--商品评价（多）---*/
+.eva_box { 
+	overflow: hidden;  
+	padding: 20px; 
+	border-bottom: 1px #f1f1f1 solid;
+}
+.eva_comm { float: left;}
+.eva_star { float: left; width: 518px; margin-left: 20px;}
+.eva_star .gradeText textarea { width: 95%;}
+.eva_btn { overflow: hidden; text-align: right; padding: 20px;}
