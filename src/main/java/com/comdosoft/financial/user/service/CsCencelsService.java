@@ -54,13 +54,13 @@ public class CsCencelsService {
             String status = (m.get("status")==null?"":m.get("status").toString());
             map.put("id",m.get("id"));
             map.put("status", status);
-            map.put("terminal_num", m.get("serial_num"));//终端号
-            map.put("apply_num", m.get("apply_num"));//维修编号
-            map.put("brand_name", m.get("brand_name")+"");
-            map.put("brand_number", m.get("brand_number")+"");
-            map.put("zhifu_pingtai", m.get("zhifu_pt")+"");
-            map.put("merchant_name", m.get("merchant_name")+"");
-            map.put("merchant_phone", m.get("mer_phone")+"");
+            map.put("terminal_num", m.get("serial_num")==null?"":m.get("serial_num"));//终端号
+            map.put("apply_num", m.get("apply_num")==null?"":m.get("apply_num"));//维修编号
+            map.put("brand_name", m.get("brand_name")==null?"":m.get("brand_name"));
+            map.put("brand_number", m.get("brand_number")==null?"":m.get("brand_number"));
+            map.put("zhifu_pingtai", m.get("zhifu_pt")==null?"":m.get("zhifu_pt"));
+            map.put("merchant_name", m.get("merchant_name")==null?"":m.get("merchant_name"));
+            map.put("merchant_phone", m.get("mer_phone")==null?"":m.get("mer_phone"));
             list.add(map);
         }
         return list;

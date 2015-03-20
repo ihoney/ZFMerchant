@@ -22,10 +22,10 @@
 		<form name="addAddressForm" ng-submit="save()"  >
 			<ul>
 			<li><label><span class="red">*</span>所在地：</label>
-				<select ng-model="selected" ng-options="s.name for s in city_list" ng-change="ch_city()" required>
+				<select ng-model="selected" ng-options="s.name for s in city_list" ng-change="ch_city()" >
 		              <option value="">{{selected.name}}</option>
 		          </select>
-				<select ng-model="selected_city" ng-options="x.name for x in selected.childrens" required>
+				<select ng-model="selected_city" ng-options="x.name for x in selected.childrens" >
 		               <option value="">{{selected_city.name}}</option>
 		          </select>
                 </li>

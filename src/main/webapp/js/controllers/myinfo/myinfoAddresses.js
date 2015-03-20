@@ -17,42 +17,46 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.openUpdateAddress = function(e) {
+		
 		$scope.address = e;
 		$scope.address.id = e.id;
-		$scope.selected ={};
-		$scope.selected.id = e.city_parent_id;
-		$scope.selected_city ={}
-		$scope.selected_city.id = e.cityId;
-	    $scope.selected.name = e.city_parent_name ;
-        $scope.selected_city.name = e.city_name;
+		$scope.selected ={id:e.city_parent_id,
+						  name:e.city_parent_name};
+		$scope.selected_city ={id:e.cityId,
+								name:e.city_name}
 	};
 	$scope.save = function() {
-		if ($scope.address.id == undefined) {
-			$scope.address.cityId = $scope.selected_city.id;
-			$scope.address.customerId = LoginService.userid;
-			$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
-				if (data.code == 1) {
-					alert("保存成功");
-					$scope.init();
-				} else {
-					alert("请填写正确的数据");
-				}
-			}).error(function(data) {
+	   if (typeof($scope.selected) == "undefined" || typeof($scope.selected_city) == "undefined" ) { 
+		   alert("请选择省市");
+		   return ;
+	    }else{
+	    	if ($scope.address.id == undefined) {
+				$scope.address.cityId = $scope.selected_city.id;
+				$scope.address.customerId = LoginService.userid;
+				$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
+					if (data.code == 1) {
+						alert("保存成功");
+						$scope.init();
+					} else {
+						alert("请填写正确的数据");
+					}
+				}).error(function(data) {
 
-			});
-		} else {
-			console.log("==>"+$scope.selected_city.id);
-			$scope.address.cityId = $scope.selected_city.id;
-			$http.post("api/customers/updateAddress", $scope.address).success(function(data) {
-				if (data.code == 1) {
-					$scope.init();
-				} else {
-					alert(data.message);
-				}
-			}).error(function(data) {
+				});
+			} else {
+				$scope.address.cityId = $scope.selected_city.id;
+				$http.post("api/customers/updateAddress", $scope.address).success(function(data) {
+					if (data.code == 1) {
+						$scope.init();
+					} else {
+						alert(data.message);
+					}
+				}).error(function(data) {
 
-			});
-		}
+				});
+			}
+	    } 
+		
 	};
 	$scope.setDefaultAddress = function(e) {
 		$http.post("api/customers/setDefaultAddress/", e).success(function(data) {
