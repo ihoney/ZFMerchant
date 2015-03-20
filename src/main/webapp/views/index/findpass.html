@@ -60,7 +60,7 @@
 			</div>
 			<div class="ret_b">
 				<ul id="ulPhone" ng-show="!songToEmail">
-					<li><input name="" type="text" placeholder="输入图片校验码" class="m" ng-model="codeNumber" />
+					<li><input name="" type="text" placeholder="输入验证码" class="m" ng-model="codeNumber" />
 						<button id="day_show" ng-click="newCode()" class="send_btn">重新发送验证码（120秒）</button></li>
 				</ul>
 				<div class="btn" id="updown" ng-show="!songToEmail">
@@ -85,11 +85,11 @@
 			</div>
 			<div class="ret_b">
 				<ul>
-					<li><input name="" type="text" placeholder="输入新密码" ng-model="password1" /></li>
-					<li><input name="" type="text" placeholder="确认新密码" ng-model="password2" /></li>
+					<li><input name="" type="password" placeholder="输入新密码:由6-20位，英文字符组成" ng-model="password1" /></li>
+					<li><input name="" type="password" placeholder="确认新密码:由6-20位，英文字符组成" ng-model="password2" /></li>
 				</ul>
 				<div class="btn">
-					<button ng-click="findPassEnd()">去登陆</button>
+					<button ng-click="findPassEnd()">去登录</button>
 				</div>
 			</div>
 		</div>

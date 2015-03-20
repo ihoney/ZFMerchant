@@ -58,36 +58,45 @@ var terminalController = function ($scope, $http, LoginService) {
 		$scope.payChannelId = Math.ceil(chanId);
 	}
 	//添加終端$scope.channels
-	$scope.addChannel = function(){
-		 $scope.addChan={
-				  customerId:$scope.customersId,
-	    		  title:$scope.title,
-	    		  payChannelId:$scope.payChannelId,
-	    		  serialNum:$scope.serialNum
-	    		  };
-		$http.post("api/terminal/addTerminal", $scope.addChan).success(function (data) {  //绑定
-	          if (data != null && data != undefined) {
-	        	  if(data.code == 1){
-	        		 // location.reload();
-	        		  $("#closeWin").css('display','none');
-	        		  $(".mask").css('display','none');
-	        		  
-	        		  $scope.serialNum = null;
-	        		  $scope.list = [];
-	                  $scope.total = null;
-	        		  $scope.getInfo();
-	        		  location.reload();
-	        		 
-	        	  }else{
-	        		  alert(data.message);
-	        	  }
-	          }
-	      }).error(function (data) {
-	    	  alert("获取列表失败");
-	      });
+	$scope.addChannel = function() {
+		if ($scope.payChannelId == undefined) {
+			alert("请选择通道！");
+		} else if ($scope.title == undefined) {
+			alert("请填写商户名！");
+		} else if ($scope.serialNums == undefined) {
+			alert("请填写终端号！");
+		} else {
+			$scope.addChan = {
+				customerId : $scope.customersId,
+				title : $scope.title,
+				payChannelId : $scope.payChannelId,
+				serialNum : $scope.serialNums
+			};
+			$http.post("api/terminal/addTerminal", $scope.addChan).success(
+					function(data) { // 绑定
+						if (data != null && data != undefined) {
+							if (data.code == 1) {
+								// location.reload();
+								$("#closeWin").css('display', 'none');
+								$(".mask").css('display', 'none');
+
+								$scope.serialNum = null;
+								$scope.list = [];
+								$scope.total = null;
+								$scope.getInfo();
+								location.reload();
+
+							} else {
+								alert(data.message);
+							}
+						}
+					}).error(function(data) {
+				alert("获取列表失败");
+			});
+		}
 	}
 	
-	//筛选状态
+	// 筛选状态
 	$scope.screening = function(){
 		$scope.indexPage = 1;
 		//再一次初始化分页

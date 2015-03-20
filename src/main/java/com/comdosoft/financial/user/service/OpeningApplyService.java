@@ -61,9 +61,11 @@ public class OpeningApplyService {
 		
 		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
 		 Map<String, Object> map = openingApplyMapper.getOppinfo(openingApplie);
-				map.put("birthday", sdf.format(map.get("birthday")));
+		 if(map!=null){
+			 map.put("birthday", sdf.format(map.get("birthday")));
 				map.put("created_at", sdf.format(map.get("created_at")));
 				map.put("updated_at", sdf.format(map.get("updated_at")));
+		 }
 		return map;
 	}
 	
@@ -91,8 +93,11 @@ public class OpeningApplyService {
 	 * 
 	 * @return
 	 */
-	public int getMerchantsIsNo(String legalPersonCardId) {
-		return openingApplyMapper.getMerchantsIsNo(legalPersonCardId);
+	public int getMerchantsIsNo(String merchantName,String phone) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("merchantName", merchantName);
+		map.put("phone", phone);
+		return openingApplyMapper.getMerchantsIsNo(map);
 	}
 	
 	/**

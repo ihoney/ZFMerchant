@@ -54,7 +54,7 @@ $(function(){
 					<ul>
 						<li><input id="loginUname" ng-mousedown="unameClass=fale" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="ID" ng-model="username" />
 							<p class="red" >{{nameMessage}}</p></li>
-						<li><input name="" ng-mousedown="passClass=false" type="password" placeholder="密码" ng-class="{true:'error'}[passClass==true]" ng-model="password1" />
+						<li><input name="" ng-mousedown="passClass=false" type="password" placeholder="密码:由6-20位，英文字符组成" ng-class="{true:'error'}[passClass==true]" ng-model="password1" />
 						<p class="red" >{{passMessage}}</p></li>
 						<li><input ng-mousedown="imgClass=false" ng-class="{true:'l error',false:'l'}[imgClass==true]" name="" class="l" type="text" placeholder="输入图片校验码" ng-model="code" />
 							<div class="yzm">
@@ -72,8 +72,8 @@ $(function(){
 				</div>
 				<div class="login_area" ng-show="!loginAngShow">
 					<ul>
-						<li><input name="" type="text" value="ID2" /></li>
-						<li><input name="" type="text" value="密码" /></li>
+						<li><input name="" type="text" value="ID" /></li>
+						<li><input name="" type="text" value="密码:由6-20位，英文字符组成" /></li>
 						<li><input name="" type="text" value="输入图片校验码" class="l" />
 							<div class="yzm">
 								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />

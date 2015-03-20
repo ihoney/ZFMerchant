@@ -30,8 +30,8 @@
  	</insert>
  	
  	<insert id="addMerchan" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Merchant">
-		 INSERT into merchants(legal_person_name,legal_person_card_id,title,tax_registered_no,organization_code_no,created_at,updated_at,account_bank_num,customer_id)
-		 VALUES(#{legalPersonName},#{legalPersonCardId},#{title},#{taxRegisteredNo},#{organizationCodeNo},now(),now(),#{accountBankNum},#{customerId})
+		 INSERT into merchants(legal_person_name,legal_person_card_id,title,tax_registered_no,organization_code_no,created_at,updated_at,account_bank_num,customer_id,city_id,phone)
+		 VALUES(#{legalPersonName},#{legalPersonCardId},#{title},#{taxRegisteredNo},#{organizationCodeNo},now(),now(),#{accountBankNum},#{customerId},#{cityId},#{phone})
  	</insert>
  	
  	<update id="updateApply" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
@@ -89,9 +89,9 @@
 		WHERE  terminal_id = #{terminalId}
  	</select>
  	
- 	<select id="getMerchantsIsNo" resultType="int"  parameterType="string">
+ 	<select id="getMerchantsIsNo" resultType="int"  parameterType="map">
  		SELECT count(*) FROM merchants 
- 		WHERE legal_person_card_id = #{legalPersonCardId}
+ 		WHERE title = #{merchantName} or phone = #{phone}
  	</select>
  	
  	

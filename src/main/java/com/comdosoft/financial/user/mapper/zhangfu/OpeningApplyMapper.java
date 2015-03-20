@@ -49,7 +49,7 @@ public interface OpeningApplyMapper {
 	 * 申请开通时判断商户是否存在
 	 * @return
 	 */
-	int getMerchantsIsNo(String legalPersonCardId);
+	int getMerchantsIsNo(Map<Object, Object> map);
 	
 	/**
 	 * 添加商户
