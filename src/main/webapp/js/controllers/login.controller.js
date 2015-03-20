@@ -212,6 +212,10 @@ var loginController=function($scope, $location, $http, LoginService){
 var registerController=function($scope, $location, $http, LoginService){
 	$scope.usernameLocal=$location.search()['sendusername'];
 	$scope.sendStatus=Math.ceil($location.search()['sendStatus']);
+	//检验邮箱格式
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	//手机格式
+	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
 	//邮箱激活链接判断
 	if($scope.sendStatus == -1){
 		$scope.show = false;
@@ -223,6 +227,8 @@ var registerController=function($scope, $location, $http, LoginService){
 				$scope.miao = 5;
 				 window.setInterval(function(){
 				    	if($scope.miao == 0){
+				    		$scope.sendStatus = null;
+				    		$scope.usernameLocal = null;
 				    		window.location.href = '#/login';
 				    	}else{
 				    		$(".winSkip").html("账号激活成功！<span>"+$scope.miao+"秒</span>后跳转至登录页！");
@@ -295,8 +301,9 @@ var registerController=function($scope, $location, $http, LoginService){
 	$scope.registreTime = true;
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
-		
-		if($scope.registreTime == true){
+		if(!reg.test($scope.rename)){
+			alert("请输入合法手机号！");
+		}else if($scope.registreTime == true){
 			$scope.registreTime = false;
 			$http.post("api/user/sendPhoneVerificationCodeReg", {
 				codeNumber : $scope.rename
@@ -318,24 +325,34 @@ var registerController=function($scope, $location, $http, LoginService){
 	}
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
-		if($scope.ridel_xy != true){
-			if($scope.code == $scope.codeNumber){
-				if($scope.password1 == $scope.password2){
-					$http.post("api/user/sizeUpImgCode", {
-						imgnum : $scope.codeBei
-					}).success(function(data) {
-						if (data.code == 1) {
-							$scope.addUser();
-						} else if (data.code == -1) {
-							alert(data.message);
-						}
-					})
-				}else{
-					alert("密码不一致！");
+		if($scope.selected == undefined || $scope.phoneShiList == undefined){
+			alert("请选择城市！");
+		}else if(!reg.test($scope.rename)){
+			alert("请输入合法手机号！");
+		}else if($scope.codeNumber == undefined){
+			alert("请输入验证码！");
+		}else if($scope.code == $scope.codeNumber){
+			if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
+				alert("密码不能为空！");
+			}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
+				alert("密码受长度限制！");
+			}else if($scope.password1 == $scope.password2){
+				$http.post("api/user/sizeUpImgCode", {
+				imgnum : $scope.codeBei
+			}).success(function(data) {
+				if (data.code == 1) {
+					if($scope.ridel_xy != true){//勾选协议
+						$scope.addUser();
+					}
+				} else if (data.code == -1) {
+					alert(data.message);
 				}
-			}else{
-				alert("验证码错误!");
-			}
+			})
+		}else{
+			alert("密码不一致！");
+		}
+		}else{
+			alert("验证码错误!");
 		}
 	};
 	
@@ -361,31 +378,40 @@ var registerController=function($scope, $location, $http, LoginService){
 			}
 		})
 	};
-	
 	// 校验图片验证码
-	$scope.getImgEmailCode = function(){
-		if($scope.ridel_xy != true){
-			$http.post("api/user/jusEmail", {
-				username : $scope.emailname
+	$scope.getImgEmailCode = function() {
+		if ($scope.selected == undefined || $scope.emailShiList == undefined) {
+			alert("请选择城市！");
+		} else if (!myreg.test($scope.emailname)) {
+			alert("请输入合法邮箱！");
+		} else if ($scope.password1 == '' || $scope.password1 == null
+				|| $scope.password2 == '' || $scope.password2 == null) {
+			alert("密码不能为空！");
+		} else if ($scope.password1.length < 6 || $scope.password1.length > 20
+				|| $scope.password2.length < 6 || $scope.password2.length > 20) {
+			alert("密码受长度限制！");
+		} else if ($scope.password1 == $scope.password2) {
+			$http.post("api/user/sizeUpImgCode", {
+				imgnum : $scope.codeBei
 			}).success(function(data) {
-				if(data.code == 1){
-					if($scope.password1 == $scope.password2){
-						$http.post("api/user/sizeUpImgCode", {
-							imgnum : $scope.codeBei
+				if (data.code == 1) {// 图片验证
+					if ($scope.ridel_xy != true) {// 勾选协议
+						$http.post("api/user/jusEmail", {
+							username : $scope.emailname
 						}).success(function(data) {
-							if (data.code == 1) {
+							if (data.code == 1) {// 检验用户是否存在
 								$scope.addUserEmail();
-							} else if (data.code == -1) {
+							} else {
 								alert(data.message);
 							}
 						})
-					}else{
-						alert("密码不一致！");
 					}
-				}else{
+				} else if (data.code == -1) {
 					alert(data.message);
 				}
 			})
+		} else {
+			alert("密码不一致！");
 		}
 	};
 	
@@ -463,6 +489,8 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	$scope.sendStatus=Math.ceil($location.search()['sendStatus']);
 	//检验邮箱格式
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	//手机格式
+	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
 	//隐藏想邮箱发送邮件状态
 	$scope.songToEmail = false;
 	// 初始化图片验证码
@@ -540,53 +568,55 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
-		$http.post("api/user/getFindUser", {
-			username : $scope.phone_email
-		}).success(function(data) {
-			if (data.code == -1) {
-				alert(data.message);
-			} else {
-				$http.post("api/user/sizeUpImgCode", {
-					imgnum : $scope.code
-				}).success(function(data) {
-					if (data.code == -1) {
-						alert(data.message);
-					} else {
-						// 下一步
-						if (myreg.test($scope.phone_email)) {
-							// 向邮箱发送密码重置邮件！
-							$http.post("api/user/sendEmailVerificationCode", {
-								codeNumber : $scope.phone_email,
-							}).success(function(data) {
-								if (data.code == 1) {
-									alert("重置邮件发送成功！");
-									$scope.songToEmail = true;
-									$scope.twostep();
-								} else {
-									alert("重置密码邮件发送失败！");
-								}
-							})
+		if(!reg.test($scope.phone_email)&&!myreg.test($scope.phone_email)){
+			alert("请输入正确的手机/邮箱号码！");
+		}else{
+			$http.post("api/user/getFindUser", {
+				username : $scope.phone_email
+			}).success(function(data) {
+				if (data.code == -1) {//检验账号存在
+					alert(data.message);
+				} else {
+					$http.post("api/user/sizeUpImgCode", {
+						imgnum : $scope.code
+					}).success(function(data) {
+						if (data.code == -1) {
+							alert(data.message);
 						} else {
-							$http.post("api/user/sendPhoneVerificationCodeFind", {
-								codeNumber : $scope.phone_email,
-							}).success(function(data) {
-								if (data.code == 1) {
-									alert(data.result);
-									$scope.code = data.result;
-									$scope.codeNumber = "";
-									$scope.twostep();
-									//倒计时
-									$scope.intDiff = 120;
-									$scope.rountTime();
-								} else {
-									alert(data.message);
-								}
-							})
+							// 下一步
+							if (myreg.test($scope.phone_email)) {
+								// 向邮箱发送密码重置邮件！
+								$http.post("api/user/sendEmailVerificationCode", {
+									codeNumber : $scope.phone_email,
+								}).success(function(data) {
+									if (data.code == 1) {
+										$scope.songToEmail = true;
+										$scope.twostep();
+									} else {
+										alert("重置密码邮件发送失败！");
+									}
+								})
+							} else {
+								$http.post("api/user/sendPhoneVerificationCodeFind", {
+									codeNumber : $scope.phone_email,
+								}).success(function(data) {
+									if (data.code == 1) {
+										$scope.code = data.result;
+										$scope.codeNumber = "";
+										$scope.twostep();
+										//倒计时
+										$scope.intDiff = 120;
+										$scope.rountTime();
+									} else {
+										alert(data.message);
+									}
+								})
+							}
 						}
-					}
-				})
-			}
-		})
+					})
+				}
+			})
+		}
 	};
 	
 	// 找回密码第三步
@@ -609,7 +639,11 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	
 	// 开始找回
 	$scope.findPassEnd = function() {
-		if ($scope.password1 != $scope.password2) {
+		if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
+			alert("密码不能为空！");
+		}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
+			alert("密码受长度限制！");
+		}else if ($scope.password1 != $scope.password2) {
 			alert("密码不一致！");
 		} else {
 			$http.post("api/user/webUpdatePass", {

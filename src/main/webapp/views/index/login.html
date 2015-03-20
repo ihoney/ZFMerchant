@@ -52,14 +52,16 @@ $(function(){
 			<div class="lr_b">
 				<div class="login_area" ng-show="loginAngShow">
 					<ul>
-						<li><input id="loginUname" onFocus="inputOnFous()" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="ID" ng-model="username" />
+						<li><input id="loginUname" ng-mousedown="unameClass=fale" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="ID" ng-model="username" />
 							<p class="red" >{{nameMessage}}</p></li>
-						<li><input name="" type="password" placeholder="密码" ng-model="password1" /></li>
-						<li><input ng-class="{true:'l error'}[imgClass==true]" name="" class="l" type="text" placeholder="输入图片校验码" ng-model="code" />
+						<li><input name="" ng-mousedown="passClass=false" type="password" placeholder="密码" ng-class="{true:'error'}[passClass==true]" ng-model="password1" />
+						<p class="red" >{{passMessage}}</p></li>
+						<li><input ng-mousedown="imgClass=false" ng-class="{true:'l error',false:'l'}[imgClass==true]" name="" class="l" type="text" placeholder="输入图片校验码" ng-model="code" />
 							<div class="yzm">
 								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
 							</div>
-							<p class="red" >{{imgMessage}}</p></li>
+							<!-- <p class="red" >{{imgMessage}}</p> -->
+							</li>
 					</ul>
 					<div class="forget">
 						<span><input name="" type="checkbox" value="" ng-model="RememberPass" />记住密码</span> <a href="#/findpass" >忘记密码？</a>

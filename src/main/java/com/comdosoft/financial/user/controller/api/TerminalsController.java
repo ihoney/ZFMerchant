@@ -666,6 +666,7 @@ public class TerminalsController {
 								.get("bankNum"));
 						merchant.setCustomerId((Integer) map
 								.get("customersId"));
+						merchant.setCityId((Integer)map.get("cityId"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
 						//terminalId = merchant.getId();
