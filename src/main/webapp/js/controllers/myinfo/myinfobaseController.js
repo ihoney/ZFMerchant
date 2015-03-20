@@ -5,6 +5,9 @@ var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http,$location, LoginService) {
 	var sid = $location.search()['id'];
 	var customerId = LoginService.userid;
+	var v1;//倒计时1
+	var v2;//倒计时2
+	var v3;//邮箱
 	$scope.init = function() {
 		$scope.intDiff=0;
 		// 判断是否已登录
@@ -78,55 +81,79 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	//根据手机号发送验证码
 	$scope.sendPhoneCode = function(){
 		var sMobile = $scope.i_phone_new; 
-	    	$scope.req ={phone:sMobile};
-	    	$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
-	            if (data != null && data != undefined) {
-	                $scope.phone_code = data.result;
-    				 var v3 = window.setInterval(function(){
-    					$('#show_phone_input_my_o_btn').html();
-    			    	if($scope.intDiff == 0){
-    			    		$('#show_phone_input_my_o_btn').html("发送验证码！");
-    			    		$scope.intDiff =120;
-    			    		clearInterval(v3);
-    			    	}else{
-    			    		$('#show_phone_input_my_o_btn').html("重新发送验证码（"+$scope.intDiff+"秒）");
-    			    	    $scope.intDiff--;
-    			    	}
-    			    }, 1000);
-	            }
-	        });
-	};
- 
-	//第一次发送验证码   //
-	$scope.send_code_one = function(){
-		if($scope.intDiff ==120 ){
-			 var v1 = window.setInterval(function(){
-				$('#send_code_one').html();
+		if($scope.intDiff == 0){
+			console.log("第二个  获取 验证码  开始");
+			$scope.getPhoneCode(sMobile);
+			$scope.intDiff = 120;
+			clearInterval(v2);
+			v2 = window.setInterval(function(){
+				$('#show_phone_input_my_o_btn').html();
 		    	if($scope.intDiff == 0){
-		    		$('#send_code_one').html("发送验证码！");
-		    		$scope.intDiff =120;
-		    		clearInterval(v1);
+		    		$('#show_phone_input_my_o_btn').html("发送验证码");
+		    		clearInterval(v2);
 		    	}else{
-		    		$('#send_code_one').html("重新发送验证码（"+$scope.intDiff+"秒）");
+		    		$('#show_phone_input_my_o_btn').html("重新发送验证码（"+$scope.intDiff+"秒）");
 		    	    $scope.intDiff--;
 		    	}
 		    }, 1000);
-			var sMobile = $scope.customer.phone; 
-//			$scope.i_phone_new = ""; 
-//			$scope.i_phone_code = ""; 
-//			$scope.phone_code_i_o = ""; 
-			$scope.req ={phone:sMobile};
-			$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
-				if (data != null && data != undefined) {
-					$scope.phone_code = data.result;
-				}
-			});
-		}else if($scope.intDiff ==0){
-			$('#send_code_one').html("发送验证码！");
-			$scope.intDiff =120;
+		}else{
+			console.log("第二个  获取 验证码   时间未到");
 		}
-		
 	};
+ 
+	
+	//第一次发送验证码   //
+	$scope.send_code_one = function(t){
+		if(t==1){
+			$('#send_code_one').html("发送验证码");
+			$scope.phone_code_i_o = "";
+			$scope.i_phone_new = "";
+			$scope.i_phone_code = "";
+//			console.log(t+"第一次发送验证码");
+//			 v1= window.setInterval(function(){
+//				$('#send_code_one').html();
+//		    	if($scope.intDiff == 0){
+//		    		$('#send_code_one').html("发送验证码");
+//		    		clearInterval(v1);
+//		    	}else{
+//		    		$('#send_code_one').html("重新发送验证码（"+$scope.intDiff+"秒）");
+//		    	    $scope.intDiff--;
+//		    	}
+//		    }, 1000);
+////			var sMobile = $scope.customer.phone; 
+////			$scope.getPhoneCode(sMobile);
+		}else if(t=2){//再次点击获取
+			if($scope.intDiff == 0){
+				$scope.intDiff =120;
+				console.log(t+"再次点击获取发送验证码");
+				v1= window.setInterval(function(){
+					$('#send_code_one').html();
+			    	if($scope.intDiff == 0){
+			    		$('#send_code_one').html("发送验证码");
+			    		clearInterval(v1);
+			    	}else{
+			    		$('#send_code_one').html("重新发送验证码（"+$scope.intDiff+"秒）");
+			    	    $scope.intDiff--;
+			    	}
+			    }, 1000);
+				var sMobile = $scope.customer.phone; 
+				$scope.getPhoneCode(sMobile);
+			}else{
+				console.log(t+"再次点击获取发送验证码时间未到");
+			}
+		}
+	};
+	
+	//根据手机号发送并获取验证码
+	$scope.getPhoneCode = function(sMobile){
+		$scope.req ={phone:sMobile};
+		$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
+			if (data != null && data != undefined) {
+				$scope.phone_code = data.result;
+				console.log("code ==>"+$scope.phone_code);
+			}
+		});
+	}
 	//确认验证码，（第一次）
 	$scope.yz_phone_code = function(){
 		var p_code = $scope.phone_code;
@@ -158,10 +185,21 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 				
 				
 				//第二个验证框显示
-				$('#show_phone_input_my_o_btn').html("发送验证码！");
-				$scope.intDiff =120;
-				
-				$scope.sendPhoneCode();
+				$('#show_phone_input_my_o_btn').html("发送验证码");
+				clearInterval(v1);
+				$scope.getPhoneCode(sMobile);
+				$scope.intDiff = 120;
+				console.log("确认获取验证码  开始倒计时" + $scope.intDiff);
+				v2 = window.setInterval(function(){
+					$('#show_phone_input_my_o_btn').html();
+			    	if($scope.intDiff == 0){
+			    		$('#show_phone_input_my_o_btn').html("发送验证码");
+			    		clearInterval(v2);
+			    	}else{
+			    		$('#show_phone_input_my_o_btn').html("重新发送验证码（"+$scope.intDiff+"秒）");
+			    	    $scope.intDiff--;
+			    	}
+			    }, 1000);
 		    }
 		}else{
 			alert("验证码错误");
@@ -191,25 +229,48 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	
 	//修改邮箱
 	$scope.up_email = function(){
-		var email = $scope.customer.email;
-		var v5 = window.setInterval(function(){
-			$('#email_send_btn').html();
-	    	if($scope.intDiff == 0){
-	    		$('#email_send_btn').html("修改邮箱");
-	    		$scope.intDiff =120;
-	    		clearInterval(v5);
-	    	}else{
-	    		$('#send_code_one').html("重新发送（"+$scope.intDiff+"秒）");
-	    	    $scope.intDiff--;
-	    	}
-	    }, 1000);
-		
-		$scope.req ={id:LoginService.userid,content:email,q:$scope.customer.name};
-		$http.post("api/index/change_email",$scope.req).success(function (data) {   
-			if (data != null && data != undefined) {
-//				alert("发送成功,请注意查收!");
-			}
-		});
+		console.log("修改邮箱 start==》》"+$scope.intDiff);
+//		email_send_btn
+		if($scope.intDiff == 0){
+    		$scope.intDiff =120;
+			 v3 = window.setInterval(function(){
+				$('#email_send_btn').html();
+		    	if($scope.intDiff == 0){
+		    		$('#email_send_btn').html("修改邮箱");
+		    		clearInterval(v3);
+		    	}else{
+		    		$('#email_send_btn').html("等待（"+$scope.intDiff+"秒）");
+		    	    $scope.intDiff--;
+		    	}
+		    }, 1000);
+			 console.log("发送邮箱 中。。。。。");
+				var email = $scope.customer.email;
+				$scope.req ={id:LoginService.userid,content:email,q:$scope.customer.name};
+				$http.post("api/index/change_email",$scope.req).success(function (data) {   
+					if (data != null && data != undefined) {
+//						alert("发送成功,请注意查收!");
+					}
+				});
+				
+				//显示提示
+				var doc_height = $(document).height();
+				var doc_width = $(document).width();
+				var win_height = $(window).height();
+				var win_width = $(window).width();
+				
+				var layer_height = $("#email_send_tab").height();
+				var layer_width = $("#email_send_tab").width();
+				
+				var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+				
+			    $(".mask").css({display:'block',height:doc_height});
+				$("#email_send_tab").css('top',(win_height-layer_height)/2);
+				$("#email_send_tab").css('left',(win_width-layer_width)/2);
+				$("#email_send_tab").css('display','block');
+		}else{
+			console.log("时间未到==> "+$scope.intDiff);
+			return false;
+		}
 	};
 	
 	$scope.save = function() {
