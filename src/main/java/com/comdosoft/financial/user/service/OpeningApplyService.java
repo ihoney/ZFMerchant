@@ -93,7 +93,7 @@ public class OpeningApplyService {
 	 * 
 	 * @return
 	 */
-	public int getMerchantsIsNo(String merchantName,String phone) {
+	public Map<Object, Object> getMerchantsIsNo(String merchantName,String phone) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("merchantName", merchantName);
 		map.put("phone", phone);

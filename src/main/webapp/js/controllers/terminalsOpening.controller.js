@@ -61,12 +61,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
                 		  organization_code_no:$scope.openingInfos.organization_code_no,
                 		  tax_registered_no:$scope.openingInfos.tax_registered_no
                   };
+                  //生日
                   $scope.birthday = $scope.openingInfos.birthday;
                   $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
                   $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
                   $scope.day = Math.ceil($scope.birthday.split("-")[2]);
-                  
-                  terminalOpenModule.directive()
                   
                   //获得城市
                   $scope.cityId = $scope.openingInfos.city_id;
@@ -109,6 +108,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
     	  $scope.siClass = "toPublic hover";
     	  $scope.gongClass = "toPrivate";
       }
+      
   };
   
 //弹出层
@@ -173,18 +173,23 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	//取消城市数据回显值
 	$scope.delectChit = function(){
 		$scope.addressShen = "请选择";
+		$scope.addressShi = "请选择";
+		$scope.cityId = null;
 	}
 	$scope.delectShi = function(){
 		$scope.addressShi = "请选择";
+		$scope.cityId = null;
 	}
 	//取消通道数据回显
 	$scope.delectChanl = function(){
 		$scope.channelName = "请选择";
 		$scope.channelTsName = "请选择";
+		$scope.channel = null;
 		$scope.billingId = null;
 	}
 	$scope.delectChanlTs = function(){
 		$scope.channelTsName = "请选择";
+		$scope.billingId = null;
 	}
 	
 	
@@ -267,7 +272,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  
 	  $http.post("api/terminal/getMaterialName", $scope.map).success(function (data) {  //绑定
           if (data != null && data != undefined) {
-        	  $scope.result=data.result;
+        	  if(data.code == 1){
+        		  $scope.result=data.result;
+        	  }
           }
       }).error(function (data) {
     	  alert("获取列表失败");
@@ -289,89 +296,162 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.channel = null;
 	$scope.billingId = null;
   $scope.addApply = function(){
+
 	  if($scope.req.shiList != undefined){
 		  $scope.cityId = Math.ceil($scope.req.shiList.id);
 	  }
 	  if($scope.chan.chanList != undefined){
 		  $scope.channel = Math.ceil($scope.chan.chanList.id);
 	  }
-	 /* if($scope.billingId == null)*/
 	  if($scope.tln.chanTs != undefined){
 		  $scope.billingId = Math.ceil($scope.tln.chanTs.id);
 	  }
-	  /*if($scope.birthday == null){
-		  $scope.birthday = $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val();
-	  }*/
-	  $scope.list = [
-	                 {
-	                     status:1,
-	                     terminalId:Math.ceil($scope.terminalId),
-	                     publicPrivateStatus: Math.ceil($scope.publicPrivateStatus),
-	                     applyCustomerId: Math.ceil($scope.customerId),
-	                     merchantId: Math.ceil($scope.merchantId),
-	                     merchantName:$scope.merchantNamed,
-	                     sex:Math.ceil($scope.sex),
-	                     birthday: $scope.birthday,
-	                     cardId:$("#cirdValue").val(),
-	                     phone:$("#phoneValue").val(),
-	                     email:$("#emailValue").val(),
-	                     cityId:$scope.cityId,
-	                     name:$("#valueName").val(),
-	                     channel:$scope.channel,
-	                     billingId:$scope.billingId,
-	                     bankNum:$("#bankNumValue").val(),
-	                     bankName:$("#bankNameValue").val(),
-	                     bankCode:$("#bankCodeValue").val(),
-	                     organizationNo:$("#organizationNoValue").val(),
-	                     registeredNo:$("#registeredNoValue").val()
-	                 }
-	             ];
-	  
-	  $scope.listOne=[];
-	  var countOne=0;
-	  for(var i=0;i<$scope.MaterialLevel.length;i++){
-		  for(var y=0;y<$scope.result.length;y++){
-			  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
-				  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
-				  			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
-				  			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
-				  			  $scope.listOne[countOne] = {
-				  					  key:keys,
-				  					  value:values,
-				  					  types:Math.ceil($scope.result[y].info_type),
-				  					  openingRequirementId:Math.ceil($scope.MaterialLevel[i].id),
-				  					  targetId:Math.ceil(id)
-				  			  }
-				  			  countOne++;
+	  $scope.birthday = $("#selYear").val()+"-"+$("#selMonth").val()+"-"+$("#selDay").val();
+	  if($scope.levelCheck()){
+		  
+		  $scope.list = [
+		                 {
+		                     status:1,
+		                     terminalId:Math.ceil($scope.terminalId),
+		                     publicPrivateStatus: Math.ceil($scope.publicPrivateStatus),
+		                     applyCustomerId: Math.ceil($scope.customerId),
+		                     merchantId: Math.ceil($scope.merchantId),
+		                     merchantName:$scope.merchantNamed,
+		                     sex:Math.ceil($scope.sex),
+		                     birthday: $scope.birthday,
+		                     cardId:$("#cirdValue").val(),
+		                     phone:$("#phoneValue").val(),
+		                     email:$("#emailValue").val(),
+		                     cityId:$scope.cityId,
+		                     name:$("#valueName").val(),
+		                     channel:$scope.channel,
+		                     billingId:$scope.billingId,
+		                     bankNum:$("#bankNumValue").val(),
+		                     bankName:$("#bankNameValue").val(),
+		                     bankCode:$("#bankCodeValue").val(),
+		                     organizationNo:$("#organizationNoValue").val(),
+		                     registeredNo:$("#registeredNoValue").val()
+		                 }
+		             ];
+		  
+		  $scope.listOne=[];
+		  var countOne=0;
+		  for(var i=0;i<$scope.MaterialLevel.length;i++){
+			  for(var y=0;y<$scope.result.length;y++){
+				  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
+					  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
+					  			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
+					  			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
+					  			  if(values != null && values != ""){
+					  				$scope.listOne[countOne] = {
+						  					  key:keys,
+						  					  value:values,
+						  					  types:Math.ceil($scope.result[y].info_type),
+						  					  openingRequirementId:Math.ceil($scope.MaterialLevel[i].id),
+						  					  targetId:Math.ceil(id)
+						  			  }
+						  			  countOne++;
+					  			  }
+				  }
 			  }
 		  }
+		  $scope.leng = $scope.list.length;
+		  for(var i=0;i<$scope.listOne.length;i++){
+			  $scope.list[$scope.leng+i] = $scope.listOne[i];
+		  }
+		  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
+	          if (data != null && data != undefined) {
+	        	  if(data.code == 1){
+	        		  //跳转
+	        		  window.location.href = '#/terminal';
+	        	  }else{
+	        		  alert(data.message);
+	        	  }
+	          }
+	      }).error(function (data) {
+	    	  alert("获取列表失败");
+	          $("#serverErrorModal").modal({show: true});
+	      });
 	  }
-	  $scope.leng = $scope.list.length;
-	  for(var i=0;i<$scope.listOne.length;i++){
-		  $scope.list[$scope.leng+i] = $scope.listOne[i];
 	  }
-	  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
-          if (data != null && data != undefined) {
-        	  if(data.code == 1){
-        		  //跳转
-        		  window.location.href = '#/terminal';
-        	  }
-        	  
-          }
-      }).error(function (data) {
-    	  alert("获取列表失败");
-          $("#serverErrorModal").modal({show: true});
-      });
-  }
-  
-  $scope.showSelect= false;
-  //显示下拉框的年月日
-  $scope.showSelectList = function(){
-	  $scope.showSelect= true;
+  //对等级一模块进行校验
+  $scope.levelCheck = function(){
+	  if($scope.merchantNamed == ""){
+		  alert("请选择或填写商户！");
+		  return false;
+	  }else if($("#valueName").val() == ""){
+		  alert("请输入姓名！");
+		  return false;
+	  }else if($("#selYear").val() == "? string: ?"||$("#selMonth").val() == "? string: ?"||$("#selDay").val() == "? string: ?" || $("#selYear").val() == "? object:null ?"||$("#selMonth").val() == "? object:null ?"||$("#selDay").val() == "? object:null ?"|| $("#selYear").val() == "? string:请选择 ?"||$("#selMonth").val() == "? string:请选择 ?"||$("#selDay").val() == "? string:请选择 ?"){
+		  alert("请选择出生日期！");
+		  return false;
+	  }else if($("#cirdValue").val() == ""){
+		  alert("请输入身份证号！");
+		  return false;
+	  }else if($("#phoneValue").val() == ""){
+		  alert("请填写电话号码！");
+		  return false;
+	  }else if($("#emailValue").val() == ""){
+		  alert("请填写邮箱！");
+		  return false;
+	  }else if($scope.cityId == null || $scope.cityId == ""){
+		  alert("请选择城市！");
+		  return false;
+	  }else if($scope.channel == null || $scope.channel == ""){
+		  alert("请选择支付通道！");
+		  return false;
+	  }else if($scope.billingId == null || $scope.billingId  == ""){
+		  alert("请选择通道日期");
+		  return false;
+	  }else if($("#bankNumValue").val() == null || $("#bankNumValue").val() == ""){
+		  alert("请填写结算银行账号！");
+		  return false;
+	  }else if($("#bankNameValue").val() == null || $("#bankNameValue").val() == ""){
+		  alert("请填写结算银行名称！");
+		  return false;
+	  }else if($("#bankCodeValue").val() == null || $("#bankCodeValue").val() == ""){
+		  alert("请填写结算银行代码！");
+		  return false;
+	  }else if($("#organizationNoValue").val() == null || $("#organizationNoValue").val() == ""){
+		  alert("请填写组织登记号！");
+		  return false;
+	  }else if($("#registeredNoValue").val() == null || $("#registeredNoValue").val() == ""){
+		  alert("请填写税务登记号！");
+		  return false;
+	  }
+	  else{
+		  if($scope.MaterialLevel.length>0){
+			  for(var i=0;i<$scope.MaterialLevel.length;i++){
+				  if(i==0){
+					  for(var y=0;y<$scope.result.length;y++){
+						  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
+							  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
+							  			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
+							  			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
+							  			  if(values == null || values == ""){
+							  				if($scope.result[y].info_type != 2){
+							  					 alert("请输入"+keys+"!");
+							  					 return false;
+							  				}else{
+							  					 alert("请选择上传"+keys+"!");
+							  					 return false;
+							  				}
+							  			  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+						  }
+					  }
+				  }
+				  return true;
+			  }
+		  }else{
+			  return true;
+		  }
+	 }
+	  
   }
   
   $scope.terminalDetail();
   $scope.getMaterialName();
+ 
 };
 $(".suggest").hide();
 

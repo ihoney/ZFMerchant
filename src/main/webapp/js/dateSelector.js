@@ -35,6 +35,7 @@ function DateSelector(selYear, selMonth, selDay) {
     this.selDay = selDay;
     this.selYear.Group = this;
     this.selMonth.Group = this;
+    this.selDay.Group = this;
     // 给年份、月份下拉菜单添加处理onchange事件的函数
     if (window.document.all != null) // IE
     {
@@ -153,10 +154,10 @@ DateSelector.prototype.InitSelector = function (year, month, day) {
     // 初始化年、月
     this.InitYearSelect();
     this.InitMonthSelect();
-
+    this.InitDaySelect();
     // 设置年、月初始值
-    this.selYear.selectedIndex = this.MaxYear - year;
-    this.selMonth.selectedIndex = month - 1;
+    //this.selYear.selectedIndex = this.MaxYear - year;
+    //this.selMonth.selectedIndex = month - 1;
 
     // 初始化天数
     this.InitDaySelect();

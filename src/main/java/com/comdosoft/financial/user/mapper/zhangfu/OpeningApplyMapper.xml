@@ -89,8 +89,8 @@
 		WHERE  terminal_id = #{terminalId}
  	</select>
  	
- 	<select id="getMerchantsIsNo" resultType="int"  parameterType="map">
- 		SELECT count(*) FROM merchants 
+ 	<select id="getMerchantsIsNo" resultType="map"  parameterType="map">
+ 		SELECT * FROM merchants 
  		WHERE title = #{merchantName} or phone = #{phone}
  	</select>
  	

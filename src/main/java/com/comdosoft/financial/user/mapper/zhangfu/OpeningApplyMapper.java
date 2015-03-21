@@ -49,7 +49,7 @@ public interface OpeningApplyMapper {
 	 * 申请开通时判断商户是否存在
 	 * @return
 	 */
-	int getMerchantsIsNo(Map<Object, Object> map);
+	Map<Object, Object> getMerchantsIsNo(Map<Object, Object> map);
 	
 	/**
 	 * 添加商户

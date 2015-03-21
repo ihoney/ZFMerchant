@@ -1,6 +1,7 @@
 <script src="js/jquery.form.min.js"></script>
-<script type="text/javascript" src="js/dateSelector.js"></script>
 <script type="text/javascript" src="js/controllers/terminalsOpening.controller.js"></script>
+<script type="text/javascript" src="js/dateSelector.js"></script>
+
  <div class="right" ng-controller="terminalOpenController">
             	<div class="breadcrumb">
                     <ul>
@@ -55,24 +56,12 @@
                                     </div>
                                 </li>
                                 <li ng-show="$index == 0"><span class="labelSpan" id="priKey">生日：</span>
-                                	<div class="text">
-                                	<select ng-click="showSelectList()">
-                                		<option>{{nian}}</option>
+                                    <div class="text">
+                                	<select id="selYear" ng-model="nian">
                                 	</select> 
-                                	<select>
-                                		<option>{{yue}}</option>
+                                	<select id="selMonth" ng-model="yue">
                                 	</select>
-                                	<select>
-                                		<option>{{day}}</option>
-                                	</select>
-                                    </div>
-                                    
-                                    <div class="text" ng-show="showSelect">
-                                	<select id="selYear" onclick="showDateList()">
-                                	</select> 
-                                	<select id="selMonth">
-                                	</select>
-                                	<select id="selDay">
+                                	<select id="selDay" ng-model="day">
                                 	</select>
 							<script type="text/javascript">
 								var selYear = window.document
@@ -104,12 +93,6 @@
 						 				<select ng-model="req.shiList" ng-options="x.name for x in selected.childrens"  ng-click="delectShi()">
 			               					<option value="">{{addressShi}}</option>
 			          					</select>
-                                		<!-- <select>
-		             		 				<option value="" ng-click="citfunction(cit.id)" ng-repeat="cit in cities">{{cit.name}}</option>
-		          						</select>
-						 				<select>
-			               					<option value="" ng-click="shifunction(shiObje.id)" ng-repeat="shiObje in shiSelectList">{{shiObje.name}}</option>
-			          					</select> -->
                                      </div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="channelKey">支付通道：</span>
@@ -153,11 +136,11 @@
                                 <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3 && r.opening_requirements_id == ma.id">
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 	<div class="text">
-                                	<input type="hidden" id="id_{{ma.level+'_'+$index}}"/>
+                                	<input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 	<input name="" type="text" ng-keyup="bank(ma.level+'_'+$index)">
                                 	</div>
                                     <div class="suggest" id="div_{{ma.level+'_'+$index}}">
-                                    	<input name="" type="hidden"  id="value_{{ma.level+'_'+$index}}" value="{{r.id}}">
+                                    	<input name="" type="hidden"  id="value_{{ma.level+'_'+$index}}" value="{{r.value}}">
                                     	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="codes in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,codes.code,codes.name)">{{codes.name}}</a>
                                     </div>
                                 </li>
@@ -175,8 +158,8 @@
                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
                                 	<img src="images/zp.jpg" class="covers" />
                                 	<a href="javascript:void(0);" class="informImg_a" >
-                                    <span ng-if="r.value == ''">上传</span>
-                                    <span ng-if="r.value != ''">重新上传</span>
+                                    <span ng-if="r.value == null" >上传</span>
+                                    <span ng-if="r.value != null" >重新上传</span>
                                     <input type="text" id="value_{{ma.level+'_'+$index}}" value="{{r.value}}"/>
                                     <input  name="img" multiple type="file" onchange="showImage(this)">
                                     </a>

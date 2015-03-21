@@ -653,8 +653,8 @@ public class TerminalsController {
 					openingApplie.setOrganizationCodeNo((String) map
 							.get("registeredNo"));
 					//判断该商户是否存在
-					int count =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
-					if(count == 0){
+					Map<Object, Object> countMap =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
+					if(countMap == null){
 						//添加商户
 						Merchant merchant = new Merchant();
 						merchant.setLegalPersonName((String) map
@@ -678,9 +678,9 @@ public class TerminalsController {
 						//获得添加后商户Id
 						//terminalId = merchant.getId();
 						openingApplie.setMerchantId(merchant.getId());
-					}/*else if(count > 0){
-						terminalId = (Integer)map.get("terminalId");
-					}*/
+					}else if(countMap !=null){
+						openingApplie.setMerchantId((Integer)countMap.get("id"));
+					}
 					
 					//判断该终端是申请开通还是从新申请
 					if(terminalsService.judgeOpen(terminalId) != 0){
@@ -732,7 +732,7 @@ public class TerminalsController {
 					,map.get("status"));
 			for(Map<Object, Object> mp:listMap){
 				for(Map<String, String> mp1:list){
-					if(mp.get("id").equals(mp1.get("target_id"))){
+					if(mp.get("id").equals(mp1.get("target_id")) && mp.get("opening_requirements_id").equals(mp1.get("opening_requirement_id"))){
 						mp.put("value", mp1.get("value"));
 					}
 				}
