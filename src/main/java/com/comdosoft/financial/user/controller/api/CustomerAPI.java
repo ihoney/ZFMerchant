@@ -88,7 +88,6 @@ public class CustomerAPI {
     }
     
     
-    @SuppressWarnings("static-access")
     @RequestMapping(value = "cust_update", method = RequestMethod.POST)
     public Response cust_update(@RequestBody Customer c) {
         logger.debug("更新用户信息:"+c);

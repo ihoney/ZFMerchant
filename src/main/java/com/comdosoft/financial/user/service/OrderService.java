@@ -369,8 +369,14 @@ public class OrderService {
 
     @Transactional(value = "transactionManager-zhangfu")
     public void cleanOrder() {
+    	logger.debug("进入订单清理");
         List<Map<String, Object>>  m = orderMapper.findPersonGoodsQuantity();
-        orderMapper.cleanOrder();
+        if(m.size()<0){
+        	logger.debug("没有找到需要清理的订单");
+        }else{
+        	logger.debug("清理订单开始");
+            orderMapper.cleanOrder();
+        }
         for(Map<String, Object> mm :m){
             String good_id = mm.get("good_id")==null?"":mm.get("good_id").toString();
             String quantity = mm.get("quantity")==null?"":mm.get("quantity").toString();
@@ -379,6 +385,7 @@ public class OrderService {
                 orderMapper.update_goods_stock(good_id,quantity);
             }
         }
+       
     }
     
 }
