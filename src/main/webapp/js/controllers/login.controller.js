@@ -216,6 +216,8 @@ var registerController=function($scope, $location, $http, LoginService){
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	//手机格式
 	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+	var intervalOne;// 
+	clearInterval(intervalOne);
 	//邮箱激活链接判断
 	if($scope.sendStatus == -1){
 		$scope.show = false;
@@ -225,16 +227,18 @@ var registerController=function($scope, $location, $http, LoginService){
 			if(data.code == 1){
 				$scope.sendEmailShow = false;
 				$scope.miao = 5;
-				 window.setInterval(function(){
+				intervalOne = window.setInterval(function(){
 				    	if($scope.miao == 0){
 				    		$scope.sendStatus = null;
 				    		$scope.usernameLocal = null;
+				    		clearInterval(intervalOne);
 				    		window.location.href = '#/login';
 				    	}else{
 				    		$(".winSkip").html("账号激活成功！<span>"+$scope.miao+"秒</span>后跳转至登录页！");
 				    	    $scope.miao--;
 				    	}
 				    }, 1000);
+				intervalOne;
 			}else{
 				alert("激活失败！");
 			}
@@ -258,9 +262,9 @@ var registerController=function($scope, $location, $http, LoginService){
 	
 	$scope.init= function() {
 		//移除样式
-		//$("link[href='style/global.css']").remove();
+		$("link[href='style/global.css']").remove();
 		//隐藏中间搜索
-	//	$scope.$emit('changesearchview',false);
+		$scope.$emit('changesearchview',false);
 		//获得省级
 		$scope.getShengcit();
 	};
@@ -273,6 +277,8 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.password2 = null;
 		$scope.codeBei = null;
 		$scope.show = true;
+		//倒计时
+		clearInterval(intervalOne);
 		//获得省级
 		$scope.getShengcit();
 		/*$http.post("api/terminal/getCities").success(function(data) {
@@ -295,6 +301,8 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		//倒计时
+		clearInterval(intervalOne);
 		
 	}
 	//获取验证码后动态显示倒计时
@@ -567,7 +575,7 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	
 	
 	//移除样式
-	//$("link[href='style/global.css']").remove();
+	$("link[href='style/global.css']").remove();
 	
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
