@@ -45,7 +45,7 @@
 		FROM
 			cs_repairs
 		WHERE
-			`status` != 1
+			`status` != 1   and customer_id=#{customer_id}
 		UNION ALL
 			SELECT
 					CASE `status`
@@ -60,7 +60,7 @@
 			FROM
 				cs_returns
 			WHERE
-				`status` != 1
+				`status` != 1  and customer_id=#{customer_id}
 			UNION ALL
 				SELECT
 						CASE `status`
@@ -75,11 +75,11 @@
 				FROM
 					cs_changes
 				WHERE
-					`status` != 1
+					`status` != 1   and customer_id=#{customer_id}
 		) cs
 	ORDER BY
 		cs.updated_at DESC
-	LIMIT 0, 6
+	LIMIT 0, 7
 	</select>
 	
 	<select id="countSearch" resultType="int" >
