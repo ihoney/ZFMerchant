@@ -216,6 +216,9 @@ var registerController=function($scope, $location, $http, LoginService){
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	//手机格式
 	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+	var intervalOne;
+	// 
+	clearInterval(intervalOne);
 	//邮箱激活链接判断
 	if($scope.sendStatus == -1){
 		$scope.show = false;
@@ -225,16 +228,18 @@ var registerController=function($scope, $location, $http, LoginService){
 			if(data.code == 1){
 				$scope.sendEmailShow = false;
 				$scope.miao = 5;
-				 window.setInterval(function(){
+				intervalOne = window.setInterval(function(){
 				    	if($scope.miao == 0){
 				    		$scope.sendStatus = null;
 				    		$scope.usernameLocal = null;
+				    		clearInterval(intervalOne);
 				    		window.location.href = '#/login';
 				    	}else{
 				    		$(".winSkip").html("账号激活成功！<span>"+$scope.miao+"秒</span>后跳转至登录页！");
 				    	    $scope.miao--;
 				    	}
 				    }, 1000);
+				intervalOne;
 			}else{
 				alert("激活失败！");
 			}
@@ -273,15 +278,15 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.password2 = null;
 		$scope.codeBei = null;
 		$scope.show = true;
+		//发送邮件倒计时
+		clearInterval(intervalOne);
+		//发送手机验证码倒计时
+		clearInterval(intervalTwo);
+		$scope.intDiff = 120;
+		$('#time_show').html("获取验证码！");
+		$scope.registreTime = true;
 		//获得省级
 		$scope.getShengcit();
-		/*$http.post("api/terminal/getCities").success(function(data) {
-			if (data.code == 1) {
-				$scope.cities = data.result;
-			} else {
-				alert("城市加载失败！");
-			}
-		})*/
 	};
 	
 	// 跳转邮箱注册用户
@@ -295,10 +300,19 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		//发送邮件倒计时
+		clearInterval(intervalOne);
+		//发送手机验证码倒计时
+		clearInterval(intervalTwo);
+		$scope.intDiff = 120;
+		$('#time_show').html("获取验证码！");
+		$scope.registreTime = true;
 		
 	}
 	//获取验证码后动态显示倒计时
 	$scope.registreTime = true;
+	var intervalTwo;
+	clearInterval(intervalTwo);
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
 		if(!reg.test($scope.rename)){
@@ -310,9 +324,18 @@ var registerController=function($scope, $location, $http, LoginService){
 			}).success(function(data) {
 				if(data.code == 1){
 					$scope.code = data.result;
-					/*//倒计时
-					$scope.intDiff = 120;*/
-					$scope.rountTime();
+					$scope.intDiff = 120;
+					intervalTwo = window.setInterval(function(){
+				    	if($scope.intDiff == 0){
+				    		$('#time_show').html("获取验证码！");
+				    		$scope.registreTime = true;
+				    		clearInterval(intervalTwo);
+				    	}else{
+				    		$('#time_show').html("重新发送（"+$scope.intDiff+"秒）");
+				    	    $scope.intDiff--;
+				    	}
+				    }, 1000);
+					intervalTwo;
 				}else{
 					$scope.registreTime = true
 					alert(data.message);
@@ -447,36 +470,6 @@ var registerController=function($scope, $location, $http, LoginService){
 		})
 	};
 	
-	//倒计时
-	
-	$scope.rountTime=function() {
-		$scope.intDiff = 120;
-	    window.setInterval(function(){
-	    	if($scope.intDiff == 0){
-	    		$('#time_show').html("获取验证码！");
-	    		$scope.registreTime = true;
-	    	}else{
-	    		$('#time_show').html("重新发送（"+$scope.intDiff+"秒）");
-	    	    $scope.intDiff--;
-	    	}
-	    }, 1000);
-	};
-	
-	
-/*	//获得市级
-	$scope.getShicit = function(parentId){
-		$http.post("api/terminal/getShiCities", {
-			parentId : parentId
-		}).success(function(data) {
-			$scope.getShi = data.result;
-		})
-	};*/
-	
-/*	//获得市ID
-	$scope.getsShiId = function(siId){
-		$scope.siId = siId;
-	};*/
-	
 	$scope.toIndex = function(){
     	window.location.href = '#/';
     	location.reload();
@@ -495,6 +488,8 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
 	//隐藏想邮箱发送邮件状态
 	$scope.songToEmail = false;
+	$scope.intDiff = 120;
+	
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
@@ -531,17 +526,29 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	$scope.codeStatus = false;
 	$scope.newCode = function(){
 		if($scope.codeStatus == true){
+			$scope.codeStatus = false;
 			$http.post("api/user/sendPhoneVerificationCodeFind", {
 				codeNumber : $scope.phone_email,
 			}).success(function(data) {
 				if (data.code == 1) {
-					alert(data.result);
+					clearInterval(window.a);
+					clearInterval(window.b);
 					$scope.code = data.result;
 					$scope.codeNumber = "";
-					$scope.twostep();
+					//$scope.twostep();
 					//倒计时
-					/*$scope.intDiff = 120;*/
-					$scope.rountTime();
+					$scope.intDiff = 120;
+					window.b = window.setInterval(function(){
+				    	if($scope.intDiff == 0){
+				    		$('#day_show').html("点击获得验证码！");
+				    		$scope.codeStatus = true;
+				    		clearInterval(window.b);
+				    	}else{
+				    		$('#day_show').html("重新发送验证码（"+$scope.intDiff+"秒）");
+				    	    $scope.intDiff--;
+				    	}
+				    }, 1000);
+					intervalThree;
 				} else {
 					alert("发送手机验证码失败！");
 				}
@@ -549,28 +556,12 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 		}
 	}
 	
-	//倒计时
-	
-	$scope.rountTime=function() {
-		$scope.intDiff = 120;
-	    window.setInterval(function(){
-	    	if($scope.intDiff == 0){
-	    		$('#day_show').html("点击获得验证码！");
-	    		$scope.codeStatus = true;
-	    	}else{
-	    		$('#day_show').html("重新发送验证码（"+$scope.intDiff+"秒）");
-	    	    $scope.intDiff--;
-	    	}
-	    }, 1000);
-	};
-	
-	
-	
 	//移除样式
 	$("link[href='style/global.css']").remove();
 	
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
+		$scope.intDiff = 120;
 		if(!reg.test($scope.phone_email)&&!myreg.test($scope.phone_email)){
 			alert("请输入正确的手机/邮箱号码！");
 		}else{
@@ -604,12 +595,22 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 									codeNumber : $scope.phone_email,
 								}).success(function(data) {
 									if (data.code == 1) {
+										window.clearInterval(window.a);
 										$scope.code = data.result;
 										$scope.codeNumber = "";
+										//倒计时
+										$scope.intDiff = 120;
 										$scope.twostep();
-										/*//倒计时
-										$scope.intDiff = 120;*/
-										$scope.rountTime();
+										window.a = window.setInterval(function(){
+									    	if($scope.intDiff == 0){
+									    		$('#day_show').html("点击获得验证码！");
+									    		$scope.codeStatus = true;
+									    		window.clearInterval(window.a);
+									    	}else{
+									    		$('#day_show').html("重新发送验证码（"+$scope.intDiff+"秒）");
+									    	    $scope.intDiff--;
+									    	}
+									    }, 1000);
 									} else {
 										alert(data.message);
 									}

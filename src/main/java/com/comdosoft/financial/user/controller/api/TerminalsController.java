@@ -649,9 +649,9 @@ public class TerminalsController {
 					openingApplie.setAccountBankCode((String) map
 							.get("bankCode"));
 					openingApplie.setTaxRegisteredNo((String) map
-							.get("organizationNo"));
-					openingApplie.setOrganizationCodeNo((String) map
 							.get("registeredNo"));
+					openingApplie.setOrganizationCodeNo((String) map
+							.get("organizationNo"));
 					//判断该商户是否存在
 					Map<Object, Object> countMap =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
 					if(countMap == null){
