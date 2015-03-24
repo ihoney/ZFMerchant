@@ -107,9 +107,9 @@
         	<ul>
             	<li><span class="labelSpan">支付通道：</span>
                 	<div class="text">
-                        <select name="">
+                        <select name="" ng-model="payChannelId" ng-change="channelId()">
                         	<option>请选择</option>
-                            <option ng-repeat="chan in channels" ng-click="channelId(chan.id)">{{chan.name}}</option>
+                            <option value="{{chan.id}}" ng-repeat="chan in channels">{{chan.name}}</option>
                         </select>
                     </div>
                 </li>

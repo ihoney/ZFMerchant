@@ -53,13 +53,14 @@ var terminalController = function ($scope, $http, LoginService) {
       });
 	}  
 	
+	$scope.payChannelId = null;
 	//添加終端是通道Id
-	$scope.channelId = function(chanId){
-		$scope.payChannelId = Math.ceil(chanId);
+	$scope.channelId = function(){
+		//$scope.payChannelId = Math.ceil(chanId);
 	}
 	//添加終端$scope.channels
 	$scope.addChannel = function() {
-		if ($scope.payChannelId == undefined) {
+		if ($scope.payChannelId == null) {
 			alert("请选择通道！");
 		} else if ($scope.title == undefined) {
 			alert("请填写商户名！");
