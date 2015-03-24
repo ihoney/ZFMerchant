@@ -13,7 +13,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.sex="";
 	$scope.shiLian =[];
 	$scope.applyFor = [];
-	//对公对私（0.公 1.私）
+	//申请方式（1.开通 2.重新开通）
+	$scope.appStatus = 1;
+	//对公对私（1.公 2.私）
 	$scope.status=1;
 	//显示对公对私按钮
 	$scope.siClass = "toPrivate";
@@ -33,6 +35,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails;
+              if($scope.applyDetails.appId != undefined){
+            	  $scope.appStatus = 2;
+              }
               //终端动态数据回显
               $scope.applyFor = data.result.applyFor;
               //终端基本数据回显
@@ -51,6 +56,14 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               if($scope.openingInfos != null && $scope.openingInfos!= undefined){
             	//数据替换
                   $scope.status = $scope.openingInfos.types;
+                //根据对公对私状态显示按钮
+                  if($scope.status == 1){
+                	  $scope.siClass = "toPrivate";
+                	  $scope.gongClass = "toPublic hover";
+                  }else if($scope.status == 2){
+                	  $scope.siClass = "toPublic hover";
+                	  $scope.gongClass = "toPrivate";
+                  }
                   $scope.merchantNamed = $scope.openingInfos.merchant_name
                   $scope.merchantId  = $scope.openingInfos.merchant_id;
                   $scope.sex = $scope.openingInfos.sex;
@@ -95,19 +108,12 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               			}
               		  }
               	  }
-              }             
+              }  
+              $scope.getMaterialName();
           }
       }).error(function (data) {
     	  alert("获取列表失败");
       });
-      //根据对公对私状态显示按钮
-      if($scope.status == 0){
-    	  $scope.siClass = "toPrivate";
-    	  $scope.gongClass = "toPublic hover";
-      }else if($scope.status == 1){
-    	  $scope.siClass = "toPublic hover";
-    	  $scope.gongClass = "toPrivate";
-      }
       
   };
   
@@ -142,21 +148,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   $scope.channelName = "请选择";
   $scope.channelTsName = "请选择";
-  //获得通道ID
- /* $scope.getChannels = function(chanId){
-	  $scope.chanId = Math.ceil(chanId);
-	  for(var i=0;i<$scope.channels.length;i++){
-		  if($scope.channels[i].id == $scope.chanId){
-			  $scope.chanTs = $scope.channels[i].billings;
-		  }
-	  }
-  }*/
-  
-  //获得通道周期时间ID
-  /*$scope.getChannelT = function(Tid){
-	  $scope.Tid = Math.ceil(Tid);
-  }*/
-  
   $scope.addressShen = "请选择";
   $scope.addressShi = "请选择";
   $scope.cities = [];
@@ -193,35 +184,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	}
 	
 	
-	//更具省获得市
-	/*$scope.shiSelectList = {};
-	$scope.citfunction = function(citId){
-		for(var i=0;i<$scope.cities.length;i++){
-			if($scope.cities[i].id == citId){
-				$scope.shiSelectList = $scope.cities[i].childrens;
-			}
-		}
-	}*/
-	//获得市ID
-	/*$scope.shifunction = function(shiId){
-		$scope.shiId = shiId;
-	}*/
-	
-	//根据通道获得通道周期
-	/*$scope.tsSelectList = {};
-	$scope.chanfunction = function(chanId){
-		
-		for(var i=0;i<$scope.channels.length;i++){
-			if($scope.channels[i].id == chanId){
-				$scope.chanId = chanId;
-				$scope.tsSelectList = $scope.channels[i].billings;
-			}
-		}
-	}*/
-	//获得通道周期ID
-	/*$scope.tsfunction = function(tsId){
-		$scope.tsId = tsId;
-	}*/
 //动态加载银行
   $scope.bankName ="";
   $scope.bank = function(obj){
@@ -248,7 +210,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   
 //对私按钮
   $scope.changgSiStatus = function(num){
-	  $scope.publicPrivateStatus=1;
+	  $scope.publicPrivateStatus=num;
 	  $scope.status = num;
 	  $scope.siClass = "toPublic hover";
 	  $scope.gongClass = "toPrivate";
@@ -256,7 +218,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
 //对公按钮
   $scope.changGongStatus = function(num){
-	  $scope.publicPrivateStatus=0;
+	  $scope.publicPrivateStatus=num;
 	  $scope.status = num;
 	  $scope.siClass = "toPrivate";
 	  $scope.gongClass = "toPublic hover";
@@ -278,7 +240,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           }
       }).error(function (data) {
     	  alert("获取列表失败");
-          /*$("#serverErrorModal").modal({show: true});*/
       });
   }
   	//提交申请
@@ -311,9 +272,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		  
 		  $scope.list = [
 		                 {
-		                     status:1,
+		                     status:Math.ceil($scope.appStatus),
 		                     terminalId:Math.ceil($scope.terminalId),
-		                     publicPrivateStatus: Math.ceil($scope.publicPrivateStatus),
+		                     publicPrivateStatus: Math.ceil($scope.status),
 		                     applyCustomerId: Math.ceil($scope.customerId),
 		                     merchantId: Math.ceil($scope.merchantId),
 		                     merchantName:$scope.merchantNamed,
@@ -450,8 +411,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
   $scope.terminalDetail();
-  $scope.getMaterialName();
- 
 };
 $(".suggest").hide();
 

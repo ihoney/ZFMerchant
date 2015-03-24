@@ -715,7 +715,7 @@ public class TerminalsController {
 		}
 	}
 	/**
-	 * 对公对私材料名称(0 对公， 1对私)
+	 * 对公对私材料名称(1 对公， 2对私)
 	 * 
 	 * @param id
 	 * @param status
