@@ -216,11 +216,13 @@ var registerController=function($scope, $location, $http, LoginService){
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	//手机格式
 	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
-	var intervalOne;
-	// 
-	clearInterval(intervalOne);
+	//发送邮件倒计时
+	window.clearInterval(window.one);
+	//发送手机验证码倒计时
+	window.clearInterval(window.two);
 	//邮箱激活链接判断
 	if($scope.sendStatus == -1){
+		clearInterval(window.one);
 		$scope.show = false;
 		$http.post("api/user/activationEmail", {
 			username : $scope.usernameLocal
@@ -228,18 +230,17 @@ var registerController=function($scope, $location, $http, LoginService){
 			if(data.code == 1){
 				$scope.sendEmailShow = false;
 				$scope.miao = 5;
-				intervalOne = window.setInterval(function(){
+				window.one = window.setInterval(function(){
 				    	if($scope.miao == 0){
 				    		$scope.sendStatus = null;
 				    		$scope.usernameLocal = null;
-				    		clearInterval(intervalOne);
+				    		clearIntevral(window.one);
 				    		window.location.href = '#/login';
 				    	}else{
 				    		$(".winSkip").html("账号激活成功！<span>"+$scope.miao+"秒</span>后跳转至登录页！");
 				    	    $scope.miao--;
 				    	}
 				    }, 1000);
-				intervalOne;
 			}else{
 				alert("激活失败！");
 			}
@@ -279,9 +280,9 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.codeBei = null;
 		$scope.show = true;
 		//发送邮件倒计时
-		clearInterval(intervalOne);
+		window.clearInterval(window.one);
 		//发送手机验证码倒计时
-		clearInterval(intervalTwo);
+		window.clearInterval(window.two);
 		$scope.intDiff = 120;
 		$('#time_show').html("获取验证码！");
 		$scope.registreTime = true;
@@ -301,9 +302,9 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
 		//发送邮件倒计时
-		clearInterval(intervalOne);
+		window.clearInterval(window.one);
 		//发送手机验证码倒计时
-		clearInterval(intervalTwo);
+		window.clearInterval(window.two);
 		$scope.intDiff = 120;
 		$('#time_show').html("获取验证码！");
 		$scope.registreTime = true;
@@ -311,10 +312,9 @@ var registerController=function($scope, $location, $http, LoginService){
 	}
 	//获取验证码后动态显示倒计时
 	$scope.registreTime = true;
-	var intervalTwo;
-	clearInterval(intervalTwo);
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
+		window.clearInterval(window.two);
 		if(!reg.test($scope.rename)){
 			alert("请输入合法手机号！");
 		}else if($scope.registreTime == true){
@@ -325,17 +325,16 @@ var registerController=function($scope, $location, $http, LoginService){
 				if(data.code == 1){
 					$scope.code = data.result;
 					$scope.intDiff = 120;
-					intervalTwo = window.setInterval(function(){
+					window.two = window.setInterval(function(){
 				    	if($scope.intDiff == 0){
 				    		$('#time_show').html("获取验证码！");
 				    		$scope.registreTime = true;
-				    		clearInterval(intervalTwo);
+				    		window.clearInterval(window.two);
 				    	}else{
 				    		$('#time_show').html("重新发送（"+$scope.intDiff+"秒）");
 				    	    $scope.intDiff--;
 				    	}
 				    }, 1000);
-					intervalTwo;
 				}else{
 					$scope.registreTime = true
 					alert(data.message);
@@ -489,6 +488,8 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 	//隐藏想邮箱发送邮件状态
 	$scope.songToEmail = false;
 	$scope.intDiff = 120;
+	window.clearInterval(window.a);
+	window.clearInterval(window.b);
 	
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
@@ -531,18 +532,16 @@ var findpassController=function($scope, $location, $http, LoginService,$timeout)
 				codeNumber : $scope.phone_email,
 			}).success(function(data) {
 				if (data.code == 1) {
-					clearInterval(window.a);
-					clearInterval(window.b);
+					window.clearInterval(window.a);
+					window.clearInterval(window.b);
 					$scope.code = data.result;
 					$scope.codeNumber = "";
-					//$scope.twostep();
-					//倒计时
 					$scope.intDiff = 120;
 					window.b = window.setInterval(function(){
 				    	if($scope.intDiff == 0){
 				    		$('#day_show').html("点击获得验证码！");
 				    		$scope.codeStatus = true;
-				    		clearInterval(window.b);
+				    		window.clearInterval(window.b);
 				    	}else{
 				    		$('#day_show').html("重新发送验证码（"+$scope.intDiff+"秒）");
 				    	    $scope.intDiff--;
