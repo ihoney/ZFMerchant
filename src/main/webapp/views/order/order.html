@@ -56,9 +56,9 @@
 						<td colspan="6"><span>订单号 {{o.order_number}}</span><span>{{o.order_createTime}}</span> 
 						<span ng-if="o.order_type==1">类型：用户订购</span> 
 						<span ng-if="o.order_type==2">类型：用户租赁</span></td>
-						<span ng-if="o.order_type==3">类型：代理商代购</span></td>
+					<!-- 	<span ng-if="o.order_type==3">类型：代理商代购</span></td>
 						<span ng-if="o.order_type==4">类型：代理商代租赁</span></td>
-						<span ng-if="o.order_type==5">类型：代理商批购 </span></td>
+						<span ng-if="o.order_type==5">类型：代理商批购 </span></td> -->
 					</tr>
 					<tr  ng-if="o.order_goods_size>1" ng-repeat="g in  o.order_goodsList ">
 					<input type="hidden" value="{{g.good_name}}" name="g_name" ng-model="g_name" id="g_name">

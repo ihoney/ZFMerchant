@@ -14,6 +14,7 @@ public class MyOrderReq {
     private String phone;//手机号
     private String email;
     private String q;//状态值
+    private String p;//订单类型
     private Integer rows ;//每页大小
     private Integer customer_id;//用户id
     private String content;//内容
@@ -29,7 +30,13 @@ public class MyOrderReq {
     
    
     
-    /**  
+    public String getP() {
+		return p;
+	}
+	public void setP(String p) {
+		this.p = p;
+	}
+	/**  
      * 获取 email  
      * @return email
      */

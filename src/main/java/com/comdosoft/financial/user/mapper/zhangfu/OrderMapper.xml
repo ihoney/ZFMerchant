@@ -215,6 +215,9 @@
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
 		</if>
+		<if test="p !=null and p!=''">
+		and o.types = #{p}
+		</if>
 		order by o.created_at desc
 		LIMIT #{offset},#{rows}
 	</select>
