@@ -84,7 +84,6 @@ public class OpeningApplyController {
 			// 获得已有申请开通基本信息
 			map.put("openingInfos",
 					openingApplyService.getOppinfo((Integer)maps.get("terminalsId")));
-			
 			return Response.getSuccess(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,7 +153,7 @@ public class OpeningApplyController {
 	}
 	
 	/**
-	 * 对公对私材料名称(0 对公， 1对私)
+	 * 对公对私材料名称(1 对公， 2对私)
 	 * 
 	 * @param id
 	 * @param status
@@ -253,7 +252,7 @@ public class OpeningApplyController {
 						merchant.setAccountBankNum((String) map
 								.get("bankNum"));
 						merchant.setCustomerId((Integer) map
-								.get("customersId"));
+								.get("applyCustomerId"));
 						merchant.setPhone((String) map
 								.get("phone"));
 						merchant.setCityId((Integer)map.get("cityId"));

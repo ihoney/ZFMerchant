@@ -63,8 +63,10 @@
  	
 
  	<select id="getApplyList" parameterType="map" resultType="map">
- 		SELECT id,serial_num,status
- 		FROM terminals
+ 		SELECT t.id,t.serial_num,t.status,b.`name` as brandName,g.model_number,c.`name` as channelName
+ 		FROM terminals t LEFT JOIN goods g on t.good_id=g.id 
+		LEFT JOIN good_brands b on g.good_brands_id=b.id 
+		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
  		WHERE customer_id=#{id}
  		AND status in (#{twoStatus},#{threeStatus})
  		LIMIT #{offSetPage},#{pageSize}
