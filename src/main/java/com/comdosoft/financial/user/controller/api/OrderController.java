@@ -66,7 +66,7 @@ public class OrderController {
     public Response getMyOrderById(@RequestBody MyOrderReq myOrderReq) {
         try {
             Object centers = orderService.findMyOrderById(myOrderReq.getId());
-            return Response.getSuccess(centers);
+            return Response.buildSuccess(centers, "success");
         } catch (NullPointerException e) {
             e.printStackTrace();
             return Response.buildErrorWithMissing();

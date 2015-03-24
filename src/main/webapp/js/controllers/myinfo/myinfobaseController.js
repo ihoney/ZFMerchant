@@ -5,9 +5,11 @@ var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http,$location, LoginService) {
 	var sid = $location.search()['id'];
 	var customerId = LoginService.userid;
+	
 	var v1;//倒计时1
 	var v2;//倒计时2
 	var v3;//邮箱
+	
 	$scope.init = function() {
 		$scope.intDiff=0;
 		// 判断是否已登录
@@ -28,7 +30,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		 $scope.selected_city={};
 		 $http.post("api/customers/findCustById", $scope.req).success(function (data) {
 			if (data.code == 1) {
-				console.log("根据id获取用户信息"+data.result.parent_id);
 				$scope.customer = data.result;
 				$scope.customer.i_phone =data.result.phone;
 				$scope.customer.i_email =data.result.email;
@@ -41,7 +42,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		}).error(function(data) {
 
 		});
-
 	};
 	
 	$scope.city_list = function(){
@@ -85,7 +85,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	$scope.sendPhoneCode = function(){
 		var sMobile = $scope.i_phone_new; 
 		if($scope.intDiff == 0){
-			console.log("第二个  获取 验证码  开始");
 			$scope.getPhoneCode(sMobile);
 			$scope.intDiff = 120;
 			clearInterval(v2);
@@ -100,7 +99,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		    	}
 		    }, 1000);
 		}else{
-			console.log("第二个  获取 验证码   时间未到");
 		}
 	};
  
@@ -128,7 +126,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		}else if(t=2){//再次点击获取
 			if($scope.intDiff == 0){
 				$scope.intDiff =120;
-				console.log(t+"再次点击获取发送验证码");
 				v1= window.setInterval(function(){
 					$('#send_code_one').html();
 			    	if($scope.intDiff == 0){
@@ -142,7 +139,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 				var sMobile = $scope.customer.phone; 
 				$scope.getPhoneCode(sMobile);
 			}else{
-				console.log(t+"再次点击获取发送验证码时间未到");
 			}
 		}
 	};
@@ -153,7 +149,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		$http.post("api/index/getPhoneCode",$scope.req).success(function (data) {   
 			if (data != null && data != undefined) {
 				$scope.phone_code = data.result;
-				console.log("code ==>"+$scope.phone_code);
+				setCookie("phone_code",$scope.phone_code);
 			}
 		});
 	}
@@ -162,50 +158,14 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		var p_code = $scope.phone_code;
 		var i_code = $scope.phone_code_i_o;//输入的验证码
 		if(p_code == i_code){
-			var sMobile = $scope.i_phone_new; 
-		    if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))){ 
-		        alert("不是完整的11位手机号或者正确的手机号前七位"); 
-		        $("#i_phone_new").focus(); 
-		        return false; 
-		    }else{
-				$("#show_phone_input_my_o").css('display','none');
-				$(".mask").css('display','none');
-				
-				var doc_height = $(document).height();
-				var doc_width = $(document).width();
-				var win_height = $(window).height();
-				var win_width = $(window).width();
-				
-				var layer_height = $("#show_phone_input_my_t").height();
-				var layer_width = $("#show_phone_input_my_t").width();
-				
-				var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-					
-			    $(".mask").css({display:'block',height:doc_height});
-				$("#show_phone_input_my_t").css('top',(win_height-layer_height)/2);
-				$("#show_phone_input_my_t").css('left',(win_width-layer_width)/2);
-				$("#show_phone_input_my_t").css('display','block');
-				
-				
-				//第二个验证框显示
-				$('#show_phone_input_my_o_btn').html("发送验证码");
-				clearInterval(v1);
-				$scope.getPhoneCode(sMobile);
-				$scope.intDiff = 120;
-				console.log("确认获取验证码  开始倒计时" + $scope.intDiff);
-				v2 = window.setInterval(function(){
-					$('#show_phone_input_my_o_btn').html();
-			    	if($scope.intDiff == 0){
-			    		$('#show_phone_input_my_o_btn').html("发送验证码");
-			    		clearInterval(v2);
-			    	}else{
-			    		$('#show_phone_input_my_o_btn').html("重新发送验证码（"+$scope.intDiff+"秒）");
-			    	    $scope.intDiff--;
-			    	}
-			    }, 1000);
-		    }
+			$scope.com_code();
 		}else{
-			alert("验证码错误");
+			var co  = getCookie("phone_code");
+			if(co == i_code){
+				$scope.com_code();
+			}else{
+				alert("验证码错误");
+			}
 		}
 	};
 	
@@ -232,7 +192,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	
 	//修改邮箱
 	$scope.up_email = function(){
-		console.log("修改邮箱 start==》》"+$scope.intDiff);
 //		email_send_btn
 		if($scope.intDiff == 0){
     		$scope.intDiff =120;
@@ -323,5 +282,74 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	};
 	$scope.init();
 	$scope.city_list();
+	
+	$scope.com_code = function(){
+		var sMobile = $scope.i_phone_new; 
+	    if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))){ 
+	        alert("不是完整的11位手机号或者正确的手机号前七位"); 
+	        $("#i_phone_new").focus(); 
+	        return false; 
+	    }else{
+			$("#show_phone_input_my_o").css('display','none');
+			$(".mask").css('display','none');
+			
+			var doc_height = $(document).height();
+			var doc_width = $(document).width();
+			var win_height = $(window).height();
+			var win_width = $(window).width();
+			
+			var layer_height = $("#show_phone_input_my_t").height();
+			var layer_width = $("#show_phone_input_my_t").width();
+			
+			var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+				
+		    $(".mask").css({display:'block',height:doc_height});
+			$("#show_phone_input_my_t").css('top',(win_height-layer_height)/2);
+			$("#show_phone_input_my_t").css('left',(win_width-layer_width)/2);
+			$("#show_phone_input_my_t").css('display','block');
+			
+			
+			//第二个验证框显示
+			$('#show_phone_input_my_o_btn').html("发送验证码");
+			clearInterval(v1);
+			$scope.getPhoneCode(sMobile);
+			$scope.intDiff = 120;
+			v2 = window.setInterval(function(){
+				$('#show_phone_input_my_o_btn').html();
+		    	if($scope.intDiff == 0){
+		    		$('#show_phone_input_my_o_btn').html("发送验证码");
+		    		clearInterval(v2);
+		    	}else{
+		    		$('#show_phone_input_my_o_btn').html("重新发送验证码（"+$scope.intDiff+"秒）");
+		    	    $scope.intDiff--;
+		    	}
+		    }, 1000);
+	    }
+	}
 };
+
+//写cookies
+function setCookie(name,value)
+{
+var Days = 30;
+var exp = new Date(); 
+exp.setTime(exp.getTime() + 30*60*1000);
+document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+//读取cookies
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg)) return unescape(arr[2]);
+else return null;
+}
+//删除cookies
+function delCookie(name)
+{
+var exp = new Date();
+exp.setTime(exp.getTime() - 1);
+var cval=getCookie(name);
+if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
 myinfobaseModule.controller("myinfobaseController", myinfobaseController);
