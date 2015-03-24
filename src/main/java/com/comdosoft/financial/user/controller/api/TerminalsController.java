@@ -20,6 +20,7 @@ import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.City;
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
 import com.comdosoft.financial.user.domain.zhangfu.CsChange;
+import com.comdosoft.financial.user.domain.zhangfu.CsLeaseReturn;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
 import com.comdosoft.financial.user.domain.zhangfu.CsRepair;
 import com.comdosoft.financial.user.domain.zhangfu.CsUpdateInfo;
@@ -306,7 +307,7 @@ public class TerminalsController {
 		try {
 			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 				CsCancel csCancel =new CsCancel();
-				csCancel.setTerminalId(Integer.parseInt((String)maps.get("terminalId")));
+				csCancel.setTerminalId((Integer)maps.get("terminalId"));
 				csCancel.setStatus((Integer)maps.get("status"));
 				csCancel.setTempleteInfoXml((maps.get("templeteInfoXml").toString()));
 				csCancel.setTypes((Integer)maps.get("type"));
@@ -320,6 +321,26 @@ public class TerminalsController {
 			//退还
 			terminalsService.subLeaseReturn(maps);
 			return Response.getSuccess("操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.getError("请求失败！");
+		}
+	}
+	
+	/**
+	 * 判断租赁退还申请
+	 * 
+	 * @param maps
+	 */
+	@RequestMapping(value = "JudgeLeaseReturn", method = RequestMethod.POST)
+	public Response JudgeLeaseReturn(@RequestBody Map<Object, Object> maps) {
+		try {
+			int count = terminalsService.JudgeLeaseReturn((Integer)maps.get("terminalid"),CsLeaseReturn.STATUS_1,CsLeaseReturn.STATUS_2);
+			if(count == 0){
+				return Response.getSuccess("可以申请！");
+			}else{
+				return Response.getError("已有相关申请！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");

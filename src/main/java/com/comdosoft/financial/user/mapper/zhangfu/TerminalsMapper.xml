@@ -165,6 +165,12 @@
 		AND `status` in (#{statusa},#{statusb})
 	</select>
 	
+	<select id="JudgeLeaseReturn"  resultType="int" parameterType="map">
+		SELECT count(*) from cs_lease_returns
+		WHERE terminal_id = #{terminalId}
+		AND `status` in (#{statusa},#{statusb})
+	</select>
+	
 	<select id="judgeOpen"  resultType="int" parameterType="int">
 		select count(*) from opening_applies
 		where terminal_id = #{terminalId}

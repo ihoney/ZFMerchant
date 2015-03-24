@@ -177,7 +177,22 @@ public class TerminalsService {
 		map.put("statusb", statusb);
 		return terminalsMapper.JudgeReturn(map);
 	}
-		
+	
+	/**
+	 * 租赁申请判断
+	 * @param terminalId
+	 * @param statusa
+	 * @param statusb
+	 * @return
+	 */
+	public int JudgeLeaseReturn(Integer terminalId,Integer statusa,Integer statusb) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("terminalId", terminalId);
+		map.put("statusa", statusa);
+		map.put("statusb", statusb);
+		return terminalsMapper.JudgeLeaseReturn(map);
+	}
+	
 	/**
 	 * 城市级联
 	 * 
