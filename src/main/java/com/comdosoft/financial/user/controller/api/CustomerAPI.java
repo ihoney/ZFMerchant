@@ -110,13 +110,13 @@ public class CustomerAPI {
     }
 
     /**
-     * 修改用户密码
+     * 修改用户密码 web用
      * 
      * @param customer
      * @return
      */
-    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
-    public Response updatePassword(@RequestBody Map<Object, Object> param) {
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
+    public Response changePassword(@RequestBody Map<Object, Object> param) {
         Response sysResponse = null;
         try {
             int id = (int) param.get("id");
@@ -148,6 +148,36 @@ public class CustomerAPI {
         return sysResponse;
     }
 
+    //手机端口修改密码
+    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    public Response updatePassword(@RequestBody Map<Object, Object> param) {
+        Response sysResponse = null;
+        try {
+            int id = (int) param.get("id");
+            Map<Object, Object> customer = customerService.getOne(id);
+            if (customer != null) {
+                String passwordInDB = (String) customer.get("password");// 获取数据库中的密码
+                String pwd =   param.get("passwordOld")==null?"":param.get("passwordOld").toString();
+                String pwd_new =  param.get("password")==null?"":param.get("password").toString();
+                if(pwd=="" || pwd_new==""){
+                    sysResponse = Response.getError("请输入密码");
+                    return sysResponse;
+                }
+                if ((pwd).equals(passwordInDB)) {// 判断原密码
+                    customerService.updatePassword(param);
+                    sysResponse = Response.getSuccess();
+                } else {
+                    sysResponse = Response.getError("修改用户密码失败:原密码不正确");
+                }
+            } else {
+                sysResponse = Response.getError("修改用户密码失败:用户不存在");
+            }
+        } catch (Exception e) {
+            logger.error("修改用户密码失败", e);
+            sysResponse = Response.getError("修改用户密码失败:系统异常");
+        }
+        return sysResponse;
+    }
     /**
      * 获取积分列表
      * 

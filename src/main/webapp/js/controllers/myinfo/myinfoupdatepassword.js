@@ -13,7 +13,7 @@ var myinfoupdatepasswordController = function($scope, $http, LoginService) {
 			passwordOld : $scope.customer.passwordOld,
 			password : $scope.customer.password
 		};
-		$http.post("api/customers/updatePassword", $scope.updateCustomer).success(function(data) {
+		$http.post("api/customers/changePassword", $scope.updateCustomer).success(function(data) {
 			if (data.code == 1) {
 				// 提示保存成功
 				alert("修改成功");
