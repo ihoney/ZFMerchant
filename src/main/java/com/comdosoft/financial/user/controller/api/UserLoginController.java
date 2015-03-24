@@ -117,11 +117,11 @@ public class UserLoginController {
                     }
                 } else {
                     customer.setStatus(Customer.STATUS_NON_ACTIVE);
+                    customer.setEmail(customer.getUsername());
                     userLoginService.addUser(customer);
                     MailReq req = new MailReq();
                     req.setUserName(customer.getUsername());
                     req.setAddress(customer.getUsername());
-                    customer.setEmail(customer.getUsername());
                     req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
                     MailService.sendMailWithFilesAsynchronous(req);
                     return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
