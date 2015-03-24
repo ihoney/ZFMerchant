@@ -290,7 +290,7 @@ public class OrderService {
             invoce_name = "公司";
         }
         map.put("order_invoce_type", invoce_name);// 发票类型
-        map.put("order_invoce_info", o.getInvoiceInfo());// 发票抬头
+        map.put("order_invoce_info", o.getInvoiceInfo()==null?"":o.getInvoiceInfo());// 发票抬头
         List<OrderGood> olist = o.getOrderGoodsList();
         List<Object> newObjList = new ArrayList<Object>();
         map.put("order_goods_size", olist.size());// 
@@ -298,6 +298,7 @@ public class OrderService {
         if (olist.size() > 0) {
             OrderGood og = olist.get(0);
             map.put("good_merchant", og.getGood() == null ? "" : og.getGood().getFactory() == null ? "" : og.getGood().getFactory().getName() == null ? "" : og.getGood().getFactory().getName());// 供货商
+            StringBuffer sb = null;
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
                 // omap.put("order_good_id", od.getId().toString());
@@ -313,14 +314,11 @@ public class OrderService {
                 omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName() == null ? "" : od.getPayChannel().getName());
                 if (good_id != "") {
                     List<Terminal> terminals = orderMapper.getTerminsla(id, Integer.valueOf(good_id));
-                    StringBuffer sb = new StringBuffer();
+                     sb = new StringBuffer();
                     for (Terminal t : terminals) {
-                        sb.append(t.getSerialNum() + " ");
+                        sb.append(t.getSerialNum() + " , ");
                     }
-                    omap.put("terminals", sb.toString());
-                } else {
-                    omap.put("terminals", "");
-                }
+                }  
                 String good_logo = "";
                 if (null != od.getGood()) {
                     Good g = od.getGood();
@@ -332,6 +330,7 @@ public class OrderService {
                 omap.put("good_logo", good_logo);
                 newObjList.add(omap);
             }
+            map.put("terminals", sb.toString());
         }
 
         map.put("order_goodsList", newObjList);
