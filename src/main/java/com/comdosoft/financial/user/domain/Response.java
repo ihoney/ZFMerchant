@@ -51,6 +51,7 @@ public class Response {
         Response r = new Response();
         r.code = SUCCESS_CODE;
         r.result = result;
+        r.message="success";
         return r;
     }
 

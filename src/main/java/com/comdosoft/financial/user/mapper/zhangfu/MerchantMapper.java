@@ -25,4 +25,6 @@ public interface MerchantMapper {
 
     void delete(int id);
 
+    List<Map<String,Object>>  findMerchantByName(String name);
+
 }

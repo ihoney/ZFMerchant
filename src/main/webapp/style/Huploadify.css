@@ -1,0 +1,69 @@
+@charset "utf-8";
+/* CSS Document */
+.uploadify-button{
+	width: 120px; 
+	height: 30px; 
+	display: inline-block; 
+	margin: 0px auto; 
+	line-height: 30px;  
+	position: relative;
+	text-align: center;
+	border: 1px #ccc solid; 
+	color: #333;
+	border-radius: 2px;
+}
+.selectbtn{
+	width: 120px; 
+	height: 30px;
+	display: block;
+	cursor: pointer;  
+	position: absolute;  
+	top: 0;  
+	left: 0;   
+	font-size: 25px; /* 增大不同浏览器的可点击区域 */  
+	opacity: 0; /* 实现的关键点 */  
+	filter:alpha(opacity=0);/* 兼容IE */
+}
+.uploadify-button:hover{
+	background: #ff4a00; border: 1px #ff4a00 solid; color: #FFF;
+}
+.uploadfile{
+	width:0;
+	}
+.uploadify-queue .uploadify-queue-item{
+	list-style-type:none;
+	margin-top:10px;
+	}
+.uploadbtn,.delfilebtn{
+	display:inline-block;
+	border:1px solid #999;
+	line-height:24px;
+	border-radius:4px;
+	padding:0 18px;
+    font-size:12px;
+	color:#666;
+	cursor:pointer;
+	background:url(images/btnbg.png) repeat-x 0 0;
+	text-decoration:none;
+	}
+.up_filename,.progressnum,.delfilebtn,.uploadbtn,.up_percent{
+	font-size:12px;
+	color:#666;
+	margin-left:10px;
+	}
+.uploadify-progress{
+	 display:inline-block; 
+	 width:50px; 
+	 height:10px; 
+	 background-color:white;
+	 border-radius:20px;
+	 border:2px groove #666;
+	 vertical-align:middle;
+	 padding:0;
+	 }
+.uploadify-progress-bar{
+	width:0;
+	height:100%;
+	border-radius:20px;
+	background-color: #0099FF;
+	}

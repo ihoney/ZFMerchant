@@ -20,7 +20,7 @@
 		SELECT title,id,create_at,
 		updated_at,content
 		   FROM web_messages m 
-		    order by m.updated_at desc
+		    order by  m.is_placed_top desc,m.create_at desc
 		LIMIT #{offset},#{rows}
 	</select>
 	

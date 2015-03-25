@@ -72,4 +72,18 @@ public class MerchantService {
         return merchantMapper.getList(query);
     }
 
+    /**
+     * 查看商户是否存在
+     * @param name
+     * @return
+     */
+	public Boolean findMerchantByName(String name) {
+		List<Map<String,Object>> m = merchantMapper.findMerchantByName(name);
+		if(m.size()<1){
+			return false;//不存在
+		}else{
+			return true;//存在
+		}
+	}
+
 }
