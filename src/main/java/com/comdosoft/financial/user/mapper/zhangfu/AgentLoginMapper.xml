@@ -2,16 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comdosoft.financial.user.mapper.zhangfu.AgentLoginMapper">
 <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
-		INSERT  into customers(username,password,city_id,account_type,types,phone,email,created_at,status,name,integral,updated_at)
-		VALUES(#{username},#{password},#{cityId},#{accountType},#{types},#{phone},#{email},now(),#{status},#{name},#{integral},now())
+		INSERT  into customers(username,password,city_id,types,phone,email,created_at,status,name,integral,updated_at)
+		VALUES(#{username},#{password},#{cityId},#{types},#{phone},#{email},now(),#{status},#{name},#{integral},now())
 	</insert>
 	
 	<insert id="addAgent" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Agent">
 		insert into agents(name,card_id,types,company_name,business_license,
-						phone,email,customer_id,address,form_types,parent_id,status,is_have_profit,created_at,updated_at,code,
-						card_id_photo_path,tax_registered_no,license_no_pic_path,tax_no_pic_path)
-		values(#{name},#{cardId},#{types},#{companyName},#{businessLicense},#{phone},#{email},#{customerId},#{address},#{formTypes},
-						#{parentId},#{status},#{isHaveProfit},now(),now(),#{code},#{cardIdPhotoPath},#{taxRegisteredNo},#{licenseNoPicPath},#{taxNoPicPath})
+						phone,email,customer_id,form_types,parent_id,status,is_have_profit,created_at,updated_at,code)
+		values(#{name},#{cardId},#{types},#{companyName},#{businessLicense},#{phone},#{email},#{customerId},#{formTypes},
+						#{parentId},#{status},#{isHaveProfit},now(),now(),#{code})
 	</insert>
 
 	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="com.comdosoft.financial.user.domain.zhangfu.Customer">
