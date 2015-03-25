@@ -161,10 +161,11 @@ public class UserLoginController {
     				}
     			} else {
     				customer.setStatus(Customer.STATUS_NON_ACTIVE);
-    				userLoginService.addUser(customer);
+    				
     				MailReq req = new MailReq();
     				req.setUserName(customer.getUsername());
     				customer.setEmail(customer.getUsername());
+    				userLoginService.addUser(customer);
     				req.setAddress(customer.getUsername());
     				req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
     				MailService.sendMailWithFilesAsynchronous(req);

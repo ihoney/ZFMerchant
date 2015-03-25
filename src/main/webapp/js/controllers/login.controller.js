@@ -252,7 +252,7 @@ var registerController=function($scope, $location, $http, LoginService){
 				    	if($scope.miao == 0){
 				    		$scope.sendStatus = null;
 				    		$scope.usernameLocal = null;
-				    		clearIntevral(window.one);
+				    		clearInterval(window.one);
 				    		window.location.href = '#/login';
 				    	}else{
 				    		$(".winSkip").html("账号激活成功！<span>"+$scope.miao+"秒</span>后跳转至登录页！");

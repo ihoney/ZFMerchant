@@ -71,9 +71,6 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
   		 }
   	}
   };
-  
-  
-  
   $scope.terminalDetail();
 };
 
