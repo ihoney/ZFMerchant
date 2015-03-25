@@ -4,6 +4,12 @@
 var terminalOpenModule = angular.module("terminalOpenModule",['loginServiceModule']);
 
 var terminalOpenController = function ($scope, $http,$location, LoginService) {
+	//检验邮箱格式
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	//手机格式
+	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+	//英文数字校验
+	var numCh = /[^a-zA-Z0-9]/g;
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.customerId = LoginService.userid;
 	$scope.img = null;
@@ -349,11 +355,23 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }else if($("#cirdValue").val() == ""){
 		  alert("请输入身份证号！");
 		  return false;
-	  }else if($("#phoneValue").val() == ""){
+	  }else if(numCh.test($("#cirdValue").val())){
+		  alert("身份证含有非法字符！");
+		  return false;
+	  }/*else if(!(/^(?=.*[a-z])[a-z0-9]+/ig.test($("#cirdValue").val()))){
+	  	  alert("身份证含有非法字符！");
+	  	  return false;
+	  }*/else if($("#phoneValue").val() == ""){
 		  alert("请填写电话号码！");
+		  return false;
+	  }else if(!reg.test($("#phoneValue").val())){
+		  alert("手机格式不正确！");
 		  return false;
 	  }else if($("#emailValue").val() == ""){
 		  alert("请填写邮箱！");
+		  return false;
+	  }else if(!myreg.test($("#emailValue").val())){
+		  alert("邮箱格式不正确！");
 		  return false;
 	  }else if($scope.cityId == null || $scope.cityId == ""){
 		  alert("请选择城市！");
@@ -367,7 +385,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }else if($("#bankNumValue").val() == null || $("#bankNumValue").val() == ""){
 		  alert("请填写结算银行账号！");
 		  return false;
-	  }else if($("#bankNameValue").val() == null || $("#bankNameValue").val() == ""){
+	  }/*else if(isNaN(Number($("#bankNumValue").val()))){
+		  alert("银行账号只能输数字！");
+	  }*/else if($("#bankNameValue").val() == null || $("#bankNameValue").val() == ""){
 		  alert("请填写结算银行名称！");
 		  return false;
 	  }else if($("#bankCodeValue").val() == null || $("#bankCodeValue").val() == ""){
@@ -376,8 +396,14 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }else if($("#organizationNoValue").val() == null || $("#organizationNoValue").val() == ""){
 		  alert("请填写组织登记号！");
 		  return false;
+	  }else if(numCh.test($("#organizationNoValue").val())){
+		  alert("组织登记号字母和数字组成！");
+		  return false;
 	  }else if($("#registeredNoValue").val() == null || $("#registeredNoValue").val() == ""){
 		  alert("请填写税务登记号！");
+		  return false;
+	  }else if(numCh.test($("#registeredNoValue").val())){
+		  alert("税务登记号由字母和数字组成！");
 		  return false;
 	  }
 	  else{

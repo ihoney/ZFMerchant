@@ -3,15 +3,17 @@ function showImage(obj) {
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
 			$(obj).siblings("input").val(data.result);
+			$(obj).parent("a").siblings("img").attr("data-src",data.result);
+			alert($(obj).parent("a").siblings("img").attr("data-src"));
 		}
 	});
 }
 
 //鼠标经过小图提示大图
-function infoTab(i_tab,i_box){
+/*function infoTab(i_tab,i_box){
 	$(i_tab).hover(
 		function(e){
-			/*alert($(this).parent().children().children("input").val());*/
+			alert($(this).parent().children().children("input").val());
 			$("#imgShow").attr({src:$(this).parent().children().children("input").val()});
 			$(i_box).css('display','block');
 			$(i_box).css({'top':($(this).offset().top)-$(this).height()+'px', 
@@ -27,7 +29,7 @@ function infoTab(i_tab,i_box){
 }
 $(document).ready(function(){
 		infoTab('.cover','.img_info');//首页设置弹出框
-})
+})*/
 
 function DateSelector(selYear, selMonth, selDay) {
     this.selYear = selYear;
