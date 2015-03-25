@@ -174,6 +174,22 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
     	  alert("操作失败！");
       });
   }
+  
+//申请租赁退还
+  $scope.terminalsRentalReturn = function(){
+	  $http.post("api/terminal/JudgeLeaseReturn", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
+          if (data != null && data != undefined) {
+        	  if(data.code == -1){
+        		  alert("已有该终端租赁退还申请！");
+        	  }else if(data.code == 1){
+        		  window.location.href = "#/terminalRentalReturn?terminalId="+$scope.terminalId;
+        		  
+        	  }
+          }
+      }).error(function (data) {
+    	  alert("操作失败！");
+      });
+  }
   $scope.terminalDetail();
 
 };

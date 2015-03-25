@@ -4,8 +4,8 @@
 var terminalRentalReturnModule = angular.module("terminalRentalReturnModule",['loginServiceModule']);
 
 var terminalRentalReturnController = function ($scope, $http,$location, LoginService) {
-	$scope.terminalId=$location.search()['terminalId'];
-	$scope.customerId = LoginService.userid;
+	$scope.terminalId=Math.ceil($location.search()['terminalId']);
+	$scope.customerId = Math.ceil(LoginService.userid);
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		if(LoginService.userid == 0){
@@ -52,18 +52,23 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
    				modelStatus : $("#modelStatus").val(),
    				
    		 }
-   		 
-  		 $http.post("api/terminal/subLeaseReturn", $scope.map).success(function (data) {  //绑定
-  	          if (data != null && data != undefined) {
-  	        	  if(data.code == 1){
-  	        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
-  	        	  }else{
-  	        		alert("提交失败！");
-  	        	  }
-  	          }
-  	      }).error(function (data) {
-  	    	  alert("获取列表失败");
-  	      });
+  		 if($scope.username == undefined){
+  			 alert("请输入联系人！");
+  		 }else if($scope.phone == undefined){
+  			 alert("请输入联系号码！");
+  		 }else{
+  			$http.post("api/terminal/subLeaseReturn", $scope.map).success(function (data) {  //绑定
+	  	          if (data != null && data != undefined) {
+	  	        	  if(data.code == 1){
+	  	        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+	  	        	  }else{
+	  	        		alert("提交失败！");
+	  	        	  }
+	  	          }
+	  	      }).error(function (data) {
+	  	    	  alert("获取列表失败");
+	  	      });
+  		 }
   	}
   };
   

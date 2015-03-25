@@ -137,6 +137,14 @@ public interface TerminalsMapper {
     int JudgeReturn(Map<String, Object> map);
     
     /**
+     * 查看租赁退还申请是否有未处理中
+     * 
+     * @param map
+     * @return
+     */
+    int JudgeLeaseReturn(Map<String, Object> map);
+    
+    /**
      * 申请维修添加地址
      * 
      * @param map

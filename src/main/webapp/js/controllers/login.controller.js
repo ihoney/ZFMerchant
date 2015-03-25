@@ -314,16 +314,19 @@ var registerController=function($scope, $location, $http, LoginService){
 	$scope.registreTime = true;
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
-		window.clearInterval(window.two);
+		
 		if(!reg.test($scope.rename)){
 			alert("请输入合法手机号！");
 		}else if($scope.registreTime == true){
+			window.clearInterval(window.two);
 			$scope.registreTime = false;
 			$http.post("api/user/sendPhoneVerificationCodeReg", {
 				codeNumber : $scope.rename
 			}).success(function(data) {
 				if(data.code == 1){
 					$scope.code = data.result;
+					alert(data.result);
+					setCookie("send_phone_code",$scope.code); 
 					$scope.intDiff = 120;
 					window.two = window.setInterval(function(){
 				    	if($scope.intDiff == 0){
@@ -353,7 +356,7 @@ var registerController=function($scope, $location, $http, LoginService){
 			alert("请输入合法手机号！");
 		}else if($scope.codeNumber == undefined){
 			alert("请输入验证码！");
-		}else if($scope.code == $scope.codeNumber){
+		}else if(getCookie("send_phone_code") == $scope.codeNumber){
 			if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
 				alert("密码不能为空！");
 			}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
@@ -473,6 +476,32 @@ var registerController=function($scope, $location, $http, LoginService){
     	window.location.href = '#/';
     	location.reload();
 	};
+	
+	//写cookies
+	function setCookie(name,value)
+	{
+	var Days = 30;
+	var exp = new Date(); 
+	exp.setTime(exp.getTime() + 30*60*1000);
+	document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+	}
+	//读取cookies
+	function getCookie(name)
+	{
+	var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+	if(arr=document.cookie.match(reg)) return unescape(arr[2]);
+	else return null;
+	}
+	//删除cookies
+	function delCookie(name)
+	{
+	var exp = new Date();
+	exp.setTime(exp.getTime() - 1);
+	var cval=getCookie(name);
+	if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+	}
+	
+	
 
 	$scope.reGetRandCodeImg();
 	$scope.init();
