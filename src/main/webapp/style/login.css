@@ -59,6 +59,9 @@ a { text-decoration: none;}
 }
 .btn button:hover { background: #fc6d38;}
 
+.btn button.btn_q { width: 180px; margin-right: 18px;}
+.btn button.btn_w { width: 160px; background: #ff9b00;}
+
 
 /*-------foot-------*/
 .foot { border-top: 1px #ccc solid; padding: 10px 0; overflow: hidden; width: 1200px; margin: 0 auto;}

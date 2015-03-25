@@ -47,7 +47,7 @@
 		LEFT
 		JOIN opening_requirements o on p.id = o.pay_channel_id
 		LEFT JOIN
-		opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=0
+		opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=1
 		where p.id=#{pcid})
 	</select>
 
@@ -59,7 +59,7 @@
 		LEFT
 		JOIN opening_requirements o on p.id = o.pay_channel_id
 		LEFT JOIN
-		opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=1
+		opening_requirement_lists l on o.id=l.opening_requirements_id AND l.requirement_type=2
 		where p.id=#{pcid})
 	</select>
 	

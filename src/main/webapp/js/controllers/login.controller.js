@@ -155,6 +155,13 @@ var loginController=function($scope, $location, $http, LoginService){
 		LoginService.login($scope,$http);
 	};
 	
+	//跳转代理商注册页面
+	$scope.goToRegister = function(){
+		//移除样式
+		$("link[href='style/global.css']").remove();
+		window.location.href = '#/registerAgent';
+	}
+	
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	$scope.loginUserName = LoginService.loginUserName;
 	//勾选协议
@@ -208,6 +215,17 @@ var loginController=function($scope, $location, $http, LoginService){
 //		head.appendChild(link);
 //	};
 };
+
+var agentLoginController = function($scope, $location, $http, LoginService){
+	//定义代理商对象
+	$scope.agent = {};
+	//勾选记住密码
+	$scope.agentRememberPass = false;
+	//代理商登陆
+	$scope.agentLogin = function() {
+		LoginService.agentLogin($scope,$http);
+	};
+}
 
 var registerController=function($scope, $location, $http, LoginService){
 	$scope.usernameLocal=$location.search()['sendusername'];
@@ -507,6 +525,20 @@ var registerController=function($scope, $location, $http, LoginService){
 	$scope.init();
 };
 	
+var registerAgentController = function($scope, $location, $http, LoginServce){
+	//单选按钮初始化
+	$scope.radioShow = true;
+	$scope.agentInit= function() {
+		//移除样式
+		$("link[href='style/global.css']").remove();
+		//隐藏中间搜索
+		$scope.$emit('changesearchview',false);
+		//获得省级
+		//$scope.getShengcit();
+	};
+	$scope.agentInit();
+}
+
 var findpassController=function($scope, $location, $http, LoginService,$timeout){
 	$scope.usernameLocal=$location.search()['sendusername'];
 	$scope.sendStatus=Math.ceil($location.search()['sendStatus']);
@@ -701,3 +733,7 @@ indexModule.controller("headerController", headerController);
 indexModule.controller("loginController", loginController);
 indexModule.controller("registerController", registerController);
 indexModule.controller("findpassController", findpassController);
+indexModule.controller("agentLoginController", agentLoginController);
+indexModule.controller("registerAgentController", registerAgentController);
+
+

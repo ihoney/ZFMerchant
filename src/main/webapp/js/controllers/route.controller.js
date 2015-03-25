@@ -11,6 +11,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/index/login.html'
 	}).when('/register', {
 		templateUrl : 'views/index/register.html'
+	}).when('/registerAgent', {
+		templateUrl : 'views/index/registerAgent.html'
 	}).when('/findpass', {
 		templateUrl : 'views/index/findpass.html'
 	}).when('/userdown', {
