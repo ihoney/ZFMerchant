@@ -507,7 +507,10 @@ tr.order_hd td { text-align: left; }
 	-webkit-border-radius: 0.2em;
 	display: none;
 	box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
+	width: 400px;
+	height: 300px;
 }
+.img_info img { width: 400px; height: 300px;}
 
 
 .applyFor_list { padding: 10px 0;}

@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.MailReq;
@@ -22,7 +24,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 @Service
 public class IndexService {
-    
+    private static final Logger logger = LoggerFactory.getLogger(IndexService.class);
     @Resource
     private IndexMapper indexMapper;
     @Resource
@@ -139,5 +141,9 @@ public class IndexService {
             e.printStackTrace();
         }
     }
+
+	public void upload(HttpServletRequest request, MyOrderReq req) {
+		logger.debug("上传图片start....");
+	}
 
 }
