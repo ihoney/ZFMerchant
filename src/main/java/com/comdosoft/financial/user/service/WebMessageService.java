@@ -1,8 +1,8 @@
 package com.comdosoft.financial.user.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public class WebMessageService {
         int count = webMessageMapper.count();
         List<WebMessage> centers = webMessageMapper.findAll(myOrderReq);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-        List<Object> listMap = new ArrayList<Object>();
+        List<Object> listMap = new LinkedList<Object>();
         Map<String,String> map = null;
         for(WebMessage o: centers){
             map = new HashMap<String,String>();
@@ -33,6 +33,7 @@ public class WebMessageService {
             map.put("title", o.getTitle());
             map.put("create_at",sdf.format(o.getCreateAt()));
             map.put("content", o.getContent());
+            System.err.println("id==>>>"+ o.getId());
             listMap.add(map);
         }
         return new Page<Object>(request, listMap, count);

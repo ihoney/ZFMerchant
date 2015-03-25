@@ -10,6 +10,14 @@
 	]]>
 	</select>
 
+	<select id="findMerchantByName" resultType="map">
+	<![CDATA[
+		SELECT *
+		  FROM merchants
+		 WHERE title = #{param1}
+	]]>
+	</select>
+	
 	<select id="getList" resultType="map">
 	<![CDATA[
 		SELECT id, title, IFNULL(legal_person_name, '') legal_person_name
