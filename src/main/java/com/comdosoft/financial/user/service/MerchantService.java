@@ -42,6 +42,10 @@ public class MerchantService {
     public Map<Object, Object> getOne(int id) {
         return merchantMapper.getOne(id);
     }
+    
+    public Map<Object, Object> findMerchantById(int id) {
+    	return merchantMapper.findMerchantById(id);
+    }
 
     public void insert(Merchant param) {
         Date now = new Date();

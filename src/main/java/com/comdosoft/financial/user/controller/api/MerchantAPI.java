@@ -100,6 +100,18 @@ public class MerchantAPI {
         }
         return sysResponse;
     }
+    
+    @RequestMapping(value = "findMerchantById", method = RequestMethod.POST)
+    public Response findMerchantById(@RequestBody MyOrderReq req) {
+    	Response sysResponse = null;
+    	try {
+    		sysResponse = Response.getSuccess(merchantService.findMerchantById(req.getId()));
+    	} catch (Exception e) {
+    		logger.error("获取商户信息失败", e);
+    		sysResponse = Response.getError("获取商户信息失败:系统异常");
+    	}
+    	return sysResponse;
+    }
 
     /**
      * 新增商户信息

@@ -41,7 +41,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 	};
 	$scope.save = function() {
 		var p = $scope.integral.price;
-		if (typeof(p) == "undefined") { 
+		if (typeof(p) == "undefined" || p=="") { 
 			alert("没有填写兑换积分");
 			return false;
 		}  

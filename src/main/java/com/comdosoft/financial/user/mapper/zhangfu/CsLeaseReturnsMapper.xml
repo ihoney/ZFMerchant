@@ -117,6 +117,7 @@
 		LEFT JOIN cs_receiver_addresses cra ON o.return_address_id = cra.id
 		WHERE
 			o.id = #{id}
+			group by o.id
 	</select>
 	<select id="findTraceById" resultType="map"  >
 		SELECT

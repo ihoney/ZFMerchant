@@ -45,7 +45,7 @@ public class CsLeaseReturnsService {
         csLeaseReturnsMapper.cancelApply(myOrderReq);
     }
 
-    public Map<String, Object> findById(MyOrderReq myOrderReq) throws ParseException {
+    public Map<String, Object> findById(MyOrderReq myOrderReq)  {
         Map<String, Object> o = csLeaseReturnsMapper.findById(myOrderReq);
         Map<String, Object> map = new HashMap<String, Object>();
         String id = o.get("id").toString();
@@ -57,13 +57,24 @@ public class CsLeaseReturnsService {
         if(apply_time==""){
             map.put("apply_time", "");
         }else{
-            map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+            try {
+				map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
         }
         String one_time = o.get("one_time")==null?"":o.get("one_time").toString(); // cs_lease_retruns. created_at
         String two_time = o.get("two_time")==null?"":o.get("two_time").toString(); // order updated_at
         if(one_time!="" && two_time!=""){
-            String one_d = _sdf.format(_sdf.parse(one_time));
-            String two_d = _sdf.format(_sdf.parse(two_time));
+            String one_d="";
+        	String two_d ="";
+			try {
+				one_d = _sdf.format(_sdf.parse(one_time));
+				 two_d = _sdf.format(_sdf.parse(two_time));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //        logger.debug("one_d==="+one_d+"===>>>two_d=="+two_d);
             Double day = (double) OrderUtils.compareDate(two_d,one_d );// 租赁时长
 //        logger.debug("租赁时长为： "+day+"天");

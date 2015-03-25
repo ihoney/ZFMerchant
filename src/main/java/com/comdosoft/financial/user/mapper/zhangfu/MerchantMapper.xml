@@ -53,6 +53,32 @@
 		 WHERE id = #{id}
 	]]>
 	</select>
+	
+	<select id="findMerchantById" resultType="map">
+	<![CDATA[
+		SELECT id,
+			   title,
+			   legal_person_name as legalPersonName,
+			   legal_person_card_id as legalPersonCardId,
+			   business_license_no as  businessLicenseNo,
+			   tax_registered_no  as taxRegisteredNo,
+			   organization_code_no as  organizationCodeNo,
+			   city_id as cityId,
+			   account_bank_name as accountBankName,
+			   bank_open_account as bankOpenAccount,
+			   account_bank_address as accountBankAddress,
+			   account_bank_num as accountBankNum,
+			   card_id_front_photo_path as cardIdFrontPhotoPath,
+			   card_id_back_photo_path as cardIdBackPhotoPath,
+			   body_photo_path as bodyPhotoPath,
+			   license_no_pic_path as licenseNoPicPath,
+			   tax_no_pic_path as taxNoPicPath,
+			   org_code_no_pic_path as orgCodeNoPicPath,
+			   account_pic_path as accountPicPath
+		  FROM merchants
+		 WHERE id = #{id}
+	]]>
+	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
