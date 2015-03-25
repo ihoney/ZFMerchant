@@ -1,0 +1,58 @@
+<!-- <div class="logo"><img src="images/logo.png" /></div> -->
+<div class="apply" ng-controller="registerAgentController">
+	<div class="apply_h">申请成为代理商</div>
+    <div class="apply_b">
+    	<ul>
+        	<li><label>类型</label>
+            	<span class="fl_sp"><input name="radio" checked="checked" ng-change="radioShow = !radioShow" type="radio" value="" /> 个人</span>
+                <span class="fl_sp"><input name="radio" ng-change="radioShow = !radioShow"  type="radio" value="" /> 公司</span>
+            </li>
+            <li><input name="" type="text" placeholder="负责人姓名" /></li>
+            <li><input name="" type="text" placeholder="负责人身份证号"/></li>
+            <li><input name="" type="text" placeholder="公司名"/></li>
+            <li><input name="" type="text" placeholder="公司营业执照登记号"/></li>
+            <li><input name="" type="text" placeholder="手机号码" class="l" /><button class="yzm_btn">获取验证码</button></li>
+            <li><input name="" type="text" placeholder="验证码"/></li>
+            <li><input name="" type="text" placeholder="邮箱"/></li>
+        	<li><label>所在地</label>
+            	<select name="">
+            	  <option>省</option>
+            	</select>
+                <select name="">
+            	  <option>市</option>
+            	</select>
+            </li>
+            
+            
+            <li><input name="" type="text" value="登录ID" /></li>
+            <li><input name="" type="text" value="密码" /></li>
+            <li><input name="" type="text" value="确认密码" /></li>
+            <li><input name="" type="text" value="输入图片校验码" class="l" /><div class="jym"><img src="images/yzm.jpg" /></div></li>
+            <li><span class="fl_sp"><input name="" type="radio" value="" /> <a href="#">同意《掌富服务协议》</a></span></li>
+        </ul>
+        <div class="btn"><button>确定</button></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+//input默认值
+function focusBlur(e){
+	$(e).focus(function(){
+		var thisVal = $(this).val();
+		if(thisVal == this.defaultValue){
+			$(this).val('');
+		}	
+	})	
+	$(e).blur(function(){
+		var thisVal = $(this).val();
+		if(thisVal == ''){
+			$(this).val(this.defaultValue);
+		}	
+	})	
+}
+
+$(function(){
+	focusBlur('.apply_b input');//登录
+})
+
+</script>
