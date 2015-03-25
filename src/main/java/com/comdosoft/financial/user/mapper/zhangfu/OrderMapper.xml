@@ -117,16 +117,20 @@
 	</resultMap>
 
 	<select id="countMyOrder" resultType="int">
-		SELECT count(o.id) as count
+		SELECT count(distinct(o.id))  as count
 		FROM orders o
 		where o.customer_id = #{customer_id}
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
 		</if>
+		<if test="p !=null and p!=''">
+		and o.types = #{p}
+		</if>
+ 
 	</select>
 	
 	<select id="countOrderSearch" resultType="int">
-		SELECT count(o.id) as count
+		SELECT count(distinct(o.id))  as count
 		FROM orders o
 		LEFT JOIN order_goods og ON o.id = og.order_id
 		LEFT JOIN goods g ON og.good_id = g.id
@@ -140,6 +144,8 @@
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
 		</if>
+		and (o.types = 1 or o.types = 2)
+ 
 	</select>
 
 	<select id="orderSearch" resultMap="orderMap" >
@@ -180,6 +186,7 @@
 		<if test="q !=null and q!=''">
 		and o.status = #{q}
 		</if>
+		and (o.types = 1 or o.types = 2) 
 		order by o.created_at desc
 		LIMIT #{offset},#{rows}
 	</select>

@@ -111,7 +111,7 @@ public class MerchantAPI {
     public Response insert(@RequestBody Merchant param) {
         Response sysResponse = null;
         try {
-        	String name = param.getTitle();
+        	String name = param.getTitle().trim();
         	Boolean b = merchantService.findMerchantByName(name);
         	if(b){
         		return Response.getError("该商户名已存在，无法创建");

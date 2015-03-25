@@ -51,15 +51,15 @@ public class OrderController {
     // 订单搜索筛选
     @RequestMapping(value = "orderSearch", method = RequestMethod.POST)
     public Response orderSearch(@RequestBody MyOrderReq myOrderReq) {
-        try {
+//        try {
             Page<Object> centers = orderService.orderSearch(myOrderReq);
             return Response.getSuccess(centers);
-        } catch (NullPointerException e) {
-            return Response.buildErrorWithMissing();
-        } catch (Exception e) {
-            logger.debug("获取我的订单列表出错" + e);
-            return Response.getError("请求失败");
-        }
+//        } catch (NullPointerException e) {
+//            return Response.buildErrorWithMissing();
+//        } catch (Exception e) {
+//            logger.debug("获取我的订单列表出错" + e);
+//            return Response.getError("请求失败");
+//        }
     }
 
     @RequestMapping(value = "getMyOrderById", method = RequestMethod.POST)
