@@ -25,6 +25,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/order/order.html'
 	}).when('/orderinfo', {
 		templateUrl : 'views/order/orderinfo.html'
+	}).when('/ordermark', {
+		templateUrl : 'views/order/ordermark.html'
 	}).when('/shop', {
 		templateUrl : 'views/shop/shop.html'
 	}).when('/shopinfo', {

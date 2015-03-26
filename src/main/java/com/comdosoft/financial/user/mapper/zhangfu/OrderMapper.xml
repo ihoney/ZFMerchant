@@ -225,6 +225,7 @@
 		<if test="p !=null and p!=''">
 		and o.types = #{p}
 		</if>
+		group by o.id 
 		order by o.created_at desc
 		LIMIT #{offset},#{rows}
 	</select>

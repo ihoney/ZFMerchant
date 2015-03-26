@@ -41,6 +41,15 @@ var myinfointegralController = function($scope, $http, LoginService) {
 	};
 	$scope.save = function() {
 		var p = $scope.integral.price;
+		var name = $scope.integral.name;
+		var phone = $scope.integral.phone;
+		
+		  var reg = new RegExp("^[0-9]*\.[0-9]{0,1}$");
+		  if(!reg.test(p)){
+			 $scope.integral.price = "";
+			 alert("兑换金额不正确");
+			 return false;
+		  } 
 		if (typeof(p) == "undefined" || p=="") { 
 			alert("没有填写兑换积分");
 			return false;
@@ -49,6 +58,19 @@ var myinfointegralController = function($scope, $http, LoginService) {
 			alert("兑换不能超过可兑换的最高金额");
 			return false;
 		}
+		if (typeof(name) == "undefined" || name=="") { 
+			alert("没有填写姓名");
+			return false;
+		}  
+		if (typeof(phone) == "undefined" || phone=="") { 
+			alert("没有填写电话");
+			return false;
+		}  else{
+			  if(!reg.test(phone)){
+				  alert("电话必须是数字");
+			  }
+		}
+	
 		if ($scope.integral.id == undefined) {
 			$scope.integral.customerId = LoginService.userid;
 			$http.post("api/customers/insertIntegralConvert", $scope.integral).success(function(data) {

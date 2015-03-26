@@ -55,7 +55,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		          "cs_cencelinfo","cs_returninfo","cs_changeinfo","cs_repairinfo","cs_updateinfo","cs_leaseinfo",
 		          "traderecord","tradeinfo",
 		          "myinfobase","myinfoupdatepassword","myinfoAddresses","myinfointegral",
-		          "merchantList","merchantOne","merchantUpdate",
+		          "merchantList","merchantOne","merchantUpdate" ,
 		          "message","messageinfo"];
 		for (var i = 0; i < arry.length; i++) {
 			if(str==arry[i]){

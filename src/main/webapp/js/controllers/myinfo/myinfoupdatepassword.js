@@ -3,10 +3,21 @@
 // 系统设置模块
 var myinfoupdatepasswordModule = angular.module("myinfoupdatepasswordModule", []);
 var myinfoupdatepasswordController = function($scope, $http, LoginService) {
+	$scope.customer = {};
 	$scope.updatepassword = function() {
 		if($scope.customer.password !=$scope.customer.repassword){
 			alert("输入的密码不一致！");
 			return ;
+		}
+		var p = $scope.customer.password;
+		var po = $scope.customer.passwordOld;
+		if (typeof(p) == "undefined" || p=="") { 
+			alert("请输入密码");
+			return false;
+		}
+		if (typeof(po) == "undefined" || po=="") { 
+			alert("请输入密码");
+			return false;
 		}
 		$scope.updateCustomer = {
 			id : LoginService.userid,
