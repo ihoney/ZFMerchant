@@ -46,7 +46,7 @@
 		batch_number as batchNumber,
 		terminal_number as terminalNumber,pay_channel_id,
 		DATE_FORMAT(traded_at, '%Y-%m-%d %T') tradedTimeStr,
-		traded_status tradedStatus,poundage,amount,types
+		traded_status tradedStatus,poundage,amount,trade_type_id as types
 		from trade_records
 		WHERE id=#{id}
 	</select>
