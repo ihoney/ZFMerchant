@@ -40,6 +40,7 @@
 				'1条维修申请处理完成'
 			WHEN 5 THEN
 				'1条维修申请已取消'
+			ELSE '其他' 
 			END AS `status`,
 			updated_at
 		FROM
@@ -55,6 +56,7 @@
 				'1条退货申请处理完成'
 			WHEN 5 THEN
 				'1条退货申请已取消'
+				ELSE '其他'
 			END AS `status`,
 				updated_at
 			FROM
@@ -70,6 +72,7 @@
 				'1条换货申请处理完成'
 			WHEN 5 THEN
 				'1条换货申请已取消'
+				ELSE '其他'
 			END AS `status`,
 					updated_at
 				FROM

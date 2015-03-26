@@ -95,22 +95,28 @@
 	</select>
 
 	<select id="getIntegralList" resultType="map">
-	<![CDATA[
-		SELECT i.quantity, i.types, i.target_type,i.description as order_number,  
+ 
+ SELECT i.quantity, i.types, i.target_type,i.description as order_number,  
 			   DATE_FORMAT(i.created_at, '%Y-%m-%d %T') payedAt
 		  FROM customer_integral_records i  
 		 WHERE i.customer_id = #{customerId}
 	  ORDER BY i.created_at DESC
-		 LIMIT #{offset}, #{rows}
-	]]>
+		 LIMIT #{offset}, #{rows}  
 	</select>
 
 	<select id="getIntegralTotal" resultType="map">
-	<![CDATA[
+<!-- 	<![CDATA[
 		SELECT SUM(i.quantity) quantityTotal
 		  FROM customer_integral_records i
 		 WHERE i.customer_id = #{customerId}
-	]]>
+	]]> -->
+	SELECT
+		c.integral  as quantityTotal,c.integral/s.param_value as moneyTotal
+	FROM
+		customers c
+	LEFT JOIN sys_config s on s.param_name='integralConvert'
+	WHERE
+		c.id =  #{customer_id}
 	</select>
 	
 	<select id="getjifen" resultType="map">
@@ -197,9 +203,16 @@
 	<update id="setDefaultAddress">
 	<![CDATA[
 		UPDATE customer_addresses SET is_default = 1 ,updated_at = NOW()
-		 WHERE id = #{id}
+		 WHERE id = #{id}  and customer_id = #{customerId}
 	]]>
 	</update>
+	<update id="setNotDefaultAddress">
+	<![CDATA[
+		UPDATE customer_addresses SET is_default = 0 ,updated_at = NOW()
+		 WHERE id != #{id} and customer_id = #{customerId}
+	]]>
+	</update>
+	
 
 	<!-- <delete id="deleteAddress">
 	<![CDATA[

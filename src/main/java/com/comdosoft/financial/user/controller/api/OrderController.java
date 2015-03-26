@@ -65,7 +65,14 @@ public class OrderController {
     @RequestMapping(value = "getMyOrderById", method = RequestMethod.POST)
     public Response getMyOrderById(@RequestBody MyOrderReq myOrderReq) {
         try {
-            Object centers = orderService.findMyOrderById(myOrderReq.getId());
+        	  Object centers = null;
+        	  String q = myOrderReq.getQ();
+        	if(null != q && q.equals("1")){
+        		Map<String, Object> m =  orderService.findMyOrderById2(myOrderReq.getId());
+        		 return Response.buildSuccess(m, "success");
+        	}else{
+        		centers = orderService.findMyOrderById(myOrderReq.getId());
+        	}
             return Response.buildSuccess(centers, "success");
         } catch (NullPointerException e) {
             e.printStackTrace();

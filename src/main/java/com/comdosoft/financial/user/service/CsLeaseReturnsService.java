@@ -120,10 +120,13 @@ public class CsLeaseReturnsService {
         map.put("receiver_name", o.get("receiver")==null?"":o.get("receiver"));
         map.put("receiver_phone", o.get("receiver_phone") ==null?"":o.get("receiver_phone"));
         map.put("receiver_addr", o.get("address") ==null?"":o.get("address"));
-       
         List<Map<String, Object>> list = csLeaseReturnsMapper.findTraceById(myOrderReq);
-        String json = o.get("templete_info_xml")+"";
-        map = csCencelsService.getTemplePaths(map, json);
+        String json = o.get("templete_info_xml")==null?"":o.get("templete_info_xml").toString();
+        if( json=="" ){
+        	map.put("resource_info", new ArrayList<>());
+        }else{
+        	map = csCencelsService.getTemplePaths(map, json);
+        }
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));
         return map;
     }
