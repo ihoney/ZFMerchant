@@ -104,11 +104,11 @@ public class CsCencelsService {
         return map;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "unused" })
     public Map<String,Object> getTemplePaths(Map<String, Object> map, String json) {
         ObjectMapper mapper = new ObjectMapper();
         logger.debug("templete_info_xml==>>"+json);
-        if(!json.equals("")){
+        if(!json.equals("") || null!=json){
             Map<String,Object> child_map = null;
             List<LinkedHashMap<String, Object>> list_json;
             try {
