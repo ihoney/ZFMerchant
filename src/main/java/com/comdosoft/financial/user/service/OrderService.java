@@ -370,7 +370,7 @@ public class OrderService {
     public void cleanOrder() {
     	logger.debug("进入订单清理");
         List<Map<String, Object>>  m = orderMapper.findPersonGoodsQuantity();
-        if(m.size()<0){
+        if(m.size()<1){
         	logger.debug("没有找到需要清理的订单");
         }else{
         	logger.debug("清理订单开始");
