@@ -76,7 +76,7 @@ public class CommentController {
     @Value("${appVersionPath}")
     private String appVersionPath;
 
-    @RequestMapping(value = "appVersion", method = RequestMethod.POST)
+    @RequestMapping(value = "appVersion",produces="application/json;charset=UTF-8", method = RequestMethod.POST)
     public String appVersion() {
         File file = new File(appVersionPath);
         BufferedReader reader = null;
@@ -91,7 +91,7 @@ public class CommentController {
             return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
-            return "系统不错误";
+            return "{\"code\":-1,\"message\":\"系统出错\"}";
         } finally {
             if (reader != null) {
                 try {

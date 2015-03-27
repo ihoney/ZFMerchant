@@ -11,9 +11,14 @@
 
 	<mvc:annotation-driven>
 		<mvc:message-converters>
+			<bean class="com.comdosoft.financial.user.utils.UTF8StringHttpMessageConverter">  
+                <property name="writeAcceptCharset" value="false" />  
+            </bean> 
+            <!--  
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<constructor-arg value="UTF-8" />
 			</bean>
+			-->
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
