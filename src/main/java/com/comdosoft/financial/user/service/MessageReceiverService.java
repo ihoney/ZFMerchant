@@ -2,6 +2,7 @@ package com.comdosoft.financial.user.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,12 @@ public class MessageReceiverService {
             }else{
                 map.put("status", false);
             }
-            map.put("create_at",sdf.format(s.getSysMessage() ==null ?"":s.getSysMessage().getCreatedAt()));
+            Date d = s.getSysMessage().getCreatedAt() ;
+            if(null == d){
+            	map.put("create_at","");
+            }else{
+            	map.put("create_at",sdf.format(d));
+            }
             map.put("content", s.getSysMessage() ==null ?"":s.getSysMessage().getContent());
             list.add(map);
         }
