@@ -208,7 +208,7 @@
 	</update>
 	<update id="setNotDefaultAddress">
 	<![CDATA[
-		UPDATE customer_addresses SET is_default = 0 ,updated_at = NOW()
+		UPDATE customer_addresses SET is_default =2 ,updated_at = NOW()
 		 WHERE id != #{id} and customer_id = #{customerId}
 	]]>
 	</update>
