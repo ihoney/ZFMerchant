@@ -142,8 +142,8 @@ public class IndexService {
 
 	public String update_email(MyOrderReq myOrderReq) {
 	        MailReq req = new MailReq();
-	        req.setUserName(myOrderReq.getQ());//姓名
-	        req.setAddress(myOrderReq.getContent());//邮箱
+	        req.setUserName(myOrderReq.getUserName());//姓名
+	        req.setAddress(myOrderReq.getEmail());//邮箱
 	        try {
 	        	String code = SysUtils.getCode() ;
 	            MailService.sendMail_phone(req,code);

@@ -90,7 +90,7 @@ public class IndexController {
     }
     
     //手机端用 修改邮箱 返回验证码
-    @RequestMapping(value = "update_email", method = RequestMethod.POST)
+    @RequestMapping(value = "updateEmail", method = RequestMethod.POST)
     public Response update_email(@RequestBody MyOrderReq req,HttpServletRequest request){
     	String c = indexService.update_email(req);
     	if(c == ""){

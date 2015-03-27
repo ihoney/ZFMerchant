@@ -12,6 +12,7 @@ public class MyOrderReq {
     private Integer offset;
     private String search;//搜索条件
     private String phone;//手机号
+    private String userName;
     private String email;
     private String q;//状态值
     private String p;//订单类型
@@ -30,7 +31,13 @@ public class MyOrderReq {
     
    
     
-    public String getP() {
+    public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getP() {
 		return p;
 	}
 	public void setP(String p) {
