@@ -99,9 +99,13 @@ public class CsLeaseReturnsService {
                 return_price = new BigDecimal(0);
             }
             map.put("return_price", return_price ); // 退还金额
-            map.put("lease_length", day.intValue() ); // 租赁时长 天
             int min = (int) o.get("lease_time");// 最少租赁时间，月为单位
             int max = (int) o.get("return_time");// 租赁归还时间，月为单位
+            if(day<min*30){
+            	map.put("lease_length", min*30 ); // 租赁时长 天
+            }else{
+            	map.put("lease_length", day.intValue() ); // 租赁时长 天
+            }
             map.put("lease_min_time", min * 30); // 最短时间 天
             map.put("lease_max_time", max * 30); // 最长时间 天
 //             logger.debug("租赁id为"+id+"的租赁押金："+o.get("lease_deposit")+" 租金："+zj*month+

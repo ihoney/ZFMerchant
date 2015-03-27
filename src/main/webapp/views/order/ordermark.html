@@ -1,7 +1,5 @@
 <script type="text/javascript" src="js/controllers/ordermark.controller.js"></script>
 <script src="js/jquery.raty.js"></script>
-
-
 <div class="main" ng-controller="ordermarkController">
 	<div class="box">
     	<div class="breadcrumb">
@@ -29,25 +27,32 @@
                 </div>
                 <div class="eva_star" >
                 	<div class="halfShow_star "  ></div>
-                <!-- 	<input type="hidden" value="" id="com_score" ng-model="score" name="score">
-					<input type="hidden" value="" id="com_good_id" ng-model="goodid" name="goodid"> -->
+                	<input type="hidden" value="" id="com_score" ng-model="score" name="score">
+					<input type="hidden" value="" id="com_good_id" ng-model="goodid" name="goodid">
 					<div class="gradeText"> 
-						<textarea name="content"  ng-model="content" cols="" rows=""></textarea>
+						<textarea name="content"  ng-model="content" cols="" rows="" style="margin: 0px; height: 116px; width: 504px;"></textarea>
 					</div>
-					<script type="text/javascript">
-						<!--
-						$.fn.raty.defaults.path = 'images';
-						$('.halfShow_star').raty({});
-						//-->
-						</script>
+					
                 </div>
 
-
+			<script type="text/javascript">
+						$.fn.raty.defaults.path = 'images';
+			        	var v = $("#isOk").val();
+					 	if(v=="1"){
+					 		$('.halfShow_star').raty({ 
+					    		hints: ['1', '2', '3', '4', '5'],
+					    		score: 3.3 ,
+					    		click: function (score, evt) {
+					    			// $("#com_score").val(score);
+					    		   }
+					    		});
+					 	}
+						</script>
             </div>
 
             <div class="eva_btn"><button class="orangeBtn" ng-click="saveContent()">提交评价</button></div>
         </div>
     </div>
-   
+   <input type="hidden"   value="" id="isOk">
 </div>
 	

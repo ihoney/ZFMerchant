@@ -36,15 +36,15 @@ public class MessageReceiverController {
     
     @RequestMapping(value="getAll",method=RequestMethod.POST)
     public Response getAll(@RequestBody MyOrderReq myOrderReq){
-        try{
+//        try{
             Page<Object> mrs= messageReceiverService.findAll(myOrderReq);
             return Response.getSuccess(mrs);
-        }catch(NullPointerException e){
-            return Response.buildErrorWithMissing();
-        }catch(Exception e){
-            logger.debug("获取我的消息列表出错"+e);
-            return Response.getError("请求失败");
-        }
+//        }catch(NullPointerException e){
+//            return Response.buildErrorWithMissing();
+//        }catch(Exception e){
+//            logger.debug("获取我的消息列表出错"+e);
+//            return Response.getError("请求失败");
+//        }
     }
     
     @RequestMapping(value="getById",method=RequestMethod.POST)
