@@ -16,6 +16,7 @@ input { border: none;}
 
 
 .textarea_l { width: 398px; height: 100px; border: 1px #CCCCCC solid;}
+.textarea_pe { width: 98%; height: 100px; border: 1px #CCCCCC solid;}
 
 
 
@@ -30,6 +31,7 @@ input { border: none;}
 	float: left;
 	margin-top: 6px;
 }
+.logo a { width: 316px; height: 50px; display: block;}
 .search {
 	float: left;
 	margin: 15px 0 0 60px;
@@ -122,7 +124,7 @@ input { border: none;}
 .b_table { overflow: hidden;}
 .b_table th, .b_table td { padding: 8px; text-align: center;}
 .b_table thead { background: #eee;}
-.b_table td { border-bottom: 1px #eee solid;}
+.b_table td { border-bottom: 1px #eee solid; overflow:hidden; word-break: break-all;}
 .b_table td strong, .b_table td em { color: #ff5f2b; font-size: 14px; font-style:normal;}
 .b_table td.left_border { border-left: 1px solid #eee;}
 
@@ -130,12 +132,22 @@ input { border: none;}
 
 /*---表格内的产品信息---*/
 .td_proBox { width: 600px; margin: 10px 0; text-align: left; overflow: hidden;}
-.td_proBox a.cn_img { border: 1px #fff solid; font-size: 0; display: block; float: left; margin-right: 15px;}
+.cn_img {
+	width: 130px; 
+	height: 130px; 
+	overflow: hidden; 
+	border: 1px #fff solid; 
+	font-size: 0; 
+	display: block; 
+	float: left; 
+	margin-right: 15px;
+}
+.cn_img a { width: 130px; display: block; overflow: hidden;}
 .td_proBox a:hover.cn_img { border: 1px #ff5f2b solid;}
 
-.td_proBox a.cn_img img { width: 130px;}
+.td_proBox a.cn_img img { display: inline-block;}
 
-.td_proBox_info { float: left; width: 440px;}
+.td_proBox_info { float: left; width: 430px;}
 .td_proBox_info a { color: #333;}
 .td_proBox_info a:hover { text-decoration: underline; color: #ff5f2b;}
 .td_proBox_info h1 { font-size: 14px; line-height: 24px;}
