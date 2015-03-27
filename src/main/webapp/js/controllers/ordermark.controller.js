@@ -4,26 +4,27 @@
 var ordermarkModule = angular.module("ordermarkModule",[]);
 
 var ordermarkController = function ($scope,$location, $http, LoginService) {
-	console.log("订单评分 开始......");
 	$scope.req={};
 	$scope.req.id=$location.search()['orderId'];
 	$scope.req.q="1";
     $scope.getOrdermark = function () {
     	$http.post("api/order/getMyOrderById", $scope.req).success(function (data) {  //绑定
-    		console.log("获取成功了");
             if (data.code==1) {
             	$scope.orderInfo=data.result;
-            
-            	console.log("评分");
+               	 $("#isOk").val("1");
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
         });
     };
   
-	 
- 
-    
+    //batchSaveComment     
+    /**
+     *     private Integer customer_id;
+    private Integer good_id;
+    private Integer score;
+    private String content;
+     */
     $scope.saveContent= function () {
 //    	var goodid = $("#com_good_id").val();
 //    	$scope.req.content = $scope.content;

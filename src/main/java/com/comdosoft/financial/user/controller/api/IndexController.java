@@ -89,6 +89,16 @@ public class IndexController {
         return Response.getSuccess();
     }
     
+    //手机端用 修改邮箱 返回验证码
+    @RequestMapping(value = "update_email", method = RequestMethod.POST)
+    public Response update_email(@RequestBody MyOrderReq req,HttpServletRequest request){
+    	String c = indexService.update_email(req);
+    	if(c == ""){
+    		return Response.getError("发送失败，请重新再试");
+    	}
+    	return Response.buildSuccess(c, "success");
+    }
+    
     //跳转页面修改邮箱
     @RequestMapping(value = "to_change_email/{id}/{name}/{str}")
     public void to_change_email(@PathVariable String id,@PathVariable String name, @PathVariable String str,HttpServletRequest request,HttpServletResponse response){
