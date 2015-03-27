@@ -10,12 +10,12 @@
 		<div class="login_right">
 			<div class="lr_h">
 				<ul>
-					<li ng-click="loginAngShow = true" ng-class="{hover:loginAngShow}" class="hover">普通用户</li>
-					<li ng-click="loginAngShow = false" ng-class="{hover:!loginAngShow}">代理商</li>
+					<li class="hover">普通用户</li>
+					<li >代理商</li>
 				</ul>
 			</div>
 			<div class="lr_b">
-				<div class="login_area" ng-show="loginAngShow">
+				<div class="login_area" >
 					<ul>
 						<li><input id="loginUname" ng-mousedown="unameClass=fale" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="ID" ng-model="username" />
 							<p class="red" >{{nameMessage}}</p></li>
@@ -33,29 +33,6 @@
 					</div>
 					<div class="btn">
 						<button ng-click="login()">登录</button>
-					</div>
-				</div>
-				<div class="login_area" ng-controller="agentLoginController" ng-show="!loginAngShow" >
-					<ul>
-						<li>
-						<input name="" ng-mousedown="agentNameClass = false" ng-class="{true: 'error'}[agentNameClass == true]" type="text" placeholder="ID1" ng-model="agent.agentName"/>
-						<p class="red" >{{agentNameMessage}}</p>
-						</li>
-						<li>
-						<input name="" ng-mousedown="agentPassClass = false" ng-class="{true: 'error'}[agentPassClass == true]" type="text" placeholder="密码:由6-20位，英文字符组成" ng-model="agent.agentPass"/>
-						<p class="red" >{{agentPassMessage}}</p>
-						</li>
-						<li><input name="" ng-mousedown="agentImgClass = false" type="text" placeholder="输入图片校验码" ng-class="{true: 'l error',false: 'l'}[agentImgClass == true]" ng-model="agent.agentCode"/>
-							<div class="yzm">
-								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-							</div></li>
-					</ul>
-					<div class="forget">
-						<span><input name="" type="checkbox" value="" ng-model="agentRememberPass" />记住密码</span> <a href="#/findpass">忘记密码？</a>
-					</div>
-					<div class="btn">
-						<button style="width: 180px; margin-right: 18px;" ng-click="agentLogin()">登录</button>
-						<button style="width: 160px; background: #ff9b00; float: right;" ng-click="goToRegister()">申请成为代理商</button>
 					</div>
 				</div>
 			</div>
