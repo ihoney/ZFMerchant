@@ -212,7 +212,9 @@ public class OrderService {
             map.put("order_totalNum", o.getTotalQuantity() == null ? "" : o.getTotalQuantity().toString());// 订单总件数
             map.put("order_totalPrice", o.getActualPrice() == null ? "" : o.getActualPrice());//订单总额 实际的
             map.put("order_psf", "0");// 配送费
-            List<OrderGood> olist = o.getOrderGoodsList();
+            
+            List<OrderGood> olist =  orderMapper.findGoodsByOrderId(o.getId());
+//            List<OrderGood> olist = o.getOrderGoodsList();
             map.put("order_goods_size", olist.size());// 
             List<Object> newObjList = new ArrayList<Object>();
             Map<String, Object> omap = null;

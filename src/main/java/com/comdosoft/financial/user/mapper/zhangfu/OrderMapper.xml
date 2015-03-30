@@ -187,8 +187,30 @@
 		and o.status = #{q}
 		</if>
 		and (o.types = 1 or o.types = 2) 
+		group by o.id
 		order by o.created_at desc
 		LIMIT #{offset},#{rows}
+	</select>
+	
+	<select id="findGoodsByOrderId" resultMap="orderGoodsMap" >
+		SELECT
+		g.model_number AS brand_number,
+		gb. NAME AS brand_name,
+		og.id as order_good_id,
+		g.id as good_id,
+		 g.volume_number,
+		gb.id as good_brands_id,
+		pc.name as channel_name,
+		og.price ,
+		og.actual_price ,
+		og.quantity 
+		FROM	
+		 order_goods og 
+		LEFT JOIN goods g ON og.good_id = g.id
+		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
+		LEFT JOIN pay_channels pc ON og.pay_channel_id = pc.id
+		WHERE
+	      og.order_id =#{param1}
 	</select>
 	
 	<select id="findMyOrderAll" resultMap="orderMap" >

@@ -8,6 +8,7 @@ import com.comdosoft.financial.user.domain.zhangfu.CommentsJson;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.Order;
+import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 
 public interface OrderMapper {
@@ -60,6 +61,8 @@ public interface OrderMapper {
     List<Map<String, Object>>  findPersonGoodsQuantity();
 
     void update_goods_stock(String good_id, String quantity);
+
+	List<OrderGood> findGoodsByOrderId(Integer id);
 
 // ------gch end ---------------------
 }

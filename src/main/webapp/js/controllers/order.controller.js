@@ -83,7 +83,7 @@ var orderController = function ($scope, $http, LoginService) {
     	$scope.req={id:id};
 		$http.post("api/order/cancelMyOrder", $scope.req).success(function (data) {  //绑定
             if (data != null && data != undefined) {
-            	$scope.orderlist();
+            	$scope.submitPage();
             }
         }).error(function (data) {
             $("#serverErrorModal").modal({show: true});
