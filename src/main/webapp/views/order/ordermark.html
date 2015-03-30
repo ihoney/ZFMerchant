@@ -9,6 +9,7 @@
             </ul>
         </div>
         <div class="inner"  >
+             <input type="hidden" id="goods_size" value="{{orderInfo.order_goods_size}}" >
             <div class="eva_box"  ng-repeat="g in  orderInfo.order_goodsList "> 
             	<div class="eva_comm">
                 	<div class="td_proBox">
@@ -27,10 +28,11 @@
                 </div>
                 <div class="eva_star" >
                 	<div class="halfShow_star "  ></div>
-                	<input type="hidden" value="" id="com_score" ng-model="score" name="score">
-					<input type="hidden" value="" id="com_good_id" ng-model="goodid" name="goodid">
+                	<input type="hidden" id="index" value="{{$index}}" >
+                	<input type="hidden" id="score_{{$index}}"  >
+					<input type="hidden" id="goodid_{{$index}}"  value="{{g.good_id}}" >
 					<div class="gradeText"> 
-						<textarea name="content"  ng-model="content" cols="" rows="" style="margin: 0px; height: 116px; width: 504px;"></textarea>
+						<textarea   id="content_{{$index}}"   cols="" rows="" style="margin: 0px; height: 116px; width: 504px;"></textarea>
 					</div>
 					
                 </div>
@@ -40,10 +42,11 @@
 			        	var v = $("#isOk").val();
 					 	if(v=="1"){
 					 		$('.halfShow_star').raty({ 
-					    		hints: ['1', '2', '3', '4', '5'],
-					    		score: 3.3 ,
+					    		hints: ['', '2', '3', '4', '5'],
+					    		score: 3 ,
 					    		click: function (score, evt) {
-					    			// $("#com_score").val(score);
+					    			var i = $("#index").val();
+					    			  $("#score_"+i).val(score);
 					    		   }
 					    		});
 					 	}

@@ -39,7 +39,7 @@ public interface OrderMapper {
 
     Order findMyOrderById(Integer id);
 
-    void changeStatus(MyOrderReq myOrderReq);
+    int changeStatus(MyOrderReq myOrderReq);
 
     void comment(MyOrderReq myOrderReq);
 
@@ -53,7 +53,7 @@ public interface OrderMapper {
 
     List<Terminal> getTerminsla(Integer order_id,Integer goods_id);
 
-    void batchSaveComment(List<CommentsJson> list);
+    int  batchSaveComment(List<CommentsJson> list);
 
     void cleanOrder();
 

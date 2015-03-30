@@ -361,9 +361,14 @@ public class OrderService {
         return new Page<Object>(request, obj_list, count);
     }
 
-    public void batchSaveComment(MyOrderReq myOrderReq) {
-        orderMapper.batchSaveComment(myOrderReq.getJson());
-        
+    public int batchSaveComment(MyOrderReq myOrderReq) {
+      int i =   orderMapper.batchSaveComment(myOrderReq.getJson());
+      if(i>0){
+    	  myOrderReq.setOrderStatus(OrderStatus.EVALUATED);
+          int j = orderMapper.changeStatus(myOrderReq);
+          return j;
+      }
+      return i;
     }
 
     @Transactional(value = "transactionManager-zhangfu")

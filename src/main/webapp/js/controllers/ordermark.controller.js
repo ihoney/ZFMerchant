@@ -5,7 +5,8 @@ var ordermarkModule = angular.module("ordermarkModule",[]);
 
 var ordermarkController = function ($scope,$location, $http, LoginService) {
 	$scope.req={};
-	$scope.req.id=$location.search()['orderId'];
+	$scope.order_id = $location.search()['orderId'];
+	$scope.req.id=$scope.order_id;
 	$scope.req.q="1";
     $scope.getOrdermark = function () {
     	$http.post("api/order/getMyOrderById", $scope.req).success(function (data) {  //绑定
@@ -18,32 +19,45 @@ var ordermarkController = function ($scope,$location, $http, LoginService) {
         });
     };
   
-    //batchSaveComment     
-    /**
-     *     private Integer customer_id;
-    private Integer good_id;
-    private Integer score;
-    private String content;
-     */
+    //批量评价并且更新状态为已评论
     $scope.saveContent= function () {
-//    	var goodid = $("#com_good_id").val();
-//    	$scope.req.content = $scope.content;
-//    	$scope.req.good_id = goodid;
-//    	var score = $("#com_score").val();
-//    	if(score == ""){
-//    		score = 3;
-//    	}
-//    	$scope.req.score = score*10;
-//    	$scope.req.customer_id = LoginService.userid;
-//    	
-//    	$http.post("api/order/saveComment", $scope.req).success(function (data) {  
-//    		if (data.code==1) {
-////    			 $(".tab").css('display','none');
-//    			 $("#od_pj_div").css('display','none');
-//    		}
-//    	}).error(function (data) {
-//    		$("#serverErrorModal").modal({show: true});
-//    	});
+    	var size = $("#goods_size").val();
+    	var marks = new Array();
+    	 for(var i = 0;i<size ;i++){
+    			var g_id = $("#goodid_"+i).val();
+    	    	var score = $("#score_"+i).val();
+    	    	if(score ==""){
+    	    		score= 30;
+    	    	}else{
+    	    		score = score*10; 
+    	    	}
+    	    	var content = $("#content_"+i).val();
+    	    	if(content ==""){
+    	    		alert("请输入评价内容");
+    	    		return false;
+    	    	}
+    	    	var obj = {};
+    	    	obj = {
+    	    			"customer_id": LoginService.userid,
+    	    			"good_id":  g_id , 
+    	    			"score":  score,
+    	    		    "content":content
+    	    		    };
+    	    	marks[i]=obj;
+    	 }
+    	var json_req =  {
+    						 "id" : $scope.order_id, 
+    						"json":marks			 
+    						};
+    	json_req =  JSON.stringify(json_req);
+    	$scope.req = json_req;
+    	$http.post("api/order/batchSaveComment", $scope.req).success(function (data) {  
+    		if (data.code==1) {
+    			alert("评论成功");
+    			window.location.href = '#/orderinfo?orderId='+$scope.order_id;
+    		}
+    	}).error(function (data) {
+    	});
     };
     
     $scope.getOrdermark();

@@ -26,10 +26,13 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 								name:e.city_name}
 	};
 	$scope.save = function() {
-	   if (typeof($scope.selected) == "undefined" || typeof($scope.selected_city) == "undefined" ) { 
-		   alert("请选择省市");
-		   return ;
-	    }else{
+	   if (typeof($scope.selected) == "undefined" || ($scope.selected) == "" || ($scope.selected) == null) { 
+		   alert("请选择省份");
+		   return false;
+	   }else if(typeof($scope.selected_city) == "undefined"  || ($scope.selected_city) == ""  || ($scope.selected_city) == null){
+		   alert("请选择城市");
+		   return false;
+	   }else{
 	    	if ($scope.address.id == undefined) {
 				$scope.address.cityId = $scope.selected_city.id;
 				$scope.address.customerId = LoginService.userid;
