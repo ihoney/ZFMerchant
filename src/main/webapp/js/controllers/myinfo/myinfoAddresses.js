@@ -4,8 +4,8 @@
 var myinfoAddressesModule = angular.module("myinfoAddressesModule", []);
 var myinfoAddressesController = function($scope, $http, LoginService) {
 	$scope.list = function() {
-		var customerId = LoginService.userid;
-		$http.post("api/customers/getAddressList/" + customerId).success(function(data) {
+		var customer_id = LoginService.userid;
+		$http.post("api/customers/getAddressList/" + customer_id).success(function(data) {
 			if (data.code == 1) {
 				$scope.addressList = data.result;
 			} else {
@@ -32,7 +32,7 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 	    }else{
 	    	if ($scope.address.id == undefined) {
 				$scope.address.cityId = $scope.selected_city.id;
-				$scope.address.customerId = LoginService.userid;
+				$scope.address.customer_id = LoginService.userid;
 				$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
 					if (data.code == 1) {
 						alert("保存成功");
