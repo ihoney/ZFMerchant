@@ -18,9 +18,9 @@ var myinfointegralController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.getIntegralTotal = function() {
-		var customer_id = LoginService.userid;
+		var customerId = LoginService.userid;
 		$scope.req = {
-			customer_id : customer_id
+			customer_id : customerId
 		};
 		$http.post("api/customers/getjifen" , $scope.req).success(function(data) {
 //			$http.post("api/customers/getIntegralTotal/" + customer_id).success(function(data) {
@@ -72,7 +72,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 		}
 	
 		if ($scope.integral.id == undefined) {
-			$scope.integral.customer_id = LoginService.userid;
+			$scope.integral.customerId = LoginService.userid;
 			$http.post("api/customers/insertIntegralConvert", $scope.integral).success(function(data) {
 				if (data.code == 1) {
 					$(".close").click();

@@ -4,7 +4,7 @@
 var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http,$location, LoginService) {
 	var sid = $location.search()['id'];
-	var customer_id = LoginService.userid;
+	var customerId = LoginService.userid;
 	
 	var v1;//倒计时1
 	var v2;//倒计时2
