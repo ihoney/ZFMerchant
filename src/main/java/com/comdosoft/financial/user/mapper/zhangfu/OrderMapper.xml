@@ -247,6 +247,7 @@
 		<if test="p !=null and p!=''">
 		and o.types = #{p}
 		</if>
+		and (o.types = 1 or o.types = 2) 
 		group by o.id 
 		order by o.created_at desc
 		LIMIT #{offset},#{rows}
