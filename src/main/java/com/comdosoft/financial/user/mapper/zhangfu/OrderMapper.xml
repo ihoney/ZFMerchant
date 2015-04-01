@@ -195,7 +195,7 @@
 	<select id="findGoodsByOrderId" resultMap="orderGoodsMap" >
 		SELECT
 		g.model_number AS brand_number,
-		gb. NAME AS brand_name,
+		gb. NAME AS brand_name,g.title,
 		og.id as order_good_id,
 		g.id as good_id,
 		 g.volume_number,
