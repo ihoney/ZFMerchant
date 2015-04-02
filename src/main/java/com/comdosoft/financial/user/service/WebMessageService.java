@@ -33,7 +33,6 @@ public class WebMessageService {
             map.put("title", o.getTitle());
             map.put("create_at",sdf.format(o.getCreateAt()));
             map.put("content", o.getContent());
-            System.err.println("id==>>>"+ o.getId());
             listMap.add(map);
         }
         return new Page<Object>(request, listMap, count);
