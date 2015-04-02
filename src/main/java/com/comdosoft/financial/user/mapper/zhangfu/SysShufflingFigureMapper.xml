@@ -7,7 +7,7 @@
 		SELECT id, picture_url, website_url
 		  FROM sys_shuffling_figures
 	  ORDER BY created_at DESC
-		 LIMIT 0, 4
+		 LIMIT 0, 5
 	]]>
 	</select>
 	

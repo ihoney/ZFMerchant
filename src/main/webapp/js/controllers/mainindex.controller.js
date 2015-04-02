@@ -94,13 +94,14 @@ var mainindexController = function($scope, $http) {
 
 	// 轮播图
 	$scope.pic_list = function() {
-		$http.post("api/index/sysshufflingfigure/getList", $scope.req).success(function(data) {
+		$http.post("api/index/sysshufflingfigure/getList2", $scope.req).success(function(data) {
 			if (data != null && data != undefined) {
-				$scope.pic_list = data.result;
-				$scope.pic_0 = $scope.pic_list[0].picture_url;
-				$scope.pic_1 = $scope.pic_list[1].picture_url;
-				$scope.pic_2 = $scope.pic_list[2].picture_url;
-				$scope.pic_3 = $scope.pic_list[3].picture_url;
+				$scope.pic_list = data.result.list;
+				$scope.pic_total = data.result.total;
+//				$scope.pic_0 = $scope.pic_list[0].picture_url;
+//				$scope.pic_1 = $scope.pic_list[1].picture_url;
+//				$scope.pic_2 = $scope.pic_list[2].picture_url;
+//				$scope.pic_3 = $scope.pic_list[3].picture_url;
 			}
 		});
 	};
