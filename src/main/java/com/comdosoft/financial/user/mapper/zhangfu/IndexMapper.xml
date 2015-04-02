@@ -28,9 +28,10 @@
 	FROM
 		goods g
 	LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
-	LEFT JOIN (select * from goods_pictures   LIMIT 1) as gp ON g.id = gp.good_id
+	LEFT JOIN (select * from goods_pictures  ) as gp ON g.id = gp.good_id
+	group by g.id
 	ORDER BY
-		g.volume_number DESC
+		g.volume_number DESC,gb.created_at DESC 
 	limit 0,6
 	</select>
 	
