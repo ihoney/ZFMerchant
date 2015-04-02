@@ -19,7 +19,6 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     	}
     };
     $scope.$on('$locationChangeStart', function (scope, next, current) {                          		
-		//alert(strs[0]);
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
 			$scope.ngshow=true;
@@ -125,7 +124,6 @@ var headerController = function($scope, $location, $http, LoginService,$cookieSt
 	};
 	
 	$scope.submit_city = function(){
-		//alert($scope.selected_city.id);
 		$cookieStore.put("city_name", $scope.selected_city.name);
 		$cookieStore.put("city_id", $scope.selected_city.id);
 		$scope.city_name = $scope.selected_city.name;
@@ -322,7 +320,6 @@ var registerController=function($scope, $location, $http, LoginService){
 			}).success(function(data) {
 				if(data.code == 1){
 					$scope.code = data.result;
-					alert(data.result);
 					setCookie("send_phone_code",$scope.code); 
 					$scope.intDiff = 120;
 					window.two = window.setInterval(function(){
@@ -453,7 +450,6 @@ var registerController=function($scope, $location, $http, LoginService){
 				$scope.codeBei = "";
 				$scope.successEmailShow = true;
 			} else if (data.code == -1) {
-				alert(data.code);
 			}
 		})
 	};

@@ -86,7 +86,6 @@ var terminalController = function ($scope, $http, LoginService) {
 								$scope.total = null;
 								$scope.getInfo();
 								location.reload();
-
 							} else {
 								alert(data.message);
 							}

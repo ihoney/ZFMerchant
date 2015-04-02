@@ -298,6 +298,7 @@ public class UserLoginController {
                 return Response.getError("用户名错误！");
             }
         } catch (Exception e) {
+        	e.printStackTrace();
             return Response.getError("请求失败！");
         }
     }

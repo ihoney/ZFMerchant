@@ -59,7 +59,7 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
     	  if(data.code == 1){
     		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
     	  }else{
-    		  alert("跟新失败！");
+    		  alert("更新失败！");
     	  }
         
       }
