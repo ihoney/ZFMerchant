@@ -312,9 +312,9 @@
 	o.id = #{param1}
 	</select>
     
-	<update id="changeStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Order">
+	<update id="changeStatus" >
         UPDATE orders
-			SET STATUS = #{orderStatus.code}
+			SET `status` = #{orderStatus.code}
 		WHERE
 			id = #{id}
     </update>

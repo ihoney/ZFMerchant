@@ -107,8 +107,12 @@ public class OrderController {
     
     @RequestMapping(value = "batchSaveComment", method = RequestMethod.POST)
     public Response batchSaveComment(@RequestBody MyOrderReq myOrderReq) {
-            orderService.batchSaveComment(myOrderReq);
-            return Response.buildSuccess(null, "评论成功");
+          int i =   orderService.batchSaveComment(myOrderReq);
+          if(i>0){
+        	  return Response.buildSuccess("", "评论成功"); 
+          }else{
+        	  return Response.getError("评论失败"); 
+          }
     }
 
     // gch end
