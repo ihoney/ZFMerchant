@@ -12,9 +12,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.zhangfu.CsRepairPayment;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.RepairStatus;
 import com.comdosoft.financial.user.domain.zhangfu.UpdateStatus;
+import com.comdosoft.financial.user.mapper.zhangfu.CSrepairPaymentMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.CsRepairMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.page.Page;
@@ -25,6 +27,8 @@ public class CsRepairService {
     
     @Resource
     private CsRepairMapper repairMapper;
+    @Resource
+    private CSrepairPaymentMapper repairPaymentMapper;
 
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
@@ -161,4 +165,15 @@ public class CsRepairService {
         map.put("repair_price", o.get("repair_price")==null?"":o.get("repair_price"));
         return map;
     }
+
+	public Integer repairSuccess(String ordernumber) {
+		Map<String,Object> repairMap = repairMapper.findRepairById(Integer.parseInt(ordernumber));
+		String id = repairMap.get("id")+"";
+		String price = repairMap.get("repair_price")+"";
+		CsRepairPayment crp = new CsRepairPayment();
+		crp.setRepairPrice(Integer.parseInt(price));
+		crp.setCsRepairId(Integer.parseInt(id));
+		int i = repairPaymentMapper.insertPayment(crp);
+		return i;
+	}
 }

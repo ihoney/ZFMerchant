@@ -34,4 +34,6 @@ public interface CsRepairMapper {
      * @return
      */
     Map<String, Object> repairPayFinish(MyOrderReq myOrderReq);
+
+	Map<String, Object> findRepairById(int parseInt);
 }

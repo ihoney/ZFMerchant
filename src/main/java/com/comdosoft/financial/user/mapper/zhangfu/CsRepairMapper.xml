@@ -185,6 +185,18 @@
 		WHERE
 			o.id = #{id}
 	</select>
+	
+	<select id="findRepairById" resultType="map"  >
+		SELECT
+			o.id,o.repair_price,
+			o.`status` AS apply_status,
+			o.created_at AS apply_time
+		FROM
+			cs_repairs o
+		WHERE
+			o.id = #{id}
+	</select>
+	
 	<!-- 根据 cs_repairs id 查询所有追踪记录-->
 		<select id="findTraceById" resultType="map" >
 		SELECT
