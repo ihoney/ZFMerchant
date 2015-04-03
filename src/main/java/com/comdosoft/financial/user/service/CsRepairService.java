@@ -16,8 +16,8 @@ import com.comdosoft.financial.user.domain.zhangfu.CsRepairPayment;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.RepairStatus;
 import com.comdosoft.financial.user.domain.zhangfu.UpdateStatus;
-import com.comdosoft.financial.user.mapper.zhangfu.CSrepairPaymentMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.CsRepairMapper;
+import com.comdosoft.financial.user.mapper.zhangfu.CsRepairPaymentMapper;
 import com.comdosoft.financial.user.utils.OrderUtils;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -28,7 +28,7 @@ public class CsRepairService {
     @Resource
     private CsRepairMapper repairMapper;
     @Resource
-    private CSrepairPaymentMapper repairPaymentMapper;
+    private CsRepairPaymentMapper repairPaymentMapper;
 
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
