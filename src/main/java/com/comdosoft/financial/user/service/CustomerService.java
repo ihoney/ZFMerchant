@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import com.comdosoft.financial.user.domain.Paging;
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
@@ -61,19 +60,24 @@ public class CustomerService {
     }
 
     public Map<Object, Object> getIntegralTotal(int customerId) {
-        Map<Object, Object> sysconfig = customerMapper.getSysConfig(SysConfig.PARAMNAME_INTEGRALCONVERT);
-        BigDecimal paramValue = new BigDecimal((String) sysconfig.get("param_value"));
+//        Map<Object, Object> sysconfig = customerMapper.getSysConfig(SysConfig.PARAMNAME_INTEGRALCONVERT);
+//        BigDecimal paramValue = new BigDecimal((String) sysconfig.get("param_value"));
         Map<Object, Object> totalMap = customerMapper.getIntegralTotal(customerId);
-        BigDecimal quantityTotal = new BigDecimal(0);
-        if (!CollectionUtils.isEmpty(totalMap)) {
-            Object obj = totalMap.get("quantityTotal");
-            if (obj != null) {
-                quantityTotal = (BigDecimal) totalMap.get("quantityTotal");
-            }
-        }
+//        BigDecimal quantityTotal = new BigDecimal(0);
+//        if (!CollectionUtils.isEmpty(totalMap)) {
+//            Object obj = totalMap.get("quantityTotal");
+//            if (obj != null) {
+//                quantityTotal = (BigDecimal) totalMap.get("quantityTotal");
+//            }
+//        }
         Map<Object, Object> result = new HashMap<>();
+        if(null == totalMap){
+        	return result;
+        }
+        String quantityTotal =  totalMap.get("quantityTotal")==null ?"":totalMap.get("quantityTotal")+"";
+        String moneyTotal =  totalMap.get("moneyTotal")==null ?"":totalMap.get("moneyTotal")+"";
         result.put("quantityTotal", quantityTotal);
-        result.put("moneyTotal", quantityTotal.multiply(paramValue).multiply(new BigDecimal(100)));
+        result.put("moneyTotal", moneyTotal);
         return result;
     }
 

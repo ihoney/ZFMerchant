@@ -116,7 +116,7 @@
 		customers c
 	LEFT JOIN sys_config s on s.param_name='integralConvert'
 	WHERE
-		c.id =  #{customer_id}
+		c.id =  #{param1}
 	</select>
 	
 	<select id="getjifen" resultType="map">
