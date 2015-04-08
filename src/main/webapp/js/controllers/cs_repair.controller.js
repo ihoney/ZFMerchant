@@ -109,7 +109,6 @@ var cs_repairController = function ($scope, $http, LoginService) {
 	// 提交
 	$scope.save_wlxx = function() {
 		var id = $("#info_id").val();
-		console.log("repair  id  ==>>"+id);
 		$scope.req.id = id;
 		$scope.req.computer_name = $scope.computer_name;
 		$scope.req.track_number = $scope.track_number;

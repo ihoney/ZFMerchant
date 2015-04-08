@@ -110,7 +110,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 			$scope.phone_code_i_o = "";
 			$scope.i_phone_new = "";
 			$scope.i_phone_code = "";
-//			console.log(t+"第一次发送验证码");
 //			 v1= window.setInterval(function(){
 //				$('#send_code_one').html();
 //		    	if($scope.intDiff == 0){

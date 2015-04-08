@@ -246,6 +246,8 @@ public class OrderService {
                     newObjList.add(omap);
                 }
                 map.put("order_goodsList", newObjList);
+            }else{
+            	  map.put("order_goodsList", newObjList);
             }
             obj_list.add(map);
         }
