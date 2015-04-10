@@ -60,7 +60,6 @@ public class CommentService {
         // 保存上传的实体文件
         String uploadFilePath = uploadPictureTempsPath;
         String fileNamePath = SysUtils.getUploadFileName(request, img, uploadFilePath);
-        System.out.println("hahahah"+fileNamePath);
         return fileNamePath;
     }
 
