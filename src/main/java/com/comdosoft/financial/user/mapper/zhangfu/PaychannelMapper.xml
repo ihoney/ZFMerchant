@@ -76,8 +76,8 @@
 	</select>
 	
 	<insert id="addIntention" >
-       INSERT into customer_intentions(intention_name,intention_phone,content,intention_marks_id,STATUS,created_at)
-	  VALUES (#{name},#{phone},#{content},0,1,now())
+       INSERT into customer_intentions(intention_name,intention_phone,content,STATUS,created_at)
+	  VALUES (#{name},#{phone},#{content},1,now())
      </insert>
 
 </mapper>
