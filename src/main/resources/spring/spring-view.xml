@@ -43,7 +43,7 @@
 
 	<!-- bean -->
     <bean id="orderCleanJob" class="com.comdosoft.financial.user.runner.OrderCleanJob" />
- 
+     
     <!-- 定义调用对象和调用对象的方法 -->
     <bean id="orderCleanJobDetail"
         class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -65,7 +65,8 @@
         <property name="cronExpression">
          <value>0 0 0/2 * * ?</value><!-- 每2个小时启动 -->
      </property>
-    </bean>
+    </bean> 
+    
      
     <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
     <!-- 如果lazy-init='true',则需要实例化该bean才能执行调度程序 -->
@@ -73,7 +74,7 @@
         class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref bean="myJobTrigger" />
+                <ref bean="myJobTrigger" /> 
             </list>
         </property>
         <!-- <property name="autoStartup" value="true"/>  -->
