@@ -96,7 +96,7 @@
 
 	<select id="getIntegralList" resultType="map">
  
- SELECT i.quantity, i.types, i.target_type,i.description as order_number,  
+ SELECT IFNULL( i.quantity, 0) as quantity , IFNULL( i.types ,'' ) as types  , IFNULL(i.target_type, '') as target_type,   IFNULL(i.description,'') as order_number,  
 			   DATE_FORMAT(i.created_at, '%Y-%m-%d %T') payedAt
 		  FROM customer_integral_records i  
 		 WHERE i.customer_id = #{customerId}
