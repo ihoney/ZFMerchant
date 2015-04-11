@@ -4,7 +4,7 @@
 var tomakeorderModule = angular.module("tomakeorderModule", []);
 
 var cartmakeorderController = function($scope, $location, $http, LoginService) {
-	$scope.order={invoice_type:1};
+	$scope.order={invoice_type:1,addressId:0};
 	$scope.order.customerId=LoginService.userid;
 	//$scope.order.addressId=1;
 	
@@ -29,6 +29,10 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 		$scope.order.invoice_type=v;
 	}
 	$scope.submit = function() {
+		if($scope.order.addressId==0){
+			alert("请选择收货地址");
+			return;
+		}
 		if($scope.order.is_need_invoice){
 			$scope.order.is_need_invoice=1;
 		}else{
@@ -47,7 +51,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 };
 
 var shopmakeorderController = function($scope, $location, $http, LoginService) {
-	$scope.order={invoice_type:1};
+	$scope.order={invoice_type:1,addressId:0};
 	$scope.order.customerId=LoginService.userid;
 	//$scope.order.addressId=1;
 	$scope.init = function() {
@@ -74,6 +78,10 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 			}
 	};
 	$scope.submit = function() {
+		if($scope.order.addressId==0){
+			alert("请选择收货地址");
+			return;
+		}
 		if($scope.order.is_need_invoice){
 			$scope.order.is_need_invoice=1;
 		}else{
@@ -110,6 +118,11 @@ var addressController=function($scope, $location, $http, LoginService){
 		$http.post("api/customers/getAddressList/"+LoginService.userid).success(function(data) {
 			if (data.code == 1) {
 				$scope.addressList = data.result;
+				angular.forEach($scope.addressList, function (one) {
+					if(one.isDefault==1){
+						$scope.order.addressId=one.id;
+					}
+		        });
 			} else {
 				// 提示错误信息
 				alert(data.message);
