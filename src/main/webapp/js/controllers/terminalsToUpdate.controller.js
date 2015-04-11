@@ -15,8 +15,8 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 			//显示用户登录部分
 			$scope.$emit('changeshow',false);
 		}
-		//0 注销， 1 更新
-	  $scope.types = 1;
+		//1 注销， 2 更新
+	  $scope.types = 2;
       $http.post("api/terminal/getWebApplyDetails", {types:$scope.types,terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息

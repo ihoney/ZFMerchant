@@ -16,8 +16,8 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 			//显示用户登录部分
 			$scope.$emit('changeshow',false);
 		}
-		//0 注销， 1 更新
-		  $scope.types = 0;
+		//1 注销， 2 更新
+		  $scope.types = 1;
       $http.post("api/terminal/getWebApplyDetails", {types:$scope.types,terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
@@ -30,6 +30,8 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
               $scope.trackRecord = data.result.trackRecord;
               //资料
               $scope.openingDetails = data.result.openingDetails;
+              //资料
+              $scope.openingInfos = data.result.openingInfos;
           }
       }).error(function (data) {
     	  alert("获取列表失败");
