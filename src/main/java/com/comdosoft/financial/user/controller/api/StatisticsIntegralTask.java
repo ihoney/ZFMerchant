@@ -40,6 +40,7 @@ public class StatisticsIntegralTask {
 			logger.info("统计交易流水结束"); 
 		} catch (Exception e) {
 			logger.error("统计交易流水异常!" + e.getMessage()); 
+			e.printStackTrace();
 		}
 	}
 

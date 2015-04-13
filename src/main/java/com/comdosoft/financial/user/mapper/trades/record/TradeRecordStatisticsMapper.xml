@@ -2,25 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.comdosoft.financial.user.mapper.trades.record.TradeRecordStatisticsMapper">
-	<select id="findOrderInfo" resultType="map">
-		select o.id, o.customer_id
-		, o.actual_price from orders o where o.`status` =
-		'3' || o.`status` =
-		'4' and IFNULL(o.integral_status, 0) =0
-	</select>  
-	
 	<select id="findTradeRecords" resultType="map">
 		select tr.id,
 		tr.amount,tr.customer_id from
 		trade_records tr where tr.traded_status =
 		1 and
 		IFNULL(tr.integral_status,0) = 0
-	</select>
-
-	<update id="updateCustomerIntegral">
-		update customers c set c.integral=#{1}
-		where c.id=#{0}
-	</update>
+	</select> 
 
 	<update id="updateTradeRecords">
 		update trade_records set integral_status = 1 where id

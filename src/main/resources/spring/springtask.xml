@@ -27,7 +27,7 @@
 			<ref bean="orderCleanJobDetail1" />
 		</property>
 		<property name="cronExpression">
-			<value>0 55 20 * * ?</value><!-- 每2个小时启动 -->
+			<value>0 10 1 * * ?</value><!-- 凌晨1:10启动 -->
 		</property>
 	</bean>
 
@@ -51,7 +51,7 @@
 			<ref bean="orderCleanJobDetail2" />
 		</property>
 		<property name="cronExpression">
-			<value>0 27 21 * * ?</value><!-- 每2个小时启动 -->
+			<value>0 0 1 * * ?</value><!-- 凌晨1:00启动。 -->
 		</property>
 	</bean>
 
