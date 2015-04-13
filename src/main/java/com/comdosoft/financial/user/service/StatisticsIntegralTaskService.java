@@ -41,7 +41,7 @@ public class StatisticsIntegralTaskService {
 		// 积分计算规则
 		int posValue = statisticsIntegralTaskMapper
 				.findPosValue(Constants.INTEGRAL_BUY_POS);
-		int temp = 0;
+		int tempId = 0;
 		int sumScore = 0;
 		for (Iterator iterator = orders.iterator(); iterator.hasNext();) {
 			Map<String, Object> map = (Map<String, Object>) iterator.next();
@@ -59,18 +59,18 @@ public class StatisticsIntegralTaskService {
 			cir.setTypes((byte) 1);
 			cir.setTargetType((byte) 2);
 			statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
-			if (temp == 0) {
-				temp = (int) map.get("customer_id");
+			if (tempId == 0) {
+				tempId = (int) map.get("customer_id");
 			}
 			sumScore += sumIntegral;
-			if (temp != (int) map.get("customer_id")) {
+			if (tempId != (int) map.get("customer_id")) { 
 				// 更新customer表的积分(integral +)
 				int integral = statisticsIntegralTaskMapper
-						.findCustomerIntegral(temp);
+						.findCustomerIntegral(tempId);
 				integral += sumScore;
-				statisticsIntegralTaskMapper.updateCustomerIntegral(temp,
+				statisticsIntegralTaskMapper.updateCustomerIntegral(tempId,
 						integral);
-				temp = 0;
+				tempId = 0;
 				sumScore = 0;
 			}
 		}
@@ -87,7 +87,8 @@ public class StatisticsIntegralTaskService {
 		// 积分计算规则
 		int posValue = statisticsIntegralTaskMapper
 				.findPosValue(Constants.INTEGRAL_TRADE);
-		int temp = 0;
+		//临时id
+		int tempId = 0;
 		int sumScore = 0;
 		for (Iterator iterator = records.iterator(); iterator.hasNext();) {
 			Map<String, Object> map = (Map<String, Object>) iterator.next();
@@ -104,18 +105,18 @@ public class StatisticsIntegralTaskService {
 			cir.setTypes((byte) 1);
 			cir.setTargetType((byte) 1);
 			statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
-			if (temp == 0) {
-				temp = (int) map.get("customer_id");
+			if (tempId == 0) {
+				tempId = (int) map.get("customer_id");
 			}
 			sumScore += sumIntegral;
-			if (temp != (int) map.get("customer_id")) {
+			if (tempId != (int) map.get("customer_id")) { 
 				// 更新customer表的积分(integral +)
 				int integral = statisticsIntegralTaskMapper
-						.findCustomerIntegral(temp);
+						.findCustomerIntegral(tempId);
 				integral += sumScore;
-				statisticsIntegralTaskMapper.updateCustomerIntegral(temp,
+				statisticsIntegralTaskMapper.updateCustomerIntegral(tempId,
 						integral);
-				temp = 0;
+				tempId = 0;
 				sumScore = 0;
 			}
 		}
