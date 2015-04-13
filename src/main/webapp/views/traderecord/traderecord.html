@@ -27,7 +27,7 @@
 						<select ng-model="req.terminalNumber" ng-options="t.serialNum as t.serialNum for t in terminals"></select>
 					</div></li>
 				<li><div class="user_date">
-						<label>选择日期</label><input type="text" ng-model="req.startTime">&nbsp;-&nbsp;<input type="text" ng-model="req.endTime">
+						<label>选择日期</label><input type="text" ng-model="req.startTime" readonly>&nbsp;-&nbsp;<input type="text" ng-model="req.endTime" readonly>
 					</div></li>
 				<li><button class="ghostBtn" ng-click="search()">搜索</button></li>
 			</ul>

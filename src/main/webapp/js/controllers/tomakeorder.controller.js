@@ -139,12 +139,45 @@ var addressController = function($scope, $location, $http, LoginService) {
 			}
 		});
 	};
-	$scope.addad = function(id) {
+	$scope.addad = function() {
+		if($scope.ad.receiver==undefined||$scope.ad.receiver.trim()==""){
+			alert("请输入收件人!");
+			return;
+		}
+		if($scope.city==undefined){
+			alert("请选择城市!");
+			return;
+		}
+		if($scope.ad.address==undefined||$scope.ad.address.trim()==""){
+			alert("请输入地址!");
+			return;
+		}
+		if($scope.ad.zipCode==undefined||$scope.ad.zipCode.trim()==""){
+			alert("请输入邮编!");
+			return;
+		}else{
+			var reg=/[1-9]\d{5}(?!\d)/;
+			if(!reg.test($scope.ad.zipCode)){
+				alert("邮编不正确!");
+				return;
+			}
+		}
+		if($scope.ad.moblephone==undefined||$scope.ad.moblephone.trim()==""){
+			alert("请输入手机号码!");
+			return;
+		}else{
+			var reg=/^(13[0-9]|14(5|7)|15(0|1|2|3|5|6|7|8|9)|18[0-9])\d{8}$/;
+			if(!reg.test($scope.ad.moblephone)){
+				alert("手机不正确!");
+				return;
+			}
+		}
 		$scope.ad.customerId = LoginService.userid;
 		$scope.ad.isDefault = 2;
 		$scope.ad.cityId = $scope.city.id;
 		$http.post("api/customers/insertAddress", $scope.ad).success(function(data) {
 			if (data.code == 1) {
+				$scope.addadd=false;
 				$scope.init();
 			} else {
 				alert(data.message);
