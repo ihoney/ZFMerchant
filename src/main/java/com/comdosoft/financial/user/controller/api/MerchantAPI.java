@@ -93,7 +93,7 @@ public class MerchantAPI {
     public Response getOne(@PathVariable int id) {
         Response sysResponse = null;
         try {
-            sysResponse = Response.getSuccess(merchantService.getOne(id));
+            sysResponse = Response.getSuccess(merchantService.findMerchantById(id));
         } catch (Exception e) {
             logger.error("获取商户信息失败", e);
             sysResponse = Response.getError("获取商户信息失败:系统异常");

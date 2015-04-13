@@ -15,8 +15,8 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 			//显示用户登录部分
 			$scope.$emit('changeshow',false);
 		}
-		//0 注销， 1 更新
-		  $scope.types = 0;
+		//1 注销， 2 更新
+		  $scope.types = 1;
       $http.post("api/terminal/getWebApplyDetails", {types:$scope.types,terminalsId:$scope.terminalId,customerId:$scope.customerId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息

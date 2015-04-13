@@ -32,7 +32,14 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
 				$scope.customer.i_phone =data.result.phone;
-				$scope.customer.i_email =data.result.email;
+				var i_email =data.result.email;
+				if(typeof(i_email)=="undefined"  || i_email ==''){
+					$("#email_send_btn").hide();
+				}else{
+					$("#in_email").attr("disabled","disabled");
+					$("#email_send_btn").show();
+					$scope.customer.email =i_email;
+				}
 				$scope.cus_type = data.result.account_type;
 			    $scope.selected.id = data.result.parent_id;
 			    $scope.selected.name = data.result.p_name;
@@ -237,36 +244,37 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 			alert("请选择城市");
 			return ;
 		}
-	/*	var email = $scope.customer.email;
-		var phone = $scope.customer.phone;
-		if(email==""){
+	 	var email = $scope.customer.email;
+	 	console.log("email==>>>"+email);
+//		var phone = $scope.customer.phone;
+		if( typeof(email) == "undefined" || email=="" ){
 			alert("请输入合法的邮箱地址");
 			return ;
 		}else{
 			var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
-			if(!reg.test(mail)){
+			if(!reg.test(email)){
 				alert("请输入合法的邮箱地址");
 				  $("#in_email").focus(); 
 				return ;
 			} 
 		}
-		if(phone==""){
-			alert("请输入正确的手机号");
-			return ;
-		}else{
-			 if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))){ 
-			        alert("请输入正确的手机号"); 
-			        $("#in_phone").focus(); 
-			        return false;
-			 }
-		}*/
+//		if(phone==""){
+//			alert("请输入正确的手机号");
+//			return ;
+//		}else{
+//			 if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))){ 
+//			        alert("请输入正确的手机号"); 
+//			        $("#in_phone").focus(); 
+//			        return false;
+//			 }
+//		} 
 		
 		$scope.req = { 
 			"accountType":$scope.cus_type,
 			"id" : LoginService.userid,
 			"name" : $scope.customer.name,
 			"phone" : $scope.customer.phone,
-			"email" : $scope.customer.email,
+			"email" : email,
 			"cityId" : $scope.selected_city.id
 		};
 		$http.post("api/customers/cust_update", $scope.req).success(function(data) {
