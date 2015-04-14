@@ -77,6 +77,7 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 function setSpanName(obj){
 	//改变下载模板初始状态
 	$(obj).parent("a").children("span").html("重新上传")
+	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempUpdateFile/"+$("#terid").val());
 	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
 	
 	$(obj).parent("a").parent("form").ajaxSubmit({

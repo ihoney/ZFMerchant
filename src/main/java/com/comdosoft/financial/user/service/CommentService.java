@@ -56,12 +56,13 @@ public class CommentService {
      * @return
      * @throws IOException
      */
-    public String saveTmpImage(MultipartFile img, HttpServletRequest request) throws IOException {
+    public String saveTmpImage(String uploadFilePath,MultipartFile img, HttpServletRequest request) throws IOException {
         // 保存上传的实体文件
-        String uploadFilePath = uploadPictureTempsPath;
+       // String uploadFilePath = uploadPictureTempsPath;
         String fileNamePath = SysUtils.getUploadFileName(request, img, uploadFilePath);
         return fileNamePath;
     }
+    
 
     /**
      * 下载模板文件

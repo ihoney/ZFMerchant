@@ -104,7 +104,7 @@ var terminalController = function ($scope, $http, LoginService) {
 		$scope.frontStatus = Math.ceil($scope.screeningStatus);
 		$scope.boolean = false;
 		//取消终端号的筛选
-		$scope.serialNum = null;
+		//$scope.serialNum = null;
 		$scope.getInfo();
 	}
 	
@@ -112,7 +112,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	$scope.screeningSerialNum = function(){
 		 $scope.indexPage = 1;
 		//取消终端状态的筛选
-		$scope.frontStatus = null;
+		//$scope.frontStatus = null;
 		$scope.boolean = true;
 		$scope.getInfo();
 	}
