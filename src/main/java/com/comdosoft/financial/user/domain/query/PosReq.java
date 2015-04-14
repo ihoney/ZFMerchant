@@ -6,6 +6,7 @@ public class PosReq {
     private int goodId;
 
     private int city_id;
+    private int sheng_id;
     /**
      * 0.按照上架时间倒序排列商品 1.按照销售优先倒序排列商品 2.按照价格倒序排列商品 3.按照价格正序排列商品 4.按照评分最高倒序排列商品
      */
@@ -264,6 +265,14 @@ public class PosReq {
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public int getSheng_id() {
+        return sheng_id;
+    }
+
+    public void setSheng_id(int sheng_id) {
+        this.sheng_id = sheng_id;
     }
 
 }

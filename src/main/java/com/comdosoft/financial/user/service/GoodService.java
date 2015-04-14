@@ -26,6 +26,9 @@ public class GoodService {
 
     public Map<String,Object> getGoodsList(PosReq posreq) {
         Map<String,Object> result=new HashMap<String, Object>();
+        if(posreq.getCity_id()!=0){
+            posreq.setSheng_id(goodMapper.getShengId(posreq.getCity_id()));
+        }
         List<Map<String, Object>> list = goodMapper.getGoodsList(posreq);
         int total=goodMapper.getGoodsTotal(posreq);
         for (Map<String, Object> map : list) {
@@ -48,6 +51,9 @@ public class GoodService {
     }
 
     public Map<String, Object> getGoods(PosReq posreq) {
+        if(posreq.getCity_id()!=0){
+            posreq.setSheng_id(goodMapper.getShengId(posreq.getCity_id()));
+        }
         Map<String, Object> goodInfoMap = null;
         // 商品信息
         Map<String, Object> goodinfo = goodMapper.getGoodById(posreq.getGoodId());
@@ -90,6 +96,9 @@ public class GoodService {
     }
 
     public Map<String, Object> getSearchCondition(PosReq posreq) {
+        if(posreq.getCity_id()!=0){
+            posreq.setSheng_id(goodMapper.getShengId(posreq.getCity_id()));
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         List<Map<String, Object>> list1 = goodMapper.getBrands_ids();
         List<Map<String, Object>> list2 = goodMapper.getFartherCategorys();
