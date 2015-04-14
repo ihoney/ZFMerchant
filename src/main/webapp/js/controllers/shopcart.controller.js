@@ -61,9 +61,11 @@ var shopcartController = function($scope,$http,LoginService) {
 	}
 	$scope.upadteCart = function(one, type) {
 		if (type == 0) {
-			if(one.quantity<1){
-				one.quantity=1;
-			}
+			if(one.quantity>0){
+				one.quantity=parseInt(one.quantity);
+	    	}else{
+	    		one.quantity=1;
+	    	}
 			$http.post("api/cart/update", {id:one.id,quantity:one.quantity});
 		} else {
 			if (one.quantity != 1 || type != -1) {

@@ -116,6 +116,16 @@
                         
                         <div class="item_list clear">
                             <ul>
+                            <li><span class="labelSpan">开通方向：</span>
+                                	<div class="text" ng-if="openingInfos.types == 1">对公</div>
+                                	<div class="text" ng-if="openingInfos.types == 2">对私</div>
+                                	</li>
+                                    <li><span class="labelSpan">绑定商户：</span>
+                                	<div class="text">{{openingInfos.merchant_name}}</div></li>
+                                    <li><span class="labelSpan">商家电话：</span>
+                                	<div class="text">{{openingInfos.phone}}</div></li>
+                                    <li><span class="labelSpan">身份证：</span>
+                                	<div class="text">{{openingInfos.card_id}}</div></li>
                                 <li ng-repeat="opening in openingDetails " ng-if="opening.types != 2">
                                 <span class="labelSpan">{{opening.key}}：</span>
                                 <div class="text">{{opening.value}}</div>

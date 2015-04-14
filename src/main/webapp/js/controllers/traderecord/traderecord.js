@@ -56,6 +56,18 @@ var traderecordController = function($scope, $http, LoginService) {
 		});
 	};
 	$scope.search = function() {
+		if ($scope.req.startTime != undefined && $scope.req.endTime!= undefined) {
+			var arr = new Array();
+			var arr2 = new Array();
+			var arr = $scope.req.startTime.split("-");
+			var arr2 = $scope.req.endTime.split("-");
+			var sDate = new Date(arr[0], arr[1] - 1, arr[2]);
+			var eDate = new Date(arr2[0], arr2[1] - 1, arr2[2]);
+			if (eDate < sDate) {
+				alert("开始日期不能大于结束日期！");
+				return;
+			}
+		}
 		initSystemPage($scope);// 初始化分页参数
 		$scope.list();
 	};

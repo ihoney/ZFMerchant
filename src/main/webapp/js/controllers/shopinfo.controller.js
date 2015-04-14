@@ -14,6 +14,7 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
 		$scope.getGoodInfo();
 		
     };
+    
     $scope.getGoodInfo = function () {
     	$http.post("api/good/goodinfo", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
@@ -40,6 +41,13 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             	window.location.href = '#/shopcart';
             }
         });
+    };
+    $scope.checkQ=function () {
+    	if($scope.quantity>0){
+    		$scope.quantity=parseInt($scope.quantity);
+    	}else{
+    		$scope.quantity=1;
+    	}
     };
     $scope.count = function(type) {
 		if ($scope.quantity != 1 || type != -1) {

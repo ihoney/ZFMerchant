@@ -165,8 +165,13 @@ public class TerminalsController {
 	@RequestMapping(value = "Encryption", method = RequestMethod.POST)
 	public Response Encryption(@RequestBody Map<String, Object> map) {
 		try {
-			String pass = SysUtils.Decrypt(
-					terminalsService.findPassword((Integer)map.get("terminalid")),passPath);
+			String  password= terminalsService.findPassword((Integer)map.get("terminalid")) == null?null:
+				terminalsService.findPassword((Integer)map.get("terminalid"));
+			String pass = "该终端为设置密码！";
+			if(password != null){
+				pass = SysUtils.Decrypt(
+						password,passPath);
+			}
 			return Response.getSuccess(pass);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -250,6 +255,8 @@ public class TerminalsController {
 			map.put("ReModel", terminalsService.getModule((Integer)maps.get("terminalsId"),(Integer)maps.get("types")));
 			//获得用户收货地址
 			map.put("address", terminalsService.getCustomerAddress((Integer)maps.get("customerId")));
+			map.put("openingInfos",
+					openingApplyService.getOppinfo((Integer)maps.get("terminalsId")));
 			//城市级联
 			/*map.put("Cities", terminalsService.getCities());*/
 			return Response.getSuccess(map);
