@@ -59,32 +59,38 @@ public class UserLoginController {
             Customer customer = new Customer();
             customer.setUsername((String)map.get("codeNumber") );
             String str = SysUtils.getCode();
-            customer.setPassword("0");
+            customer.setPassword("000000");
             customer.setCityId(0);
             customer.setDentcode(str);
             customer.setStatus(Customer.STATUS_NON_END);
+            customer.setTypes(Customer.TYPE_CUSTOMER);
+            customer.setAccountType(false);
             String phone = (String)map.get("codeNumber");//手机号
-            if (userLoginService.findUname(customer) == 0) {
-            try {
-                Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
-                if(!is_sucess){
-                	return Response.getError("获取验证码失败！");
-                }else{
-                	// 添加假状态
-                    userLoginService.addUser(customer);
-                    return Response.getSuccess(str);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return Response.getError("系统异常！");
-            }
-            } else {
-                if (userLoginService.findUnameAndStatus(customer) == 0) {
-                    return Response.getError("该用户已注册！");
-                } else {
-                    userLoginService.updateCode(customer);
-                    return Response.getSuccess(str);
-                }
+            if (userLoginService.findUnameAndStatus(customer) > 0) {
+            	 userLoginService.updateCode(customer);
+            	 Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
+                 if(!is_sucess){
+                 	return Response.getError("获取验证码失败！");
+                 }
+                 return Response.getSuccess(str);
+            } else{
+            	if (userLoginService.findUname((String)map.get("codeNumber"),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) == 0) {
+                    try {
+                        Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
+                        if(!is_sucess){
+                        	return Response.getError("获取验证码失败！");
+                        }else{
+                        	// 添加假状态
+                            userLoginService.addUser(customer);
+                            return Response.getSuccess(str);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return Response.getError("系统异常！");
+                    }
+                    } else {
+                            return Response.getError("该用户已注册！");
+                    }
             }
         } catch (Exception e) {
         	e.printStackTrace();
@@ -190,6 +196,7 @@ public class UserLoginController {
     public Response activationEmail(@RequestBody Customer customer) {
         try {
             customer.setStatus(Customer.STATUS_NORMAL);
+            customer.setTypes(Customer.TYPE_CUSTOMER);
             userLoginService.activationEmail(customer);
                 return Response.getSuccess("激活成功！");
         } catch (Exception e) {
@@ -261,11 +268,10 @@ public class UserLoginController {
             customer.setUsername(map.get("codeNumber"));
             String str = SysUtils.getCode();
             customer.setDentcode(str);
-            if (userLoginService.findUname(customer) == 0) {
+            if (userLoginService.findUname(map.get("codeNumber"),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) == 0) {
                 return Response.getError("用户不存在！");
             } else {
                 userLoginService.updateCode(customer);
-                //Boolean is_sucess = sendPhoneCode(str, "18761913514");
                 Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, (String)map.get("codeNumber"));
                 if(!is_sucess){
                 	return Response.getError("获取验证码失败！");
@@ -287,7 +293,7 @@ public class UserLoginController {
     @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
     public Response updatePassword(@RequestBody Customer customer) {
         try {
-            if (userLoginService.findUname(customer) > 0) {
+            if (userLoginService.findUname(customer.getUsername(),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) > 0) {
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
                     userLoginService.updatePassword(customer);
                     return Response.getSuccess("找回密码成功！");
@@ -358,7 +364,7 @@ public class UserLoginController {
         try {
             Customer customer = new Customer();
             customer.setUsername((String)map.get("username"));
-            if (userLoginService.findUname(customer) == 0) {
+            if (userLoginService.findUname((String)map.get("username"),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) == 0) {
                 return Response.getError("用户不存在！");
             } else {
                 return Response.getSuccess("用户存在！");
@@ -397,7 +403,7 @@ public class UserLoginController {
     @RequestMapping(value = "webUpdatePass", method = RequestMethod.POST)
     public Response webUpdatePass(@RequestBody Customer customer) {
         try {
-            if (userLoginService.findUname(customer) > 0) {
+            if (userLoginService.findUname(customer.getUsername(),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) > 0) {
             	customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
                     userLoginService.updatePassword(customer);
                     return Response.getSuccess("找回密码成功！");
@@ -450,7 +456,7 @@ public class UserLoginController {
     @RequestMapping(value = "jusEmail", method = RequestMethod.POST)
     public Response jusEmail(@RequestBody Customer customer) {
         try {
-            if (userLoginService.findUname(customer) == 0) {
+            if (userLoginService.findUname(customer.getUsername(),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) == 0) {
             	 return Response.getSuccess("该邮箱可以使用！");
             } else {
                 return Response.getError("该邮箱已经注册！");

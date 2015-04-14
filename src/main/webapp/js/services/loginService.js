@@ -33,11 +33,13 @@ var loginService = function ($http, $rootScope, $cookieStore) {
       			           }else{
       			        	   $scope.nameMessag = "";
       			        	   $scope.code = "";
-      			        	   //记住密码
+      			        	//记住密码
       			        	   if($scope.RememberPass == true){
-      			        		   $cookieStore.put("loginPass",data.result.password);
+      			        		 setCookie("userPass",$scope.password1);
+      			        		 setCookie("userName",$scope.username);
       			        	   }else{
-      			        		   $cookieStore.remove("loginPass");
+      			        		 delCookie("userPass");
+      			        		 delCookie("userName");
       			        	   }
       			        	   $cookieStore.put("loginUserName",data.result.username);
       			        	   $cookieStore.put("loginUserId",data.result.id);
@@ -114,6 +116,24 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         }
     };
 };
+
+//写cookies
+function setCookie(name,value)
+{
+var Days = 30;
+var exp = new Date(); 
+exp.setTime(exp.getTime() + 30*60*1000);
+document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+//删除cookies
+function delCookie(name)
+{
+var exp = new Date();
+exp.setTime(exp.getTime() - 1);
+var cval=getCookie(name);
+if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
 
 loginServiceModule.$inject = ['$http', '$rootScope', '$cookieStore'];
 loginServiceModule.service("LoginService", loginService);

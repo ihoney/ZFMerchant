@@ -91,12 +91,7 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
-		 SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd" );
-		List<Map<Object, Object>> list = terminalsMapper.getCustomerAddress(id);
-		for(Map<Object, Object> map:list){
-			map.put("created_at", sdf.format(map.get("created_at")));
-		}
-		return list;
+		return terminalsMapper.getCustomerAddress(id);
 	}
 	
 	/**

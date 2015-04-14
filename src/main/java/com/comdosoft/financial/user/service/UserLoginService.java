@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -60,8 +61,12 @@ public class UserLoginService {
 	 * @param customer
 	 * @return
 	 */
-	public int findUname(Customer customer){
-		return userLoginMapper.findUname(customer);
+	public int findUname(String username,Byte type,Byte status){
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("username", username);
+		map.put("type", type);
+		map.put("status", status);
+		return userLoginMapper.findUname(map);
 	}
 	
 	/**

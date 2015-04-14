@@ -52,7 +52,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		          "terminal","terminalOpening","terminalDetail",
 		          "cs_cencel","cs_return","cs_change","cs_repair","cs_update","cs_lease",
 		          "cs_cencelinfo","cs_returninfo","cs_changeinfo","cs_repairinfo","cs_updateinfo","cs_leaseinfo",
-		          "traderecord","tradeinfo",
+		          "traderecord","tradeinfo","terminalRentalReturn",
 		          "myinfobase","myinfoupdatepassword","myinfoAddresses","myinfointegral",
 		          "merchantList","merchantOne","merchantUpdate" ,
 		          "message","messageinfo"];
@@ -169,41 +169,31 @@ var loginController=function($scope, $location, $http, LoginService){
 		password : $scope.password
 	};
 
-	/*//退出页面(清除$cookieStore)
-	$scope.escLogin = function(){
-		$cookieStore.put("loginUserName",null);
-    	$cookieStore.put("loginUserId",0);
-    	
-    	$scope.password1 = "";
-    	$scope.code = "";
-    	LoginService.hideAll();
-		//登陆前首页
-		$('#maintop').show();
-		$('#mainindex').show();
-	}*/
 
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
 	
+	//cooke初始化
+	$scope.cookeStark = function(){
+		if(getCookie("userName") != undefined)
+			$scope.username = getCookie("userName");
+		if(getCookie("userPass") != undefined)
+			$scope.password1 = getCookie("userPass");
+	}
 
 	$scope.reGetRandCodeImg();
-	
-
-	// 动态加载css样式
-//	$scope.dynamicLoadingCss = function(path) {
-//		if (!path || path.length == 0) {
-//			throw new Error('argument "path" is required !');
-//		}
-//		var head = document.getElementsByTagName('head')[0];
-//		var link = document.createElement('link');
-//		link.href = path;
-//		link.rel = 'stylesheet';
-//		link.type = 'text/css';
-//		head.appendChild(link);
-//	};
+	$scope.cookeStark();
 };
+
+//读取cookies
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg)) return unescape(arr[2]);
+else return null;
+}
 
 var registerController=function($scope, $location, $http, LoginService){
 	$scope.usernameLocal=$location.search()['sendusername'];
@@ -383,7 +373,8 @@ var registerController=function($scope, $location, $http, LoginService){
 			accountType : false,
 			code : $scope.codeNumber,
 			cityId : Math.ceil($scope.phoneShiList.id),
-			password : $scope.password1
+			password : $scope.password1,
+			name : $scope.name
 		}).success(function(data) {
 			if (data.code == 1) {
 				$scope.ridel_xy = false;
@@ -441,7 +432,8 @@ var registerController=function($scope, $location, $http, LoginService){
 			username : $scope.emailname,
 			accountType : true,
 			cityId : Math.ceil($scope.emailShiList.id),
-			password : $scope.password1
+			password : $scope.password1,
+			name : $scope.name
 		}).success(function(data) {
 			if (data.code == 1) {
 				$scope.ridel_xy = false;

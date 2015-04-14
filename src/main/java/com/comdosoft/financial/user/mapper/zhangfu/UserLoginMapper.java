@@ -51,7 +51,7 @@ public interface UserLoginMapper {
 	 * @param customer
 	 * @return
 	 */
-	int findUname(Customer customer);
+	int findUname(Map<Object, Object> map);
 	
 	/**
 	 * 修改登录时间
