@@ -17,4 +17,5 @@ public interface IndexMapper {
 
     void changePhone(MyOrderReq req);
 
+    List<Map<String, Object>> getAllCitiesList();
 }
