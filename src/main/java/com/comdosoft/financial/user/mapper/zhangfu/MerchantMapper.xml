@@ -29,26 +29,26 @@
 	</select>
 
 	<select id="getOne" resultType="map">
-	<![CDATA[
+<![CDATA[
 		SELECT id,
-			   title,
-			   legal_person_name,
-			   legal_person_card_id,
-			   business_license_no,
-			   tax_registered_no,
-			   organization_code_no,
-			   city_id,
-			   account_bank_name,
-			   bank_open_account,
-			   account_bank_address,
-			   account_bank_num,
-			   card_id_front_photo_path,
-			   card_id_back_photo_path,
-			   body_photo_path,
-			   license_no_pic_path,
-			   tax_no_pic_path,
-			   org_code_no_pic_path,
-			   account_pic_path
+			   IFNULL(title,'') as title,
+			   IFNULL(legal_person_name,'') as legalPersonName,
+			   IFNULL(legal_person_card_id,'') as legalPersonCardId,
+			   IFNULL(business_license_no,'') as  businessLicenseNo,
+			   IFNULL(tax_registered_no,'')  as taxRegisteredNo,
+			   IFNULL(organization_code_no,'') as  organizationCodeNo,
+			   IFNULL(city_id,'') as cityId,
+			   IFNULL(account_bank_name,'') as accountBankName,
+			   IFNULL(bank_open_account,'') as bankOpenAccount,
+			   IFNULL(account_bank_address,'') as accountBankAddress,
+			   IFNULL(account_bank_num,'') as accountBankNum,
+			   IFNULL(card_id_front_photo_path,'') as cardIdFrontPhotoPath,
+			   IFNULL(card_id_back_photo_path,'') as cardIdBackPhotoPath,
+			   IFNULL(body_photo_path,'') as bodyPhotoPath,
+			   IFNULL(license_no_pic_path,'') as licenseNoPicPath,
+			   IFNULL(tax_no_pic_path,'') as taxNoPicPath,
+			   IFNULL(org_code_no_pic_path,'') as orgCodeNoPicPath,
+			   IFNULL(account_pic_path,'') as accountPicPath
 		  FROM merchants
 		 WHERE id = #{id}
 	]]>
