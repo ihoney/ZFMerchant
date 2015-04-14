@@ -122,8 +122,12 @@ public class CustomerService {
         if (isDefault == CustomerAddress.ISDEFAULT_1) {
             param.put("is_default", CustomerAddress.ISDEFAULT_2);
             customerMapper.updateDefaultAddress(param);
+            param.put("is_default", isDefault);
+            customerMapper.updateAddress(param);
+        }else  {
+        	customerMapper.updateAddress(param);
         }
-        customerMapper.updateAddress(param);
+        
     }
 
     @Transactional(value = "transactionManager-zhangfu")
