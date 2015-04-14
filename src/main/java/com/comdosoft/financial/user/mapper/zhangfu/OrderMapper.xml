@@ -370,10 +370,10 @@
 	
 	<insert id="batchSaveComment">
 		INSERT into good_comments 
-		(score,content,customer_id,good_id,created_at)
+		(score,content,customer_id,good_id,created_at,status)
 		VALUES
 		 <foreach collection="list" item="item" index="index" separator="," > 
-			(#{item.score},#{item.content},#{item.customer_id},#{item.good_id},NOW())
+			(#{item.score},#{item.content},#{item.customer_id},#{item.good_id},NOW(),1)
     	</foreach> 
 	</insert>
 	
