@@ -40,7 +40,12 @@ var myinfointegralController = function($scope, $http, LoginService) {
 		popup(".creditsExchange_tab", ".ce_aaa");// 兑换积分
 	};
 	$scope.save = function() {
+		var dh_total = $("#dh_total").val();
 		var p = $scope.integral.price;
+		if(dh_total <= 0){
+			alert("没有可兑换的积分");
+			return false;
+		}
 		var name = $scope.integral.name;
 		var phone = $scope.integral.phone;
 		
@@ -68,6 +73,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 		}  else{
 			  if(!reg.test(phone)){
 				  alert("电话必须是数字");
+				  return false;
 			  }
 		}
 	

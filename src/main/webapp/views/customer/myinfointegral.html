@@ -74,6 +74,7 @@
 						<div class="text">{{integralTotal.dh_total}}元</div></li>
 					<li><span class="labelSpan">选择兑换：</span>
 						<div class="text">
+						<input type="hidden" value="{{integralTotal.dh_total}}" name="dh_total" id="dh_total">
 							<input type="text" ng-model="integral.price" required class="xl" name="price" >&nbsp;元
 						</div></li>
 					<li><span class="labelSpan">姓名：</span>

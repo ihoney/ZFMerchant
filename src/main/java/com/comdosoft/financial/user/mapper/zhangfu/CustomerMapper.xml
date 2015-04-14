@@ -122,7 +122,7 @@
 	<select id="getjifen" resultType="map">
 	<![CDATA[
 	SELECT
-		c.integral  as quantityTotal,c.integral/s.param_value as dh_total
+		IFNULL(c.integral,0)  as quantityTotal,IFNULL(c.integral/s.param_value,0) as dh_total
 	FROM
 		customers c
 	LEFT JOIN sys_config s on s.param_name='integralConvert'
