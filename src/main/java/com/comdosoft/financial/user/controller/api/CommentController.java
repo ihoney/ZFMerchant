@@ -28,6 +28,10 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+    
+    @Value("${uploadPictureTempsPath}")
+    private String uploadPictureTempsPath;
+
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     public Response getGoodsList(@RequestBody CommentReq req) {
@@ -39,7 +43,7 @@ public class CommentController {
     }
 
     /**
-     * 上传文件
+     * 上传图片文件
      * 
      * @param request
      * @param response
@@ -48,7 +52,8 @@ public class CommentController {
     @RequestMapping(value = "upload/tempImage", method = RequestMethod.POST)
     public Response tempImage(@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
         try {
-            return Response.getSuccess(commentService.saveTmpImage(img, request));
+        	String uploadFilePath = uploadPictureTempsPath;
+            return Response.getSuccess(commentService.saveTmpImage(uploadFilePath,img, request));
         } catch (IOException e) {
             return Response.getError("请求失败！");
         }

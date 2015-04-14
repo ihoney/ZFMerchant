@@ -390,7 +390,7 @@ public class SysUtils {
      * @return
      * @throws IOException
      */
-    public static String getUploadFileName(HttpServletRequest request, MultipartFile multiFile, String uploadFilePath) throws IOException {
+    public static String getUploadFileName(HttpServletRequest request,MultipartFile multiFile, String uploadFilePath) throws IOException {
         if (null == multiFile || StringUtils.isEmpty(multiFile.getOriginalFilename())) {
             return null;
         }

@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,14 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.City;
@@ -28,6 +34,7 @@ import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.OpeningApplie;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
+import com.comdosoft.financial.user.service.CommentService;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.SysUtils;
@@ -50,11 +57,18 @@ public class TerminalsController {
 	@Resource
 	private TerminalsService terminalsService;
 	
+	@Autowired
+    private CommentService commentService;
+	
 	@Resource
 	private OpeningApplyService openingApplyService;
 
 	@Value("${passPath}")
 	private String passPath;
+	
+	 @Value("${uploadPictureTempsPath}")
+	private String uploadPictureTempsPath;
+	 
 
 	/**
 	 * 根据用户ID获得终端列表
@@ -841,4 +855,102 @@ public class TerminalsController {
 		}
 
 	}
+	
+	/**
+     * 上传图片文件
+     * 
+     * @param request
+     * @param response
+     * @param id
+     */
+    @RequestMapping(value = "upload/tempImage/{id}", method = RequestMethod.POST)
+    public Response tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
+        try {
+            return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/",img, request));
+        } catch (IOException e) {
+            return Response.getError("请求失败！");
+        }
+    }
+    
+    /**
+     * 终端换货资料上传
+     * 
+     * @param request
+     * @param response
+     * @param id
+     */
+    @RequestMapping(value = "upload/tempExchangFile/{id}", method = RequestMethod.POST)
+    public Response tempExangFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
+    	try {
+    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/change/",updatefile, request));
+    	} catch (IOException e) {
+    		return Response.getError("请求失败！");
+    	}
+    }
+    
+    /**
+     * 终端更新资料上传
+     * 
+     * @param request
+     * @param response
+     * @param id
+     */
+    @RequestMapping(value = "upload/tempUpdateFile/{id}", method = RequestMethod.POST)
+    public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
+    	try {
+    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/update/",updatefile, request));
+    	} catch (IOException e) {
+    		return Response.getError("请求失败！");
+    	}
+    }
+    
+    /**
+     * 终端注销料上传
+     * 
+     * @param request
+     * @param response
+     * @param id
+     */
+    @RequestMapping(value = "upload/tempCancellationFile/{id}", method = RequestMethod.POST)
+    public Response tempCancellationFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
+    	try {
+    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/cancellation/",updatefile, request));
+    	} catch (IOException e) {
+    		return Response.getError("请求失败！");
+    	}
+    }
+    
+    /**
+     * 终端退货料上传
+     * 
+     * @param request
+     * @param response
+     * @param id
+     */
+    @RequestMapping(value = "upload/tempReturnFile/{id}", method = RequestMethod.POST)
+    public Response tempReturnFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
+    	try {
+    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/return/",updatefile, request));
+    	} catch (IOException e) {
+    		return Response.getError("请求失败！");
+    	}
+    }
+    
+    /**
+     * 租赁退还资料上传
+     * 
+     * @param request
+     * @param response
+     * @param id
+     */
+    @RequestMapping(value = "upload/tempRentalFile/{id}", method = RequestMethod.POST)
+    public Response tempRentalFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
+    	try {
+    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/rental/",updatefile, request));
+    	} catch (IOException e) {
+    		return Response.getError("请求失败！");
+    	}
+    }
+    
+    
 }
