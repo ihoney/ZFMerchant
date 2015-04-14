@@ -33,12 +33,12 @@
 	
 	<update id="activationEmail" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">
 		update customers SET `status` = #{status}
-		where username = #{username}
+		where username = #{username} and types = #{types}
 	</update>
 	
 	<select id="findUname" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
 		SELECT COUNT(*) from customers 
-		WHERE username=#{username}
+		WHERE username=#{username} AND `status` = #{status} AND types = #{type}
 	</select>
 	
 	<select id="findUnameAndStatus" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
@@ -53,7 +53,7 @@
 	
 	<select id="findCode" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="string">
 		SELECT dentcode from customers
-		WHERE username=#{username}
+		WHERE username=#{username}	AND `status` = #{status} AND types = #{types}
 	</select>
 	
 	<update id="updateCode" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">

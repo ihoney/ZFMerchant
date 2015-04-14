@@ -103,18 +103,6 @@
 						 				<select ng-model="tln.chanTs" ng-options="x.name for x in chan.chanList.billings" ng-click="delectChanlTs()" >
 			               					<option value="">{{channelTsName}}</option>
 			          					</select>
-			          					<!-- <select>
-		             		 				<option value="" ng-click="chanfunction(chanTs.id)" ng-repeat="chanTs in channels">{{chanTs.name}}</option>
-		          						</select>
-						 				<select>
-			               					<option value="" ng-click="tsfunction(tsObje.id)" ng-repeat="tsObje in tsSelectList">{{tsObje.name}}</option>
-			          					</select> -->
-                                	<!-- <select name="">
-                                          <option ng-repeat="chan in channels" ng-click="getChannels(chan.id)">{{chan.name}}</option>
-                                    </select>
-                                    <select name="">
-                                          <option ng-repeat="ts in chanTs" ng-click="getChannelT(ts.id)">{{ts.name}}</option>
-                                    </select> -->
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNumKey">结算银行账号：</span>
@@ -156,18 +144,20 @@
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 <div class="text" >
                                 <form method="post" action="api/comment/upload/tempImage" enctype="multipart/form-data">  
-                                	<img src="images/zp.jpg" class="covers" />
+                                	<img src="images/zp.jpg" class="cover" data-src="{{r.value}}" ng-mouseenter="onmousover()"/>
                                 	<a href="javascript:void(0);" class="informImg_a" >
                                     <span ng-if="r.value == null" >上传</span>
                                     <span ng-if="r.value != null" >重新上传</span>
-                                    <input type="text" id="value_{{ma.level+'_'+$index}}" value="{{r.value}}"/>
+                                    <input name="hidden" type="text" id="value_{{ma.level+'_'+$index}}" value="{{r.value}}"/>
                                     <input  name="img" multiple type="file" onchange="showImage(this)">
                                     </a>
                                 </form>
                                 </div>
                                 </li>
                             </ul>
-                            <div id="shotu" class="img_info"><img src="images/ewm.jpg" /></div>
+                            <div class="img_info">
+								<img  />
+							</div> 
                         </div>
                     </div>
                     <div class="btnBottom"><button class="orangeBtn" ng-click="addApply()">保存</button></div>
