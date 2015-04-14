@@ -9,28 +9,6 @@ function showImage(obj) {
 	});
 }
 
-//鼠标经过小图提示大图
-/*function infoTab(i_tab,i_box){
-	$(i_tab).hover(
-		function(e){
-			alert($(this).parent().children().children("input").val());
-			$("#imgShow").attr({src:$(this).parent().children().children("input").val()});
-			$(i_box).css('display','block');
-			$(i_box).css({'top':($(this).offset().top)-$(this).height()+'px', 
-			              'left':($(this).offset().left)+$(this).width()+'px'
-						});
-			//alert($(this).find("img").height()/2)
-		},
-		function(e){
-			$(i_box).css('display','none');
-			$(i_box).css({'top':0+'px', 'left':0+'px'});
-		}
-	);
-}
-$(document).ready(function(){
-		infoTab('.cover','.img_info');//首页设置弹出框
-})*/
-
 function DateSelector(selYear, selMonth, selDay) {
     this.selYear = selYear;
     this.selMonth = selMonth;
