@@ -31,7 +31,7 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		var receiver  = $scope.address.receiver; 
 		var phone    = $scope.address.moblephone; 
 		var  tel         = $scope.address.telphone;
-		
+		console.log("==>>"+addr +"  ==>"+zipCode);
 	   if (typeof($scope.selected) == "undefined" || ($scope.selected) == "" || ($scope.selected) == null) { 
 		   alert("请选择省份");
 		   return false;
@@ -42,13 +42,13 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		   alert("请输入详细地址");
 		   return false;
 	   }else if(typeof(zipCode) == "undefined"  || (zipCode) == ""  || (zipCode) == null){
-		   alert("请输入邮编");
+		   alert("请输入正确的邮编");
 		   return false;
 	   }else if(typeof(receiver) == "undefined"  || (receiver) == ""  || (receiver) == null){
 		   alert("请输入收货人");
 		   return false;
 	   }else if(typeof(phone) == "undefined"  || (phone) == ""  || (phone) == null){
-		   alert("请输入手机号");
+		   alert("请输入正确的手机号！");
 		   return false;
 	   }else if(typeof(tel) == "undefined"  || (tel) == ""  || (tel) == null){
 		   alert("请输入电话号码");
