@@ -360,7 +360,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		  alert("身份证含有非法字符！");
 		  return false;
 	  }else if($("#cirdValue").val().length != 18){
-		  alert("请输入18为二代有效身份证！");
+		  alert("请输入18位二代有效身份证！");
 		  return false;
 	  }/*else if(!(/^(?=.*[a-z])[a-z0-9]+/ig.test($("#cirdValue").val()))){
 	  	  alert("身份证含有非法字符！");
