@@ -36,7 +36,7 @@
 		where username = #{username} and types = #{types}
 	</update>
 	
-	<select id="findUname" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="int">
+	<select id="findUname"  resultType="int">
 		SELECT COUNT(*) from customers 
 		WHERE username=#{username} AND `status` = #{status} AND types = #{type}
 	</select>
