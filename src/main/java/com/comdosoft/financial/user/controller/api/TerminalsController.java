@@ -866,7 +866,7 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempImage/{id}", method = RequestMethod.POST)
     public Response tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
         try {
-            return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/",img, request));
+            return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/opengImg/",img, request));
         } catch (IOException e) {
             return Response.getError("请求失败！");
         }
