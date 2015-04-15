@@ -378,7 +378,7 @@
 	</insert>
 	
 	  <select id="getTerminsla" resultMap="terResultMap" >
-		select  t.serial_num from terminals t where t.order_id=#{param1} and t.good_id=#{param2}
+		select  t.serial_num from terminals t where t.order_id=#{param1} 
 	</select>
   
     

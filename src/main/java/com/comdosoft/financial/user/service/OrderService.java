@@ -301,8 +301,8 @@ public class OrderService {
         Map<String, Object> omap = null;
         if (olist.size() > 0) {
             OrderGood og = olist.get(0);
+            StringBuffer sb = new StringBuffer();
             map.put("good_merchant", og.getGood() == null ? "" : og.getGood().getFactory() == null ? "" : og.getGood().getFactory().getName() == null ? "" : og.getGood().getFactory().getName());// 供货商
-            StringBuffer sb = null;
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
                 // omap.put("order_good_id", od.getId().toString());
@@ -316,13 +316,13 @@ public class OrderService {
                 String type = od.getGood() == null ? "" : od.getGood().getModelNumber() == null ? "" : od.getGood().getModelNumber();
                 omap.put("good_brand", brand+" "+type);//品牌型号
                 omap.put("good_channel", od.getPayChannel() == null ? "" : od.getPayChannel().getName() == null ? "" : od.getPayChannel().getName());
-                if (good_id != "") {
-                    List<Terminal> terminals = orderMapper.getTerminsla(id, Integer.valueOf(good_id));
-                     sb = new StringBuffer();
-                    for (Terminal t : terminals) {
-                        sb.append(t.getSerialNum() + " , ");
-                    }
-                }  
+//                if (good_id != "") {
+//                    List<Terminal> terminals = orderMapper.getTerminsla(id, Integer.valueOf(good_id));
+//                     sb = new StringBuffer();
+//                    for (Terminal t : terminals) {
+//                        sb.append(t.getSerialNum() + " , ");
+//                    }
+//                }  
                 String good_logo = "";
                 if (null != od.getGood()) {
                     Good g = od.getGood();
@@ -334,9 +334,12 @@ public class OrderService {
                 omap.put("good_logo", good_logo);
                 newObjList.add(omap);
             }
+            List<Terminal> terminals = orderMapper.getTerminsla(id, null);
+	        for (Terminal t : terminals) {
+	              sb.append(" "+ t.getSerialNum() );
+	        }
             map.put("terminals", sb.toString());
         }
-
         map.put("order_goodsList", newObjList);
         MyOrderReq myOrderReq = new MyOrderReq();
         myOrderReq.setId(id);
