@@ -40,10 +40,12 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
       $http.post("api/terminal/getApplyOpenDetails", {customerId:$scope.customerId,terminalsId:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
-              $scope.applyDetails = data.result.applyDetails?null:"";
+              $scope.applyDetails = data.result.applyDetails != null?data.result.applyDetails:"";
               
-              if($scope.applyDetails.appId != undefined){
-            	  $scope.appStatus = 2;
+              if($scope.applyDetails.appId != null){
+            	  if($scope.applyDetails.appId != undefined){
+                	  $scope.appStatus = 2;
+                  }
               }
               //终端动态数据回显
               $scope.applyFor = data.result.applyFor;
