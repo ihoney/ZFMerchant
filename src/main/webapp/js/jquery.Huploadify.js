@@ -219,7 +219,6 @@ $.fn.Huploadify = function(opts){
 								option.showUploadedPercent&&thisfile.find('.up_percent').text('100%');
 //								var _path = _this.find('#fileupload_'+instanceNumber+'_'+file.index+'_path');
 //								var json = eval('(' + xhr.responseText + ')'); 
-//								console.log("json==>>"+json);
 								option.onUploadSuccess&&option.onUploadSuccess(file, xhr.responseText);
 //							   _path.val(json.result);
 							  //在指定的间隔时间后删掉进度条

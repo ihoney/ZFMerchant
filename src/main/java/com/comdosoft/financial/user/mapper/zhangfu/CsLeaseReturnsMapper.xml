@@ -107,9 +107,9 @@
 		FROM
 			cs_lease_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
-		LEFT JOIN goods g ON t.good_id = g.id
-		LEFT JOIN order_goods og on g.id = og.good_id
-		LEFT JOIN orders od on og.order_id = od.id
+		LEFT JOIN orders od on  t.order_id = od.id 
+		LEFT JOIN order_goods og on og.order_id = od.id
+		LEFT JOIN goods g ON og.good_id = g.id
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
