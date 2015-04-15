@@ -40,9 +40,12 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
       $http.post("api/terminal/getApplyOpenDetails", {customerId:$scope.customerId,terminalsId:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
               //终端信息
-              $scope.applyDetails = data.result.applyDetails;
-              if($scope.applyDetails.appId != undefined){
-            	  $scope.appStatus = 2;
+              $scope.applyDetails = data.result.applyDetails != null?data.result.applyDetails:"";
+              
+              if($scope.applyDetails.appId != null){
+            	  if($scope.applyDetails.appId != undefined){
+                	  $scope.appStatus = 2;
+                  }
               }
               //终端动态数据回显
               $scope.applyFor = data.result.applyFor;
@@ -307,7 +310,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 			  for(var y=0;y<$scope.result.length;y++){
 				  if($scope.result[y].opening_requirements_id == $scope.MaterialLevel[i].id){
 					  var id =($('#id_'+$scope.MaterialLevel[i].level+'_'+y).val());
-					  			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","");
+					  			  var keys =($('#key_'+$scope.MaterialLevel[i].level+'_'+y).html()).replace(":","").replace("：","");
 					  			  var values =($('#value_'+$scope.MaterialLevel[i].level+'_'+y).val());
 					  			  if(values != null && values != ""){
 					  				$scope.listOne[countOne] = {
@@ -357,6 +360,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		  return false;
 	  }else if(numCh.test($("#cirdValue").val())){
 		  alert("身份证含有非法字符！");
+		  return false;
+	  }else if($("#cirdValue").val().length != 18){
+		  alert("请输入18位二代有效身份证！");
 		  return false;
 	  }/*else if(!(/^(?=.*[a-z])[a-z0-9]+/ig.test($("#cirdValue").val()))){
 	  	  alert("身份证含有非法字符！");

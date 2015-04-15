@@ -21,11 +21,14 @@
                                 <li>商户名称：{{applyDetails.title}}</li>
                                 <li>商户电话：{{applyDetails.phone}}</li>
                                 <li>租赁日期：{{tenancy.created_at}}</li>
-                                <li>最短租赁时间：{{tenancy.lease_time}}个月</li>
-                                <li>最长租赁时间：{{tenancy.return_time}}个月</li>
-                                <li>租赁押金：<strong>￥{{tenancy.lease_deposit}}</strong></li>
-                                <li>租赁时长：20天</li>
-                                <li>租金：<strong>￥{{tenancy.lease_price}}</strong></li>
+                                <li ng-if="tenancy.lease_time > 0">最短租赁时间：{{tenancy.lease_time}}个月</li>
+                                <li ng-if="tenancy.lease_time <= 0">最短租赁时间：0个月</li>
+                                <li ng-if="tenancy.return_time > 0">最长租赁时间：{{tenancy.return_time}}个月</li>
+                                <li ng-if="tenancy.return_time <= 0">最长租赁时间：0个月</li>
+                                <li>租赁押金：<strong>{{(tenancy.lease_deposit)/100 | number:2 | currency:'￥'}}</strong></li>
+                                <li ng-if="tenancy.createdDay > 0">租赁时长：{{tenancy.createdDay}}天</li>
+                                <li ng-if="tenancy.createdDay <= 0">租赁时长：0天</li>
+                                <li>租金：<strong>{{(tenancy.lease_price)/100 | number:2 | currency:'￥'}}</strong></li>
                             </ul>
                         </div> 
                     </div>
