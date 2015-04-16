@@ -76,7 +76,7 @@
 	
 	<update id="changePhone" flushCache="true">
 	UPDATE customers
-	SET phone = #{phone}
+	SET phone = #{phone},	updated_at = NOW()
 	WHERE
 	id = #{customer_id}
 	</update>

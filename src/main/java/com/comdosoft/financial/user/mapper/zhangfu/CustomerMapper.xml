@@ -238,7 +238,7 @@
 	
 	<update id="deleteAddress">
 	<![CDATA[
-		UPDATE customer_addresses SET status = 2
+		UPDATE customer_addresses SET status = 2 ,	updated_at = NOW()
 		 WHERE id = #{id}
 	]]>
 	</update>
