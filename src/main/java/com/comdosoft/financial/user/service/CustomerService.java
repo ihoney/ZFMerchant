@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.comdosoft.financial.user.domain.Paging;
+import com.comdosoft.financial.user.domain.query.MailReq;
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.SysConfig;
 import com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper;
+import com.comdosoft.financial.user.utils.SysUtils;
 
 /**
  * 用户 - 业务层<br>
@@ -29,6 +31,8 @@ public class CustomerService {
 
     @Resource
     private CustomerMapper customerMapper;
+    @Resource
+    private MailService mailService;
 
     public Map<Object, Object> getSysConfig(String paramName) {
         return customerMapper.getSysConfig(paramName);
@@ -170,5 +174,33 @@ public class CustomerService {
             return false;
         }
     }
+    
+	public Object getUpdateEmailDentcode(int customerId, String email) {
+		Map<Object, Object> result = new HashMap<Object, Object>();
+		// 生成随机6位验证码
+		String dentcode = SysUtils.getCode();
+		result.put("dentcode", dentcode);
+		Customer c = new Customer();
+		c.setId(customerId);
+		c.setDentcode(dentcode);
+		customerMapper.cust_update(c);
+		System.err.println(c.getName());
+		// 保存验证码入库
+		c = customerMapper.getCustomerById(c);
+		String n = c.getName();
+		MailReq req = new MailReq();
+		req.setUserName(n);// 姓名
+		req.setAddress(email);// 邮箱
+		try {
+			mailService.sendMail_phone(req,dentcode,"确认邮箱");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public Customer getCustomerById(Customer param) {
+		return customerMapper.getCustomerById(param);
+	}
 
 }

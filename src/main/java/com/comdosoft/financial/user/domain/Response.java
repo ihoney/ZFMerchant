@@ -44,6 +44,8 @@ public class Response {
     public static Response getSuccess() {
         Response r = new Response();
         r.code = SUCCESS_CODE;
+        r.message="success";
+        r.result ="";
         return r;
     }
 

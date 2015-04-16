@@ -270,7 +270,8 @@ public class OrderService {
  
         map.put("order_type", o.getTypes()==null?"":o.getTypes()+"");
         map.put("order_number", o.getOrderNumber()==null?"":o.getOrderNumber());//订单编号
-        map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
+//        map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
+        map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType());//支付方式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
  
         String d = sdf.format(o.getCreatedAt());
@@ -408,7 +409,8 @@ public class OrderService {
  
         map.put("order_type", o.getTypes()==null?"":o.getTypes()+"");
         map.put("order_number", o.getOrderNumber()==null?"":o.getOrderNumber());//订单编号
-        map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
+//        map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType().getName());//支付方式
+        map.put("order_payment_type", o.getOrderPayment()==null ?"":o.getOrderPayment().getPayType());//支付方式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
  
         String d = sdf.format(o.getCreatedAt());

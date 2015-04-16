@@ -295,6 +295,8 @@ public class UserLoginController {
         try {
             if (userLoginService.findUname(customer.getUsername(),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) > 0) {
             	System.out.println(userLoginService.findCode(customer)+"\t"+customer.getCode());
+            	customer.setTypes(Customer.TYPE_CUSTOMER);
+            	customer.setTypes(Customer.STATUS_NORMAL);
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
                     userLoginService.updatePassword(customer);
                     return Response.getSuccess("找回密码成功！");

@@ -26,7 +26,7 @@ public class IndexService {
     @Resource
     private IndexMapper indexMapper;
     @Resource
-    private MailService MailService;
+    private MailService mailService;
     
     public List<Map<String, Object>> getFactoryList() {
         List<Map<String, Object>> list = indexMapper.getFactoryList();
@@ -143,7 +143,7 @@ public class IndexService {
         try {
              data = SysUtils.string2MD5(name+"zf_vc");  ///#/myinfobase
             req.setUrl("<a href='"+url+"/#/myinfobase?id="+id+"&q="+data+"'>点击修改</a>");
-            MailService.sendMail(req);
+            mailService.sendMail(req);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,7 +155,7 @@ public class IndexService {
 	        req.setAddress(myOrderReq.getEmail());//邮箱
 	        try {
 	        	String code = SysUtils.getCode() ;
-	            MailService.sendMail_phone(req,code);
+	            mailService.sendMail_phone(req,code,"修改邮箱");
 	            return code;
 	        } catch (Exception e) {
 	            e.printStackTrace();

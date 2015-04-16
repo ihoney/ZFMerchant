@@ -245,7 +245,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 			return ;
 		}
 	 	var email = $scope.customer.email;
-	 	console.log("email==>>>"+email);
 //		var phone = $scope.customer.phone;
 		if( typeof(email) == "undefined" || email=="" ){
 			alert("请输入合法的邮箱地址");
