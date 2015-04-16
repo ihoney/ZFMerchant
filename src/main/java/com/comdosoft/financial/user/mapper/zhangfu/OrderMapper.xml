@@ -324,12 +324,12 @@
 		SET t.`status` = 6,t.updated_at= NOW()
 		WHERE
 			DATE_SUB(NOW(), INTERVAL 1 DAY) > t.created_at
-		AND t.`status` = 1
+		AND t.`status` = 1  and (t.types =1 or t.types =2)
     </update>
     
 	<update id="update_goods_stock" >
      UPDATE goods
-	SET quantity = #{param2},updated_at= NOW()
+	SET quantity = quantity + #{param2},updated_at= NOW()
 	WHERE
 		id = #{param1}
     </update>
