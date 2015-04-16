@@ -267,7 +267,7 @@ public class MailService {
     
     
     //修改邮箱发送邮件  shouji
-    public void sendMail_phone(MailReq req,String code) {
+    public void sendMail_phone(MailReq req,String code,String msg) {
         try {
             
             // 创建邮件Session所需的Properties对象
@@ -299,7 +299,7 @@ public class MailService {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(req.getAddress()));
             
             // 主题
-            message.setSubject(MimeUtility.encodeText("【华尔街金融】修改邮箱", MimeUtility.mimeCharset("utf-8"), null));
+            message.setSubject(MimeUtility.encodeText("【华尔街金融】"+msg, MimeUtility.mimeCharset("utf-8"), null));
             
             // 构造Multipart
             Multipart multipart = new MimeMultipart();
