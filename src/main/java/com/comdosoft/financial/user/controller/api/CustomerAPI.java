@@ -330,5 +330,43 @@ public class CustomerAPI {
         }
         return sysResponse;
     }
+    
+    
+	@RequestMapping(value = "getUpdateEmailDentcode", method = RequestMethod.POST)
+	public Response getUpdateEmailDentcode(@RequestBody Customer param) {
+		Response sysResponse = null;
+		try {
+			sysResponse = Response.getSuccess(customerService.getUpdateEmailDentcode(param.getId(), param.getEmail()));
+		} catch (Exception e) {
+			logger.error("获取 修改邮箱验证码失败", e);
+			sysResponse = Response.getError("获取 修改邮箱验证码失败:请检查参数");
+		}
+		return sysResponse;
+	}
+
+	// 传入 用户id  新的email
+	@RequestMapping(value = "updateEmail", method = RequestMethod.POST)
+	public Response updateEmail(@RequestBody Customer param) {
+		Response sysResponse = null;
+		try {
+			Customer customer = customerService.getCustomerById(param);
+			if (customer != null) {
+				if (customer.getDentcode().equals(param.getDentcode())) {// 判断验证码
+					customer.setEmail(param.getEmail());
+					customerService.cust_update(customer);
+					sysResponse = Response.getSuccess();
+				} else {
+					sysResponse = Response.getError("修改邮箱失败:验证码不正确");
+				}
+			} else {
+				sysResponse = Response.getError("修改邮箱失败:用户不存在");
+			}
+		} catch (Exception e) {
+			logger.error("修改邮箱失败", e);
+			sysResponse = Response.getError("修改邮箱失败:请检查参数是否正确");
+		}
+		return sysResponse;
+	}
+
 
 }

@@ -57,5 +57,7 @@ public interface CustomerMapper {
 
     List<Map<String, Object>> findUsername(String p);
 
+	Customer getCustomerById(Customer param);
+
 
 }
