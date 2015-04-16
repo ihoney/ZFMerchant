@@ -8,7 +8,6 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req={};
 	$scope.req.keys=LoginService.keys;
 	$scope.req.city_id=LoginService.city;
-	$scope.req.orderType=1;
 	
 	$scope.req.has_purchase=false;
 	//$scope.req.keys="";
