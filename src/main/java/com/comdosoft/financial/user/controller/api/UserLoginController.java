@@ -36,9 +36,6 @@ public class UserLoginController {
     @Resource
     private UserLoginService userLoginService;
 
-    @Value("${passPath}")
-    private String passPath;
-    
     @Value("${sendEmailRegisterServicsePath}")
     private String sendEmailRegisterServicsePath;
     
@@ -320,6 +317,9 @@ public class UserLoginController {
     @RequestMapping(value = "sendEmailVerificationCode", method = RequestMethod.POST)
     public Response sendEmailVerificationCode(@RequestBody Map<String, String> map) {
     	 try{
+    		 if (userLoginService.findUname(map.get("codeNumber"),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) == 0) {
+                 return Response.getError("用户不存在！");
+             } 
     		 MailReq req = new MailReq();
     		 req.setUserName(map.get("codeNumber"));
     		 req.setAddress(map.get("codeNumber"));
