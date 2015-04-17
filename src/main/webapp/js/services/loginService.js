@@ -12,7 +12,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
     	//当前登陆的用户名
         loginUserName: typeof($cookieStore.get("loginUserName")) == 'undefined' ? "" : $cookieStore.get("loginUserName"),
         userid: typeof($cookieStore.get("loginUserId")) == 'undefined' ? 0 : $cookieStore.get("loginUserId"),
-        city:0,
+        city:  typeof($cookieStore.get("loginUserId")) == 'undefined' ? 0 : $cookieStore.get("city_id"),
         goods: [],
         tradeTypeId: 0,
         //用户登陆功能
