@@ -59,5 +59,7 @@ public interface CustomerMapper {
 
 	Customer getCustomerById(Customer param);
 
+	int countAddress(Map<Object, Object> param);
+
 
 }
