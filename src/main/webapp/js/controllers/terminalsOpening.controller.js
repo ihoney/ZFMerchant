@@ -11,6 +11,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	//英文数字校验
 	var numCh = /[^a-zA-Z0-9]/g;
 	$scope.terminalId=$location.search()['terminalId'];
+	$scope.openstatus=$location.search()['status'];
 	$scope.customerId = LoginService.userid;
 	$scope.img = null;
 	$scope.MaterialLevel = [];
@@ -266,7 +267,10 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.channel = null;
 	$scope.billingId = null;
   $scope.addApply = function(){
-
+	  if($scope.openstatus == 6){
+		  alert("你当前的信息正在第三方审核,请耐心等待...");
+		  return false;
+	  }
 	  if($scope.req.shiList != undefined){
 		  $scope.cityId = Math.ceil($scope.req.shiList.id);
 	  }
@@ -281,7 +285,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		  
 		  $scope.list = [
 		                 {
-		                     status:Math.ceil($scope.appStatus),
 		                     terminalId:Math.ceil($scope.terminalId),
 		                     publicPrivateStatus: Math.ceil($scope.status),
 		                     applyCustomerId: Math.ceil($scope.customerId),
@@ -300,7 +303,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		                     bankName:$("#bankNameValue").val(),
 		                     bankCode:$("#bankCodeValue").val(),
 		                     organizationNo:$("#organizationNoValue").val(),
-		                     registeredNo:$("#registeredNoValue").val()
+		                     registeredNo:$("#registeredNoValue").val(),
+		                     needPreliminaryVerify:Math.ceil($scope.applyDetails.needPreliminaryVerify)
 		                 }
 		             ];
 		  

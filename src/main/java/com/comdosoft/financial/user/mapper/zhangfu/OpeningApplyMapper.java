@@ -130,6 +130,12 @@ public interface OpeningApplyMapper {
 	int getApplyesId(Integer id);
 	
 	/**
+	 * 终端关联商户和通道周期时间
+	 * @param id
+	 */
+	void updateterminal(Map<Object, Object> map);
+	
+	/**
 	 * 重新申请开通(先删除旧数据)
 	 * @param id
 	 */

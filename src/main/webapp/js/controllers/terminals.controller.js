@@ -96,6 +96,20 @@ var terminalController = function ($scope, $http, LoginService) {
 		}
 	}
 	
+	//获取开通状态若为审核中就提示用户
+	$scope.isopenstatus = function(index,id){
+		for(var i=0;i<$scope.list.length;i++){
+			if(i==index){
+				if($scope.list[i].openstatus == 6){
+					alert("正在第三方审核,请耐心等待...");
+				}
+				else {
+					window.location.href ="#/terminalOpening?terminalId="+id+"&status="+$scope.list[i].openstatus;
+				}
+			}
+		}
+	}
+	
 	// 筛选状态
 	$scope.screening = function(){
 		$scope.indexPage = 1;

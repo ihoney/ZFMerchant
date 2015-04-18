@@ -376,4 +376,44 @@ public class OpeningApplie {
 	public void setTypes(Integer types) {
 		this.types = types;
 	}
+	/**
+	 * 申请状态(1 待审核 2 初审通过 3初审不通过 4 审核通过 5 审核不通过 6 已取消)
+	 */
+	public static final int STATUS_1 = 1;
+	
+	/**
+	 * 申请状态(1 待审核 2 初审通过 3初审不通过 4 审核通过 5 审核不通过 6 已取消)
+	 */
+	public static final int STATUS_2 = 2;
+	
+	/**
+	 * 申请状态(1 待审核 2 初审通过 3初审不通过 4 审核通过 5 审核不通过 6 已取消)
+	 */
+	public static final int STATUS_3 = 3;
+	
+	/**
+	 * 申请状态(1 待审核 2 初审通过 3初审不通过 4 审核通过 5 审核不通过 6 已取消)
+	 */
+	public static final int STATUS_4 = 4;
+	
+	/**
+	 * 申请状态(1 待审核 2 初审通过 3初审不通过 4 审核通过 5 审核不通过 6 已取消)
+	 */
+	public static final int STATUS_5 = 5;
+	
+	/**
+	 * 申请状态(1 待审核 2 初审通过 3初审不通过 4 审核通过 5 审核不通过 6 已取消)
+	 */
+	public static final int STATUS_6 = 6;
+
+	
+	/**
+	 * 申请开通材料对公对私状态(对公)
+	 */
+	public static final int TYPES_1 = 1;
+	
+	/**
+	 * 申请开通材料对公对私状态(对私)
+	 */
+	public static final int TYPES_2 = 2;
 }

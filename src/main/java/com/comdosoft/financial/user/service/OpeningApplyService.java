@@ -222,6 +222,18 @@ public class OpeningApplyService {
 	public int getApplyesId(Integer id) {
 		return openingApplyMapper.getApplyesId(id);
 	}
+	
+	/**
+	 * 终端表关联商户id和通道周期
+	 * 
+	 */
+	public void updateterminal(int merchantId,int terminalId,int billingCyclesId) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("merchantId", merchantId);
+		map.put("terminalId", terminalId);
+		map.put("billingCyclesId", billingCyclesId);
+		openingApplyMapper.updateterminal(map);
+	}
 
 	/**
 	 * 重新申请开通(先删除旧数据)

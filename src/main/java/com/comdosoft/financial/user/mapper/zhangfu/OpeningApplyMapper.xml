@@ -34,6 +34,11 @@
 		 VALUES(#{legalPersonName},#{legalPersonCardId},#{title},#{taxRegisteredNo},#{organizationCodeNo},now(),now(),#{accountBankNum},#{customerId},#{cityId},#{phone})
  	</insert>
  	
+ 	<update id="updateterminal">
+ 		UPDATE terminals SET merchant_id = #{merchantId},billing_cycles_id = #{billingCyclesId}
+ 		where id=#{terminalId}
+ 	</update>
+ 	
  	<update id="updateApply" parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
  		update  `opening_applies` set `apply_customer_id` = #{applyCustomerId}
 		,`terminal_id` = #{terminalId}
