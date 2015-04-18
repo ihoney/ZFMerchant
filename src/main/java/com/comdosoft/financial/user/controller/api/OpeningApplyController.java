@@ -199,8 +199,6 @@ public class OpeningApplyController {
 							.get("terminalId"));
 					openingApplie.setApplyCustomerId((Integer) map
 							.get("applyCustomerId"));
-					openingApplie.setStatus((Integer) map
-							.get("status"));
 					openingApplie.setTypes((Integer) map
 							.get("publicPrivateStatus"));
 					openingApplie.setMerchantId((Integer) map
@@ -234,6 +232,12 @@ public class OpeningApplyController {
 							.get("registeredNo"));
 					openingApplie.setOrganizationCodeNo((String) map
 							.get("organizationNo"));
+					if((Integer) map.get("needPreliminaryVerify") == 0){
+						openingApplie.setStatus(OpeningApplie.STATUS_5);
+					}
+					if((Integer) map.get("needPreliminaryVerify") == 1){
+						openingApplie.setStatus(OpeningApplie.STATUS_1);
+					}
 					//判断该商户是否存在
 					Map<Object, Object> countMap =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
 					if(countMap == null){
@@ -263,6 +267,9 @@ public class OpeningApplyController {
 					}else if(countMap !=null){
 						openingApplie.setMerchantId((Integer)countMap.get("id"));
 					}
+					//为终端表关联对应的商户id和通道周期ID 
+					openingApplyService.updateterminal(openingApplie.getMerchantId(),terminalId,(Integer) map
+							.get("billingId"));
 					//判断该申请是否为从新申请
 					if(terminalsService.judgeOpen(terminalId) != 0){
 						openingAppliesId = String.valueOf(openingApplyService
