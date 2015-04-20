@@ -170,8 +170,8 @@
 
 	<insert id="insertIntegralConvert" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
-		INSERT INTO customer_integral_converts (name, phone, price, quantity, created_at, updated_at, customer_id)
-		VALUES (#{name}, #{phone}, #{price}, #{quantity}, #{createdAt}, #{updatedAt}, #{customerId})
+		INSERT INTO customer_integral_converts (name, phone, price, quantity, created_at, updated_at, customer_id,apply_num)
+		VALUES (#{name}, #{phone}, #{price}, #{quantity}, #{createdAt}, #{updatedAt}, #{customerId},#{apply_num})
 	]]>
 	</insert>
 
