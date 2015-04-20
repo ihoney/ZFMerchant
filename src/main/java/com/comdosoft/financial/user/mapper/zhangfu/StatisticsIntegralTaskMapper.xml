@@ -4,7 +4,7 @@
 	namespace="com.comdosoft.financial.user.mapper.zhangfu.StatisticsIntegralTaskMapper">
 	<select id="findOrderInfo" resultType="map"> 
 		select o.id, o.customer_id
-		, o.actual_price from orders o where (o.`status` = '3' || o.`status` =
+		, o.actual_price,o.order_number from orders o where (o.`status` = '3' || o.`status` =
 		'4') and IFNULL(o.integral_status, 0) =0
 	</select>
 
@@ -23,8 +23,8 @@
 	<insert id="insertCustomerIntegralRecords" useGeneratedKeys="true"
 		keyProperty="id">
 		insert into customer_integral_records
-		(customer_id,types,quantity,target_id,target_type,created_at,updated_at)
-		values(#{customerId},#{types},#{quantity},#{targetId},#{targetType},#{createdAt},#{updatedAt})
+		(customer_id,types,quantity,target_id,target_type,created_at,updated_at,description)
+		values(#{customerId},#{types},#{quantity},#{targetId},#{targetType},#{createdAt},#{updatedAt},#{description})
 	</insert>
 
 	<update id="updateCustomerIntegral">

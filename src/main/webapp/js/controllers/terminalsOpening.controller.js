@@ -4,6 +4,9 @@
 var terminalOpenModule = angular.module("terminalOpenModule",['loginServiceModule']);
 
 var terminalOpenController = function ($scope, $http,$location, LoginService) {
+	//已有商户，点击样式
+	$scope._br = false;
+	
 	//检验邮箱格式
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	//手机格式
@@ -134,7 +137,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
   //动态显示商户
-  $scope.angu = function(obj1,obj2){
+  $scope.angu = function(obj1,obj2,curr){
 	  $scope.merchantNamed = obj1;
 	  $scope.merchantId = obj2;//商户Id
 	  //获得商户详情
@@ -143,6 +146,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
         	  if(data.code == 1){
         		//终端信息
                   $scope.merchant = data.result;
+                  $scope._br = $scope._br == true ? false:true; 
+                  console.info($scope._br);
         	  }else{
         		  alert("商户信息加载失败！");
         	  }
@@ -451,19 +456,21 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   }
   
 //鼠标经过小图提示大图
-function infoTab(i_tab,i_box){
+function infoTab(i_tab,i_box){ 
 	$(i_tab).hover(
 		function(e){
-       /* $(i_box).children("img").attr("src", $(this).attr("data-src"));*/
-        $(i_box).children("img").attr("src", $(this).siblings("a").children("input[name='hidden']").val());
-
-			$(i_box).css('display','block');
-			$(i_box).css('top',$(this).offset().top - $(i_box).height() +'px');
-			
-			if($(this).offset().left+$(i_box).width() > $(document).width()){
-				$(i_box).css( 'left',($(this).offset().left)-$(i_box).width()+'px');
-			}else {
-				$(i_box).css('left',($(this).offset().left)+$(this).width()+'px');
+			var val = $(this).attr("data-src");
+			console.info(val);
+			if(val != undefined && val != ""){
+		       /* $(i_box).children("img").attr("src", $(this).attr("data-src"));*/
+		        $(i_box).children("img").attr("src", $(this).siblings("a").children("input[name='hidden']").val());
+				$(i_box).css('display','block');
+				$(i_box).css('top',$(this).offset().top - $(i_box).height() +'px');
+				if($(this).offset().left+$(i_box).width() > $(document).width()){
+					$(i_box).css( 'left',($(this).offset().left)-$(i_box).width()+'px');
+				}else {
+					$(i_box).css('left',($(this).offset().left)+$(this).width()+'px');
+				}
 			}
 		},
 		function(e){
@@ -471,7 +478,7 @@ function infoTab(i_tab,i_box){
 			$(i_box).css('display','none');
 			$(i_box).css({'top':0+'px', 'left':0+'px'});
 		}
-	);
+	);  			
 }
   
   $scope.terminalDetail();

@@ -538,6 +538,7 @@ tr.order_hd td { text-align: left; }
 .ab_b dd { display: inline-block;}
 .ab_b dd a { padding: 5px 10px; border: 1px #CCCCCC solid; margin: 5px 5px 5px 0; display: inline-block;}
 .ab_b dd a:hover, .ab_b dd a.hover { border: 1px #ff4a00 solid;}
+.border_red{border:solid 2px red;}
 .ab_b input { border: 1px #CCCCCC solid; height: 24px; line-height: 24px; width: 250px; padding: 0 5px;}
 
 /*-------交易流水--------*/
