@@ -37,6 +37,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.service.CommentService;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
+import com.comdosoft.financial.user.utils.HttpFile;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
@@ -66,8 +67,11 @@ public class TerminalsController {
 	@Value("${passPath}")
 	private String passPath;
 	
-	 @Value("${uploadPictureTempsPath}")
-	private String uploadPictureTempsPath;
+	@Value("${userTerminal}")
+	private String userTerminal;
+	
+	@Value("${filePath}")
+	private String filePath;
 	 
 
 	/**
@@ -873,8 +877,14 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempImage/{id}", method = RequestMethod.POST)
     public Response tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
         try {
-            return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/opengImg/",img, request));
-        } catch (IOException e) {
+        	String joinpath="";
+        	joinpath = HttpFile.upload(img, userTerminal+id+"/opengImg/");
+        	System.out.println("查看全部路径");
+        	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
+        		return Response.getError(joinpath);
+        	joinpath = filePath+HttpFile.upload(img, userTerminal+id+"/opengImg/");
+        		return Response.getError(joinpath);
+        } catch (Exception e) {
             return Response.getError("请求失败！");
         }
     }
@@ -889,7 +899,7 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempExchangFile/{id}", method = RequestMethod.POST)
     public Response tempExangFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
-    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/change/",updatefile, request));
+    		return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/change/",updatefile, request));
     	} catch (IOException e) {
     		return Response.getError("请求失败！");
     	}
@@ -905,7 +915,7 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempUpdateFile/{id}", method = RequestMethod.POST)
     public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
-    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/update/",updatefile, request));
+    		return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/update/",updatefile, request));
     	} catch (IOException e) {
     		return Response.getError("请求失败！");
     	}
@@ -921,7 +931,7 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempCancellationFile/{id}", method = RequestMethod.POST)
     public Response tempCancellationFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
-    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/cancellation/",updatefile, request));
+    		return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/cancellation/",updatefile, request));
     	} catch (IOException e) {
     		return Response.getError("请求失败！");
     	}
@@ -937,7 +947,7 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempReturnFile/{id}", method = RequestMethod.POST)
     public Response tempReturnFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
-    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/return/",updatefile, request));
+    		return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/return/",updatefile, request));
     	} catch (IOException e) {
     		return Response.getError("请求失败！");
     	}
@@ -953,7 +963,7 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempRentalFile/{id}", method = RequestMethod.POST)
     public Response tempRentalFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
-    		return Response.getSuccess(commentService.saveTmpImage(uploadPictureTempsPath+id+"/rental/",updatefile, request));
+    		return Response.getSuccess(commentService.saveTmpImage(userTerminal +id+"/rental/",updatefile, request));
     	} catch (IOException e) {
     		return Response.getError("请求失败！");
     	}
