@@ -31,11 +31,14 @@ public class HttpFile {
          String name= file.getOriginalFilename();
          int a=-1;
          try {
-             String s[]=name.split(".");
-             name=new Date().getTime()+s[1];
-             File f=new File(upload_path, name);
+             String extName = "";
+             if (name.lastIndexOf(".") >= 0) {
+                 extName = name.substring(name.lastIndexOf("."));
+             }
+             name = new Date().getTime() + extName;
+             File f = new File(upload_path, name);
              FileUtils.copyInputStreamToFile(file.getInputStream(), f);
-             a=postHttp(urlpath, path,f);
+             a = postHttp(urlpath, path, f);
          } catch (Exception e) {
              e.printStackTrace();
              return "上传失败";
