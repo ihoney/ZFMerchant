@@ -68,12 +68,14 @@
  	
 
  	<select id="getApplyList" parameterType="map" resultType="map">
- 		SELECT t.id,t.serial_num,t.status,b.`name` as brandName,g.model_number,o.id as appid,o.`status` as openstatus,c.`name` as channelName
- 		FROM terminals t LEFT JOIN opening_applies o
+ 		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(b.`name`,'') as brandName,
+ 		IFNULL(g.model_number,'') as model_number,IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,IFNULL(c.`name`,'') as channelName
+ 		FROM terminals t 
+ 		LEFT JOIN opening_applies o ON o.terminal_id = t.id
  		LEFT JOIN goods g on t.good_id=g.id 
 		LEFT JOIN good_brands b on g.good_brands_id=b.id 
 		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
- 		WHERE customer_id=#{id}
+ 		WHERE t.customer_id=#{id}
  		AND t.status in (#{twoStatus},#{threeStatus})
  		LIMIT #{offSetPage},#{pageSize}
  	</select>
