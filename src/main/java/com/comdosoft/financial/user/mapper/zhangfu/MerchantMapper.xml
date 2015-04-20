@@ -20,7 +20,7 @@
 	
 	<select id="getList" resultType="map">
 	<![CDATA[
-		SELECT id, title, IFNULL(legal_person_name, '') legal_person_name
+		SELECT id, IFNULL(title,'') as title, IFNULL(legal_person_name, '') legal_person_name
 		  FROM merchants
 		 WHERE customer_id = #{customerId}
 	  ORDER BY created_at DESC
@@ -127,6 +127,7 @@
 	<update id="update">
 		UPDATE merchants
 		<trim prefix="SET" suffixOverrides=",">
+			updated_at = NOW(),
 			<if test="title != null and title !=''">title = #{title},</if>
 			<if test="legalPersonName != null and legalPersonName !=''">legal_person_name = #{legalPersonName},</if>
 			<if test="legalPersonCardId != null and legalPersonCardId !=''">legal_person_card_id = #{legalPersonCardId},</if>

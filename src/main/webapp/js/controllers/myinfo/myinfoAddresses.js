@@ -59,7 +59,7 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 				$scope.address.customerId = LoginService.userid;
 				$http.post("api/customers/insertAddress", $scope.address).success(function(data) {
 					if (data.code == 1) {
-						alert("保存成功");
+						alert(data.message);
 						$scope.init();
 					} else {
 						alert("请填写正确的数据");

@@ -203,4 +203,8 @@ public class CustomerService {
 		return customerMapper.getCustomerById(param);
 	}
 
+	public int countAddress(Map<Object, Object> param) {
+		return customerMapper.countAddress(param);
+	}
+
 }
