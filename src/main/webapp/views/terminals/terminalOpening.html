@@ -24,12 +24,14 @@
                         </div> 
                     </div>
                     <div class="attributes_box">
-                    	<div class="ab_h"><a href="javascript:void(0)" class="{{gongClass}}" ng-click="changGongStatus('1')">对公</a><a href="javascript:void(0)" class="{{siClass}}" ng-click="changgSiStatus('2')">对私</a></div>
+                    	<div class="ab_h">
+                    		<a href="javascript:void(0)" class="{{gongClass}}" ng-click="changGongStatus('1')">对公</a>
+                    		<a href="javascript:void(0)" class="{{siClass}}" ng-click="changgSiStatus('2')">对私</a></div>
                         <div class="ab_b">
                         	<dl>
                             	<dt>已有商户：</dt>
                                 <dd>
-                                <a href="JavaScript:void(0)" class="hover" ng-repeat="man in merchantList" ng-click="angu(man.title,man.id)">{{man.title}}</a>
+                                <a href="JavaScript:void(0)" ng-class="{hover:_br}" ng-repeat="man in merchantList" ng-click="angu(man.title,man.id)">{{man.title}}</a>
                                 </dd>
                             </dl>
                             <dl>
@@ -132,6 +134,8 @@
                                     	<a href="javascript:void(0)" id="but_{{ma.level+'_'+$index}}" ng-repeat="codes in bankCode" ng-click="bankNum('but_'+ma.level+'_'+$index,codes.code,codes.name)">{{codes.name}}</a>
                                     </div>
                                 </li>
+                                
+                                
                                 <li ng-repeat="r in result " ng-if="r.info_type == 1 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span id="key_{{ma.level+'_'+$index}}" class="labelSpan">{{r.name}}：</span>
@@ -139,6 +143,8 @@
                                 <input id="value_{{ma.level+'_'+$index}}" value="{{r.value}}" name="" type="text"/>
                                 </div>
                                 </li>
+                                
+                                
                                 <li  ng-repeat="r in result" ng-if="r.info_type == 2 && r.opening_requirements_id == ma.id">
                                 <input type="hidden" id="id_{{ma.level+'_'+$index}}" value="{{r.id}}"/>
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
@@ -155,6 +161,8 @@
                                 </form>
                                 </div>
                                 </li>
+                                
+                                
                             </ul>
                             <div class="img_info">
 								<img  />

@@ -54,7 +54,7 @@ public interface StatisticsIntegralTaskMapper {
 	void updateCustomerIntegral(int customerId, int integral);
 
 	
-	int findCustomerIntegral(int customerId);
+	Integer findCustomerIntegral(int customerId);
 	/**
 	 * 统计交易流水的统计
 	 */

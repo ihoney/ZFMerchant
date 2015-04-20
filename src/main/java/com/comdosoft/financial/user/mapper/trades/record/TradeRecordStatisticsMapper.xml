@@ -4,7 +4,7 @@
 	namespace="com.comdosoft.financial.user.mapper.trades.record.TradeRecordStatisticsMapper">
 	<select id="findTradeRecords" resultType="map">
 		select tr.id,
-		tr.amount,tr.customer_id from
+		tr.amount,tr.customer_id,tr.trade_number from
 		trade_records tr where tr.traded_status =
 		1 and
 		IFNULL(tr.integral_status,0) = 0
