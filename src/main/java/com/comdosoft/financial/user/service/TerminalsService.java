@@ -322,12 +322,14 @@ public class TerminalsService {
 	 * @param id
 	 * @return
 	 */
-	public List<Map<String, String>> getOpeningDetails(Integer id){
+	public List<Map<Object, Object>> getOpeningDetails(Integer id){
          
-         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+         List<Map<Object, Object>> list = new ArrayList<Map<Object,Object>>();
          list = terminalsMapper.getOpeningDetails(id);
          for(int i=0;i<list.size();i++){
-        	 list.get(i).put("value",filePath+list.get(i).get("value").toString());
+        	 if((Integer)list.get(i).get("types") == 2){
+        		 list.get(i).put("value",filePath+list.get(i).get("value").toString());
+        	 }
          }
 		return list;
 	}
