@@ -71,6 +71,10 @@ public class TerminalsController {
 	
 	@Value("${filePath}")
 	private String filePath;
+	
+	@Value("${sysPaychannel}")
+	private String sysPaychannel;
+	
 	 
 
 	/**
@@ -899,7 +903,7 @@ public class TerminalsController {
     	try {
     		//return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/change/",updatefile, request));
     	
-    		String joinpath = HttpFile.upload(updatefile, userTerminal+id+"/change/");
+    		String joinpath = HttpFile.upload(updatefile, sysPaychannel+id+"/change/");
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);
@@ -919,7 +923,7 @@ public class TerminalsController {
     public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
     		//return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/update/",updatefile, request));
-        	String joinpath = HttpFile.upload(updatefile, userTerminal+id+"/update/");
+        	String joinpath = HttpFile.upload(updatefile, sysPaychannel+id+"/update/");
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);
@@ -940,7 +944,7 @@ public class TerminalsController {
     	try {
     		//return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/cancellation/",updatefile, request));
     		
-    		String joinpath = HttpFile.upload(updatefile, userTerminal+id+"/cancellation/");
+    		String joinpath = HttpFile.upload(updatefile, sysPaychannel+id+"/cancellation/");
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);
@@ -961,7 +965,7 @@ public class TerminalsController {
     	try {
     		//return Response.getSuccess(commentService.saveTmpImage(userTerminal+id+"/return/",updatefile, request));
     	
-    		String joinpath = HttpFile.upload(updatefile, userTerminal+id+"/return/");
+    		String joinpath = HttpFile.upload(updatefile, sysPaychannel+id+"/return/");
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);
@@ -981,7 +985,7 @@ public class TerminalsController {
     public Response tempRentalFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
     		//return Response.getSuccess(commentService.saveTmpImage(userTerminal +id+"/rental/",updatefile, request));
-    		String joinpath = HttpFile.upload(updatefile, userTerminal+id+"/rental/");
+    		String joinpath = HttpFile.upload(updatefile, sysPaychannel+id+"/rental/");
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);
