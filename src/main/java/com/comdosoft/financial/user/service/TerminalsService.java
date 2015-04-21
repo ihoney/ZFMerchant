@@ -1,12 +1,13 @@
 package com.comdosoft.financial.user.service;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
@@ -21,6 +22,9 @@ import com.comdosoft.financial.user.utils.SysUtils;
 public class TerminalsService {
 	@Resource
 	private OpeningApplyMapper openingApplyMapper;
+	
+	@Value("${filePath}")
+	private String filePath;
 
 	@Resource
 	private TerminalsMapper terminalsMapper;
@@ -316,7 +320,13 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<String, String>> getOpeningDetails(Integer id){
-		return terminalsMapper.getOpeningDetails(id);
+         
+         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+         list = terminalsMapper.getOpeningDetails(id);
+         for(int i=0;i<list.size();i++){
+        	 list.get(i).put("value",filePath+list.get(i).get("value").toString());
+         }
+		return list;
 	}
 	
 	/**
@@ -355,7 +365,12 @@ public class TerminalsService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("terminalsId",terminalsId);
 		map.put("type", type);
-		return terminalsMapper.getModule(map);
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		list = terminalsMapper.getModule(map);
+		for(int i=0;i<list.size();i++){
+			list.get(i).put("templet_file_path",filePath+list.get(i).get("templet_file_path").toString());
+		}
+		return list;
 	}
 	
 	/**
