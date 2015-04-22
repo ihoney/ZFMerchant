@@ -89,7 +89,7 @@ public class CustomerService {
         Map<Object, Object> sysconfig = customerMapper.getSysConfig(SysConfig.PARAMNAME_INTEGRALCONVERT);
         BigDecimal paramValue = new BigDecimal((String) sysconfig.get("param_value"));
         BigDecimal price = new BigDecimal(Integer.parseInt(param.get("price").toString()));
-        BigDecimal quantity = price.divide(paramValue);
+        BigDecimal quantity =price.multiply(paramValue);//多少积分
         Date now = new Date();
         param.put("createdAt", now);
         param.put("updatedAt", now);

@@ -56,7 +56,7 @@ var myinfointegralController = function($scope, $http, LoginService) {
 			 return false;
 		  } 
 		if (typeof(p) == "undefined" || p=="") { 
-			alert("没有填写兑换积分");
+			alert("没有填写兑换金额");
 			return false;
 		}  
 		if(p >$scope.total_jifen){
