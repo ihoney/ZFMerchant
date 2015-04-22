@@ -54,7 +54,7 @@
 	]]>
 	</select>
 	
-	<select id="findMerchantById" resultType="map">
+	<select id="findMerchantById" resultType="com.comdosoft.financial.user.domain.zhangfu.Merchant">
 	<![CDATA[
 		SELECT id,
 			   IFNULL(title,'') as title,

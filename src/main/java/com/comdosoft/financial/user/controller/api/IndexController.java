@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.IndexService;
+import com.comdosoft.financial.user.utils.HttpFile;
 import com.comdosoft.financial.user.utils.SysUtils;
 
 @RestController
@@ -31,6 +33,11 @@ public class IndexController {
     @Autowired
     private IndexService indexService ;
     
+    @Value("${userMerchant}")
+    private String userMerchant;
+    
+    @Value("${filePath}")
+    private String filePath;
 
     /**
      * 获取首页  收单机构列表
@@ -130,27 +137,13 @@ public class IndexController {
     //文件上传 返回上传后的地址
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     public Response upload(@RequestParam("file") MultipartFile file,HttpServletRequest request){
-    		String url = request.getScheme() + "://"; // 请求协议 http 或 https
-    		url += request.getHeader("host"); // 请求服务器
-    		url += request.getContextPath();
-    		String upload_path = url + "/uploads/";
-             String realPath = request.getSession().getServletContext().getRealPath("/uploads");  
-             try {
-            	 String name = file.getOriginalFilename();
-            	 String extName="";
-            	 if (name.lastIndexOf(".") >= 0) {
- 					extName = name.substring(name.lastIndexOf("."));
- 				}
-            		name = UUID.randomUUID().toString();
-            	 upload_path +=name+extName;//绝对路径
-				FileUtils.copyInputStreamToFile(file.getInputStream(), new File(realPath, name+extName));
-			} catch (IOException e) {
-				e.printStackTrace();
-				return Response.getError("上传失败");
-			}  
-		// indexService.upload(request,req);
-        //http://localhost:8080/zfmerchant/uploads/32246f8b-7209-4096-a57f-68524faeca00.jpg
-		return Response.getSuccess(upload_path);
+    	String result=HttpFile.upload(file, userMerchant);
+    	result = filePath + result;
+        if(result.split("/").length>0){
+            return Response.getSuccess(result);
+        }else{
+            return Response.getError(result);
+        }
     }
     
 }
