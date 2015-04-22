@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
+import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 
 /**
@@ -60,6 +61,8 @@ public interface CustomerMapper {
 	Customer getCustomerById(Customer param);
 
 	int countAddress(Map<Object, Object> param);
+
+	CustomerAddress findAddressById(Integer addressId);
 
 
 }

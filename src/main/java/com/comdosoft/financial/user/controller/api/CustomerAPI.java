@@ -288,6 +288,10 @@ public class CustomerAPI {
     public Response updateAddress(@RequestBody Map<Object, Object> param) {
         Response sysResponse = null;
         try {
+        	  Integer addressId = (Integer) param.get("id");
+              if(null == addressId){
+              	return Response.buildErrorWithMissing();
+              }
             customerService.updateAddress(param);
             sysResponse = Response.getSuccess();
         } catch (Exception e) {

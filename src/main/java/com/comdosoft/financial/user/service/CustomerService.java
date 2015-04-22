@@ -123,6 +123,12 @@ public class CustomerService {
     @Transactional(value = "transactionManager-zhangfu")
     public void updateAddress(Map<Object, Object> param) {
         int isDefault = Integer.parseInt(param.get("isDefault").toString());
+        Integer customerId = (Integer) param.get("customerId");
+        Integer addressId = (Integer) param.get("id");
+        if(null == customerId){
+        	CustomerAddress ca = customerMapper.findAddressById(addressId);
+        	param.put("customerId", ca.getCustomerId());
+        }
         if (isDefault == CustomerAddress.ISDEFAULT_1) {
             param.put("is_default", CustomerAddress.ISDEFAULT_2);
             customerMapper.updateDefaultAddress(param);
