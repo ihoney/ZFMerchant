@@ -29,15 +29,17 @@ var terminalCancellationController = function ($scope, $http,$location, LoginSer
   };
   
 //提交注销申请
+  $scope.subtruefalse = true;
 	$scope.subRentalReturn = function(){
-		
-		
 		$scope.array = [];
 		 for(var i=0;i<$scope.ReModel.length;i++){
-			$scope.array[i] = {
-					"id":$("#upId_"+i).val()+"",
-					"path":$("#up_"+i).val()+""
-			};
+			 if($("#up_"+i).val() != null && $("#up_"+i).val() != ""){
+				 $scope.subtruefalse = false;
+				 $scope.array[i] = {
+							"id":$("#upId_"+i).val()+"",
+							"path":$("#up_"+i).val()+""
+					};
+			 }
 		 }
 		
 		 $scope.map = {
@@ -47,17 +49,21 @@ var terminalCancellationController = function ($scope, $http,$location, LoginSer
  				type : 3,
  				customerId:$scope.customerId
  		 }
-		 $http.post("api/terminal/subRentalReturn", $scope.map).success(function (data) {  //绑定
-	          if (data != null && data != undefined) {
-	        	  if(data.code == 1){
-	        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
-	        	  }else{
-	        		alert("提交失败！");
-	        	  }
-	          }
-	      }).error(function (data) {
-	    	  alert("获取列表失败");
-	      });
+		 if($scope.subtruefalse == true){
+			alert("请选择你要上传注销 资料！");
+		 }else{
+			 $http.post("api/terminal/subRentalReturn", $scope.map).success(function (data) {  //绑定
+		          if (data != null && data != undefined) {
+		        	  if(data.code == 1){
+		        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+		        	  }else{
+		        		alert("提交失败！");
+		        	  }
+		          }
+		      }).error(function (data) {
+		    	  alert("获取列表失败");
+		      });
+		 }
 	}
   $scope.terminalDetail();
 };

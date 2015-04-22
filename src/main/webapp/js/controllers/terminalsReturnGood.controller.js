@@ -29,13 +29,14 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
   };
 //提交
 	$scope.subReturn = function () {
-		
 		$scope.array = [];
 		 for(var i=0;i<$scope.ReModel.length;i++){
-			$scope.array[i] = {
-					id:$("#upId_"+i).val(),
-					path:$("#up_"+i).val()
-			};
+			 if($("#up_"+i).val() != null && $("#up_"+i).val() != ""){
+				 $scope.array[i] = {
+							id:$("#upId_"+i).val(),
+							path:$("#up_"+i).val()
+					};
+			 }
 		 }
 		
 		$scope.message = {

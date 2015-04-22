@@ -31,13 +31,14 @@ var terminalRentalReturnController = function ($scope, $http,$location, LoginSer
       
     //提交退还申请
   	$scope.subRentalReturn = function(obj){
-  		
   		$scope.array = [];
   		 for(var i=0;i<$scope.ReModel.length;i++){
-  			$scope.array[i] = {
-  					id:$("#upId_"+i).val(),
-  					path:$("#up_"+i).val()
-  			};
+  			 if($("#up_"+i).val() != null && $("#up_"+i).val() !=""){
+  				$scope.array[i] = {
+  	  					id:$("#upId_"+i).val(),
+  	  					path:$("#up_"+i).val()
+  	  			};
+  			 }
   		 }
   		
   		 $scope.map = {
