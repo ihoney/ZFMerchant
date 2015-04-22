@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -339,18 +341,26 @@ public class UserLoginController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "sizeUpImgCode", method = RequestMethod.POST)
-    public Response sizeUpImgCode(@RequestBody Map<String, String> map ,HttpSession session) {
+    @SuppressWarnings("unused")
+	@RequestMapping(value = "sizeUpImgCode", method = RequestMethod.POST)
+    public Response sizeUpImgCode(HttpServletRequest request,@RequestBody Map<String, String> map ,HttpSession session) {
         try {
-        	if((String) session.getAttribute("imageCode") == null){
-        		return Response.getError("图片验证码错误！");
-        	}else{
-        		if(((String) session.getAttribute("imageCode")).equalsIgnoreCase(map.get("imgnum"))){
-               	 return Response.getSuccess("true");
-               }else{
-               	return Response.getError("图片验证码错误！");
-               }
-        	}
+        	 Cookie[] cookies = request.getCookies();
+        	 if(cookies!=null){
+        		 for (int i = 0; i < cookies.length; i++) {
+        			 Cookie cookie = cookies[i];
+        			 if (cookie.getName().equals("imageCode")) {
+        				 if(cookie.getValue().equalsIgnoreCase(map.get("imgnum"))){
+        					 return Response.getSuccess("true");
+        				 }else{
+        		             return Response.getError("图片验证码错误！");
+        	               }
+        			 }else {
+        				 return Response.getError("图片验证失效！");
+        			 }
+        		 }
+        	 }
+        	 return Response.getError("图片验证失效！");
         } catch (Exception e) {
             e.printStackTrace();
             return Response.getError("系统异常！");
@@ -437,8 +447,12 @@ public class UserLoginController {
         String randNumStr = new String(randNum);
 
         // 将验证码存入session
-        session.setAttribute("imageCode", randNumStr);
-
+        //session.setAttribute("imageCode", randNumStr);
+        Cookie cookie = new Cookie("imageCode",randNumStr);
+        
+        response.addCookie(cookie);
+        
+        
         // 生成验证码图片
         BufferedImage image = SysUtils.generateRandImg(randNum);
 
