@@ -23,7 +23,6 @@
                     	<a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 2">
-                    	<a href="#" class="ghostBtn">视频认证</a>
                     	<a href="javascript:void(0)" ng-click="judgeChang()" class="ghostBtn">换货</a>
                     	<a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a>
                     	<a href="javascript:void(0)" ng-click="judgeRentalReturn()" class="ghostBtn">注销</a>
@@ -34,7 +33,6 @@
                     	<a  href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步</a>
                     	</span>
                     	<span ng-if="applyDetails.status == 3">
-                    	<a href="#" class="ghostBtn">视频认证</a>
                     	<a href="javascript:void(0)" ng-click="judgeChang()" class="ghostBtn">换货</a>
                     	<a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a>
                     	<a href="javascript:void(0)" ng-click="judgeRepair()" class="ghostBtn">维修</a>
@@ -106,7 +104,9 @@
                                 <li>最短租赁时间：{{tenancy.lease_time}}个月</li>
                                 <li>最长租赁时间：{{tenancy.return_time}}个月</li>
                                 <li>租赁押金：<strong>￥{{tenancy.lease_deposit/100 | number:2}}</strong></li>
-                                <li>租金：<strong>￥{{tenancy.lease_price/100 | number:2}}</strong></li>
+                                <li ng-if="(tenancy.createdDay/30 | number:0)<tenancy.lease_time">租金{{tenancy.createdDay/30 | number:0}}：<strong>￥{{tenancy.lease_price/100*tenancy.lease_time | number:2}}</strong></li>
+                                <li ng-if="(tenancy.createdDay/30 | number:0)>tenancy.lease_time">租金{{tenancy.createdDay/30 | number:0}}：<strong>￥{{tenancy.lease_price/100*30*(tenancy.createdDay/30 | number:0) | number:2}}</strong></li>
+                                <li>租市场：<strong>￥{{tenancy.createdDay}}</strong></li>
                                 <li>租赁说明：<a href="javascript:void(0)" class="a_btn leaseExplain_a" ng-click="popup('.leaseExplain_tab','.leaseExplain_a')">点击查看</a></li>
                             </ul>
                         </div> 

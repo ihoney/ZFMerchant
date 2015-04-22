@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.CartReq;
@@ -17,6 +18,9 @@ public class MakeOrderService {
     private ShopCartMapper shopCartMapper;
     @Autowired
     private GoodMapper goodMapper;
+    
+    @Value("${filePath}")
+    private String filePath;
     
 
     public Map<String, Object> getShop(CartReq cartreq) {
@@ -33,7 +37,7 @@ public class MakeOrderService {
         //图片
         List<String> goodPics=goodMapper.getgoodPics(goodId);
         if(null!=goodPics&&goodPics.size()>0){
-            map.put("url_path",goodPics.get(0));
+            map.put("url_path",filePath+goodPics.get(0));
         }
         return map;
     }

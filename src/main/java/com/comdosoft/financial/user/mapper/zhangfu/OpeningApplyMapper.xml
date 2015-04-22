@@ -22,11 +22,11 @@
 		INSERT INTO `opening_applies` (`apply_customer_id`,`terminal_id`,`status`,`created_at`,
 		`updated_at`,`types`,`merchant_id`,`merchant_name`,`sex`,`birthday`,`card_id`,`phone`,
 		`email`,`city_id`,`name`,`pay_channel_id`,`account_bank_num`,`account_bank_name`,
-		`account_bank_code`,`tax_registered_no`,`organization_code_no`,`billing_cyde_id`) 
+		`account_bank_code`,`tax_registered_no`,`organization_code_no`,`billing_cyde_id`,`activate_status`,`apply_status`) 
 		VALUES (#{applyCustomerId},#{terminalId},#{status},now(),now(),#{types},#{merchantId},
 		#{merchantName},#{sex},#{birthday},#{cardId},#{phone},#{email},#{cityId},#{name},
 		#{payChannelId},#{accountBankNum},#{accountBankName},#{accountBankCode},#{taxRegisteredNo},
-		#{organizationCodeNo},#{billingCydeId});
+		#{organizationCodeNo},#{billingCydeId},'0000',0);
  	</insert>
  	
  	<insert id="addMerchan" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.Merchant">
@@ -68,12 +68,14 @@
  	
 
  	<select id="getApplyList" parameterType="map" resultType="map">
- 		SELECT t.id,t.serial_num,t.status,b.`name` as brandName,g.model_number,o.id as appid,o.`status` as openstatus,c.`name` as channelName
- 		FROM terminals t LEFT JOIN opening_applies o
+ 		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(b.`name`,'') as brandName,
+ 		IFNULL(g.model_number,'') as model_number,IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,IFNULL(c.`name`,'') as channelName
+ 		FROM terminals t 
+ 		LEFT JOIN opening_applies o ON o.terminal_id = t.id
  		LEFT JOIN goods g on t.good_id=g.id 
 		LEFT JOIN good_brands b on g.good_brands_id=b.id 
 		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
- 		WHERE customer_id=#{id}
+ 		WHERE t.customer_id=#{id}
  		AND t.status in (#{twoStatus},#{threeStatus})
  		LIMIT #{offSetPage},#{pageSize}
  	</select>
@@ -91,7 +93,7 @@
  	</select>
  	
  	<select id="getOppinfo" resultType="map"  parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
- 		SELECT e.*,p.`name` as channelname,b.`name` as billingname FROM opening_applies e 
+ 		SELECT e.*,date_format(e.birthday,'%Y-%c-%d') as birthdays,p.`name` as channelname,b.`name` as billingname FROM opening_applies e 
 		LEFT JOIN pay_channels p on p.id = e.pay_channel_id
 		LEFT JOIN dictionary_billing_cycles b ON b.id = e.billing_cyde_id
 		WHERE  terminal_id = #{terminalId}

@@ -1,6 +1,5 @@
 package com.comdosoft.financial.user.service;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,15 +57,7 @@ public class OpeningApplyService {
 	public Map<String, Object> getOppinfo(Integer terminalsId) {
 		OpeningApplie openingApplie =new OpeningApplie();
 		openingApplie.setTerminalId(terminalsId);
-		
-		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
-		 Map<String, Object> map = openingApplyMapper.getOppinfo(openingApplie);
-		 if(map!=null){
-			 map.put("birthday", sdf.format(map.get("birthday")));
-				map.put("created_at", sdf.format(map.get("created_at")));
-				map.put("updated_at", sdf.format(map.get("updated_at")));
-		 }
-		return map;
+		return openingApplyMapper.getOppinfo(openingApplie);
 	}
 	
 	/**
@@ -131,7 +122,7 @@ public class OpeningApplyService {
 	 * @param id
 	 * @return
 	 */
-	public List<Map<String, String>> ReApplyFor(Integer id) {
+	public List<Map<Object, Object>> ReApplyFor(Integer id) {
 		/*
 		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
 		 List<Map<String, String>> list = openingApplyMapper.ReApplyFor(id);

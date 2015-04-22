@@ -225,6 +225,9 @@ public class CustomerAPI {
     public Response insertIntegralConvert(@RequestBody Map<Object, Object> param) {
         Response sysResponse = null;
         try {
+        	
+        	String apply_num = String.valueOf(System.currentTimeMillis());
+        	param.put("apply_num", apply_num);
             customerService.insertIntegralConvert(param);
             sysResponse = Response.getSuccess();
         } catch (Exception e) {

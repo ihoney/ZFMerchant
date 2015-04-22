@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.PosReq;
@@ -23,6 +24,9 @@ public class GoodService {
     
     @Autowired
     private PayChannelService pcService;
+    
+    @Value("${filePath}")
+    private String filePath;
 
     public Map<String,Object> getGoodsList(PosReq posreq) {
         Map<String,Object> result=new HashMap<String, Object>();
@@ -32,17 +36,20 @@ public class GoodService {
         List<Map<String, Object>> list = goodMapper.getGoodsList(posreq);
         int total=goodMapper.getGoodsTotal(posreq);
         for (Map<String, Object> map : list) {
-            int id = Integer.valueOf("" + map.get("id"));
+            int id = SysUtils.String2int("" + map.get("id"));
             // 支付通道
             posreq.setGoodId(id);
             List<Map<String, Object>> payChannelList = goodMapper.getPayChannelListByGoodId(posreq);
+            int openprice=0;
             if (null != payChannelList && payChannelList.size() > 0) {
                 map.put("pay_channe", payChannelList.get(0).get("name"));
+                openprice=SysUtils.String2int(payChannelList.get(0).get("opening_cost").toString()); 
             }
+            map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
             // 图片
             List<String> goodPics = goodMapper.getgoodPics(id);
             if (null != goodPics && goodPics.size() > 0) {
-                map.put("url_path", goodPics.get(0));
+                map.put("url_path",filePath+ goodPics.get(0));
             }
         }
         result.put("list", list);
@@ -70,6 +77,11 @@ public class GoodService {
             }
             // 图片
             List<String> goodPics = goodMapper.getgoodPics(posreq.getGoodId());
+            if(goodPics!=null&&goodPics.size()>0){
+                for (int i = 0; i < goodPics.size(); i++) {
+                    goodPics.set(i, filePath+ goodPics.get(i));
+                }
+            }
             goodInfoMap.put("goodPics", goodPics);
             // 评论数
             int commentsCount = cMapper.getCommentCount(posreq.getGoodId());
@@ -78,7 +90,10 @@ public class GoodService {
             int factoryId = SysUtils.String2int("" + goodinfo.get("factory_id"));
             if (factoryId > 0) {
                 Map<String, Object> factoryMap = goodMapper.getFactoryById(factoryId);
-                goodInfoMap.put("factory", factoryMap);
+                if(factoryMap!=null){
+                    factoryMap.put("logo_file_path", filePath+factoryMap.get("logo_file_path"));
+                    goodInfoMap.put("factory", factoryMap);
+                }
             }
             List<Map<String, Object>> relativeShopList = goodMapper.getRelativeShopListByGoodId(posreq);
             if (null != relativeShopList && relativeShopList.size() > 0) {
@@ -86,7 +101,7 @@ public class GoodService {
                    // 图片
                    List<String> goodPics2 = goodMapper.getgoodPics( SysUtils.String2int(map.get("id").toString()));
                    if (null != goodPics2 && goodPics2.size() > 0) {
-                       map.put("url_path", goodPics2.get(0));
+                       map.put("url_path", filePath+goodPics2.get(0));
                    }
                }
             }

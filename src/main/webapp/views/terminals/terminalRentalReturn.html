@@ -25,10 +25,11 @@
                                 <li ng-if="tenancy.lease_time <= 0">最短租赁时间：0个月</li>
                                 <li ng-if="tenancy.return_time > 0">最长租赁时间：{{tenancy.return_time}}个月</li>
                                 <li ng-if="tenancy.return_time <= 0">最长租赁时间：0个月</li>
-                                <li>租赁押金：<strong>{{(tenancy.lease_deposit)/100 | number:2 | currency:'￥'}}</strong></li>
+                                <li>租赁押金：<strong>￥{{(tenancy.lease_deposit/100) | number:2}}</strong></li>
                                 <li ng-if="tenancy.createdDay > 0">租赁时长：{{tenancy.createdDay}}天</li>
                                 <li ng-if="tenancy.createdDay <= 0">租赁时长：0天</li>
-                                <li>租金：<strong>{{(tenancy.lease_price)/100 | number:2 | currency:'￥'}}</strong></li>
+                                <li ng-if="(tenancy.createdDay/30 | number:0)<tenancy.lease_time">租金：<strong>￥{{tenancy.lease_price/100*tenancy.lease_time | number:2}}</strong></li>
+                                <li ng-if="(tenancy.createdDay/30 | number:0)>tenancy.lease_time">租金：<strong>￥{{(tenancy.lease_price/100*30*(tenancy.createdDay/30 | number:0) | number:2)}}</strong></li>
                             </ul>
                         </div> 
                     </div>
@@ -50,7 +51,7 @@
                         <div class="applyFor_list clear">
                         <input type="hidden" id="modelStatus" value="0"/>
                            <div class="af_con" ng-repeat="re in ReModel">
-                            	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn">下载模版</a></div>
+                            	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" target="_blank" class="a_btn">下载模版</a></div>
                                 <div class="af_con_b">
                                    <form method="post" action="api/terminal/upload/tempRentalFile" enctype="multipart/form-data">  
                                 	<i></i>

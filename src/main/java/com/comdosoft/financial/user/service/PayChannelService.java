@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.Intentionreq;
@@ -15,6 +16,9 @@ public class PayChannelService {
 
     @Autowired
     private PaychannelMapper pcMapper;
+    
+    @Value("${filePath}")
+    private String filePath;
 
     public Map<String, Object> payChannelInfo(int pcid) {
         Map<String, Object> map = pcMapper.getPcinfo(pcid);//new HashMap<String, Object>();
@@ -40,7 +44,11 @@ public class PayChannelService {
         int factoryId = SysUtils.String2int("" + map.get("factory_id"));
         if (factoryId > 0) {
             Map<String, Object> factoryMap = pcMapper.getFactoryById(factoryId);
-            map.put("pcfactory", factoryMap);
+            if(null!=factoryMap){
+                factoryMap.put("logo_file_path", filePath+factoryMap.get("logo_file_path"));
+                map.put("pcfactory", factoryMap);
+            }
+            
         }
         return map;
     }

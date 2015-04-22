@@ -67,9 +67,9 @@
 						<td>{{t.terminalNumber}}</td>
 						<td>{{t.amount/100|currency : "￥"}}</td>
 						<td>{{t.poundage/100|currency : "￥"}}</td>
-						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">待付款</strong></td>
-						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易完成</strong></td>
-						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易失败</strong></td>
+						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">交易成功</strong></td>
+						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易失败</strong></td>
+						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易结果待确认</strong></td>
 						<td><a href="#/tradeinfo?id={{t.id}}" class="a_btn">查看详情</a></td>
 					</tr>
 				</tbody>

@@ -94,7 +94,7 @@
                         <div class="applyFor_list clear">
                         <input type="hidden" id="modelStatus" value="0"/>
                            <div class="af_con" ng-repeat="re in ReModel">
-                            	<div class="af_con_n">{{re.title}}<a href="javascript:void(0)" class="a_btn" nf-click="upModel(re.templet_file_path)">下载模版</a></div>
+                            	<div class="af_con_n">{{re.title}}<a href="{{re.templet_file_path}}" class="a_btn"  target="_blank">下载模版</a></div>
                                 <div class="af_con_b">
                                  <form method="post" action="api/terminal/upload/tempExchangFile" enctype="multipart/form-data">  
                                 <i></i>

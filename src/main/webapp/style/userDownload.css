@@ -230,7 +230,8 @@ input { border: none;}
 	-o-transition: all 0.2s; /* Opera */
 }
 .dl_area li p { color: #666; font-size: 12px;}
-.ewm { float: right; margin-top: 10px;}
+.updownEwm { float: right; margin-top: 10px;}
+.updownEwm img { width: 80px;}
 
 
 .foot { height: 58px; line-height: 58px; background: #444444; color: #FFF; font-family:"微软雅黑"; text-align: center;}

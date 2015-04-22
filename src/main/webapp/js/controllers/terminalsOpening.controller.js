@@ -88,7 +88,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
                 		  tax_registered_no:$scope.openingInfos.tax_registered_no
                   };
                   //生日
-                  $scope.birthday = $scope.openingInfos.birthday;
+                  $scope.birthday = $scope.openingInfos.birthdays;
                   $scope.nian = Math.ceil($scope.birthday.split("-")[0]);
                   $scope.yue = Math.ceil($scope.birthday.split("-")[1]);
                   $scope.day = Math.ceil($scope.birthday.split("-")[2]);
@@ -146,7 +146,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
         	  if(data.code == 1){
         		//终端信息
                   $scope.merchant = data.result;
-                  $scope._br = $scope._br == true ? false:true; 
+                  $scope._br = curr; 
                   console.info($scope._br);
         	  }else{
         		  alert("商户信息加载失败！");

@@ -31,7 +31,7 @@
                         	<dl>
                             	<dt>已有商户：</dt>
                                 <dd>
-                                <a href="JavaScript:void(0)" ng-class="{hover:_br}" ng-repeat="man in merchantList" ng-click="angu(man.title,man.id)">{{man.title}}</a>
+                                <a href="JavaScript:void(0)"  ng-repeat="man in merchantList" ng-class="{true:'hover'}[$index == _br]" ng-click="angu(man.title,man.id,$index)">{{man.title}}</a>
                                 </dd>
                             </dl>
                             <dl>

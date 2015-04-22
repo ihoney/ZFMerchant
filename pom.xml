@@ -64,6 +64,10 @@
 			<artifactId>druid</artifactId>
 			<version>1.0.12</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
