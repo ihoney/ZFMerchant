@@ -47,34 +47,41 @@ public class StatisticsIntegralTaskService {
 		int posValue = statisticsIntegralTaskMapper
 				.findPosValue(Constants.INTEGRAL_BUY_POS);
 		for (Iterator iterator = orders.iterator(); iterator.hasNext();) {
-			Map<String, Object> map = (Map<String, Object>) iterator.next();
-			cir = new CustomerIntegralRecord();
-			// 计算这条订单所获取的积分。
-			int sumIntegral = ((int)map.get("actual_price")/100)/(posValue/100);
-//			int sumIntegral = (((int) map.get("actual_price")) / 100 / posValue);
-			// 更新当前id的order积分统计状态为 已统计
-			statisticsIntegralTaskMapper.updateOrdersIntegralStatus((int) map
-					.get("id"));
-			// 新增record
-			cir.setCustomerId((int) map.get("customer_id"));
-			cir.setCreatedAt(new Date());
-			cir.setQuantity(sumIntegral);
-			cir.setTargetId((int) map.get("id"));
-			cir.setTypes((byte) 1);
-			cir.setTargetType((byte) 2);
-			cir.setDescription(map.get("order_number").toString());
-			statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
-			 
-			// 更新customer表的总积分(integral +)
-			Integer integral = statisticsIntegralTaskMapper
-					.findCustomerIntegral((int) map.get("customer_id"));
-			integral = integral==null? 0 : integral;
-			integral += sumIntegral;
-			statisticsIntegralTaskMapper.updateCustomerIntegral(
-					(int) map.get("customer_id"), integral);
-			// }
-			logger.info("订单id：" + map.get("customer_id") + ",订单价格："
-					+ map.get("actual_price") + ",订单获取积分：" + sumIntegral);
+			try {
+				Map<String, Object> map = (Map<String, Object>) iterator.next();
+				cir = new CustomerIntegralRecord();
+				// 计算这条订单所获取的积分。
+				int sumIntegral = ((int) map.get("actual_price") / 100)
+						/ (posValue / 100);
+				// 新增record
+				cir.setCustomerId((int) map.get("customer_id"));
+				cir.setCreatedAt(new Date());
+				cir.setQuantity(sumIntegral);
+				cir.setTargetId((int) map.get("id"));
+				cir.setTypes((byte) 1);
+				cir.setTargetType((byte) 2);
+				cir.setDescription(map.get("order_number").toString());
+				statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
+				logger.info("新增用户获取积分记录, 完成!");
+				// 更新customer表的总积分(integral +)
+				Integer integral = statisticsIntegralTaskMapper
+						.findCustomerIntegral((int) map.get("customer_id"));
+				integral = integral == null ? 0 : integral;
+				integral += sumIntegral;
+				statisticsIntegralTaskMapper.updateCustomerIntegral(
+						(int) map.get("customer_id"), integral);
+				logger.info("更新用户的总积分：" + integral + " \t完成!");
+				// 更新当前id的order积分统计状态为 已统计
+				statisticsIntegralTaskMapper
+						.updateOrdersIntegralStatus((int) map.get("id"));
+				logger.info("更新orders  订单号："+map.get("order_number").toString() +" ,  的状态为已统计。 完成!");
+				logger.info("订单id：" + map.get("customer_id") + ",订单价格："
+						+ map.get("actual_price") + ",订单获取积分：" + sumIntegral);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(cir.toString());
+			}
 		}
 	}
 
@@ -90,36 +97,44 @@ public class StatisticsIntegralTaskService {
 		int posValue = statisticsIntegralTaskMapper
 				.findPosValue(Constants.INTEGRAL_TRADE);
 		for (Iterator iterator = records.iterator(); iterator.hasNext();) {
-			Map<String, Object> map = (Map<String, Object>) iterator.next();
-			cir = new CustomerIntegralRecord();
-			// 计算这条订单所获取的积分。
-			int sumIntegral = ((int) map.get("amount") / 100) / (posValue/100);
-			// 更新当前id的tradeRecords积分统计状态为 已统计
-			tradeRecordStatisticsMapper.updateTradeRecords((int) map.get("id"));
-			logger.info("更新交易记录统计状态为已统计, 完成!");
-			// 新增record
-			cir.setCustomerId((int) map.get("customer_id"));
-			cir.setCreatedAt(new Date());
-			cir.setQuantity(sumIntegral);
-			cir.setTargetId((int) map.get("id"));
-			cir.setTypes((byte) 1);
-			cir.setTargetType((byte) 1);
-			cir.setDescription(map.get("trade_number").toString());
-			System.out.println(cir.toString());
-			statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
-			logger.info("新增用户获取积分记录, 完成!");
-			 
-			// 更新customer表的总积分(integral +)
-			Integer integral = statisticsIntegralTaskMapper
-					.findCustomerIntegral((int) map.get("customer_id"));
-			logger.info("查找用户原始积分："+integral   +" \t完成!");
-			integral = integral==null? 0 : integral;
-			integral += sumIntegral;
-			statisticsIntegralTaskMapper.updateCustomerIntegral(
-					(int) map.get("customer_id"), integral);
-			// }
-			logger.info("订单id：" + map.get("id") + ",订单价格："
-					+ map.get("amount") + ",订单获取积分：" + sumIntegral);
+			try {
+				Map<String, Object> map = (Map<String, Object>) iterator.next();
+				cir = new CustomerIntegralRecord();
+				// 计算这条订单所获取的积分。
+				int sumIntegral = ((int) map.get("amount") / 100)
+						/ (posValue / 100);
+				// 新增record
+				cir.setCustomerId((int) map.get("customer_id"));
+				cir.setCreatedAt(new Date());
+				cir.setQuantity(sumIntegral);
+				cir.setTargetId((int) map.get("id"));
+				cir.setTypes((byte) 1);
+				cir.setTargetType((byte) 1);
+				cir.setDescription(map.get("trade_number").toString());
+				statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
+				logger.info("新增用户获取积分记录, 完成!");
+				// 更新customer表的总积分(integral +)
+				Integer integral = statisticsIntegralTaskMapper
+						.findCustomerIntegral((int) map.get("customer_id"));
+				logger.info("查找用户原始积分：" + integral + " \t完成!");
+				integral = integral == null ? 0 : integral;
+				integral += sumIntegral;
+				statisticsIntegralTaskMapper.updateCustomerIntegral(
+						(int) map.get("customer_id"), integral);
+				logger.info("更新用户的总积分：" + integral + " \t完成!");
+				// 更新当前id的tradeRecords积分统计状态为 已统计
+				tradeRecordStatisticsMapper.updateTradeRecords((int) map
+						.get("id"));
+				logger.info("更新流水号为：" + map.get("trade_number")
+						+ " \t的积分统计状态为，已统计。 完成!");
+				logger.info("订单id：" + map.get("id") + "流水号："
+						+ map.get("trade_number") + ",订单价格："
+						+ map.get("amount") + ",订单获取积分：" + sumIntegral);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(cir.toString());
+			}
 		}
 	}
 }
