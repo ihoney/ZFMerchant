@@ -122,7 +122,7 @@ public class OpeningApplyService {
 	 * @param id
 	 * @return
 	 */
-	public List<Map<String, String>> ReApplyFor(Integer id) {
+	public List<Map<Object, Object>> ReApplyFor(Integer id) {
 		/*
 		 SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
 		 List<Map<String, String>> list = openingApplyMapper.ReApplyFor(id);

@@ -93,7 +93,7 @@
  	</select>
  	
  	<select id="getOppinfo" resultType="map"  parameterType="com.comdosoft.financial.user.domain.zhangfu.OpeningApplie">
- 		SELECT e.*,p.`name` as channelname,b.`name` as billingname FROM opening_applies e 
+ 		SELECT e.*,date_format(e.birthday,'%Y-%c-%d') as birthdays,p.`name` as channelname,b.`name` as billingname FROM opening_applies e 
 		LEFT JOIN pay_channels p on p.id = e.pay_channel_id
 		LEFT JOIN dictionary_billing_cycles b ON b.id = e.billing_cyde_id
 		WHERE  terminal_id = #{terminalId}
