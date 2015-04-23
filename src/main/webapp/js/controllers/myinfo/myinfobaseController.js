@@ -267,9 +267,16 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 //			        return false;
 //			 }
 //		} 
-		
+		var acctype = $scope.cus_type;
+		var b =false;
+		if(parseInt(acctype)==1){
+			b= true;
+		}else if(parseInt(acctype)==0){
+			b= false;
+		}
+		//0手机号 1 邮箱
 		$scope.req = { 
-			"accountType":$scope.cus_type,
+//			"accountType":b,
 			"id" : LoginService.userid,
 			"name" : $scope.customer.name,
 			"phone" : $scope.customer.phone,
