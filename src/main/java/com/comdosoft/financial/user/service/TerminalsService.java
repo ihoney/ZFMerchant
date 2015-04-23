@@ -26,8 +26,6 @@ public class TerminalsService {
 	@Value("${filePath}")
 	private String filePath;
 	
-	@Value("${sysFileTerminal}")
-	private String sysFileTerminal;
 
 	@Resource
 	private TerminalsMapper terminalsMapper;
@@ -375,7 +373,7 @@ public class TerminalsService {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		list = terminalsMapper.getModule(map);
 		for(int i=0;i<list.size();i++){
-			list.get(i).put("templet_file_path",sysFileTerminal+list.get(i).get("templet_file_path").toString());
+			list.get(i).put("templet_file_path",filePath+list.get(i).get("templet_file_path").toString());
 		}
 		return list;
 	}
