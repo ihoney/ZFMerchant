@@ -5,7 +5,7 @@
 	<select id="findOrderInfo" resultType="map"> 
 		select o.id, o.customer_id
 		, o.actual_price,o.order_number from orders o where (o.`status` = '3' || o.`status` =
-		'4') and IFNULL(o.integral_status, 0) =0
+		'4') and IFNULL(o.integral_status, 0) =0 and o.customer_id is not null
 	</select>
 
 	<select id="findPosValue" resultType="int">
