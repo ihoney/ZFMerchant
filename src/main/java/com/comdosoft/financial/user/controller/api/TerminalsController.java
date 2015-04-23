@@ -800,11 +800,7 @@ public class TerminalsController {
 			for(Map<Object, Object> mp:listMap){
 				for(Map<Object, Object> mp1:list){
 					if(mp.get("id").equals(mp1.get("target_id")) && mp.get("opening_requirements_id").equals(mp1.get("opening_requirement_id"))){
-				        	 if((Integer)mp1.get("types") == 2){
-				        		 mp.put("value",filePath+mp1.get("value").toString());
-				        	 }else{
 				        		 mp.put("value", mp1.get("value"));
-				        	 }
 					}
 				}
 			}

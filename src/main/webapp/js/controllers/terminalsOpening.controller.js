@@ -458,7 +458,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 function infoTab(i_tab,i_box){ 
 	$(i_tab).hover(
 		function(e){
-			var val = $(this).attr("data-src");
+			var val = $(this).attr("imgPath");
 			console.info(val);
 			if(val != undefined && val != ""){
 		       /* $(i_box).children("img").attr("src", $(this).attr("data-src"));*/
