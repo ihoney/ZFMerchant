@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,9 @@ public class OpeningApplyController {
 	
 	@Resource
 	private TerminalsService terminalsService;
+	
+	@Value("${filePath}")
+	private String filePath;
 	
 	/**
 	 * 根据用户ID获得开通申请列表
@@ -288,8 +292,12 @@ public class OpeningApplyController {
 					}
 				} else {
 						key = (String) map.get("key");
-						value =  map.get("value");
 						types = (Integer) map.get("types");
+						if(types == 2){
+							value =  map.get("value").toString().substring(filePath.length());
+						}else{
+							value = map.get("value");
+						}
 						openingRequirementId = (Integer) map.get("openingRequirementId");
 						targetId =(Integer) map.get("targetId");
 					openingApplyService.addApply(key, value,types, openingAppliesId,openingRequirementId,targetId);
