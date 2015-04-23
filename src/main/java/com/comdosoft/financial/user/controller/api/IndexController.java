@@ -136,7 +136,7 @@ public class IndexController {
     public Response upload(@RequestParam("file") MultipartFile file,HttpServletRequest request){
     	String result=HttpFile.upload(file, userMerchant);
     	result = filePath + result;
-        if(result.split("/").length>0){
+        if(result.split("/").length>1){
             return Response.getSuccess(result);
         }else{
             return Response.getError(result);
