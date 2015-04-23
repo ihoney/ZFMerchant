@@ -21,7 +21,7 @@
 		FROM message_receivers m left join sys_messages s on m.sys_message_id = s.id
 		where m.customer_id = #{customer_id}
 		<if test="q ==0">
-			and IFNULL(m.`status`, 0) = 0
+			and IFNULL(m.`status`, 0) = 2
 		</if>
 		<if test="q ==1">
 			and m.`status` = 1
@@ -33,7 +33,7 @@
 		FROM  message_receivers m left join sys_messages s  on m.sys_message_id = s.id
 		where m.customer_id = #{customer_id}
 		<if test="q ==0">
-			and IFNULL(m.`status`, 0) = 0
+			and IFNULL(m.`status`, 0) = 2
 		</if>
 		<if test="q ==1">
 			and m.`status` = 1
