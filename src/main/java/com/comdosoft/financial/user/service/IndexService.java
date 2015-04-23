@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.MailReq;
@@ -28,6 +29,9 @@ public class IndexService {
     @Resource
     private MailService mailService;
     
+    @Value("${filePath}")
+    private String filePath;
+    
     public List<Map<String, Object>> getFactoryList() {
         List<Map<String, Object>> list = indexMapper.getFactoryList();
         List<Map<String, Object>> newlist = new ArrayList<Map<String,Object>>();
@@ -43,7 +47,7 @@ public class IndexService {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            map.put("logo_file_path", m.get("logo_file_path")==null?"":m.get("logo_file_path"));
+            map.put("logo_file_path", m.get("logo_file_path")==null?"":filePath+m.get("logo_file_path"));
             map.put("name", m.get("name")==null?"":m.get("name"));
             String des =  m.get("description")==null?"":m.get("description").toString();
             if(des.length()>12){
@@ -68,7 +72,7 @@ public class IndexService {
             map.put("volume_number", m.get("volume_number")==null?"":m.get("volume_number"));
             map.put("title", m.get("title")==null?"":m.get("title"));
             map.put("brand_name", m.get("brand_name")==null?"": m.get("brand_name"));
-            map.put("good_logo", m.get("url_path")==null?"": m.get("url_path"));
+            map.put("good_logo", m.get("url_path")==null?"": filePath+m.get("url_path"));
             newlist.add(map);
         }
         return newlist;

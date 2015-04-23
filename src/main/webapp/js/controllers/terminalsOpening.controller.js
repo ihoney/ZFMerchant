@@ -65,7 +65,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               $scope.CitieChen= data.result.CitieChen;
               //支付通道
               $scope.channels = data.result.channels;
-              
               if($scope.openingInfos != null && $scope.openingInfos!= undefined){
             	//数据替换
                   $scope.status = $scope.openingInfos.types;

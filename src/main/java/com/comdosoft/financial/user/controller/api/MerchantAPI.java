@@ -22,6 +22,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Merchant;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.CommonService;
 import com.comdosoft.financial.user.service.MerchantService;
+import com.comdosoft.financial.user.utils.HttpFile;
 
 /**
  * 
@@ -41,8 +42,11 @@ public class MerchantAPI {
     @Resource
     private CommonService commonService;
 
-    @Value("${uploadMerchantFilePath}")
-    private String uploadMerchantFilePath;
+    @Value("${userMerchant}")
+    private String userMerchant;
+    
+    @Value("${filePath}")
+    private String filePath;
 
     /**
      * 日志记录器
@@ -188,17 +192,13 @@ public class MerchantAPI {
      */
     @RequestMapping(value = "upload/file", method = RequestMethod.POST)
     public Response upload(MultipartFile fileImg, HttpServletRequest request) {
-        Response sysResponse = null;
-        try {
-            String filePath = commonService.saveTmpImage(request, fileImg, uploadMerchantFilePath);
-            Map<Object, Object> result = new HashMap<Object, Object>();
-            result.put("filePath", filePath);
-            sysResponse = Response.getSuccess(result);
-        } catch (Exception e) {
-            logger.error("上传文件失败", e);
-            sysResponse = Response.getError("上传文件失败:系统异常");
+       	String result=HttpFile.upload(fileImg, userMerchant);
+    	result = filePath + result;
+        if(result.split("/").length>1){
+            return Response.getSuccess(result);
+        }else{
+            return Response.getError(result);
         }
-        return sysResponse;
     }
 
 }

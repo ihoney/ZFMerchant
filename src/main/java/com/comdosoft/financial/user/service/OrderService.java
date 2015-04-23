@@ -10,6 +10,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,9 @@ public class OrderService {
     private GoodMapper goodMapper;
     @Autowired
     private ShopCartMapper shopCartMapper;
+
+    @Value("${filePath}")
+    private String filePath;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     
@@ -239,7 +243,7 @@ public class OrderService {
                         List<GoodsPicture> list = orderMapper.findPicByGoodId(gid);
                         if (list.size() > 0) {
                             GoodsPicture gp = list.get(0);
-                            good_logo = gp.getUrlPath()==null?"":gp.getUrlPath();
+                            good_logo = gp.getUrlPath()==null?"":filePath +gp.getUrlPath();
                         }
                     }
                     omap.put("good_logo", good_logo);
@@ -329,7 +333,7 @@ public class OrderService {
                     Good g = od.getGood();
                     if (g.getPicsList().size() > 0) {
                         GoodsPicture gp = g.getPicsList().get(0);
-                        good_logo = gp.getUrlPath();
+                        good_logo = filePath + gp.getUrlPath();
                     }
                 }
                 omap.put("good_logo", good_logo);
@@ -468,7 +472,7 @@ public class OrderService {
                     Good g = od.getGood();
                     if (g.getPicsList().size() > 0) {
                         GoodsPicture gp = g.getPicsList().get(0);
-                        good_logo = gp.getUrlPath();
+                        good_logo = filePath + gp.getUrlPath();
                     }
                 }
                 omap.put("good_logo", good_logo);

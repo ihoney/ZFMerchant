@@ -27,6 +27,6 @@ public interface MerchantMapper {
 
     List<Map<String,Object>>  findMerchantByName(String name);
 
-	Map<Object, Object> findMerchantById(int id);
+	Merchant findMerchantById(int id);
 
 }

@@ -578,8 +578,9 @@ public class TerminalsController {
 		try {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
-			map.put("applyDetails",
-					terminalsService.getApplyDetails(maps.get("terminalsId")));
+			Map<String, String> mp = new HashMap<String, String>();
+			mp = terminalsService.getApplyDetails(maps.get("terminalsId"));
+			map.put("applyDetails",mp);
 			// 数据回显(重新开通申请)
 			map.put("applyFor", openingApplyService.ReApplyFor((Integer)maps.get("terminalsId")));
 			// 获得已有申请开通基本信息
@@ -591,11 +592,17 @@ public class TerminalsController {
 			map.put("MaterialLevel", openingApplyService.getMaterialLevel(maps.get("terminalsId")));
 			//支付通道和周期列表
 			List<Map<Object, Object>> list = terminalsService.getChannels();
+			List<Map<Object, Object>> li = new ArrayList<Map<Object,Object>>();
 			 for(Map<Object, Object> m:list){
-				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
+				 if(m.get("id") == mp.get("channelId")){
+					 li.add(m);
+				 }
 			 }
-			map.put("channels", list);
-			
+			 
+			 for(Map<Object, Object> m:li){
+				 m.put("billings", terminalsService.channelsT(Integer.parseInt(m.get("id").toString())));
+				 }
+			map.put("channels", li);
 			//城市级联
 			map.put("CitieChen", terminalsService.getCities());
 			return Response.getSuccess(map);

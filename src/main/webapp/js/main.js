@@ -79,24 +79,22 @@ $(function() {
  */
 
 // 商品分类 category_item_con
-$(function() {
-	var a = 1;
-	$(".category_item a.more").click(
-			function() {
-				if (a == 1) {
-					$(this).parent(".category_item").addClass(
-							"category_item_maxHeight");
-					$(this).addClass("up").html("收起<i></i>");
-					a = 0;
-				} else if (a == 0) {
-					$(this).parent(".category_item").removeClass(
-							"category_item_maxHeight");
-					$(this).removeClass("up").html("更多<i></i>");
-					a = 1;
-				}
-
-			});
-
+$(function(){
+	
+	$(".category_item a.more").click(function(){
+		var n = parseInt($(this).data('n'), 10) || 0; //0是默认值，当然也可能是1
+		if(n==0){
+			$(this).parent(".category_item").addClass("category_item_maxHeight");
+			$(this).addClass("up").html("收起<i></i>");
+			n=1;
+		}else if(n==1){
+			$(this).parent(".category_item").removeClass("category_item_maxHeight");
+			$(this).removeClass("up").html("更多<i></i>");
+			n = 0;
+		}
+		$(this).data('n', n);
+	});
+	
 })
 
 // .sortbar 商品排序
