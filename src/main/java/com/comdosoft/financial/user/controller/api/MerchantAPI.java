@@ -194,7 +194,7 @@ public class MerchantAPI {
     public Response upload(MultipartFile fileImg, HttpServletRequest request) {
        	String result=HttpFile.upload(fileImg, userMerchant);
     	result = filePath + result;
-        if(result.split("/").length>0){
+        if(result.split("/").length>1){
             return Response.getSuccess(result);
         }else{
             return Response.getError(result);
