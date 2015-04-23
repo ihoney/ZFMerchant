@@ -150,7 +150,7 @@
                                 <span class="labelSpan" id="key_{{ma.level+'_'+$index}}">{{r.name}}：</span>
                                 <div class="text" >
                                 <form method="post" action="api/terminal/upload/tempImage" enctype="multipart/form-data">  
-                                	<img src="images/zp.jpg" class="cover" data-src="{{r.value}}" ng-mouseenter="onmousover()"/>
+                                	<img src="images/zp.jpg" class="cover" imgPath="{{r.value}}" ng-mouseenter="onmousover()"/>
                                 	<a href="javascript:void(0);" class="informImg_a" >
                                     <span ng-if="r.value == null" >上传</span>
                                     <span ng-if="r.value != null" >重新上传</span>
