@@ -7,7 +7,7 @@
 		tr.amount,tr.customer_id,tr.trade_number from
 		trade_records tr where tr.traded_status =
 		1 and
-		IFNULL(tr.integral_status,0) = 0
+		IFNULL(tr.integral_status,0) = 0 and tr.customer_id is not null
 	</select> 
 
 	<update id="updateTradeRecords">
