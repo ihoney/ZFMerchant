@@ -25,7 +25,7 @@ public class HttpFile {
     
     private static String urlpath="http://121.40.84.2:8888/File/index/upload";
     
-    //private static String urlpath="file.ebank007.com/File/index/upload";
+    //private static String urlpath="http://file.ebank007.com/File/index/upload";
 
     
     public static String upload(MultipartFile file, String path) {
