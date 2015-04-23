@@ -152,6 +152,10 @@
 	<select id="getgoodPics" resultType="String">
 		SELECT url_path from goods_pictures where good_id=#{id} order by id desc
 	</select>
+	
+	<select id="getgoodPics_s" resultType="String">
+		SELECT small_url_path as url_path from goods_pictures where good_id=#{id} order by id desc
+	</select>
 
 
 	<select id="getBrands_ids" resultType="map">
