@@ -134,8 +134,11 @@
 	</select>
 	
 	<select id="getCustomerAddress"  resultType="map" parameterType="int">
-		SELECT * from customer_addresses
-		WHERE customer_id = #{customerId}
+		SELECT a.id,a.receiver,a.moblephone,a.address,a.zip_code as zipCode,a.is_default as isDefault,a.city_id as cityId,c.`id` as cityId,c.`name` as sonName,s.`name` as parentName
+		FROM customer_addresses a LEFT JOIN cities c ON c.id = a.city_id
+		LEFT JOIN cities s ON s.id = c.parent_id
+		WHERE
+		a.customer_id=#{customerId}
 	</select>
 	
 	<select id="JudgeChangStatus"  resultType="int" parameterType="map">

@@ -59,14 +59,16 @@
                                   </tr>
                                   </thead>
                                   <tr ng-repeat="ad in addressList">
-                                    <td><input name="addressId" type="radio" value="{{ad.id}}" ng-click="diAddre(ad.id)"/></td>
+                                    <td ng-if="ad.isDefault != 1"><input name="addressId" type="radio" value="{{ad.id}}" ng-click="diAddre(ad.id)"/></td>
+                                    <td ng-if="ad.isDefault == 1"><input  name="addressId" checked type="radio" value="{{ad.id}}" ng-click="diAddre(ad.id)"/></td>
                                     <td>{{ad.receiver}}</td>
-                                    <td>江苏省苏州市吴中区</td>
+                                    <td>{{ad.parentName+ad.sonName}}</td>
                                     <td>{{ad.address}}</td>
-                                    <td>{{ad.zip_code}}</td>
+                                    <td>{{ad.zipCode}}</td>
                                     <td>{{ad.moblephone}}</td>
                                     <!-- <td><a href="#" class="a_btn">修改</a><a href="#" class="a_btn">删除</a></td>
-                                    <td><span class="defaultAddr">默认地址</span></td> -->
+                                     -->
+                                    <td ng-if="ad.isDefault == 1"><span class="defaultAddr">默认地址</span></td>
                                   </tr>
                                   <tr class="addAddr_box" >
                                     <td>&nbsp;</td>

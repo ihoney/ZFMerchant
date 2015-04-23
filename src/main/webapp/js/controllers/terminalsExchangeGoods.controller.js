@@ -46,7 +46,9 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 	}
 	
 	//单选按钮地址
+	$scope.addreyn = false;
   	$scope.diAddre = function (num) {
+  		$scope.addreyn = true;
   		$scope.num = num;
   		}
   	
@@ -111,13 +113,25 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	
   //提交
 	$scope.subDetail = function () {
-		for(var i = 0; i<$scope.addressList.length;i++){
-			if($scope.addressList[i].id ==$scope.num){
-				$scope.address = $scope.addressList[i].address;
-				$scope.phonee = $scope.addressList[i].phone;
-				$scope.zipCodee = $scope.addressList[i].zipCode;
-				$scope.receiver = $scope.addressList[i].receiver;
-				$scope.returnAddressId = $scope.addressList[i].id;
+		if($scope.addreyn == false){
+			for(var i = 0; i<$scope.addressList.length;i++){
+				if($scope.addressList[i].isDefault ==1){
+					$scope.address = $scope.addressList[i].address;
+					$scope.phonee = $scope.addressList[i].phone;
+					$scope.zipCodee = $scope.addressList[i].zipCode;
+					$scope.receiver = $scope.addressList[i].receiver;
+					$scope.returnAddressId = $scope.addressList[i].id;
+				}
+			}
+		}else if($scope.addreyn == true){
+			for(var i = 0; i<$scope.addressList.length;i++){
+				if($scope.addressList[i].id ==$scope.num){
+					$scope.address = $scope.addressList[i].address;
+					$scope.phonee = $scope.addressList[i].phone;
+					$scope.zipCodee = $scope.addressList[i].zipCode;
+					$scope.receiver = $scope.addressList[i].receiver;
+					$scope.returnAddressId = $scope.addressList[i].id;
+				}
 			}
 		}
 		$scope.array = [];
