@@ -34,13 +34,30 @@ public class OpeningApplyService {
 	 */
 	public List<Map<Object, Object>> getApplyList(Integer id,
 			Integer offSetPage, Integer pageSize) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
 		map.put("twoStatus", Terminal.TerminalTYPEID_2);
 		map.put("threeStatus", Terminal.TerminalTYPEID_3);
-		return openingApplyMapper.getApplyList(map);
+		map.put("hasVideoVerify", OpeningRequirement.TYPE_1);
+		List<Map<Object, Object>> list = new ArrayList<Map<Object,Object>>();
+		list = openingApplyMapper.getApplyList(map);
+		
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).get("payChannelId") != null){
+				map.put("payChannelId", list.get(i).get("payChannelId"));
+				int count = openingApplyMapper.hasVideoVerify(map);
+				if(count>0){
+					list.get(i).put("hasVideoVerify", 1);
+				}
+				if(count == 0){
+					list.get(i).put("hasVideoVerify", 0);
+				}
+			}
+			
+		}
+		return list;
 	}
 
 	/**

@@ -72,7 +72,7 @@
 		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(t.type,'') as type,
 		IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,
 		IFNULL(m.title,'') as title,IFNULL(m.phone,'') as phone,IFNULL(p.`name`,'') as channelName ,IFNULL(g.model_number,'') as model_number,
-		IFNULL(b.`name`,'') as brandsName
+		IFNULL(b.`name`,'') as brandsName,IFNULL(t.pay_channel_id,'0') as payChannelId
 		FROM terminals t LEFT JOIN opening_applies o
 		ON o.terminal_id = t.id
 		LEFT JOIN merchants m 
