@@ -333,7 +333,9 @@ public class TerminalsController {
 	@RequestMapping(value = "subLeaseReturn", method = RequestMethod.POST)
 	public Response subLeaseReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+			if(maps.get("modelStatus") == null){
+				maps.put("csCencelId", null);
+			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 				CsCancel csCancel =new CsCancel();
 				csCancel.setTerminalId((Integer)maps.get("terminalId"));
 				csCancel.setStatus((Integer)maps.get("status"));
@@ -343,8 +345,6 @@ public class TerminalsController {
 				//先注销
 				terminalsService.subRentalReturn(csCancel);
 				maps.put("csCencelId", csCancel.getId());
-			}else{
-				maps.put("csCencelId", null);
 			}
 			//退还
 			terminalsService.subLeaseReturn(maps);
@@ -403,7 +403,9 @@ public class TerminalsController {
 	@RequestMapping(value = "subReturn", method = RequestMethod.POST)
 	public Response subReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+			if(maps.get("modelStatus") == null){
+				maps.put("csCencelId", null);
+			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 			CsCancel csCancel =new CsCancel();
 			csCancel.setTerminalId((Integer)maps.get("terminalsId"));
 			csCancel.setStatus((Integer)maps.get("status"));
@@ -413,8 +415,6 @@ public class TerminalsController {
 			//先注销
 			terminalsService.subRentalReturn(csCancel);
 			maps.put("csCencelId", csCancel.getId());
-			}else{
-				maps.put("csCencelId", null);
 			}
 			terminalsService.subReturn(maps);
 			return Response.getSuccess("操作成功！");
@@ -537,7 +537,9 @@ public class TerminalsController {
 	@RequestMapping(value = "subChange", method = RequestMethod.POST)
 	public Response subChange(@RequestBody Map<Object, Object> maps) {
 		try {
-			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+			if(maps.get("modelStatus") == null){
+				maps.put("csCencelId", null);
+			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 				CsCancel csCancel =new CsCancel();
 				csCancel.setTerminalId((Integer)maps.get("terminalsId"));
 				csCancel.setStatus((Integer)maps.get("status"));
@@ -547,10 +549,7 @@ public class TerminalsController {
 				//先注销
 				terminalsService.subRentalReturn(csCancel);
 				maps.put("csCencelId", csCancel.getId());
-			}else{
-				maps.put("csCencelId", null);
 			}
-			
 			CsReceiverAddress csReceiverAddress =new CsReceiverAddress();
 			//先添加换货地址表
 			maps.put("templeteInfoXml", maps.get("templeteInfoXml").toString());
@@ -934,6 +933,7 @@ public class TerminalsController {
     public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
         	String joinpath = HttpFile.upload(updatefile, sysFileTerminal+id+"/update/");
+        	System.out.println("差可能路径："+joinpath);
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);

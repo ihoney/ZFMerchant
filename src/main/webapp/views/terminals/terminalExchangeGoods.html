@@ -91,7 +91,7 @@
                                 <div class="addAddr_btn"><button  ng-click="citOffOn(!citOn)">使用新地址</button></div>
                             </div>
                     </div>
-                    <div class="attributes_box">
+                    <div class="attributes_box" ng-if="ReModel != null && ReModel !=''">
                     	<h2>更新申请资料</h2>
                         <div class="applyFor_list clear">
                         <input type="hidden" id="modelStatus" value="0"/>
