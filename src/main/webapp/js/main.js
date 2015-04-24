@@ -1,3 +1,18 @@
+//首页产品/收单机构名称 鼠标经过提示全名
+function allName(e){
+	$(e).hover(
+		function(){
+			$(this).attr("title",$(this).html())
+		},
+		function(){
+			$(this).attr("title")
+		}
+	);
+}
+$(function(){
+	allName(".pro_text h3");
+	allName(".org_con h4");
+})
 //input focus所有input焦点效果
 $(function() {
 	$("input").focus(function() {

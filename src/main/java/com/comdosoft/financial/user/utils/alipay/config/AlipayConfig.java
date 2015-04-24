@@ -1,4 +1,8 @@
 package com.comdosoft.financial.user.utils.alipay.config;
+
+import com.comdosoft.financial.user.utils.RootUrl;
+
+
 /* *
  *类名：AlipayConfig
  *功能：基础配置类
@@ -30,12 +34,12 @@ public class AlipayConfig {
 	
 	public static String  seller_email="ebank007@epalmpay.cn";
 	
-	public static String  backurl="http://121.40.84.2:8080/";
 	
-	//public static String  backurl="http://www.ebank007.com/";
+	public static String  backurl=RootUrl.urlpath;//"http://www.ebank007.com/";
 
 	//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 	
+
 
 	// 调试用，创建TXT日志文件夹路径
 	public static String log_path = "E:\\";
