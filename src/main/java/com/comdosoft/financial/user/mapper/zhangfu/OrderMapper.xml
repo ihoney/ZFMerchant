@@ -436,6 +436,7 @@
 		LEFT JOIN customer_addresses ca on ca.id=o.customer_address_id
 		LEFT JOIN order_payments op on op.order_id=o.id
 		where o.id=#{id} 
+		order BY op.created_at desc LIMIT 1
   </select>
   
   <select id="getPayOrderGood" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">

@@ -151,9 +151,12 @@ public class CsRepairService {
 
     public Map<String, Object> repairPayFinish(MyOrderReq myOrderReq) {
         Map<String, Object> paymap = repairMapper.repairPayFinish(myOrderReq);
+        Map<String,Object> map = new HashMap<String,Object>();
+        if(null == paymap){
+        	return paymap;
+        }
         String pay_id = paymap.get("id")==null?"":paymap.get("id")+"";
         Map<String, Object> o = repairMapper.findById(myOrderReq);
-        Map<String,Object> map = new HashMap<String,Object>();
         if(pay_id.equals("")){
             map.put("pay_status", false);
         }else{
