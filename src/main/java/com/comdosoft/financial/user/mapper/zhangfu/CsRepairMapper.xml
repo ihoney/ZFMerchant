@@ -12,6 +12,15 @@
 	</select>
 	
 	
+	<select id="countRepair" resultType="int" >
+		SELECT count(crp.id) as count 
+	FROM
+		cs_repair_payments crp
+	WHERE
+		crp.cs_repair_id = #{param1}
+		
+	</select>
+	
 	<select id="count" resultType="int" >
 		SELECT count(o.id) as count 
 		FROM

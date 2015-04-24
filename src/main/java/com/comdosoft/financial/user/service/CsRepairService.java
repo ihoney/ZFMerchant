@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.CsRepairPayment;
@@ -30,6 +31,8 @@ public class CsRepairService {
     @Resource
     private CsRepairPaymentMapper repairPaymentMapper;
 
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(CsRepairService.class);
+    
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = repairMapper.findAll(myOrderReq);
@@ -175,6 +178,11 @@ public class CsRepairService {
 			return 0;
 		}
 		String id = repairMap.get("id")+"";
+		int c = repairMapper.countRepair(Integer.parseInt(id));
+		if(c>0){
+			logger.debug("维修单号: " +id+"已经存在一条付款记录了。。");
+			return 0;
+		}
 		String price = repairMap.get("repair_price")+"";
 		CsRepairPayment crp = new CsRepairPayment();
 		crp.setRepairPrice(Integer.parseInt(price));
@@ -183,7 +191,7 @@ public class CsRepairService {
 		MyOrderReq mr = new MyOrderReq();
 		mr.setId(Integer.parseInt(id));
 		mr.setRepairStatus(RepairStatus.EVALUATED);
-		repairMapper.changeStatus(mr);
+		repairMapper.updateRepair(mr);
 		return i;
 	}
 }

@@ -25,6 +25,7 @@ public interface CsRepairMapper {
     int countSearch(MyOrderReq myOrderReq);
     
     void changeStatus(MyOrderReq myOrderReq);
+    void updateRepair(MyOrderReq myOrderReq);
     
     List<Map<String, Object>> wxlist(MyOrderReq myOrderReq);
 
@@ -36,5 +37,7 @@ public interface CsRepairMapper {
     Map<String, Object> repairPayFinish(MyOrderReq myOrderReq);
 
 	Map<String, Object> findRepairByNumber(int parseInt);
+//查询是否存在多条相同的支付记录
+	int countRepair(Integer cs_repair_id);
 
 }
