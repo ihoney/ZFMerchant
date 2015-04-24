@@ -170,13 +170,20 @@ public class CsRepairService {
     }
 
 	public Integer repairSuccess(String ordernumber) {
-		Map<String,Object> repairMap = repairMapper.findRepairById(Integer.parseInt(ordernumber));
+		Map<String,Object> repairMap = repairMapper.findRepairByNumber(Integer.parseInt(ordernumber));
+		if(null == repairMap){
+			return 0;
+		}
 		String id = repairMap.get("id")+"";
 		String price = repairMap.get("repair_price")+"";
 		CsRepairPayment crp = new CsRepairPayment();
 		crp.setRepairPrice(Integer.parseInt(price));
 		crp.setCsRepairId(Integer.parseInt(id));
 		int i = repairPaymentMapper.insertPayment(crp);
+		MyOrderReq mr = new MyOrderReq();
+		mr.setId(Integer.parseInt(id));
+		mr.setRepairStatus(RepairStatus.EVALUATED);
+		repairMapper.changeStatus(mr);
 		return i;
 	}
 }

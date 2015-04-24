@@ -186,15 +186,15 @@
 			o.id = #{id}
 	</select>
 	
-	<select id="findRepairById" resultType="map"  >
+	<select id="findRepairByNumber" resultType="map"  >
 		SELECT
-			o.id,o.repair_price,
-			o.`status` AS apply_status,
-			o.created_at AS apply_time
+			o.id,IFNULL(o.repair_price,0) as repair_price,
+			IFNULL(o.`status` ,'') AS apply_status,
+			IFNULL(o.created_at,'') AS apply_time
 		FROM
 			cs_repairs o
 		WHERE
-			o.id = #{id}
+			o.apply_num = #{param1}
 	</select>
 	
 	<!-- 根据 cs_repairs id 查询所有追踪记录-->
@@ -210,6 +210,13 @@
 		WHERE
 		 crm.cs_repair_id = #{id}
 	</select>
+	
+	
+	<update id="updateRepair">
+	update  cs_repairs 
+	SET STATUS = #{repairStatus.code},updated_at = NOW()
+	where id = #{id}
+	</update>
 	
 	
 	<update id="cancelApply">

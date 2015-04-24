@@ -31,7 +31,7 @@ public class PayController {
     }
     
     @RequestMapping(value = "repair_alipayback", method = RequestMethod.POST)
-    public void repair_alipayback(@RequestParam("ordernumber") String ordernumber) {//cs_repair id  维修编号
+    public void repair_alipayback(@RequestParam("ordernumber") String ordernumber) {// apply_num  维修编号
     	csRepairService.repairSuccess(ordernumber);
     }
 }
