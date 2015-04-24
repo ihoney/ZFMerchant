@@ -21,7 +21,7 @@ public class HttpFile {
 
     private static String localpath =RootUrl.localpath; 
     
-    private static String urlpath=RootUrl.urlpath+"File/index/upload";
+    private static String urlpath=RootUrl.filepath+"File/index/upload";
 
     
     public static String upload(MultipartFile file, String path) {
