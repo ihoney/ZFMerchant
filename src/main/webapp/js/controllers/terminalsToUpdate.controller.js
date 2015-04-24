@@ -39,7 +39,6 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 //提交
   $scope.subtruefalse = true;
 	$scope.subToUpdate = function () {
-		
 		$scope.array = [];
 		 for(var i=0;i<$scope.ReModel.length;i++){
 			 if($("#up_"+i).val() !=null && $("#up_"+i).val() != ""){
@@ -82,13 +81,16 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 //改变上传按钮
 function setSpanName(obj){
 	//改变下载模板初始状态
-	$(obj).parent("a").children("span").html("重新上传")
 	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempUpdateFile/"+$("#terid").val());
-	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
-	
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			$(obj).siblings("input").val(data.result);
+			if(data.code == -1){
+				alert(data.message);
+			}else if(data.code == 1){
+				$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
+				$(obj).parent("a").children("span").html("重新上传")
+				$(obj).siblings("input").val(data.result);
+			}
 		}
 	});
 }

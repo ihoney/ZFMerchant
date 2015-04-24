@@ -1,10 +1,15 @@
 function showImage(obj) { 
-	$(obj).parent("a").children("span").html("重新上传")
+	
 	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempImage/"+$("#terid").val());
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			$(obj).siblings("input").val(data.result);
-			$(obj).parent("a").siblings("img").attr("data-src",data.result);
+			if(data.code == -1){
+				alert(data.message);
+			}else if(data.code == 1){
+				$(obj).parent("a").children("span").html("重新上传");
+				$(obj).siblings("input").val(data.result);
+				$(obj).parent("a").siblings("img").attr("data-src",data.result);
+			}
 		}
 	});
 }

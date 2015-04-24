@@ -72,12 +72,17 @@ var terminalCancellationController = function ($scope, $http,$location, LoginSer
 //改变上传按钮
 function setSpanName(obj){
 	//改变下载模板初始状态
-	$(obj).parent("a").children("span").html("重新上传")
 	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempCancellationFile/"+$("#terid").val());
-	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
+
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			$(obj).siblings("input").val(data.result);
+			if(data.code == -1){
+				alert(data.message);
+			}else if(data.code == 1){
+				$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
+				$(obj).parent("a").children("span").html("重新上传");
+				$(obj).siblings("input").val(data.result);
+			}
 		}
 	});
 }
