@@ -255,6 +255,7 @@
 					<li><span>终端号：</span>{{tt.serial_num}}</li>
 					<li><span>当前进度：</span>
 					<div class="nr">
+						<p ng-if="tt.openStatus.length==0">未申请</p>
                 		<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
 					     {{t.status==1?"未开通  ":(t.status==2?"审核中":"已开通")}}</p>
                 	</div>
@@ -284,6 +285,7 @@
 </div>
 
 <script src="js/main.js"></script>
+<script type="text/javascript" src="js/jQuery.autoIMG.js"></script>
 <script>
 $(function(){
 	$('.cn_img').autoIMG();
