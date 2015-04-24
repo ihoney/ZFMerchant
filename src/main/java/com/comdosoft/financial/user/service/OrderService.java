@@ -343,7 +343,7 @@ public class OrderService {
 	        for (Terminal t : terminals) {
 	              sb.append(" "+ t.getSerialNum() );
 	        }
-            map.put("terminals", sb.toString());
+            map.put("terminals", sb.toString().trim());
         }
         map.put("order_goodsList", newObjList);
         MyOrderReq myOrderReq = new MyOrderReq();
