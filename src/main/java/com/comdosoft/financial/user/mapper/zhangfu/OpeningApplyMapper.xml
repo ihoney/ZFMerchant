@@ -70,6 +70,7 @@
  	<select id="getApplyList" parameterType="map" resultType="map">
  		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(b.`name`,'') as brandName,
  		IFNULL(g.model_number,'') as model_number,IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,IFNULL(c.`name`,'') as channelName
+ 		,IFNULL(t.pay_channel_id,'0') as payChannelId
  		FROM terminals t 
  		LEFT JOIN opening_applies o ON o.terminal_id = t.id
  		LEFT JOIN goods g on t.good_id=g.id 
@@ -79,6 +80,11 @@
  		AND t.status in (#{twoStatus},#{threeStatus})
  		LIMIT #{offSetPage},#{pageSize}
  	</select>
+ 	
+ 	<select id="hasVideoVerify" parameterType="map" resultType="int">
+		SELECT count(*) FROM opening_requirements r
+		WHERE r.pay_channel_id = #{payChannelId} and r.has_video_verify =#{hasVideoVerify}
+	</select>
  	
  	<select id="getApplyDetails" parameterType="int" resultType="map">
  		SELECT t.serial_num,g.model_number,b.name as brandName,c.name as channelName,c.need_preliminary_verify as needPreliminaryVerify

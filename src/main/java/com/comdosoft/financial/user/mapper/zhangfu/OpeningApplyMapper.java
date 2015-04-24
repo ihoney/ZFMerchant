@@ -23,7 +23,15 @@ public interface OpeningApplyMapper {
 	 * @param map
 	 * @return
 	 */
-	List<Map<Object, Object>> getApplyList(Map<String, Object> map);
+	List<Map<Object, Object>> getApplyList(Map<Object, Object> map);
+	
+	/**
+     * 判断该终端是否需要开通视频
+     * 
+     * @param map
+     * @return
+     */
+    int hasVideoVerify(Map<Object, Object> map);
 	
 	/**
 	 * 根据终端id获得该终端详情

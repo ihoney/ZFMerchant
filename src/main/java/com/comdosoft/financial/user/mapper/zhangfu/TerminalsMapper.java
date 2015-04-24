@@ -78,7 +78,7 @@ public interface TerminalsMapper {
      * @param map
      * @return
      */
-    List<Map<Object, Object>> getTerminalList(Map<String, Object> map);
+    List<Map<Object, Object>> getTerminalList(Map<Object, Object> map);
     
     /**
      * 获得终端状态
