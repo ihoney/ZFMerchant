@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.comdosoft.financial.user.domain.query.CartReq;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
+import com.comdosoft.financial.user.utils.SysUtils;
 
 @Service
 public class ShopCartService {
@@ -24,7 +25,7 @@ public class ShopCartService {
     public List<?> getList(CartReq cartreq) {
         List<Map<String,Object>> mapList=shopCartMapper.getList(cartreq);
         for (Map<String, Object> map : mapList) {
-            int goodId =Integer.valueOf(""+map.get("goodId")); 
+            int goodId =SysUtils.String2int(""+map.get("goodId")); 
             //图片
             List<String> goodPics=goodMapper.getgoodPics(goodId);
             if(null!=goodPics&&goodPics.size()>0){
