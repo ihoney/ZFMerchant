@@ -23,7 +23,7 @@
 			   r.traded_status tradedStatus,
 			   t.pay_from_account payFromAccount,
 			   t.pay_into_account payIntoAccount
-		  FROM trade_records r JOIN trade_transfer_repayment_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_transfer_repayment_records t ON r.id = t.id
 		 WHERE r.trade_type_id = #{tradeTypeId}
 		   AND r.terminal_number = #{terminalNumber}
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
@@ -48,7 +48,7 @@
 			   r.poundage,
 			   t.pay_from_account payFromAccount,
 			   t.pay_into_account payIntoAccount
-		  FROM trade_records r JOIN trade_transfer_repayment_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_transfer_repayment_records t ON r.id = t.id
 		 WHERE r.id = #{tradeRecordId}
 	]]>
 	</select>
@@ -56,7 +56,7 @@
 	<select id="getTradeRecordsCount3" resultType="int">
 	<![CDATA[
 		SELECT COUNT(r.id)
-		  FROM trade_records r JOIN trade_consume_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_consume_records t ON r.id = t.id
 		 WHERE r.trade_type_id = #{tradeTypeId}
 		   AND r.terminal_number = #{terminalNumber}
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
@@ -73,7 +73,7 @@
 			   r.traded_status tradedStatus,
 			   r.poundage,
 			   DATE_FORMAT(t.payed_at, '%Y-%m-%d %T') payedTimeStr
-		  FROM trade_records r JOIN trade_consume_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_consume_records t ON r.id = t.id
 		 WHERE r.trade_type_id = #{tradeTypeId}
 		   AND r.terminal_number = #{terminalNumber}
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
@@ -97,7 +97,7 @@
 			   r.profit_price profitPrice,
 			   r.poundage,
 			   DATE_FORMAT(t.payed_at, '%Y-%m-%d %T') payedTimeStr
-		  FROM trade_records r JOIN trade_consume_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_consume_records t ON r.id = t.id
 		 WHERE r.id = #{tradeRecordId}
 	]]>
 	</select>
@@ -157,7 +157,7 @@
 	<select id="getTradeRecordsCount5" resultType="int">
 	<![CDATA[
 		SELECT COUNT(r.id)
-		  FROM trade_records r JOIN trade_recharge_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_recharge_records t ON r.id = t.id
 		 WHERE r.trade_type_id = #{tradeTypeId}
 		   AND r.terminal_number = #{terminalNumber}
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
@@ -174,7 +174,7 @@
 			   r.terminal_number terminalNumber,
 			   r.traded_status tradedStatus,
 			   t.phone
-		  FROM trade_records r JOIN trade_recharge_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_recharge_records t ON r.id = t.id
 		 WHERE r.trade_type_id = #{tradeTypeId}
 		   AND r.terminal_number = #{terminalNumber}
 		   AND DATE_FORMAT(r.traded_at, '%Y-%m-%d') BETWEEN #{startTime} AND #{endTime}
@@ -198,7 +198,7 @@
 			   r.profit_price profitPrice,
 			   r.poundage,
 			   t.phone
-		  FROM trade_records r JOIN trade_recharge_records t ON r.id = t.id
+		  FROM trade_records r LEFT JOIN trade_recharge_records t ON r.id = t.id
 		 WHERE r.id = #{tradeRecordId}
 	]]>
 	</select>

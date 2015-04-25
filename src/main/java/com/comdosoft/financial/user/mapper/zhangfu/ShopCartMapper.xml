@@ -36,7 +36,7 @@
        LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id 
        LEFT JOIN goods g on g.id=sc.good_id
 			 LEFT JOIN good_brands b on g.good_brands_id=b.id
-       where sc.customer_id=#{customerId}
+       where sc.customer_id=#{customerId} and g.id is not NULL and pc.id is not null
        ORDER BY SC.updated_at DESC
     </select>
     

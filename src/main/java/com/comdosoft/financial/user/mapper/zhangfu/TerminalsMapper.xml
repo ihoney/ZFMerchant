@@ -199,7 +199,8 @@
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
 		SELECT t.id,t.serial_num,t.`status`,g.model_number,b.name as
-		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.id as channelId,c.`name` as channelName,c.need_preliminary_verify as needPreliminaryVerify,l.`id` as appId,l.`status` as applieStatus,e.types
+		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.id as channelId,c.`name` as channelName,c.need_preliminary_verify as needPreliminaryVerify,l.`id` as appId,l.`status` as applieStatus,e.types,
+		IFNULL(l.`status`,'') as openstatus
 		FROM terminals t 
 		LEFT JOIN order_goods o on o.order_id = t.order_id and o.good_id = t.good_id
 		LEFT JOIN goods g on o.good_id=g.id
