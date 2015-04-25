@@ -85,9 +85,13 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
   }
 //同步
   $scope.synchronous = function(){
-	  $http.post("api/terminal/synchronous").success(function (data) {  //绑定
+	  $http.post("api/terminal/synchronous",{terminalId:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
-        	  alert(data.code);
+        	  if(data.code==-1){
+        		  alert("同步失败");
+        	  }else if(data.code==1){
+        		  alert("同步成功");
+        	  }
           }
       }).error(function (data) {
     	  alert("同步失败");

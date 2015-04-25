@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +38,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.service.CommentService;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
+import com.comdosoft.financial.user.utils.CommonServiceUtil;
 import com.comdosoft.financial.user.utils.HttpFile;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -75,6 +78,11 @@ public class TerminalsController {
 	@Value("${sysFileTerminal}")
 	private String sysFileTerminal;
 	
+	@Value("${syncStatus}")
+	private String syncStatus;
+	
+	@Value("${timingPath}")
+	private String timingPath;
 	 
 
 	/**
@@ -216,12 +224,17 @@ public class TerminalsController {
 	 * 同步
 	 */
 	@RequestMapping(value = "synchronous", method = RequestMethod.POST)
-	public Response Synchronous() {
+	@ResponseBody
+	public String Synchronous(@RequestBody Map<String, Object> map) {
+		String url = timingPath + syncStatus;
+		String response = null;
 		try {
-			return Response.getSuccess("同步成功！");
-		} catch (Exception e) {
-			return Response.getError("同步失败！");
+			response = CommonServiceUtil.synchronizeStatus(url, (Integer)map.get("terminalId"));
+		} catch (IOException e) {
+			logger.error("IOException...");
+			return "{\"code\":-1,\"message\":\"同步失败\",\"result\":null}";
 		}
+		return response;
 	}
 
 	/**
