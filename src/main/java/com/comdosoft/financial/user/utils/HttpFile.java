@@ -23,7 +23,16 @@ public class HttpFile {
     
     private static String urlpath=RootUrl.filepath+"File/index/upload";
 
-    
+    private static String delpath = RootUrl.filepath + "File/index/delete";
+
+    private static String zippath = RootUrl.filepath + "File/index/zip";
+
+    /**
+     * 上传文件 
+     * @param file
+     * @param path  path后有/ 如 "test/a/b/"
+     * @return
+     */
     public static String upload(MultipartFile file, String path) {
          String upload_path =localpath+path; 
          String name= file.getOriginalFilename();
@@ -67,6 +76,48 @@ public class HttpFile {
         }
     }
     
-    
+    /**
+     * 更新删除原文件
+     * @param path 文件路径 如 "test/a/s.jpg"
+     * @return
+     * @throws HttpException
+     * @throws IOException
+     */
+    public static int postDel(String path) throws HttpException, IOException {
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost httppost = new HttpPost(delpath);
+        MultipartEntityBuilder mEntityBuilder = MultipartEntityBuilder.create();
+        mEntityBuilder.addTextBody("path", path);
+        httppost.setEntity(mEntityBuilder.build());
+        HttpResponse resp = httpClient.execute(httppost);
+        int code = resp.getStatusLine().getStatusCode();
+        if (200 == code) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * 下载打包
+     * @param path 目录path前后都没/ 如"test/a/b"
+     * @return
+     * @throws HttpException
+     * @throws IOException
+     */
+    public static int postWar(String path) throws HttpException, IOException {
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost httppost = new HttpPost(zippath);
+        MultipartEntityBuilder mEntityBuilder = MultipartEntityBuilder.create();
+        mEntityBuilder.addTextBody("path", path);
+        httppost.setEntity(mEntityBuilder.build());
+        HttpResponse resp = httpClient.execute(httppost);
+        int code = resp.getStatusLine().getStatusCode();
+        if (200 == code) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 
 }
