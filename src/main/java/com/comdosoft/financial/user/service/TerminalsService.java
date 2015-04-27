@@ -27,6 +27,7 @@ public class TerminalsService {
 	@Value("${filePath}")
 	private String filePath;
 	
+	
 
 	@Resource
 	private TerminalsMapper terminalsMapper;

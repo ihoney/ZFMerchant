@@ -198,8 +198,9 @@ public class TerminalsController {
 				terminalsService.findPassword((Integer)map.get("terminalid"));
 			String pass = "该终端为设置密码！";
 			if(password != null){
-				pass = SysUtils.Decrypt(
-						password,passPath);
+				/*pass = SysUtils.Decrypt(
+						password,passPath);*/
+				pass = password;
 			}
 			return Response.getSuccess(pass);
 		} catch (Exception e) {
