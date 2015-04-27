@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
+
 public class HttpFile {
 
     private static String localpath =RootUrl.localpath; 
@@ -42,7 +43,7 @@ public class HttpFile {
              if (name.lastIndexOf(".") >= 0) {
                  extName = name.substring(name.lastIndexOf("."));
              }
-             name = new Date().getTime() + extName;
+             name = new Date().getTime() +SysUtils.getRandNum(6).toString()+ extName;
              File f = new File(upload_path, name);
              FileUtils.copyInputStreamToFile(file.getInputStream(), f);
              a = postHttp(urlpath, path, f);
