@@ -123,8 +123,8 @@ public class CustomerService {
     @Transactional(value = "transactionManager-zhangfu")
     public void updateAddress(Map<Object, Object> param) {
         int isDefault = Integer.parseInt(param.get("isDefault").toString());
-        Integer customerId = (Integer) param.get("customerId");
-        Integer addressId = (Integer) param.get("id");
+        Integer customerId =  Integer.parseInt(param.get("customerId").toString());
+        Integer addressId = Integer.parseInt(param.get("id").toString());
         if(null == customerId){
         	CustomerAddress ca = customerMapper.findAddressById(addressId);
         	param.put("customerId", ca.getCustomerId());
