@@ -349,6 +349,17 @@
     </select>
     
     
+    	<!-- 查询此订单的原有库存 -->
+	<select id="findOrderById"  resultType="map" >
+	 	SELECT
+			og.good_id, 	sum(og.quantity) as quantity
+		FROM
+			orders t
+		right JOIN order_goods og ON og.order_id = t.id
+		WHERE t.id=#{id}
+	</select>
+ 
+    
     
     <insert id="comment" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.GoodComment">
 		INSERT into good_comments 

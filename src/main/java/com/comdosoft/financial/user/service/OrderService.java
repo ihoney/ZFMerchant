@@ -375,9 +375,19 @@ public class OrderService {
         return obj_list;
     }
 
+    //取消订单 返回库存
+    @Transactional(value = "transactionManager-zhangfu")
     public void cancelMyOrder(MyOrderReq myOrderReq) {
         myOrderReq.setOrderStatus(OrderStatus.CANCEL);
         orderMapper.changeStatus(myOrderReq);
+    	List<Map<String, Object>> o = orderMapper.findOrderById(myOrderReq);
+    	for(Map<String,Object> oo :o){
+    		 String good_id = oo.get("good_id")==null?"":oo.get("good_id").toString();
+             String quantity = oo.get("quantity")==null?"":oo.get("quantity").toString();
+             if(good_id !="" && quantity!=""){
+                 orderMapper.update_goods_stock(good_id,quantity);
+             }
+    	}
     }
 
     public void comment(MyOrderReq myOrderReq) {
