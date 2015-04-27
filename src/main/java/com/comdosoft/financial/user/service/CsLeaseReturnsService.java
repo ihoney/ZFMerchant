@@ -97,7 +97,7 @@ public class CsLeaseReturnsService {
             Integer total_zj = zj * month;
             map.put("lease_price", total_zj);// 总共租金
             
-            Integer lease_deposit = (Integer) (o.get("lease_deposit") ==null?"":o.get("lease_deposit"));
+            Integer lease_deposit = (Integer) (o.get("lease_deposit") ==null?0:o.get("lease_deposit"));
             map.put("lease_deposit", lease_deposit); // 租赁押金
             BigDecimal return_price = new BigDecimal(lease_deposit).subtract(new BigDecimal(total_zj));
             logger.debug("return_price==>>"+return_price+"  >>>>  租金 》》》"+total_zj);
