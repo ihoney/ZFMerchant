@@ -190,7 +190,7 @@ public class CsRepairService {
 		int i = repairPaymentMapper.insertPayment(crp);
 		MyOrderReq mr = new MyOrderReq();
 		mr.setId(Integer.parseInt(id));
-		mr.setRepairStatus(RepairStatus.EVALUATED);
+		mr.setRepairStatus(RepairStatus.PAID);
 		repairMapper.updateRepair(mr);
 		return i;
 	}
