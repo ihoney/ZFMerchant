@@ -265,7 +265,7 @@ public class CustomerAPI {
         try {
         	int i = customerService.countAddress(param);
         	if(i>9){
-        		sysResponse = Response.buildSuccess("", "最多可以创建10个收货地址");
+        		sysResponse = Response.getError( "最多可以创建10个收货地址");
         		return sysResponse;
         	}
             customerService.insertAddress(param);
