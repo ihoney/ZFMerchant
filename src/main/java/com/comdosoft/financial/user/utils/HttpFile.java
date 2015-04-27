@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
+
 public class HttpFile {
 
     private static String localpath =RootUrl.localpath; 
@@ -42,7 +43,7 @@ public class HttpFile {
              if (name.lastIndexOf(".") >= 0) {
                  extName = name.substring(name.lastIndexOf("."));
              }
-             name = new Date().getTime() + extName;
+             name = new Date().getTime() +SysUtils.getRandNum(6).toString()+ extName;
              File f = new File(upload_path, name);
              FileUtils.copyInputStreamToFile(file.getInputStream(), f);
              a = postHttp(urlpath, path, f);
@@ -119,5 +120,37 @@ public class HttpFile {
             return -1;
         }
     }
+    
+    /**
+     * 下载打包
+     * @param path 打包图片地址  如"test/a/s.jpg"
+     * @param id 打包的终端号id
+     * @return
+     * @throws HttpException
+     * @throws IOException
+     */
+     public static int postWar(String[] path, String id) throws HttpException, IOException {
+         HttpClient httpClient = HttpClients.createDefault();
+         HttpPost httppost = new HttpPost(zippath);
+         MultipartEntityBuilder mEntityBuilder = MultipartEntityBuilder.create();
+         if (path.length == 0) {
+             return -2;
+         }
+         StringBuilder sb = new StringBuilder();
+         for (String a : path) {
+             sb.append(a + ",");
+         }
+         sb.deleteCharAt(sb.length() - 1);
+         mEntityBuilder.addTextBody("path", sb.toString());
+         mEntityBuilder.addTextBody("id", id);
+         httppost.setEntity(mEntityBuilder.build());
+         HttpResponse resp = httpClient.execute(httppost);
+         int code = resp.getStatusLine().getStatusCode();
+         if (200 == code) {
+             return 0;
+         } else {
+             return -1;
+         }
+     }
 
 }
