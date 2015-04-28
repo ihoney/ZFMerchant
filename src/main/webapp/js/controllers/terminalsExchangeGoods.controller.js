@@ -82,22 +82,30 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	
   	//添加地址
   	$scope.addCostometAddress = function(){
+  		if(isAddressTen()<10){
+  			$scope.CostometAddress = {
+  	  				cityId :Math.ceil($scope.shiList.id),
+  	  				receiver :$scope.receiver,
+  	  				address :$scope.address,
+  	  				moblephone :$scope.moblephone,
+  	  				zipCode :$scope.zipCode,
+  	  				customerId :$scope.customerId
+  	  		 };
+  	  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
+  	  	          if (data != null && data != undefined) {
+  	  	        	$scope.terminalDetail();
+  	  	          }
+  	  	      }).error(function (data) {
+  	  	    	  alert("操作失败");
+  	  	      });
+  		}else{
+  			alert("收货地址已满十条！");
+  		}
   		
-  		 $scope.CostometAddress = {
-  				cityId :Math.ceil($scope.shiList.id),
-  				receiver :$scope.receiver,
-  				address :$scope.address,
-  				moblephone :$scope.moblephone,
-  				zipCode :$scope.zipCode,
-  				customerId :$scope.customerId
-  		 };
-  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
-  	          if (data != null && data != undefined) {
-  	        	$scope.terminalDetail();
-  	          }
-  	      }).error(function (data) {
-  	    	  alert("操作失败");
-  	      });
+  	}
+  	
+  	var isAddressTen = function(){
+  		return $scope.addressList.length;
   	}
   	
   	//下载模板

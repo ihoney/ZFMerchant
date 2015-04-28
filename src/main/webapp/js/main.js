@@ -2,17 +2,17 @@
 function allName(e){
 	$(e).hover(
 		function(){
-			$(this).attr("title",$(this).html())
+			$(this).attr("title",$(this).html());
 		},
 		function(){
-			$(this).attr("title")
+			$(this).attr("title");
 		}
 	);
 }
 $(function(){
 	allName(".pro_text h3");
 	allName(".org_con h4");
-})
+});
 //input focus所有input焦点效果
 $(function() {
 	$("input").focus(function() {
@@ -20,8 +20,8 @@ $(function() {
 	})
 	$("input").blur(function() {
 		$(this).removeClass("focus");
-	})
-})
+	});
+});
 
 // input默认值
 function focusBlur(e) {
@@ -66,7 +66,7 @@ $(function() {
 			$(".address").find(".addr_h").removeClass("addr_h_hover");
 		}
 	});
-})
+});
 
 // 购物车
 $(function() {
@@ -76,8 +76,8 @@ $(function() {
 	}, function() {
 		$(this).find(".sCart_h").removeClass("sCart_h_hover");
 		$(this).find(".sCart_b").css("display", "none");
-	})
-})
+	});
+});
 
 // 首页hotPOS机，处理图片大小--jQuery.autoIMG
 
@@ -110,7 +110,7 @@ $(function(){
 		$(this).data('n', n);
 	});
 	
-})
+});
 
 // .sortbar 商品排序
 $(function() {
@@ -118,7 +118,7 @@ $(function() {
 		$(this).find(".droplist").css("display", "block");
 	}, function() {
 		$(this).find(".droplist").css("display", "none");
-	})
+	});
 
 	var text1 = $(".on_1").find("span").html();
 
@@ -126,7 +126,7 @@ $(function() {
 		$(this).addClass("hover").siblings().removeClass("hover");
 		$(".on_1").find("span").html(text1);
 		return false;
-	})
+	});
 
 	$(".droplist a").click(
 			function() {
@@ -141,7 +141,7 @@ $(function() {
 				}
 
 			});
-})
+});
 
 // 商品详细支付通道 购买/租赁
 $(function() {
@@ -165,7 +165,7 @@ $(function() {
 			$("a.lease_btn").css("display", "none");
 		}
 	});
-})
+});
 
 // pro_detail 商品详细信息
 $(function() {
@@ -203,7 +203,7 @@ $(function() {
 		$(this).addClass("hover").siblings().removeClass("hover");
 	});
 
-})
+});
 
 // selectBox div模拟select
 $(function() {
@@ -225,7 +225,7 @@ $(function() {
 			$(".selectBox ul").hide();
 
 	});
-})
+});
 
 // 弹出层
 function popup(t, b) {
@@ -250,11 +250,11 @@ function popup(t, b) {
 		$(t).css('left', (win_width - layer_width) / 2);
 		$(t).css('display', 'block');
 		return false;
-	})
+	});
 	$(".close").click(function() {
 		$(t).css('display', 'none');
 		$(".mask").css('display', 'none');
-	})
+	});
 }
 $(function() {
 	popup(".buyIntention_tab", ".buyIntention_a");// 首页购买意向
@@ -269,14 +269,14 @@ $(function() {
 	popup("#qwert", "#qwert_btn");// 查询进度
 	popup("#show_phone_input_my_o", "#show_phone_input_my_btn");// 我的信息
 																// 根据原来手机号发送验证码
-})
+});
 
 /*--------------------------------------------------------------------------------------*/
 
 // 鼠标经过小图提示大图
 $(document).ready(function() {
 	infoTab('.cover', '.img_info');
-})
+});
 // 鼠标经过小图提示大图
 function infoTab(i_tab, i_box) {
 	$(i_tab).hover(
@@ -340,7 +340,7 @@ $(function() {
 				page++;
 			}
 		}
-	})
+	});
 
 	$('a.dn_prev').click(function() {
 		// alert(0)
@@ -364,6 +364,6 @@ $(function() {
 				page--;
 			}
 		}
-	})
+	});
 
-})
+});

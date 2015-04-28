@@ -484,4 +484,8 @@ public class TerminalsService {
         return listmap;
     }
     
+    public Map<Object,Object> getTerminalByNo(String serialNum){
+		return  terminalsMapper.getTerminalByNo(serialNum);
+	}
+    
 }

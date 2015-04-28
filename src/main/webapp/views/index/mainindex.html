@@ -270,12 +270,13 @@
 			<div class="seen_progress">
 				<ul ng-repeat="tt in ttt">
 					<li><span>终端号：</span>{{tt.serial_num}}</li>
-					<li><span>当前进度：</span>
-						<div class="nr">
-							<p ng-if="tt.openStatus.length==0">未申请</p>
-							<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
-								{{t.status==1?"未开通 ":(t.status==2?"审核中":"已开通")}}</p>
-						</div></li>
+					<li><span>当前进度：</span> 
+					<div class="nr">
+						<p ng-if="tt.openStatus.length==0">未申请</p>
+						<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
+							{{t.status==1?"未开通 ":(t.status==2?"审核中":"已开通")}}</p>
+					</div>
+					</li>
 				</ul>
 			</div>
 		</div>
