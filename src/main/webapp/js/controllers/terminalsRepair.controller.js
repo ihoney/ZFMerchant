@@ -70,21 +70,29 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   	
   //添加地址
   	$scope.addCostometAddress = function(){
-  		 $scope.CostometAddress = {
-  				cityId :Math.ceil($scope.shiList.id),
-  				receiver :$scope.receiver,
-  				address :$scope.address,
-  				moblephone :$scope.moblephone,
-  				zipCode :$scope.zipCode,
-  				customerId :$scope.customerId
-  		 };
-  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
-  	          if (data != null && data != undefined) {
-  	        	$scope.terminalDetail();
-  	          }
-  	      }).error(function (data) {
-  	    	  alert("操作失败");
-  	      });
+  		if(isAddressTen()<10){
+  			 $scope.CostometAddress = {
+  	  				cityId :Math.ceil($scope.shiList.id),
+  	  				receiver :$scope.receiver,
+  	  				address :$scope.address,
+  	  				moblephone :$scope.moblephone,
+  	  				zipCode :$scope.zipCode,
+  	  				customerId :$scope.customerId
+  	  		 };
+  	  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
+  	  	          if (data != null && data != undefined) {
+  	  	        	$scope.terminalDetail();
+  	  	          }
+  	  	      }).error(function (data) {
+  	  	    	  alert("操作失败");
+  	  	      });
+  		}else{
+  			alert("收获地址已满十条！");
+  		}
+  	}
+  	
+  	var isAddressTen = function(){
+  		return  $scope.addressList.length;
   	}
   	
   //提交
