@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html ng-app="agentMobileApp">
+<head>
+<meta charset="UTF-8">
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="style/bootstrap.css">
+<script src="style/jquery.min.js"></script>
+<script src="style/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/libs/angular.js"></script>
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0,
+minimum-scale=1.0, user-scalable=1, width=device-width" />
+<title>代理商加盟</title>
+
+<style type="text/css">
+* {
+	border: solid 1px #F3F2F2;
+}
+
+body {
+	background: #F3F2F2;
+}
+
+.logo {
+	width: 100%;
+	float: left;
+}
+
+.logo ul {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.logo ul li img {
+	width: 100%;
+}
+
+.logo ul li {
+	list-style: none;
+	float: left;
+	width: 50%;
+}
+
+.logo ul li label {
+	font-size: 20px;
+	padding-top: 20px;
+}
+
+table tr {
+	width: 100%;
+	height: 55px;
+}
+
+table tr td {
+	width: 50%;
+}
+
+h4 {
+	font-weight: bold;
+}
+
+@media screen and(max-width:900px) {
+	body {
+		background: #F3F2F2;
+	}
+	.logo ul li img {
+		width: 100%;
+		margin-top: 22%;
+	}
+	.logo ul li label {
+		padding-top: 18%;
+		font-size: 16px;
+	}
+	.container {
+		padding-right: 20px;
+		padding-left: 20px;
+		padding-top: 20px;
+	}
+}
+</style>
+
+
+<script type="text/javascript">
+	function ckgou_self(dom) {
+		if (dom != null) {
+			ckgou_comp(null);
+		}
+		if ($('#_self').attr('src') == 'style/checked.png') {
+			$('#_self').attr("src", "style/radiobtn.png");
+			return;
+		}
+		var rec = $(dom).attr("src");
+		if (rec == "style/radiobtn.png") {
+			$("#ckval").val('');
+			$("#ckval").val('个人');
+			$(dom).attr("src", "style/checked.png");
+		} else {
+			$("#ckval").val('');
+			$(dom).attr("src", "style/radiobtn.png");
+		}
+
+	}
+
+	function ckgou_comp(dom) {
+		if (dom != null) {
+			ckgou_self(null);
+		}
+		if ($('#_comp').attr('src') == 'style/checked.png') {
+			$('#_comp').attr("src", "style/radiobtn.png");
+			return;
+		}
+		var rec = $(dom).attr("src");
+		if (rec == "style/radiobtn.png") {
+			$("#ckval").val('');
+			$("#ckval").val('公司');
+			$(dom).attr("src", "style/checked.png");
+		} else {
+			$("#ckval").val('');
+			$(dom).attr("src", "style/radiobtn.png");
+		}
+
+	}
+
+	var agentMobileApp = angular.module('agentMobileApp', []);
+	var agentapp = function($scope, $http, $location) {
+		$scope.req = {};
+		$scope.selected = {};
+		$scope.selected_city = {};
+		$scope.city_search = function() {
+			$http.post("/ZFMerchant/api/index/getCity").success(function(data) {
+				if (data != null && data != undefined) {
+					$scope.city_list = data.result;
+				}
+			});
+		};
+
+		$scope.change_city = function() {
+			$scope.selected_city = "";
+		};
+
+		$scope.commitAppData = function() {
+			var flag = $scope.checkData();
+			var type = $('#ckval').val();
+			$scope.req = {
+				"address" : $scope.selected.name + ","
+						+ $scope.selected_city.name,
+				"agent_type" : type,
+				"touchName" : $scope.req.touchName,
+				"touchPhone" : $scope.req.touchPhone
+			};
+			if (flag) {
+				$http.post("/ZFMerchant/api/agentjoin/addNewData", $scope.req)
+						.success(function(data) {
+							if (data != null && data != undefined) {
+								alert("我们已经收到您的申请资料，请保持电话畅通。我们将在下个工作日与您取得联系!");
+							}
+						});
+			}
+		};
+
+		$scope.checkData = function() {
+			var pname = $scope.selected.name;
+			var cname = $scope.selected_city.name;
+			var touchname = $scope.req.touchName;
+			var touchphone = $scope.req.touchPhone;
+			if (pname == "" || pname == undefined) {
+				$('#p_name').focus();
+				alert("请选择所在地");
+				return false;
+			}
+			if (cname == "" || cname == undefined) {
+				$('#c_name').focus();
+				alert("请选择所在地");
+				return false;
+			}
+			if (touchname == "" || touchname == undefined) {
+				$('#touchname').focus();
+				alert("请输入联系人");
+				return false;
+			}
+			if (touchphone == "" || touchphone == undefined) {
+				$('#touchphone').focus();
+				alert("请输入联系人手机号码");
+				return false;
+			}
+			var ck = $('#ckval').val();
+			if (ck == "" || ck == undefined) {
+				alert("请选择代理商类型");
+				return false;
+			}
+			
+			var reg = /^(13[0-9]|15[0|1|2|3|5|6|7|8|9]|18[0|2|5|6|7|8|9]|14[7])\d{8}$/;
+			if(!reg.exec(touchphone)){
+				$('#touchphone').focus();
+				alert("请输入正确的联系人手机号码");
+				return false;
+			}
+			
+			return true;
+		};
+
+		$scope.city_search();
+	}
+	agentMobileApp.controller('agentapp', agentapp);
+</script>
+</head>
+<body ng-controller="agentapp">
+	<div class="container">
+		<div class="logo">
+			<ul>
+				<li style="width: 40%"><img alt="" src="style/logo.png"></li>
+				<li><label>代理商加盟申请资料</label></li>
+			</ul>
+		</div>
+		<div class="content">
+			<table style="width: 100%;">
+				<tr>
+					<td colspan="3">请选择您的代理商类型:</td>
+				</tr>
+
+				<tr id="cks">
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt=""
+						src="style/radiobtn.png" width="36" height="36"
+						style="cursor: pointer;" onclick="ckgou_self(this)" id="_self" />&nbsp;&nbsp;个
+						人&nbsp;&nbsp;
+						</button>
+					</td>
+					<td>&nbsp;&nbsp;<img alt="" src="style/radiobtn.png"
+						width="36" height="36" style="cursor: pointer;"
+						onclick="ckgou_comp(this)" id="_comp" />&nbsp;&nbsp;公
+						司&nbsp;&nbsp;
+						</button></td>
+					<td></td>
+				</tr>
+
+				<tr style="display: none">
+					<td><input value="" id="ckval" /></td>
+				</tr>
+
+				<tr>
+					<td colspan="3">您的所在地:</td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><select ng-model="selected" id="p_name"
+						ng-options="s.name for s in city_list" class="form-control"
+						ng-change="change_city()">
+							<option value="">{{selected.name}}</option>
+					</select></td>
+					<td><label>&nbsp;&nbsp;&nbsp;省</label></td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><select ng-model="selected_city"
+						class="form-control" id="c_name"
+						ng-options="x.name for x in selected.childrens">
+							<option value="">{{selected_city.name}}</option>
+					</select></td>
+					<td><label>&nbsp;&nbsp;&nbsp;市</label></td>
+				</tr>
+
+				<tr>
+					<td>联系人姓名:</td>
+					<td colspan="2"><input type="text" class="form-control"
+						ng-model="req.touchName" id="touchname" placeholder="联系人姓名"></td>
+				</tr>
+
+				<tr>
+					<td>联系人手机号码:</td>
+					<td colspan="2"><input type="text" class="form-control"
+						ng-model="req.touchPhone" id="touchphone" placeholder="联系人号码"></td>
+				</tr>
+
+				<tr>
+					<td colspan="3" style="text-align: center;"><button
+							type="button" class="btn btn-info btn-lg" style="width: 60%;"
+							ng-click="commitAppData()">提 交 申 请</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -9,7 +9,7 @@
 					<button ng-click="searchShop()">搜索</button>
 				</div>
 				<div class="hotwords">
-					<a href="#">掌付</a><a href="#">拉卡拉</a><a href="#">支付天下</a>
+					<a href="#">钱袋宝</a><a href="#">中汇</a><a href="#">杉德</a><a href="#">掌富</a>
 				</div>
 			</div>
 			<div class="phone">
@@ -20,7 +20,8 @@
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a>
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去
+						付款</a>
 				</div>
 				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
 			</div>
@@ -29,11 +30,21 @@
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
-				<li ng-show="pic_total>0" ng-style="getBackgroundStyle(pic_list[0].picture_url)" ng-click="gotoo(pic_list[0].website_url)"></li>
-				<li ng-show="pic_total>1" ng-style="getBackgroundStyle(pic_list[1].picture_url)" ng-click="gotoo(pic_list[1].website_url)"></li>
-				<li ng-show="pic_total>2" ng-style="getBackgroundStyle(pic_list[2].picture_url)" ng-click="gotoo(pic_list[2].website_url)"></li>
-				<li ng-show="pic_total>3" ng-style="getBackgroundStyle(pic_list[3].picture_url)" ng-click="gotoo(pic_list[3].website_url)"></li>
-				<li ng-show="pic_total>4" ng-style="getBackgroundStyle(pic_list[4].picture_url)" ng-click="gotoo(pic_list[3].website_url)"></li>
+				<li ng-show="pic_total>0"
+					ng-style="getBackgroundStyle(pic_list[0].picture_url)"
+					ng-click="gotoo(pic_list[0].website_url)"></li>
+				<li ng-show="pic_total>1"
+					ng-style="getBackgroundStyle(pic_list[1].picture_url)"
+					ng-click="gotoo(pic_list[1].website_url)"></li>
+				<li ng-show="pic_total>2"
+					ng-style="getBackgroundStyle(pic_list[2].picture_url)"
+					ng-click="gotoo(pic_list[2].website_url)"></li>
+				<li ng-show="pic_total>3"
+					ng-style="getBackgroundStyle(pic_list[3].picture_url)"
+					ng-click="gotoo(pic_list[3].website_url)"></li>
+				<li ng-show="pic_total>4"
+					ng-style="getBackgroundStyle(pic_list[4].picture_url)"
+					ng-click="gotoo(pic_list[3].website_url)"></li>
 			</ul>
 		</div>
 		<script>
@@ -88,14 +99,17 @@
 				</div>
 				<div class="hp_con">
 					<ul>
-						<li ng-repeat="p in pos_list |orderBy : '-volume_number'"><a href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img src="{{p.good_logo}}" style="width: 150px; height: auto;" /></a>
+						<li ng-repeat="p in pos_list |orderBy : '-volume_number'"><a
+							href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img
+								src="{{p.good_logo}}" style="width: 150px; height: auto;" /></a>
 							<div class="pro_text">
 								<h3>{{p.brand_name}} {{p.brand_number}}</h3>
 								<p>支持平台</p>
 								<p>支持交易类型</p>
 								<p>费率</p>
 								<p>到账日期</p>
-								<a class="pro_text_a" href="#/shopinfo?goodId={{p.id}}">查看详情 &gt;&gt;</a>
+								<a class="pro_text_a" href="#/shopinfo?goodId={{p.id}}">查看详情
+									&gt;&gt;</a>
 							</div></li>
 					</ul>
 				</div>
@@ -106,7 +120,7 @@
 					<ul>
 						<li ng-repeat="m in web_list"><i></i>
 							<p>
-								<a href="javascript:void(0)"  ng-click="notice_show(m)" >{{m.title}}</a>
+								<a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a>
 							</p> <span>{{m.create_at}}</span></li>
 					</ul>
 				</div>
@@ -118,7 +132,8 @@
 				<div class="title">收单机构</div>
 				<div class="org_con">
 					<ul>
-						<li ng-repeat="f in factory_list"><a href="javascript:void()"> <img src="{{f.logo_file_path}}" width="80px;" height="60px;" />
+						<li ng-repeat="f in factory_list"><a href="javascript:void()">
+								<img src="{{f.logo_file_path}}" width="80px;" height="60px;" />
 								<h4>{{f.name}}</h4>
 								<p>{{f.description}}</p>
 						</a></li>
@@ -131,7 +146,8 @@
 			<div class="box">
 				<h1>和我们的专家进行及时沟通</h1>
 				<ul>
-					<li><a href="javascript:void(0);" class="buyIntention_a"><i class="intention"></i>
+					<li><a href="javascript:void(0);" class="buyIntention_a"><i
+							class="intention"></i>
 							<p>填写购买意向</p></a></li>
 					<li><a href="#"><i class="qqContact"></i>
 							<p>联系24小时在线客服</p></a></li>
@@ -145,7 +161,7 @@
 			<div class="serviceContent">
 				<dl>
 					<dt>
-						<a href="#" class="sc01"><i></i>服务内容</a>
+						<a href="#" class="sc01"><i></i>厂家直销</a>
 					</dt>
 					<dd>
 						<a href="#">指引的超连接</a>
@@ -159,7 +175,7 @@
 				</dl>
 				<dl>
 					<dt>
-						<a href="#" class="sc01"><i></i>服务内容</a>
+						<a href="#" class="sc01"><i></i>直连机构</a>
 					</dt>
 					<dd>
 						<a href="#">指引的超连接</a>
@@ -173,7 +189,7 @@
 				</dl>
 				<dl>
 					<dt>
-						<a href="#" class="sc01"><i></i>服务内容</a>
+						<a href="#" class="sc01"><i></i>在线入网</a>
 					</dt>
 					<dd>
 						<a href="#">指引的超连接</a>
@@ -187,7 +203,7 @@
 				</dl>
 				<dl>
 					<dt>
-						<a href="#" class="sc01"><i></i>服务内容</a>
+						<a href="#" class="sc01"><i></i>标准费率</a>
 					</dt>
 					<dd>
 						<a href="#">指引的超连接</a>
@@ -201,7 +217,7 @@
 				</dl>
 				<dl>
 					<dt>
-						<a href="#" class="sc01"><i></i>服务内容</a>
+						<a href="#" class="sc01"><i></i>保障售后</a>
 					</dt>
 					<dd>
 						<a href="#">指引的超连接</a>
@@ -214,7 +230,7 @@
 					</dd>
 				</dl>
 				<div class="ewm">
-					<img src="images/ewm.jpg" />
+					<img src="images/ewm.png" />
 				</div>
 			</div>
 		</div>
@@ -236,7 +252,8 @@
 						</div></li>
 					<li><span class="labelSpan">咨询内容：</span>
 						<div class="text">
-							<textarea ng-model="req.content" cols="" rows="" class="textarea_l"></textarea>
+							<textarea ng-model="req.content" cols="" rows=""
+								class="textarea_l"></textarea>
 						</div></li>
 				</ul>
 			</div>
@@ -254,11 +271,10 @@
 				<ul ng-repeat="tt in ttt">
 					<li><span>终端号：</span>{{tt.serial_num}}</li>
 					<li><span>当前进度：</span>
-					<div class="nr">
-                		<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
-					     {{t.status==1?"未开通  ":(t.status==2?"审核中":"已开通")}}</p>
-                	</div>
-					</li>
+						<div class="nr">
+							<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
+								{{t.status==1?"未开通 ":(t.status==2?"审核中":"已开通")}}</p>
+						</div></li>
 				</ul>
 			</div>
 		</div>
@@ -266,21 +282,24 @@
 			<button class="orangeBtn" ng-click="close()">确定</button>
 		</div>
 	</div>
-	
+
 	<div class="tab notice_tab" id="notice_tab_show">
-	<a href="javascript:void(0);" class="close" ng-click="notice_close()">关闭</a>
-	<div class="tabBody">
-    	<div class="notice_tab_con">
-        	<div class="notice_tab_title">
-            	<h1 id="notice_title"></h1>
-                <p id="notice_time"></p>
-            </div>
-            <div class="notice_tab_text" id="notice_contnet">
-            </div>
-        </div>
+		<a href="javascript:void(0);" class="close" ng-click="notice_close()">关闭</a>
+		<div class="tabBody">
+			<div class="notice_tab_con">
+				<div class="notice_tab_title">
+					<h1 id="notice_title"></h1>
+					<p id="notice_time"></p>
+				</div>
+				<div class="notice_tab_text" id="notice_contnet"></div>
+			</div>
+		</div>
 	</div>
-</div>
 
 </div>
-
+<style type="text/css">
+div dl dd a {
+	display: none
+}
+</style>
 <script src="js/main.js"></script>

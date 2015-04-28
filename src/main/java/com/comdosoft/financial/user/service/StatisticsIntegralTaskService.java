@@ -79,8 +79,7 @@ public class StatisticsIntegralTaskService {
 						+ map.get("actual_price") + ",订单获取积分：" + sumIntegral);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println(cir.toString());
+				e.printStackTrace(); 
 			}
 		}
 	}
@@ -132,8 +131,7 @@ public class StatisticsIntegralTaskService {
 						+ map.get("amount") + ",订单获取积分：" + sumIntegral);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println(cir.toString());
+				e.printStackTrace(); 
 			}
 		}
 	}
