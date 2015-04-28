@@ -311,5 +311,5 @@ public interface TerminalsMapper {
      */
     List<Map<String, Object>> getModule(Map<String, Object> map);
     
-  
+    Map<Object, Object> getTerminalByNo(String serialNum);
 }
