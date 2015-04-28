@@ -44,6 +44,9 @@ public class UserLoginController {
     @Value("${sendEmailFindServicsePath}")
     private String sendEmailFindServicsePath;
     
+    @Value("${goToAgentPath}")
+    private String goToAgentPath;
+    
     @Resource
     private MailService MailService;
     
@@ -397,6 +400,8 @@ public class UserLoginController {
     @RequestMapping(value = "webFicationCode", method = RequestMethod.POST)
     public Response webFicationCode(@RequestBody Customer customer) {
         try {
+        	customer.setStatus(Customer.STATUS_NORMAL);
+        	customer.setTypes(Customer.TYPE_CUSTOMER);
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
                     return Response.getSuccess("验证码正确！");
                 } else {
@@ -481,6 +486,19 @@ public class UserLoginController {
         } catch (Exception e) {
             return Response.getError("请求失败！");
         }
+    }
+    
+    /**
+     * 获得代理商登陆页面链接
+     */
+    @RequestMapping(value="goToAgentLogin",method = RequestMethod.POST)
+    public Response goToAgentLogin(){
+    	try{
+    		return Response.getSuccess(goToAgentPath);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return Response.getError("请求失败！");
+    	}
     }
     
 }

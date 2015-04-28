@@ -73,6 +73,7 @@ public class OrderService {
         }
         List<Map<String, Object>> goodMapList = orderMapper.getGoodInfos(orderreq);
         int flag=0;
+        int gg=0;
         for (Map<String, Object> map : goodMapList) {
             int retail_price = SysUtils.String2int("" + map.get("retail_price"));
             int quantity = SysUtils.String2int("" + map.get("quantity"));
@@ -81,13 +82,14 @@ public class OrderService {
             count += quantity;
             int bb=SysUtils.String2int(map.get("belongs_to").toString());
             if(bb>0){
-                flag=bb; 
+                gg++; 
+                flag=bb;
             }
         }
-        if(flag==0){
-            orderreq.setBelongto(null);
-        }else{
+        if(gg==goodMapList.size()){
             orderreq.setBelongto(flag);
+        }else{
+            orderreq.setBelongto(null);
         }
         orderreq.setType(1);
         orderreq.setTotalcount(count);
