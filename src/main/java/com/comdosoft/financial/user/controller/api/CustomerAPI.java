@@ -163,7 +163,7 @@ public class CustomerAPI {
                     sysResponse = Response.getError("请输入密码");
                     return sysResponse;
                 }
-                if ((pwd).equals(passwordInDB)) {// 判断原密码
+                if ((pwd).equalsIgnoreCase(passwordInDB)) {// 判断原密码
                     customerService.updatePassword(param);
                     sysResponse = Response.getSuccess();
                 } else {
