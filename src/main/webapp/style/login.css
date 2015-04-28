@@ -6,6 +6,8 @@ a { text-decoration: none;}
 
 .red { color: #F00;}
 
+.logo_dh { float: right; margin-top: 10px;}
+
 .login_logo { height: 50px; width: 1200px; margin: 20px auto;}
 .login { width: 1200px; height: 420px; background: #FFF; margin: 50px auto;}
 .login_left { width: 780px; float: left; height: 420px; font-size: 0; margin-right: 20px;}
@@ -43,7 +45,7 @@ a { text-decoration: none;}
 .forget { margin-bottom: 30px; overflow: hidden;}
 .forget span { float: left; color: #999;}
 .forget span input[type=checkbox] { float: left; margin-top: 2px; margin-right: 5px;}
-.forget a { float: right; color: #999;}
+.forget a { float: right; color: #00F;}
 .forget a:hover { text-decoration: underline;}
 
 .btn { margin: 10px auto;}
@@ -70,5 +72,5 @@ a { text-decoration: none;}
 .foot .foot_nav li a { color: #016cb7; margin: 0 10px;}
 .foot .foot_nav li a:hover { color: #0292f7;}
 .copyright { float: right; color: #666;}
-
+.copyright span {font-family: Arial;}
 

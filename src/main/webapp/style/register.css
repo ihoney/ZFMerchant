@@ -49,7 +49,7 @@ button { cursor: pointer; border: none;}
 
 .res_b li input[type="radio"] { float: left; margin: 2px 10px 0 0;}
 .res_b li a { color: #666;}
-.res_b li a:hover { color: #ff5f2b; text-decoration: underline;}
+.res_b li a:hover { color: #00F; text-decoration: underline;}
 
 .yzm_btn { 
 	width: 126px; 
@@ -85,11 +85,36 @@ button { cursor: pointer; border: none;}
 .btn button:hover { background: #fc6d38;}
 
 .win { margin: 20px auto; font-size: 14px;}
+.winSkip { margin: 20px auto; font-size: 14px;}
+.winSkip span { background: #fc5f25; color: #FFF; padding: 2px 5px;}
 
 /*-------foot-------*/
-.foot { border-top: 1px #ccc solid; padding: 10px 0; overflow: hidden; width: 1200px; margin: 0 auto;}
+.foot { border-top: 1px #ccc solid; padding: 10px 0; overflow: hidden;}
 .foot .foot_nav { float: left;}
 .foot .foot_nav li { float: left;}
 .foot .foot_nav li a { color: #016cb7; margin: 0 10px;}
 .foot .foot_nav li a:hover { color: #0292f7;}
 .copyright { float: right; color: #666;}
+.copyright span {font-family: Arial;}
+
+
+
+/*---协议弹层---*/
+.ebankAgreementTab { 
+	position: fixed; 
+	padding: 20px; 
+	top: 50%; 
+	left: 50%; 
+	margin-top: -290px;
+	margin-left: -440px;
+	background: #FFF;
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+	display: none;
+	z-index:1000;
+}
+.ebankAgreementTab h1 { font-size: 18px; font-weight:bolder; line-height: 36px; text-align: center; margin-bottom: 10px;}
+.ebankat_con { width: 840px; height: 540px;overflow-y:auto; overflow-x: hidden;}
+.ebankat_con p { line-height: 24px; text-indent: 24px; font-size: 12px; margin-bottom: 10px;}
+
+
+

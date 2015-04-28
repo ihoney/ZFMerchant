@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" ng-controller="indexController">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule"
+	ng-controller="indexController">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IEs=edge" />
@@ -39,28 +40,34 @@
 <!-- Services -->
 <script type="text/javascript" src="js/services/loginService.js"></script>
 <!-- Directives -->
-<script type="text/javascript" src="js/directives/datepicker.directive.js"></script>
-<script type="text/javascript" src="js/directives/fileupload.directive.js"></script>
+<script type="text/javascript"
+	src="js/directives/datepicker.directive.js"></script>
+<script type="text/javascript"
+	src="js/directives/fileupload.directive.js"></script>
 <!-- Controllers -->
 <script type="text/javascript" src="js/controllers/route.controller.js"></script>
 <script type="text/javascript" src="js/controllers/shop.controller.js"></script>
 <script type="text/javascript" src="js/controllers/login.controller.js"></script>
 <script type="text/javascript" src="js/controllers/pay.controller.js"></script>
-<script type="text/javascript" src="js/controllers/mainindex.controller.js"></script>
+<script type="text/javascript"
+	src="js/controllers/mainindex.controller.js"></script>
 </head>
 <body>
 	<div class="topInfo clear" ng-if="!loginshow">
 		<div class="box" ng-controller="headerController">
 			<div class="address">
 				<div class="addr_h">
-					<span id="city_name" ng-bind="city_name">{{city_name}}</span><i class="down"></i>
+					<span id="city_name" ng-bind="city_name">{{city_name}}</span><i
+						class="down"></i>
 				</div>
 				<div class="addr_b">
 					<ul>
-						<li><label>省</label> <select ng-model="selected" ng-options="s.name for s in city_list">
+						<li><label>省</label> <select ng-model="selected"
+							ng-options="s.name for s in city_list">
 								<option value="">请选择</option>
 						</select></li>
-						<li><label>市</label> <select ng-model="selected_city" ng-options="x.name for x in selected.childrens">
+						<li><label>市</label> <select ng-model="selected_city"
+							ng-options="x.name for x in selected.childrens">
 								<option value="">请选择</option>
 						</select></li>
 						<li><button class="addr_btn" ng-click="submit_city()">确定</button></li>
@@ -68,9 +75,7 @@
 				</div>
 			</div>
 			<div class="topNav">
-				<a href="#">首页</a>
-				<a href="#/shop">选购POS机</a>
-				<a href="#/userdown">APP下载</a>
+				<a href="#">首页</a> <a href="#/shop">选购POS机</a> <a href="#/userdown">APP下载</a>
 				<!-- <a href="#">入驻机构</a>
 				<a href="#/userdown">APP下载</a>
 				<a href="#">查看交易流水</a> 
@@ -86,14 +91,35 @@
 
 	<div class="topInfo clear" ng-if="loginshow">
 		<div class="box">
+			<div class="address">
+				<div class="addr_h">
+					<span id="city_name" ng-bind="city_name">{{city_name}}</span><i
+						class="down"></i>
+				</div>
+				<div class="addr_b">
+					<ul>
+						<li><label>省</label> <select ng-model="selected"
+							ng-options="s.name for s in city_list">
+								<option value="">请选择</option>
+						</select></li>
+						<li><label>市</label> <select ng-model="selected_city"
+							ng-options="x.name for x in selected.childrens">
+								<option value="">请选择</option>
+						</select></li>
+						<li><button class="addr_btn" ng-click="submit_city()">确定</button></li>
+					</ul>
+				</div>
+			</div>
 			<div class="top_kf">
 				<ul>
-					<li><strong>400800 5678</strong></li>
-					<li><a href="#" class="kf_a"><i></i>在线客服</a></li>
+					<li><a href="#">首页</a></li>
+					<li><a href="#/shop">选购POS机</a></li>
+					<li><a href="#/userdown">APP下载</a></li>
 				</ul>
 			</div>
 			<div class="top_user">
-				<a href="#/myapp">{{loginUserName}}</a><a href="javascript:void(0)" ng-click="escLogin()">退出</a><a href="#">掌富APP</a>
+				<a href="#/myapp">{{loginUserName}}</a><a href="javascript:void(0)"
+					ng-click="escLogin()">退出</a><a href="#">掌富APP</a>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -119,7 +145,8 @@
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去 付款</a>
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去
+						付款</a>
 				</div>
 				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品</div>
 			</div>
@@ -134,7 +161,8 @@
 					<li><a href="#/myapp">我的掌富</a></li>
 					<li><a href="#/order">我的订单</a></li>
 					<li><a href="#/terminal">我的终端</a></li>
-					<li class="second"><a href="javascript:void(0);">售后记录<i class="off"></i></a>
+					<li class="second"><a href="javascript:void(0);">售后记录<i
+							class="off"></i></a>
 						<ol>
 							<li><a href="#/cs_cencel">注销记录</a></li>
 							<li><a href="#/cs_return">退货记录</a></li>
@@ -167,7 +195,10 @@
 				<li>/</li>
 				<li><a href="#">企业招聘</a></li>
 			</ul>
-			<div class="copyright">版权所有 <span>&COPY</span>; 2011-2015 上海掌富网络技术有限公司（<a href="http://www.miitbeian.gov.cn/">沪ICP备  12002389号－4</a>）</div>
+			<div class="copyright">
+				版权所有 <span>&COPY</span>; 2011-2015 上海掌富网络技术有限公司（<a
+					href="http://www.miitbeian.gov.cn/">沪ICP备 12002389号－4</a>）
+			</div>
 		</div>
 	</div>
 

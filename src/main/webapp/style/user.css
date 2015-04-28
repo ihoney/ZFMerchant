@@ -84,6 +84,19 @@ i.no1 {
 	margin-top: -10px;
 }
 .top_kf strong { color: #FFF;}
+ 
+.top_kf a { 
+	font-size: 14px; 
+	color: #FFF; 
+	height: 38px;
+	line-height: 38px; 
+	display: inline-block;
+	margin: 0 20px;
+	font-weight:bold;
+}
+.top_kf a:hover, 
+.top_kf a.hover { border-bottom: 2px #FFFFFF solid;}
+
 
 .top_user { float: right; line-height: 40px; font-size: 14px;}
 .top_user a { display: inline-block; margin: 0 15px; color: #FFF;}
