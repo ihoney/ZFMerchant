@@ -199,12 +199,20 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	
 	
 //动态加载银行
-  $scope.bankName ="";
+  //$scope.bankName ="";
+  $scope.bankObj={bankName:"",bankCode:0,code:0};
   $scope.bank = function(obj){
-	  $http.post("api/terminal/ChooseBank", null).success(function (data) {  //绑定
+	  $scope.bankjson = {keyword:$scope.bankObj.bankName,page:1,pageSize:10,serialNum:$scope.applyDetails.serial_num};
+	  $http.post("api/terminal/ChooseBank", $scope.bankjson).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == 1){
-        		  $scope.bankCode = data.result;
+        		  $scope.bankObj.bankCode = data.result.content;
+        		  $("#suggestDiv").parent().addClass("overflow");
+        		  if(data.result.total!=0){ 
+        			  $("#suggestDiv").show(); 
+        		  }else{
+        			  $("#suggestDiv").hide();
+        		  }
         	  }else{
         		  alert("获取银行失败！");
         	  }
@@ -212,7 +220,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
       }).error(function (data){
     	  alert("银行加载失败！");
       });
-	  $("#div_"+obj).show();
+	  //$("#div_"+obj).show();
   }
 //动态显示银行代码号
   $scope.bankNum = function(obj,number,backName){
@@ -220,6 +228,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  $("#"+obj).siblings("input").val(number)
 	  $("#"+obj).parent("div").hide();
 	  $("#"+obj).parent("div").siblings("div").children("input[type='text']").val(backName)
+  }
+  $scope.selectBank = function(code,name){
+	  $scope.bankObj.bankName = code;
+	  $scope.bankObj.code = code;
+	  $("#suggestDiv").hide();
   }
   
 //对私按钮
@@ -250,6 +263,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
         	  if(data.code == 1){
         		  $scope.result=data.result;
+        		  $scope.bankObj.bankName = $scope.openingInfos.account_bank_code;
         	  }
           }
       }).error(function (data) {
@@ -305,7 +319,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		                     billingId:$scope.billingId,
 		                     bankNum:$("#bankNumValue").val(),
 		                     bankName:$("#bankNameValue").val(),
-		                     bankCode:$("#bankCodeValue").val(),
+		                     bankCode:$scope.bankObj.code,
 		                     organizationNo:$("#organizationNoValue").val(),
 		                     registeredNo:$("#registeredNoValue").val(),
 		                     needPreliminaryVerify:Math.ceil($scope.applyDetails.needPreliminaryVerify)

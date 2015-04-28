@@ -83,6 +83,9 @@ public class TerminalsController {
 	
 	@Value("${timingPath}")
 	private String timingPath;
+	
+	@Value("${bankList}")
+	private String bankList;
 	 
 
 	/**
@@ -644,21 +647,23 @@ public class TerminalsController {
 	 * 从第三方接口获得银行
 	 */
 	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
-	public Response ChooseBank() {
+	public String ChooseBank(@RequestBody Map<String, Object> map) {
+		String url = timingPath + bankList;
+		String keyword = (String)map.get("keyword");
+		Integer page = (Integer)map.get("page");
+		Integer pageSize = (Integer)map.get("pageSize");
+		String serialNum = (String)map.get("serialNum");
+		Map<Object,Object> resultMap = terminalsService.getTerminalByNo(serialNum);
+		String response = null;
 		try {
-			List<Map<String, String>> list = new ArrayList<Map<String,String>>();
-			Map<String, String> map1 = new HashMap<String, String>();
-			map1.put("name", "中国农业银行");
-			map1.put("code", "111111");
-			Map<String, String> map2 = new HashMap<String, String>();
-			map2.put("name", "中国工商银行");
-			map2.put("code", "222222");
-			list.add(map1);
-			list.add(map2);
-			return Response.getSuccess(list);
-		} catch (Exception e) {
-			return Response.getError("请求失败！");
+			response = CommonServiceUtil.getBankList(url, keyword.trim(), page, pageSize, (Integer)resultMap.get("pay_channel_id"), 
+					(String)resultMap.get("serial_num"));
+		} catch (IOException e) {
+			logger.error("从第三方接口获得银行异常！",e);
+			return "{\"code\":-1,\"message\":\"银行列表获取失败\",\"result\":{\"content\":null,\"total\":0,\"pageSize\":0,\"currentPage\":0,\"totalPage\":0}}";
 		}
+		
+		return response;
 	}
 	
 	/**
