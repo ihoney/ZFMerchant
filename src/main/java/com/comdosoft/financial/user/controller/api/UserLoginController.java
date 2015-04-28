@@ -397,6 +397,8 @@ public class UserLoginController {
     @RequestMapping(value = "webFicationCode", method = RequestMethod.POST)
     public Response webFicationCode(@RequestBody Customer customer) {
         try {
+        	customer.setStatus(Customer.STATUS_NORMAL);
+        	customer.setTypes(Customer.TYPE_CUSTOMER);
                 if (customer.getCode().equals(userLoginService.findCode(customer))) {
                     return Response.getSuccess("验证码正确！");
                 } else {

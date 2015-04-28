@@ -443,6 +443,7 @@ var registerController=function($scope, $location, $http, LoginService){
 				$scope.codeBei = "";
 				$scope.successEmailShow = true;
 			} else if (data.code == -1) {
+				alert(data.message);
 			}
 		})
 	};
