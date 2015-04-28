@@ -176,6 +176,18 @@ var loginController=function($scope, $location, $http, LoginService){
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
 	
+	//跳转代理商登陆页面
+	$scope.gotoagentlogin = function(){
+		$http.post("api/user/goToAgentLogin").success(function(data){
+			if(data.code == 1){
+				window.location.href = data.result;
+			}
+			if(data.code == -1){
+				alert("链接失败！");
+			}
+		})
+	}
+	
 	//cooke初始化
 	$scope.cookeStark = function(){
 		if(getCookie("userName") != undefined)
