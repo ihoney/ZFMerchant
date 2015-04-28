@@ -218,8 +218,8 @@
 			return false;
 		});
 		$(document).bind('click', function(e) {
-			var $clicked = $(e.target);
-			if (!$clicked.hasClass("tab")) {
+			var $clicked = $(e.target); 
+			if (!$clicked.parents().hasClass("ebankAgreementTab")) {
 				$(".ebankAgreementTab").css('display', 'none');
 				$(".mask").css('display', 'none');
 			}

@@ -45,7 +45,7 @@ a { text-decoration: none;}
 .forget { margin-bottom: 30px; overflow: hidden;}
 .forget span { float: left; color: #999;}
 .forget span input[type=checkbox] { float: left; margin-top: 2px; margin-right: 5px;}
-.forget a { float: right; color: #00F;}
+.forget a { float: right; color: #2e74b5;}
 .forget a:hover { text-decoration: underline;}
 
 .btn { margin: 10px auto;}
