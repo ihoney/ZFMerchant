@@ -48,6 +48,7 @@ public class GoodService {
             map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
             // 图片
             List<String> goodPics = goodMapper.getgoodPics(id);
+            //List<String> goodPics = goodMapper.getgoodPics_s(id);
             if (null != goodPics && goodPics.size() > 0) {
                 map.put("url_path",filePath+ goodPics.get(0));
             }

@@ -90,8 +90,7 @@
 			<if test="email != null and email !=''">email = #{email},</if>
 			<if test="cityId != null and cityId !=''">city_id = #{cityId}</if>
 			<if test="dentcode != null and dentcode !=''">dentcode = #{dentcode}</if>
-			<if test="accountType == 1">username = #{phone}</if>
-			<if test="accountType == 2">username = #{email}</if>
+			
 		</trim>
 		where id = #{id}
 	</update>

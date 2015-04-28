@@ -14,6 +14,7 @@ import com.comdosoft.financial.user.domain.zhangfu.CsCancel;
 import com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress;
 import com.comdosoft.financial.user.domain.zhangfu.CustomerAddress;
 import com.comdosoft.financial.user.domain.zhangfu.Merchant;
+import com.comdosoft.financial.user.domain.zhangfu.OpeningRequirement;
 import com.comdosoft.financial.user.mapper.zhangfu.OpeningApplyMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.TerminalsMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
@@ -25,6 +26,7 @@ public class TerminalsService {
 	
 	@Value("${filePath}")
 	private String filePath;
+	
 	
 
 	@Resource
@@ -39,13 +41,30 @@ public class TerminalsService {
 	 */
 	public List<Map<Object, Object>> getTerminalList(Integer id,
 			Integer offSetPage, Integer pageSize,Integer frontStatus,String serialNum) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("id", id);
 		map.put("offSetPage", offSetPage);
 		map.put("pageSize", pageSize);
 		map.put("frontStatus", frontStatus);
 		map.put("serialNum", serialNum);
-		return terminalsMapper.getTerminalList(map);
+		map.put("hasVideoVerify", OpeningRequirement.TYPE_1);
+		List<Map<Object, Object>> list = new ArrayList<Map<Object,Object>>();
+		list = terminalsMapper.getTerminalList(map);
+		
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).get("payChannelId") != null){
+				map.put("payChannelId", list.get(i).get("payChannelId"));
+				int count = openingApplyMapper.hasVideoVerify(map);
+				if(count>0){
+					list.get(i).put("hasVideoVerify", 1);
+				}
+				if(count == 0){
+					list.get(i).put("hasVideoVerify", 0);
+				}
+			}
+			
+		}
+		return list;
 	}
 	
 	/**
@@ -325,10 +344,12 @@ public class TerminalsService {
          List<Map<Object, Object>> list = new ArrayList<Map<Object,Object>>();
          list = terminalsMapper.getOpeningDetails(id);
          for(int i=0;i<list.size();i++){
-        	 if((Integer)list.get(i).get("types") == 2){
-        		 list.get(i).put("value",filePath+list.get(i).get("value").toString());
-        	 }else{
-        		 list.get(i).put("value",list.get(i).get("value").toString());
+        	 if(list.get(i) !=null){
+        		 if((Integer)list.get(i).get("types") == 2){
+            		 list.get(i).put("value",filePath+list.get(i).get("value").toString());
+            	 }else{
+            		 list.get(i).put("value",list.get(i).get("value").toString());
+            	 }
         	 }
          }
 		return list;

@@ -57,13 +57,13 @@ public class CsChangeController {
     
     @RequestMapping(value="getChangeById" ,method=RequestMethod.POST)
     public Response getCanCelById(@RequestBody MyOrderReq myOrderReq){
-        try{
+//        try{
             Map<String,Object>  centers = csChangeService.findById(myOrderReq);
             return Response.getSuccess(centers);
-        }catch(Exception e){
-            logger.debug("出错"+e+"==>>"+myOrderReq);
-            return Response.getError("请求失败,获取数据出错。");
-        }
+//        }catch(Exception e){
+//            logger.debug("出错"+e+"==>>"+myOrderReq);
+//            return Response.getError("请求失败,获取数据出错。");
+//        }
     }
     
     @RequestMapping(value="addMark" ,method=RequestMethod.POST)

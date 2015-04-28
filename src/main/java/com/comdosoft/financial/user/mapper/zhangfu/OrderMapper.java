@@ -64,5 +64,7 @@ public interface OrderMapper {
 
 	List<OrderGood> findGoodsByOrderId(Integer id);
 
+	List<Map<String, Object>> findOrderById(MyOrderReq myOrderReq);
+
 // ------gch end ---------------------
 }

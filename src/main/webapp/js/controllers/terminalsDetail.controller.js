@@ -39,6 +39,16 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
       });
   };
   
+  //判断该终端开通状态
+  $scope.gotoopen = function(id){
+	  if( $scope.applyDetails.openstatus == 6){
+				alert("正在第三方审核,请耐心等待...");
+			}
+			else {
+				window.location.href ="#/terminalOpening?terminalId="+id+"&status="+$scope.applyDetails.openstatus;
+	  }
+  }
+  
 //租借說明弹出层
   $scope.popup = function(t,b){
 	  /*$(".mask").show();
@@ -75,9 +85,13 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
   }
 //同步
   $scope.synchronous = function(){
-	  $http.post("api/terminal/synchronous").success(function (data) {  //绑定
+	  $http.post("api/terminal/synchronous",{terminalId:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
-        	  alert(data.code);
+        	  if(data.code==-1){
+        		  alert("同步失败");
+        	  }else if(data.code==1){
+        		  alert("同步成功");
+        	  }
           }
       }).error(function (data) {
     	  alert("同步失败");

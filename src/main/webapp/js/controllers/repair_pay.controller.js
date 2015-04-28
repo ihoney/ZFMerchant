@@ -31,7 +31,7 @@ var repair_payController = function($scope, $http,$location) {
 			//alert("支付宝");
 			window.open("repairalipayapi.jsp?WIDtotal_fee="+
 					$scope.order.repair_price/100+"&WIDsubject="+$scope.order.miaoshu
-					+"&WIDout_trade_no="+$scope.req.id);  
+					+"&WIDout_trade_no="+$scope.order.apply_num);  
 		}else{
 			//alert("银行");
 			window.open("http://www.taobao.com");  

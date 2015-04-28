@@ -5,6 +5,57 @@ var merchantAddModule = angular.module("merchantAddModule", []);
 var merchantAddController = function($scope, $http, $location, LoginService) {
 	$scope.merchant={};
 	$scope.merchantAdd = function() {
+		if($scope.merchant.title =="" || typeof($scope.merchant.title)=="undefined" ){
+			alert("请填写商户名称");
+			return false;
+		}
+		
+		if($scope.merchant.legalPersonName =="" || typeof($scope.merchant.legalPersonName)=="undefined" ){
+			alert("请填写法人姓名");
+			return false;
+		}
+		
+		if($scope.merchant.title =="" || typeof($scope.merchant.title)=="undefined" ){
+			alert("请填写商户名称");
+			return false;
+		}
+		
+		if($scope.merchant.accountBankName =="" || typeof($scope.merchant.accountBankName)=="undefined" ){
+			alert("请填写开户行名称");
+			return false;
+		}
+		
+		if($scope.merchant.accountBankAddress =="" || typeof($scope.merchant.accountBankAddress)=="undefined" ){
+			alert("请填写开户行地址");
+			return false;
+		}
+		
+		if($scope.merchant.accountBankNum =="" || typeof($scope.merchant.accountBankNum)=="undefined" ){
+			alert("请填写银行账号");
+			return false;
+		}
+		
+		if($scope.merchant.businessLicenseNo=="" || typeof($scope.merchant.businessLicenseNo)=="undefined" ){
+			alert("请填写营业执照登记号");
+			return false;
+		}
+		
+		if($scope.merchant.organizationCodeNo =="" || typeof($scope.merchant.organizationCodeNo)=="undefined" ){
+			alert("请填写组织机构代码证号");
+			return false;
+		}
+		
+		if($scope.merchant.taxRegisteredNo =="" || typeof($scope.merchant.taxRegisteredNo)=="undefined" ){
+			alert("请填写税务登记号");
+			return false;
+		}
+		
+		if($scope.merchant.bankOpenAccount =="" || typeof($scope.merchant.bankOpenAccount)=="undefined" ){
+			alert("请填写银行开户许可证号");
+			return false;
+		}
+		
+		
 		var cardId = $scope.merchant.legalPersonCardId;
 		   // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
 		   var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;

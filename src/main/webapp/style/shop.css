@@ -253,7 +253,7 @@
 .pro_img_a img { vertical-align:middle;}
 
 .pro_text { color: #333; line-height: 24px;}
-.pro_text h3 { font-size: 14px;}
+.pro_text h3 { font-size: 14px; overflow: hidden; width: 108px; height: 24px;}
 .pro_text p {}
 .pro_text_a { color: #ff5f2b;}
 .pro_text_a:hover { color: #ff9b00;}
@@ -292,6 +292,7 @@
 
 /*--收单机构--*/
 .org_con { overflow: hidden; padding: 10px 0px;}
+.org_con h4 { height: 18px; overflow: hidden;}
 .org_con li { float: left; margin: 6px;}
 .org_con li a { 
 	width: 176px; 

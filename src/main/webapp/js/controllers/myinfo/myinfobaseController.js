@@ -31,7 +31,6 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		 $http.post("api/customers/findCustById", $scope.req).success(function (data) {
 			if (data.code == 1) {
 				$scope.customer = data.result;
-				$scope.customer.i_phone =data.result.phone;
 				var i_email =data.result.email;
 				if(typeof(i_email)=="undefined"  || i_email ==''){
 					$("#email_send_btn").hide();
@@ -39,6 +38,14 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 					$("#in_email").attr("disabled","disabled");
 					$("#email_send_btn").show();
 					$scope.customer.email =i_email;
+				}
+				var i_phone =data.result.phone;
+				if(typeof(i_phone)=="undefined"  || i_phone ==''){
+					$("#show_phone_input_my_btn").hide();
+				}else{
+					$("#in_phone").attr("disabled","disabled");
+					$("#show_phone_input_my_btn").show();
+					$scope.customer.i_phone =i_phone;
 				}
 				$scope.cus_type = data.result.account_type;
 			    $scope.selected.id = data.result.parent_id;
@@ -267,9 +274,16 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 //			        return false;
 //			 }
 //		} 
-		
+		var acctype = $scope.cus_type;
+		var b =false;
+		if(parseInt(acctype)==1){
+			b= true;
+		}else if(parseInt(acctype)==0){
+			b= false;
+		}
+		//0手机号 1 邮箱
 		$scope.req = { 
-			"accountType":$scope.cus_type,
+//			"accountType":b,
 			"id" : LoginService.userid,
 			"name" : $scope.customer.name,
 			"phone" : $scope.customer.phone,

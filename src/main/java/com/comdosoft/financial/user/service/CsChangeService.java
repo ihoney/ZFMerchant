@@ -40,7 +40,7 @@ public class CsChangeService {
         csChangeMapper.cancelApply(myOrderReq);
     }
 
-    public Map<String,Object>  findById(MyOrderReq myOrderReq) throws ParseException {
+    public Map<String,Object>  findById(MyOrderReq myOrderReq)  {
         Map<String, Object> o = csChangeMapper.findById(myOrderReq);
         Map<String,Object> map = new HashMap<String,Object>();
         String id = o.get("id").toString();
@@ -51,7 +51,12 @@ public class CsChangeService {
         if(apply_time==""){
             map.put("apply_time", "");
         }else{
-            map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+            try {
+				map.put("apply_time", sdf.format(sdf.parse(apply_time)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			    map.put("apply_time", "");
+			}
         }
         map.put("terminal_num", o.get("serial_num")==null?"": o.get("serial_num"));
         map.put("apply_num", o.get("apply_num")==null?"": o.get("apply_num"));//维修编号
@@ -65,7 +70,7 @@ public class CsChangeService {
         map.put("receiver_phone", o.get("receiver_phone")==null?"": o.get("receiver_phone"));
         map.put("change_reason", o.get("reason")==null?"": o.get("reason"));
         myOrderReq.setId(Integer.parseInt(id));
-        String json = o.get("templete_info_xml")==null?"": o.get("templete_info_xml").toString();
+        String json = o.get("templete_info_xml")==null?"": o.get("templete_info_xml")+"";
         map = csCencelsService.getTemplePaths(map, json);
         List<Map<String,Object>> list = csChangeMapper.findTraceById(myOrderReq);
         map.put("comments", OrderUtils.getTraceByVoId(myOrderReq, list));

@@ -72,13 +72,22 @@ public class OrderService {
             }
         }
         List<Map<String, Object>> goodMapList = orderMapper.getGoodInfos(orderreq);
+        int flag=0;
         for (Map<String, Object> map : goodMapList) {
             int retail_price = SysUtils.String2int("" + map.get("retail_price"));
             int quantity = SysUtils.String2int("" + map.get("quantity"));
-
             int opening_cost = SysUtils.String2int("" + map.get("opening_cost"));
             totalprice += (retail_price + opening_cost) * quantity;
             count += quantity;
+            int bb=SysUtils.String2int(map.get("belongs_to").toString());
+            if(bb>0){
+                flag=bb; 
+            }
+        }
+        if(flag==0){
+            orderreq.setBelongto(null);
+        }else{
+            orderreq.setBelongto(flag);
         }
         orderreq.setType(1);
         orderreq.setTotalcount(count);
@@ -108,6 +117,12 @@ public class OrderService {
             orderreq.setAddressId(goodMapper.getAdId(orderreq.getCustomerId()));
         }
         Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
+        int bb=SysUtils.String2int(goodMap.get("belongs_to").toString());
+        if(bb==0){
+            orderreq.setBelongto(null);
+        }else{
+            orderreq.setBelongto(bb);
+        }
         int retail_price = SysUtils.String2int("" + goodMap.get("retail_price"));
         int quantity = orderreq.getQuantity();
         int count = SysUtils.String2int("" + goodMap.get("count"));
@@ -140,6 +155,12 @@ public class OrderService {
             orderreq.setAddressId(goodMapper.getAdId(orderreq.getCustomerId()));
         }
         Map<String, Object> goodMap = orderMapper.getGoodInfo(orderreq);
+        int bb=SysUtils.String2int(goodMap.get("belongs_to").toString());
+        if(bb==0){
+            orderreq.setBelongto(null);
+        }else{
+            orderreq.setBelongto(bb);
+        }
         int lease_deposit = SysUtils.String2int("" + goodMap.get("lease_deposit"));
         int quantity = orderreq.getQuantity();
         int count = SysUtils.String2int("" + goodMap.get("count"));
@@ -343,7 +364,7 @@ public class OrderService {
 	        for (Terminal t : terminals) {
 	              sb.append(" "+ t.getSerialNum() );
 	        }
-            map.put("terminals", sb.toString());
+            map.put("terminals", sb.toString().trim());
         }
         map.put("order_goodsList", newObjList);
         MyOrderReq myOrderReq = new MyOrderReq();
@@ -354,9 +375,19 @@ public class OrderService {
         return obj_list;
     }
 
+    //取消订单 返回库存
+    @Transactional(value = "transactionManager-zhangfu")
     public void cancelMyOrder(MyOrderReq myOrderReq) {
         myOrderReq.setOrderStatus(OrderStatus.CANCEL);
         orderMapper.changeStatus(myOrderReq);
+    	List<Map<String, Object>> o = orderMapper.findOrderById(myOrderReq);
+    	for(Map<String,Object> oo :o){
+    		 String good_id = oo.get("good_id")==null?"":oo.get("good_id").toString();
+             String quantity = oo.get("quantity")==null?"":oo.get("quantity").toString();
+             if(good_id !="" && quantity!=""){
+                 orderMapper.update_goods_stock(good_id,quantity);
+             }
+    	}
     }
 
     public void comment(MyOrderReq myOrderReq) {

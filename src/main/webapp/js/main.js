@@ -1,3 +1,18 @@
+//首页产品/收单机构名称 鼠标经过提示全名
+function allName(e){
+	$(e).hover(
+		function(){
+			$(this).attr("title",$(this).html())
+		},
+		function(){
+			$(this).attr("title")
+		}
+	);
+}
+$(function(){
+	allName(".pro_text h3");
+	allName(".org_con h4");
+})
 //input focus所有input焦点效果
 $(function() {
 	$("input").focus(function() {
@@ -266,10 +281,10 @@ $(document).ready(function() {
 function infoTab(i_tab, i_box) {
 	$(i_tab).hover(
 			function(e) { 
-				var val = $(this).attr("data-src");
+				var val = $(this).attr("imgPath");
 				console.info(val); 
 				if(val != undefined && val != ""){
-					$(i_box).children("img").attr("src", $(this).attr("data-src"));  
+					$(i_box).children("img").attr("src", $(this).attr("imgPath"));  
 					$(i_box).css('display', 'block');
 					$(i_box).css('top',
 							$(this).offset().top - $(i_box).height() + 'px');

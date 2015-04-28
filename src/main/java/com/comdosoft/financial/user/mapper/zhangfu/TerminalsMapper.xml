@@ -72,7 +72,7 @@
 		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(t.type,'') as type,
 		IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,
 		IFNULL(m.title,'') as title,IFNULL(m.phone,'') as phone,IFNULL(p.`name`,'') as channelName ,IFNULL(g.model_number,'') as model_number,
-		IFNULL(b.`name`,'') as brandsName
+		IFNULL(b.`name`,'') as brandsName,IFNULL(t.pay_channel_id,'0') as payChannelId
 		FROM terminals t LEFT JOIN opening_applies o
 		ON o.terminal_id = t.id
 		LEFT JOIN merchants m 
@@ -134,8 +134,11 @@
 	</select>
 	
 	<select id="getCustomerAddress"  resultType="map" parameterType="int">
-		SELECT * from customer_addresses
-		WHERE customer_id = #{customerId}
+		SELECT a.id,a.receiver,a.moblephone,a.address,a.zip_code as zipCode,a.is_default as isDefault,a.city_id as cityId,c.`id` as cityId,c.`name` as sonName,s.`name` as parentName
+		FROM customer_addresses a LEFT JOIN cities c ON c.id = a.city_id
+		LEFT JOIN cities s ON s.id = c.parent_id
+		WHERE
+		a.customer_id=#{customerId}
 	</select>
 	
 	<select id="JudgeChangStatus"  resultType="int" parameterType="map">
@@ -196,7 +199,8 @@
 
 	<select id="getApplyDetails" parameterType="int" resultType="map">
 		SELECT t.id,t.serial_num,t.`status`,g.model_number,b.name as
-		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.id as channelId,c.`name` as channelName,c.need_preliminary_verify as needPreliminaryVerify,l.`id` as appId,l.`status` as applieStatus,e.types
+		brandName,a.name as factorName,m.title,m.phone,e.order_number,date_format(e.created_at,'%Y-%c-%d %h:%i:%s') as createdAt,c.id as channelId,c.`name` as channelName,c.need_preliminary_verify as needPreliminaryVerify,l.`id` as appId,l.`status` as applieStatus,e.types,
+		IFNULL(l.`status`,'') as openstatus
 		FROM terminals t 
 		LEFT JOIN order_goods o on o.order_id = t.order_id and o.good_id = t.good_id
 		LEFT JOIN goods g on o.good_id=g.id

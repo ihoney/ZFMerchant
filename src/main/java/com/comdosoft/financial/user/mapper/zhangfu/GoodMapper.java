@@ -15,6 +15,8 @@ public interface GoodMapper {
     List<Map<String, Object>> getPayChannelListByGoodId(PosReq posreq);
 
     List<String> getgoodPics(int id);
+    
+    List<String> getgoodPics_s(int id);
 
     Map<String, Object> getGoodById(int goodId);
     

@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +38,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Terminal;
 import com.comdosoft.financial.user.service.CommentService;
 import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
+import com.comdosoft.financial.user.utils.CommonServiceUtil;
 import com.comdosoft.financial.user.utils.HttpFile;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -75,6 +78,11 @@ public class TerminalsController {
 	@Value("${sysFileTerminal}")
 	private String sysFileTerminal;
 	
+	@Value("${syncStatus}")
+	private String syncStatus;
+	
+	@Value("${timingPath}")
+	private String timingPath;
 	 
 
 	/**
@@ -190,8 +198,9 @@ public class TerminalsController {
 				terminalsService.findPassword((Integer)map.get("terminalid"));
 			String pass = "该终端为设置密码！";
 			if(password != null){
-				pass = SysUtils.Decrypt(
-						password,passPath);
+				/*pass = SysUtils.Decrypt(
+						password,passPath);*/
+				pass = password;
 			}
 			return Response.getSuccess(pass);
 		} catch (Exception e) {
@@ -216,12 +225,17 @@ public class TerminalsController {
 	 * 同步
 	 */
 	@RequestMapping(value = "synchronous", method = RequestMethod.POST)
-	public Response Synchronous() {
+	@ResponseBody
+	public String Synchronous(@RequestBody Map<String, Object> map) {
+		String url = timingPath + syncStatus;
+		String response = null;
 		try {
-			return Response.getSuccess("同步成功！");
-		} catch (Exception e) {
-			return Response.getError("同步失败！");
+			response = CommonServiceUtil.synchronizeStatus(url, (Integer)map.get("terminalId"));
+		} catch (IOException e) {
+			logger.error("IOException...");
+			return "{\"code\":-1,\"message\":\"同步失败\",\"result\":null}";
 		}
+		return response;
 	}
 
 	/**
@@ -333,7 +347,9 @@ public class TerminalsController {
 	@RequestMapping(value = "subLeaseReturn", method = RequestMethod.POST)
 	public Response subLeaseReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+			if(maps.get("modelStatus") == null){
+				maps.put("csCencelId", null);
+			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 				CsCancel csCancel =new CsCancel();
 				csCancel.setTerminalId((Integer)maps.get("terminalId"));
 				csCancel.setStatus((Integer)maps.get("status"));
@@ -343,8 +359,6 @@ public class TerminalsController {
 				//先注销
 				terminalsService.subRentalReturn(csCancel);
 				maps.put("csCencelId", csCancel.getId());
-			}else{
-				maps.put("csCencelId", null);
 			}
 			//退还
 			terminalsService.subLeaseReturn(maps);
@@ -403,7 +417,9 @@ public class TerminalsController {
 	@RequestMapping(value = "subReturn", method = RequestMethod.POST)
 	public Response subReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+			if(maps.get("modelStatus") == null){
+				maps.put("csCencelId", null);
+			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 			CsCancel csCancel =new CsCancel();
 			csCancel.setTerminalId((Integer)maps.get("terminalsId"));
 			csCancel.setStatus((Integer)maps.get("status"));
@@ -413,8 +429,6 @@ public class TerminalsController {
 			//先注销
 			terminalsService.subRentalReturn(csCancel);
 			maps.put("csCencelId", csCancel.getId());
-			}else{
-				maps.put("csCencelId", null);
 			}
 			terminalsService.subReturn(maps);
 			return Response.getSuccess("操作成功！");
@@ -537,7 +551,9 @@ public class TerminalsController {
 	@RequestMapping(value = "subChange", method = RequestMethod.POST)
 	public Response subChange(@RequestBody Map<Object, Object> maps) {
 		try {
-			if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
+			if(maps.get("modelStatus") == null){
+				maps.put("csCencelId", null);
+			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
 				CsCancel csCancel =new CsCancel();
 				csCancel.setTerminalId((Integer)maps.get("terminalsId"));
 				csCancel.setStatus((Integer)maps.get("status"));
@@ -547,10 +563,7 @@ public class TerminalsController {
 				//先注销
 				terminalsService.subRentalReturn(csCancel);
 				maps.put("csCencelId", csCancel.getId());
-			}else{
-				maps.put("csCencelId", null);
 			}
-			
 			CsReceiverAddress csReceiverAddress =new CsReceiverAddress();
 			//先添加换货地址表
 			maps.put("templeteInfoXml", maps.get("templeteInfoXml").toString());
@@ -800,11 +813,7 @@ public class TerminalsController {
 			for(Map<Object, Object> mp:listMap){
 				for(Map<Object, Object> mp1:list){
 					if(mp.get("id").equals(mp1.get("target_id")) && mp.get("opening_requirements_id").equals(mp1.get("opening_requirement_id"))){
-				        	 if((Integer)mp1.get("types") == 2){
-				        		 mp.put("value",filePath+mp1.get("value").toString());
-				        	 }else{
 				        		 mp.put("value", mp1.get("value"));
-				        	 }
 					}
 				}
 			}
@@ -938,6 +947,7 @@ public class TerminalsController {
     public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
         	String joinpath = HttpFile.upload(updatefile, sysFileTerminal+id+"/update/");
+        	System.out.println("差可能路径："+joinpath);
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);

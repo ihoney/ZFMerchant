@@ -89,8 +89,8 @@ public class CustomerAPI {
     
     
     @RequestMapping(value = "cust_update", method = RequestMethod.POST)
-    public Response cust_update(@RequestBody Customer c) {
-        logger.debug("更新用户信息:"+c);
+    public Response cust_update(@RequestBody Customer req) {
+        logger.debug("更新用户信息:"+req);
        /* Boolean t = c.getAccountType();
         if(t.equals(c.TYPE_PHONE)){//手机注册
             String p = c.getPhone();
@@ -105,7 +105,7 @@ public class CustomerAPI {
                 return Response.getError("已存在此邮箱，无法更新");
             }
         }*/
-        customerService.cust_update(c);
+        customerService.cust_update(req);
         return Response.buildSuccess("", "更新成功");
     }
 
@@ -265,7 +265,7 @@ public class CustomerAPI {
         try {
         	int i = customerService.countAddress(param);
         	if(i>9){
-        		sysResponse = Response.buildSuccess("", "最多可以创建10个收货地址");
+        		sysResponse = Response.getError( "最多可以创建10个收货地址");
         		return sysResponse;
         	}
             customerService.insertAddress(param);

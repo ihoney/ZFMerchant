@@ -46,7 +46,9 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 	}
 	
 	//单选按钮地址
+	$scope.addreyn = false;
   	$scope.diAddre = function (num) {
+  		$scope.addreyn = true;
   		$scope.num = num;
   		}
   	
@@ -111,13 +113,25 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	
   //提交
 	$scope.subDetail = function () {
-		for(var i = 0; i<$scope.addressList.length;i++){
-			if($scope.addressList[i].id ==$scope.num){
-				$scope.address = $scope.addressList[i].address;
-				$scope.phonee = $scope.addressList[i].phone;
-				$scope.zipCodee = $scope.addressList[i].zipCode;
-				$scope.receiver = $scope.addressList[i].receiver;
-				$scope.returnAddressId = $scope.addressList[i].id;
+		if($scope.addreyn == false){
+			for(var i = 0; i<$scope.addressList.length;i++){
+				if($scope.addressList[i].isDefault ==1){
+					$scope.address = $scope.addressList[i].address;
+					$scope.phonee = $scope.addressList[i].phone;
+					$scope.zipCodee = $scope.addressList[i].zipCode;
+					$scope.receiver = $scope.addressList[i].receiver;
+					$scope.returnAddressId = $scope.addressList[i].id;
+				}
+			}
+		}else if($scope.addreyn == true){
+			for(var i = 0; i<$scope.addressList.length;i++){
+				if($scope.addressList[i].id ==$scope.num){
+					$scope.address = $scope.addressList[i].address;
+					$scope.phonee = $scope.addressList[i].phone;
+					$scope.zipCodee = $scope.addressList[i].zipCode;
+					$scope.receiver = $scope.addressList[i].receiver;
+					$scope.returnAddressId = $scope.addressList[i].id;
+				}
 			}
 		}
 		$scope.array = [];
@@ -163,13 +177,19 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 //改变上传按钮
 function setSpanName(obj){
 	//改变下载模板初始状态
-	$("#modelStatus").val(1);
-	$(obj).parent("a").children("span").html("重新上传")
+	
 	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempExchangFile/"+$("#terid").val());
-	$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
+	
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
-			$(obj).siblings("input").val(data.result);
+			if(data.code == -1){
+				alert(data.message);
+			}else if(data.code == 1){
+				$("#modelStatus").val(1);
+				$(obj).parent("a").children("span").html("重新上传")
+				$(obj).siblings("span").parent("a").siblings("i").attr("class","on");
+				$(obj).siblings("input").val(data.result);
+			}
 		}
 	});
 }

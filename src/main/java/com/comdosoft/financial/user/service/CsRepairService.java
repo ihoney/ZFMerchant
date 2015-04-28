@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.zhangfu.CsRepairPayment;
@@ -30,6 +31,8 @@ public class CsRepairService {
     @Resource
     private CsRepairPaymentMapper repairPaymentMapper;
 
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(CsRepairService.class);
+    
     public Page<List<Object>> findAll(MyOrderReq myOrderReq) throws ParseException {
         PageRequest request = new PageRequest(myOrderReq.getPage(), myOrderReq.getRows());
         List<Map<String, Object>> o = repairMapper.findAll(myOrderReq);
@@ -151,9 +154,12 @@ public class CsRepairService {
 
     public Map<String, Object> repairPayFinish(MyOrderReq myOrderReq) {
         Map<String, Object> paymap = repairMapper.repairPayFinish(myOrderReq);
+        Map<String,Object> map = new HashMap<String,Object>();
+        if(null == paymap){
+        	return paymap;
+        }
         String pay_id = paymap.get("id")==null?"":paymap.get("id")+"";
         Map<String, Object> o = repairMapper.findById(myOrderReq);
-        Map<String,Object> map = new HashMap<String,Object>();
         if(pay_id.equals("")){
             map.put("pay_status", false);
         }else{
@@ -167,13 +173,25 @@ public class CsRepairService {
     }
 
 	public Integer repairSuccess(String ordernumber) {
-		Map<String,Object> repairMap = repairMapper.findRepairById(Integer.parseInt(ordernumber));
+		Map<String,Object> repairMap = repairMapper.findRepairByNumber(Integer.parseInt(ordernumber));
+		if(null == repairMap){
+			return 0;
+		}
 		String id = repairMap.get("id")+"";
+		int c = repairMapper.countRepair(Integer.parseInt(id));
+		if(c>0){
+			logger.debug("维修单号: " +id+"已经存在一条付款记录了。。");
+			return 0;
+		}
 		String price = repairMap.get("repair_price")+"";
 		CsRepairPayment crp = new CsRepairPayment();
 		crp.setRepairPrice(Integer.parseInt(price));
 		crp.setCsRepairId(Integer.parseInt(id));
 		int i = repairPaymentMapper.insertPayment(crp);
+		MyOrderReq mr = new MyOrderReq();
+		mr.setId(Integer.parseInt(id));
+		mr.setRepairStatus(RepairStatus.PAID);
+		repairMapper.updateRepair(mr);
 		return i;
 	}
 }

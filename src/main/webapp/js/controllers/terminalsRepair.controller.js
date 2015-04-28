@@ -45,7 +45,9 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   		}
   	
   	 //单选按钮地址
+  	$scope.addressyn = false;
   	$scope.diAddre = function (num) {
+  		$scope.addressyn = true;
   		$scope.num = num;
   		}
   	
@@ -87,13 +89,25 @@ var terminalRepairController = function ($scope, $http,$location, LoginService) 
   	
   //提交
 	$scope.subDetail = function () {
-		for(var i = 0; i<$scope.addressList.length;i++){
-			if($scope.addressList[i].id ==$scope.num){
-				$scope.address = $scope.addressList[i].address;
-				$scope.phone = $scope.addressList[i].phone;
-				$scope.zipCode = $scope.addressList[i].zipCode;
-				$scope.receiver = $scope.addressList[i].receiver;
-				$scope.returnAddressId = $scope.addressList[i].id;
+		if($scope.addressyn == false){
+			for(var i = 0; i<$scope.addressList.length;i++){
+				if($scope.addressList[i].isDefault ==1){
+					$scope.address = $scope.addressList[i].address;
+					$scope.phone = $scope.addressList[i].phone;
+					$scope.zipCode = $scope.addressList[i].zipCode;
+					$scope.receiver = $scope.addressList[i].receiver;
+					$scope.returnAddressId = $scope.addressList[i].id;
+				}
+			}
+		}else if($scope.addressyn == true){
+			for(var i = 0; i<$scope.addressList.length;i++){
+				if($scope.addressList[i].id ==$scope.num){
+					$scope.address = $scope.addressList[i].address;
+					$scope.phone = $scope.addressList[i].phone;
+					$scope.zipCode = $scope.addressList[i].zipCode;
+					$scope.receiver = $scope.addressList[i].receiver;
+					$scope.returnAddressId = $scope.addressList[i].id;
+				}
 			}
 		}
 		$scope.message = {
