@@ -95,7 +95,7 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
    	};
    	
  // 跳转到XX页
-   	$scope.picnb=2;
+   	$scope.picnb=0;
    	$scope.tt = function(nb) {
    		$scope.picnb=nb;
    	};
