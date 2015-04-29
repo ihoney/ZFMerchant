@@ -19,6 +19,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     	}
     };
     $scope.$on('$locationChangeStart', function (scope, next, current) { 
+    	$(".foot").show();
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
 			$scope.ngshow=true;
