@@ -265,7 +265,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
         	  if(data.code == 1){
         		  $scope.result=data.result;
-        		  $scope.bankObj.bankName = $scope.openingInfos.account_bank_code;
+        		  if($scope.openingInfos != null){
+        			  $scope.bankObj.bankName = $scope.openingInfos.account_bank_code;
+        		  }
         	  }
           }
       }).error(function (data) {
@@ -477,9 +479,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 function infoTab(i_tab,i_box){ 
 	$(i_tab).hover(
 		function(e){
-			var val = $(this).attr("imgPath");
-			console.info(val);
-			if(val != undefined && val != ""){
 		       /* $(i_box).children("img").attr("src", $(this).attr("data-src"));*/
 		        $(i_box).children("img").attr("src", $(this).siblings("a").children("input[name='hidden']").val());
 				$(i_box).css('display','block');
@@ -489,7 +488,6 @@ function infoTab(i_tab,i_box){
 				}else {
 					$(i_box).css('left',($(this).offset().left)+$(this).width()+'px');
 				}
-			}
 		},
 		function(e){
 			$(i_box).children("img").attr("src", "");
