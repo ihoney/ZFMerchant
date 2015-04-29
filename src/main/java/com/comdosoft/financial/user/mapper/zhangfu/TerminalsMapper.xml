@@ -287,7 +287,7 @@
 		FROM terminals
 		WHERE id=#{id}
 	</select>
-	<select id="getTerminalByNo" parameterType="java.lang.String" resultType="map">
-		select serial_num,pay_channel_id from terminals where serial_num = #{serialNum}
+	<select id="getTerminalById" parameterType="java.lang.Integer" resultType="map">
+		select serial_num,pay_channel_id from terminals where id = #{terminalId}
 	</select>
 </mapper>
