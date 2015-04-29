@@ -19,6 +19,7 @@
 	border-bottom: none; 
 	border-top: none;
 	line-height: 40px;
+	
 }
 .address .addr_h i { 
 	width: 7px; 
@@ -373,7 +374,7 @@
 }
 
 /*------服务内容-------*/
-.serviceContent { overflow: hidden; position: relative; min-height: 220px; padding: 30px 0;}
+.serviceContent {  position: relative;  padding: 100px 0;}
 .serviceContent dl { width: 180px; float: left; margin-right: 20px;}
 .serviceContent dl a { color: #999;}
 .serviceContent dt { font-size: 24px;}
@@ -407,8 +408,7 @@
 .serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}
 .ewm { 
 	width: 230px; 
-	height: 230px; 
-	overflow: hidden; 
+	height: 230px;  
 	position: absolute;
 	top: 30px;
 	right: 0px;
