@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,9 +78,16 @@ public class OpeningApplyService {
 	 * @return
 	 */
 	public Map<String, Object> getOppinfo(Integer terminalsId) {
+		SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd" );
 		OpeningApplie openingApplie =new OpeningApplie();
 		openingApplie.setTerminalId(terminalsId);
-		return openingApplyMapper.getOppinfo(openingApplie);
+		
+		Map<String, Object> map = openingApplyMapper.getOppinfo(openingApplie);
+		 if(map!=null){
+			 if(map.get("birthdays")!=null)
+			 map.put("birthday", sdf.format(map.get("birthday")));
+		 }
+		return map;
 	}
 	
 	/**
