@@ -302,7 +302,7 @@ public class TerminalsService {
 	 * @param id
 	 * @return
 	 */
-	public Map<String, String> getApplyDetails(Integer id){
+	public Map<Object, Object> getApplyDetails(Integer id){
 		return terminalsMapper.getApplyDetails(id);
 	}
 	
