@@ -127,3 +127,24 @@ var mainindexController = function($scope, $http) {
 
 
 mainindexModule.controller("mainindexController", mainindexController);
+
+indexModule.directive('onFinishRender3Filters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                	$('.banner').unslider({
+    					speed : 500,
+    					delay : 3000,
+    					complete : function() {
+    					},
+    					keys : true,
+    					dots : true,
+    					fluid : false
+    				});
+                });
+            }
+        }
+    };
+});
