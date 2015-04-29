@@ -21,7 +21,7 @@ input { border: none;}
 
 
 /*顶部信息*/
-.head { padding: 20px 0; border-bottom: 2px #ff5f2b solid; background: rgba(255,255,255,0.8);}
+.head { padding: 20px 0; border-bottom: 2px #ff5f2b solid; background: rgba(255,255,255,0.7);}
 .logo { 
 	width: 316px; 
 	height: 50px; 
@@ -37,8 +37,7 @@ input { border: none;}
 	margin: 15px 0 0 60px;
 }
 .search_box {
-	width: 440px; 
-	background: #ff5f2b; 
+	width: 440px;
 	border: 3px #ff5f2b solid; 
 	line-height: 30px;
 	overflow: hidden;
@@ -47,18 +46,20 @@ input { border: none;}
 	width: 343px; 
 	height: 30px;
 	padding: 0 5px; 
-	background: #FFF; 
+	background: rgba(255,255,255,0.7); 
 	display: inline-block;
 	color: #999;
+	float: left;
 }
 .search_box button { 
 	background: #ff5f2b; 
 	color: #FFF; 
-	width:80px; 
+	width:87px; 
 	height: 30px; 
 	text-align: center; 
 	font-size: 14px; 
 	display: inline-block;
+	float: left;
 }
 .search .hotwords { padding: 5px 0;}
 .search .hotwords a { color: #999; margin: 0 5px;}

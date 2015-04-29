@@ -593,7 +593,7 @@ public class TerminalsController {
 		try {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			// 获得终端详情
-			Map<String, String> mp = new HashMap<String, String>();
+			Map<Object, Object> mp = new HashMap<Object, Object>();
 			mp = terminalsService.getApplyDetails(maps.get("terminalsId"));
 			map.put("applyDetails",mp);
 			// 数据回显(重新开通申请)
@@ -609,7 +609,7 @@ public class TerminalsController {
 			List<Map<Object, Object>> list = terminalsService.getChannels();
 			List<Map<Object, Object>> li = new ArrayList<Map<Object,Object>>();
 			 for(Map<Object, Object> m:list){
-				 if(m.get("id") == mp.get("channelId")){
+				 if(m.get("id").equals(mp.get("channelId"))){
 					 li.add(m);
 				 }
 			 }

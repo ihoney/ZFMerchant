@@ -208,7 +208,7 @@ public interface TerminalsMapper {
      * @param id
      * @return
      */
-    Map<String, String> getApplyDetails(Integer id);
+    Map<Object, Object> getApplyDetails(Integer id);
     
     /**
      * 获得租赁信息
