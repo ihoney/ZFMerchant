@@ -40,7 +40,6 @@ import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.CommonServiceUtil;
 import com.comdosoft.financial.user.utils.HttpFile;
-import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
 
@@ -652,17 +651,20 @@ public class TerminalsController {
 		String keyword = (String)map.get("keyword");
 		Integer page = (Integer)map.get("page");
 		Integer pageSize = (Integer)map.get("pageSize");
-		String serialNum = (String)map.get("serialNum");
-		Map<Object,Object> resultMap = terminalsService.getTerminalByNo(serialNum);
+		String terminalId = (String)map.get("terminalId");
+		Map<Object,Object> resultMap = terminalsService.getTerminalById(Integer.valueOf(terminalId));
 		String response = null;
+		String error = "{\"code\":-1,\"message\":\"没有获取到银行信息\",\"result\":{\"content\":null,\"total\":0,\"pageSize\":0,\"currentPage\":0,\"totalPage\":0}}";
 		try {
 			response = CommonServiceUtil.getBankList(url, keyword.trim(), page, pageSize, (Integer)resultMap.get("pay_channel_id"), 
 					(String)resultMap.get("serial_num"));
 		} catch (IOException e) {
 			logger.error("从第三方接口获得银行异常！",e);
-			return "{\"code\":-1,\"message\":\"银行列表获取失败\",\"result\":{\"content\":null,\"total\":0,\"pageSize\":0,\"currentPage\":0,\"totalPage\":0}}";
+			return error;
 		}
-		
+		if(response==null||"".equals(response.trim())){
+			return error;
+		}
 		return response;
 	}
 	

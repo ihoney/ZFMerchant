@@ -13,6 +13,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
 	//英文数字校验
 	var numCh = /[^a-zA-Z0-9]/g;
+	//数字校验
+	var numReg = /^\d+$/;
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.openstatus=$location.search()['status'];
 	$scope.customerId = LoginService.userid;
@@ -202,7 +204,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   //$scope.bankName ="";
   $scope.bankObj={bankName:"",bankCode:0,code:0};
   $scope.bank = function(obj){
-	  $scope.bankjson = {keyword:$scope.bankObj.bankName,page:1,pageSize:10,serialNum:$scope.applyDetails.serial_num};
+	  $scope.bankjson = {keyword:$scope.bankObj.bankName,page:1,pageSize:10,terminalId:$scope.terminalId};
 	  $http.post("api/terminal/ChooseBank", $scope.bankjson).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == 1){
@@ -319,7 +321,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		                     billingId:$scope.billingId,
 		                     bankNum:$("#bankNumValue").val(),
 		                     bankName:$("#bankNameValue").val(),
-		                     bankCode:$scope.bankObj.code,
+		                     bankCode:$scope.bankObj.bankName.toString(),
 		                     organizationNo:$("#organizationNoValue").val(),
 		                     registeredNo:$("#registeredNoValue").val(),
 		                     needPreliminaryVerify:Math.ceil($scope.applyDetails.needPreliminaryVerify)
@@ -418,8 +420,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }*/else if($("#bankNameValue").val() == null || $("#bankNameValue").val() == ""){
 		  alert("请填写结算银行名称！");
 		  return false;
-	  }else if($("#bankCodeValue").val() == null || $("#bankCodeValue").val() == ""){
+	  }else if($scope.bankObj.bankName == null || $scope.bankObj.bankName == ""){
 		  alert("请填写结算银行代码！");
+		  return false;
+	  }else if(!numReg.test($scope.bankObj.bankName)){
+		  alert("结算银行代码由数字组成！");
 		  return false;
 	  }else if($("#organizationNoValue").val() == null || $("#organizationNoValue").val() == ""){
 		  alert("请填写组织登记号！");
