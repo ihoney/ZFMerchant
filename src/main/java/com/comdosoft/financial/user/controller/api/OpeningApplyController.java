@@ -1,7 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,7 +137,7 @@ public class OpeningApplyController {
 	/**
 	 * 从第三方接口获得银行
 	 */
-	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
+	/*@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
 	public Response ChooseBank(@RequestBody Map<String, Object> map) {
 		try {
 			List<Map<String, String>> list = new ArrayList<Map<String,String>>();
@@ -154,7 +153,7 @@ public class OpeningApplyController {
 		} catch (Exception e) {
 			return Response.getError("请求失败！");
 		}
-	}
+	}*/
 	
 	/**
 	 * 对公对私材料名称(1 对公， 2对私)
