@@ -40,7 +40,6 @@ import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.CommonServiceUtil;
 import com.comdosoft.financial.user.utils.HttpFile;
-import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
 
