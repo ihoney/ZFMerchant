@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ import com.comdosoft.financial.user.mapper.zhangfu.MerchantMapper;
  */
 @Service
 public class MerchantService {
-
+	public static final Logger logger = LoggerFactory.getLogger(MerchantService.class);
     @Resource
     private MerchantMapper merchantMapper;
 
@@ -69,40 +71,41 @@ public class MerchantService {
      */
     private Merchant noFilePathMerchant(Merchant merchant) {
     	String accountPicPath = merchant.getAccountPicPath();
-    	if(accountPicPath.startsWith(filePath)){
+    	if(null != accountPicPath && accountPicPath.startsWith(filePath)){
 			accountPicPath = accountPicPath.replaceFirst(filePath, "");
+			merchant.setAccountPicPath(accountPicPath);
     	}
       	String bodyPhotoPath = merchant.getBodyPhotoPath();
-      	if(bodyPhotoPath.startsWith(filePath)){
+      	if(null != bodyPhotoPath && bodyPhotoPath.startsWith(filePath)){
       		bodyPhotoPath = bodyPhotoPath.replaceFirst(filePath, "");
+      		merchant.setBodyPhotoPath(bodyPhotoPath);
     	}
       	String cardIdBackPhotoPath = merchant.getCardIdBackPhotoPath();
-      	if(cardIdBackPhotoPath.startsWith(filePath)){
+      	if(null != cardIdBackPhotoPath && cardIdBackPhotoPath.startsWith(filePath)){
       		cardIdBackPhotoPath = cardIdBackPhotoPath.replaceFirst(filePath, "");
+      		merchant.setCardIdBackPhotoPath(cardIdBackPhotoPath);
     	}
       	String cardIdFrontPhotoPath = merchant.getCardIdFrontPhotoPath();
-      	if(cardIdFrontPhotoPath.startsWith(filePath)){
+      	if(null != cardIdFrontPhotoPath &&cardIdFrontPhotoPath.startsWith(filePath)){
       		cardIdFrontPhotoPath = cardIdFrontPhotoPath.replaceFirst(filePath, "");
+          	merchant.setCardIdFrontPhotoPath(cardIdFrontPhotoPath);
     	}
       	String licenseNoPicPath = merchant.getLicenseNoPicPath();
-      	if(licenseNoPicPath.startsWith(filePath)){
+      	if(null != licenseNoPicPath  && licenseNoPicPath.startsWith(filePath)){
       		licenseNoPicPath = licenseNoPicPath.replaceFirst(filePath, "");
+      	  	merchant.setLicenseNoPicPath(licenseNoPicPath);
     	}
       	String orgCodeNoPicPath = merchant.getOrgCodeNoPicPath();
-      	if(orgCodeNoPicPath.startsWith(filePath)){
+      	if(null != orgCodeNoPicPath  && orgCodeNoPicPath.startsWith(filePath)){
       		orgCodeNoPicPath = orgCodeNoPicPath.replaceFirst(filePath, "");
+          	merchant.setOrgCodeNoPicPath( orgCodeNoPicPath);
+
     	}
       	String taxNoPicPath = merchant.getTaxNoPicPath();
-      	if(taxNoPicPath.startsWith(filePath)){
+      	if(null != taxNoPicPath && taxNoPicPath.startsWith(filePath)){
       		taxNoPicPath = taxNoPicPath.replaceFirst(filePath, "");
+          	merchant.setTaxNoPicPath(taxNoPicPath);
     	}
-      	merchant.setAccountPicPath(accountPicPath);
-      	merchant.setBodyPhotoPath(bodyPhotoPath);
-      	merchant.setCardIdBackPhotoPath(cardIdBackPhotoPath);
-      	merchant.setCardIdFrontPhotoPath(cardIdFrontPhotoPath);
-      	merchant.setLicenseNoPicPath(licenseNoPicPath);
-      	merchant.setOrgCodeNoPicPath( orgCodeNoPicPath);
-      	merchant.setTaxNoPicPath(taxNoPicPath);
 		return merchant;
 	}
 
@@ -115,40 +118,40 @@ public class MerchantService {
      */
 	private Merchant hasFilePathMerchant(Merchant merchant) {
 		String accountPicPath = merchant.getAccountPicPath();
-    	if(accountPicPath.startsWith(filePath)){
+    	if(null != accountPicPath &&  accountPicPath.startsWith(filePath)){
 			accountPicPath = accountPicPath.replaceFirst(filePath, "");
+			merchant.setAccountPicPath(filePath+accountPicPath);
     	}
       	String bodyPhotoPath = merchant.getBodyPhotoPath();
-      	if(bodyPhotoPath.startsWith(filePath)){
+      	if(null != bodyPhotoPath && bodyPhotoPath.startsWith(filePath)){
       		bodyPhotoPath = bodyPhotoPath.replaceFirst(filePath, "");
+      		merchant.setBodyPhotoPath(filePath+bodyPhotoPath);
     	}
       	String cardIdBackPhotoPath = merchant.getCardIdBackPhotoPath();
-      	if(cardIdBackPhotoPath.startsWith(filePath)){
+      	if(null != cardIdBackPhotoPath && cardIdBackPhotoPath.startsWith(filePath)){
       		cardIdBackPhotoPath = cardIdBackPhotoPath.replaceFirst(filePath, "");
+      	 	merchant.setCardIdBackPhotoPath(filePath+cardIdBackPhotoPath);
     	}
       	String cardIdFrontPhotoPath = merchant.getCardIdFrontPhotoPath();
-      	if(cardIdFrontPhotoPath.startsWith(filePath)){
+      	if(null != cardIdFrontPhotoPath && cardIdFrontPhotoPath.startsWith(filePath)){
       		cardIdFrontPhotoPath = cardIdFrontPhotoPath.replaceFirst(filePath, "");
+      		merchant.setCardIdFrontPhotoPath(filePath + cardIdFrontPhotoPath);
     	}
       	String licenseNoPicPath = merchant.getLicenseNoPicPath();
-      	if(licenseNoPicPath.startsWith(filePath)){
+      	if(null != licenseNoPicPath && licenseNoPicPath.startsWith(filePath)){
       		licenseNoPicPath = licenseNoPicPath.replaceFirst(filePath, "");
+        	merchant.setLicenseNoPicPath(filePath+licenseNoPicPath);
     	}
       	String orgCodeNoPicPath = merchant.getOrgCodeNoPicPath();
-      	if(orgCodeNoPicPath.startsWith(filePath)){
+      	if(null != orgCodeNoPicPath && orgCodeNoPicPath.startsWith(filePath)){
       		orgCodeNoPicPath = orgCodeNoPicPath.replaceFirst(filePath, "");
+        	merchant.setOrgCodeNoPicPath(filePath + orgCodeNoPicPath);
     	}
       	String taxNoPicPath = merchant.getTaxNoPicPath();
-      	if(taxNoPicPath.startsWith(filePath)){
+      	if(null != taxNoPicPath && taxNoPicPath.startsWith(filePath)){
       		taxNoPicPath = taxNoPicPath.replaceFirst(filePath, "");
+        	merchant.setTaxNoPicPath(filePath + taxNoPicPath);
     	}
-    	merchant.setAccountPicPath(filePath+accountPicPath);
-    	merchant.setBodyPhotoPath(filePath+bodyPhotoPath);
-    	merchant.setCardIdBackPhotoPath(filePath+cardIdBackPhotoPath);
-    	merchant.setCardIdFrontPhotoPath(filePath + cardIdFrontPhotoPath);
-    	merchant.setLicenseNoPicPath(filePath+licenseNoPicPath);
-    	merchant.setOrgCodeNoPicPath(filePath + orgCodeNoPicPath);
-    	merchant.setTaxNoPicPath(filePath + taxNoPicPath);
 		return merchant;
 	}
 
@@ -183,6 +186,7 @@ public class MerchantService {
      */
 	public Boolean findMerchantByName(String name) {
 		List<Map<String,Object>> m = merchantMapper.findMerchantByName(name);
+		logger.debug(name+">>>>>查看商户是否存在>>>>>>>>>>"+m+">>>>>>>>>>>>>>");
 		if(m.size()<1){
 			return false;//不存在
 		}else{
