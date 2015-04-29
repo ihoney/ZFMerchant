@@ -43,10 +43,8 @@ var loginService = function ($http, $rootScope, $cookieStore) {
       			        	   }
       			        	   $cookieStore.put("loginUserName",data.result.username);
       			        	   $cookieStore.put("loginUserId",data.result.id);
-      			        	   //刷新
-      			        	   $scope.message = data.message; //登陆成功，跳转页面
-      			        	   window.location.href = '#/';
-      			        	location.reload();
+      			        	   location.reload();
+      			        	   
       			           }
       			        }).error(function (data) {
       			        	$scope.message = "登陆异常！"

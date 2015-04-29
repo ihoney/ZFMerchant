@@ -18,7 +18,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
             });
     	}
     };
-    $scope.$on('$locationChangeStart', function (scope, next, current) {                          		
+    $scope.$on('$locationChangeStart', function (scope, next, current) { 
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
 			$scope.ngshow=true;
@@ -29,6 +29,11 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 			strs=next.split("/#/"); //字符分割
 			if(strs.length==2){
 				strs=strs[1].split("?")
+				if(strs[0]=='login'){
+		    		if(LoginService.userid>0){
+		    			window.location.href = '#/';
+		    		}
+		    	}
 				if(check(strs[0])){
 					$scope.ngshow=false;
 					$scope.ngshow2=true;
@@ -142,6 +147,7 @@ var searchController = function($scope, LoginService) {
 
 
 var loginController=function($scope, $location, $http, LoginService){
+	
 	//隐藏中间搜索
 	$scope.$emit('changesearchview',false);
 	$scope.RememberPass = false;
