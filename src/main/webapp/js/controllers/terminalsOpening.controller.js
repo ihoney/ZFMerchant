@@ -13,6 +13,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
 	//英文数字校验
 	var numCh = /[^a-zA-Z0-9]/g;
+	//数字校验
+	var numReg = /^\d+$/;
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.openstatus=$location.search()['status'];
 	$scope.customerId = LoginService.userid;
@@ -199,12 +201,20 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	
 	
 //动态加载银行
-  $scope.bankName ="";
+  //$scope.bankName ="";
+  $scope.bankObj={bankName:"",bankCode:0,code:0};
   $scope.bank = function(obj){
-	  $http.post("api/terminal/ChooseBank", null).success(function (data) {  //绑定
+	  $scope.bankjson = {keyword:$scope.bankObj.bankName,page:1,pageSize:10,terminalId:$scope.terminalId};
+	  $http.post("api/terminal/ChooseBank", $scope.bankjson).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == 1){
-        		  $scope.bankCode = data.result;
+        		  $scope.bankObj.bankCode = data.result.content;
+        		  $("#suggestDiv").parent().addClass("overflow");
+        		  if(data.result.total!=0){ 
+        			  $("#suggestDiv").show(); 
+        		  }else{
+        			  $("#suggestDiv").hide();
+        		  }
         	  }else{
         		  alert("获取银行失败！");
         	  }
@@ -212,7 +222,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
       }).error(function (data){
     	  alert("银行加载失败！");
       });
-	  $("#div_"+obj).show();
+	  //$("#div_"+obj).show();
   }
 //动态显示银行代码号
   $scope.bankNum = function(obj,number,backName){
@@ -220,6 +230,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  $("#"+obj).siblings("input").val(number)
 	  $("#"+obj).parent("div").hide();
 	  $("#"+obj).parent("div").siblings("div").children("input[type='text']").val(backName)
+  }
+  $scope.selectBank = function(code,name){
+	  $scope.bankObj.bankName = code;
+	  $scope.bankObj.code = code;
+	  $("#suggestDiv").hide();
   }
   
 //对私按钮
@@ -250,6 +265,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
         	  if(data.code == 1){
         		  $scope.result=data.result;
+        		  $scope.bankObj.bankName = $scope.openingInfos.account_bank_code;
         	  }
           }
       }).error(function (data) {
@@ -305,7 +321,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		                     billingId:$scope.billingId,
 		                     bankNum:$("#bankNumValue").val(),
 		                     bankName:$("#bankNameValue").val(),
-		                     bankCode:$("#bankCodeValue").val(),
+		                     bankCode:$scope.bankObj.bankName.toString(),
 		                     organizationNo:$("#organizationNoValue").val(),
 		                     registeredNo:$("#registeredNoValue").val(),
 		                     needPreliminaryVerify:Math.ceil($scope.applyDetails.needPreliminaryVerify)
@@ -404,8 +420,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }*/else if($("#bankNameValue").val() == null || $("#bankNameValue").val() == ""){
 		  alert("请填写结算银行名称！");
 		  return false;
-	  }else if($("#bankCodeValue").val() == null || $("#bankCodeValue").val() == ""){
+	  }else if($scope.bankObj.bankName == null || $scope.bankObj.bankName == ""){
 		  alert("请填写结算银行代码！");
+		  return false;
+	  }else if(!numReg.test($scope.bankObj.bankName)){
+		  alert("结算银行代码由数字组成！");
 		  return false;
 	  }else if($("#organizationNoValue").val() == null || $("#organizationNoValue").val() == ""){
 		  alert("请填写组织登记号！");

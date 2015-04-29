@@ -40,7 +40,6 @@ import com.comdosoft.financial.user.service.OpeningApplyService;
 import com.comdosoft.financial.user.service.TerminalsService;
 import com.comdosoft.financial.user.utils.CommonServiceUtil;
 import com.comdosoft.financial.user.utils.HttpFile;
-import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.page.PageRequest;
 
 
@@ -83,6 +82,9 @@ public class TerminalsController {
 	
 	@Value("${timingPath}")
 	private String timingPath;
+	
+	@Value("${bankList}")
+	private String bankList;
 	 
 
 	/**
@@ -644,21 +646,26 @@ public class TerminalsController {
 	 * 从第三方接口获得银行
 	 */
 	@RequestMapping(value = "ChooseBank", method = RequestMethod.POST)
-	public Response ChooseBank() {
+	public String ChooseBank(@RequestBody Map<String, Object> map) {
+		String url = timingPath + bankList;
+		String keyword = (String)map.get("keyword");
+		Integer page = (Integer)map.get("page");
+		Integer pageSize = (Integer)map.get("pageSize");
+		String terminalId = (String)map.get("terminalId");
+		Map<Object,Object> resultMap = terminalsService.getTerminalById(Integer.valueOf(terminalId));
+		String response = null;
+		String error = "{\"code\":-1,\"message\":\"没有获取到银行信息\",\"result\":{\"content\":null,\"total\":0,\"pageSize\":0,\"currentPage\":0,\"totalPage\":0}}";
 		try {
-			List<Map<String, String>> list = new ArrayList<Map<String,String>>();
-			Map<String, String> map1 = new HashMap<String, String>();
-			map1.put("name", "中国农业银行");
-			map1.put("code", "111111");
-			Map<String, String> map2 = new HashMap<String, String>();
-			map2.put("name", "中国工商银行");
-			map2.put("code", "222222");
-			list.add(map1);
-			list.add(map2);
-			return Response.getSuccess(list);
-		} catch (Exception e) {
-			return Response.getError("请求失败！");
+			response = CommonServiceUtil.getBankList(url, keyword.trim(), page, pageSize, (Integer)resultMap.get("pay_channel_id"), 
+					(String)resultMap.get("serial_num"));
+		} catch (IOException e) {
+			logger.error("从第三方接口获得银行异常！",e);
+			return error;
 		}
+		if(response==null||"".equals(response.trim())){
+			return error;
+		}
+		return response;
 	}
 	
 	/**

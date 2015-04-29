@@ -163,7 +163,7 @@ public class CustomerAPI {
                     sysResponse = Response.getError("请输入密码");
                     return sysResponse;
                 }
-                if ((pwd).equals(passwordInDB)) {// 判断原密码
+                if ((pwd).equalsIgnoreCase(passwordInDB)) {// 判断原密码
                     customerService.updatePassword(param);
                     sysResponse = Response.getSuccess();
                 } else {
@@ -286,17 +286,17 @@ public class CustomerAPI {
     @RequestMapping(value = "updateAddress", method = RequestMethod.POST)
     public Response updateAddress(@RequestBody Map<Object, Object> param) {
         Response sysResponse = null;
-        try {
+//        try {
         	  Integer addressId = (Integer) param.get("id");
               if(null == addressId){
               	return Response.buildErrorWithMissing();
               }
             customerService.updateAddress(param);
             sysResponse = Response.getSuccess();
-        } catch (Exception e) {
-            logger.error("修改地址失败", e);
-            sysResponse = Response.getError("修改地址失败:系统异常");
-        }
+//        } catch (Exception e) {
+//            logger.error("修改地址失败", e);
+//            sysResponse = Response.getError("修改地址失败:系统异常");
+//        }
         return sysResponse;
     }
 
