@@ -106,6 +106,7 @@ public class MerchantService {
       		taxNoPicPath = taxNoPicPath.replaceFirst(filePath, "");
           	merchant.setTaxNoPicPath(taxNoPicPath);
     	}
+    
 		return merchant;
 	}
 
@@ -118,40 +119,40 @@ public class MerchantService {
      */
 	private Merchant hasFilePathMerchant(Merchant merchant) {
 		String accountPicPath = merchant.getAccountPicPath();
-    	if(null != accountPicPath &&  accountPicPath.startsWith(filePath)){
+    	if(accountPicPath.startsWith(filePath)){
 			accountPicPath = accountPicPath.replaceFirst(filePath, "");
-			merchant.setAccountPicPath(filePath+accountPicPath);
     	}
       	String bodyPhotoPath = merchant.getBodyPhotoPath();
-      	if(null != bodyPhotoPath && bodyPhotoPath.startsWith(filePath)){
+      	if(bodyPhotoPath.startsWith(filePath)){
       		bodyPhotoPath = bodyPhotoPath.replaceFirst(filePath, "");
-      		merchant.setBodyPhotoPath(filePath+bodyPhotoPath);
     	}
       	String cardIdBackPhotoPath = merchant.getCardIdBackPhotoPath();
-      	if(null != cardIdBackPhotoPath && cardIdBackPhotoPath.startsWith(filePath)){
+      	if(cardIdBackPhotoPath.startsWith(filePath)){
       		cardIdBackPhotoPath = cardIdBackPhotoPath.replaceFirst(filePath, "");
-      	 	merchant.setCardIdBackPhotoPath(filePath+cardIdBackPhotoPath);
     	}
       	String cardIdFrontPhotoPath = merchant.getCardIdFrontPhotoPath();
-      	if(null != cardIdFrontPhotoPath && cardIdFrontPhotoPath.startsWith(filePath)){
+      	if(cardIdFrontPhotoPath.startsWith(filePath)){
       		cardIdFrontPhotoPath = cardIdFrontPhotoPath.replaceFirst(filePath, "");
-      		merchant.setCardIdFrontPhotoPath(filePath + cardIdFrontPhotoPath);
     	}
       	String licenseNoPicPath = merchant.getLicenseNoPicPath();
-      	if(null != licenseNoPicPath && licenseNoPicPath.startsWith(filePath)){
+      	if(licenseNoPicPath.startsWith(filePath)){
       		licenseNoPicPath = licenseNoPicPath.replaceFirst(filePath, "");
-        	merchant.setLicenseNoPicPath(filePath+licenseNoPicPath);
     	}
       	String orgCodeNoPicPath = merchant.getOrgCodeNoPicPath();
-      	if(null != orgCodeNoPicPath && orgCodeNoPicPath.startsWith(filePath)){
+      	if(orgCodeNoPicPath.startsWith(filePath)){
       		orgCodeNoPicPath = orgCodeNoPicPath.replaceFirst(filePath, "");
-        	merchant.setOrgCodeNoPicPath(filePath + orgCodeNoPicPath);
     	}
       	String taxNoPicPath = merchant.getTaxNoPicPath();
-      	if(null != taxNoPicPath && taxNoPicPath.startsWith(filePath)){
+      	if(taxNoPicPath.startsWith(filePath)){
       		taxNoPicPath = taxNoPicPath.replaceFirst(filePath, "");
-        	merchant.setTaxNoPicPath(filePath + taxNoPicPath);
     	}
+    	merchant.setAccountPicPath(filePath+accountPicPath);
+    	merchant.setBodyPhotoPath(filePath+bodyPhotoPath);
+    	merchant.setCardIdBackPhotoPath(filePath+cardIdBackPhotoPath);
+    	merchant.setCardIdFrontPhotoPath(filePath + cardIdFrontPhotoPath);
+    	merchant.setLicenseNoPicPath(filePath+licenseNoPicPath);
+    	merchant.setOrgCodeNoPicPath(filePath + orgCodeNoPicPath);
+    	merchant.setTaxNoPicPath(filePath + taxNoPicPath);
 		return merchant;
 	}
 
