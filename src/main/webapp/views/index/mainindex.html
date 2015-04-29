@@ -30,36 +30,11 @@
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
-				<li ng-show="pic_total>0"
-					ng-style="getBackgroundStyle(pic_list[0].picture_url)"
-					ng-click="gotoo(pic_list[0].website_url)"></li>
-				<li ng-show="pic_total>1"
-					ng-style="getBackgroundStyle(pic_list[1].picture_url)"
-					ng-click="gotoo(pic_list[1].website_url)"></li>
-				<li ng-show="pic_total>2"
-					ng-style="getBackgroundStyle(pic_list[2].picture_url)"
-					ng-click="gotoo(pic_list[2].website_url)"></li>
-				<li ng-show="pic_total>3"
-					ng-style="getBackgroundStyle(pic_list[3].picture_url)"
-					ng-click="gotoo(pic_list[3].website_url)"></li>
-				<li ng-show="pic_total>4"
-					ng-style="getBackgroundStyle(pic_list[4].picture_url)"
-					ng-click="gotoo(pic_list[3].website_url)"></li>
+			<li ng-repeat="one in pic_list" on-finish-render3-filters
+					ng-style="getBackgroundStyle(one.picture_url)"
+					ng-click="gotoo(one.website_url)"></li>
 			</ul>
 		</div>
-		<script>
-			$(function() {
-				$('.banner').unslider({
-					speed : 500,
-					delay : 3000,
-					complete : function() {
-					},
-					keys : true,
-					dots : true,
-					fluid : false
-				});
-			});
-		</script>
 	</div>
 	<div class="main">
 
