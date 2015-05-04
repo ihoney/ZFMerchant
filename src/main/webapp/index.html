@@ -69,7 +69,7 @@
 		<div class="box" ng-controller="headerController">
 			<div class="address">
 				<div class="addr_h">
-					<span id="city_name" ng-bind="city_name" style="color:#FFF"><strong>{{city_name}}</strong></span><i
+					<span id="city_name" ng-bind="city_name" ><strong>{{city_name}}</strong></span><i
 						class="down"></i>
 				</div>
 				<div class="addr_b">
@@ -102,7 +102,7 @@
 	</div>
 
 	<div class="topInfo clear" ng-if="loginshow">
-		<div class="box">
+		<div class="box" ng-controller="headerController">
 			<div class="address">
 				<div class="addr_h">
 					<span id="city_name" ng-bind="city_name" style="font-weight:bold;"><strong>{{city_name}}</strong></span><i
