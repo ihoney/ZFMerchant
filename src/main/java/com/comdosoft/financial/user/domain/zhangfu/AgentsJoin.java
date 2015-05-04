@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class AgentsJoin {
 	private Integer id;
+	private Integer process_user_id;
 	private String agent_type;
 	private String address;
 	private Integer status;
@@ -23,6 +24,14 @@ public class AgentsJoin {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getProcess_user_id() {
+		return process_user_id;
+	}
+
+	public void setProcess_user_id(Integer process_user_id) {
+		this.process_user_id = process_user_id;
 	}
 
 	public String getAgent_type() {
