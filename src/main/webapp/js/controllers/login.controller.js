@@ -272,7 +272,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	}
 	
 	//勾选协议
-	$scope.ridel_xy = false;
+	$scope.ridel_xy = true;
 	//邮箱注册显示状态
 	$scope.successEmailShow = false;
 	
@@ -289,6 +289,30 @@ var registerController=function($scope, $location, $http, LoginService){
 		//获得省级
 		$scope.getShengcit();
 	};
+	
+	//密码样式优化
+	$scope.passx = false;
+	$scope.passy = false;
+	$scope.isnanpass = function(){
+		if($scope.password1.length<6|| $scope.password1.length>20){
+			$scope.inputclass = "input_false";
+			return false;
+			}else{
+				$scope.inputclass = "input_true";
+				$scope.passx = true;
+				return true;
+			}
+	}
+	$scope.isnanpassme = function(){
+		if($scope.password1.length<6|| $scope.password1.length>20 || $scope.password1 != $scope.password2){
+			$scope.inputclassme = "input_false";
+			return false;
+		}else{
+			$scope.inputclassme = "input_true";
+			$scope.passy = true;
+			return true;
+		}
+	}
 	
 	// 跳转手机注册
 	$scope.register = function() {
@@ -374,12 +398,15 @@ var registerController=function($scope, $location, $http, LoginService){
 		}else if($scope.codeNumber == undefined){
 			alert("请输入验证码！");
 		}else if(getCookie("send_phone_code") == $scope.codeNumber){
-			if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
-				alert("密码不能为空！");
-			}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
-				alert("密码由6-20位，英文字符组成！");
-			}  
-			else if($scope.password1 == $scope.password2){
+			if($scope.password1==''||$scope.password1==null){
+				$scope.inputclass = "input_false";
+			}else if($scope.password2==''||$scope.password2==null){
+				$scope.inputclassme = "input_false";
+			}else if($scope.isnanpass() == false){
+				$scope.inputclass = "input_false";
+			}else if($scope.isnanpassme() == false){
+				$scope.inputclassme = "input_false";
+			}else{
 				$http.post("api/user/sizeUpImgCode", {
 				imgnum : $scope.codeBei
 			}).success(function(data) {
@@ -391,8 +418,6 @@ var registerController=function($scope, $location, $http, LoginService){
 					alert(data.message);
 				}
 			})
-		}else{
-			alert("密码不一致！");
 		}
 		}else{
 			alert("验证码错误!");
