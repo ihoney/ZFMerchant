@@ -39,7 +39,7 @@ public interface CustomerMapper {
 
     Map<Object, Object> getOneAddress(int id);
 
-    void insertAddress(Map<Object, Object> param);
+    int insertAddress(Map<Object, Object> param);
 
     void updateAddress(Map<Object, Object> param);
 

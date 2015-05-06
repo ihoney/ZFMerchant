@@ -268,8 +268,9 @@ public class CustomerAPI {
         		sysResponse = Response.getError( "最多可以创建10个收货地址");
         		return sysResponse;
         	}
-            customerService.insertAddress(param);
-            sysResponse = Response.buildSuccess("", "保存成功");
+            int j = customerService.insertAddress(param);
+            sysResponse = Response.buildSuccess(j, "保存成功");
+            logger.debug("insertAddress>>>> id "+ j);
         } catch (Exception e) {
             logger.error("新增地址失败", e);
             sysResponse = Response.getError("新增地址失败:系统异常");
