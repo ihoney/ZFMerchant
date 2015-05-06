@@ -85,6 +85,7 @@ button { cursor: pointer; border: none;}
 .btn button:hover { background: #fc6d38;}
 
 .win { margin: 20px auto; font-size: 14px;}
+.win a { background: #fc5f25; color: #FFF; padding: 5px 10px; display: inline-block;}
 .winSkip { margin: 20px auto; font-size: 14px;}
 .winSkip span { background: #fc5f25; color: #FFF; padding: 2px 5px;}
 

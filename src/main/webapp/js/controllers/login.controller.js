@@ -136,6 +136,19 @@ var headerController = function($scope, $location, $http, LoginService,$cookieSt
 		$scope.city_name = $scope.selected_city.name;
 	};
 	
+	//跳转代理商登陆页面
+	$scope.gotoagentlogin = function(){
+		$http.post("api/user/goToAgentLogin").success(function(data){
+			if(data.code == 1){
+				window.location.href = data.result;
+			}
+			if(data.code == -1){
+				alert("链接失败！");
+			}
+		})
+	}
+	
+	
 	$scope.city_list();
 };
 
@@ -403,6 +416,7 @@ var registerController=function($scope, $location, $http, LoginService){
 				$scope.codeNumber = "";
 				$scope.code = "";
 				$scope.codeBei = "";
+				alert("注册成功！");
 				window.location.href = '#/login';
 			} else if (data.code == -1) {
 				alert(data.message);

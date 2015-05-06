@@ -175,8 +175,10 @@
 				<div class="btn" id="butEmail" ng-show="!successEmailShow">
 					<button ng-click="getImgEmailCode()">注册</button>
 				</div>
-				<div ng-show="successEmailShow" id="clodeText" class="win">已向你的邮箱
-					{{emailname}} 发送了激活邮件，请登录邮箱激活账号！</div>
+				<div ng-show="successEmailShow" id="clodeText" class="win">
+				感谢您对华尔街金融的关注，华尔街金融已向您的邮箱{{emailname}}发送了账号激活邮件，请登录邮箱激活账号。
+				<a href="http://mail.qq.com" target="_Blank">前往我的邮箱激活帐号！</a>
+				</div>
 			</div>
 			<div class="res_b" ng-show="!sendEmailShow">
 				<div class="winSkip">

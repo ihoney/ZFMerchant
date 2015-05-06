@@ -234,13 +234,14 @@ public class MailService {
      */
     private static String getEmailContent(MailReq req) {
         StringBuffer sb = new StringBuffer();
-        sb.append(req.getUserName() + ",<br>");
+        /*sb.append("尊敬的"+req.getUserName()+"先生/女士：<br>");*/
         sb.append("感谢您注册 ebank007.com! <br>");
         sb.append("请点击以下链接激活你的账户并设置您的账号密码：<br>");
-        sb.append("The download link for Android is: this link<br>");
+       /* sb.append("The download link for Android is: this link<br>");*/
         sb.append(req.getUrl() + "<br>");
-        sb.append("请勿回复此邮件，如果有疑问，请联系我们：<br>");
-        sb.append("support@ebank007.com<b>");
+        sb.append("此邮件为系统自动发出，请勿回复此邮件，如果您有疑问，请联系我们：<br>");
+        sb.append("邮箱：support@ebank007.com<br>");
+        sb.append("服务热线：400-009-0876<br>");
         return sb.toString();
     }
     
