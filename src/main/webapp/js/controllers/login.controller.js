@@ -291,15 +291,12 @@ var registerController=function($scope, $location, $http, LoginService){
 	};
 	
 	//密码样式优化
-	$scope.passx = false;
-	$scope.passy = false;
 	$scope.isnanpass = function(){
 		if($scope.password1.length<6|| $scope.password1.length>20){
 			$scope.inputclass = "input_false";
 			return false;
 			}else{
 				$scope.inputclass = "input_true";
-				$scope.passx = true;
 				return true;
 			}
 	}
@@ -309,7 +306,6 @@ var registerController=function($scope, $location, $http, LoginService){
 			return false;
 		}else{
 			$scope.inputclassme = "input_true";
-			$scope.passy = true;
 			return true;
 		}
 	}
@@ -448,19 +444,40 @@ var registerController=function($scope, $location, $http, LoginService){
 			}
 		})
 	};
+	//邮箱注册优化
+	$scope.emailpassa = function(){
+		if($scope.password1.length < 6 || $scope.password1.length > 20){
+			$scope.inputemaila = "input_false";
+			return false;
+		}else{
+			$scope.inputemaila = "input_true";
+			return true;
+		}
+	}
+	$scope.emailpassb = function(){
+		if($scope.password2.length < 6 || $scope.password2.length > 20 || $scope.password1 != $scope.password2){
+			$scope.inputemailb = "input_false";
+			return false;
+		}else{
+			$scope.inputemailb = "input_true";
+			return true;
+		}
+	}
 	// 校验图片验证码
 	$scope.getImgEmailCode = function() {
 		if ($scope.selected == undefined || $scope.emailShiList == undefined) {
 			alert("请选择城市！");
 		} else if (!myreg.test($scope.emailname)) {
 			alert("请输入合法邮箱！");
-		} else if ($scope.password1 == '' || $scope.password1 == null
-				|| $scope.password2 == '' || $scope.password2 == null) {
-			alert("密码不能为空！");
-		} else if ($scope.password1.length < 6 || $scope.password1.length > 20
-				|| $scope.password2.length < 6 || $scope.password2.length > 20) {
-			alert("密码由6-20位，英文字符组成！");
-		} else if ($scope.password1 == $scope.password2) {
+		} else if ($scope.password1 == '' || $scope.password1 == null) {
+			$scope.inputemaila = "input_false";
+		} else if ($scope.password2 == '' || $scope.password2 == null) {
+			$scope.inputemailb = "input_false";
+		} else if ($scope.emailpassa() == false) {
+			$scope.inputemaila = "input_false";
+		}  else if ($scope.emailpassb() == false) {
+			$scope.inputemailb = "input_false";
+		} else{
 			$http.post("api/user/sizeUpImgCode", {
 				imgnum : $scope.codeBei
 			}).success(function(data) {
@@ -480,8 +497,6 @@ var registerController=function($scope, $location, $http, LoginService){
 					alert(data.message);
 				}
 			})
-		} else {
-			alert("密码不一致！");
 		}
 	};
 	
