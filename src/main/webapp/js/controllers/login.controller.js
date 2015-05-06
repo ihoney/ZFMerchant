@@ -460,12 +460,6 @@ var registerController=function($scope, $location, $http, LoginService){
 		}
 	};
 	
-	//跳转自己邮箱
-	$scope.gotoemail = function(email){
-		//window.location.href="mail.qq.com";
-		window.open("http://mail.qq.com");
-	}
-	
 	// 邮箱注册用户
 	$scope.addUserEmail = function() {
 		$http.post("api/user/userWebRegistration", {
