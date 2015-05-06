@@ -32,9 +32,13 @@ var repair_payController = function($scope, $http,$location) {
 			window.open("repairalipayapi.jsp?WIDtotal_fee="+
 					$scope.order.repair_price/100+"&WIDsubject="+$scope.order.miaoshu
 					+"&WIDout_trade_no="+$scope.order.apply_num);  
+		}else if(2==$scope.payway){
+			window.open("unionpay.jsp?WIDtotal_fee="+
+					$scope.order.total_price/100+"&WIDsubject="+$scope.order.title
+					+"&WIDout_trade_no="+$scope.order.order_number);  
 		}else{
 			//alert("银行");
-			window.open("http://www.taobao.com");  
+			alert("暂不支持，请联系系统管理员。");
 		}
 	}
 	$scope.finish= function(){
