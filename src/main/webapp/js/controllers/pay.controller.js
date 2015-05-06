@@ -29,6 +29,19 @@ var payController = function($scope, $http,$location,LoginService) {
         });
 	};
 	$scope.pay= function(){
+		$http.post("api/order/payOrder", $scope.req).success(function (data) {  //绑定
+            if (data.code==1) {
+            	$scope.order=data.result;
+            	if(data.result.paytype>0){
+            		alert("当前订单已支付成功，请不要重复支付");
+            		$scope.pay=false;
+            		$scope.payway=data.result.paytype;
+            		$('#payTab').hide();
+            		$('.mask').hide();
+            		return;
+            	}
+            }
+        });
 		$('#payTab').show();
 		if(1==$scope.payway){
 			//alert("支付宝");
@@ -46,9 +59,13 @@ var payController = function($scope, $http,$location,LoginService) {
 			window.open("alipayapi.jsp?WIDtotal_fee="+
 					$scope.order.total_price/100+"&WIDsubject="+$scope.order.title
 					+"&WIDout_trade_no="+$scope.order.order_number);  
+		}else if(2==$scope.payway){
+			window.open("unionpay.jsp?WIDtotal_fee="+
+					$scope.order.total_price/100+"&WIDsubject="+$scope.order.title
+					+"&WIDout_trade_no="+$scope.order.order_number);  
 		}else{
 			//alert("银行");
-			window.open("http://www.taobao.com");  
+			alert("暂不支持，请联系系统管理员。");
 		}
 	}
 	$scope.finish= function(){
