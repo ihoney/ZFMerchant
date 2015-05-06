@@ -26,6 +26,18 @@ var repair_payController = function($scope, $http,$location) {
         });
 	};
 	$scope.pay= function(){
+		$http.post("api/cs/repair/repairPayFinish", $scope.req).success(function (data) {  //绑定
+            if (data.code==1) {
+            	if(data.result.paytype>0){
+            		alert("当前订单已支付成功，请不要重复支付");
+            		$scope.pay=false;
+            		$scope.payway=data.result.paytype;
+            		$('#payTab').hide();
+            		$('.mask').hide();
+            		return;
+            	}
+            }
+        });
 		$('#payTab').show();
 		if(1==$scope.payway){
 			//alert("支付宝");
