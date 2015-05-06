@@ -57,7 +57,7 @@ var terminalToUpdateController = function ($scope, $http,$location, LoginService
 				templeteInfoXml :JSON.stringify($scope.array),
 				};
 		if( $scope.subtruefalse == true){
-			alert("请选择上传更新资料！");
+			alert("请先上传资料！");
 		}else{
 			$http.post("api/terminal/getApplyToUpdate", $scope.message).success(function (data) {  //绑定
 			      if (data != null && data != undefined) {
