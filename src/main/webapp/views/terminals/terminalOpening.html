@@ -5,8 +5,8 @@
  <div class="right" ng-controller="terminalOpenController">
             	<div class="breadcrumb">
                     <ul>
-                        <li><a href="#">我的终端</a></li>
-                        <li><a href="#">开通申请</a></li>
+                        <li><a href="#/terminal">我的终端</a></li>
+                        <li><a>开通申请</a></li>
                     </ul>
                 </div>
                 <div class="content clear">
@@ -24,9 +24,16 @@
                         </div> 
                     </div>
                     <div class="attributes_box">
-                    	<div class="ab_h">
+                    	<div class="ab_h" ng-if="applyDetails.supportRequirementType == 1">
+                    		<a href="javascript:void(0)" class="toPublic hover" ng-click="changGongStatus('1')">对公</a>
+                    	</div>
+                    	<div class="ab_h" ng-if="applyDetails.supportRequirementType == 2">
+                    		<a href="javascript:void(0)" class="toPublic hover" ng-click="changgSiStatus('2')">对私</a>
+                    	</div>
+                    	<div class="ab_h" ng-if="applyDetails.supportRequirementType == 3">
                     		<a href="javascript:void(0)" class="{{gongClass}}" ng-click="changGongStatus('1')">对公</a>
-                    		<a href="javascript:void(0)" class="{{siClass}}" ng-click="changgSiStatus('2')">对私</a></div>
+                    		<a href="javascript:void(0)" class="{{siClass}}" ng-click="changgSiStatus('2')">对私</a>
+                    	</div>
                         <div class="ab_b">
                         	<dl>
                             	<dt>已有商户：</dt>
@@ -122,10 +129,10 @@
 				                        </ul>
                     				</div>
                                 </li>
-                                <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
+                                <li ng-if="$index == 0 && status==1"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
                                 	<div class="text"><input name="" type="text" id="organizationNoValue" value="{{merchant.organization_code_no}}" /></div>
                                 </li>
-                                <li ng-if="$index == 0"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
+                                <li ng-if="$index == 0 && status==1"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
                                 	<div class="text"><input name="" type="text" id="registeredNoValue" value="{{merchant.tax_registered_no}}" /></div>
                                 </li>
                                 <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3 && r.opening_requirements_id == ma.id">

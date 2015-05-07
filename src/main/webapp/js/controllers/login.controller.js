@@ -147,7 +147,16 @@ var headerController = function($scope, $location, $http, LoginService,$cookieSt
 			}
 		})
 	}
-	
+	$scope.gotoagentlogin1 = function(){
+		$http.post("api/user/goToAgentLogin1").success(function(data){
+			if(data.code == 1){
+				window.location.href = data.result;
+			}
+			if(data.code == -1){
+				alert("链接失败！");
+			}
+		})
+	}
 	
 	$scope.city_list();
 };
@@ -318,6 +327,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.password2 = null;
 		$scope.codeBei = null;
 		$scope.show = true;
+		$scope.reGetRandCodeImg();
 		//发送邮件倒计时
 		window.clearInterval(window.one);
 		//发送手机验证码倒计时
@@ -340,6 +350,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		$scope.reGetRandCodeImg();
 		//发送邮件倒计时
 		window.clearInterval(window.one);
 		//发送手机验证码倒计时
@@ -365,11 +376,13 @@ var registerController=function($scope, $location, $http, LoginService){
 					$scope.code = data.result;
 					setCookie("send_phone_code",$scope.code); 
 					$scope.intDiff = 120;
+					$("#time_show").attr("style","background-color:#AAAAAA");
 					window.two = window.setInterval(function(){
 				    	if($scope.intDiff == 0){
 				    		$('#time_show').html("获取验证码！");
 				    		$scope.registreTime = true;
 				    		window.clearInterval(window.two);
+				    		$("#time_show").attr("style","background-color:#ff5f2b");
 				    	}else{
 				    		$('#time_show').html("重新发送（"+$scope.intDiff+"秒）");
 				    	    $scope.intDiff--;
@@ -409,9 +422,12 @@ var registerController=function($scope, $location, $http, LoginService){
 				if (data.code == 1) {
 					if($scope.ridel_xy != true){//勾选协议
 						$scope.addUser();
+					}else{
+						alert("请勾选《华尔街金融平台用户使用协议》");
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
+					$scope.reGetRandCodeImg();
 				}
 			})
 		}
@@ -492,9 +508,12 @@ var registerController=function($scope, $location, $http, LoginService){
 								alert(data.message);
 							}
 						})
+					}else{
+						alert("请勾选《华尔街金融平台用户使用协议》");
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
+					$scope.reGetRandCodeImg();
 				}
 			})
 		}

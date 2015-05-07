@@ -47,6 +47,9 @@ public class UserLoginController {
     @Value("${goToAgentPath}")
     private String goToAgentPath;
     
+    @Value("${goToAgentPath1}")
+    private String goToAgentPath1;
+    
     @Resource
     private MailService MailService;
     
@@ -501,4 +504,13 @@ public class UserLoginController {
     	}
     }
     
+    @RequestMapping(value="goToAgentLogin1",method = RequestMethod.POST)
+    public Response goToAgentLogin1(){
+    	try{
+    		return Response.getSuccess(goToAgentPath1);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return Response.getError("请求失败！");
+    	}
+    }
 }

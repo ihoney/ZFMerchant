@@ -2,7 +2,7 @@
 $.fn.Huploadify = function(opts){
 	var itemTemp = '<div id="${fileID}" class="uploadify-queue-item"  style="display:none"><div class="uploadify-progress"><div class="uploadify-progress-bar" ></div><input type="hidden" id="${fileID}_path" value="" /></div><input type="hidden" class="up_filename" value="${fileName} "><span class="uploadbtn">上传</span><span class="delfilebtn">删除</span></div>';
 	var defaults = {
-		fileTypeExts:'*.jpg;*.png;*.gif;*.bmp;*.jpeg',//允许上传的文件类型，格式'*.jpg;*.doc'
+		fileTypeExts:'*.jpg;*.png;*.gif;*.bmp;*.jpeg;*.JPG;*.PNG;*.GIF;*.BMP;*.JPEG',//允许上传的文件类型，格式'*.jpg;*.doc'
 		uploader:'api/index/upload',//文件提交的地址
 		auto:true,//是否开启自动上传
 		method:'post',//发送请求的方式，get或post
