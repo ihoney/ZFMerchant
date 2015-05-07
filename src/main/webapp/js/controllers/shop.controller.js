@@ -60,7 +60,8 @@ var shopController = function ($scope, $http, LoginService) {
         });
     }
     $scope.search=function () {
-	    $scope.req.indexPage=1
+	    $scope.req.indexPage=1;
+	    LoginService.keys=$scope.req.keys;
 	    $scope.list();
     };
     $scope.list = function () {
