@@ -45,7 +45,7 @@ public class GoodService {
                 map.put("pay_channe", payChannelList.get(0).get("name"));
                 openprice=SysUtils.String2int(payChannelList.get(0).get("opening_cost").toString()); 
             }
-            map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
+           // map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
             // 图片
             List<String> goodPics = goodMapper.getgoodPics(id);
             //List<String> goodPics = goodMapper.getgoodPics_s(id);
