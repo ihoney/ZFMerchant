@@ -318,6 +318,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.password2 = null;
 		$scope.codeBei = null;
 		$scope.show = true;
+		$scope.reGetRandCodeImg();
 		//发送邮件倒计时
 		window.clearInterval(window.one);
 		//发送手机验证码倒计时
@@ -340,6 +341,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		$scope.reGetRandCodeImg();
 		//发送邮件倒计时
 		window.clearInterval(window.one);
 		//发送手机验证码倒计时
@@ -414,6 +416,7 @@ var registerController=function($scope, $location, $http, LoginService){
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
+					$scope.reGetRandCodeImg();
 				}
 			})
 		}
@@ -499,6 +502,7 @@ var registerController=function($scope, $location, $http, LoginService){
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
+					$scope.reGetRandCodeImg();
 				}
 			})
 		}
