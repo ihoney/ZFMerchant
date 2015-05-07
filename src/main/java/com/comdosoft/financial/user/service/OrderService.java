@@ -223,6 +223,9 @@ public class OrderService {
 
     public void payFinish(OrderReq orderreq) {
         Map<String, Object> map = orderMapper.getOrderByMumber(orderreq);
+        if(null == map){
+        	return;
+        }
         try {
             int id = SysUtils.String2int(map.get("id").toString());
             int total_price = SysUtils.String2int(map.get("total_price").toString());
@@ -231,6 +234,8 @@ public class OrderService {
             orderMapper.payFinish(orderreq);
             orderMapper.upOrder(orderreq);
         } catch (Exception e) {
+        	e.printStackTrace();
+        	logger.debug("完成订单处理异常",e);
         }
     }
 

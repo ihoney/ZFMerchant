@@ -114,7 +114,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 };
 
 var headerController = function($scope, $location, $http, LoginService,$cookieStore) {
-	$scope.loginUserName=LoginService.loginUserName;
+	$scope.loginUserName=LoginService.subusername;
 	$scope.city_name = $cookieStore.get("city_name")==null?"上海市":$cookieStore.get("city_name");
 	 
 	$scope.index=function() {
@@ -204,6 +204,17 @@ var loginController=function($scope, $location, $http, LoginService){
 	$scope.reGetRandCodeImg = function() {
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
+	
+	//删除错误提示消息
+	$scope.deleteerror = function(){
+		$scope.unameClass=false;
+		$scope.nameMessage = null;
+	}
+	$scope.deleteerrord = function(){
+		$scope.unameClass=false;
+		$scope.passClass= false;
+		$scope.nameMessage = null;
+	}
 	
 	//跳转代理商登陆页面
 	$scope.gotoagentlogin = function(){
