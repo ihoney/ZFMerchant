@@ -77,7 +77,7 @@ var payController = function($scope, $http,$location,LoginService) {
             		$('#payTab').hide();
             		$('.mask').hide();
             	}else{
-            		alert("尚未支付,如有疑问请联系888-88888");
+            		alert("尚未支付,如有疑问请联系400-009-0876");
             	}
             	
             }

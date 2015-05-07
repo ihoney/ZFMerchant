@@ -10,7 +10,7 @@
 			<list>
 
 				<!-- <value>classpath:config/production.properties</value> -->
-				<value>classpath:config/test.properties</value>
+				<value>classpath:config/pcuser.properties</value>
 <!-- 				<value>classpath:config/pcuser.properties</value> -->
 				<!-- <value>classpath:config/pcuser.properties</value> -->
 				<!-- <value>classpath:config/demo.properties</value> -->
