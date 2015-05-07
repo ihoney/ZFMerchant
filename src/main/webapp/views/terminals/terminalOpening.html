@@ -24,9 +24,16 @@
                         </div> 
                     </div>
                     <div class="attributes_box">
-                    	<div class="ab_h">
+                    	<div class="ab_h" ng-if="applyDetails.supportRequirementType == 1">
+                    		<a href="javascript:void(0)" class="toPublic hover" ng-click="changGongStatus('1')">对公</a>
+                    	</div>
+                    	<div class="ab_h" ng-if="applyDetails.supportRequirementType == 2">
+                    		<a href="javascript:void(0)" class="toPublic hover" ng-click="changgSiStatus('2')">对私</a>
+                    	</div>
+                    	<div class="ab_h" ng-if="applyDetails.supportRequirementType == 3">
                     		<a href="javascript:void(0)" class="{{gongClass}}" ng-click="changGongStatus('1')">对公</a>
-                    		<a href="javascript:void(0)" class="{{siClass}}" ng-click="changgSiStatus('2')">对私</a></div>
+                    		<a href="javascript:void(0)" class="{{siClass}}" ng-click="changgSiStatus('2')">对私</a>
+                    	</div>
                         <div class="ab_b">
                         	<dl>
                             	<dt>已有商户：</dt>

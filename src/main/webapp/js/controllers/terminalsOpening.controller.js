@@ -46,6 +46,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails != null?data.result.applyDetails:"";
+              if($scope.applyDetails.supportRequirementType != null && $scope.applyDetails.supportRequirementType != 3){
+            	  $scope.status=$scope.applyDetails.supportRequirementType;
+              }
               
               if($scope.applyDetails.appId != null){
             	  if($scope.applyDetails.appId != undefined){
@@ -68,7 +71,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               $scope.channels = data.result.channels;
               if($scope.openingInfos != null && $scope.openingInfos!= undefined){
             	//数据替换
-                  $scope.status = $scope.openingInfos.types;
+            	  if($scope.applyDetails.supportRequirementType != null && $scope.applyDetails.supportRequirementType == 3){
+            		  $scope.status = $scope.openingInfos.types;//对公对私
+	              }
                 //根据对公对私状态显示按钮
                   if($scope.status == 1){
                 	  $scope.siClass = "toPrivate";
