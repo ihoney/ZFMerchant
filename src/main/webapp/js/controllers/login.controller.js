@@ -409,6 +409,8 @@ var registerController=function($scope, $location, $http, LoginService){
 				if (data.code == 1) {
 					if($scope.ridel_xy != true){//勾选协议
 						$scope.addUser();
+					}else{
+						alert("请勾选《华尔街金融平台用户使用协议》");
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
@@ -492,6 +494,8 @@ var registerController=function($scope, $location, $http, LoginService){
 								alert(data.message);
 							}
 						})
+					}else{
+						alert("请勾选《华尔街金融平台用户使用协议》");
 					}
 				} else if (data.code == -1) {
 					alert(data.message);

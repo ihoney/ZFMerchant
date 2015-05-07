@@ -115,7 +115,10 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
-		return terminalsMapper.getCustomerAddress(id);
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("customerId", id);
+		map.put("status", CustomerAddress.STATUS_1);
+		return terminalsMapper.getCustomerAddress(map);
 	}
 	
 	/**
