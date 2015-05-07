@@ -106,8 +106,8 @@ var mainindexController = function($scope, $http) {
 		});
 	};
 	$scope.gotoo = function(url) {
-		window.open(url);
-		// window.location.href = url;
+		//window.open(url);
+		 window.location.href = url;
 	};
 	$scope.init = function() {
 		$scope.web_message_list();
