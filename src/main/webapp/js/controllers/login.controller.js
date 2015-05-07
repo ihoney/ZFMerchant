@@ -327,6 +327,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.password2 = null;
 		$scope.codeBei = null;
 		$scope.show = true;
+		$scope.reGetRandCodeImg();
 		//发送邮件倒计时
 		window.clearInterval(window.one);
 		//发送手机验证码倒计时
@@ -349,6 +350,7 @@ var registerController=function($scope, $location, $http, LoginService){
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		$scope.reGetRandCodeImg();
 		//发送邮件倒计时
 		window.clearInterval(window.one);
 		//发送手机验证码倒计时
@@ -418,9 +420,12 @@ var registerController=function($scope, $location, $http, LoginService){
 				if (data.code == 1) {
 					if($scope.ridel_xy != true){//勾选协议
 						$scope.addUser();
+					}else{
+						alert("请勾选《华尔街金融平台用户使用协议》");
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
+					$scope.reGetRandCodeImg();
 				}
 			})
 		}
@@ -501,9 +506,12 @@ var registerController=function($scope, $location, $http, LoginService){
 								alert(data.message);
 							}
 						})
+					}else{
+						alert("请勾选《华尔街金融平台用户使用协议》");
 					}
 				} else if (data.code == -1) {
 					alert(data.message);
+					$scope.reGetRandCodeImg();
 				}
 			})
 		}
