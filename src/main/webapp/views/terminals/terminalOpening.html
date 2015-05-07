@@ -129,10 +129,10 @@
 				                        </ul>
                     				</div>
                                 </li>
-                                <li ng-if="$index == 0"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
+                                <li ng-if="$index == 0 && status==1"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
                                 	<div class="text"><input name="" type="text" id="organizationNoValue" value="{{merchant.organization_code_no}}" /></div>
                                 </li>
-                                <li ng-if="$index == 0"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
+                                <li ng-if="$index == 0 && status==1"><span class="labelSpan" id="registeredNoKey">税务登记号：</span>
                                 	<div class="text"><input name="" type="text" id="registeredNoValue" value="{{merchant.tax_registered_no}}" /></div>
                                 </li>
                                 <li class="overflow" ng-repeat="r in result" ng-if="r.info_type == 3 && r.opening_requirements_id == ma.id">
