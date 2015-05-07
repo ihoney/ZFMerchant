@@ -114,7 +114,7 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 };
 
 var headerController = function($scope, $location, $http, LoginService,$cookieStore) {
-	$scope.loginUserName=LoginService.loginUserName;
+	$scope.loginUserName=LoginService.subusername;
 	$scope.city_name = $cookieStore.get("city_name")==null?"上海市":$cookieStore.get("city_name");
 	 
 	$scope.index=function() {

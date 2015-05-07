@@ -456,6 +456,16 @@ public class SysUtils {
         String s3=s.substring(s.length()-2,s.length());
         return s2+"****"+s3;
     }  
+    /**
+     *  string转****
+     * @param string
+     * @return
+     */
+    public static String toProSub(String s) {
+    	String s2=s.substring(0,4);
+    	String s3=s.substring(s.length()-3,s.length());
+    	return s2+"****"+s3;
+    }  
     
     /**
      * 验证手机号码
