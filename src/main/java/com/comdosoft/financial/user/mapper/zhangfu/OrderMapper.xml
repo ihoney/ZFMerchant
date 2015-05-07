@@ -62,6 +62,11 @@
 		 <id property="id" column="order_payment_id" />  
             <result property="payType" column="pay_type" /> 
 	</resultMap>
+	<resultMap id="orderLogisticMap" type="com.comdosoft.financial.user.domain.zhangfu.OrderLogistic">
+		 <id property="orderId" column="order_id" />  
+            <result property="logisticsName" column="logistics_name" /> 
+            <result property="logisticsNumber" column="logistics_number" /> 
+	</resultMap>
 	
 	<resultMap id="orderGoodsMap" type="com.comdosoft.financial.user.domain.zhangfu.OrderGood">
 		 <id property="id" column="order_good_id" />
@@ -111,6 +116,7 @@
 		<result property="totalQuantity" column="total_quantity" />
 		<result property="payStatus" column="pay_status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 		<association property="customerAddress" javaType="com.comdosoft.financial.user.domain.zhangfu.CustomerAddress" resultMap="addressMap" />  
+		<association property="orderLogistic" javaType="com.comdosoft.financial.user.domain.zhangfu.OrderLogistic" resultMap="orderLogisticMap" />  
 		<association property="orderPayment" javaType="com.comdosoft.financial.user.domain.zhangfu.OrderPayment" resultMap="orderPaymentMap" />  
 	    <collection property="orderGoodsList" ofType="com.comdosoft.financial.user.domain.zhangfu.OrderGood" resultMap="orderGoodsMap" />  
 	    <collection property="orderMarkList" ofType="com.comdosoft.financial.user.domain.zhangfu.OrderMark" resultMap="orderMarksMap" />  
@@ -294,7 +300,7 @@
 	o.total_price as o_total_price,
 	o.total_quantity as total_num,
 	om.customer_id as om_customer_id,
-	om.order_id as om_order_id,
+	om.order_id as om_order_id,oo.logistics_name,oo.logistics_number,
 	ca.receiver ,ca.address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name
 	FROM
 	orders o
@@ -308,6 +314,7 @@
 	LEFT JOIN order_marks om on o.id = om.order_id
 	LEFT JOIN customers c on om.customer_id = c.id
 	LEFT JOIN order_payments p on o.id= p.order_id
+	left join order_logistics oo on o.id = oo.order_id
 	WHERE
 	o.id = #{param1}
 	</select>
@@ -442,7 +449,7 @@
   </select>
   
   <select id="getPayOrder" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
-        SELECT o.order_number,o.actual_price as total_price,ca.receiver,ca.address,IFNULL(op.pay_type,0) paytype
+        SELECT o.order_number,o.actual_price as total_price,ca.receiver,ca.address,IFNULL(op.pay_type,0) paytype,o.created_at
  		from orders o
 		LEFT JOIN customer_addresses ca on ca.id=o.customer_address_id
 		LEFT JOIN order_payments op on op.order_id=o.id
