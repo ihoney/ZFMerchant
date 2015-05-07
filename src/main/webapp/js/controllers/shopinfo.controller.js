@@ -63,6 +63,9 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             }
         });
 	}
+    $scope.gtoto = function(url) {
+    	window.open(url);
+	}
     $scope.init();
 
     

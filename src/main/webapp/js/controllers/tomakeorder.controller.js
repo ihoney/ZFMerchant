@@ -124,15 +124,20 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 };
 
 var addressController = function($scope, $location, $http, LoginService) {
-	$scope.list = function() {
+	$scope.adid=0;
+	$scope.getadlist = function() {
 		$http.post("api/customers/getAddressList/" + LoginService.userid).success(function(data) {
 			if (data.code == 1) {
 				$scope.addressList = data.result;
-				angular.forEach($scope.addressList, function(one) {
-					if (one.isDefault == 1) {
-						$scope.order.addressId = one.id;
-					}
-				});
+				if($scope.adid!=0){
+					$scope.order.addressId = $scope.adid;
+				}else{
+					angular.forEach($scope.addressList, function(one) {
+						 if (one.isDefault == 1) {
+							$scope.order.addressId = one.id;
+						}
+					});
+				}
 			} else {
 				// 提示错误信息
 				alert(data.message);
@@ -178,6 +183,7 @@ var addressController = function($scope, $location, $http, LoginService) {
 		$http.post("api/customers/insertAddress", $scope.ad).success(function(data) {
 			if (data.code == 1) {
 				$scope.addadd=false;
+				$scope.adid=data.result;
 				$scope.init();
 			} else {
 				alert(data.message);
@@ -197,10 +203,10 @@ var addressController = function($scope, $location, $http, LoginService) {
 		$scope.address = {};
 		$scope.ad = {};
 		$scope.address.isDefault = "2";
-		$scope.list();
+		$scope.getadlist();
 	};
 
-	$scope.city_list = function() {
+	$scope.getcity_list = function() {
 		$http.post("api/index/getCity").success(function(data) {
 			if (data != null && data != undefined) {
 				$scope.city_list = data.result;

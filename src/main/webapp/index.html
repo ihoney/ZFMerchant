@@ -137,8 +137,8 @@
 		<div class="clear"></div>
 	</div>
 
-	<div class="head clear" ng-if="ngshow2">
-		<div class="box" ng-controller="searchController">
+	<div class="head clear"  ng-show="shopcart1">
+		<div class="box" ng-controller="searchController" >
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
@@ -151,10 +151,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="phone">
+			<div class="phone" ng-show="shopcart2">
 				<img src="images/dh.png" />
 			</div>
-			<div class="shoppingCart">
+			<div class="shoppingCart" ng-show="shopcart2">
 				<div class="sCart_h">
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
