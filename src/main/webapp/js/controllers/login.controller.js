@@ -8,6 +8,8 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 	$scope.city_name = $cookieStore.get("city_name")==null?"上海市":$cookieStore.get("city_name");
 	$scope.ngshow=true;
 	$scope.ngshow2=false;
+	$scope.shopcart1=true;
+	$scope.shopcart2=true;
 	$scope.shopcount=0;
 	$scope.shopcartcount=function () {
     	if(LoginService.userid>0){
@@ -20,16 +22,16 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
     };
     $scope.$on('$locationChangeStart', function (scope, next, current) { 
     	$(".foot").show();
+    	var strs= new Array(); //定义一数组
+		strs=next.split("/#/"); //字符分割
 		if(LoginService.userid == 0){
 			$scope.loginshow=false;
 			$scope.ngshow=true;
 			$scope.ngshow2=false;
 		}else{
 			$scope.loginshow=true;
-			var strs= new Array(); //定义一数组
-			strs=next.split("/#/"); //字符分割
 			if(strs.length==2){
-				strs=strs[1].split("?")
+				strs=strs[1].split("?");
 				if(strs[0]=='login'){
 		    		if(LoginService.userid>0){
 		    			window.location.href = '#/';
@@ -47,6 +49,27 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 				$scope.ngshow2=false;
 			}
 		}
+		
+		var strs2= new Array(); //定义一数组
+		strs2=next.split("/#/"); //字符分割
+		if(strs2.length==2){
+			strs2=strs2[1].split("?");
+			if(checkcart1(strs2[0])){
+				$scope.shopcart1=false;
+			}else{
+				$scope.shopcart1=true;
+			}
+			if(checkcart2(strs2[0])){
+				$scope.shopcart2=false;
+			}else{
+				$scope.shopcart2=true;
+			}
+		}else{
+			$scope.shopcart1=true;
+			$scope.shopcart2=true;
+		}
+		
+		
 		//$scope.searchview=true;
     });
 	
@@ -69,7 +92,24 @@ var indexController = function($scope, $location, $http, LoginService,$cookieSto
 		}
 		return false;
 	}
-	
+	var checkcart1=function(str){
+		var arry=["login","shop","register","findpass"];
+		for (var i = 0; i < arry.length; i++) {
+			if(str==arry[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+	var checkcart2=function(str){
+		var arry=["shopcart","cartmakeorder","shopmakeorder","leasemakeorder","lowstocks","pay"];
+		for (var i = 0; i < arry.length; i++) {
+			if(str==arry[i]){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	//退出页面(清除$cookieStore)
 	$scope.escLogin = function(){

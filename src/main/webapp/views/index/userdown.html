@@ -1,32 +1,6 @@
 <link href="style/userDownload.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/unslider.js"></script>
-<div class="clear"></div>
-<div class="head head_index clear">
-	<div class="box" ng-controller="searchController">
-		<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
-		<div class="search">
-			<div class="search_box">
-				<input ng-model="haha" type="text" placeholder="请输入pos机信息" />
-				<button ng-click="searchShop()">搜索</button>
-			</div>
-			<div class="hotwords">
-				<a href="#">钱袋宝</a><a href="#">中汇</a><a href="#">杉德</a><a href="#">掌富</a>
-			</div>
-		</div>
-		<div class="phone">
-			<img src="images/dh.png" />
-		</div>
-		<div class="shoppingCart">
-			<div class="sCart_h">
-				<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
-			</div>
-			<div class="sCart_b" ng-if="shopcount>0">
-				您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去&nbsp付款</a>
-			</div>
-			<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去&nbsp购买</a></div>
-		</div>
-	</div>
-</div>
+
 
 <div class="main">
 	<div class="ad2">
