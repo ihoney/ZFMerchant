@@ -37,7 +37,7 @@ public class StatisticsIntegralTaskService {
 	 * 
 	 * @throws Exception
 	 */
-	public void statisticsIntegral() throws Exception {
+	public synchronized void statisticsIntegral() throws Exception {
 		// 未统计积分的订单。
 		List<Map<String, Object>> orders = statisticsIntegralTaskMapper
 				.findOrderInfo();
@@ -87,7 +87,7 @@ public class StatisticsIntegralTaskService {
 	/**
 	 * 交易流水 积分统计
 	 */
-	public void transactionFlowingService() throws Exception {
+	public synchronized void transactionFlowingService() throws Exception {
 		List<Map<String, Object>> records = tradeRecordStatisticsMapper
 				.findTradeRecords();
 		logger.info("统计积分的订单总条数" + records.size());

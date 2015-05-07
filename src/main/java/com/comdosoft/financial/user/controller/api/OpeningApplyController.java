@@ -235,6 +235,8 @@ public class OpeningApplyController {
 							.get("registeredNo"));
 					openingApplie.setOrganizationCodeNo((String) map
 							.get("organizationNo"));
+					openingApplie.setBankName((String) map
+							.get("bank_name"));
 					Map<String, Object> m = openingApplyService.getApplyDetails(terminalId);
 					if(!(Boolean)m.get("needPreliminaryVerify")){
 						openingApplie.setStatus(OpeningApplie.STATUS_5);

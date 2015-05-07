@@ -35,9 +35,17 @@ public class Order {
 	private List<OrderMark> orderMarkList = new ArrayList<OrderMark>();
 	private OrderPayment orderPayment;
 	private Integer volumeNumber;
+	private OrderLogistic orderLogistic;
 	
-	
-    /**  
+	public OrderLogistic getOrderLogistic() {
+		return orderLogistic;
+	}
+
+	public void setOrderLogistic(OrderLogistic orderLogistic) {
+		this.orderLogistic = orderLogistic;
+	}
+
+	/**  
      * 获取 volumeNumber  
      * @return volumeNumber
      */

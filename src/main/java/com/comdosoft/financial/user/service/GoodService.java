@@ -45,7 +45,7 @@ public class GoodService {
                 map.put("pay_channe", payChannelList.get(0).get("name"));
                 openprice=SysUtils.String2int(payChannelList.get(0).get("opening_cost").toString()); 
             }
-            map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
+           // map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
             // 图片
             List<String> goodPics = goodMapper.getgoodPics(id);
             //List<String> goodPics = goodMapper.getgoodPics_s(id);
@@ -104,6 +104,14 @@ public class GoodService {
                    if (null != goodPics2 && goodPics2.size() > 0) {
                        map.put("url_path", filePath+goodPics2.get(0));
                    }
+                   int openprice=0;
+                   int googid=SysUtils.String2int(map.get("id").toString());
+                   posreq.setGoodId(googid);
+                   List<Map<String, Object>> pclist = goodMapper.getPayChannelListByGoodId(posreq);
+                   if (null != pclist && pclist.size() > 0) {
+                       openprice=SysUtils.String2int(pclist.get(0).get("opening_cost").toString()); 
+                   }
+                   map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
                }
             }
             goodInfoMap.put("relativeShopList",relativeShopList);

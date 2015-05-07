@@ -726,6 +726,8 @@ public class TerminalsController {
 							.get("registeredNo"));
 					openingApplie.setOrganizationCodeNo((String) map
 							.get("organizationNo"));
+					openingApplie.setBankName((String) map
+							.get("bank_name"));
 					if((Integer) map.get("needPreliminaryVerify") == 0){
 						openingApplie.setStatus(OpeningApplie.STATUS_5);
 					}
