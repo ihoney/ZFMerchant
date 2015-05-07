@@ -207,6 +207,8 @@ public class OrderService {
 	        		Map<String,String> queryResult =UnionpayService.query(orderId, txnTime);
 	        		if(null != queryResult && "00".equals(queryResult.get("respCode"))){
 	        			//必须存在订单编号
+	        			orderreq.setOrdernumber(orderId);
+	        			orderreq.setType(_paytype);
 	        			payFinish(orderreq);
 	        			map = orderMapper.getPayOrder(orderreq);
 	        		}
