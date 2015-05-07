@@ -124,6 +124,7 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 };
 
 var addressController = function($scope, $location, $http, LoginService) {
+	$scope.adid=0;
 	$scope.getadlist = function() {
 		$http.post("api/customers/getAddressList/" + LoginService.userid).success(function(data) {
 			if (data.code == 1) {
@@ -202,11 +203,10 @@ var addressController = function($scope, $location, $http, LoginService) {
 		$scope.address = {};
 		$scope.ad = {};
 		$scope.address.isDefault = "2";
-		$scope.adid=0;
 		$scope.getadlist();
 	};
 
-	$scope.city_list = function() {
+	$scope.getcity_list = function() {
 		$http.post("api/index/getCity").success(function(data) {
 			if (data != null && data != undefined) {
 				$scope.city_list = data.result;
