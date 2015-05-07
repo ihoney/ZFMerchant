@@ -389,9 +389,9 @@
 	padding-left: 60px;
 	color: #333;
 }
-.serviceContent dt a:hover { 
+/*.serviceContent dt a:hover { 
 	color: #fc5f25;
-}
+}*/
 .serviceContent dt a.sc01 i { 
 	width: 55px; 
 	height: 55px; 
@@ -405,7 +405,7 @@
 	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
 	-o-transition: background 0.2s; /* Opera */
 }
-.serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}
+/*.serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}*/
 .ewm { 
 	width: 230px; 
 	height: 230px;  
