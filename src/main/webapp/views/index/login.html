@@ -18,9 +18,9 @@
 			<div class="lr_b">
 				<div class="login_area" >
 					<ul>
-						<li><input id="loginUname" ng-mousedown="unameClass=fale" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="请输入你注册时使用的手机号码或邮箱" ng-model="username" />
+						<li><input id="loginUname" ng-mousedown="unameClass=fale" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="使用手机或邮箱登录" ng-model="username" />
 							<p class="red" >{{nameMessage}}</p></li>
-						<li><input name="" ng-mousedown="passClass=false" type="password" placeholder="密码:由6-20位，英文字符组成" ng-class="{true:'error'}[passClass==true]" ng-model="password1" />
+						<li><input name="" ng-mousedown="passClass=false" type="password" placeholder="请输入密码" ng-class="{true:'error'}[passClass==true]" ng-model="password1" />
 						<p class="red" >{{passMessage}}</p></li>
 						<li><input ng-mousedown="imgClass=false" ng-class="{true:'l error',false:'l'}[imgClass==true]" name="" class="l" type="text" placeholder="输入图片校验码" ng-model="code" />
 							<div class="yzm">
