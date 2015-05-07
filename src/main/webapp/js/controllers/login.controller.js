@@ -205,6 +205,17 @@ var loginController=function($scope, $location, $http, LoginService){
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
 	};
 	
+	//删除错误提示消息
+	$scope.deleteerror = function(){
+		$scope.unameClass=false;
+		$scope.nameMessage = null;
+	}
+	$scope.deleteerrord = function(){
+		$scope.unameClass=false;
+		$scope.passClass= false;
+		$scope.nameMessage = null;
+	}
+	
 	//跳转代理商登陆页面
 	$scope.gotoagentlogin = function(){
 		$http.post("api/user/goToAgentLogin").success(function(data){
