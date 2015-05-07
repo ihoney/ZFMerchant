@@ -136,6 +136,19 @@ var headerController = function($scope, $location, $http, LoginService,$cookieSt
 		$scope.city_name = $scope.selected_city.name;
 	};
 	
+	//跳转代理商登陆页面
+	$scope.gotoagentlogin = function(){
+		$http.post("api/user/goToAgentLogin").success(function(data){
+			if(data.code == 1){
+				window.location.href = data.result;
+			}
+			if(data.code == -1){
+				alert("链接失败！");
+			}
+		})
+	}
+	
+	
 	$scope.city_list();
 };
 
@@ -259,7 +272,7 @@ var registerController=function($scope, $location, $http, LoginService){
 	}
 	
 	//勾选协议
-	$scope.ridel_xy = false;
+	$scope.ridel_xy = true;
 	//邮箱注册显示状态
 	$scope.successEmailShow = false;
 	
@@ -276,6 +289,26 @@ var registerController=function($scope, $location, $http, LoginService){
 		//获得省级
 		$scope.getShengcit();
 	};
+	
+	//密码样式优化
+	$scope.isnanpass = function(){
+		if($scope.password1.length<6|| $scope.password1.length>20){
+			$scope.inputclass = "input_false";
+			return false;
+			}else{
+				$scope.inputclass = "input_true";
+				return true;
+			}
+	}
+	$scope.isnanpassme = function(){
+		if($scope.password1.length<6|| $scope.password1.length>20 || $scope.password1 != $scope.password2){
+			$scope.inputclassme = "input_false";
+			return false;
+		}else{
+			$scope.inputclassme = "input_true";
+			return true;
+		}
+	}
 	
 	// 跳转手机注册
 	$scope.register = function() {
@@ -361,12 +394,15 @@ var registerController=function($scope, $location, $http, LoginService){
 		}else if($scope.codeNumber == undefined){
 			alert("请输入验证码！");
 		}else if(getCookie("send_phone_code") == $scope.codeNumber){
-			if($scope.password1==''||$scope.password1==null||$scope.password2==''||$scope.password2==null){
-				alert("密码不能为空！");
-			}else if ($scope.password1.length<6||$scope.password1.length>20||$scope.password2.length<6||$scope.password2.length>20) {
-				alert("密码由6-20位，英文字符组成！");
-			}  
-			else if($scope.password1 == $scope.password2){
+			if($scope.password1==''||$scope.password1==null){
+				$scope.inputclass = "input_false";
+			}else if($scope.password2==''||$scope.password2==null){
+				$scope.inputclassme = "input_false";
+			}else if($scope.isnanpass() == false){
+				$scope.inputclass = "input_false";
+			}else if($scope.isnanpassme() == false){
+				$scope.inputclassme = "input_false";
+			}else{
 				$http.post("api/user/sizeUpImgCode", {
 				imgnum : $scope.codeBei
 			}).success(function(data) {
@@ -378,8 +414,6 @@ var registerController=function($scope, $location, $http, LoginService){
 					alert(data.message);
 				}
 			})
-		}else{
-			alert("密码不一致！");
 		}
 		}else{
 			alert("验证码错误!");
@@ -403,25 +437,47 @@ var registerController=function($scope, $location, $http, LoginService){
 				$scope.codeNumber = "";
 				$scope.code = "";
 				$scope.codeBei = "";
+				alert("注册成功！");
 				window.location.href = '#/login';
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
 		})
 	};
+	//邮箱注册优化
+	$scope.emailpassa = function(){
+		if($scope.password1.length < 6 || $scope.password1.length > 20){
+			$scope.inputemaila = "input_false";
+			return false;
+		}else{
+			$scope.inputemaila = "input_true";
+			return true;
+		}
+	}
+	$scope.emailpassb = function(){
+		if($scope.password2.length < 6 || $scope.password2.length > 20 || $scope.password1 != $scope.password2){
+			$scope.inputemailb = "input_false";
+			return false;
+		}else{
+			$scope.inputemailb = "input_true";
+			return true;
+		}
+	}
 	// 校验图片验证码
 	$scope.getImgEmailCode = function() {
 		if ($scope.selected == undefined || $scope.emailShiList == undefined) {
 			alert("请选择城市！");
 		} else if (!myreg.test($scope.emailname)) {
 			alert("请输入合法邮箱！");
-		} else if ($scope.password1 == '' || $scope.password1 == null
-				|| $scope.password2 == '' || $scope.password2 == null) {
-			alert("密码不能为空！");
-		} else if ($scope.password1.length < 6 || $scope.password1.length > 20
-				|| $scope.password2.length < 6 || $scope.password2.length > 20) {
-			alert("密码由6-20位，英文字符组成！");
-		} else if ($scope.password1 == $scope.password2) {
+		} else if ($scope.password1 == '' || $scope.password1 == null) {
+			$scope.inputemaila = "input_false";
+		} else if ($scope.password2 == '' || $scope.password2 == null) {
+			$scope.inputemailb = "input_false";
+		} else if ($scope.emailpassa() == false) {
+			$scope.inputemaila = "input_false";
+		}  else if ($scope.emailpassb() == false) {
+			$scope.inputemailb = "input_false";
+		} else{
 			$http.post("api/user/sizeUpImgCode", {
 				imgnum : $scope.codeBei
 			}).success(function(data) {
@@ -441,8 +497,6 @@ var registerController=function($scope, $location, $http, LoginService){
 					alert(data.message);
 				}
 			})
-		} else {
-			alert("密码不一致！");
 		}
 	};
 	

@@ -11,6 +11,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	var v3;//邮箱
 	
 	$scope.init = function() {
+		popup("#show_phone_input_my_o", "#show_phone_input_my_btn");// 我的信息
 		$scope.intDiff=0;
 		// 判断是否已登录
 		if (LoginService.userid == 0) {
@@ -214,7 +215,7 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 		    		$('#email_send_btn').html("修改邮箱");
 		    		clearInterval(v3);
 		    	}else{
-		    		$('#email_send_btn').html("等待（"+$scope.intDiff+"秒）");
+		    		$('#email_send_btn').html("等待"+$scope.intDiff+"秒");
 		    	    $scope.intDiff--;
 		    	}
 		    }, 1000);

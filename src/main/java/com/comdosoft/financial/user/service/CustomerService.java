@@ -111,13 +111,14 @@ public class CustomerService {
     }
 
     @Transactional(value = "transactionManager-zhangfu")
-    public void insertAddress(Map<Object, Object> param) {
+    public int insertAddress(Map<Object, Object> param) {
         int isDefault = Integer.parseInt(param.get("isDefault").toString());
         if (isDefault == CustomerAddress.ISDEFAULT_1) {
             param.put("is_default", CustomerAddress.ISDEFAULT_2);
             customerMapper.updateDefaultAddress(param);
         }
-        customerMapper.insertAddress(param);
+        int i = customerMapper.insertAddress(param);
+        return i;
     }
 
     @Transactional(value = "transactionManager-zhangfu")

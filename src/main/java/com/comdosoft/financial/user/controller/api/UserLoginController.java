@@ -328,7 +328,7 @@ public class UserLoginController {
     		 MailReq req = new MailReq();
     		 req.setUserName(map.get("codeNumber"));
     		 req.setAddress(map.get("codeNumber"));
-    		 req.setUrl("<a href='"+sendEmailFindServicsePath+"?sendStatus=-1&sendusername="+map.get("codeNumber")+"'>找回密码！</a>");
+    		 req.setUrl("<a href='"+sendEmailFindServicsePath+"?sendStatus=-1&sendusername="+map.get("codeNumber")+"'>重置密码！</a>");
     		 MailService.sendMailWithFilesAsynchronous(req);
     		 return Response.getSuccess("发送邮件成功！");
     	 }catch(Exception e){

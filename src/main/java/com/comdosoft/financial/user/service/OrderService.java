@@ -310,6 +310,10 @@ public class OrderService {
         map.put("order_totalprice", o.getActualPrice() + "");// 订单总额
         map.put("order_oldprice", o.getTotalPrice() + "");// 订单原价
         map.put("order_psf", "0");// 配送费
+        String lg_name =  o.getOrderLogistic()==null?"":o.getOrderLogistic().getLogisticsName();  //快递公司
+        String lg_number =  o.getOrderLogistic()==null?"": o.getOrderLogistic().getLogisticsNumber();//快递单号
+        map.put("logistics_name", lg_name);
+        map.put("logistics_number", lg_number);
         map.put("order_receiver", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getReceiver());
         map.put("order_address", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getAddress());
         map.put("order_receiver_phone", o.getCustomerAddress() == null ? "" : o.getCustomerAddress().getMoblephone());
