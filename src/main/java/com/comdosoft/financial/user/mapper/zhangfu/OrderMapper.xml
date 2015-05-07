@@ -449,7 +449,7 @@
   </select>
   
   <select id="getPayOrder" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.OrderReq">
-        SELECT o.order_number,o.actual_price as total_price,ca.receiver,ca.address,IFNULL(op.pay_type,0) paytype
+        SELECT o.order_number,o.actual_price as total_price,ca.receiver,ca.address,IFNULL(op.pay_type,0) paytype,o.created_at
  		from orders o
 		LEFT JOIN customer_addresses ca on ca.id=o.customer_address_id
 		LEFT JOIN order_payments op on op.order_id=o.id
