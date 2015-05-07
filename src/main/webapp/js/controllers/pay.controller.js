@@ -68,6 +68,7 @@ var payController = function($scope, $http,$location,LoginService) {
 		}
 	}
 	$scope.finish= function(){
+		$scope.req.payway = $scope.payway;
 		$http.post("api/order/payOrder", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.order=data.result;
