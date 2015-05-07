@@ -16,6 +16,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.openstatus=$location.search()['status'];
+	$scope.gotoopentype=$location.search()['type'];
 	$scope.customerId = LoginService.userid;
 	$scope.img = null;
 	$scope.MaterialLevel = [];
@@ -139,6 +140,11 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   $scope.popup = function(t,b){
 	  $(".mask").show();
 	  $(".leaseExplain_tab").show();
+  }
+  
+//姓名和银行名称对应
+  $scope.toworte = function(){
+	  $("#bankNameValue").val($("#valueName").val());
   }
   
   //动态显示商户
