@@ -33,8 +33,8 @@ public class GoodsController {
         if(null!=req.getBrands_id()&&0!=req.getBrands_id().length){
             req.setBrands_ids(SysUtils.Arry2Str(req.getBrands_id()));
         }
-        if(null!=req.getCategory()&&0!=req.getCategory().length){
-            req.setCategorys(SysUtils.Arry2Str(req.getCategory()));
+        if(0!=req.getCategory()){
+            req.setCategorys(goodService.categorys(req.getCategory()));
         }
         if(null!=req.getPay_channel_id()&&0!=req.getPay_channel_id().length){
             req.setPay_channel_ids(SysUtils.Arry2Str(req.getPay_channel_id()));

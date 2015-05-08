@@ -3,11 +3,18 @@
 //系统设置模块
 var shopModule = angular.module("shopModule",[]);
 
-var shopController = function ($scope, $http, LoginService) {
+var shopController = function ($scope, $http,$location, LoginService) {
 	
 	$scope.req={};
 	$scope.req.keys=LoginService.keys;
 	$scope.req.city_id=LoginService.city;
+	
+	//$scope.req.category=$location.search()['category'];
+	if(undefined==$location.search()['category']){
+		$scope.req.category=0;
+	}else{
+		$scope.req.category=$location.search()['category'];
+	}
 	
 	$scope.req.has_purchase=false;
 	//$scope.req.keys="";
@@ -15,7 +22,7 @@ var shopController = function ($scope, $http, LoginService) {
 	//$scope.req.maxPrice=0;
 	
 	$scope.req.brands_id=[];
-	$scope.req.category=[];
+	
 	$scope.req.pay_channel_id=[];
 	$scope.req.pay_card_id=[];
 	$scope.req.trade_type_id=[];
@@ -43,7 +50,6 @@ var shopController = function ($scope, $http, LoginService) {
 		$scope.shopcartcount();
 		$scope.searchinfo();
 		$scope.list();
-		
     };
     $scope.searchinfo=function(){
     	$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
@@ -58,6 +64,45 @@ var shopController = function ($scope, $http, LoginService) {
             	$scope.tDate=data.result.tDate;
             	$scope.all={id:0,value:"全部"};
             	$scope.tDate.unshift($scope.all);
+            	if($scope.req.category>0){
+            		if($scope.req.category<5){
+            			angular.forEach($scope.category, function (one) {
+            					if(one.id==$scope.req.category){
+            						one.clazz="hover";
+            						$scope.chli2val=one.value;
+            			    		$scope.chli2show=true;
+            					}
+            	            });
+            		}else if($scope.req.category<7){
+            			angular.forEach($scope.category, function (one) {
+        					if(one.id==1){
+        						$scope.check2son=one.son;
+        						angular.forEach(one.son, function (one2) {
+                					if(one2.id==$scope.req.category){
+                						one2.clazz="hover";
+                						$scope.chli2val=one2.value;
+                			    		$scope.chli2show=true;
+                			    		$scope.check2show=true;
+                					}
+                	            });
+        					}
+        	            });
+            		}else if($scope.req.category<9){
+            			angular.forEach($scope.category, function (one) {
+        					if(one.id==2){
+        						$scope.check2son=one.son;
+        						angular.forEach(one.son, function (one2) {
+                					if(one2.id==$scope.req.category){
+                						one2.clazz="hover";
+                						$scope.chli2val=one2.value;
+                			    		$scope.chli2show=true;
+                			    		$scope.check2show=true;
+                					}
+                	            });
+        					}
+        	            });
+            		}
+            	}
             }
         });
     }
@@ -167,7 +212,9 @@ var shopController = function ($scope, $http, LoginService) {
     $scope.check2=function (p) {
     	if(p.clazz=="hover"){
     		$scope.check2show=false;
+    		$scope.chli2show=false;
         	p.clazz="";
+        	$scope.req.category=0;
     	}else{
     		angular.forEach($scope.category, function (one) {
        		 	one.clazz="";
@@ -181,29 +228,36 @@ var shopController = function ($scope, $http, LoginService) {
     		}else{
     			$scope.check2show=false;
     		}
+    		$scope.chli2val=p.value;
+    		$scope.chli2show=true;
+    		$scope.req.category=p.id;
         	p.clazz="hover";
     	}
+    	$scope.search();
     }
     $scope.check2sona=function (p) {
     	if(p.clazz=="hover"){
+    		$scope.check2show=false;
     		$scope.chli2show=false;
     		p.clazz="";
-    		$scope.req.category=[];
+    		$scope.req.category=0;
     	}else{
+    		angular.forEach($scope.category, function (one) {
+       		 	one.clazz="";
+            });
     		angular.forEach($scope.check2son, function (one) {
        		 	one.clazz="";
             });
     		$scope.chli2val=p.value;
     		$scope.chli2show=true;
-    		$scope.req.category=[];
-    		$scope.req.category.push(p.id);
+    		$scope.req.category=p.id;
     		p.clazz="hover";
     	}
     	$scope.search();
     }
     $scope.chli2del=function () {
     	$scope.chli2show=false;
-    	$scope.req.category=[];
+    	$scope.req.category=0;
     	$scope.check2show=false;
     	angular.forEach($scope.category, function (one) {
    		 	one.clazz="";
