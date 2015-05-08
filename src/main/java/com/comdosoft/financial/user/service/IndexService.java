@@ -68,10 +68,11 @@ public class IndexService {
             map = new HashMap<String,Object>();
             String id =  m.get("id")==null?"":m.get("id").toString();
             map.put("id", id);
-            map.put("brand_number", m.get("brand_number")==null?"":m.get("brand_number"));
-            map.put("volume_number", m.get("volume_number")==null?"":m.get("volume_number"));
+//            map.put("brand_number", m.get("brand_number")==null?"":m.get("brand_number"));
+//            map.put("volume_number", m.get("volume_number")==null?"":m.get("volume_number"));
             map.put("title", m.get("title")==null?"":m.get("title"));
-            map.put("brand_name", m.get("brand_name")==null?"": m.get("brand_name"));
+            map.put("retail_price", m.get("retail_price")==null?"":m.get("retail_price"));
+            map.put("second_title", m.get("second_title")==null?"": m.get("second_title"));
             map.put("good_logo", m.get("url_path")==null?"": filePath+m.get("url_path"));
             newlist.add(map);
         }
