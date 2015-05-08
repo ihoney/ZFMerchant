@@ -62,5 +62,7 @@ public interface GoodMapper {
 
     int getShengId(int city_id);
 
+    List<Integer> getSonCategoryIds(int category);
+
 
 }

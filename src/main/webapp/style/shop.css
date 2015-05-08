@@ -179,8 +179,8 @@
 .i_category li a.pos01 i { background: url(../images/i_category.png) no-repeat 0 0px;}
 .i_category li a:hover.pos01 i { background-position: -42px 0px;}
 
-.i_category li a.pos02 i { background: url(../images/i_category.png) no-repeat 0 -116px;}
-.i_category li a:hover.pos02 i { background-position: -42px -116px;}
+.i_category li a.pos02 i { width: 70px; background: url(../images/i_category.png) no-repeat 0 -116px;}
+.i_category li a:hover.pos02 i { background-position: -70px -116px;}
 
 .i_category li a.pos03 i { background: url(../images/i_category.png) no-repeat 0 -248px;}
 .i_category li a:hover.pos03 i { background-position: -42px -248px;}
@@ -191,8 +191,8 @@
 .i_category li a.pos05 i { background: url(../images/i_category.png) no-repeat 0 -514px;}
 .i_category li a:hover.pos05 i { background-position: -42px -514px;}
 
-.i_category li a.pos06 i { background: url(../images/i_category.png) no-repeat 0 -628px;}
-.i_category li a:hover.pos06 i { background-position: -42px -628px;}
+.i_category li a.pos06 i { width: 55px; background: url(../images/i_category.png) no-repeat 0 -632px;}
+.i_category li a:hover.pos06 i { background-position: -55px -632px;}
 
 /*---title--*/
 .title {

@@ -152,4 +152,18 @@ public class GoodService {
         return map;
     }
 
+    public String categorys(int category) {
+        List<Integer> son = goodMapper.getSonCategoryIds(category);
+        StringBuilder sb = new StringBuilder();
+        sb.append("("+category+ ",");
+        if (son != null && son.size() > 0) {
+            for (Integer ii : son) {
+                sb.append(ii + ",");
+            }
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(")");
+        return sb.toString();
+    }
+
 }

@@ -178,6 +178,9 @@
 	<select id="getSonCategorys" resultType="map">
 		SELECT id,name as value from pos_categories where parent_id =#{id}
 	</select>
+	<select id="getSonCategoryIds" resultType="int">
+		SELECT id from pos_categories where parent_id =#{id}
+	</select>
 	<select id="getPay_channel_ids" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.PosReq">
 		SELECT id,name as value from pay_channels pc where 1=1
 		<if test="city_id>0">
