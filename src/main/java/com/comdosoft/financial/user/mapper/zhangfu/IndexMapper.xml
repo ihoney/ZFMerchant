@@ -29,6 +29,7 @@
 		goods g
 	LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 	LEFT JOIN (select * from goods_pictures  ) as gp ON g.id = gp.good_id
+	where g.`status`=5  and g.is_published = 1 
 	group by g.id
 	ORDER BY
 		g.volume_number DESC,gb.created_at DESC 

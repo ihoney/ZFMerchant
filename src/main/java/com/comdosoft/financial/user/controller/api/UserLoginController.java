@@ -3,6 +3,8 @@ package com.comdosoft.financial.user.controller.api;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -46,6 +48,9 @@ public class UserLoginController {
     
     @Value("${goToAgentPath}")
     private String goToAgentPath;
+    
+    @Value("${goToAgentPath1}")
+    private String goToAgentPath1;
     
     @Resource
     private MailService MailService;
@@ -245,6 +250,19 @@ public class UserLoginController {
     		customer.setStatus(Customer.STATUS_NORMAL);
     		customer.setPassword(SysUtils.string2MD5(customer.getPassword()));
     		Map<Object, Object> tomer = userLoginService.doLogin(customer);
+    		
+    		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+    		Pattern p = Pattern.compile(str);
+    		if(tomer!= null){
+    			Matcher m = p.matcher((CharSequence) tomer.get("username"));
+    		if(!m.matches()){
+    			tomer.put("subusername", SysUtils.toProSub(tomer.get("username").toString()));
+    		}else{
+    			tomer.put("subusername", tomer.get("username"));
+    		}
+    		}
+
+    		
     		if (tomer != null) {
     			//修改登陆时间
     			userLoginService.updateLastLoginedAt(customer);
@@ -501,4 +519,13 @@ public class UserLoginController {
     	}
     }
     
+    @RequestMapping(value="goToAgentLogin1",method = RequestMethod.POST)
+    public Response goToAgentLogin1(){
+    	try{
+    		return Response.getSuccess(goToAgentPath1);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return Response.getError("请求失败！");
+    	}
+    }
 }

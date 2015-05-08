@@ -198,16 +198,22 @@ public class OrderService {
         String paytype = String.valueOf(map.get("paytype"));
         //如未完成支付,调用第三方支付交易状态查询接口更新订单状态
         if("0".equals(paytype)){
-        	int _paytype = orderreq.getType();
+        	int _paytype = orderreq.getPayway();
         	if(2 == _paytype){
-        		String orderId = orderreq.getOrdernumber();
+        		String orderId = (String) map.get("order_number");
         		Date created_at = (Date) map.get("created_at");
         		String txnTime = sdf_simple.format(created_at);
-        		Map<String,String> queryResult =UnionpayService.query(orderId, txnTime);
-        		if(null != queryResult && "00".equals(queryResult.get("respCode"))){
-        			//必须存在订单编号
-        			payFinish(orderreq);
-        			map = orderMapper.getPayOrder(orderreq);
+        		try{
+	        		Map<String,String> queryResult =UnionpayService.query(orderId, txnTime);
+	        		if(null != queryResult && "00".equals(queryResult.get("respCode"))){
+	        			//必须存在订单编号
+	        			orderreq.setOrdernumber(orderId);
+	        			orderreq.setType(_paytype);
+	        			payFinish(orderreq);
+	        			map = orderMapper.getPayOrder(orderreq);
+	        		}
+        		}catch(Exception e){
+        			e.printStackTrace();
         		}
         	}
         }
@@ -217,14 +223,22 @@ public class OrderService {
 
     public void payFinish(OrderReq orderreq) {
         Map<String, Object> map = orderMapper.getOrderByMumber(orderreq);
+        if(null == map){
+        	return;
+        }
         try {
             int id = SysUtils.String2int(map.get("id").toString());
             int total_price = SysUtils.String2int(map.get("total_price").toString());
             orderreq.setId(id);
             orderreq.setPrice(total_price);
+            if(0 == orderreq.getType()){
+            	orderreq.setType(1);
+            }
             orderMapper.payFinish(orderreq);
             orderMapper.upOrder(orderreq);
         } catch (Exception e) {
+        	e.printStackTrace();
+        	logger.debug("完成订单处理异常",e);
         }
     }
 

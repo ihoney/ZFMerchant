@@ -45,7 +45,7 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 				alert("正在第三方审核,请耐心等待...");
 			}
 			else {
-				window.location.href ="#/terminalOpening?terminalId="+id+"&status="+$scope.applyDetails.openstatus;
+				window.location.href ="#/terminalOpening?terminalId="+id+"&status="+$scope.applyDetails.openstatus+"&type=-2";
 	  }
   }
   

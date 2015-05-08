@@ -469,12 +469,18 @@ tr.order_hd td { text-align: left; }
 .dp_status_btn a { display: block; margin: 5px 0;}
 
 .detailPanel_info { width: 452px; padding: 10px; float: left;}
+.detail_express { color: #ff5f2b;}
 .detailDl dl { overflow: hidden; line-height: 24px;}
-.detailDl dt { float: left;}
+.detailDl dt { float: left; color: #999;}
 .detailDl dd { float: left; margin-right: 20px;}
 .detailDl dd.line_through { text-decoration: line-through;}
-.detailDl dl.leaveWord { height: 48px; border-bottom: 1px #ccc dashed;}
-.detailDl dl.leaveWord dd { overflow: hidden; float: none;}
+.detailDl dl.leaveWord { border-bottom: 1px #ccc dashed;}
+.detailDl dl.leaveWord dd { 
+	overflow: hidden; 
+	float: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
 .user_record { margin: 10px 0;}
 .user_record h2 { font-size: 12px; line-height: 24px; margin-bottom: 5px; border-bottom: 1px #CCCCCC solid;}
@@ -501,7 +507,7 @@ tr.order_hd td { text-align: left; }
 
 .attributes_box { margin-bottom: 20px;}
 .attributes_box h2 { font-size: 12px; border-bottom: 1px #CCCCCC solid; line-height: 28px;}
-.attributes_box h2 em { color: #999; margin-left: 10px;}
+.attributes_box h2 em { color: #ff5f2b; margin-left: 10px; font-size: 12px; font-weight:500; font-style: normal;}
 .attributes_box .attributes_list { padding: 10px 0;}
 
 .leaseExplain_con { height: 300px; overflow-y: auto;}
@@ -713,3 +719,9 @@ tr.order_hd td { text-align: left; }
 #suggestDiv {display:none;background:#fff;z-index:999}
 #suggestDiv ul li a{display:inline-block;width:245px;padding-left:5px;margin-left:-120px;}
 #suggestDiv ul li a:hover{color: #fff;background:#CCCCCC}
+
+
+/*----rule_checkbox-已知晓交易规则----*/
+.rule_checkbox { border-top: 1px #CCCCCC solid; padding: 10px 0; margin: 10px 0; overflow: hidden;}
+.rule_checkbox input { float: left; margin-top: 2px;}
+.rule_checkbox a { float: left; margin-left: 10px; color: #00F; text-decoration: underline;}

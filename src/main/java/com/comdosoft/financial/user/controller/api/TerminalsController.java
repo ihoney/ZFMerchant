@@ -636,8 +636,15 @@ public class TerminalsController {
 	@RequestMapping(value = "openStatus", method = RequestMethod.POST)
 	public Response openStatus(@RequestBody Map<String, Object> paramMap) {
 		try {
-			return Response.getSuccess(terminalsService.openStatus(paramMap));
+		    List<Map<String,Object>> list=terminalsService.openStatus(paramMap);
+		    if(list!=null&&list.size()>0){
+		        return Response.getSuccess(list);
+		    }else{
+		        return Response.getError("该手机未绑定终端！");
+		    }
+			
 		} catch (Exception e) {
+		    e.printStackTrace();
 			return Response.getError("请求失败！");
 		}
 	}

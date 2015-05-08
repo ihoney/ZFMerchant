@@ -14,9 +14,9 @@
 			<ul class="udt_strong">
 				<li>交易金额：{{traderecord.amount/100|currency : "￥"}}</li>
 				<li>交易手续费：{{traderecord.poundage/100|currency : "￥"}}</li>
-				<li>交易状态： <span ng-if="traderecord.tradedStatus == 1">待付款</span>
-						  <span ng-if="traderecord.tradedStatus == 2">交易完成</span>
-						  <span ng-if="traderecord.tradedStatus == 3">交易失败</span>
+				<li>交易状态： <span ng-if="traderecord.tradedStatus == 1">交易成功</span>
+						  <span ng-if="traderecord.tradedStatus == 2">交易失败</span>
+						  <span ng-if="traderecord.tradedStatus == 3">交易结果待确认</span>
 				</li>
 			</ul>
 			<ul>

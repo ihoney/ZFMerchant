@@ -1,53 +1,44 @@
 'user strict';
-
-//系统设置模块
+//订单
 var orderModule = angular.module("orderModule",[]);
-
 var orderController = function ($scope, $http, LoginService) {
-	$("#leftRoute").show();
-	if(LoginService.userid == 0){
-		window.location.href = '#/login';
-	}else{
-		//显示用户登录部分
-		$scope.$emit('changeshow',false);
-	}
+
 	initSystemPage($scope);// 初始化分页参数
 	// 搜索
 	$scope.submitSearch = function(){
-		initSystemPage($scope);// 初始化分页参数
 		$scope.req = {
-			customer_id : LoginService.userid,
-			search : $scope.search,
-			page : $scope.indexPage,
-			rows : $scope.rows
-		};
-		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  // 绑定
-            if (data != null && data != undefined) {
-                $scope.list = data.result;
-                calcSystemPage($scope, data.result.total);// 计算分页
-            }
-        }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
-        });
+				customer_id : LoginService.userid,
+				search : $scope.search,
+				page : $scope.indexPage,
+				rows : $scope.rows
+			};
+			$http.post("api/order/orderSearch", $scope.req).success(function (data) {  // 绑定
+	            if (data != null && data != undefined) {
+	                $scope.list = data.result;
+	                calcSystemPage($scope, data.result.total);// 计算分页
+	            }
+	        }).error(function (data) {
+	            $("#serverErrorModal").modal({show: true});
+	        });
 	};
 	//筛选
 	$scope.submitScreen = function(){
-//		initSystemPage($scope);// 初始化分页参数
+		initSystemPage($scope);// 初始化分页参数
 		$scope.req = {
-			customer_id : LoginService.userid,
-			search : $scope.search,
-			q : $scope.screen,
-			page : $scope.indexPage,
-			rows : $scope.rows
-		};
-		$http.post("api/order/orderSearch", $scope.req).success(function (data) {  //绑定
-            if (data != null && data != undefined) {
-                $scope.list = data.result;
-                calcSystemPage($scope, data.result.total);// 计算分页
-            }
-        }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
-        });
+				customer_id : LoginService.userid,
+				search : $scope.search,
+				q : $scope.screen,
+				page : $scope.indexPage,
+				rows : $scope.rows
+			};
+			$http.post("api/order/orderSearch", $scope.req).success(function (data) {  //绑定
+	            if (data != null && data != undefined) {
+	                $scope.list = data.result;
+	                calcSystemPage($scope, data.result.total);// 计算分页
+	            }
+	        }).error(function (data) {
+	            $("#serverErrorModal").modal({show: true});
+	        });
 	};
 	
 	$scope.submitPage = function(){
@@ -96,11 +87,9 @@ var orderController = function ($scope, $http, LoginService) {
     	window.location.href = '#/orderinfo';
     };
     $scope.topay = function(o) {
-//    	var g_name = $("#g_name").val();
     	window.open("#/pay?id="+o.order_id) ;  
-//    	window.open("alipayapi.jsp?WIDtotal_fee="+o.order_totalPrice/100+"&WIDsubject="+g_name+"&WIDout_trade_no="+o.order_number);  
 	};
-	
+
 	// 上一页
 	$scope.prev = function() {
 		if ($scope.indexPage > 1) {
@@ -130,9 +119,6 @@ var orderController = function ($scope, $http, LoginService) {
 	};
 
     $scope.submitPage();
-//    $scope.submitSearch();
-//    $scope.orderinfo();
 };
 
-//myorderModule.$inject = ['$scope', '$http', '$cookieStore'];
 orderModule.controller("orderController", orderController);

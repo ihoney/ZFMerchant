@@ -481,7 +481,12 @@ public class TerminalsService {
                 }
                 id=SysUtils.String2int(""+map.get("id"));
                 listmap2=terminalsMapper.getTerminalOpenStatus(id);
-                map.put("openStatus", listmap2);
+                if(listmap2!=null&&listmap2.size()>0){
+                    map.put("openStatus", listmap2);
+                }else{
+                    map.put("error", "未申请");
+                }
+                
             }
         }
         return listmap;
