@@ -237,45 +237,51 @@ var myinfobaseController = function($scope, $http,$location, LoginService) {
 	
 	//修改邮箱
 	$scope.up_email = function(){
-//		email_send_btn
-		if($scope.intDiff == 0){
-    		$scope.intDiff =120;
-			 v3 = window.setInterval(function(){
-				$('#email_send_btn').html();
-		    	if($scope.intDiff == 0){
-		    		$('#email_send_btn').html("修改邮箱");
-		    		clearInterval(v3);
-		    	}else{
-		    		$('#email_send_btn').html("等待"+$scope.intDiff+"秒");
-		    	    $scope.intDiff--;
-		    	}
-		    }, 1000);
-				var email = $scope.customer.email;
-				$scope.req ={id:LoginService.userid,content:email,q:$scope.customer.name};
-				$http.post("api/index/change_email",$scope.req).success(function (data) {   
-					if (data != null && data != undefined) {
-//						alert("发送成功,请注意查收!");
-					}
-				});
-				
-				//显示提示
-				var doc_height = $(document).height();
-				var doc_width = $(document).width();
-				var win_height = $(window).height();
-				var win_width = $(window).width();
-				
-				var layer_height = $("#email_send_tab").height();
-				var layer_width = $("#email_send_tab").width();
-				
-				var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-				
-			    $(".mask").css({display:'block',height:doc_height});
-				$("#email_send_tab").css('top',(win_height-layer_height)/2);
-				$("#email_send_tab").css('left',(win_width-layer_width)/2);
-				$("#email_send_tab").css('display','block');
-		}else{
-			return false;
-		}
+		if(window.confirm('你确定要修改邮箱吗？')){
+//			email_send_btn
+			if($scope.intDiff == 0){
+	    		$scope.intDiff =120;
+				 v3 = window.setInterval(function(){
+					$('#email_send_btn').html();
+			    	if($scope.intDiff == 0){
+			    		$('#email_send_btn').html("修改邮箱");
+			    		clearInterval(v3);
+			    	}else{
+			    		$('#email_send_btn').html("等待"+$scope.intDiff+"秒");
+			    	    $scope.intDiff--;
+			    	}
+			    }, 1000);
+					var email = $scope.customer.email;
+					$scope.req ={id:LoginService.userid,content:email,q:$scope.customer.name};
+					$http.post("api/index/change_email",$scope.req).success(function (data) {   
+						if (data != null && data != undefined) {
+//							alert("发送成功,请注意查收!");
+						}
+					});
+					
+					//显示提示
+					var doc_height = $(document).height();
+					var doc_width = $(document).width();
+					var win_height = $(window).height();
+					var win_width = $(window).width();
+					
+					var layer_height = $("#email_send_tab").height();
+					var layer_width = $("#email_send_tab").width();
+					
+					var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+					
+				    $(".mask").css({display:'block',height:doc_height});
+					$("#email_send_tab").css('top',(win_height-layer_height)/2);
+					$("#email_send_tab").css('left',(win_width-layer_width)/2);
+					$("#email_send_tab").css('display','block');
+			}else{
+				return false;
+			}
+         
+            return true;
+         }else{
+            return false;
+        }
 	};
 	
 	$scope.save = function() {
