@@ -743,31 +743,33 @@ public class TerminalsController {
 					}
 					//判断该商户是否存在
 					Map<Object, Object> countMap =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
+					//添加商户
+					Merchant merchant = new Merchant();
+					merchant.setLegalPersonName((String) map
+							.get("name"));
+					merchant.setLegalPersonCardId((String) map
+							.get("cardId"));
+					merchant.setTitle((String) map
+							.get("merchantName"));
+					merchant.setTaxRegisteredNo((String) map
+							.get("registeredNo"));
+					merchant.setOrganizationCodeNo((String) map
+							.get("organizationNo"));
+					merchant.setAccountBankNum((String) map
+							.get("bankNum"));
+					merchant.setCustomerId((Integer) map
+							.get("applyCustomerId"));
+					merchant.setCityId((Integer)map.get("cityId"));
+					merchant.setPhone((String) map
+						.get("phone"));
 					if(countMap == null){
-						//添加商户
-						Merchant merchant = new Merchant();
-						merchant.setLegalPersonName((String) map
-								.get("name"));
-						merchant.setLegalPersonCardId((String) map
-								.get("cardId"));
-						merchant.setTitle((String) map
-								.get("merchantName"));
-						merchant.setTaxRegisteredNo((String) map
-								.get("registeredNo"));
-						merchant.setOrganizationCodeNo((String) map
-								.get("organizationNo"));
-						merchant.setAccountBankNum((String) map
-								.get("bankNum"));
-						merchant.setCustomerId((Integer) map
-								.get("applyCustomerId"));
-						merchant.setCityId((Integer)map.get("cityId"));
-						merchant.setPhone((String) map
-							.get("phone"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
 						//terminalId = merchant.getId();
 						openingApplie.setMerchantId(merchant.getId());
 					}else if(countMap !=null){
+						merchant.setId((Integer)countMap.get("id"));
+						openingApplyService.updateMerchan(merchant);
 						openingApplie.setMerchantId((Integer)countMap.get("id"));
 					}
 					//为终端表关联对应的商户id和通道周期ID 

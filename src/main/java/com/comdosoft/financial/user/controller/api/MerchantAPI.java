@@ -68,7 +68,7 @@ public class MerchantAPI {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("获取商户信息列表失败", e);
-            sysResponse = Response.getError("获取商户信息列表失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -83,7 +83,7 @@ public class MerchantAPI {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("获取商户信息列表失败", e);
-            sysResponse = Response.getError("获取商户信息列表失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -100,7 +100,7 @@ public class MerchantAPI {
             sysResponse = Response.getSuccess(merchantService.findMerchantById(id));
         } catch (Exception e) {
             logger.error("获取商户信息失败", e);
-            sysResponse = Response.getError("获取商户信息失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -112,7 +112,7 @@ public class MerchantAPI {
     		sysResponse = Response.getSuccess(merchantService.findMerchantById(req.getId()));
     	} catch (Exception e) {
     		logger.error("获取商户信息失败", e);
-    		sysResponse = Response.getError("获取商户信息失败:系统异常");
+    		sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
     	}
     	return sysResponse;
     }
@@ -155,7 +155,7 @@ public class MerchantAPI {
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("修改修改商户信息失败", e);
-            sysResponse = Response.getError("修改修改商户信息失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -178,7 +178,7 @@ public class MerchantAPI {
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("删除商户信息失败", e);
-            sysResponse = Response.getError("删除商户信息失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
