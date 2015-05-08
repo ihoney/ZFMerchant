@@ -94,7 +94,7 @@
 				<a href="#">打造精致小店</a> -->
 			</div>
 			<div class="loginInfo">
-				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">代理商入口</a>
+				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -129,8 +129,8 @@
 				</ul>
 			</div>
 			<div class="top_user">
-				<a href="#/myapp">{{loginUserName}}</a><a href="javascript:void(0)"
-					ng-click="escLogin()">退出</a><a ng-click="gotoagentlogin1()">代理商入口</a>
+				<a>{{loginUserName}}</a><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
+					ng-click="escLogin()">退出</a><a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -146,7 +146,7 @@
 				</div>
 				<div class="hotwords">
 					<div class="hotwords">
-						<a href="#">钱袋宝</a><a href="#">中汇</a><a href="#">杉德</a><a href="#">掌富</a>
+						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
 					</div>
 				</div>
 			</div>
@@ -158,9 +158,9 @@
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去&nbsp付款</a>
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去付款</a>
 				</div>
-				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去&nbsp购买</a></div>
+				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去购买</a></div>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/main.js"></script>
