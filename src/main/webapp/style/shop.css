@@ -323,7 +323,7 @@
 	padding-top: 130px;
 }
 .contact h1 { font-size: 34px; line-height: 68px; margin-bottom: 30px;}
-.contact li { width: 234px; height: 140px; display: inline-block; margin: 0 25px;}
+.contact li { width: 234px; height: 140px; display: inline-block; margin: 0 25px;position: relative;}
 .contact li i { 
 	width: 84px; 
 	height: 84px; 
@@ -347,6 +347,9 @@
 	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
 	-o-transition: background 0.2s; /* Opera */
 }
+.contact li span:hover i.qqContact {
+	background: url(../images/contact_icon.png) no-repeat 0 -252px;
+}
 .contact li a:hover i.qqContact {
 	background: url(../images/contact_icon.png) no-repeat 0 -252px;
 }
@@ -357,9 +360,9 @@
 	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
 	-o-transition: background 0.2s; /* Opera */
 }
-.contact li a:hover i.phoneContact {
+/* .contact li a:hover i.phoneContact {
 	background: url(../images/contact_icon.png) no-repeat 0 -420px;
-}
+}*/
 .contact li p { 
 	height: 40px; 
 	line-height: 40px; 
@@ -371,11 +374,19 @@
 	-webkit-transition: all 0.2s; /* Safari 和 Chrome */
 	-o-transition: all 0.2s; /* Opera */
 }
-.contact li a:hover p { 
+ .contact li a:hover .contactP { 
 	color: #fff;
 	border: 1px #fc5f25 solid;
 	background: #fc5f25;
 }
+.contact li span:hover .contactP { 
+	color: #fff;
+	border: 1px #fc5f25 solid;
+	background: #fc5f25;
+}
+
+.contact li .qqContact_box { position: absolute; bottom: -24px; width: 100%; display: none;}
+
 
 /*------服务内容-------*/
 .serviceContent {  position: relative;  padding: 100px 0;}
