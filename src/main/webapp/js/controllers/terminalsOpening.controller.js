@@ -29,6 +29,8 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.appStatus = 1;
 	//对公对私（1.公 2.私）
 	$scope.status=1;
+	//交易规则
+	$scope.checkbox = true;
 	//显示对公对私按钮
 	$scope.siClass = "toPrivate";
 	$scope.gongClass = "toPublic hover";
@@ -376,19 +378,24 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		  for(var i=0;i<$scope.listOne.length;i++){
 			  $scope.list[$scope.leng+i] = $scope.listOne[i];
 		  }
-		  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
-	          if (data != null && data != undefined) {
-	        	  if(data.code == 1){
-	        		  //跳转
-	        		  window.location.href = '#/terminal';
-	        	  }else{
-	        		  alert(data.message);
-	        	  }
-	          }
-	      }).error(function (data) {
-	    	  alert("获取列表失败");
-	          $("#serverErrorModal").modal({show: true});
-	      });
+		  if($scope.checkbox == true){
+			  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
+		          if (data != null && data != undefined) {
+		        	  if(data.code == 1){
+		        		  //跳转
+		        		  window.location.href = '#/terminal';
+		        	  }else{
+		        		  alert(data.message);
+		        	  }
+		          }
+		      }).error(function (data) {
+		    	  alert("获取列表失败");
+		          $("#serverErrorModal").modal({show: true});
+		      });
+		  }else {
+			  alert("请仔细阅读交易规则！");
+		  }
+		  
 	  }
 	  }
   //对等级一模块进行校验
@@ -426,10 +433,10 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }else if(!myreg.test($("#emailValue").val())){
 		  alert("邮箱格式不正确！");
 		  return false;
-	  }/*else if($scope.cityId == null || $scope.cityId == ""){
+	  }else if($scope.cityId == null || $scope.cityId == ""){
 		  alert("请选择城市！");
 		  return false;
-	  }*/else if($scope.channel == null || $scope.channel == ""){
+	  }else if($scope.channel == null || $scope.channel == ""){
 		  alert("请选择支付通道！");
 		  return false;
 	  }else if($scope.billingId == null || $scope.billingId  == ""){
