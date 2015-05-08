@@ -48,7 +48,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
       			        	   $cookieStore.put("loginUserId",data.result.id);
       			        	   $cookieStore.put("subusername",data.result.subusername);
       			        	   location.reload();
-      			        	   
+      			        		window.location.href = '#/';
       			           }
       			        }).error(function (data) {
       			        	$scope.message = "登陆异常！"
