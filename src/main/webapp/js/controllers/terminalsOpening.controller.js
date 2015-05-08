@@ -393,7 +393,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		          $("#serverErrorModal").modal({show: true});
 		      });
 		  }else {
-			  alert("请仔细阅读交易规则！");
+			  alert("请阅读并接受交易规则！");
 		  }
 		  
 	  }
