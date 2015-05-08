@@ -61,7 +61,7 @@
 .topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid;}
 
 .loginInfo { float: right; height: 40px; line-height: 40px;}
-.loginInfo a { color: #FFF; margin: 0 10px;}
+.loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
 
 
 /*------selectBox div模拟select------*/
