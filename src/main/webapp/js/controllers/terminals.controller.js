@@ -125,6 +125,7 @@ var terminalController = function ($scope, $http, LoginService) {
 	$scope.applyOpenInfo=function(temp){
 		$("#checkBoxEbanat").val(temp);
 		$(".ebankAgreementTab").show();
+		$(".mask").show();
 	}
 	
 	//筛选终端号
