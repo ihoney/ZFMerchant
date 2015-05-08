@@ -48,7 +48,7 @@ public class TradeRecordAPI {
             sysResponse = Response.getSuccess(tradeRecordService.getTerminals(customerId));
         } catch (Exception e) {
             logger.error("获取终端列表信息失败", e);
-            sysResponse = Response.getError("获取终端列表信息失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -79,7 +79,7 @@ public class TradeRecordAPI {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("查询交易流水信息失败", e);
-            sysResponse = Response.getError("查询交易流水失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -103,7 +103,7 @@ public class TradeRecordAPI {
             sysResponse = Response.getSuccess(tradeRecordService.getTradeRecordTotal(tradeTypeId, terminalNumber, startTime, endTime));
         } catch (Exception e) {
             logger.error("统计交易流水信息失败", e);
-            sysResponse = Response.getError("统计交易流水失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -121,7 +121,7 @@ public class TradeRecordAPI {
             sysResponse = Response.getSuccess(tradeRecordService.getTradeRecord(tradeTypeId, tradeRecordId));
         } catch (Exception e) {
             logger.error("获取交易流水详情失败", e);
-            sysResponse = Response.getError("获取交易流水详情失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }

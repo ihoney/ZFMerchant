@@ -46,7 +46,7 @@ public class SysShufflingFigureAPI {
             sysResponse = Response.getSuccess(sysShufflingFigureService.getList());
         } catch (Exception e) {
             logger.error("获取首页轮播图列表失败", e);
-            sysResponse = Response.getError("获取首页轮播图列表失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -62,7 +62,7 @@ public class SysShufflingFigureAPI {
             sysResponse = Response.getSuccess(map);
         } catch (Exception e) {
             logger.error("获取首页轮播图列表失败", e);
-            sysResponse = Response.getError("获取首页轮播图列表失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }

@@ -93,7 +93,7 @@ public class UserLoginController {
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return Response.getError("系统异常！");
+                        return Response.getError("系统暂时无法处理您的请求,请重试");
                     }
                     } else {
                             return Response.getError("该用户已注册！");
@@ -101,7 +101,7 @@ public class UserLoginController {
             }
         } catch (Exception e) {
         	e.printStackTrace();
-            return Response.getError("系统异常！");
+            return Response.getError("系统暂时无法处理您的请求,请重试");
         }
     }
 
@@ -144,7 +144,7 @@ public class UserLoginController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.getError("注册失败！系统异常");
+            return Response.getError("系统暂时无法处理您的请求,请重试");
         }
     }
     
@@ -189,7 +189,7 @@ public class UserLoginController {
     		}
     	} catch (Exception e) {
     		e.printStackTrace();
-    		return Response.getError("注册失败！系统异常");
+    		return Response.getError("系统暂时无法处理您的请求,请重试");
     	}
     }
     
@@ -208,7 +208,7 @@ public class UserLoginController {
                 return Response.getSuccess("激活成功！");
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.getError("系统异常！");
+            return Response.getError("系统暂时无法处理您的请求,请重试");
         }
     }
     
@@ -233,7 +233,7 @@ public class UserLoginController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.getError("系统异常！");
+            return Response.getError("系统暂时无法处理您的请求,请重试");
         }
     }
     
@@ -272,7 +272,7 @@ public class UserLoginController {
     		}
     	} catch (Exception e) {
     		e.printStackTrace();
-    		return Response.getError("系统异常！");
+    		return Response.getError("系统暂时无法处理您的请求,请重试");
     	}
     }
     
@@ -384,7 +384,7 @@ public class UserLoginController {
         	 return Response.getError("图片验证失效！");
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.getError("系统异常！");
+            return Response.getError("系统暂时无法处理您的请求,请重试");
         }
     }
 
@@ -404,7 +404,7 @@ public class UserLoginController {
                 return Response.getSuccess("用户存在！");
             }
         } catch (Exception e) {
-            return Response.getError("系统异常！");
+            return Response.getError("系统暂时无法处理您的请求,请重试");
         }
     }
     
