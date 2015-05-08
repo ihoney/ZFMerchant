@@ -21,7 +21,8 @@ var shopController = function ($scope, $http, LoginService) {
 	$scope.req.trade_type_id=[];
 	$scope.req.sale_slip_id=[];
 	$scope.req.tDate=[];
-	
+	$scope.check2show=false;
+	$scope.check2son=[];
 	$scope.xxx="";
 	$scope.sb=function(one){
 		$('#xx').hide();
@@ -48,7 +49,8 @@ var shopController = function ($scope, $http, LoginService) {
     	$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.brands=data.result.brands;
-            	$scope.category=data.result.webcategory;
+            	//$scope.category=data.result.webcategory;
+            	$scope.category=data.result.category;
             	$scope.sale_slip=data.result.sale_slip;
             	$scope.pay_card=data.result.pay_card;
             	$scope.pay_channel=data.result.pay_channel;
@@ -59,6 +61,9 @@ var shopController = function ($scope, $http, LoginService) {
             }
         });
     }
+    $scope.gtoto = function(url,id) {
+    	window.open(url+id);
+	}
     $scope.search=function () {
 	    $scope.req.indexPage=1;
 	    LoginService.keys=$scope.req.keys;
@@ -161,29 +166,36 @@ var shopController = function ($scope, $http, LoginService) {
   //POS机类型
     $scope.check2=function (p) {
     	if(p.clazz=="hover"){
-    		p.clazz="";
-    		$scope.chli2val="";
-    		$scope.req.category=[];
-    		angular.forEach($scope.category, function (one) {
-       		  if(one.clazz=="hover"){
-       			$scope.chli2val=$scope.chli2val+one.value+",";
-       			$scope.req.category.push(one.id);
-       		  }
-            });
-    		if($scope.chli2val==""){
-    			$scope.chli2show=false;
-    		}else{
-    			var s=$scope.chli2val;
-    			s=s.substring(0,s.length-1);
-    			$scope.chli2val=s;
-    		}
+    		$scope.check2show=false;
+        	p.clazz="";
     	}else{
-    		if($scope.chli2show){
-    			$scope.chli2val=$scope.chli2val+","+p.value;
+    		angular.forEach($scope.category, function (one) {
+       		 	one.clazz="";
+            });
+    		$scope.check2son=p.son;
+    		angular.forEach($scope.check2son, function (one) {
+       		 	one.clazz="";
+            });
+    		if(undefined!=$scope.check2son&&$scope.check2son.length>0){
+    			$scope.check2show=true;
     		}else{
-    			$scope.chli2val=p.value;
+    			$scope.check2show=false;
     		}
+        	p.clazz="hover";
+    	}
+    }
+    $scope.check2sona=function (p) {
+    	if(p.clazz=="hover"){
+    		$scope.chli2show=false;
+    		p.clazz="";
+    		$scope.req.category=[];
+    	}else{
+    		angular.forEach($scope.check2son, function (one) {
+       		 	one.clazz="";
+            });
+    		$scope.chli2val=p.value;
     		$scope.chli2show=true;
+    		$scope.req.category=[];
     		$scope.req.category.push(p.id);
     		p.clazz="hover";
     	}
@@ -192,10 +204,11 @@ var shopController = function ($scope, $http, LoginService) {
     $scope.chli2del=function () {
     	$scope.chli2show=false;
     	$scope.req.category=[];
-    	 angular.forEach($scope.category, function (one) {
-    		 one.clazz="";
-         });
-    	 $scope.search();
+    	$scope.check2show=false;
+    	angular.forEach($scope.category, function (one) {
+   		 	one.clazz="";
+        });
+    	$scope.search();
     }
   //支付通道
     $scope.check3=function (p) {

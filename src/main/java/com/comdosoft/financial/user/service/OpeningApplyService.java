@@ -131,6 +131,15 @@ public class OpeningApplyService {
 	}
 	
 	/**
+	 * 申请开通修改商户
+	 * 
+	 * @return
+	 */
+	public void updateMerchan(Merchant merchant) {
+		openingApplyMapper.updateMerchan(merchant);
+	}
+	
+	/**
 	 * 获得所有通道
 	 * @return
 	 */

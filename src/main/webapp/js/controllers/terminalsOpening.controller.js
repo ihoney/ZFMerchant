@@ -453,20 +453,22 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }else if($scope.bankObj.bankName == null || $scope.bankObj.bankName == ""){
 		  alert("请填写结算银行名称！");
 		  return false;
-	  }else if($("#organizationNoValue").val() == null || $("#organizationNoValue").val() == ""){
-		  alert("请填写组织登记号！");
-		  return false;
-	  }else if(numCh.test($("#organizationNoValue").val())){
-		  alert("组织登记号字母和数字组成！");
-		  return false;
-	  }else if($("#registeredNoValue").val() == null || $("#registeredNoValue").val() == ""){
-		  alert("请填写税务登记号！");
-		  return false;
-	  }else if(numCh.test($("#registeredNoValue").val())){
-		  alert("税务登记号由字母和数字组成！");
-		  return false;
-	  }
-	  else{
+	  }else if($scope.status == 1){
+		  if($("#organizationNoValue").val() == null || $("#organizationNoValue").val() == ""){
+			  alert("请填写组织登记号！");
+			  return false;
+		  }else if(numCh.test($("#organizationNoValue").val())){
+			  alert("组织登记号字母和数字组成！");
+			  return false;
+		  }else if($("#registeredNoValue").val() == null || $("#registeredNoValue").val() == ""){
+			  alert("请填写税务登记号！");
+			  return false;
+		  }else if(numCh.test($("#registeredNoValue").val())){
+			  alert("税务登记号由字母和数字组成！");
+			  return false;
+		  }
+		  return true;
+	  }else{
 		  if($scope.MaterialLevel.length>0){
 			  for(var i=0;i<$scope.MaterialLevel.length;i++){
 				  if(i==0){

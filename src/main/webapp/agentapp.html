@@ -2,10 +2,10 @@
 <html ng-app="agentMobileApp"> 
 <meta charset="UTF-8">
 <!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="style/bootstrap.css">
-<script src="style/jquery.min.js"></script>
-<script src="style/bootstrap.min.js"></script>
-<script type="text/javascript" src="style/angular.js"></script>
+<link rel="stylesheet" href="style/join/bootstrap.css">
+<script src="style/join/jquery.min.js"></script>
+<script src="style/join/bootstrap.min.js"></script>
+<script type="text/javascript" src="style/join/angular.js"></script>
 <meta name="viewport"
 	content="initial-scale=1.0, maximum-scale=1.0,
 minimum-scale=1.0, user-scalable=1, width=device-width" />
@@ -85,18 +85,18 @@ h4 {
 		if (dom != null) {
 			ckgou_comp(null);
 		}
-		if ($('#_self').attr('src') == 'style/checked.png') {
-			$('#_self').attr("src", "style/radiobtn.png");
+		if ($('#_self').attr('src') == 'style/join/checked.png') {
+			$('#_self').attr("src", "style/join/radiobtn.png");
 			return;
 		}
 		var rec = $(dom).attr("src");
-		if (rec == "style/radiobtn.png") {
+		if (rec == "style/join/radiobtn.png") {
 			$("#ckval").val('');
 			$("#ckval").val('个人');
-			$(dom).attr("src", "style/checked.png");
+			$(dom).attr("src", "style/join/checked.png");
 		} else {
 			$("#ckval").val('');
-			$(dom).attr("src", "style/radiobtn.png");
+			$(dom).attr("src", "style/join/radiobtn.png");
 		}
 
 	}
@@ -105,18 +105,18 @@ h4 {
 		if (dom != null) {
 			ckgou_self(null);
 		}
-		if ($('#_comp').attr('src') == 'style/checked.png') {
-			$('#_comp').attr("src", "style/radiobtn.png");
+		if ($('#_comp').attr('src') == 'style/join/checked.png') {
+			$('#_comp').attr("src", "style/join/radiobtn.png");
 			return;
 		}
 		var rec = $(dom).attr("src");
-		if (rec == "style/radiobtn.png") {
+		if (rec == "style/join/radiobtn.png") {
 			$("#ckval").val('');
 			$("#ckval").val('公司');
-			$(dom).attr("src", "style/checked.png");
+			$(dom).attr("src", "style/join/checked.png");
 		} else {
 			$("#ckval").val('');
-			$(dom).attr("src", "style/radiobtn.png");
+			$(dom).attr("src", "style/join/radiobtn.png");
 		}
 
 	}
@@ -208,7 +208,7 @@ h4 {
 	<div class="container">
 		<div class="logo">
 			<ul>
-				<li style="width: 40%"><img alt="" src="style/logo.png"></li>
+				<li style="width: 40%"><img alt="" src="style/join/logo.png"></li>
 				<li><label>代理商加盟申请资料</label></li>
 			</ul>
 		</div>
@@ -220,12 +220,12 @@ h4 {
 
 				<tr id="cks">
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt=""
-						src="style/radiobtn.png" width="36" height="36"
+						src="style/join/radiobtn.png" width="36" height="36"
 						style="cursor: pointer;" onclick="ckgou_self(this)" id="_self" />&nbsp;&nbsp;个
 						人&nbsp;&nbsp;
 						</button>
 					</td>
-					<td>&nbsp;&nbsp;<img alt="" src="style/radiobtn.png"
+					<td>&nbsp;&nbsp;<img alt="" src="style/join/radiobtn.png"
 						width="36" height="36" style="cursor: pointer;"
 						onclick="ckgou_comp(this)" id="_comp" />&nbsp;&nbsp;公
 						司&nbsp;&nbsp;
@@ -244,8 +244,8 @@ h4 {
 				<tr>
 					<td colspan="2"><select ng-model="selected" id="p_name"
 						ng-options="s.name for s in city_list" class="form-control"
-						ng-change="change_city()">
-							<option value="">{{selected.name}}</option>
+						ng-change="change_city()"> 
+							<option ng-if="selected.name!=''" value="">{{selected.name}}</option>
 					</select></td>
 					<td><label>&nbsp;&nbsp;&nbsp;省</label></td>
 				</tr>
@@ -256,7 +256,7 @@ h4 {
 					<td colspan="2"><select ng-model="selected_city"
 						class="form-control" id="c_name"
 						ng-options="x.name for x in selected.childrens">
-							<option value="">{{selected_city.name}}</option>
+							<option  ng-if="selected_city.name!=''" value="">{{selected_city.name}}</option>
 					</select></td>
 					<td><label>&nbsp;&nbsp;&nbsp;市</label></td>
 				</tr>
