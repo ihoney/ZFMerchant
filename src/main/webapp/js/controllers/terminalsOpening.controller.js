@@ -157,6 +157,10 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
         	  if(data.code == 1){
         		//终端信息
                   $scope.merchant = data.result;
+                  if($scope.merchant.legal_person_name != null){
+                	  $("#valueName").val($scope.merchant.legal_person_name);
+                	  $("#bankNameValue").val($scope.merchant.legal_person_name);
+                  }
                   $scope._br = curr; 
                   console.info($scope._br);
         	  }else{
@@ -321,7 +325,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		                     publicPrivateStatus: Math.ceil($scope.status),
 		                     applyCustomerId: Math.ceil($scope.customerId),
 		                     merchantId: Math.ceil($scope.merchantId),
-		                     merchantName:$scope.merchantNamed,
+		                     merchantName:$("#merchant").val(),
 		                     sex:Math.ceil($scope.sex),
 		                     birthday: $scope.birthday,
 		                     cardId:$("#cirdValue").val(),
@@ -383,7 +387,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  }
   //对等级一模块进行校验
   $scope.levelCheck = function(){
-	  if($scope.merchantNamed == ""){
+	  if($("#merchant").val() == ""){
 		  alert("请选择或填写商户！");
 		  return false;
 	  }else if($("#valueName").val() == ""){
