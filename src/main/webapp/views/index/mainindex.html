@@ -41,38 +41,37 @@
 		</div>
 
 		<div class="box">
+		
 			<div class="hotPro">
-				<div class="title">
-					热卖POS<a href="#" class="more">更多&gt;&gt;</a>
-				</div>
-				<div class="hp_con">
-					<ul>
-						<li ng-repeat="p in pos_list |orderBy : '-volume_number'"><a
-							href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img
-								src="{{p.good_logo}}" style="width: 150px; height: auto;" /></a>
-							<div class="pro_text">
-								<h3>{{p.brand_name}} {{p.brand_number}}</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a" href="#/shopinfo?goodId={{p.id}}">查看详情
-									&gt;&gt;</a>
-							</div></li>
-					</ul>
-				</div>
-			</div>
+        	<div class="title">热卖POS<a href="#" class="more">更多&gt;&gt;</a></div>
+            <div class="hp_con">
+            	<ul>
+                	<li ng-repeat="p in pos_list ">
+                    	<h1><a 	href="#/shopinfo?goodId={{p.id}}"   title="{{p.title}}">{{p.title}}</a></h1>
+                        <div class="pro_text">
+                        	<a 	href="#/shopinfo?goodId={{p.id}}"  class="pro_img_a"><img src="{{p.good_logo}}" /></a>
+                            <div class="pro_text_con">
+                            	<div class="pro_money">{{p.retail_price/100 |currency : "￥"}} </div>
+                                <div class="pro_text_p" title="{{p.second_title}}">{{p.second_title}}</div>
+                                <a class="pro_text_a"  	href="#/shopinfo?goodId={{p.id}}" >查看详情</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+			
 			<div class="notice">
-				<div class="title">网站公告</div>
-				<div class="no_con">
-					<ul>
-						<li ng-repeat="m in web_list"><i></i>
-							<p>
-								<a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a>
-							</p> <span>{{m.create_at}}</span></li>
-					</ul>
-				</div>
-			</div>
+        	<div class="title">网站公告</div>
+            <div class="no_con">
+            	<ul>
+                	<li  ng-repeat="m in web_list"><i></i><p><a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a></p>
+                    	<span>{{m.create_at}}</span>	
+                    </li>
+                </ul>
+            </div>
+        </div>
+			
 		</div>
 
  
@@ -168,11 +167,12 @@
 					<h1 id="notice_title"></h1>
 					<p id="notice_time"></p>
 				</div>
-				<div class="notice_tab_text" id="notice_contnet"></div>
+				<div class="notice_tab_text" >
+            	<textarea readonly="readonly" name="" cols="" rows="" id="notice_contnet"> </textarea>
+            </div>
 			</div>
 		</div>
 	</div>
-
 	
 </div> 
 

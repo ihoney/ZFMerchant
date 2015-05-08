@@ -17,7 +17,7 @@ public class AgentJoinController {
 	@Autowired
 	private AgentJoinService agentJoinService;
 	
-	@RequestMapping(value="addNewData" , method = RequestMethod.POST)
+	@RequestMapping(value="addNewData")
 	public Response addNewAgentJoinInfoCtl(@RequestBody AgentsJoin agent){
 		Response req = new Response();
 		int result = agentJoinService.addNewJoinInfo(agent);

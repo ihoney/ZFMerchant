@@ -247,23 +247,36 @@
 	background: #FFF;
 }
 .hp_con ul li:hover { box-shadow: 0 0 3px rgba(0,0,0,0.3);}
-.pro_img_a { 
-	width: 150px; 
-	height: 140px;  
+.hp_con ul li h1 { 
+	font-size: 14px; 
 	overflow: hidden; 
-	font-size: 0;
-	float: left;
-	margin-right: 10px;
-	text-align: center;
-	display:table-cell;
+	width: 268px; 
+	height: 28px;
+	line-height: 28px;
+	border-bottom: 1px #CCCCCC dashed;
+	white-space: nowrap;
+	margin-bottom: 10px;
+	white-space: nowrap; 
+	text-overflow: ellipsis;
 }
-.pro_img_a img { vertical-align:middle;}
 
-.pro_text { color: #333; line-height: 24px;}
-.pro_text h3 { font-size: 14px; overflow: hidden; width: 108px; height: 24px;}
-.pro_text p {}
-.pro_text_a { color: #ff5f2b;}
-.pro_text_a:hover { color: #ff9b00;}
+.pro_text { color: #333; line-height: 24px; overflow: hidden;}
+
+.pro_text a.pro_img_a { width: 130px; height:130px; overflow: hidden; float: left;}
+.pro_text a.pro_img_a img { width: 130px; height: 130px;}
+
+
+.pro_text_con { width: 128px; float: left; padding-left: 10px; overflow: hidden;}
+.pro_text_p { overflow: hidden; height: 74px; color: #999;}
+.pro_text .pro_money { font-family: "microsoft yahei"; font-weight:bold; font-size: 14px;color: #ff5f2b;}
+
+.pro_text .pro_comments img { width: 12px; height:12px; margin-right: 2px;}
+
+.pro_text_a { color: #ff5f2b; display: block; border: 1px #ff5f2b solid; text-align: center; margin-top: 6px;}
+.pro_text_a:hover { color: #ff9b00; border: 1px #ff9b00 solid;}
+
+
+
 
 /*公告*/
 .notice  { width: 280px; float: left; margin-left: 20px;}
@@ -294,8 +307,19 @@
 .notice_tab_title { margin-bottom: 20px;}
 .notice_tab_title h1 { color: #ff5f2b; font-family: "microsoft yahei"; font-size: 18px; line-height: 36px;}
 .notice_tab_title p { color: #999;}
-.notice_tab_text { overflow-y: auto; height: 300px; margin: 15px 0;}
-.notice_tab_text p { line-height: 24px; margin-bottom: 10px;}
+.notice_tab_text { height: 300px; margin: 15px 0;}
+.notice_tab_text textarea { 
+	width: 476px;
+	height: 300px;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+}
+
 
  /*--收单机构--*/
 .org_con { overflow: hidden; padding: 10px 0px;}
@@ -801,6 +825,19 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .pro_attributes table td, .pro_attributes table th { background: #FFF; padding: 5px; text-align: center;}
 .pro_attributes table td p {text-align: left; line-height: 24px;}
 .pro_attributes .text { line-height: 24px;}
+
+.pro_attributes .text textarea { 
+	width: 878px;
+	height: 600px;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+	font-family: "\5b8b\4f53";
+}
 
 /*-----评价------*/
 .pro_evaluate { overflow: hidden;}

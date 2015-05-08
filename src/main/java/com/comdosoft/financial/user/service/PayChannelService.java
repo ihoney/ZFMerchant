@@ -25,12 +25,12 @@ public class PayChannelService {
         // 支付通道交易费率
         List<Map<String, Object>> tDates = pcMapper.getTDatesByPayChannel(pcid);
         map.put("tDates", tDates);
-        // 支付通道开通所需材料 对公
-        List<Map<String, Object>> requireMaterial_pub = pcMapper.getRequireMaterial_pub(pcid);
-        map.put("requireMaterial_pub", requireMaterial_pub);
-        // 支付通道开通所需材料 对私
-        List<Map<String, Object>> requireMaterial_pra = pcMapper.getRequireMaterial_pra(pcid);
-        map.put("requireMaterial_pra", requireMaterial_pra);
+//        // 支付通道开通所需材料 对公
+//        List<Map<String, Object>> requireMaterial_pub = pcMapper.getRequireMaterial_pub(pcid);
+//        map.put("requireMaterial_pub", requireMaterial_pub);
+//        // 支付通道开通所需材料 对私
+//        List<Map<String, Object>> requireMaterial_pra = pcMapper.getRequireMaterial_pra(pcid);
+//        map.put("requireMaterial_pra", requireMaterial_pra);
         // 支持区域
         List<String> supportArea = pcMapper.getSupportArea(pcid);
         map.put("supportArea", supportArea);

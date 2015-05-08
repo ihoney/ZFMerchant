@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="agentMobileApp">
-<head>
+<html ng-app="agentMobileApp"> 
 <meta charset="UTF-8">
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="style/bootstrap.css">
 <script src="style/jquery.min.js"></script>
 <script src="style/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/libs/angular.js"></script>
+<script type="text/javascript" src="style/angular.js"></script>
 <meta name="viewport"
 	content="initial-scale=1.0, maximum-scale=1.0,
 minimum-scale=1.0, user-scalable=1, width=device-width" />
@@ -128,7 +127,7 @@ h4 {
 		$scope.selected = {};
 		$scope.selected_city = {};
 		$scope.city_search = function() {
-			$http.post("/ZFMerchant/api/index/getCity").success(function(data) {
+			$http.post("api/index/getCity").success(function(data) {
 				if (data != null && data != undefined) {
 					$scope.city_list = data.result;
 				}
@@ -150,7 +149,7 @@ h4 {
 				"touchPhone" : $scope.req.touchPhone
 			};
 			if (flag) {
-				$http.post("/ZFMerchant/api/agentjoin/addNewData", $scope.req)
+				$http.post("api/agentjoin/addNewData", $scope.req)
 						.success(function(data) {
 							if (data != null && data != undefined) {
 								alert("我们已经收到您的申请资料，我们将在一个工作日内与您联系，请保持电话畅通。");
