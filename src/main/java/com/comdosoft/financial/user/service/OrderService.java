@@ -231,6 +231,9 @@ public class OrderService {
             int total_price = SysUtils.String2int(map.get("total_price").toString());
             orderreq.setId(id);
             orderreq.setPrice(total_price);
+            if(0 == orderreq.getType()){
+            	orderreq.setType(1);
+            }
             orderMapper.payFinish(orderreq);
             orderMapper.upOrder(orderreq);
         } catch (Exception e) {
