@@ -4,6 +4,7 @@
 var cs_cencelModule = angular.module("cs_cencelModule",[]);
 
 var cs_cencelController = function ($scope, $http, LoginService) {
+	
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

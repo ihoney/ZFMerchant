@@ -117,7 +117,21 @@ public class CustomerService {
             param.put("is_default", CustomerAddress.ISDEFAULT_2);
             customerMapper.updateDefaultAddress(param);
         }
-        int i = customerMapper.insertAddress(param);
+        CustomerAddress ca = new CustomerAddress();
+        ca.setAddress(param.get("address")==null?"":param.get("address")+"");
+        String cityId = param.get("cityId")==null?"":param.get("cityId")+"";
+        if(cityId !=""){
+        	ca.setCityId(Integer.parseInt(cityId));
+        }
+        ca.setCreatedAt(new Date());
+        ca.setCustomerId((Integer) (param.get("customerId")==null?0:param.get("customerId")));
+        ca.setIsDefault(isDefault);
+        ca.setMoblephone(param.get("moblephone")==null?"":param.get("moblephone")+"");
+        ca.setReceiver(param.get("receiver")==null?"":param.get("receiver")+"");
+        ca.setTelphone(param.get("telphone")==null?"":param.get("telphone")+"");
+        ca.setZipCode(param.get("zipCode")==null?"":param.get("zipCode")+"");
+        customerMapper.insertAddress(ca);
+        int i = ca.getId();
         return i;
     }
 

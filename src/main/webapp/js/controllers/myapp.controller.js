@@ -5,6 +5,7 @@ var myappModule = angular.module("myappModule",[]);
 
 var myappController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
+
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';
 	}else{
@@ -41,20 +42,6 @@ var myappController = function ($scope, $http, LoginService) {
 		}).error(function (data) {
 			$("#serverErrorModal").modal({show: true});
 		});
-//		$http.post("api/cs/change/wxlist", $scope.req).success(function (data) {  
-//			if (data != null && data != undefined) {
-//				$scope.cc_list = data.result;
-//			}
-//		}).error(function (data) {
-//			$("#serverErrorModal").modal({show: true});
-//		});
-//		$http.post("api/return/wxlist", $scope.req).success(function (data) {  
-//			if (data != null && data != undefined) {
-//				$scope.cr_list = data.result;
-//			}
-//		}).error(function (data) {
-//			$("#serverErrorModal").modal({show: true});
-//		});
 	};
 	
 	$scope.trade_list = function(){

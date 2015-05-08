@@ -3,6 +3,7 @@ package com.comdosoft.financial.user.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import com.comdosoft.financial.user.utils.SysUtils;
 import com.comdosoft.financial.user.utils.Exception.LowstocksException;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
+import com.comdosoft.financial.user.utils.unionpay.UnionpayService;
 
 @Service
 public class OrderService {
@@ -45,6 +47,8 @@ public class OrderService {
     private String filePath;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+    
+    private static SimpleDateFormat sdf_simple = new SimpleDateFormat("yyyyMMddHHmmss"); 
     
     @Transactional(value = "transactionManager-zhangfu")
     public int createOrderFromCart(OrderReq orderreq) throws LowstocksException {
@@ -189,22 +193,52 @@ public class OrderService {
     }
 
     public Map<String, Object> payOrder(OrderReq orderreq) {
+    	//必须存在订单ID
         Map<String, Object> map = orderMapper.getPayOrder(orderreq);
+        String paytype = String.valueOf(map.get("paytype"));
+        //如未完成支付,调用第三方支付交易状态查询接口更新订单状态
+        if("0".equals(paytype)){
+        	int _paytype = orderreq.getPayway();
+        	if(2 == _paytype){
+        		String orderId = (String) map.get("order_number");
+        		Date created_at = (Date) map.get("created_at");
+        		String txnTime = sdf_simple.format(created_at);
+        		try{
+	        		Map<String,String> queryResult =UnionpayService.query(orderId, txnTime);
+	        		if(null != queryResult && "00".equals(queryResult.get("respCode"))){
+	        			//必须存在订单编号
+	        			orderreq.setOrdernumber(orderId);
+	        			orderreq.setType(_paytype);
+	        			payFinish(orderreq);
+	        			map = orderMapper.getPayOrder(orderreq);
+	        		}
+        		}catch(Exception e){
+        			e.printStackTrace();
+        		}
+        	}
+        }
         map.put("good", orderMapper.getPayOrderGood(orderreq));
         return map;
     }
 
     public void payFinish(OrderReq orderreq) {
         Map<String, Object> map = orderMapper.getOrderByMumber(orderreq);
+        if(null == map){
+        	return;
+        }
         try {
             int id = SysUtils.String2int(map.get("id").toString());
             int total_price = SysUtils.String2int(map.get("total_price").toString());
             orderreq.setId(id);
-            orderreq.setType(1);
             orderreq.setPrice(total_price);
+            if(0 == orderreq.getType()){
+            	orderreq.setType(1);
+            }
             orderMapper.payFinish(orderreq);
             orderMapper.upOrder(orderreq);
         } catch (Exception e) {
+        	e.printStackTrace();
+        	logger.debug("完成订单处理异常",e);
         }
     }
 

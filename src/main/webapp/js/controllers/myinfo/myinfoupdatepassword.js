@@ -14,6 +14,9 @@ var myinfoupdatepasswordController = function($scope, $http, LoginService) {
 		if (typeof(p) == "undefined" || p=="") { 
 			alert("请输入新密码");
 			return false;
+		}else if(p.length <6  || p.length >20){
+			alert("密码必须在6-20位之间");
+			return false;
 		}
 		if($scope.customer.password !=$scope.customer.repassword){
 			alert("输入的密码不一致！");

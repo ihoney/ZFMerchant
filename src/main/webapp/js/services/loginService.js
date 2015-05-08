@@ -13,6 +13,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         loginUserName: typeof($cookieStore.get("loginUserName")) == 'undefined' ? "" : $cookieStore.get("loginUserName"),
         userid: typeof($cookieStore.get("loginUserId")) == 'undefined' ? 0 : $cookieStore.get("loginUserId"),
         city:  typeof($cookieStore.get("city_id")) == 'undefined' ? 0 : $cookieStore.get("city_id"),
+        subusername:  typeof($cookieStore.get("subusername")) == 'undefined' ? 0 : $cookieStore.get("subusername"),
         goods: [],
         tradeTypeId: 0,
         //用户登陆功能
@@ -25,6 +26,8 @@ var loginService = function ($http, $rootScope, $cookieStore) {
    		 	$http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
       			 if(data.code == -1){
       				$scope.imgClass = true;
+      				alert("验证码错误！");
+      				$scope.reGetRandCodeImg();
       			 }else{
       				 $http.post("api/user/studentWebLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
       			           if(data.code == -1){//用户或者密码错误！
@@ -43,6 +46,7 @@ var loginService = function ($http, $rootScope, $cookieStore) {
       			        	   }
       			        	   $cookieStore.put("loginUserName",data.result.username);
       			        	   $cookieStore.put("loginUserId",data.result.id);
+      			        	   $cookieStore.put("subusername",data.result.subusername);
       			        	   location.reload();
       			        	   
       			           }

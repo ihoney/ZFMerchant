@@ -1,31 +1,5 @@
 <div id="mainindex" ng-controller="mainindexController">
-	<div class="clear"></div>
-	<div class="head head_index clear">
-		<div class="box" ng-controller="searchController">
-			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
-			<div class="search">
-				<div class="search_box">
-					<input ng-model="haha" type="text" placeholder="请输入pos机信息" />
-					<button ng-click="searchShop()">搜索</button>
-				</div>
-				<div class="hotwords">
-					<a href="#">钱袋宝</a><a href="#">中汇</a><a href="#">杉德</a><a href="#">掌富</a>
-				</div>
-			</div>
-			<div class="phone">
-				<img src="images/dh.png" />
-			</div>
-			<div class="shoppingCart">
-				<div class="sCart_h">
-					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
-				</div>
-				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去&nbsp付款</a>
-				</div>
-				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去&nbsp购买</a></div>
-			</div>
-		</div>
-	</div>
+	
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
@@ -67,66 +41,66 @@
 		</div>
 
 		<div class="box">
+		
 			<div class="hotPro">
-				<div class="title">
-					热卖POS<a href="#" class="more">更多&gt;&gt;</a>
-				</div>
-				<div class="hp_con">
-					<ul>
-						<li ng-repeat="p in pos_list |orderBy : '-volume_number'"><a
-							href="#/shopinfo?goodId={{p.id}}" class="pro_img_a"><img
-								src="{{p.good_logo}}" style="width: 150px; height: auto;" /></a>
-							<div class="pro_text">
-								<h3>{{p.brand_name}} {{p.brand_number}}</h3>
-								<p>支持平台</p>
-								<p>支持交易类型</p>
-								<p>费率</p>
-								<p>到账日期</p>
-								<a class="pro_text_a" href="#/shopinfo?goodId={{p.id}}">查看详情
-									&gt;&gt;</a>
-							</div></li>
-					</ul>
-				</div>
-			</div>
+        	<div class="title">热卖POS<a href="#" class="more">更多&gt;&gt;</a></div>
+            <div class="hp_con">
+            	<ul>
+                	<li ng-repeat="p in pos_list ">
+                    	<h1><a 	href="#/shopinfo?goodId={{p.id}}"   title="{{p.title}}">{{p.title}}</a></h1>
+                        <div class="pro_text">
+                        	<a 	href="#/shopinfo?goodId={{p.id}}"  class="pro_img_a"><img src="{{p.good_logo}}" /></a>
+                            <div class="pro_text_con">
+                            	<div class="pro_money">{{p.retail_price/100 |currency : "￥"}} </div>
+                                <div class="pro_text_p" title="{{p.second_title}}">{{p.second_title}}</div>
+                                <a class="pro_text_a"  	href="#/shopinfo?goodId={{p.id}}" >查看详情</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+			
 			<div class="notice">
-				<div class="title">网站公告</div>
-				<div class="no_con">
-					<ul>
-						<li ng-repeat="m in web_list"><i></i>
-							<p>
-								<a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a>
-							</p> <span>{{m.create_at}}</span></li>
-					</ul>
-				</div>
-			</div>
+        	<div class="title">网站公告</div>
+            <div class="no_con">
+            	<ul>
+                	<li  ng-repeat="m in web_list"><i></i><p><a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a></p>
+                    	<span>{{m.create_at}}</span>	
+                    </li>
+                </ul>
+            </div>
+        </div>
+			
 		</div>
 
+ 
 		<div class="box">
-			<div class="organization">
-				<div class="title">收单机构</div>
-				<div class="org_con">
-					<ul>
-						<li ng-repeat="f in factory_list"><a href="javascript:void()">
-								<img src="{{f.logo_file_path}}" width="80px;" height="60px;" />
-								<h4>{{f.name}}</h4>
-								<p>{{f.description}}</p>
-						</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
+    	<div class="organization">
+        	<div class="title">收单机构</div>
+            <div class="org_con">
+            	<ul>
+            		<li ng-repeat="f in factory_list">  <img src="{{f.logo_file_path}}"  alt="{{f.name}}" title="{{f.name}}"  /></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+		
 		<div class="contact">
 			<div class="box">
 				<h1>和我们的专家进行及时沟通</h1>
 				<ul>
 					<li><a href="javascript:void(0);" class="buyIntention_a"><i
 							class="intention"></i>
-							<p>填写购买意向</p></a></li>
-					<li><a href="#"><i class="qqContact"></i>
-							<p>联系24小时在线客服</p></a></li>
-					<li><a href="#"><i class="phoneContact"></i>
-							<p>400-009-0876</p></a></li>
+							<p class="contactP">填写购买意向</p></a></li>
+					<li style="position:relative;"><span id="contactLi2"><i class="qqContact"></i>
+							<p class="contactP" id="contactP2">5×8小时在线客服</p></span>
+								<div class="qqContact_box" id="qqContact_box">周一到周五9:00到18:00</div>
+					</li>
+							
+					<li><span><i class="phoneContact"></i>
+							<p>400-009-0876</p></span></li>
+							
 				</ul>
 			</div>
 		</div>
@@ -168,15 +142,16 @@
 		<div class="tabBody">
 			<div class="seen_progress">
 				<ul ng-repeat="tt in ttt">
-					<li><span>终端号：</span>{{tt.serial_num}}</li>
+					<li><span>终端号：</span><div class="nr">{{tt.serial_num}}</div></li>
 					<li><span>当前进度：</span> 
 					<div class="nr">
-						<p ng-if="tt.openStatus.length==0">未申请</p>
+						<p ng-if="tt.error!=undefined">{{tt.error}}</p>
 						<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
 							{{t.status==1?"未开通 ":(t.status==2?"审核中":"已开通")}}</p>
 					</div>
 					</li>
 				</ul>
+				<div class="seen_progress_wrong">{{searchhherror}}</div>
 			</div>
 		</div>
 		<div class="tabFoot">
@@ -192,16 +167,27 @@
 					<h1 id="notice_title"></h1>
 					<p id="notice_time"></p>
 				</div>
-				<div class="notice_tab_text" id="notice_contnet"></div>
+				<div class="notice_tab_text" >
+            	<textarea readonly="readonly" name="" cols="" rows="" id="notice_contnet"> </textarea>
+            </div>
 			</div>
 		</div>
 	</div>
-
+	
 </div> 
+
 <script src="js/main.js"></script>
 <script type="text/javascript" src="js/jQuery.autoIMG.js"></script>
 <script>
 	$(function() {
 		$('.cn_img').autoIMG();
+		$("#contactLi2").hover(function(e){
+			$("#contactP2").text("QQ：3251170541");
+			$("#qqContact_box").show();
+		},function(e){
+			$("#contactP2").text("5×8小时在线客服");
+			$("#qqContact_box").hide();
+		});
+		
 	})
 </script>

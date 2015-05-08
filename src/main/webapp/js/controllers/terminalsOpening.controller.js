@@ -5,7 +5,7 @@ var terminalOpenModule = angular.module("terminalOpenModule",['loginServiceModul
 
 var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	//已有商户，点击样式
-	$scope._br = false;
+	$scope._br = -1;
 	
 	//检验邮箱格式
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -16,6 +16,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 
 	$scope.terminalId=$location.search()['terminalId'];
 	$scope.openstatus=$location.search()['status'];
+	$scope.gotoopentype=$location.search()['type'];
 	$scope.customerId = LoginService.userid;
 	$scope.img = null;
 	$scope.MaterialLevel = [];
@@ -28,11 +29,19 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	$scope.appStatus = 1;
 	//对公对私（1.公 2.私）
 	$scope.status=1;
+	//交易规则
+	$scope.checkbox = true;
 	//显示对公对私按钮
 	$scope.siClass = "toPrivate";
 	$scope.gongClass = "toPublic hover";
 	$scope.sex = 1;
 	$(".leaseExplain_tab").hide();
+	$scope.channelName = "请选择";
+	$scope.channelTsName = "请选择";
+	$scope.addressShen = "请选择";
+	$scope.addressShi = "请选择";
+	$scope.cities = [];
+	$scope.billings = [];
 	//查看终端详情
 	$scope.terminalDetail = function () {
 		if(LoginService.userid == 0){
@@ -46,6 +55,9 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
           if (data != null && data != undefined) {
               //终端信息
               $scope.applyDetails = data.result.applyDetails != null?data.result.applyDetails:"";
+              if($scope.applyDetails.supportRequirementType != null && $scope.applyDetails.supportRequirementType != 3){
+            	  $scope.status=$scope.applyDetails.supportRequirementType;
+              }
               
               if($scope.applyDetails.appId != null){
             	  if($scope.applyDetails.appId != undefined){
@@ -66,9 +78,19 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
               $scope.CitieChen= data.result.CitieChen;
               //支付通道
               $scope.channels = data.result.channels;
+              for(var i=0;i<$scope.channels.length;i++){
+            	  if($scope.channels[i].name != null){
+                	  $scope.channelName = $scope.channels[i].name;
+                  }
+            	  $scope.billings = $scope.channels[i].billings;
+            	  $scope.channel = $scope.channels[i].id;
+              }
+              
               if($scope.openingInfos != null && $scope.openingInfos!= undefined){
             	//数据替换
-                  $scope.status = $scope.openingInfos.types;
+            	  if($scope.applyDetails.supportRequirementType != null && $scope.applyDetails.supportRequirementType == 3){
+            		  $scope.status = $scope.openingInfos.types;//对公对私
+	              }
                 //根据对公对私状态显示按钮
                   if($scope.status == 1){
                 	  $scope.siClass = "toPrivate";
@@ -136,18 +158,26 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  $(".leaseExplain_tab").show();
   }
   
+//姓名和银行名称对应
+  $scope.toworte = function(){
+	  $("#bankNameValue").val($("#valueName").val());
+  }
+  
   //动态显示商户
   $scope.angu = function(obj1,obj2,curr){
 	  $scope.merchantNamed = obj1;
 	  $scope.merchantId = obj2;//商户Id
+	  $scope._br = curr; 
 	  //获得商户详情
 	  $http.post("api/terminal/getMerchant", {merchantId:Math.ceil( $scope.merchantId)}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == 1){
         		//终端信息
                   $scope.merchant = data.result;
-                  $scope._br = curr; 
-                  console.info($scope._br);
+                  if($scope.merchant.legal_person_name != null){
+                	  $("#valueName").val($scope.merchant.legal_person_name);
+                	  $("#bankNameValue").val($scope.merchant.legal_person_name);
+                  }
         	  }else{
         		  alert("商户信息加载失败！");
         	  }
@@ -161,11 +191,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   $scope.butSex = function(num){
 		  $scope.sex=num;
   }
-  $scope.channelName = "请选择";
-  $scope.channelTsName = "请选择";
-  $scope.addressShen = "请选择";
-  $scope.addressShi = "请选择";
-  $scope.cities = [];
+
   //获得省级
 	$scope.getShengcit= function(){
 		$http.post("api/index/getCity").success(function(data) {
@@ -295,9 +321,6 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 	  if($scope.req.shiList != undefined){
 		  $scope.cityId = Math.ceil($scope.req.shiList.id);
 	  }
-	  if($scope.chan.chanList != undefined){
-		  $scope.channel = Math.ceil($scope.chan.chanList.id);
-	  }
 	  if($scope.tln.chanTs != undefined){
 		  $scope.billingId = Math.ceil($scope.tln.chanTs.id);
 	  }
@@ -310,7 +333,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		                     publicPrivateStatus: Math.ceil($scope.status),
 		                     applyCustomerId: Math.ceil($scope.customerId),
 		                     merchantId: Math.ceil($scope.merchantId),
-		                     merchantName:$scope.merchantNamed,
+		                     merchantName:$("#merchant").val(),
 		                     sex:Math.ceil($scope.sex),
 		                     birthday: $scope.birthday,
 		                     cardId:$("#cirdValue").val(),
@@ -355,24 +378,29 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
 		  for(var i=0;i<$scope.listOne.length;i++){
 			  $scope.list[$scope.leng+i] = $scope.listOne[i];
 		  }
-		  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
-	          if (data != null && data != undefined) {
-	        	  if(data.code == 1){
-	        		  //跳转
-	        		  window.location.href = '#/terminal';
-	        	  }else{
-	        		  alert(data.message);
-	        	  }
-	          }
-	      }).error(function (data) {
-	    	  alert("获取列表失败");
-	          $("#serverErrorModal").modal({show: true});
-	      });
+		  if($scope.checkbox == true){
+			  $http.post("api/terminal/addOpeningApply", $scope.list).success(function (data) {  //绑定
+		          if (data != null && data != undefined) {
+		        	  if(data.code == 1){
+		        		  //跳转
+		        		  window.location.href = '#/terminal';
+		        	  }else{
+		        		  alert(data.message);
+		        	  }
+		          }
+		      }).error(function (data) {
+		    	  alert("获取列表失败");
+		          $("#serverErrorModal").modal({show: true});
+		      });
+		  }else {
+			  alert("请仔细阅读交易规则！");
+		  }
+		  
 	  }
 	  }
   //对等级一模块进行校验
   $scope.levelCheck = function(){
-	  if($scope.merchantNamed == ""){
+	  if($("#merchant").val() == ""){
 		  alert("请选择或填写商户！");
 		  return false;
 	  }else if($("#valueName").val() == ""){

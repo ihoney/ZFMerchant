@@ -44,7 +44,7 @@
 }
 .address .addr_b li { display: inline; margin: 5px; color: #333;}
 .address .addr_b li label { display: inline-block;}
-.address .addr_b li select { height: 24px; border: 1px #CCCCCC solid;}
+.address .addr_b li select { height: 24px; border: 1px #CCCCCC solid; width: 66px;}
 .address .addr_b li button { height: 24px; border: 1px #CCCCCC solid; background: #f5f5f5; padding: 0 5px;}
 
 
@@ -61,7 +61,7 @@
 .topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid;}
 
 .loginInfo { float: right; height: 40px; line-height: 40px;}
-.loginInfo a { color: #FFF; margin: 0 10px;}
+.loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
 
 
 /*------selectBox div模拟select------*/
@@ -128,7 +128,13 @@
 .ad { font-size: 0px; width: 100%;}
 .banner { position: relative; overflow: auto; }
 .banner li { list-style: none; height: 466px;}
-.banner ul li { float: left; background-size: cover; background-position: center 0px;}
+.banner ul li { 
+	float: left; 
+	background-size: contain; 
+	background-position: center center; 
+	background-repeat: no-repeat;
+	background-color: #FFF;
+}
 
 .dots { position:absolute; bottom:3px; z-index:10; left: 50%; margin-left: -14px;}
 .dots li { 
@@ -241,23 +247,36 @@
 	background: #FFF;
 }
 .hp_con ul li:hover { box-shadow: 0 0 3px rgba(0,0,0,0.3);}
-.pro_img_a { 
-	width: 150px; 
-	height: 140px;  
+.hp_con ul li h1 { 
+	font-size: 14px; 
 	overflow: hidden; 
-	font-size: 0;
-	float: left;
-	margin-right: 10px;
-	text-align: center;
-	display:table-cell;
+	width: 268px; 
+	height: 28px;
+	line-height: 28px;
+	border-bottom: 1px #CCCCCC dashed;
+	white-space: nowrap;
+	margin-bottom: 10px;
+	white-space: nowrap; 
+	text-overflow: ellipsis;
 }
-.pro_img_a img { vertical-align:middle;}
 
-.pro_text { color: #333; line-height: 24px;}
-.pro_text h3 { font-size: 14px; overflow: hidden; width: 108px; height: 24px;}
-.pro_text p {}
-.pro_text_a { color: #ff5f2b;}
-.pro_text_a:hover { color: #ff9b00;}
+.pro_text { color: #333; line-height: 24px; overflow: hidden;}
+
+.pro_text a.pro_img_a { width: 130px; height:130px; overflow: hidden; float: left;}
+.pro_text a.pro_img_a img { width: 130px; height: 130px;}
+
+
+.pro_text_con { width: 128px; float: left; padding-left: 10px; overflow: hidden;}
+.pro_text_p { overflow: hidden; height: 74px; color: #999;}
+.pro_text .pro_money { font-family: "microsoft yahei"; font-weight:bold; font-size: 14px;color: #ff5f2b;}
+
+.pro_text .pro_comments img { width: 12px; height:12px; margin-right: 2px;}
+
+.pro_text_a { color: #ff5f2b; display: block; border: 1px #ff5f2b solid; text-align: center; margin-top: 6px;}
+.pro_text_a:hover { color: #ff9b00; border: 1px #ff9b00 solid;}
+
+
+
 
 /*公告*/
 .notice  { width: 280px; float: left; margin-left: 20px;}
@@ -288,26 +307,35 @@
 .notice_tab_title { margin-bottom: 20px;}
 .notice_tab_title h1 { color: #ff5f2b; font-family: "microsoft yahei"; font-size: 18px; line-height: 36px;}
 .notice_tab_title p { color: #999;}
-.notice_tab_text { overflow-y: auto; height: 300px; margin: 15px 0;}
-.notice_tab_text p { line-height: 24px; margin-bottom: 10px;}
+.notice_tab_text { height: 300px; margin: 15px 0;}
+.notice_tab_text textarea { 
+	width: 476px;
+	height: 300px;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+}
 
-/*--收单机构--*/
+
+ /*--收单机构--*/
 .org_con { overflow: hidden; padding: 10px 0px;}
-.org_con h4 { height: 18px; overflow: hidden;}
-.org_con li { float: left; margin: 6px;}
-.org_con li a { 
-	width: 176px; 
+.org_con li { 
+	width: 180px; 
 	height: 60px;
 	display: block;
-	overflow: hidden; 
-	padding: 5px;
+	overflow: hidden;
 	border: 1px #CCCCCC solid;
 	background: #FFF;
 	color: #333;
+	float: left; 
+	margin: 9px;
 }
-.org_con li a:hover { border: 1px #ff9b00 solid;}
-.org_con li a img { float: left; margin-right: 10px;}
-.org_con li a p { color: #666;}
+
+.org_con li img { width: 180px; height: 60px;}
 
 
 /*------沟通contact----------*/
@@ -319,7 +347,7 @@
 	padding-top: 130px;
 }
 .contact h1 { font-size: 34px; line-height: 68px; margin-bottom: 30px;}
-.contact li { width: 234px; height: 140px; display: inline-block; margin: 0 25px;}
+.contact li { width: 234px; height: 140px; display: inline-block; margin: 0 25px;position: relative;}
 .contact li i { 
 	width: 84px; 
 	height: 84px; 
@@ -343,6 +371,9 @@
 	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
 	-o-transition: background 0.2s; /* Opera */
 }
+.contact li span:hover i.qqContact {
+	background: url(../images/contact_icon.png) no-repeat 0 -252px;
+}
 .contact li a:hover i.qqContact {
 	background: url(../images/contact_icon.png) no-repeat 0 -252px;
 }
@@ -353,9 +384,9 @@
 	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
 	-o-transition: background 0.2s; /* Opera */
 }
-.contact li a:hover i.phoneContact {
+/* .contact li a:hover i.phoneContact {
 	background: url(../images/contact_icon.png) no-repeat 0 -420px;
-}
+}*/
 .contact li p { 
 	height: 40px; 
 	line-height: 40px; 
@@ -367,11 +398,19 @@
 	-webkit-transition: all 0.2s; /* Safari 和 Chrome */
 	-o-transition: all 0.2s; /* Opera */
 }
-.contact li a:hover p { 
+ .contact li a:hover .contactP { 
 	color: #fff;
 	border: 1px #fc5f25 solid;
 	background: #fc5f25;
 }
+.contact li span:hover .contactP { 
+	color: #fff;
+	border: 1px #fc5f25 solid;
+	background: #fc5f25;
+}
+
+.contact li .qqContact_box { position: absolute; bottom: -24px; width: 100%; display: none;}
+
 
 /*------服务内容-------*/
 .serviceContent {  position: relative;  padding: 100px 0;}
@@ -389,9 +428,9 @@
 	padding-left: 60px;
 	color: #333;
 }
-.serviceContent dt a:hover { 
+/*.serviceContent dt a:hover { 
 	color: #fc5f25;
-}
+}*/
 .serviceContent dt a.sc01 i { 
 	width: 55px; 
 	height: 55px; 
@@ -405,7 +444,7 @@
 	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
 	-o-transition: background 0.2s; /* Opera */
 }
-.serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}
+/*.serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}*/
 .ewm { 
 	width: 230px; 
 	height: 230px;  
@@ -787,6 +826,19 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .pro_attributes table td p {text-align: left; line-height: 24px;}
 .pro_attributes .text { line-height: 24px;}
 
+.pro_attributes .text textarea { 
+	width: 878px;
+	height: 600px;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+	font-family: "\5b8b\4f53";
+}
+
 /*-----评价------*/
 .pro_evaluate { overflow: hidden;}
 .evaluate_title { 
@@ -939,3 +991,4 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .seen_progress li div.nr { width: 360px; float: left;}
 .seen_progress li div p { display: inline-block; margin-right: 20px;}
 
+.seen_progress_wrong { text-align: center; font-size: 18px; color:#ff5f2b;}

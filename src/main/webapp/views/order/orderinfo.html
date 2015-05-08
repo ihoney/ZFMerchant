@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/controllers/orderinfo.controller.js"></script>
+<script type="text/javascript" src="js/left.js"></script>
 <div ng-controller="orderinfoController">
 <div class="right" >
 <div class="tab seeNumber_tab hide" id="od_ter_div">
@@ -140,13 +141,12 @@
 				<tbody ng-if="o.order_goods_size>1">
 
 					<tr ng-repeat="g in  o.order_goodsList ">
-					<input type="hidden" value="{{g.good_name}}" name="g_name" ng-model="g_name" id="g_name">
 						<td>
 							<div class="td_proBox clear">
 								<a href="#/shopinfo?goodId={{g.good_id}}" class="cn_img"><img width="130px" height="130px" src="{{g.good_logo}}" /></a>
 								<div class="td_proBox_info">
 									<h1>
-										<a href="#/shopinfo?goodId={{g.good_id}}">{{g.good_name}}</a>
+										<a href="#/shopinfo?goodId={{g.good_id}}">{{g.good_name}}	<input type="hidden" value="{{g.good_name}}" name="g_name" ng-model="g_name" id="g_name"></a>
 									</h1>
 									<h3>热销{{g.good_volume_number}}件</h3>
 									<ul>
@@ -172,12 +172,10 @@
 					</tr>
 				</tbody>
 				<tbody ng-if="o.order_goods_size==1">
-
 					<tr ng-repeat="g in  o.order_goodsList ">
-					<input type="hidden" value="{{g.good_name}}" name="g_name" ng-model="g_name" id="g_name">
 						<td>
 							<div class="td_proBox clear">
-								<a href="#/shopinfo?goodId={{g.good_id}}" class="cn_img"><img width="130px" height="130px" src="{{g.good_logo}}" /></a>
+								<a href="#/shopinfo?goodId={{g.good_id}}" class="cn_img"><img width="130px" height="130px" src="{{g.good_logo}}" />	<input type="hidden" value="{{g.good_name}}" name="g_name" ng-model="g_name" id="g_name"></a>
 								<div class="td_proBox_info">
 									<h1>
 										<a href="#/shopinfo?goodId={{g.good_id}}">{{g.good_name}}</a>

@@ -17,12 +17,19 @@ var mainindexController = function($scope, $http) {
 	}
 
 	$scope.searchhh = function() {
+		if($scope.req.phone2==undefined||""==$scope.req.phone2.trim()){
+			$scope.searchhherror="请输入手机号";
+			return;
+		}
 		$http.post("api/terminal/openStatus", {
 			type : 8,
 			phone : $scope.req.phone2
 		}).success(function(data) { // 绑定
 			if (data.code == 1) {
+				$scope.searchhherror="";
 				$scope.ttt = data.result;
+			}else{
+				$scope.searchhherror=data.message;
 			}
 		});
 	};
@@ -98,16 +105,12 @@ var mainindexController = function($scope, $http) {
 			if (data != null && data != undefined) {
 				$scope.pic_list = data.result.list;
 				$scope.pic_total = data.result.total;
-//				$scope.pic_0 = $scope.pic_list[0].picture_url;
-//				$scope.pic_1 = $scope.pic_list[1].picture_url;
-//				$scope.pic_2 = $scope.pic_list[2].picture_url;
-//				$scope.pic_3 = $scope.pic_list[3].picture_url;
 			}
 		});
 	};
 	$scope.gotoo = function(url) {
-		window.open(url);
-		// window.location.href = url;
+		//window.open(url);
+		 window.location.href = url;
 	};
 	$scope.init = function() {
 		$scope.web_message_list();

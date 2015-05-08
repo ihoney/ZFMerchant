@@ -30,7 +30,7 @@ public interface TerminalsMapper {
      * @param customerId
      * @return
      */
-    List<Map<Object, Object>> getCustomerAddress(int customerId);
+    List<Map<Object, Object>> getCustomerAddress(Map<Object, Object> map);
     
     /**
      * <!-城市级联(省) -->

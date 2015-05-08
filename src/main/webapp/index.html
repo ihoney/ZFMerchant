@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule"
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" id="ng-app"
 	ng-controller="indexController">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IEs=edge" />
 <meta name="renderer" content="webkit" />
 
-<title>掌富用户版首页</title>
+<title>华尔街金融平台</title>
 <script>
 	/******百度统计代码******/
 	var _hmt = _hmt || [];
@@ -60,8 +60,7 @@
 <script type="text/javascript" src="js/controllers/shop.controller.js"></script>
 <script type="text/javascript" src="js/controllers/login.controller.js"></script>
 <script type="text/javascript" src="js/controllers/pay.controller.js"></script>
-<script type="text/javascript"
-	src="js/controllers/mainindex.controller.js"></script>
+<script type="text/javascript"	src="js/controllers/mainindex.controller.js"></script>
 
 </head>
 <body>
@@ -95,7 +94,7 @@
 				<a href="#">打造精致小店</a> -->
 			</div>
 			<div class="loginInfo">
-				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin()">代理商入口</a>
+				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -129,16 +128,16 @@
 					<li><a href="#/userdown">APP下载</a></li>
 				</ul>
 			</div>
-			<div class="top_user">
-				<a href="#/myapp">{{loginUserName}}</a><a href="javascript:void(0)"
-					ng-click="escLogin()">退出</a><a href="#">代理商入口</a>
+			<div class="loginInfo">
+				<span>{{loginUserName}}</span><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
+					ng-click="escLogin()">退出</a><a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 		</div>
 		<div class="clear"></div>
 	</div>
 
-	<div class="head clear" ng-if="ngshow2">
-		<div class="box" ng-controller="searchController">
+	<div class="head clear"  ng-show="shopcart1">
+		<div class="box" ng-controller="searchController" >
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
@@ -147,21 +146,21 @@
 				</div>
 				<div class="hotwords">
 					<div class="hotwords">
-						<a href="#">钱袋宝</a><a href="#">中汇</a><a href="#">杉德</a><a href="#">掌富</a>
+						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
 					</div>
 				</div>
 			</div>
-			<div class="phone">
+			<div class="phone" ng-show="shopcart2">
 				<img src="images/dh.png" />
 			</div>
-			<div class="shoppingCart">
+			<div class="shoppingCart" ng-show="shopcart2">
 				<div class="sCart_h">
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去&nbsp付款</a>
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去付款</a>
 				</div>
-				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去&nbsp购买</a></div>
+				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去购买</a></div>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/main.js"></script>

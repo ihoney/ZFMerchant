@@ -115,7 +115,10 @@ public class TerminalsService {
 	 * @return
 	 */
 	public List<Map<Object, Object>> getCustomerAddress(Integer id) {
-		return terminalsMapper.getCustomerAddress(id);
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("customerId", id);
+		map.put("status", CustomerAddress.STATUS_1);
+		return terminalsMapper.getCustomerAddress(map);
 	}
 	
 	/**
@@ -478,7 +481,12 @@ public class TerminalsService {
                 }
                 id=SysUtils.String2int(""+map.get("id"));
                 listmap2=terminalsMapper.getTerminalOpenStatus(id);
-                map.put("openStatus", listmap2);
+                if(listmap2!=null&&listmap2.size()>0){
+                    map.put("openStatus", listmap2);
+                }else{
+                    map.put("error", "未申请");
+                }
+                
             }
         }
         return listmap;

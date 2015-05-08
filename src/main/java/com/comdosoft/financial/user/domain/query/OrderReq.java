@@ -32,10 +32,15 @@ public class OrderReq {
     **/
     private Integer belongto;
     
+    private int payway;
     
-    
-    
-    public Integer getBelongto() {
+    public int getPayway() {
+		return payway;
+	}
+	public void setPayway(int payway) {
+		this.payway = payway;
+	}
+	public Integer getBelongto() {
         return belongto;
     }
     public void setBelongto(Integer belongto) {

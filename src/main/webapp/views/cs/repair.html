@@ -1,5 +1,5 @@
-<script type="text/javascript" src="js/page.js"></script>
 <script type="text/javascript" src="js/controllers/cs_repair.controller.js"></script>
+<script type="text/javascript" src="js/left.js"></script>
 <div class="right" ng-controller="cs_repairController">
  <div class="tab logistics_tab hide"  >
     	<a href="javascript:void(0);" class="close" ng-click="close_wlxx()">关闭</a>
@@ -65,8 +65,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="o in list.content">
-						<input type="hidden" value="" name="info_id" id="info_id" >
-						<td>{{o.apply_num}}</td>
+						<td>{{o.apply_num}}		<input type="hidden" value="" name="info_id" id="info_id" ></td>
 						<td>{{o.create_time}}</td>
 						<td>{{o.terminal_num}}<br />{{o.brand_name}} {{o.brand_number}} {{o.zhifu_pingtai}}
 						</td>
