@@ -206,6 +206,11 @@ var searchController = function($scope, LoginService) {
 		LoginService.keys=$scope.haha;
 		window.location.href = '#/shop';
 	};
+	$scope.hotwords=function(xx) {
+		LoginService.keys=xx;
+		window.location.href = '#/shop';
+	};
+	
 };
 
 
