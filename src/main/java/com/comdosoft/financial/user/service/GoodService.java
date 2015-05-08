@@ -115,6 +115,16 @@ public class GoodService {
                }
             }
             goodInfoMap.put("relativeShopList",relativeShopList);
+            
+            List<Map<String, Object>> picList=goodMapper.getPicList(posreq.getGoodId());
+            if(picList!=null){
+	            for(int i=0;i<picList.size();i++){
+	            	String urlPath=filePath+picList.get(i).get("urlPath").toString();
+	            	picList.get(i).put("urlPath", urlPath);
+	            }
+            }
+            goodInfoMap.put("picList", picList);
+            
         }
         return goodInfoMap;
     }
