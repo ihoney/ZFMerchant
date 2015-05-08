@@ -127,7 +127,7 @@ h4 {
 		$scope.selected = {};
 		$scope.selected_city = {};
 		$scope.city_search = function() {
-			$http.post("http://www.ebank007.com/api/index/getCity").success(function(data) {
+			$http.post("api/index/getCity").success(function(data) {
 				if (data != null && data != undefined) {
 					$scope.city_list = data.result;
 				}
@@ -149,7 +149,7 @@ h4 {
 				"touchPhone" : $scope.req.touchPhone
 			};
 			if (flag) {
-				$http.post("http://www.ebank007.com/api/agentjoin/addNewData", $scope.req)
+				$http.post("api/agentjoin/addNewData", $scope.req)
 						.success(function(data) {
 							if (data != null && data != undefined) {
 								alert("我们已经收到您的申请资料，我们将在一个工作日内与您联系，请保持电话畅通。");
