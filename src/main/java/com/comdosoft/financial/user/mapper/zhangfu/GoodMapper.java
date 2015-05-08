@@ -62,5 +62,5 @@ public interface GoodMapper {
 
     int getShengId(int city_id);
 
-
+    List<Map<String, Object>> getPicList(int goodId);
 }
