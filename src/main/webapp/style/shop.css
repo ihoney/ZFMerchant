@@ -128,7 +128,13 @@
 .ad { font-size: 0px; width: 100%;}
 .banner { position: relative; overflow: auto; }
 .banner li { list-style: none; height: 466px;}
-.banner ul li { float: left; background-size: cover; background-position: center 0px;}
+.banner ul li { 
+	float: left; 
+	background-size: contain; 
+	background-position: center center; 
+	background-repeat: no-repeat;
+	background-color: #FFF;
+}
 
 .dots { position:absolute; bottom:3px; z-index:10; left: 50%; margin-left: -14px;}
 .dots li { 
@@ -937,3 +943,4 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .seen_progress li div.nr { width: 360px; float: left;}
 .seen_progress li div p { display: inline-block; margin-right: 20px;}
 
+.seen_progress_wrong { text-align: center; font-size: 18px; color:#ff5f2b;}

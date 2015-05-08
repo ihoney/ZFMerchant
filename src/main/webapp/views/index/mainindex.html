@@ -138,17 +138,17 @@
 		<div class="tabHead">查询进度</div>
 		<div class="tabBody">
 			<div class="seen_progress">
-				<span>{{searchhherror}}</span>
 				<ul ng-repeat="tt in ttt">
-					<li><span>终端号：</span>{{tt.serial_num}}</li>
+					<li><span>终端号：</span><div class="nr">{{tt.serial_num}}</div></li>
 					<li><span>当前进度：</span> 
 					<div class="nr">
-						<p >{{tt.error}}</p>
+						<p ng-if="tt.error!=undefined">{{tt.error}}</p>
 						<p ng-repeat="t in tt.openStatus">{{t.trade_value}}:
 							{{t.status==1?"未开通 ":(t.status==2?"审核中":"已开通")}}</p>
 					</div>
 					</li>
 				</ul>
+				<div class="seen_progress_wrong">{{searchhherror}}</div>
 			</div>
 		</div>
 		<div class="tabFoot">
