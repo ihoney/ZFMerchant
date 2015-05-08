@@ -175,8 +175,8 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 			if (data.code == -1) {
 				alert("链接失败！");
 			}
-		})
-	}
+		});
+	};
 	$scope.gotoagentlogin1 = function() {
 		$http.post("api/user/goToAgentLogin1").success(function(data) {
 			if (data.code == 1) {
@@ -185,8 +185,8 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 			if (data.code == -1) {
 				alert("链接失败！");
 			}
-		})
-	}
+		});
+	};
 
 	$scope.city_list();
 };
@@ -269,8 +269,8 @@ var loginController = function($scope, $location, $http, LoginService) {
 			if (data.code == -1) {
 				alert("链接失败！");
 			}
-		})
-	}
+		});
+	};
 
 	// cooke初始化
 	$scope.cookeStark = function() {
@@ -652,7 +652,27 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 	$scope.intDiff = 120;
 	window.clearInterval(window.a);
 	window.clearInterval(window.b);
-
+	//找回密码第一步错误提示红框
+	$scope.findpassone = false;
+	$scope.findpassoneesage = false;
+	$scope.findpassoneesageto = false;
+	
+	//邮箱注册状态
+	$scope.emailboolean = false;
+	//弹窗
+	$scope.windowboolean = false;
+	//累计发送短信
+	$scope.sendnumber = 0;
+	//图片验证码错误
+	$scope.imgboolean = false;
+	//第三步
+	$scope.therefindpass1 = false;
+	$scope.therefindpass2 = false;
+	$scope.equlsepass = false;
+	$scope.quana = false;
+	$scope.quanb = false;
+	$scope.endshow = false;
+	
 	// 初始化图片验证码
 	$scope.reGetRandCodeImg = function() {
 		$(".loginRandCodeImg").attr("src", "api/user/getRandCodeImg?id=" + Math.random());
@@ -689,32 +709,38 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 	$scope.newCode = function() {
 		if ($scope.codeStatus == true) {
 			$scope.codeStatus = false;
-			$http.post("api/user/sendPhoneVerificationCodeFind", {
-				codeNumber : $scope.phone_email,
-			}).success(function(data) {
-				if (data.code == 1) {
-					window.clearInterval(window.a);
-					window.clearInterval(window.b);
-					$scope.code = data.result;
-					$scope.codeNumber = "";
-					$scope.intDiff = 120;
-					window.b = window.setInterval(function() {
-						if ($scope.intDiff == 0) {
-							$('#day_show').html("点击获得验证码！");
-							$scope.codeStatus = true;
-							window.clearInterval(window.b);
-						} else {
-							$('#day_show').html("重新发送验证码（" + $scope.intDiff + "秒）");
-							$scope.intDiff--;
-						}
-					}, 1000);
-					intervalThree;
-				} else {
-					alert("发送手机验证码失败！");
-				}
-			})
+			//$scope.sendnumber = 5;
+			if($scope.sendnumber >= 4){
+				$scope.windowfind();
+			}else{
+				$scope.sendnumber = $scope.sendnumber+1;
+				$http.post("api/user/sendPhoneVerificationCodeFind", {
+					codeNumber : $scope.phone_email,
+				}).success(function(data) {
+					if (data.code == 1) {
+						window.clearInterval(window.a);
+						window.clearInterval(window.b);
+						$scope.code = data.result;
+						$scope.codeNumber = "";
+						$scope.intDiff = 2;
+						window.b = window.setInterval(function(){
+					    	if($scope.intDiff == 0){
+					    		$('#day_show').html("点击获得验证码！");
+					    		$scope.codeStatus = true;
+					    		window.clearInterval(window.b);
+					    	}else{
+					    		$('#day_show').html("重新发送验证码（"+$scope.intDiff+"秒）");
+					    	    $scope.intDiff--;
+					    	}
+					    }, 1000);
+						intervalThree;
+					} else {
+						alert("发送手机验证码失败！");
+					}
+				})
+			}			
 		}
-	}
+	};
 
 	// 移除样式
 	$("link[href='style/global.css']").remove();
@@ -722,21 +748,16 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
 		$scope.intDiff = 120;
-		if (!reg.test($scope.phone_email) && !myreg.test($scope.phone_email)) {
-			alert("请输入正确的手机/邮箱号码！");
-		} else {
+		if(!reg.test($scope.phone_email)&&!myreg.test($scope.phone_email)){
+			$scope.findpassone = true;
+			$scope.findpassoneesage = true;
+		}else{
 			$http.post("api/user/getFindUser", {
 				username : $scope.phone_email
 			}).success(function(data) {
 				if (data.code == -1) {// 检验账号存在
 					alert(data.message);
 				} else {
-					$http.post("api/user/sizeUpImgCode", {
-						imgnum : $scope.code
-					}).success(function(data) {
-						if (data.code == -1) {
-							alert(data.message);
-						} else {
 							// 下一步
 							if (myreg.test($scope.phone_email)) {
 								// 向邮箱发送密码重置邮件！
@@ -744,7 +765,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 									codeNumber : $scope.phone_email,
 								}).success(function(data) {
 									if (data.code == 1) {
-										$scope.songToEmail = true;
+										$scope.emailboolean = true;
 										$scope.twostep();
 									} else {
 										alert("重置密码邮件发送失败！");
@@ -759,7 +780,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 										$scope.code = data.result;
 										$scope.codeNumber = "";
 										// 倒计时
-										$scope.intDiff = 120;
+										$scope.intDiff = 2;
 										$scope.twostep();
 										window.a = window.setInterval(function() {
 											if ($scope.intDiff == 0) {
@@ -776,16 +797,26 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 									}
 								})
 							}
+
 						}
-					})
+					});
 				}
-			})
-		}
-	};
+			};
+	
+
+	
+	//跳转邮箱登陆
+	$scope.gotoemail = function(){
+		var t=$scope.phone_email.lastIndexOf('@')+1;
+		var str = "http://mail."+$scope.phone_email.substring(t);
+		window.location.href=str;
+	}
+	
 
 	// 找回密码第三步
 	$scope.findPassThree = function() {
-		if ($scope.code == $scope.codeNumber) {
+		//$scope.threestep();
+		if($scope.code == $scope.codeNumber){
 			$http.post("api/user/webFicationCode", {
 				code : $scope.codeNumber,
 				username : $scope.phone_email
@@ -796,32 +827,74 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 					alert(data.message);
 				}
 			})
-		} else {
-			alert("验证码错误！");
+		}else{
+			$("#codeclass").attr('class','m input_false');
+			$scope.findpassoneesageto = true;
 		}
 	};
-
+	//第二步错误信息
+	$scope.deletecodeerror = function(){
+		$("#codeclass").attr('class','m input_true');
+	}
+	
+	//弹窗
+	$scope.windowfind = function(){
+		$scope.windowboolean = true;
+	}
+	//关闭弹窗
+	
+	$scope.closewindow = function(){
+	$scope.windowboolean = false;
+	}
+	
+	//图片验证码校验
+	$scope.imgcodesub = function(){
+		$http.post("api/user/sizeUpImgCode", {
+		imgnum : $scope.imgcode
+			}).success(function(data) {
+		if (data.code == -1) {
+			$scope.imgboolean = true;
+		} else {
+			$scope.sendnumber = 0;
+			$scope.imgboolean = false;
+			$scope.codeStatus = true
+			$scope.closewindow();
+		}
+			})
+	}
+	
 	// 开始找回
 	$scope.findPassEnd = function() {
-		if ($scope.password1 == '' || $scope.password1 == null || $scope.password2 == '' || $scope.password2 == null) {
-			alert("密码不能为空！");
-		} else if ($scope.password1.length < 6 || $scope.password1.length > 20 || $scope.password2.length < 6 || $scope.password2.length > 20) {
-			alert("密码由6-20位，英文字符组成！");
-		} else if ($scope.password1 != $scope.password2) {
-			alert("密码不一致！");
-		} else {
-			$http.post("api/user/webUpdatePass", {
-				password : $scope.password1,
-				username : $scope.phone_email
-			}).success(function(data) {
-				if (data.code == 1) {
-					$('#login').show();
-					window.location.href = '#/login';
-				} else if (data.code == -1) {
-					alert(data.message);
-				}
-			})
-		}
+		if($scope.password1==''||$scope.password1==null){
+			$scope.therefindpass1 = true;
+		}else if ($scope.password1.length<6||$scope.password1.length>20) {
+			$scope.therefindpass1 = true;
+		}else if(true){
+			$scope.quana = true;
+			if($scope.password2==''||$scope.password2==null){
+				$scope.therefindpass2 = true;
+			}else if(true){
+				$scope.quanb = true;
+				 if ($scope.password1 != $scope.password2) {
+					 $scope.quana = false;
+					 $scope.quanb = false;
+					 $scope.equlsepass = true;
+					 $scope.therefindpass2 = true;
+					} else {
+						$http.post("api/user/webUpdatePass", {
+							password : $scope.password1,
+							username : $scope.phone_email
+						}).success(function(data) {
+							if (data.code == 1) {
+								$scope.endshow = true;
+							} else if (data.code == -1) {
+								alert(data.message);
+							}
+						})
+					}
+			}
+			
+		} 
 	};
 
 	$scope.reGetRandCodeImg();

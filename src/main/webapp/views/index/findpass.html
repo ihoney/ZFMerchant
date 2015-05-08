@@ -20,83 +20,116 @@
 		focusBlur('.ret_b input');//登录
 	})
 </script>
+<div class="retrieve_head">
+	<div class="retrieve_logo"><img src="images/logo.png" /></div>
+    <div class="retrieve_dh"><img src="images/dh.png" /></div>
+</div>
 
+<div class="retrieve">
 <div ng-controller="findpassController">
-	<div id="findPassOne" ng-show="one">
-		<div class="logo_retrieve" style="cursor: pointer" ng-click="index()">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)" class="hover">第一步</a></li>
-					<li><a href="javascript:void(0)">第二步</a></li>
-					<li><a href="javascript:void(0)">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul>
-					<li><input name="" type="text" placeholder="手机号/邮箱" ng-model="phone_email" /></li>
-					<li><input name="" type="text" placeholder="输入图片校验码" class="l" ng-model="code" />
-					<div class="jym">
-						<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-					</div>
-					</li>
-				</ul>
-				<div class="btn">
-					<button ng-click="findPassOnes()">下一步</button>
-				</div>
-			</div>
-		</div>
-	</div>
+<div id="findPassOne" ng-show="one">
+	<div class="ret_h">
+    	<h1>找回密码</h1>
+    	<ul>
+        	<li><a class="hover">第一步</a></li>
+            <li><a>第二步</a></li>
+            <li><a>第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b">
+    	<ul>
+            <li><label><span class="red">*</span>填写手机号或邮箱：</label>
+            	<input ng-model="phone_email" name="" type="text" ng-class="{true:'input_false'}[findpassone==true]" ng-mousedown="findpassone = false"/>
+                <div ng-show="findpassoneesage" class="ret_prompt_wrong">请输入正确的手机号码/邮箱</div>
+            </li>
+        </ul>
+        <div class="btn" ng-click="findPassOnes()"><button>下一步</button></div>
+    </div>
+</div>
 
-	<div id="findPassTwo" ng-show="two">
-		<div class="logo" style="cursor: pointer" ng-click="index()">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)">第一步</a></li>
-					<li><a href="javascript:void(0)" class="hover">第二步</a></li>
-					<li><a href="javascript:void(0)">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul id="ulPhone" ng-show="!songToEmail">
-					<li><input name="" type="text" placeholder="输入验证码" class="m" ng-model="codeNumber" />
-						<button id="day_show" ng-click="newCode()" class="send_btn">重新发送验证码（120秒）</button></li>
-				</ul>
-				<div class="btn" id="updown" ng-show="!songToEmail">
-					<button ng-click="findPassThree()">下一步</button>
-				</div>
-				<div ng-show="songToEmail" class="win" id="emailtext">已向您的邮箱 {{phone_email}}发送了密码重置邮件，请登录邮箱重置密码！</div>
-			</div>
-		</div>
-	</div>
+<div id="findPassTwo" ng-show="two">
+		<div class="ret_h">
+    	<h1>找回密码</h1>
+    	<ul>
+        	<li><a>第一步</a></li>
+            <li><a class="hover">第二步</a></li>
+            <li><a>第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b" ng-show="!emailboolean">
+    	<ul>
+            <li><label><span class="red">*</span>输入手机验证码：</label>
+            	<input id="codeclass" ng-model="codeNumber" name="" type="text" class="m input_true" ng-mousedown="deletecodeerror()"/><button ng-click="newCode()" id="day_show" class="send_btn">重新发送验证码（119秒）</button>
+                <div ng-show="findpassoneesageto" class="ret_prompt_wrong">验证码错误，请重新输入</div>
+            </li>
+        </ul>
+        <div ng-click="findPassThree()" class="btn"><button>下一步</button></div>
+    </div>
+    <div class="ret_b" ng-show="emailboolean">
+    	<div class="ret_b_textWin">
+        	<p>我们己向您的邮箱 <span style="color: #660;">qianfang@epalmpay.cn</span> 发送了密码重置邮件</p>
+        	<p>请登录邮箱查收</p>
+        	<a ng-click="gotoemail()" class="ret_mail_a">马上登录邮箱</a>
+        </div>
+    </div>
+<div ng-show="windowboolean" class="mask" style="display:block;"></div>   
+    
+<div ng-show="windowboolean" class="re_alert_tab">
+	<a ng-click="closewindow()" class="close">close</a>
+    <div class="re_alert_text">
+    	<p>您获取验证码己超过<span class="red">5</span>次</p>
+        <p>如需继续获取验证码</p>
+        <p>请输入图片验证码</p>
+    </div>
+    <div class="re_alert_yzm">
+    	<input type="text" placeholder="输入验证码" ng-model="imgcode"/>
+        	<div class="jym"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/>
+        		<a>看不清换一张</a>
+            </div>
+        
+        <div ng-show="imgboolean"  class="ret_prompt_wrong">验证码错误，请重新输入</div>
+    </div>
+    <h3>您是否注册遇到了问题?<br />请联系客服热线：400-009-0876</h3>
+    <div class="re_alert_tab_btn" ng-click="imgcodesub()"><button>提交</button></div>
+</div>
 
-	<div id="findPassThree" ng-show="three">
-		<div class="logo" style="cursor: pointer" ng-click="index()">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)">第一步</a></li>
-					<li><a href="javascript:void(0)">第二步</a></li>
-					<li><a href="javascript:void(0)" class="hover">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul>
-					<li><input name="" type="password" placeholder="输入新密码:由6-20位，英文字符组成" ng-model="password1" /></li>
-					<li><input name="" type="password" placeholder="确认新密码:由6-20位，英文字符组成" ng-model="password2" /></li>
-				</ul>
-				<div class="btn">
-					<button ng-click="findPassEnd()">去登录</button>
-				</div>
-			</div>
-		</div>
-	</div>
+</div>
+
+<div id="findPassThree" ng-show="three">
+	<div class="ret_h">
+    	<h1>找回密码</h1>
+    	<ul>
+        	<li><a>第一步</a></li>
+            <li><a>第二步</a></li>
+            <li><a class="hover">第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b" ng-show="!endshow">
+    	<ul>
+            <li><label><span class="red">*</span>输入新密码：</label>
+            	<input ng-model="password1" name="" type="password" ng-class="{true:'input_false'}[therefindpass1]" ng-mousedown="therefindpass1 = false"/>
+                <div ng-show="quana" class="ret_prompt_right"></div>
+                <div class="ret_prompt">&nbsp;&nbsp;密码支持6~20位长度</div>
+            </li>
+            <li><label><span class="red">*</span>确认新密码：</label>
+            	<input ng-model="password2" name="" type="password" ng-class="{true:'input_false'}[therefindpass2]" ng-mousedown="therefindpass2 = false"/>
+                <div ng-show="quanb" class="ret_prompt_right"></div>
+                <div ng-show="equlsepass" class="ret_prompt_wrong">密码输入不一致，请重新填写</div>
+            </li>
+        </ul>
+        <div class="btn" ng-click="findPassEnd()"><button>确定</button></div>
+    </div>
+    <div class="ret_b" ng-show="endshow">
+    	<div class="ret_b_textWin">
+        	<p>华尔街金融平台欢迎您的回来</p>
+        	<a href="#/login" class="ret_btn_a">马上登录</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
 
 </div>
