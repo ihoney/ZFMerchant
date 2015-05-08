@@ -18,21 +18,16 @@ var loginService = function ($http, $rootScope, $cookieStore) {
         tradeTypeId: 0,
         //用户登陆功能
         login: function ($scope,$http) {
-   		 	if($scope.username == ''||$scope.username == null){
-   		 		$scope.unameClass = true;
-   		 	}else if($scope.password1 == ''||$scope.password1 == null){
-   		 		$scope.passClass = true;
-   		 	}else{
    		 	$http.post("api/user/sizeUpImgCode", {imgnum:$scope.code}).success(function(data){
       			 if(data.code == -1){
-      				$scope.imgClass = true;
-      				alert("验证码错误！");
+      				$scope.codeClass = true;
       				$scope.reGetRandCodeImg();
       			 }else{
       				 $http.post("api/user/studentWebLogin", {username:$scope.username,password:$scope.password1}).success(function (data) {  //绑定
       			           if(data.code == -1){//用户或者密码错误！
-      			        	$scope.nameMessage = data.message; 
+      			        	 /*$scope.nameMessage = data.message; */
       			        	/*$scope.unameClass = true;*/
+      			        	   alert("用户或者密码错误！");
       			           }else{
       			        	   $scope.nameMessag = "";
       			        	   $scope.code = "";
@@ -48,18 +43,17 @@ var loginService = function ($http, $rootScope, $cookieStore) {
       			        	   $cookieStore.put("loginUserId",data.result.id);
       			        	   $cookieStore.put("subusername",data.result.subusername);
       			        	   location.reload();
-      			        	   
+      			        		window.location.href = '#/';
       			           }
       			        }).error(function (data) {
-      			        	$scope.message = "登陆异常！"
+      			        	alert("登陆异常！");
+      			        	/*$scope.message = "登陆异常！"*/
       			        });
       			 }
       		 }).error(function(data){
-      			 $scope.message = "获取验证码失败！"
+      			alert("获取验证码失败！");
+      			/* $scope.message = "获取验证码失败！"*/
       		 });
-   		 	}
-        	
-
         },
         //用户登出功能
         logout: function () {
