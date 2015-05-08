@@ -25,25 +25,37 @@ var cs_returninfoController = function ($scope,$location, $http, LoginService) {
     };
   //取消
     $scope.cancelApply = function(o){
-    	$scope.req={id:o.id};
-		$http.post("api/return/cancelApply", $scope.req).success(function (data) {  //绑定
-            if (data != null && data != undefined) {
-            	$scope.getInfo();
-            }
-        }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
-        });
+    	if(window.confirm('你确定要取消吗？')){
+    		$scope.req={id:o.id};
+    		$http.post("api/return/cancelApply", $scope.req).success(function (data) {  //绑定
+    			if (data != null && data != undefined) {
+    				$scope.getInfo();
+    			}
+    		}).error(function (data) {
+    			$("#serverErrorModal").modal({show: true});
+    		});
+            return true;
+         }else{
+            return false;
+        }
+    	
 	};
 	//重新提交
 	$scope.resubmitCancel = function(o){
-		$scope.req={id:o.id};
-		$http.post("api/return/resubmitCancel", $scope.req).success(function (data) {  //绑定
-			if (data != null && data != undefined) {
-				$scope.getInfo();
-			}
-		}).error(function (data) {
-			$("#serverErrorModal").modal({show: true});
-		});
+		if(window.confirm('你确定要重新提交吗？')){
+			$scope.req={id:o.id};
+			$http.post("api/return/resubmitCancel", $scope.req).success(function (data) {  //绑定
+				if (data != null && data != undefined) {
+					$scope.getInfo();
+				}
+			}).error(function (data) {
+				$("#serverErrorModal").modal({show: true});
+			});
+	         
+            return true;
+         }else{
+            return false;
+        }
 	};
     $scope.getInfo();
 
