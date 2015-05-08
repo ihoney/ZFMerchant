@@ -43,24 +43,12 @@
 		</div>
 		<div class="detail_panel">
 			<div class="detailPanel_status" >
-				<div class="payWarning"  ng-if="o.order_status==1">
-					<i class="no"></i>未付款
-				</div>
-				<div class="payWarning" ng-if="o.order_status==2">
-					<i ></i>已付款
-				</div>
-				<div class="payWarning" ng-if="o.order_status==3">
-					<i ></i>已发货
-				</div>
-				<div class="payWarning" ng-if="o.order_status==4">
-					<i ></i>已评价
-				</div>
-				<div class="payWarning" ng-if="o.order_status==5">
-					<i ></i>已取消
-				</div>
-				<div class="payWarning" ng-if="o.order_status==6">
-					<i ></i>交易关闭
-				</div>
+				<div class="order_icon" ng-if="o.order_status==1"><i class="noPay_icon"></i>未付款</div>
+				<div class="order_icon" ng-if="o.order_status==2"><i class="alreadyPay_icon"></i>已付款</div>
+                <div class="order_icon" ng-if="o.order_status==3"><i class="alreadySend_icon"></i>已发货</div>
+                <div class="order_icon" ng-if="o.order_status==4"><i class="completeDeal_icon"></i>交易完成</div>
+                <div class="order_icon" ng-if="o.order_status==5"><i class="cancelDeal_icon"></i>已取消</div>
+                <div class="order_icon" ng-if="o.order_status==6"><i class="closeDeal_icon"></i>交易关闭</div>
 				
 				<div class="dp_status_btn"  ng-if="o.order_status==1">
 					<a href="javascript:void(0);" ng-click="topay(o)" class="orangeBtn">付款</a>
