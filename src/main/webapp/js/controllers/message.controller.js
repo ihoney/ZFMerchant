@@ -10,12 +10,6 @@ var messageController = function($scope, $location, $http, LoginService) {
 	$scope.isSelectAll=false;
 	$scope.req.customer_id=LoginService.userid;
 	$scope.init = function() {
-		if(LoginService.userid == 0){
-			window.location.href = '#/login';
-		}else{
-			//显示用户登录部分
-			$scope.$emit('changeshow',false);
-		}
 		initSystemPage($scope.req);// 初始化分页参数
 		$scope.req.id=$location.search()['id'];
 		if($scope.req.id>0){
