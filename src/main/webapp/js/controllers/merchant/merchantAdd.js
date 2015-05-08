@@ -112,7 +112,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			$scope.$emit('changeshow', false);
 		}
 		
-		var vw = "ok";
+		var vw = "上传成功";
 		$('#cardIdFrontPhotoPath').Huploadify({//法人上半身照片
 			fileSizeLimit:9999,
 			removeTimeout:9999999,
@@ -123,6 +123,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
+				console.log(">>>>>>>"+			$scope.merchant.cardIdFrontPhotoPath);
 				 $("#cardIdFrontPhotoPath_s").html(vw);
 					}
 			});
