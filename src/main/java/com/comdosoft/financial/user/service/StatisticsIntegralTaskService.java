@@ -41,7 +41,7 @@ public class StatisticsIntegralTaskService {
 		// 未统计积分的订单。
 		List<Map<String, Object>> orders = statisticsIntegralTaskMapper
 				.findOrderInfo();
-		logger.info("统计积分的订单总条数" + orders.size());
+		logger.info("统计积分的订单总条数:: " + orders.size());
 		CustomerIntegralRecord cir = null;
 		// 积分计算规则
 		int posValue = statisticsIntegralTaskMapper
@@ -62,7 +62,7 @@ public class StatisticsIntegralTaskService {
 				cir.setTargetType((byte) 2);
 				cir.setDescription(map.get("order_number").toString());
 				statisticsIntegralTaskMapper.insertCustomerIntegralRecords(cir);
-				logger.info("新增用户获取积分记录, 完成!");
+				logger.info("新增用户积分记录, 完成!");
 				// 更新customer表的总积分(integral +)
 				Integer integral = statisticsIntegralTaskMapper
 						.findCustomerIntegral((int) map.get("customer_id"));

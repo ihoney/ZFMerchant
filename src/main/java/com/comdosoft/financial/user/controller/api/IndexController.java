@@ -59,7 +59,7 @@ public class IndexController {
      * 获取城市列表
      * @return
      */
-    @RequestMapping(value = "getCity", method = RequestMethod.POST)
+    @RequestMapping(value = "getCity")
     public Response getCity(){
         List<Map<String,Object>> citys = indexService.findAllCity();
         return Response.buildSuccess(citys, "");
