@@ -145,7 +145,7 @@ var addressController = function($scope, $location, $http, LoginService) {
 		});
 	};
 	$scope.addad = function() {
-		if($scope.ad.receiver==undefined||$scope.ad.receiver.trim()==""){
+		if($scope.ad.receiver==undefined||$.trim($scope.ad.receiver)==""){
 			alert("请输入收件人!");
 			return;
 		}
@@ -153,11 +153,11 @@ var addressController = function($scope, $location, $http, LoginService) {
 			alert("请选择城市!");
 			return;
 		}
-		if($scope.ad.address==undefined||$scope.ad.address.trim()==""){
+		if($scope.ad.address==undefined||$.trim($scope.ad.address)==""){
 			alert("请输入地址!");
 			return;
 		}
-		if($scope.ad.zipCode==undefined||$scope.ad.zipCode.trim()==""){
+		if($scope.ad.zipCode==undefined||$.trim($scope.ad.zipCode)==""){
 			//alert("请输入邮编!");
 			//return;
 		}else{
@@ -167,7 +167,7 @@ var addressController = function($scope, $location, $http, LoginService) {
 				return;
 			}
 		}
-		if($scope.ad.moblephone==undefined||$scope.ad.moblephone.trim()==""){
+		if($scope.ad.moblephone==undefined||$.trim($scope.ad.moblephone)==""){
 			alert("请输入手机号码!");
 			return;
 		}else{

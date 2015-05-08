@@ -212,13 +212,13 @@ var loginController = function($scope, $location, $http, LoginService) {
 		$scope.unameClass = false;
 		$scope.passClass = false;
 		$scope.codeClass= false;
-		if ($scope.username == undefined||$scope.username.trim() == ''  ) {
+		if ($scope.username == undefined||$.trim($scope.username) == ''  ) {
 			$scope.unameClass = true;
 			$scope.nameMessage="请输入用户名";
-		} else if ($scope.password1 == undefined||$scope.password1.trim() == ''  ) {
+		} else if ($scope.password1 == undefined||$.trim($scope.password1) == ''  ) {
 			$scope.passClass = true;
 			$scope.passMessage="请输入密码";
-		} else if ($scope.code == undefined||$scope.code.trim() == ''  ) {
+		} else if ($scope.code == undefined||$.trim($scope.code) == ''  ) {
 			$scope.codeClass = true;
 			$scope.passMessage="请输入验证码";
 		}else {
