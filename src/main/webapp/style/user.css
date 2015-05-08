@@ -726,7 +726,6 @@ tr.order_hd td { text-align: left; }
 .rule_checkbox input { float: left; margin-top: 2px;}
 .rule_checkbox a { float: left; margin-left: 10px; color: #00F; text-decoration: underline;}
 
-
 /*---协议弹层---*/
 
 .ebankAgreementTab { 
@@ -771,3 +770,26 @@ tr.order_hd td { text-align: left; }
 .ebankat_btn a:hover, .ebankat_btn button:hover { background: #ff802b;}
 .ebankat_btn button.cancel { background: #999; }
 .ebankat_btn button.cancel:hover { background: #a6a6a6;}
+
+/*---售后记录 提示弹层---*/
+.alertRequest { 
+	width: 200px; 
+	position: fixed; 
+	top: 166px;
+	left: 50%;
+	margin-left: -100px;
+	background: #FF9;
+	border: 1px #FF9900 solid;
+	height:32px;
+	line-height: 32px;
+	padding: 0 10px;
+}
+.alertRequest a.close { 
+	width: 8px; 
+	height: 8px;
+	display: inline-block;
+	text-indent: -999px;
+	overflow: hidden; 
+	background: url(../images/icons.png) no-repeat -185px -275px;
+}
+

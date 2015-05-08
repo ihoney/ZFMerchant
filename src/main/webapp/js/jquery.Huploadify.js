@@ -91,7 +91,8 @@ $.fn.Huploadify = function(opts){
 							arr.push(thisFile);	
 						}
 						else{
-							alert('文件'+thisFile.name+'类型不允许！');
+//							alert('文件'+thisFile.name+'类型不允许！');
+							alert('您所上传的文件格式不正确!');
 						}  	
 					}	
 				}

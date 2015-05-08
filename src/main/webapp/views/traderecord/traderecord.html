@@ -24,7 +24,9 @@
 			<ul>
 				<li><div class="user_select">
 						<label>选择终端</label>
-						<select ng-model="req.terminalNumber" ng-options="t.serialNum as t.serialNum for t in terminals"></select>
+						<select ng-model="req.terminalNumber" >
+						<option  ng-repeat="one in terminals" value="{{one.serialNum}}">{{one.serialNum}}</option>
+						</select>
 					</div></li>
 				<li><div class="user_date">
 						<label>选择日期</label><input type="text" ng-model="req.startTime" readonly>&nbsp;-&nbsp;<input type="text" ng-model="req.endTime" readonly>

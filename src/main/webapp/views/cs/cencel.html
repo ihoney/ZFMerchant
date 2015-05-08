@@ -82,5 +82,26 @@
 			</div>
 		</div>
 	</div>
-
+ 
 </div>
+<div class="alertRequest">请通过“我的终端”发起售后请求！<a href="javascript:void(0)" class="close">close</a></div>
+<script type="text/javascript" >
+$(function(){
+	var MyTime = setTimeout(function(){
+	   $(".alertRequest").hide();
+	} , 4000);
+ 
+	$('.alertRequest').hover(
+		function(){
+    		if(MyTime){clearTimeout(MyTime);}
+	    },function(){
+			MyTime = setTimeout(function(){
+				$(".alertRequest").hide();
+		 	} , 4000);
+	});
+	
+	$(".alertRequest a.close").click(function(){
+		$(".alertRequest").hide();
+	});
+});
+</script>
