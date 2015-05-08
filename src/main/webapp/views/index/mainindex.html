@@ -94,9 +94,9 @@
 					<li><a href="javascript:void(0);" class="buyIntention_a"><i
 							class="intention"></i>
 							<p class="contactP">填写购买意向</p></a></li>
-					<li id="contactLi2" style="position:relative;"><span><i class="qqContact"></i>
+					<li style="position:relative;"><span id="contactLi2"><i class="qqContact"></i>
 							<p class="contactP" id="contactP2">5×8小时在线客服</p></span>
-								<div class="qqContact_box">周一到周五9:00到18:00</div>
+								<div class="qqContact_box" id="qqContact_box">周一到周五9:00到18:00</div>
 					</li>
 							
 					<li><span><i class="phoneContact"></i>
@@ -178,4 +178,16 @@
 
 <script src="js/main.js"></script>
 <script type="text/javascript" src="js/jQuery.autoIMG.js"></script>
-
+<script>
+	$(function() {
+		$('.cn_img').autoIMG();
+		$("#contactLi2").hover(function(e){
+			$("#contactP2").text("QQ：3251170541");
+			$("#qqContact_box").show();
+		},function(e){
+			$("#contactP2").text("5×8小时在线客服");
+			$("#qqContact_box").hide();
+		});
+		
+	})
+</script>

@@ -380,7 +380,7 @@
 }
 
 .contact li .qqContact_box { position: absolute; bottom: -24px; width: 100%; display: none;}
-.contact li:hover .qqContact_box { display: block;}
+
 
 /*------服务内容-------*/
 .serviceContent {  position: relative;  padding: 100px 0;}
