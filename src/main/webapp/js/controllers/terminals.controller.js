@@ -122,6 +122,12 @@ var terminalController = function ($scope, $http, LoginService) {
 		$scope.getInfo();
 	}
 	
+	$scope.applyOpenInfo=function(temp){
+		$("#checkBoxEbanat").val(temp);
+		$(".ebankAgreementTab").show();
+		$(".mask").show();
+	}
+	
 	//筛选终端号
 	$scope.screeningSerialNum = function(){
 		 $scope.indexPage = 1;
