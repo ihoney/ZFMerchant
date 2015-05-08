@@ -43,7 +43,7 @@ public class TradeRecordAPI2 {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("查询交易流水信息失败", e);
-            sysResponse = Response.getError("查询交易流水失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -58,7 +58,7 @@ public class TradeRecordAPI2 {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("查询交易流水信息失败", e);
-            sysResponse = Response.getError("查询交易流水失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -71,7 +71,7 @@ public class TradeRecordAPI2 {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("查询交易流水信息失败", e);
-            sysResponse = Response.getError("查询交易流水失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }

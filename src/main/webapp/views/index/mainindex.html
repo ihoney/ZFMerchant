@@ -43,17 +43,17 @@
 		<div class="box">
 		
 			<div class="hotPro">
-        	<div class="title">热卖POS<a href="#" class="more">更多&gt;&gt;</a></div>
+        	<div class="title">热卖POS<a href="#/shop" class="more">更多&gt;&gt;</a></div>
             <div class="hp_con">
             	<ul>
                 	<li ng-repeat="p in pos_list ">
-                    	<h1><a 	href="#/shopinfo?goodId={{p.id}}"   title="{{p.title}}">{{p.title}}</a></h1>
+                    	<h1><a 	href="#/shopinfo?goodId={{p.id}}"   title="{{p.title}}" target="_blank">{{p.title}}</a></h1>
                         <div class="pro_text">
-                        	<a 	href="#/shopinfo?goodId={{p.id}}"  class="pro_img_a"><img src="{{p.good_logo}}" /></a>
+                        	<a 	href="#/shopinfo?goodId={{p.id}}"  class="pro_img_a" target="_blank"><img src="{{p.good_logo}}" /></a>
                             <div class="pro_text_con">
                             	<div class="pro_money">{{p.retail_price/100 |currency : "￥"}} </div>
                                 <div class="pro_text_p" title="{{p.second_title}}">{{p.second_title}}</div>
-                                <a class="pro_text_a"  	href="#/shopinfo?goodId={{p.id}}" >查看详情</a>
+                                <a class="pro_text_a"  	href="#/shopinfo?goodId={{p.id}}"  target="_blank">查看详情</a>
                             </div>
                         </div>
                     </li>
