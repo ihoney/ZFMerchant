@@ -4,6 +4,7 @@
 var cs_changeModule = angular.module("cs_changeModule",[]);
 
 var cs_changeController = function ($scope, $http, LoginService) {
+ 
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';
