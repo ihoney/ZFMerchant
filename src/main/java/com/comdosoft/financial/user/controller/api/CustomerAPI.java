@@ -59,6 +59,14 @@ public class CustomerAPI {
     @RequestMapping(value = "findCustById", method = RequestMethod.POST)
     public Response findCustById(@RequestBody MyOrderReq req) {
             Map<String,Object> m = customerService.findCustById(req);
+            String sphone = m.get("phone")+"";
+            if(sphone != ""){
+            	 sphone = SysUtils.toProSub(sphone);
+                 m.put("sphone", sphone);
+               logger.debug("phone>>>>"+ sphone);
+            }else{
+            	  m.put("sphone", "");
+            }
         return Response.buildSuccess(m, "success");
     }
     

@@ -244,7 +244,9 @@
 		SELECT parent_id from cities WHERE id=#{city_id} LIMIT 0,1
 	</select>
 
-
+	<select id="getPicList" resultType="map">
+		select id,url_path as urlPath from good_detail_pictures where good_id=#{goodId}
+	</select>
 
 
 

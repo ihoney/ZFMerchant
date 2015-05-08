@@ -65,4 +65,5 @@ public interface GoodMapper {
     List<Integer> getSonCategoryIds(int category);
 
 
+    List<Map<String, Object>> getPicList(int goodId);
 }
