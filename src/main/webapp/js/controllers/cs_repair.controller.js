@@ -4,6 +4,7 @@
 var cs_repairModule = angular.module("cs_repairModule",[]);
 
 var cs_repairController = function ($scope, $http, LoginService) {
+ 
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

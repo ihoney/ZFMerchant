@@ -9,7 +9,7 @@
 				</div>
 				<div class="hotwords">
 					<div class="hotwords">
-						<a href="#">钱袋宝</a><a href="#">中汇</a><a href="#">杉德</a><a href="#">掌富</a>
+						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
 					</div>
 				</div>
 			</div>
@@ -21,9 +21,9 @@
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去&nbsp付款</a>
+					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去付款</a>
 				</div>
-				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去&nbsp购买</a></div>
+				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去购买</a></div>
 			</div>
 		</div>
 	</div>
@@ -200,12 +200,6 @@
 										<a href="#/shopinfo?goodId={{one.id}}">{{one.Title}}</a>
 									</h1>
 									<h3>{{one.second_title}}</h3>
-									<ul>
-										<li><span>品牌型号：</span>
-											<div class="c_text">{{one.good_brand}}{{one.Model_number}}</div></li>
-										<li><span>支付通道：</span>
-											<div class="c_text">{{one.pay_channe}}</div></li>
-									</ul>
 								</div>
 							</div>
 						</td>

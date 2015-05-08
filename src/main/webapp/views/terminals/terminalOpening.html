@@ -6,6 +6,7 @@
             	<div class="breadcrumb">
                     <ul>
                         <li><a href="#/terminal">我的终端</a></li>
+                        <li ng-if="gotoopentype == -2"><a href="#/terminalDetail?terminalId={{terminalId}}">终端详情</a></li>
                         <li><a>开通申请</a></li>
                     </ul>
                 </div>
@@ -41,10 +42,6 @@
                                 <a href="JavaScript:void(0)"  ng-repeat="man in merchantList" ng-class="{true:'hover'}[$index == _br]" ng-click="angu(man.title,man.id,$index)">{{man.title}}</a>
                                 </dd>
                             </dl>
-                            <dl>
-                            	<dt>商户名称：</dt>
-                                <dd><input name="" type="text" ng-model="merchantNamed"/></dd>
-                            </dl>
                         </div>
                     </div>
                     <div class="attributes_box" ng-repeat="ma in MaterialLevel">
@@ -52,8 +49,14 @@
                     	<h2 ng-if="$index == 1">完全开通<em>消费无限额</em></h2>
                         <div class="item_list clear">
                             <ul>
+                            <li ng-if="$index == 0">
+                            	<span class="labelSpan">商户名称：</span>
+                                <div class="text"><input name="" id="merchant" type="text" ng-model="merchantNamed"/></div>
+                            </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="keyNmae">姓名：</span>
-                                	<div class="text"><input name="valueName" type="text" id="valueName"  value="{{merchant.legal_person_name}}"/></div></li>
+                                	<div class="text"><input name="valueName" type="text" id="valueName"  value="{{merchant.legal_person_name}}" ng-keyup="toworte()"/>
+                                	</div>
+                                </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="sexName">性别：</span>
                                 	<div class="text">
                                     	<span class="checkboxRadio_span"><input  name="valueSex" type="radio" value="" ng-click="butSex(1)" ng-checked="sex == 1"/> 男</span>
@@ -119,7 +122,7 @@
                                 	</div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankNameKey">结算银行帐户名：</span>
-                                	<div class="text"><input name="" type="text" id="bankNameValue" value="{{openingInfos.account_bank_name}}"/></div>
+                                	<div class="text"><input disabled="disabled" name="" type="text" id="bankNameValue" value="{{openingInfos.account_bank_name}}"/></div>
                                 </li>
                                 <li ng-if="$index == 0"><span class="labelSpan" id="bankCodeKey">结算银行名称：</span>
                                 	<div class="text"><input name="" type="text" id="bankCodeValue" ng-model="bankObj.bankName" ng-keyup="bank(1)"/></div>

@@ -452,8 +452,9 @@ public class SysUtils {
      * @return
      */
     public static String toPro(String s) {
-        String s2=s.substring(0,6);
-        String s3=s.substring(s.length()-2,s.length());
+        int a=s.length()/3;
+        String s2=s.substring(0,a);
+        String s3=s.substring(s.length()-a,s.length());
         return s2+"****"+s3;
     }  
     /**
