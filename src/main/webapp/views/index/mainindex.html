@@ -75,21 +75,18 @@
 			</div>
 		</div>
 
+ 
 		<div class="box">
-			<div class="organization">
-				<div class="title">收单机构</div>
-				<div class="org_con">
-					<ul>
-						<li ng-repeat="f in factory_list"><a href="javascript:void()">
-								<img src="{{f.logo_file_path}}" width="80px;" height="60px;" />
-								<h4>{{f.name}}</h4>
-								<p>{{f.description}}</p>
-						</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
+    	<div class="organization">
+        	<div class="title">收单机构</div>
+            <div class="org_con">
+            	<ul>
+            		<li ng-repeat="f in factory_list">  <img src="{{f.logo_file_path}}"  alt="{{f.name}}" title="{{f.name}}"  /></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+		
 		<div class="contact">
 			<div class="box">
 				<h1>和我们的专家进行及时沟通</h1>

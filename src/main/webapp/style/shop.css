@@ -291,23 +291,21 @@
 .notice_tab_text { overflow-y: auto; height: 300px; margin: 15px 0;}
 .notice_tab_text p { line-height: 24px; margin-bottom: 10px;}
 
-/*--收单机构--*/
+ /*--收单机构--*/
 .org_con { overflow: hidden; padding: 10px 0px;}
-.org_con h4 { height: 18px; overflow: hidden;}
-.org_con li { float: left; margin: 6px;}
-.org_con li a { 
-	width: 176px; 
+.org_con li { 
+	width: 180px; 
 	height: 60px;
 	display: block;
-	overflow: hidden; 
-	padding: 5px;
+	overflow: hidden;
 	border: 1px #CCCCCC solid;
 	background: #FFF;
 	color: #333;
+	float: left; 
+	margin: 9px;
 }
-.org_con li a:hover { border: 1px #ff9b00 solid;}
-.org_con li a img { float: left; margin-right: 10px;}
-.org_con li a p { color: #666;}
+
+.org_con li img { width: 180px; height: 60px;}
 
 
 /*------沟通contact----------*/
