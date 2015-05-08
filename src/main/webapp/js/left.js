@@ -10,15 +10,17 @@ $(function(){
 			if ( !$(this).parents().hasClass("second") ){
 				$(".second").children('ol').children('li').children('a').removeClass("hover");
 			}
-		}else{
-			$(this).parent().find("ol").show();
-			if(!$(this).parent().find("ol").is(":visible")){
-				$(this).find("i").removeClass("on").addClass("off");
-			}else{
-				$(this).find("i").removeClass("off").addClass("on");
-			}
 		}
    });
 	
-	 
+	/*------用户后台导航菜单--------*/
+	$("li.second > a:nth-child(1)").click(function(){
+		$(this).parent().find("ol").toggle();
+		if(!$(this).parent().find("ol").is(":visible")){
+			$(this).find("i").removeClass("on").addClass("off");
+		}else{
+			$(this).find("i").removeClass("off").addClass("on");
+		}
+	});
+ 
 })
