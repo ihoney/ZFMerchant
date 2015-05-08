@@ -4,6 +4,7 @@
 var cs_leaseModule = angular.module("cs_leaseModule",[]);
 
 var cs_leaseController = function ($scope, $http, LoginService) {
+ 
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

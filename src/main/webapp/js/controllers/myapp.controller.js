@@ -5,31 +5,12 @@ var myappModule = angular.module("myappModule",[]);
 
 var myappController = function ($scope, $http, LoginService) {
 	$("#leftRoute").show();
+
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';
 	}else{
 		//显示用户登录部分
 		$scope.$emit('changeshow',false);
-		//左侧样式调整
-		$("#left_common li").unbind("click").bind("click", function(){
-			$(this).children('a').addClass("hover");
-			$(this).siblings().children('a').removeClass("hover");
-			if (!$(this).hasClass("second") ){ //判断是否有子节点
-				if ( !$(this).parents().hasClass("second") ){
-					$(".second").children('ol').children('li').children('a').removeClass("hover");
-				}
-			}
-	   });
-		
-		/*------用户后台导航菜单--------*/
-		$("li.second > a").click(function(){
-			$(this).parent().find("ol").toggle();
-			if(!$(this).parent().find("ol").is(":visible")){
-				$(this).find("i").removeClass("on").addClass("off");
-			}else{
-				$(this).find("i").removeClass("off").addClass("on");
-			}
-		});
 	}
 	$scope.my_message_list = function(){
 		$scope.req={customer_id:LoginService.userid,rows:8};
@@ -61,20 +42,6 @@ var myappController = function ($scope, $http, LoginService) {
 		}).error(function (data) {
 			$("#serverErrorModal").modal({show: true});
 		});
-//		$http.post("api/cs/change/wxlist", $scope.req).success(function (data) {  
-//			if (data != null && data != undefined) {
-//				$scope.cc_list = data.result;
-//			}
-//		}).error(function (data) {
-//			$("#serverErrorModal").modal({show: true});
-//		});
-//		$http.post("api/return/wxlist", $scope.req).success(function (data) {  
-//			if (data != null && data != undefined) {
-//				$scope.cr_list = data.result;
-//			}
-//		}).error(function (data) {
-//			$("#serverErrorModal").modal({show: true});
-//		});
 	};
 	
 	$scope.trade_list = function(){

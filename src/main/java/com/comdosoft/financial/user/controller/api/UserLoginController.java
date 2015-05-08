@@ -253,12 +253,13 @@ public class UserLoginController {
     		
     		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
     		Pattern p = Pattern.compile(str);
-    		Matcher m = p.matcher((CharSequence) tomer.get("username"));
-    		
+    		if(tomer!= null){
+    			Matcher m = p.matcher((CharSequence) tomer.get("username"));
     		if(!m.matches()){
     			tomer.put("subusername", SysUtils.toProSub(tomer.get("username").toString()));
     		}else{
     			tomer.put("subusername", tomer.get("username"));
+    		}
     		}
 
     		

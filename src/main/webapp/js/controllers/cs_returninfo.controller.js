@@ -4,6 +4,7 @@
 var cs_returninfoModule = angular.module("cs_returninfoModule",[]);
 
 var cs_returninfoController = function ($scope,$location, $http, LoginService) {
+	 
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';
