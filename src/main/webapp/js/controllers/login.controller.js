@@ -1,7 +1,6 @@
 'use strict';
 
-// 主页面路由模块，用于控制主页面的菜单导航(注入了登陆服务LoginService)
-//var indexModule = angular.module("indexModule", [ 'loginServiceModule', 'loginrouteModule', 'ngRoute' ]);
+
 
 var indexController = function($scope, $location, $http, LoginService,$cookieStore) {
 	$scope.loginUserName=LoginService.loginUserName;
