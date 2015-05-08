@@ -4,6 +4,13 @@
 var merchantAddModule = angular.module("merchantAddModule", []);
 var merchantAddController = function($scope, $http, $location, LoginService) {
 	$scope.merchant={};
+//	$scope.merchant.cardIdFrontPhotoPath='';
+//	$scope.merchant.cardIdBackPhotoPath='';
+//	$scope.merchant.bodyPhotoPath='';
+//	$scope.merchant.licenseNoPicPath='';
+//	$scope.merchant.taxNoPicPath='';
+//	$scope.merchant.orgCodeNoPicPath='';
+//	$scope.merchant.accountPicPath='';
 	$scope.merchantAdd = function() {
 		if($scope.merchant.title =="" || typeof($scope.merchant.title)=="undefined" ){
 			alert("请填写商户名称");
@@ -95,6 +102,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 		$scope.merchant.customerId = LoginService.userid;
 		$http.post("api/merchant/insert", $scope.merchant).success(function(data) {
 			if (data.code == 1) {
+				alert("创建成功");
 				window.location.href = '#/merchantList';
 			} else {
 				alert(data.message);
@@ -123,7 +131,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
-				console.log(">>>>>>>"+			$scope.merchant.cardIdFrontPhotoPath);
+				$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
 				 $("#cardIdFrontPhotoPath_s").html(vw);
 					}
 			});
@@ -139,6 +147,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdBackPhotoPath=obj.result;
+				$("#cardIdBackPhotoPath_m").attr("imgPath",$scope.merchant.cardIdBackPhotoPath);
 				 $("#cardIdBackPhotoPath_s").html(vw);
 					}
 			});
@@ -155,6 +164,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.bodyPhotoPath=obj.result;
+				$("#bodyPhotoPath_m").attr("imgPath",$scope.merchant.bodyPhotoPath);
 				 $("#bodyPhotoPath_s").html(vw);
 					}
 			});
@@ -170,6 +180,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.licenseNoPicPath=obj.result;
+				$("#licenseNoPicPath_m").attr("imgPath",$scope.merchant.licenseNoPicPath);
 				 $("#licenseNoPicPath_s").html(vw);
 					}
 			});
@@ -184,6 +195,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.taxNoPicPath=obj.result;
+				$("#taxNoPicPath_m").attr("imgPath",$scope.merchant.taxNoPicPath);
 				 $("#taxNoPicPath_s").html(vw);
 					}
 			});
@@ -198,6 +210,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.orgCodeNoPicPath=obj.result;
+				$("#orgCodeNoPicPath_m").attr("imgPath",$scope.merchant.orgCodeNoPicPath);
 				 $("#orgCodeNoPicPath_s").html(vw);
 					}
 			});
@@ -212,6 +225,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.accountPicPath=obj.result;
+				$("#accountPicPath_m").attr("imgPath",$scope.merchant.accountPicPath);
 				 $("#accountPicPath_s").html(vw);
 					}
 			});
