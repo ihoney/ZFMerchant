@@ -316,6 +316,18 @@ var registerController = function($scope, $location, $http, LoginService) {
 	$scope.windowboolean = false;
 	//图片校验
 	$scope.imgisorboolean = false;
+	//邮箱undefined/error
+	$scope.emailundefinedboolean = false;
+	$scope.emailerrorboolean = false;
+	//密码一致
+	$scope.passerrorboolean = false;
+	//邮箱图片验证
+	$scope.emailimgerror = false;
+	
+	//手机注册成功后
+	$scope.phonesuccess = false;
+	//邮箱注册成功后
+	$scope.emailsuccess = false;
 	// 邮箱激活链接判断
 	if ($scope.sendStatus == -1) {
 		clearInterval(window.one);
@@ -487,6 +499,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 	}
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
+		//$scope.addUser();
 		if($scope.rename == undefined || $scope.rename ==''){
 			$scope.phoneInputFalse = true;
 		}else if (!reg.test($scope.rename)) {
@@ -530,8 +543,8 @@ var registerController = function($scope, $location, $http, LoginService) {
 				$scope.codeNumber = "";
 				$scope.code = "";
 				$scope.codeBei = "";
-				alert("注册成功！");
-				window.location.href = '#/login';
+				$scope.phonesuccess = true;
+				//window.location.href = '#/login';
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
@@ -539,7 +552,10 @@ var registerController = function($scope, $location, $http, LoginService) {
 	};
 	// 邮箱注册优化
 	$scope.emailpassa = function() {
-		if ($scope.password1.length < 6 || $scope.password1.length > 20) {
+		if($scope.password1 == undefined || $scope.password1 == ''){
+			$scope.inputemaila = "input_false";
+			return false;
+		}else if ($scope.password1.length < 6 || $scope.password1.length > 20) {
 			$scope.inputemaila = "input_false";
 			return false;
 		} else {
@@ -548,8 +564,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	$scope.emailpassb = function() {
-		if ($scope.password2.length < 6 || $scope.password2.length > 20 || $scope.password1 != $scope.password2) {
+		if($scope.password2 == undefined || $scope.password2 == '' || $scope.password2.length < 6 || $scope.password2.length > 20){
 			$scope.inputemailb = "input_false";
+			return false;
+		}else if ($scope.password1 != $scope.password2) {
+			$scope.inputemailb = "input_false";
+			$scope.passerrorboolean = true;
 			return false;
 		} else {
 			$scope.inputemailb = "input_true";
@@ -557,42 +577,43 @@ var registerController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	// 校验图片验证码
+	$scope.emailundefinedboolean = false;
 	$scope.getImgEmailCode = function() {
-		if ($scope.selected == undefined || $scope.emailShiList == undefined) {
-			alert("请选择城市！");
-		} else if (!myreg.test($scope.emailname)) {
-			alert("请输入合法邮箱！");
-		} else if ($scope.password1 == '' || $scope.password1 == null) {
-			$scope.inputemaila = "input_false";
-		} else if ($scope.password2 == '' || $scope.password2 == null) {
-			$scope.inputemailb = "input_false";
-		} else if ($scope.emailpassa() == false) {
-			$scope.inputemaila = "input_false";
-		} else if ($scope.emailpassb() == false) {
-			$scope.inputemailb = "input_false";
-		} else {
-			$http.post("api/user/sizeUpImgCode", {
-				imgnum : $scope.codeBei
-			}).success(function(data) {
-				if (data.code == 1) {// 图片验证
-					if ($scope.ridel_xy != true) {// 勾选协议
-						$http.post("api/user/jusEmail", {
-							username : $scope.emailname
-						}).success(function(data) {
-							if (data.code == 1) {// 检验用户是否存在
-								$scope.addUserEmail();
+		if($scope.emailname == undefined || $scope.emailname == ''){
+			$scope.emailundefinedboolean = true;
+		}else if (!myreg.test($scope.emailname)) {
+			$scope.emailundefinedboolean = true;
+			$scope.emailerrorboolean = true;
+		}else if($scope.emailpassa()){
+			if($scope.emailpassb()){
+				if ($scope.selected == undefined || $scope.emailShiList == undefined) {
+					alert("请选择城市！");
+				}else {
+					$http.post("api/user/sizeUpImgCode", {
+						imgnum : $scope.codeBei
+					}).success(function(data) {
+						if (data.code == 1) {// 图片验证
+							if ($scope.ridel_xy == true) {// 勾选协议
+								$http.post("api/user/jusEmail", {
+									username : $scope.emailname
+								}).success(function(data) {
+									if (data.code == 1) {// 检验用户是否存在
+										$scope.addUserEmail();
+									} else {
+										alert(data.message);
+									}
+								})
 							} else {
-								alert(data.message);
+								alert("请勾选《华尔街金融平台用户使用协议》");
 							}
-						})
-					} else {
-						alert("请勾选《华尔街金融平台用户使用协议》");
-					}
-				} else if (data.code == -1) {
-					alert(data.message);
-					$scope.reGetRandCodeImg();
+						} else if (data.code == -1) {
+							$scope.emailimgerror = true;
+							$scope.reGetRandCodeImg();
+						}
+					})
+				
 				}
-			})
+			}
 		}
 	};
 
@@ -610,7 +631,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 				$scope.password1 = "";
 				$scope.password2 = "";
 				$scope.codeBei = "";
-				$scope.successEmailShow = true;
+				$scope.emailsuccess = true;
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
@@ -663,6 +684,13 @@ var registerController = function($scope, $location, $http, LoginService) {
 			$scope.closewindow();
 		}
 			})
+	}
+	
+	//跳转邮箱登陆
+	$scope.gotoemail = function(){
+		var t=$scope.emailname.lastIndexOf('@')+1;
+		var str = "http://mail."+$scope.emailname.substring(t);
+		window.location.href=str;
 	}
 
 	$scope.toIndex = function() {

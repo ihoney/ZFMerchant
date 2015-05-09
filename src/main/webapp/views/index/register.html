@@ -31,12 +31,12 @@ $(function(){
 <div id="retrieveHtml" ng-show="show">
 	<div class="res_h">
     	<ul>
-        	<li><a href="#" class="hover">手机注册</a></li>
-            <li><a href="#">邮箱注册</a></li>
+        	<li><a class="hover" ng-click="register()">手机注册</a></li>
+            <li><a ng-click="gotoEmailRetrieve()">邮箱注册</a></li>
         </ul>
     </div>
     <div class="res_b">
-    	<div class="res_b_left">
+    	<div ng-show="!phonesuccess" class="res_b_left">
             <ul> 
                 <li><label><span class="red">*</span>填写注册手机号码：</label>
                     <input name="" type="text" ng-class="{true:'input_false'}[phoneInputFalse]" ng-model="rename" ng-mousedown="phoneInputFalse = false;phoneerroe = false"/>
@@ -67,8 +67,17 @@ $(function(){
             </ul>
             <div class="btn" ng-click="getImgCode()"><button>注册</button></div>
         </div>
+        <div ng-show="phonesuccess" class="res_b_left">
+            <div class="res_b_textWin">
+            	<h2>恭喜您注册成功</h2>
+            	<p>华尔街金融平台欢迎您的加入</p>
+                <p>最优最新的POS终端资源供您挑选</p>
+                <p>现在就登录选购吧！</p>
+                <a href="#/login" class="res_btn_a">马上登录</a>
+            </div>
+        </div>
         <div class="res_b_right">
-        	<div class="res_b_text">
+        	<div ng-show="!phonesuccess" class="res_b_text">
             	<p>您己经拥有账号了？</p>
                 <a href="#/login">马上登录</a>
             </div>
@@ -80,6 +89,63 @@ $(function(){
     </div>
     </div>
     
+    <div id="emailRetrieveHtml" ng-show="!show">
+			<div class="res_h">
+    	<ul>
+        	<li><a ng-click="register()">手机注册</a></li>
+            <li><a ng-click="gotoEmailRetrieve()" class="hover">邮箱注册</a></li>
+        </ul>
+    </div>
+    <div class="res_b">
+    	<div ng-show="!emailsuccess" class="res_b_left">
+            <ul>
+                <li><label><span class="red">*</span>填写注册邮箱地址：</label>
+                    <input ng-model="emailname" name="" type="text" ng-class="{true:'input_false'}[emailundefinedboolean]" ng-mousedown="emailundefinedboolean = false;emailerrorboolean = false"/>
+                    <div ng-show="emailerrorboolean" class="res_prompt_wrong">请输入正确的邮箱地址</div>
+                </li>
+                <li><label><span class="red">*</span>填写登录密码：</label>
+                    <input name="" type="password" ng-model="password1" ng-class="inputemaila" ng-keyup="emailpassa()" ng-mousedown="inputemaila = input_true"/>
+                    <div class="res_prompt">密码由6~20位数字与字母组成</div>
+                </li>
+                <li><label><span class="red">*</span>确认登录密码</label>
+                    <input name="" type="password" ng-model="password2" ng-class="inputemailb" ng-keyup="emailpassb()" ng-mousedown="inputemailb  = input_true;passerrorboolean = false"/>
+                    <div ng-show="passerrorboolean" class="res_prompt_wrong">密码输入不一致，请重新填写</div>
+                </li>
+                <li><label>所在地</label> <select ng-model="selected"
+						ng-options="s.name for s in cities">
+							<option value="">省</option>
+					</select> <select ng-model="emailShiList"
+						ng-options="x.name for x in selected.childrens">
+							<option value="">市</option>
+					</select></li>
+                <li class="yzm_li"><label><span class="red">*</span>图片校验码</label><input name="" type="text" ng-model="codeBei" ng-mousedown="emailimgerror = false"/>
+                	<div class="jym" ng-model="codeBei"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/><a href="javascript:void(0);">看不清?点击换一张</a></div>
+                    <div ng-show="emailimgerror" class="res_prompt_wrong">验证码错误，请重新输入</div>
+                </li>
+                <li class="res_b_pl"><input name="" type="checkbox" value="" checked="checked" ng-model="ridel_xy"
+						ng-click="ridel_xy = !ridel_xy"/> <a href="javascript:void(0);" class="ebankAgreement_a">同意《华尔街金融平台用户使用协议》</a></li>
+            </ul>
+            <div class="btn" ng-click="getImgEmailCode()"><button>注册</button></div>
+        </div>
+        <div ng-show="emailsuccess" class="res_b_left">
+            <div class="res_b_textWin">
+            	<h2>恭喜您注册成功</h2>
+            	<p>我们己向您的邮箱 <span style="color: #660;">qianfang@epalmpay.cn</span> 发送了账号激活邮件</p>
+                <p>请登录邮箱查收</p>
+                <a ng-click="gotoemail()" class="res_mail_a">马上登录邮箱</a>
+            </div>
+        </div>
+        <div class="res_b_right">
+        	<div ng-show="!emailsuccess" class="res_b_text">
+            	<p>您己经拥有账号了？</p>
+                <a href="#/login">马上登录</a>
+            </div>
+            <div class="res_b_app">
+            	<h2>华尔街金融APP下载</h2>
+                <div><img src="images/appDownLoad_img.png" /></div>
+            </div>
+        </div>
+    </div>
     <div class="mask" ></div>
 <div class="ebankAgreementTab">
 	<a class="close">关闭</a>
