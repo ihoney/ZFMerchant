@@ -89,14 +89,14 @@ $(function(){
     </div>
     </div>
     
-    <div id="emailRetrieveHtml" ng-show="!show">
+<div id="emailRetrieveHtml" ng-show="!show">
 			<div class="res_h">
     	<ul>
         	<li><a ng-click="register()">手机注册</a></li>
             <li><a ng-click="gotoEmailRetrieve()" class="hover">邮箱注册</a></li>
         </ul>
     </div>
-    <div class="res_b">
+    <div class="res_b" ng-show="sendEmailShow">
     	<div ng-show="!emailsuccess" class="res_b_left">
             <ul>
                 <li><label><span class="red">*</span>填写注册邮箱地址：</label>
@@ -145,6 +145,12 @@ $(function(){
                 <div><img src="images/appDownLoad_img.png" /></div>
             </div>
         </div>
+    </div>
+    	<div class="res_b" ng-show="!sendEmailShow">
+				<div class="winSkip">
+					账号激活成功！<span>5秒</span>后跳转至登录页！
+				</div>
+		</div>
     </div>
     <div class="mask" ></div>
 <div class="ebankAgreementTab">
