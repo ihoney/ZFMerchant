@@ -154,4 +154,6 @@ public interface OpeningApplyMapper {
 	 * @param id
 	 */
 	void deleteOpeningInfos(Integer id);
+	
+	String getOpeningProtocol(int terminalsId);
 }

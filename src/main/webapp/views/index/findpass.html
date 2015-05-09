@@ -82,12 +82,14 @@
         <p>请输入图片验证码</p>
     </div>
     <div class="re_alert_yzm">
-    	<input type="text" placeholder="输入验证码" ng-model="imgcode"/>
-        	<div class="jym"><img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()"/>
-        		<a>看不清换一张</a>
-            </div>
-        
-        <div ng-show="imgboolean"  class="ret_prompt_wrong">验证码错误，请重新输入</div>
+        <div class="yzmInput">
+            <input type="text" value="输入验证码" ng-model="imgcode" ng-mousedown="perimgcode()"/>
+            <div ng-show="imgboolean" class="ret_prompt_wrong">验证码错误，请重新输入</div>
+        </div>
+        <div class="jym">
+        	<img class="loginRandCodeImg" ng-click="reGetRandCodeImg()" src="images/yzm.jpg" />
+        	<a href="javascript:void(0);">看不清?点击换一张</a>
+        </div>
     </div>
     <h3>您是否注册遇到了问题?<br />请联系客服热线：400-009-0876</h3>
     <div class="re_alert_tab_btn" ng-click="imgcodesub()"><button>提交</button></div>

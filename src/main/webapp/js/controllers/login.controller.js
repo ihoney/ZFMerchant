@@ -84,7 +84,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		return false;
 	}
 	var checkcart1 = function(str) {
-		var arry = [ "login", "shop", "register", "findpass" ];
+		var arry = [ "login", "shop", "register", "findpass" ,"findpassEmail"];
 		for (var i = 0; i < arry.length; i++) {
 			if (str == arry[i]) {
 				return true;
@@ -304,6 +304,30 @@ var registerController = function($scope, $location, $http, LoginService) {
 	window.clearInterval(window.one);
 	// 发送手机验证码倒计时
 	window.clearInterval(window.two);
+	//手机错误提示消息
+	$scope.phoneerroe = false;
+	//密码不一致
+	$scope.passIsOn = false;
+	//手机验证码校验
+	$scope.phoneCode = false;
+	//累计发送短信
+	$scope.sendnumber = 0;
+	//弹窗
+	$scope.windowboolean = false;
+	//图片校验
+	$scope.imgisorboolean = false;
+	//邮箱undefined/error
+	$scope.emailundefinedboolean = false;
+	$scope.emailerrorboolean = false;
+	//密码一致
+	$scope.passerrorboolean = false;
+	//邮箱图片验证
+	$scope.emailimgerror = false;
+	
+	//手机注册成功后
+	$scope.phonesuccess = false;
+	//邮箱注册成功后
+	$scope.emailsuccess = false;
 	// 邮箱激活链接判断
 	if ($scope.sendStatus == -1) {
 		clearInterval(window.one);
@@ -357,7 +381,10 @@ var registerController = function($scope, $location, $http, LoginService) {
 
 	// 密码样式优化
 	$scope.isnanpass = function() {
-		if ($scope.password1.length < 6 || $scope.password1.length > 20) {
+		if($scope.password1 == '' || $scope.password1 == null || $scope.password1 == undefined){
+			$scope.inputclass = "input_false";
+			return false;
+		}else if ($scope.password1.length < 6 || $scope.password1.length > 20) {
 			$scope.inputclass = "input_false";
 			return false;
 		} else {
@@ -366,10 +393,17 @@ var registerController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	$scope.isnanpassme = function() {
-		if ($scope.password1.length < 6 || $scope.password1.length > 20 || $scope.password1 != $scope.password2) {
+		if($scope.password2 == '' || $scope.password2 == null || $scope.password2 == undefined){
 			$scope.inputclassme = "input_false";
 			return false;
-		} else {
+		}else if ($scope.password2.length < 6 || $scope.password2.length > 20) {
+			$scope.inputclassme = "input_false";
+			return false;
+		}else if ($scope.password1 != $scope.password2) {
+			$scope.inputclassme = "input_false";
+			$scope.passIsOn = true;
+			return false;
+		}  else {
 			$scope.inputclassme = "input_true";
 			return true;
 		}
@@ -420,35 +454,44 @@ var registerController = function($scope, $location, $http, LoginService) {
 	$scope.registreTime = true;
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
-		if (!reg.test($scope.rename)) {
-			alert("请输入合法手机号！");
+		if($scope.rename == undefined || $scope.rename == ''){
+			$scope.phoneInputFalse = true;
+		}else if (!reg.test($scope.rename)) {
+			$scope.phoneInputFalse = true;
+			$scope.phoneerroe = true;
 		} else if ($scope.registreTime == true) {
 			window.clearInterval(window.two);
 			$scope.registreTime = false;
-			$http.post("api/user/sendPhoneVerificationCodeReg", {
-				codeNumber : $scope.rename
-			}).success(function(data) {
-				if (data.code == 1) {
-					$scope.code = data.result;
-					setCookie("send_phone_code", $scope.code);
-					$scope.intDiff = 120;
-					$("#time_show").attr("style", "background-color:#AAAAAA");
-					window.two = window.setInterval(function() {
-						if ($scope.intDiff == 0) {
-							$('#time_show').html("获取验证码！");
-							$scope.registreTime = true;
-							window.clearInterval(window.two);
-							$("#time_show").attr("style", "background-color:#ff5f2b");
-						} else {
-							$('#time_show').html("重新发送（" + $scope.intDiff + "秒）");
-							$scope.intDiff--;
-						}
-					}, 1000);
-				} else {
-					$scope.registreTime = true
-					alert(data.message);
-				}
-			})
+			if($scope.sendnumber > 4){
+				$scope.windowfind();
+			}else {
+				$scope.sendnumber = $scope.sendnumber+1;
+				$http.post("api/user/sendPhoneVerificationCodeReg", {
+					codeNumber : $scope.rename
+				}).success(function(data) {
+					if (data.code == 1) {
+						$scope.code = data.result;
+						setCookie("send_phone_code", $scope.code);
+						$scope.intDiff = 119;
+						$("#time_show").attr("style", "background-color:#AAAAAA");
+						window.two = window.setInterval(function() {
+							if ($scope.intDiff == 0) {
+								$('#time_show').html("获取验证码！");
+								$scope.registreTime = true;
+								window.clearInterval(window.two);
+								$("#time_show").attr("style", "background-color:#ff5f2b");
+							} else {
+								$('#time_show').html("重新发送（" + $scope.intDiff + "秒）");
+								$scope.intDiff--;
+							}
+						}, 1000);
+					} else {
+						$scope.registreTime = true
+						alert(data.message);
+					}
+				})
+			}
+			
 		}
 	};
 	$scope.deleteShiId = function() {
@@ -456,39 +499,30 @@ var registerController = function($scope, $location, $http, LoginService) {
 	}
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
-		if ($scope.selected == undefined || $scope.phoneShiList == undefined) {
-			alert("请选择城市！");
-		} else if (!reg.test($scope.rename)) {
-			alert("请输入合法手机号！");
-		} else if ($scope.codeNumber == undefined) {
-			alert("请输入验证码！");
-		} else if (getCookie("send_phone_code") == $scope.codeNumber) {
-			if ($scope.password1 == '' || $scope.password1 == null) {
-				$scope.inputclass = "input_false";
-			} else if ($scope.password2 == '' || $scope.password2 == null) {
-				$scope.inputclassme = "input_false";
-			} else if ($scope.isnanpass() == false) {
-				$scope.inputclass = "input_false";
-			} else if ($scope.isnanpassme() == false) {
-				$scope.inputclassme = "input_false";
-			} else {
-				$http.post("api/user/sizeUpImgCode", {
-					imgnum : $scope.codeBei
-				}).success(function(data) {
-					if (data.code == 1) {
-						if ($scope.ridel_xy != true) {// 勾选协议
-							$scope.addUser();
-						} else {
-							alert("请勾选《华尔街金融平台用户使用协议》");
-						}
-					} else if (data.code == -1) {
-						alert(data.message);
-						$scope.reGetRandCodeImg();
-					}
-				})
+		//$scope.addUser();
+		if($scope.rename == undefined || $scope.rename ==''){
+			$scope.phoneInputFalse = true;
+		}else if (!reg.test($scope.rename)) {
+			$scope.phoneInputFalse = true;
+			$scope.phoneerroe = true;
+		}else if ($scope.codeNumber == undefined || $scope.codeNumber == '') {
+			$scope.codeInputFalse = true;
+		}else if (getCookie("send_phone_code") == $scope.codeNumber) {
+		 if($scope.isnanpass()){
+				if($scope.isnanpassme()){
+				if ($scope.selected == undefined || $scope.phoneShiList == undefined) {
+						alert("请选择城市！");
+					}else if ($scope.ridel_xy == true) {// 勾选协议
+										//alert("hahah");
+										$scope.addUser();
+									} else {
+										alert("请勾选《华尔街金融平台用户使用协议》");
+									}
+				}
 			}
 		} else {
-			alert("验证码错误!");
+			$scope.codeInputFalse = true;
+			$scope.phoneCode = true;
 		}
 	};
 
@@ -509,8 +543,8 @@ var registerController = function($scope, $location, $http, LoginService) {
 				$scope.codeNumber = "";
 				$scope.code = "";
 				$scope.codeBei = "";
-				alert("注册成功！");
-				window.location.href = '#/login';
+				$scope.phonesuccess = true;
+				//window.location.href = '#/login';
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
@@ -518,7 +552,10 @@ var registerController = function($scope, $location, $http, LoginService) {
 	};
 	// 邮箱注册优化
 	$scope.emailpassa = function() {
-		if ($scope.password1.length < 6 || $scope.password1.length > 20) {
+		if($scope.password1 == undefined || $scope.password1 == ''){
+			$scope.inputemaila = "input_false";
+			return false;
+		}else if ($scope.password1.length < 6 || $scope.password1.length > 20) {
 			$scope.inputemaila = "input_false";
 			return false;
 		} else {
@@ -527,8 +564,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	$scope.emailpassb = function() {
-		if ($scope.password2.length < 6 || $scope.password2.length > 20 || $scope.password1 != $scope.password2) {
+		if($scope.password2 == undefined || $scope.password2 == '' || $scope.password2.length < 6 || $scope.password2.length > 20){
 			$scope.inputemailb = "input_false";
+			return false;
+		}else if ($scope.password1 != $scope.password2) {
+			$scope.inputemailb = "input_false";
+			$scope.passerrorboolean = true;
 			return false;
 		} else {
 			$scope.inputemailb = "input_true";
@@ -536,42 +577,43 @@ var registerController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	// 校验图片验证码
+	$scope.emailundefinedboolean = false;
 	$scope.getImgEmailCode = function() {
-		if ($scope.selected == undefined || $scope.emailShiList == undefined) {
-			alert("请选择城市！");
-		} else if (!myreg.test($scope.emailname)) {
-			alert("请输入合法邮箱！");
-		} else if ($scope.password1 == '' || $scope.password1 == null) {
-			$scope.inputemaila = "input_false";
-		} else if ($scope.password2 == '' || $scope.password2 == null) {
-			$scope.inputemailb = "input_false";
-		} else if ($scope.emailpassa() == false) {
-			$scope.inputemaila = "input_false";
-		} else if ($scope.emailpassb() == false) {
-			$scope.inputemailb = "input_false";
-		} else {
-			$http.post("api/user/sizeUpImgCode", {
-				imgnum : $scope.codeBei
-			}).success(function(data) {
-				if (data.code == 1) {// 图片验证
-					if ($scope.ridel_xy != true) {// 勾选协议
-						$http.post("api/user/jusEmail", {
-							username : $scope.emailname
-						}).success(function(data) {
-							if (data.code == 1) {// 检验用户是否存在
-								$scope.addUserEmail();
+		if($scope.emailname == undefined || $scope.emailname == ''){
+			$scope.emailundefinedboolean = true;
+		}else if (!myreg.test($scope.emailname)) {
+			$scope.emailundefinedboolean = true;
+			$scope.emailerrorboolean = true;
+		}else if($scope.emailpassa()){
+			if($scope.emailpassb()){
+				if ($scope.selected == undefined || $scope.emailShiList == undefined) {
+					alert("请选择城市！");
+				}else {
+					$http.post("api/user/sizeUpImgCode", {
+						imgnum : $scope.codeBei
+					}).success(function(data) {
+						if (data.code == 1) {// 图片验证
+							if ($scope.ridel_xy == true) {// 勾选协议
+								$http.post("api/user/jusEmail", {
+									username : $scope.emailname
+								}).success(function(data) {
+									if (data.code == 1) {// 检验用户是否存在
+										$scope.addUserEmail();
+									} else {
+										alert(data.message);
+									}
+								})
 							} else {
-								alert(data.message);
+								alert("请勾选《华尔街金融平台用户使用协议》");
 							}
-						})
-					} else {
-						alert("请勾选《华尔街金融平台用户使用协议》");
-					}
-				} else if (data.code == -1) {
-					alert(data.message);
-					$scope.reGetRandCodeImg();
+						} else if (data.code == -1) {
+							$scope.emailimgerror = true;
+							$scope.reGetRandCodeImg();
+						}
+					})
+				
 				}
-			})
+			}
 		}
 	};
 
@@ -589,7 +631,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 				$scope.password1 = "";
 				$scope.password2 = "";
 				$scope.codeBei = "";
-				$scope.successEmailShow = true;
+				$scope.emailsuccess = true;
 			} else if (data.code == -1) {
 				alert(data.message);
 			}
@@ -606,6 +648,50 @@ var registerController = function($scope, $location, $http, LoginService) {
 			}
 		})
 	};
+	
+	
+	//弹窗
+	$scope.windowfind = function(){
+		  $(".mask").css({display:'block',height: $(document).height()});
+		$scope.windowboolean = true;
+	}
+	//关闭弹窗
+	
+	$scope.closewindow = function(){
+	$scope.imgisorboolean = false;
+	$scope.windowboolean = false;
+	$scope.registreTime = true
+	$(".mask").css('display','none');
+	}
+	
+	//图片验证码从新获得
+	$scope.perimgcode = function(){
+		$scope.imgisorboolean = false;
+	}
+	
+	//图片验证码校验
+	$scope.imgcodesub = function(){
+		$http.post("api/user/sizeUpImgCode", {
+		imgnum : $scope.codeBei
+			}).success(function(data) {
+		if (data.code == -1) {
+			$scope.imgisorboolean = true;
+			$scope.reGetRandCodeImg();
+		} else {
+			$scope.sendnumber = 0;
+			$scope.imgisorboolean = false;
+			$scope.registreTime = true
+			$scope.closewindow();
+		}
+			})
+	}
+	
+	//跳转邮箱登陆
+	$scope.gotoemail = function(){
+		var t=$scope.emailname.lastIndexOf('@')+1;
+		var str = "http://mail."+$scope.emailname.substring(t);
+		window.location.href=str;
+	}
 
 	$scope.toIndex = function() {
 		window.location.href = '#/';
@@ -722,7 +808,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 						window.clearInterval(window.b);
 						$scope.code = data.result;
 						$scope.codeNumber = "";
-						$scope.intDiff = 2;
+						$scope.intDiff = 119;
 						window.b = window.setInterval(function(){
 					    	if($scope.intDiff == 0){
 					    		$('#day_show').html("点击获得验证码！");
@@ -780,7 +866,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 										$scope.code = data.result;
 										$scope.codeNumber = "";
 										// 倒计时
-										$scope.intDiff = 2;
+										$scope.intDiff = 119;
 										$scope.twostep();
 										window.a = window.setInterval(function() {
 											if ($scope.intDiff == 0) {
@@ -845,6 +931,13 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 	
 	$scope.closewindow = function(){
 	$scope.windowboolean = false;
+	$scope.codeStatus = true
+	}
+	
+	//图片验证码从新获得
+	$scope.perimgcode = function(){
+		$scope.imgboolean = false;
+		$scope.reGetRandCodeImg();
 	}
 	
 	//图片验证码校验
