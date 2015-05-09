@@ -144,8 +144,14 @@ var addressController = function($scope, $location, $http, LoginService) {
 			}
 		});
 	};
+	
+	$scope.adinit = function() {
+		$scope.ad={receiver:"收件人姓名",address:"详细地址",zipCode:"邮编",moblephone:"手机号码"};
+		$scope.addadd=true;
+		$scope.getcity_list();
+	}
 	$scope.addad = function() {
-		if($scope.ad.receiver==undefined||$.trim($scope.ad.receiver)==""){
+		if($scope.ad.receiver=="收件人姓名"){
 			alert("请输入收件人!");
 			return;
 		}
@@ -153,11 +159,11 @@ var addressController = function($scope, $location, $http, LoginService) {
 			alert("请选择城市!");
 			return;
 		}
-		if($scope.ad.address==undefined||$.trim($scope.ad.address)==""){
+		if($scope.ad.address=="详细地址"){
 			alert("请输入地址!");
 			return;
 		}
-		if($scope.ad.zipCode==undefined||$.trim($scope.ad.zipCode)==""){
+		if($scope.ad.zipCode=="邮编"){
 			//alert("请输入邮编!");
 			//return;
 		}else{
@@ -167,7 +173,7 @@ var addressController = function($scope, $location, $http, LoginService) {
 				return;
 			}
 		}
-		if($scope.ad.moblephone==undefined||$.trim($scope.ad.moblephone)==""){
+		if($scope.ad.moblephone=="手机号码"){
 			alert("请输入手机号码!");
 			return;
 		}else{
@@ -176,6 +182,9 @@ var addressController = function($scope, $location, $http, LoginService) {
 				alert("手机不正确!");
 				return;
 			}
+		}
+		if($scope.ad.zipCode=="邮编"){
+			$scope.ad.zipCode="";
 		}
 		$scope.ad.customerId = LoginService.userid;
 		$scope.ad.isDefault = 2;
