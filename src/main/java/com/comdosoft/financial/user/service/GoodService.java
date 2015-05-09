@@ -116,7 +116,7 @@ public class GoodService {
             }
             goodInfoMap.put("relativeShopList",relativeShopList);
             
-            List<Map<String, Object>> picList=goodMapper.getPicList(posreq.getGoodId());
+            List<Map<String, Object>> picList=goodMapper.getPicList(id);
             if(picList!=null){
 	            for(int i=0;i<picList.size();i++){
 	            	if(picList.get(i).get("urlPath")!=null){
@@ -162,6 +162,20 @@ public class GoodService {
         map.put("sale_slip", list6);
         map.put("tDate", list7);
         return map;
+    }
+
+    public String categorys(int category) {
+        List<Integer> son = goodMapper.getSonCategoryIds(category);
+        StringBuilder sb = new StringBuilder();
+        sb.append("("+category+ ",");
+        if (son != null && son.size() > 0) {
+            for (Integer ii : son) {
+                sb.append(ii + ",");
+            }
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(")");
+        return sb.toString();
     }
 
 }
