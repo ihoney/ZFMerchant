@@ -304,6 +304,18 @@ var registerController = function($scope, $location, $http, LoginService) {
 	window.clearInterval(window.one);
 	// 发送手机验证码倒计时
 	window.clearInterval(window.two);
+	//手机错误提示消息
+	$scope.phoneerroe = false;
+	//密码不一致
+	$scope.passIsOn = false;
+	//手机验证码校验
+	$scope.phoneCode = false;
+	//累计发送短信
+	$scope.sendnumber = 0;
+	//弹窗
+	$scope.windowboolean = false;
+	//图片校验
+	$scope.imgisorboolean = false;
 	// 邮箱激活链接判断
 	if ($scope.sendStatus == -1) {
 		clearInterval(window.one);
@@ -357,7 +369,10 @@ var registerController = function($scope, $location, $http, LoginService) {
 
 	// 密码样式优化
 	$scope.isnanpass = function() {
-		if ($scope.password1.length < 6 || $scope.password1.length > 20) {
+		if($scope.password1 == '' || $scope.password1 == null || $scope.password1 == undefined){
+			$scope.inputclass = "input_false";
+			return false;
+		}else if ($scope.password1.length < 6 || $scope.password1.length > 20) {
 			$scope.inputclass = "input_false";
 			return false;
 		} else {
@@ -366,10 +381,17 @@ var registerController = function($scope, $location, $http, LoginService) {
 		}
 	}
 	$scope.isnanpassme = function() {
-		if ($scope.password1.length < 6 || $scope.password1.length > 20 || $scope.password1 != $scope.password2) {
+		if($scope.password2 == '' || $scope.password2 == null || $scope.password2 == undefined){
 			$scope.inputclassme = "input_false";
 			return false;
-		} else {
+		}else if ($scope.password2.length < 6 || $scope.password2.length > 20) {
+			$scope.inputclassme = "input_false";
+			return false;
+		}else if ($scope.password1 != $scope.password2) {
+			$scope.inputclassme = "input_false";
+			$scope.passIsOn = true;
+			return false;
+		}  else {
 			$scope.inputclassme = "input_true";
 			return true;
 		}
@@ -420,35 +442,44 @@ var registerController = function($scope, $location, $http, LoginService) {
 	$scope.registreTime = true;
 	// 获取手机验证码
 	$scope.getRegisterCode = function() {
-		if (!reg.test($scope.rename)) {
-			alert("请输入合法手机号！");
+		if($scope.rename == undefined || $scope.rename == ''){
+			$scope.phoneInputFalse = true;
+		}else if (!reg.test($scope.rename)) {
+			$scope.phoneInputFalse = true;
+			$scope.phoneerroe = true;
 		} else if ($scope.registreTime == true) {
 			window.clearInterval(window.two);
 			$scope.registreTime = false;
-			$http.post("api/user/sendPhoneVerificationCodeReg", {
-				codeNumber : $scope.rename
-			}).success(function(data) {
-				if (data.code == 1) {
-					$scope.code = data.result;
-					setCookie("send_phone_code", $scope.code);
-					$scope.intDiff = 120;
-					$("#time_show").attr("style", "background-color:#AAAAAA");
-					window.two = window.setInterval(function() {
-						if ($scope.intDiff == 0) {
-							$('#time_show').html("获取验证码！");
-							$scope.registreTime = true;
-							window.clearInterval(window.two);
-							$("#time_show").attr("style", "background-color:#ff5f2b");
-						} else {
-							$('#time_show').html("重新发送（" + $scope.intDiff + "秒）");
-							$scope.intDiff--;
-						}
-					}, 1000);
-				} else {
-					$scope.registreTime = true
-					alert(data.message);
-				}
-			})
+			if($scope.sendnumber > 4){
+				$scope.windowfind();
+			}else {
+				$scope.sendnumber = $scope.sendnumber+1;
+				$http.post("api/user/sendPhoneVerificationCodeReg", {
+					codeNumber : $scope.rename
+				}).success(function(data) {
+					if (data.code == 1) {
+						$scope.code = data.result;
+						setCookie("send_phone_code", $scope.code);
+						$scope.intDiff = 119;
+						$("#time_show").attr("style", "background-color:#AAAAAA");
+						window.two = window.setInterval(function() {
+							if ($scope.intDiff == 0) {
+								$('#time_show').html("获取验证码！");
+								$scope.registreTime = true;
+								window.clearInterval(window.two);
+								$("#time_show").attr("style", "background-color:#ff5f2b");
+							} else {
+								$('#time_show').html("重新发送（" + $scope.intDiff + "秒）");
+								$scope.intDiff--;
+							}
+						}, 1000);
+					} else {
+						$scope.registreTime = true
+						alert(data.message);
+					}
+				})
+			}
+			
 		}
 	};
 	$scope.deleteShiId = function() {
@@ -456,39 +487,29 @@ var registerController = function($scope, $location, $http, LoginService) {
 	}
 	// 手机校验图片验证码
 	$scope.getImgCode = function() {
-		if ($scope.selected == undefined || $scope.phoneShiList == undefined) {
-			alert("请选择城市！");
-		} else if (!reg.test($scope.rename)) {
-			alert("请输入合法手机号！");
-		} else if ($scope.codeNumber == undefined) {
-			alert("请输入验证码！");
-		} else if (getCookie("send_phone_code") == $scope.codeNumber) {
-			if ($scope.password1 == '' || $scope.password1 == null) {
-				$scope.inputclass = "input_false";
-			} else if ($scope.password2 == '' || $scope.password2 == null) {
-				$scope.inputclassme = "input_false";
-			} else if ($scope.isnanpass() == false) {
-				$scope.inputclass = "input_false";
-			} else if ($scope.isnanpassme() == false) {
-				$scope.inputclassme = "input_false";
-			} else {
-				$http.post("api/user/sizeUpImgCode", {
-					imgnum : $scope.codeBei
-				}).success(function(data) {
-					if (data.code == 1) {
-						if ($scope.ridel_xy != true) {// 勾选协议
-							$scope.addUser();
-						} else {
-							alert("请勾选《华尔街金融平台用户使用协议》");
-						}
-					} else if (data.code == -1) {
-						alert(data.message);
-						$scope.reGetRandCodeImg();
-					}
-				})
+		if($scope.rename == undefined || $scope.rename ==''){
+			$scope.phoneInputFalse = true;
+		}else if (!reg.test($scope.rename)) {
+			$scope.phoneInputFalse = true;
+			$scope.phoneerroe = true;
+		}else if ($scope.codeNumber == undefined || $scope.codeNumber == '') {
+			$scope.codeInputFalse = true;
+		}else if (getCookie("send_phone_code") == $scope.codeNumber) {
+		 if($scope.isnanpass()){
+				if($scope.isnanpassme()){
+				if ($scope.selected == undefined || $scope.phoneShiList == undefined) {
+						alert("请选择城市！");
+					}else if ($scope.ridel_xy == true) {// 勾选协议
+										//alert("hahah");
+										$scope.addUser();
+									} else {
+										alert("请勾选《华尔街金融平台用户使用协议》");
+									}
+				}
 			}
 		} else {
-			alert("验证码错误!");
+			$scope.codeInputFalse = true;
+			$scope.phoneCode = true;
 		}
 	};
 
@@ -606,6 +627,43 @@ var registerController = function($scope, $location, $http, LoginService) {
 			}
 		})
 	};
+	
+	
+	//弹窗
+	$scope.windowfind = function(){
+		  $(".mask").css({display:'block',height: $(document).height()});
+		$scope.windowboolean = true;
+	}
+	//关闭弹窗
+	
+	$scope.closewindow = function(){
+	$scope.imgisorboolean = false;
+	$scope.windowboolean = false;
+	$scope.registreTime = true
+	$(".mask").css('display','none');
+	}
+	
+	//图片验证码从新获得
+	$scope.perimgcode = function(){
+		$scope.imgisorboolean = false;
+	}
+	
+	//图片验证码校验
+	$scope.imgcodesub = function(){
+		$http.post("api/user/sizeUpImgCode", {
+		imgnum : $scope.codeBei
+			}).success(function(data) {
+		if (data.code == -1) {
+			$scope.imgisorboolean = true;
+			$scope.reGetRandCodeImg();
+		} else {
+			$scope.sendnumber = 0;
+			$scope.imgisorboolean = false;
+			$scope.registreTime = true
+			$scope.closewindow();
+		}
+			})
+	}
 
 	$scope.toIndex = function() {
 		window.location.href = '#/';
