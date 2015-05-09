@@ -18,7 +18,7 @@
                     	<div class="cu_title">公告板</div>
                     	<div class="user_news_con" >
                         	<ul>
-                            	<li ng-repeat="m in web_list"><a href="#/webmessageinfo?infoId={{m.id}}">[公告] {{m.title}}</a></li>
+                            	<li ng-repeat="m in web_list"><a target="_blank" href="#/webmessageinfo?infoId={{m.id}}">[公告] {{m.title}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -27,9 +27,9 @@
                         <div class="user_news_con">
                         	<ul>
                             	<li ng-repeat="m in cp_list">
-						 		<a href="#/repair_pay?repair_id={{m.id}}" ng-if="m.t =='repair' "><strong >{{m.status}}</strong></a>
-						 		<a href="#/cs_returninfo?infoId={{m.id}}" ng-if="m.t =='retrun' "><strong >{{m.status}}</strong></a>
-						 		<a href="#/cs_changeinfo?infoId={{m.id}}" ng-if="m.t =='change' "><strong >{{m.status}}</strong></a>
+						 		<a target="_blank" href="#/repair_pay?repair_id={{m.id}}" ng-if="m.t =='repair' "><strong >{{m.status}}</strong></a>
+						 		<a target="_blank" href="#/cs_returninfo?infoId={{m.id}}" ng-if="m.t =='retrun' "><strong >{{m.status}}</strong></a>
+						 		<a target="_blank" href="#/cs_changeinfo?infoId={{m.id}}" ng-if="m.t =='change' "><strong >{{m.status}}</strong></a>
                             	</li>
                                  
                             </ul>
@@ -39,7 +39,7 @@
                     	<div class="cu_title">消息栏</div>
                         <div class="user_news_con" >
                         	<ul>
-                            	<li  ng-repeat="m in my_list"><a href="#/messageinfo?id={{m.id}}">[消息] {{m.title}}</a></li>
+                            	<li  ng-repeat="m in my_list"><a target="_blank" href="#/messageinfo?id={{m.id}}">[消息] {{m.title}}</a></li>
                             </ul>
                         </div>
                     </div>
