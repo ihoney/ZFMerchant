@@ -971,7 +971,6 @@ public class TerminalsController {
     public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
         	String joinpath = HttpFile.upload(updatefile, sysFileTerminal+id+"/update/");
-        	System.out.println("差可能路径："+joinpath);
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);
