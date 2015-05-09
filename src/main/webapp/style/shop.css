@@ -836,6 +836,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .pro_attributes table td, .pro_attributes table th { background: #FFF; padding: 5px; text-align: center;}
 .pro_attributes table td p {text-align: left; line-height: 24px;}
 .pro_attributes .text { line-height: 24px;}
+.pro_attributes .text_img img { width: 880px;}
 
 .pro_attributes .text textarea { 
 	width: 878px;
@@ -975,18 +976,22 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .failure { position: relative; padding-left: 36px; display: inline-block;}
 .failure i { position: absolute; top: 0px; left: 0px;}
 
-.pay_ok, .pay_no {padding: 20px; border-radius: 5px;}
+.pay_ok { padding: 20px; border-radius: 5px;}
+.pay_no { padding: 20px; border-radius: 5px; margin: 0 450px;background: #ed5565;}
 .pay_ok { background: #a0d468; }
-.pay_no { background: #ed5565;}
-.payWarning { 
-	position: relative; 
-	padding-left: 36px; 
+.payWarning {
 	line-height: 36px; 
 	font-size: 14px;
 	font-weight:bold; 
-	color: #FFF; 
+	color: #FFF;
+	text-align: center;
 }
-.payWarning i { position: absolute; top: 0px; left: 0px;}
+.payWarning span { display: inline-block;}
+.payWarning i { 
+	margin-bottom: -10px; 
+	margin-right: 20px; 
+}
+.payWarning_btn { text-align: center;}
 
 .pay_ok_info { overflow: hidden; padding: 10px 30px;}
 .pay_ok_info_left { float: left; font-size: 14px;}

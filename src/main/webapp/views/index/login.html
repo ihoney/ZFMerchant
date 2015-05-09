@@ -57,7 +57,7 @@
 							<p class="login_area_wrong" ng-if="passClass">{{passMessage}}</p>
 						</li>
 						<li class="yzm_li">
-                        	<input ng-model="code" value="输入图片校验码" ng-class="{true: 'l input_false', false: 'l'}[codeClass]" />
+                        	<input ng-model="code" ng-init="code='输入图片校验码'" value="输入图片校验码" ng-class="{true: 'l input_false', false: 'l'}[codeClass]" />
                             <div class="yzm">
                             	<img src="images/yzm.jpg" ng-click="reGetRandCodeImg()" id="pppcode" />
                                 <a>看不清?点击图片换一张</a>

@@ -218,7 +218,7 @@ var loginController = function($scope, $location, $http, LoginService) {
 		} else if ($scope.password1 == undefined||$.trim($scope.password1) == ''  ) {
 			$scope.passClass = true;
 			$scope.passMessage="请输入密码";
-		} else if ($scope.code == undefined||$.trim($scope.code) == ''  ) {
+		} else if ($.trim($scope.code) == '输入图片校验码'  ) {
 			$scope.codeClass = true;
 			$scope.passMessage="请输入验证码";
 		}else {
