@@ -32,7 +32,7 @@
 							</tr>
 						</thead>
 						<tr ng-repeat="one in addressList">
-							<td><input type="radio" value="{{one.id}}" ng-model="order.addressId"  /></td>
+							<td><input type="radio" value="{{one.id}}" ng-model="order.addressId" /></td>
 
 							<td>{{one.receiver}}</td>
 							<td>{{one.city}}</td>
@@ -44,20 +44,22 @@
 
 						<tr class="addAddr_box" ng-show="addadd">
 							<td>&nbsp;</td>
-							<td><input ng-model="ad.receiver" type="text" class="placeholder"  value="收件人姓名"  /></td>
+							<td><input ng-model="ad.receiver" type="text" class="placeholder" value="收件人姓名" /></td>
 							<td><select style="width: 90px;" ng-model="selected" ng-options="s.name for s in city_list">
 									<option value="">请选择省</option>
 							</select> <select style="width: 90px;" ng-model="city" ng-options=" x.name for x in selected.childrens">
 									<option value="">请选择市</option>
 							</select></td>
-							<td><input ng-model="ad.address" type="text" class="w" class="placeholder"  value="详细地址" /></td>
-							<td><input ng-model="ad.zipCode" type="text" class="placeholder"  value="邮编" /></td>
-							<td><input ng-model="ad.moblephone" type="text" class="placeholder"  value="手机号码" /></td>
-							<td><a  class="a_btn" ng-click="addad()">确定</a></td>
+							<td><input ng-model="ad.address" type="text" class="w" class="placeholder" value="详细地址" /></td>
+							<td><input ng-model="ad.zipCode" type="text" class="placeholder" value="邮编" /></td>
+							<td><input ng-model="ad.moblephone" type="text" class="placeholder" value="手机号码" /></td>
+							<td><a class="a_btn" ng-click="addad()">确定</a></td>
 							<td>&nbsp;</td>
 						</tr>
 					</table>
-					<div class="addAddr_btn" ng-click="adinit()"><button>使用新地址</button></div>
+					<div class="addAddr_btn" ng-click="adinit()">
+						<button>使用新地址</button>
+					</div>
 				</div>
 
 				<div class="myShopOrder">
@@ -88,22 +90,22 @@
 										<h3>{{shop.second_title}}</h3>
 										<ul>
 											<li><span>品牌型号：</span>
-											<div class="c_text">{{shop.good_brands}}{{shop.Model_number}}</div></li>
+												<div class="c_text">{{shop.good_brands}}{{shop.Model_number}}</div></li>
 											<li><span>支付通道：</span>
-											<div class="c_text">{{shop.name}}</div></li>
+												<div class="c_text">{{shop.name}}</div></li>
 											<li><span>月租金：</span>
-											<div class="c_text">{{shop.lease_price/100|currency : "￥"}}</div></li>
+												<div class="c_text">{{shop.lease_price/100|currency : "￥"}}</div></li>
 											<li><span>最短租赁：</span>
-											<div class="c_text">{{shop.lease_time}}月</div></li>
+												<div class="c_text">{{shop.lease_time}}月</div></li>
 											<li><span>最长租赁：</span>
-											<div class="c_text">{{shop.return_time}}月</div></li>
+												<div class="c_text">{{shop.return_time}}月</div></li>
 										</ul>
 									</div>
 								</div>
 							</td>
 							<td><a href="javascript:void(0);"><strong>{{(shop.opening_cost+shop.price)/100|currency : "￥"}}</strong></a></td>
 							<td><div class="choose_amount">
-									<a href="javascript:void(0);" ng-click="upadteCart(-1)">-</a><input type="text" ng-model="order.quantity" ng-blur="checkQ()"/><a href="javascript:void(0);" ng-click="upadteCart(1)">+</a>
+									<a href="javascript:void(0);" ng-click="upadteCart(-1)">-</a><input type="text" ng-model="order.quantity" ng-blur="checkQ()" /><a href="javascript:void(0);" ng-click="upadteCart(1)">+</a>
 								</div></td>
 							<td><a href="javascript:void(0);"><strong>{{(shop.opening_cost+shop.price)/100*order.quantity|currency : "￥"}}</strong></a></td>
 						</tr>
@@ -137,21 +139,46 @@
 			</div>
 		</div>
 	</div>
-	<div class="tab leaseExplain_tab">
-		<a href="javascript:void(0);" class="close">关闭</a>
-		<div class="tabHead">租赁说明</div>
-		<div class="tabBody">
-			<div class="leaseExplain_con">
-				{{shop.lease_description}}
-			</div>
+
+
+
+	<div class="mask"></div>
+	<div class="ebankAgreementTab" style="display: none;">
+		<a  class="close">关闭</a>
+		<h1>华尔街金融平台用户租赁协议</h1>
+		<div class="ebankat_con">
+			<textarea readonly="readonly" name="" cols="" rows="">
+        	{{shop.lease_description}}
+        </textarea>
+		</div>
+		<div class="ebankat_checkbox">
+			<input ng-model="greet2" type="checkbox"/> 我接受此开通协议
+		</div>
+		<div class="ebankat_btn">
+			<button ng-click="ok()">确定</button>
+			<button ng-click="no();" class="cancel">取消</button>
 		</div>
 	</div>
-	<br/>
+
+	<br />
 </div>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/jQuery.autoIMG.js"></script>
 <script>
-$(function(){
-	$('.cn_img').autoIMG();
+	$(function() {
+		$('.cn_img').autoIMG();
+	})
+$(function(){	
+	$(".sa_agreement a").bind('click',function(){
+		    $(".mask").css({display:'block',height: $(document).height()});
+			$(".ebankAgreementTab").css('display','block');
+			return false;
+		}
+	)
+	$(".ebankAgreementTab a.close, .ebankat_btn a").click(function(){
+		$(".mask").css('display','none');
+		$(".ebankAgreementTab").css('display','none');
+	});
+	
 })
-</script>
+</script>    

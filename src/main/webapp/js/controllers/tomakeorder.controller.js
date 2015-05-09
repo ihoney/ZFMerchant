@@ -119,7 +119,15 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 	$scope.ctype = function(v) {
 		$scope.order.invoice_type = v;
 	}
-
+	$scope.ok = function() {
+		$scope.greet=$scope.greet2;
+		$('.mask').hide();
+		$('.ebankAgreementTab').hide();
+	}
+	$scope.no = function() {
+		$('.mask').hide();
+		$('.ebankAgreementTab').hide();
+	}
 	$scope.init();
 };
 
