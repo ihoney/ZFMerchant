@@ -36,6 +36,9 @@ public class CommentService {
 
     @Value("${downloadAdminFileModelTemplatePath}")
     private String downloadAdminFileModelTemplatePath;
+    
+    @Value("${pictureHZList}")
+  	private  String pictureHZList;
 
     private static final String managerTemplateFileName = "java.txt";
 
@@ -121,5 +124,10 @@ public class CommentService {
             }
         }
     }
+    
+    //校验上传图片格式是否满足
+    public  Boolean typeIsCommit(String houzuiStr){
+    	return pictureHZList.contains(houzuiStr);
+    	}
 
 }

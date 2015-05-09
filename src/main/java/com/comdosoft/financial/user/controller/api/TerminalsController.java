@@ -922,6 +922,11 @@ public class TerminalsController {
     @RequestMapping(value = "upload/tempImage/{id}", method = RequestMethod.POST)
     public Response tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
         try {
+        	int temp=img.getOriginalFilename().lastIndexOf(".");
+    		String houzuiStr=img.getOriginalFilename().substring(temp+1);
+        	if(!commentService.typeIsCommit(houzuiStr)){
+    			return Response.getError("您所上传的文件格式不正确");
+    		}
         	String joinpath="";
         	joinpath = HttpFile.upload(img, userTerminal+id+"/opengImg/");
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
@@ -929,6 +934,7 @@ public class TerminalsController {
         	joinpath = filePath+joinpath;
         		return Response.getSuccess(joinpath);
         } catch (Exception e) {
+        	e.printStackTrace();
             return Response.getError("请求失败！");
         }
     }
