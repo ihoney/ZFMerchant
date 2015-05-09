@@ -698,9 +698,20 @@ tr.order_hd td { text-align: left; }
 .mail_article_title p { color: #999; overflow: hidden;}
 .mail_article_title a { float: right; color: #999;}
 
-.mail_article_text { line-height: 24px; padding: 20px 0; }
+.mail_article_text { line-height: 24px; padding: 20px 0; height: 760px;}
 .mail_article_text p { margin-bottom: 10px;}
-
+.mail_article_text textarea {
+	width: 100%;
+	height: 100%;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+	font-family: "\5b8b\4f53";
+}
 
 /*---suggest---*/
 .suggest{ 
