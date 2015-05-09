@@ -210,7 +210,7 @@ public class TerminalsController {
 		try {
 			String  password= terminalsService.findPassword((Integer)map.get("terminalid")) == null?null:
 				terminalsService.findPassword((Integer)map.get("terminalid"));
-			String pass = "该终端为设置密码！";
+			String pass = "该终端未设置密码！";
 			if(password != null){
 				/*pass = SysUtils.Decrypt(
 						password,passPath);*/
