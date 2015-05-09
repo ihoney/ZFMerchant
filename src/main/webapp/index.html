@@ -60,7 +60,10 @@
 <script type="text/javascript" src="js/controllers/login.controller.js"></script>
 <script type="text/javascript" src="js/controllers/pay.controller.js"></script>
 <script type="text/javascript"	src="js/controllers/mainindex.controller.js"></script>
-
+<script type="text/javascript"	src="js/left.js"></script>
+<!--[if lte IE 8]>
+<script type="text/javascript"	src="js/left.js"></script>
+<![endif]-->
 </head>
 <body>
 	<div class="topInfo clear" ng-if="!loginshow">
@@ -189,7 +192,7 @@
 				</ul>
 			</div>
 			<div ng-view></div>
-			<script src="js/left.js"></script>
+		<script type="text/javascript"	src="js/left.js"></script>
 		</div>
 	</div>
 	<div ng-view ng-if="ngshow"></div>
@@ -213,7 +216,7 @@
 		</div>
 	</div>
 
-	<div class="mask"></div>
+	<div class="mask" style="height: 1229px;"></div>
 
 </body>
 </html>
