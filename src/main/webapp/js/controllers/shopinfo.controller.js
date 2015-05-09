@@ -21,6 +21,8 @@ var shopinfoController = function ($scope,$location, $http, LoginService) {
             	$scope.good=data.result;
             	$scope.paychannel=data.result.paychannelinfo;
             	$scope.picList=data.result.picList;
+            }else{
+            	window.location.href ="#/noshop";
             }
         });
     };
