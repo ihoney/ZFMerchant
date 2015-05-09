@@ -17,7 +17,7 @@ var mainindexController = function($scope, $http) {
 	}
 
 	$scope.searchhh = function() {
-		if($scope.req.phone2==undefined||""==$scope.req.phone2.trim()){
+		if($scope.req.phone2==undefined||""==$.trim($scope.req.phone2)){
 			$scope.searchhherror="请输入手机号";
 			return;
 		}
