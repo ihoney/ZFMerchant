@@ -84,7 +84,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		return false;
 	}
 	var checkcart1 = function(str) {
-		var arry = [ "login", "shop", "register", "findpass" ];
+		var arry = [ "login", "shop", "register", "findpass" ,"findpassEmail"];
 		for (var i = 0; i < arry.length; i++) {
 			if (str == arry[i]) {
 				return true;
@@ -722,7 +722,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 						window.clearInterval(window.b);
 						$scope.code = data.result;
 						$scope.codeNumber = "";
-						$scope.intDiff = 2;
+						$scope.intDiff = 119;
 						window.b = window.setInterval(function(){
 					    	if($scope.intDiff == 0){
 					    		$('#day_show').html("点击获得验证码！");
@@ -780,7 +780,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 										$scope.code = data.result;
 										$scope.codeNumber = "";
 										// 倒计时
-										$scope.intDiff = 2;
+										$scope.intDiff = 119;
 										$scope.twostep();
 										window.a = window.setInterval(function() {
 											if ($scope.intDiff == 0) {
@@ -845,6 +845,13 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 	
 	$scope.closewindow = function(){
 	$scope.windowboolean = false;
+	$scope.codeStatus = true
+	}
+	
+	//图片验证码从新获得
+	$scope.perimgcode = function(){
+		$scope.imgboolean = false;
+		$scope.reGetRandCodeImg();
 	}
 	
 	//图片验证码校验
