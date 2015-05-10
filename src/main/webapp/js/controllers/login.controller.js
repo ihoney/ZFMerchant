@@ -828,8 +828,7 @@ var findpassController = function($scope, $location, $http, LoginService, $timeo
 		}
 	};
 
-	// 移除样式
-	$("link[href='style/global.css']").remove();
+	
 
 	// 找回密码第一步
 	$scope.findPassOnes = function() {
