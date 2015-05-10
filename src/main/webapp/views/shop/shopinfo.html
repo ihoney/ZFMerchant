@@ -51,16 +51,16 @@
 									</div></li>
 								<li class="selected_li"><span>支付通道</span>
 									<div class="text">
-										<a href="javascript:void(0);" ng-repeat="one in good.payChannelList" class="{{one.id==paychannel.id?'hover':''}}" ng-click="getPayChannelInfo(one.id)">{{one.name}}</a>
+										<a ng-repeat="one in good.payChannelList" class="{{one.id==paychannel.id?'hover':''}}" ng-click="getPayChannelInfo(one.id)">{{one.name}}</a>
 									</div></li>
 								<li class="selected_li" ng-show="good.goodinfo.has_lease"><span>购买/租赁:</span>
 									<div class="text">
-										<a href="javascript:void(0);" class="buy_a hover">购买</a> <a href="javascript:void(0);" class="lease_a">租赁</a>
+										<a class="buy_a hover">购买</a> <a class="lease_a">租赁</a>
 									</div></li>
 								<li><span>购买数量</span>
 									<div class="text">
 										<div class="buy_numb">
-											<a href="javascript:void(0);" ng-click="count(-1)">-</a><input type="text" ng-model="quantity" ng-blur="checkQ()" /><a href="javascript:void(0);" ng-click="count(1)">+</a>&nbsp;&nbsp;件
+											<a ng-click="count(-1)">-</a><input type="text" ng-model="quantity" ng-blur="checkQ()" /><a ng-click="count(1)">+</a>&nbsp;&nbsp;件
 										</div>
 										<em class="buy_stock">库存{{good.goodinfo.quantity}}件</em>
 									</div></li>
@@ -68,24 +68,24 @@
 						</div>
 						<div class="buy_action">
 							<a href="#/shopmakeorder?goodId={{good.goodinfo.id}}&type=1&quantity={{quantity}}&paychannelId={{paychannel.id}}" class="buy_btn">立即购买</a> <a
-								href="#/leasemakeorder?goodId={{good.goodinfo.id}}&type=2&quantity={{quantity}}&paychannelId={{paychannel.id}}" class="lease_btn">租赁</a> <a href="javascript:void(0);" ng-click="addCart()" class="shoppingCart_btn"><i></i>放入购物车</a>
+								href="#/leasemakeorder?goodId={{good.goodinfo.id}}&type=2&quantity={{quantity}}&paychannelId={{paychannel.id}}" class="lease_btn">租赁</a> <a ng-click="addCart()" class="shoppingCart_btn"><i></i>放入购物车</a>
 						</div>
 					</div>
 				</div>
 				<div class="pro_body">
 					<div class="pro_detail_title">
 						<ul>
-							<li class="hover"><a href="javascript:void(0);">商品描述</a></li>
-							<li><a href="javascript:void(0);">交易费率信息</a></li>
-							<li><a href="javascript:void(0);">开通申请条件</a></li>
-							<li><a href="javascript:void(0);">开通所需材料</a></li>
-							<li><a href="javascript:void(0);" ng-show="good.commentsCount>0" ng-click="commentList()">评价(<strong>{{good.commentsCount}}</strong>)
+							<li class="hover"><a>商品描述</a></li>
+							<li><a>交易费率信息</a></li>
+							<li><a>开通申请条件</a></li>
+							<li><a>开通所需材料</a></li>
+							<li><a ng-show="good.commentsCount>0" ng-click="commentList()">评价(<strong>{{good.commentsCount}}</strong>)
 							</a></li>
-							<li><a href="javascript:void(0);" ng-show="good.goodinfo.has_lease">租赁说明</a></li>
+							<li><a ng-show="good.goodinfo.has_lease">租赁说明</a></li>
 						</ul>
 					</div>
 					<div class="pro_detail_con">
-						<div>
+						<div style="display: block;">
 							<div class="pro_attributes">
 								<h2>POS机信息</h2>
 								<ul>
@@ -194,7 +194,7 @@
 						</div>
 
 
-						<div>
+						<div style="display: none;">
 							<div class="pro_attributes" ng-show="paychannel.tDates.length>0">
 								<h2>资金服务费</h2>
 								<table width="100%" border="0" cellspacing="1" cellpadding="0">
@@ -219,19 +219,22 @@
 							</div>
 						</div>
 
-						<div>
+						<div style="display: none;">
 							<div class="pro_attributes">
-							<div class="text">
-								<textarea readonly="readonly" name="" cols="" rows="">{{paychannel.opening_requirement}}</textarea>
-							</div>
-							</div>
-						</div>
-						<div class="pro_attributes">
-							<div class="text">
-							<textarea readonly="readonly" name="" cols="" rows="">{{paychannel.opening_datum}}</textarea>
+								<div class="text">
+									<textarea readonly="readonly" name="" cols="" rows="">{{paychannel.opening_requirement}}</textarea>
+								</div>
 							</div>
 						</div>
-						<div>
+						<div style="display: none;">
+							<div class="pro_attributes">
+								<div class="text">
+									<textarea readonly="readonly" name="" cols="" rows="">{{paychannel.opening_datum}}</textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div style="display: none;">
 							<div class="pro_evaluate">
 								<div class="evaluate_title">
 									<i></i>综合评分{{good.goodinfo.total_score/10}}
@@ -272,7 +275,7 @@
 
 							</div>
 						</div>
-						<div>
+						<div style="display: none;">
 							<div class="pro_attributes">
 								<h2>租赁最小期限</h2>
 								<div class="text">{{good.goodinfo.lease_time}}月</div>
@@ -301,7 +304,7 @@
 							<div class="mf_name">{{good.factory.name}}</div>
 						</div>
 						<div class="mf_text">
-							{{good.factory.description}}<br /> 
+							{{good.factory.description}}<br />
 						</div>
 					</div>
 					<div class="manufacturer">
@@ -313,7 +316,7 @@
 							<div class="mf_name">{{paychannel.pcfactory.name}}</div>
 						</div>
 						<div class="mf_text">
-							{{paychannel.pcfactory.description}}<br /> 
+							{{paychannel.pcfactory.description}}<br />
 						</div>
 					</div>
 				</div>
