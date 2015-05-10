@@ -20,7 +20,6 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		}
 	};
 	$scope.$on('$locationChangeStart', function(scope, next, current) {
-		$(".foot").show();
 		var strs = new Array(); // 定义一数组
 		strs = next.split("/#/"); // 字符分割
 		if (LoginService.userid == 0) {
