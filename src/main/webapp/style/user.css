@@ -673,7 +673,7 @@ tr.order_hd td { text-align: left; }
 .message_con .border_t { border-top: 1px #CCCCCC solid;}
 
 .mail_list { line-height: 32px; height: 32px; border-bottom: 1px #CCCCCC solid;}
-.mail_list span { width: 50px; display: inline-block; float: left; margin-top: 9px;}
+.mail_list span { width: 25px; display: inline-block; float: left; margin-top: 9px;}
 .mail_list .mail_text {
 	width: 800px; 
 	display: inline-block;
