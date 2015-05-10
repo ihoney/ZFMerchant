@@ -411,13 +411,12 @@
 
 .contact li .qqContact_box { position: absolute; bottom: -24px; width: 100%; display: none;}
 
-
 /*------服务内容-------*/
-.serviceContent {  position: relative;  padding: 100px 0;}
+.serviceContent { overflow: hidden; position: relative; min-height: 220px; padding: 30px 0;}
 .serviceContent dl { width: 180px; float: left; margin-right: 20px;}
 .serviceContent dl a { color: #999;}
 .serviceContent dt { font-size: 24px;}
-.serviceContent dl dd {font-size: 12px; padding-left: 60px; font-size: 16px; line-height: 24px;}
+.serviceContent dl dd {font-size: 12px; padding-left: 60px; font-size: 16px; line-height: 24px; display: none;}
 .serviceContent dl dd a {}
 .serviceContent dl dd a:hover { color: #333;}
 .serviceContent dt a { 
@@ -429,9 +428,19 @@
 	color: #333;
 	cursor: text;
 }
-/*.serviceContent dt a:hover { 
+.serviceContent dt a.sc01 i { 
+	width: 55px; 
+	height: 55px; 
+	display: inline-block; 
+	background: url(../images/i.png) no-repeat 0 0;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+/*
+.serviceContent dt a:hover { 
 	color: #fc5f25;
-}*/
+}
 .serviceContent dt a.sc01 i { 
 	width: 55px; 
 	height: 55px; 
@@ -441,14 +450,16 @@
 	top: 0px;
 	left: 0px;
 	transition: background 0.2s;
-	-moz-transition: background 0.2s; /* Firefox 4 */
-	-webkit-transition: background 0.2s; /* Safari 和 Chrome */
-	-o-transition: background 0.2s; /* Opera */
+	-moz-transition: background 0.2s;
+	-webkit-transition: background 0.2s
+	-o-transition: background 0.2s; 
 }
-/*.serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}*/
+.serviceContent dt a:hover.sc01 i {background: url(../images/i.png) no-repeat 0 -55px;}
+*/
 .ewm { 
-	width: 230px; 
-	height: 230px;  
+	width: 180px; 
+	height: 220px; 
+	overflow: hidden; 
 	position: absolute;
 	top: 30px;
 	right: 0px;
