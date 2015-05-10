@@ -3,6 +3,7 @@ function showImage(obj) {
 	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempImage/"+$("#terid").val());
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
+			data = JSON.parse(data);
 			if(data.code == -1){
 				alert(data.message);
 			}else if(data.code == 1){
