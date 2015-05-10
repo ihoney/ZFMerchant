@@ -143,8 +143,7 @@
                       		</div>
                       </div>
                     <div class="attributes_box" ng-repeat="ma in MaterialLevel">
-                    	<h2 ng-if="$index == 0">基本开通<em>消费限额5000元</em></h2>
-                    	<h2 ng-if="$index == 1">完全开通<em>消费无限额</em></h2>
+                    	<h2>{{ma.levelTitle}}<em>{{ma.levelDescription}}</em></h2>
                         <div class="item_list clear">
                             <ul>
                                 <li ng-if="$index == 0 && status==1"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
