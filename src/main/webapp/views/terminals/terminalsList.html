@@ -67,7 +67,7 @@
                             <span ng-if="nums.status == 5"> 已停用</span>  
                            </strong></td>
                             <td ng-if="nums.type != 0">
-                           <a target="_blank" href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a>
+                           <a ng-click="letitgo('#/terminalDetail?terminalId=',nums.id)"  class="a_btn">查看详情</a>
                            
                             <span ng-if="nums.appid != null && nums.appid != ''">
                             <a ng-click="isopenstatus($index,nums.id)"  class="a_btn">重新申请</a>

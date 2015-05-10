@@ -41,13 +41,13 @@
             <div class="hp_con">
             	<ul>
                 	<li ng-repeat="p in pos_list ">
-                    	<h1><a 	href="#/shopinfo?goodId={{p.id}}"   title="{{p.title}}" target="_blank">{{p.title}}</a></h1>
+                    	<h1><a 	  title="{{p.title}}" ng-click="letitgo('#/shopinfo?goodId=',p.id)">{{p.title}}</a></h1>
                         <div class="pro_text">
-                        	<a 	href="#/shopinfo?goodId={{p.id}}"  class="pro_img_a" target="_blank"><img src="{{p.good_logo}}" /></a>
+                        	<a 	  class="pro_img_a" ng-click="letitgo('#/shopinfo?goodId=',p.id)"><img src="{{p.good_logo}}" /></a>
                             <div class="pro_text_con">
                             	<div class="pro_money">{{p.retail_price/100 |currency : "￥"}} </div>
                                 <div class="pro_text_p" title="{{p.second_title}}">{{p.second_title}}</div>
-                                <a class="pro_text_a"  	href="#/shopinfo?goodId={{p.id}}"  target="_blank">查看详情</a>
+                                <a class="pro_text_a"  	 ng-click="letitgo('#/shopinfo?goodId=',p.id)">查看详情</a>
                             </div>
                         </div>
                     </li>
@@ -59,7 +59,7 @@
         	<div class="title">网站公告</div>
             <div class="no_con">
             	<ul>
-                	<li  ng-repeat="m in web_list"><i></i><p><a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a></p>
+                	<li  ng-repeat="m in web_list"><i></i><p><a  ng-click="notice_show(m)">{{m.title}}</a></p>
                     	<span>{{m.create_at}}</span>	
                     </li>
                 </ul>

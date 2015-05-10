@@ -27,8 +27,8 @@
 				<tbody>
 					<tr ng-repeat="m in merchantList">
 						<td>{{m.title}}</td>
-						<td><a target="_blank" href="#/merchantUpdate?merchantId={{m.id}}" class="a_btn">编辑</a>
-						<a target="_blank" href="#/merchantOne?merchantId={{m.id}}" class="a_btn">查看详情</a>
+						<td><a ng-click="letitgo('#/merchantUpdate?merchantId=',m.id)"  class="a_btn">编辑</a>
+						<a ng-click="letitgo('#/merchantOne?merchantId=',m.id)"  class="a_btn">查看详情</a>
 						<a  class="a_btn" ng-click="merchantDelete(m)">删除</a></td>
 					</tr>
 				</tbody>
