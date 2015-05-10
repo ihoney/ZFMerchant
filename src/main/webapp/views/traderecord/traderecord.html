@@ -72,7 +72,7 @@
 						<td ng-if="t.tradedStatus == 1"><strong class="strong_status">交易成功</strong></td>
 						<td ng-if="t.tradedStatus == 2"><strong class="strong_status">交易失败</strong></td>
 						<td ng-if="t.tradedStatus == 3"><strong class="strong_status">交易结果待确认</strong></td>
-						<td><a target="_blank" href="#/tradeinfo?id={{t.id}}" class="a_btn">查看详情</a></td>
+						<td><a ng-click="letitgo('#/tradeinfo?id=',t.id)"  class="a_btn">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>

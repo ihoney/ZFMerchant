@@ -61,9 +61,9 @@
 						 <strong ng-if="o.status==4" class="strong_status">处理完成</strong> 
 						 <strong ng-if="o.status==5" class="strong_status">已取消</strong>
 						</td>
-						<td><a target="_blank" href="#/cs_updateinfo?infoId={{o.id}}" class="a_btn">查看详情</a>
-						 <a href="javascript:void(0)" ng-click="cancelApply(o)"    ng-if="o.status==1" class="a_btn">取消</a>
-						 <a href="javascript:void(0)" ng-click="resubmitCancel(o)"   ng-if="o.status==5" class="a_btn">重新提交</a></td>
+						<td><a ng-click="letitgo('#/cs_updateinfo?infoId=',o.id)" href="{{o.id}}" class="a_btn">查看详情</a>
+						 <a  ng-click="cancelApply(o)"    ng-if="o.status==1" class="a_btn">取消</a>
+						 <a  ng-click="resubmitCancel(o)"   ng-if="o.status==5" class="a_btn">重新提交</a></td>
 					</tr>
 				</tbody>
 			</table>

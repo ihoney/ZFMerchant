@@ -67,7 +67,7 @@
                             <span ng-if="nums.status == 5"> 已停用</span>  
                            </strong></td>
                             <td ng-if="nums.type != 0">
-                           <a target="_blank" href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a>
+                           <a ng-click="letitgo('#/terminalDetail?terminalId=',nums.id)"  class="a_btn">查看详情</a>
                            
                             <span ng-if="nums.appid != null && nums.appid != ''">
                             <a ng-click="isopenstatus($index,nums.id)"  class="a_btn">重新申请</a>
@@ -102,7 +102,7 @@
         	</div>
     	</div>
     	 <div class="mask" ng-controller="terminalController"></div>
-<div class="ebankAgreementTab">
+<div class="ebankAgreementTab" style="display: none;">
 	<a href="javascript:void(0);" class="close">关闭</a>
     <h1>华尔街金融平台用户认证开通协议</h1>
 	<div class="ebankat_con">

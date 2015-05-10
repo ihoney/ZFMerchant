@@ -140,6 +140,14 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 	$scope.index = function() {
 		window.location.href = '#/';
 	};
+	
+	$scope.letitgo = function(url,id) {
+		if(id==0){
+			window.open(url);
+		}else{
+			window.open(url+id);
+		}
+	};
 
 };
 
