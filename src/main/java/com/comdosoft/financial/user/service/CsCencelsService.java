@@ -108,8 +108,9 @@ public class CsCencelsService {
         return map;
     }
 
-    @SuppressWarnings({ "unchecked", "unused" })
-    public Map<String,Object> getTemplePaths(Map<String, Object> map, String json) {
+
+    @SuppressWarnings("unchecked")
+	public Map<String,Object> getTemplePaths(Map<String, Object> map, String json) {
         ObjectMapper mapper = new ObjectMapper();
         logger.debug("templete_info_xml==>>"+json);
         if(!json.equals("") && null!=json && !json.equals("[]")){
@@ -131,19 +132,22 @@ public class CsCencelsService {
                 for(Map<String,Object> m: childsList){
                     child_map = new HashMap<String,Object>();
                     String temp_id = (m.get("id")==null?"":m.get("id").toString());
+                    if(temp_id == ""){
+                    	continue;
+                    }
                     String temp_title = m.get("title")==null?"":m.get("title").toString();
-                    String temp_path = m.get("templet_file_path")==null?"":m.get("templet_file_path").toString();
+                    String temp_path = m.get("templet_file_path")==null?"":filePath+m.get("templet_file_path").toString();
                     String temp_up_path = "";
                     for(Map<String,Object> mm: list_json){
                         String mid = mm.get("id")==null?"":mm.get("id")+"";
                         if(temp_id !="" && temp_id.equals(mid)){
-                            temp_up_path = mm.get("path")==null?"":mm.get("path")+"" ;
+                            temp_up_path = mm.get("path")==null?"":filePath+mm.get("path")+"" ;
                         }
                     }
                     child_map.put("id", temp_id);
                     child_map.put("title", temp_title);
-                    child_map.put("templet_path", filePath+temp_path);
-                    child_map.put("upload_path", filePath+temp_up_path);
+                    child_map.put("templet_path", temp_path);
+                    child_map.put("upload_path", temp_up_path);
                     list.add(child_map);
                 }
                 map.put("resource_info", list);
