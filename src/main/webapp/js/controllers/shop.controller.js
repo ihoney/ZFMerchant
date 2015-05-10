@@ -76,6 +76,7 @@ var shopController = function ($scope, $http,$location, LoginService) {
             		}else if($scope.req.category<7){
             			angular.forEach($scope.category, function (one) {
         					if(one.id==1){
+        						one.clazz="hover";
         						$scope.check2son=one.son;
         						angular.forEach(one.son, function (one2) {
                 					if(one2.id==$scope.req.category){
@@ -90,6 +91,7 @@ var shopController = function ($scope, $http,$location, LoginService) {
             		}else if($scope.req.category<9){
             			angular.forEach($scope.category, function (one) {
         					if(one.id==2){
+        						one.clazz="hover";
         						$scope.check2son=one.son;
         						angular.forEach(one.son, function (one2) {
                 					if(one2.id==$scope.req.category){
@@ -237,14 +239,14 @@ var shopController = function ($scope, $http,$location, LoginService) {
     }
     $scope.check2sona=function (p) {
     	if(p.clazz=="hover"){
+    		angular.forEach($scope.category, function (one) {
+       		 	one.clazz="";
+            });
     		$scope.check2show=false;
     		$scope.chli2show=false;
     		p.clazz="";
     		$scope.req.category=0;
     	}else{
-    		angular.forEach($scope.category, function (one) {
-       		 	one.clazz="";
-            });
     		angular.forEach($scope.check2son, function (one) {
        		 	one.clazz="";
             });
