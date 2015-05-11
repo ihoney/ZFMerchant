@@ -77,6 +77,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
+				$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
 				 $("#cardIdFrontPhotoPath_s").html(vw);
 					}
 			});
@@ -86,6 +87,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdBackPhotoPath=obj.result;
+				$("#cardIdBackPhotoPath_m").attr("imgPath",$scope.merchant.cardIdBackPhotoPath);
 				 $("#cardIdBackPhotoPath_s").html(vw);
 					}
 			});
@@ -96,6 +98,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.bodyPhotoPath=obj.result;
+				$("#bodyPhotoPath_m").attr("imgPath",$scope.merchant.bodyPhotoPath);
 				 $("#bodyPhotoPath_s").html(vw);
 					}
 			});
@@ -105,6 +108,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.licenseNoPicPath=obj.result;
+				$("#licenseNoPicPath_m").attr("imgPath",$scope.merchant.licenseNoPicPath);
 				 $("#licenseNoPicPath_s").html(vw);
 					}
 			});
@@ -113,6 +117,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.taxNoPicPath=obj.result;
+				$("#taxNoPicPath_m").attr("imgPath",$scope.merchant.taxNoPicPath);
 				 $("#taxNoPicPath_s").html(vw);
 					}
 			});
@@ -121,6 +126,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.orgCodeNoPicPath=obj.result;
+				$("#orgCodeNoPicPath_m").attr("imgPath",$scope.merchant.orgCodeNoPicPath);
 				 $("#orgCodeNoPicPath_s").html(vw);
 					}
 			});
@@ -129,6 +135,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.accountPicPath=obj.result;
+				$("#accountPicPath_m").attr("imgPath",$scope.merchant.accountPicPath);
 				 $("#accountPicPath_s").html(vw);
 					}
 			});
