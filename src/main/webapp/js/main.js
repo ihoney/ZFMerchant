@@ -281,7 +281,6 @@ function infoTab(i_tab, i_box) {
 	$(i_tab).hover(
 			function(e) { 
 				var val = $(this).attr("imgPath");
-				console.info(val); 
 				if(val != undefined && val != ""){
 					$(i_box).children("img").attr("src", $(this).attr("imgPath"));  
 					$(i_box).css('display', 'block');

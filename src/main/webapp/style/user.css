@@ -853,3 +853,21 @@ i.cancelDeal_icon {
 i.closeDeal_icon { 
 	background: url(../images/order_icon.png) no-repeat 0 -250px;
 }
+
+/*------upImgLoading-----*/
+.upImgLoading { 
+	display:none;
+	padding: 20px 50px; 
+	text-align: center; 
+	position: fixed; 
+	z-index: 1000; 
+	background: #FFF;
+	border-radius: 8px;
+	top: 50%; 
+	left: 50%;
+	margin-top: -55px;
+	margin-left: -89px;
+}
+.upImgLoading span { width: 37px; height: 37px; display: inline-block; font-size: 0;}
+.upImgLoading p { line-height: 32px;}
+

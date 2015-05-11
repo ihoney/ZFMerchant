@@ -122,22 +122,30 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 		
 		var vw = "上传成功";
 		$('#cardIdFrontPhotoPath').Huploadify({//法人上半身照片
-			fileSizeLimit:9999,
-			removeTimeout:9999999,
+		
+			removeTimeout:9999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,
 			 onUploadStart:function(){
+				 var doc_height = $(document).height();
+				 $("#mer_mask").css({
+						display : 'block',
+						height : doc_height
+					});
+				 $("#mer_mask").show();
+				 $("#mer_upImgLoading").show();
 			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
 				$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
 				 $("#cardIdFrontPhotoPath_s").html(vw);
-					}
+				 $("#mer_mask").hide();
+				 $("#mer_upImgLoading").hide();
+		     }
 			});
 		
 		$('#cardIdBackPhotoPath').Huploadify({//法人身份证照片背面
-			fileSizeLimit:9999,
 			removeTimeout:9999999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,
@@ -154,7 +162,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 		
 		
 		$('#bodyPhotoPath').Huploadify({//法人上半身照片
-			fileSizeLimit:9999,
 			removeTimeout:9999999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,
@@ -170,7 +177,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			});
 		
 		$('#licenseNoPicPath').Huploadify({//营业执照照片
-			fileSizeLimit:9999,
 			removeTimeout:9999999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,
@@ -185,7 +191,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		$('#taxNoPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			removeTimeout:9999999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,
@@ -200,7 +205,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		$('#orgCodeNoPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			removeTimeout:9999999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,
@@ -215,7 +219,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		$('#accountPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			removeTimeout:9999999,
 			uploader:'api/index/upload',
 			 simUploadLimit : 1,

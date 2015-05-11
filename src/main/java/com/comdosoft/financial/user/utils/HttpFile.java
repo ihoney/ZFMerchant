@@ -152,5 +152,20 @@ public class HttpFile {
              return -1;
          }
      }
+     
+     /**
+      * 上传文件大小判断
+      * @param 
+      * @return
+      * @throws HttpException
+      * @throws IOException
+      */
+     public static boolean fileSize(MultipartFile img){
+    	 long fielSize = img.getSize();
+    	 if((fielSize/1024)>(1024*2)){
+    		 return false;
+    	 }
+    	 return true;
+     }
 
 }
