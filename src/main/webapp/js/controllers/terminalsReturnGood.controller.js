@@ -52,7 +52,12 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
 		
     $http.post("api/terminal/subReturn", $scope.message).success(function (data) {  //绑定
         if (data != null && data != undefined) {
-          window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+        	if(data.code == 1){
+        		alert("操作成功！");
+        		window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+        	}else{
+        		alert("操作失败！");
+        	}
         }
     }).error(function (data) {
   	  alert("操作失败");

@@ -47,8 +47,8 @@
 	</insert>
 	
 	<insert id="subReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-		INSERT INTO cs_returns(terminal_id,status,return_price,reason,should_cencel,cs_cencel_id,customer_id,created_at,updated_at,apply_num,cs_return_marks_id)
-		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()),1)
+		INSERT INTO cs_returns(terminal_id,status,return_price,reason,should_cencel,cs_cencel_id,customer_id,created_at,updated_at,apply_num)
+		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()))
 	</insert>
 	
 	<insert id="subToUpdate" useGeneratedKeys="true" keyProperty="id" parameterType="map">

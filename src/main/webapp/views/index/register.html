@@ -44,8 +44,9 @@ $(function(){
                     <div ng-show="phoneerroe" class="res_prompt_wrong">请输入正确的手机号码</div>
                 </li>
                 <li><label><span class="red">*</span>输入手机验证码：</label>
-                    <input name="" type="text" ng-class="{true:'input_false'}[codeInputFalse]" ng-model="codeNumber" ng-mousedown="codeInputFalse = false;phoneCode = false"/>
+                    <input name="" type="text" ng-class="{true:'input_false'}[codeInputFalse]" ng-model="codeNumber" ng-mousedown="codeInputFalse = false;phoneCode = false;phoneCodeNull = false"/>
                     <div ng-show="phoneCode" class="res_prompt_wrong">验证码错误，请重新输入</div>
+                    <div ng-show="phoneCodeNull" class="res_prompt_wrong">请输入验证码</div>
                 </li>
                 <li><label><span class="red">*</span>填写登录密码：</label>
                 	<input ng-model="password1" ng-class="inputclass" name="" type="password" ng-keyup="isnanpass()" ng-mousedown="inputclass = input_true"/>

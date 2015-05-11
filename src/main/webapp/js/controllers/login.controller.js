@@ -20,9 +20,13 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		}
 	};
 	$scope.$on('$locationChangeStart', function(scope, next, current) {
-		$(".foot").show();
 		var strs = new Array(); // 定义一数组
 		strs = next.split("/#/"); // 字符分割
+		if(strs[1]==""){
+			$('#head_index').addClass('head_index');
+		}else{
+			$('#head_index').removeClass('head_index');
+		}
 		if (LoginService.userid == 0) {
 			$scope.loginshow = false;
 			$scope.ngshow = true;
@@ -314,6 +318,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 	window.clearInterval(window.two);
 	//手机错误提示消息
 	$scope.phoneerroe = false;
+	$scope.phoneCodeNull = false;
 	//密码不一致
 	$scope.passIsOn = false;
 	//手机验证码校验
@@ -510,11 +515,13 @@ var registerController = function($scope, $location, $http, LoginService) {
 		//$scope.addUser();
 		if($scope.rename == undefined || $scope.rename ==''){
 			$scope.phoneInputFalse = true;
+			$scope.phoneerroe = true;
 		}else if (!reg.test($scope.rename)) {
 			$scope.phoneInputFalse = true;
 			$scope.phoneerroe = true;
 		}else if ($scope.codeNumber == undefined || $scope.codeNumber == '') {
 			$scope.codeInputFalse = true;
+			$scope.phoneCodeNull = true;
 		}else if (getCookie("send_phone_code") == $scope.codeNumber) {
 		 if($scope.isnanpass()){
 				if($scope.isnanpassme()){
