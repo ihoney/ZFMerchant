@@ -427,8 +427,9 @@
 	padding-left: 60px;
 	color: #333;
 	cursor: text;
+	font-family: "microsoft yahei";
 }
-.serviceContent dt a.sc01 i { 
+.serviceContent dt a i { 
 	width: 55px; 
 	height: 55px; 
 	display: inline-block; 
@@ -436,6 +437,22 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
+}
+
+.serviceContent dt a.sc01 i { 
+	background: url(../images/serviceIcon.png) no-repeat 0 0;
+}
+.serviceContent dt a.sc02 i { 
+	background: url(../images/serviceIcon.png) no-repeat 0 -55px;
+}
+.serviceContent dt a.sc03 i { 
+	background: url(../images/serviceIcon.png) no-repeat 0 -110px;
+}
+.serviceContent dt a.sc04 i { 
+	background: url(../images/serviceIcon.png) no-repeat 0 -165px;
+}
+.serviceContent dt a.sc05 i { 
+	background: url(../images/serviceIcon.png) no-repeat 0 -220px;
 }
 /*
 .serviceContent dt a:hover { 
