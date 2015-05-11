@@ -1,26 +1,26 @@
 <script type="text/javascript">
-//input默认值
-function focusBlur(e){
-	$(e).focus(function(){
-		var thisVal = $(this).val();
-		if(thisVal == this.defaultValue){
-			$(this).val('');
-		}	
-	})	
-	$(e).blur(function(){
-		var thisVal = $(this).val();
-		if(thisVal == ''){
-			$(this).val(this.defaultValue);
-		}	
-	})	
-}
-$(function(){
-	focusBlur('#tt1');
-	focusBlur('#tt2');
-	focusBlur('#tt3');
-	focusBlur('#tt4');
-	focusBlur('.invoice_area');
-})
+	//input默认值
+	function focusBlur(e) {
+		$(e).focus(function() {
+			var thisVal = $(this).val();
+			if (thisVal == this.defaultValue) {
+				$(this).val('');
+			}
+		})
+		$(e).blur(function() {
+			var thisVal = $(this).val();
+			if (thisVal == '') {
+				$(this).val(this.defaultValue);
+			}
+		})
+	}
+	$(function() {
+		focusBlur('#tt1');
+		focusBlur('#tt2');
+		focusBlur('#tt3');
+		focusBlur('#tt4');
+		focusBlur('#tt5');
+	})
 </script>
 <script type="text/javascript" src="js/controllers/tomakeorder.controller.js"></script>
 <div ng-controller="shopmakeorderController">
@@ -68,16 +68,16 @@ $(function(){
 
 						<tr class="addAddr_box" ng-show="addadd">
 							<td>&nbsp;</td>
-							<td><input  type="text" id="tt1"  value="收件人姓名"  /></td>
+							<td><input type="text" id="tt1" value="收件人姓名" /></td>
 							<td><select style="width: 90px;" ng-model="selected" ng-options="s.name for s in city_list">
 									<option value="">请选择省</option>
 							</select> <select style="width: 90px;" ng-model="city" ng-options=" x.name for x in selected.childrens">
 									<option value="">请选择市</option>
 							</select></td>
-							<td><input  type="text" class="w" id="tt2"  value="详细地址" /></td>
-							<td><input type="text" id="tt3"  value="邮编" /></td>
-							<td><input  type="text" id="tt4"  value="手机号码" /></td>
-							<td><a  class="a_btn" ng-click="addad()">确定</a></td>
+							<td><input type="text" class="w" id="tt2" value="详细地址" /></td>
+							<td><input type="text" id="tt3" value="邮编" /></td>
+							<td><input type="text" id="tt4" value="手机号码" /></td>
+							<td><a class="a_btn" ng-click="addad()">确定</a></td>
 							<td>&nbsp;</td>
 						</tr>
 					</table>
@@ -146,6 +146,20 @@ $(function(){
 							<p>留言最多{{100-order.comment.length}}个字</p>
 						</div>
 					</div>
+					<div class="oi_right">
+						<div class="oi_title">
+							<div class="invoice_checkbox">
+								<input type="checkbox" ng-model="order.is_need_invoice" /> 需要发票
+							</div>
+							<div class="invoice" ng-show="order.is_need_invoice">
+								<span>类型：</span> <a href="javascript:void(0);" class="hover" ng-click="ctype(1)">个人</a> <a href="javascript:void(0);" ng-click="ctype(0)">公司</a>
+							</div>
+						</div>
+						<div class="oi_area">
+							<textarea id="tt5" class="invoice_area" disabled="disabled">发票抬头
+                    	</textarea>
+						</div>
+					</div>
 
 
 
@@ -168,7 +182,7 @@ $(function(){
 
 	<div class="mask"></div>
 	<div class="ebankAgreementTab" style="display: none;">
-		<a  class="close">关闭</a>
+		<a class="close">关闭</a>
 		<h1>华尔街金融平台用户租赁协议</h1>
 		<div class="ebankat_con">
 			<textarea readonly="readonly" name="" cols="" rows="">
@@ -176,7 +190,7 @@ $(function(){
         </textarea>
 		</div>
 		<div class="ebankat_checkbox">
-			<input ng-model="greet2" type="checkbox"/> 我接受此开通协议
+			<input ng-model="greet2" type="checkbox" /> 我接受此开通协议
 		</div>
 		<div class="ebankat_btn">
 			<button ng-click="ok()">确定</button>
@@ -192,17 +206,19 @@ $(function(){
 	$(function() {
 		$('.cn_img').autoIMG();
 	})
-$(function(){	
-	$(".sa_agreement a").bind('click',function(){
-		    $(".mask").css({display:'block',height: $(document).height()});
-			$(".ebankAgreementTab").css('display','block');
+	$(function() {
+		$(".sa_agreement a").bind('click', function() {
+			$(".mask").css({
+				display : 'block',
+				height : $(document).height()
+			});
+			$(".ebankAgreementTab").css('display', 'block');
 			return false;
-		}
-	)
-	$(".ebankAgreementTab a.close, .ebankat_btn a").click(function(){
-		$(".mask").css('display','none');
-		$(".ebankAgreementTab").css('display','none');
-	});
-	
-})
-</script>    
+		})
+		$(".ebankAgreementTab a.close, .ebankat_btn a").click(function() {
+			$(".mask").css('display', 'none');
+			$(".ebankAgreementTab").css('display', 'none');
+		});
+
+	})
+</script>

@@ -36,6 +36,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 		}
 		if ($scope.order.is_need_invoice) {
 			$scope.order.is_need_invoice = 1;
+			$scope.order.invoice_info=$('#tt5').val();
 		} else {
 			$scope.order.is_need_invoice = 0;
 		}
@@ -95,6 +96,7 @@ var shopmakeorderController = function($scope, $location, $http, LoginService) {
 		}
 		if ($scope.order.is_need_invoice) {
 			$scope.order.is_need_invoice = 1;
+			$scope.order.invoice_info=$('#tt5').val();
 		} else {
 			$scope.order.is_need_invoice = 0;
 		}
