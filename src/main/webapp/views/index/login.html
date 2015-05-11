@@ -1,36 +1,72 @@
 <link href="style/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	function focusBlur(e) {
+		$(e).focus(function() {
+			var thisVal = $(this).val();
+			if (thisVal == this.defaultValue) {
+				$(this).val('');
+			}
+		})
+		$(e).blur(function() {
+			var thisVal = $(this).val();
+			if (thisVal == '') {
+				$(this).val(this.defaultValue);
+			}
+		})
+	}
+	$(function() {
+		focusBlur('.login_area input');//登录
+	})
+</script>
+
 <div id="login" ng-controller="loginController">
-	<div class="login_logo" >
-		<img src="images/logo.png" style="cursor: pointer" ng-click="index()" />
-		<span class="logo_dh"><img src="images/dh.png" /></span>
-	</div>
-	<div class="login">
-		<div class="login_left" >
-			<img src="images/ad.jpg" />
+
+	<div class="login_head">
+		<div class="login_logo">
+			<img src="images/logo.png" style="cursor: pointer" ng-click="index()" />
 		</div>
+		<div class="login_dh">
+			<img src="images/dh.png" />
+		</div>
+	</div>
+
+	<div class="login">
+		<div class="login_left">
+        	<img src="images/ad.jpg" />
+        </div>
+        
+        
 		<div class="login_right">
 			<div class="lr_h">
-				<ul>
-					<li class="hover">普通用户</li>
-					<li ng-click="gotoagentlogin()">代理商</li>
-				</ul>
-			</div>
+            	<ul>
+                	<li class="hover">普通用户</li>
+                </ul>
+            </div>
+            
 			<div class="lr_b">
-				<div class="login_area" >
+				<div class="login_area">
 					<ul>
-						<li><input id="loginUname" ng-mousedown="deleteerror()" ng-class="{true:'error'}[unameClass==true]" name="" type="text" placeholder="使用手机或邮箱登录" ng-model="username" />
-							<p class="red" >{{nameMessage}}</p></li>
-						<li><input name="" ng-mousedown="deleteerrord()" type="password" placeholder="请输入密码" ng-class="{true:'error'}[passClass==true]" ng-model="password1" />
-						<p class="red" >{{passMessage}}</p></li>
-						<li><input ng-mousedown="imgClass=false" ng-class="{true:'l error',false:'l'}[imgClass==true]" name="" class="l" type="text" placeholder="输入图片校验码" ng-model="code" />
-							<div class="yzm">
-								<img class="loginRandCodeImg" src="images/yzm.jpg" ng-click="reGetRandCodeImg()" />
-							</div>
-							<!-- <p class="red" >{{imgMessage}}</p> -->
-							</li>
+						<li>
+							<label>手机或邮箱</label>
+							<input id="loginUname"   ng-class ="{true: 'input_false', false: ''}[unameClass]"   type="text"  ng-model="username" />
+							<p class="login_area_wrong" ng-if="unameClass">{{nameMessage}}</p>
+						</li>
+						<li>
+							<label>密码</label>
+							<input  type="password"  ng-class="{true: 'input_false', false: ''}[passClass]" ng-model="password1" />
+							<p class="login_area_wrong" ng-if="passClass">{{passMessage}}</p>
+						</li>
+						<li class="yzm_li">
+                        	<input ng-model="code" ng-init="code='输入图片校验码'" value="输入图片校验码" ng-class="{true: 'l input_false', false: 'l'}[codeClass]" />
+                            <div class="yzm">
+                            	<img src="images/yzm.jpg" ng-click="reGetRandCodeImg()" id="pppcode" />
+                                <a>看不清?点击图片换一张</a>
+                            </div>
+                        </li>
 					</ul>
+					
 					<div class="forget">
-						<span><a href="#/register">马上注册</a></span> <a href="#/findpass" >忘记密码？</a>
+						<span><a href="#/register">马上注册</a></span> <a href="#/findpass">忘记密码？</a>
 					</div>
 					<div class="btn">
 						<button ng-click="login()">登录</button>
@@ -38,6 +74,8 @@
 				</div>
 			</div>
 		</div>
+	
+	
 	</div>
 </div>
 

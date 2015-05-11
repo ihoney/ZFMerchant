@@ -20,30 +20,41 @@
 		focusBlur('.ret_b input');//登录
 	})
 </script>
+<div class="retrieve_head">
+	<div class="retrieve_logo"><img src="images/logo.png" /></div>
+    <div class="retrieve_dh"><img src="images/dh.png" /></div>
+</div>
 
+<div class="retrieve">
 <div ng-controller="findpassController">
-	<div id="findPassThree" ng-show="three">
-		<div class="logo_retrieve" style="cursor: pointer" ng-click="index()">
-			<img src="images/logo.png" />
-		</div>
-		<div class="retrieve">
-			<div class="ret_h">
-				<ul>
-					<li><a href="javascript:void(0)">第一步</a></li>
-					<li><a href="javascript:void(0)">第二步</a></li>
-					<li><a href="javascript:void(0)" class="hover">第三步</a></li>
-				</ul>
-			</div>
-			<div class="ret_b">
-				<ul>
-					<li><input name="" type="password" placeholder="输入新密码:由6-20位，英文字符组成" ng-model="password1" /></li>
-					<li><input name="" type="password" placeholder="确认新密码:由6-20位，英文字符组成" ng-model="password2" /></li>
-				</ul>
-				<div class="btn">
-					<button ng-click="findPassEnd()">去登录</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
+		<div class="ret_h">
+    	<h1>找回密码</h1>
+    	<ul>
+        	<li><a>第一步</a></li>
+            <li><a>第二步</a></li>
+            <li><a class="hover">第三步</a></li>
+        </ul>
+    </div>
+    <div class="ret_b" ng-show="!endshow">
+    	<ul>
+            <li><label><span class="red">*</span>输入新密码：</label>
+            	<input ng-model="password1" name="" type="password" ng-class="{true:'input_false'}[therefindpass1]" ng-mousedown="therefindpass1 = false"/>
+                <div ng-show="quana" class="ret_prompt_right"></div>
+                <div class="ret_prompt">&nbsp;&nbsp;密码支持6~20位长度</div>
+            </li>
+            <li><label><span class="red">*</span>确认新密码：</label>
+            	<input ng-model="password2" name="" type="password" ng-class="{true:'input_false'}[therefindpass2]" ng-mousedown="therefindpass2 = false"/>
+                <div ng-show="quanb" class="ret_prompt_right"></div>
+                <div ng-show="equlsepass" class="ret_prompt_wrong">密码输入不一致，请重新填写</div>
+            </li>
+        </ul>
+        <div class="btn" ng-click="findPassEnd()"><button>确定</button></div>
+    </div>
+    <div class="ret_b" ng-show="endshow">
+    	<div class="ret_b_textWin">
+        	<p>华尔街金融平台欢迎您的回来</p>
+        	<a href="#/login" class="ret_btn_a">马上登录</a>
+        </div>
+    </div>
+</div>
 </div>

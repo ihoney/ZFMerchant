@@ -35,8 +35,8 @@
 	
 	<select id="wxlist" resultType="map">
 	SELECT
-		`status`,
-		updated_at
+		cs.`status`,cs.id,cs.t,
+		cs.updated_at
 	FROM
 		(
 			SELECT
@@ -50,10 +50,10 @@
 			WHEN 5 THEN
 				'1条维修申请已取消'
 			ELSE '其他' 
-			END AS `status`,
+			END AS `status`,id , 'repair' as t,
 			updated_at
 		FROM
-			cs_repairs
+			cs_repairs 
 		WHERE
 			`status` != 1   and customer_id=#{customer_id}
 		UNION ALL
@@ -66,7 +66,7 @@
 			WHEN 5 THEN
 				'1条退货申请已取消'
 				ELSE '其他'
-			END AS `status`,
+			END AS `status`,id,'retrun' as t,
 				updated_at
 			FROM
 				cs_returns
@@ -82,7 +82,7 @@
 			WHEN 5 THEN
 				'1条换货申请已取消'
 				ELSE '其他'
-			END AS `status`,
+			END AS `status`,id,'change' as t,
 					updated_at
 				FROM
 					cs_changes

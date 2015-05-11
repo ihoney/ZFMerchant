@@ -15,7 +15,7 @@
     </div> 
 	<div class="breadcrumb">
 		<ul>
-			<li><a href="#">售后记录</a></li>
+			<li><a href="javascript:void(0)">售后记录</a></li>
 			<li><a href="#/cs_lease">租赁退还记录列表</a></li>
 		</ul>
 	</div>
@@ -74,7 +74,7 @@
 						 <strong ng-if="o.status==4" class="strong_status">处理完成</strong> 
 						 <strong ng-if="o.status==5" class="strong_status">已取消</strong>
 						</td>
-						<td><a href="#/cs_leaseinfo?infoId={{o.id}}" class="a_btn">查看详情</a>
+						<td><a ng-click="letitgo('#/cs_leaseinfo?infoId=',o.id)"  class="a_btn">查看详情</a>
 						 <a href="javascript:void(0)" ng-click="cancelApply(o)"   ng-if="o.status==1" class="a_btn">取消</a>
 						 <a href="javascript:void(0)" ng-click="click_wlxx(o)"   ng-if="o.status==2" class="a_btn">提交物流信息</a>
 						 <a href="javascript:void(0)" ng-click="resubmitCancel(o)"   ng-if="o.status==5" class="a_btn">重新提交</a></td>
@@ -96,7 +96,28 @@
 			</div>
 		</div>
 	</div>
-
+ 
 </div>
 	<div class="mask"></div>
  <!--   <script type="text/javascript" src="js/main.js"></script> -->
+ <div class="alertRequest">请通过“我的终端”发起售后请求！<a href="javascript:void(0)" class="close">close</a></div>
+<script type="text/javascript" >
+$(function(){
+	var MyTime = setTimeout(function(){
+	   $(".alertRequest").hide();
+	} , 4000);
+ 
+	$('.alertRequest').hover(
+		function(){
+    		if(MyTime){clearTimeout(MyTime);}
+	    },function(){
+			MyTime = setTimeout(function(){
+				$(".alertRequest").hide();
+		 	} , 4000);
+	});
+	
+	$(".alertRequest a.close").click(function(){
+		$(".alertRequest").hide();
+	});
+});
+</script>

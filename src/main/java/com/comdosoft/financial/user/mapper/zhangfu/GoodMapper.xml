@@ -40,7 +40,7 @@
 			and g.has_lease=1
 		</if>
 		<if test="keys!=null">
-			and ( g.Title like '%${keys}%' or g.second_title like '%${keys}%' or g.key_worlds like '%${keys}%' )
+			and ( g.Title like '%${keys}%' or pc.name like '%${keys}%' or g.second_title like '%${keys}%' or g.key_worlds like '%${keys}%' )
 		</if>
 		
 		<if test="brands_ids!=null">
@@ -178,6 +178,9 @@
 	<select id="getSonCategorys" resultType="map">
 		SELECT id,name as value from pos_categories where parent_id =#{id}
 	</select>
+	<select id="getSonCategoryIds" resultType="int">
+		SELECT id from pos_categories where parent_id =#{id}
+	</select>
 	<select id="getPay_channel_ids" resultType="map" parameterType="com.comdosoft.financial.user.domain.query.PosReq">
 		SELECT id,name as value from pay_channels pc where 1=1
 		<if test="city_id>0">
@@ -241,7 +244,9 @@
 		SELECT parent_id from cities WHERE id=#{city_id} LIMIT 0,1
 	</select>
 
-
+	<select id="getPicList" resultType="map">
+		select id,url_path as urlPath from good_detail_pictures where good_id=#{goodId}
+	</select>
 
 
 

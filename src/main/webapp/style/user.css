@@ -6,7 +6,7 @@ strong { color: #ff5f2b; font-size: 14px; font-family: "microsoft yahei";}
 
 
 
-.btnBottom { margin: 10px; padding: 10px; text-align: left;}
+.btnBottom { margin: 10px; padding: 10px;}
 .btnRight { margin: 10px; padding: 10px; text-align: right;}
 
 .grayBtn {
@@ -432,8 +432,8 @@ td a.a_btn:hover { text-decoration: underline;}
 	margin: 1px 0 0 2px;
 }
 .user_select { overflow: hidden;}
-.user_select label { display: inline-block;}
-.user_select select {display: inline-block; width: 198px; height: 26px; border: 1px #CCCCCC solid;}
+.user_select label { display: inline-block; float: left; height:26px; line-height:26px; margin-right:5px;}
+.user_select select {display: inline-block; width: 198px; height: 26px; line-height:26px; border: 1px #CCCCCC solid;}
 
 .user_date { overflow: hidden;}
 .user_date label { display: inline-block; margin-right: 5px;}
@@ -673,7 +673,7 @@ tr.order_hd td { text-align: left; }
 .message_con .border_t { border-top: 1px #CCCCCC solid;}
 
 .mail_list { line-height: 32px; height: 32px; border-bottom: 1px #CCCCCC solid;}
-.mail_list span { width: 50px; display: inline-block; float: left; margin-top: 9px;}
+.mail_list span { width: 25px; display: inline-block; float: left; margin-top: 9px;}
 .mail_list .mail_text {
 	width: 800px; 
 	display: inline-block;
@@ -698,9 +698,20 @@ tr.order_hd td { text-align: left; }
 .mail_article_title p { color: #999; overflow: hidden;}
 .mail_article_title a { float: right; color: #999;}
 
-.mail_article_text { line-height: 24px; padding: 20px 0; }
+.mail_article_text { line-height: 24px; padding: 20px 0; height: 760px;}
 .mail_article_text p { margin-bottom: 10px;}
-
+.mail_article_text textarea {
+	width: 100%;
+	height: 100%;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+	font-family: "\5b8b\4f53";
+}
 
 /*---suggest---*/
 .suggest{ 
@@ -725,3 +736,138 @@ tr.order_hd td { text-align: left; }
 .rule_checkbox { border-top: 1px #CCCCCC solid; padding: 10px 0; margin: 10px 0; overflow: hidden;}
 .rule_checkbox input { float: left; margin-top: 2px;}
 .rule_checkbox a { float: left; margin-left: 10px; color: #00F; text-decoration: underline;}
+
+/*---协议弹层---*/
+
+.ebankAgreementTab { 
+	position: fixed; 
+	padding: 20px; 
+	top: 50%; 
+	left: 50%; 
+	margin-top: -272px;
+	margin-left: -440px;
+	background: #FFF;
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+	display: block;
+	z-index: 1000;
+}
+.ebankAgreementTab a.close { 
+	width: 22px; 
+	height: 22px; 
+	background: url(../images/close.png) no-repeat;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	text-indent: -999px;
+	overflow: hidden;
+}
+.ebankAgreementTab h1 { font-size: 18px; font-weight:bolder; line-height: 36px; text-align: center; margin-bottom: 10px;}
+.ebankat_con { width: 840px; height: 400px;}
+.ebankat_con p { line-height: 24px; text-indent: 24px; font-size: 12px; margin-bottom: 10px;}
+
+.ebankat_con textarea {
+	width: 840px;
+	height: 100%;
+	line-height: 24px; 
+	margin-bottom: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: none;
+	overflow-y: auto;
+	font-family: "\5b8b\4f53";
+}
+
+.ebankat_checkbox { margin: 10px 0; overflow: hidden; color:#fc5f25; font-weight: bold; font-size: 14px;}
+.ebankat_checkbox input { float: left; margin-top:4px; margin-right: 5px;}
+
+.ebankat_btn { text-align: center; margin: 10px 0;}
+.ebankat_btn a, .ebankat_btn button { 
+	padding: 10px; 
+	background: #ff5f2b; 
+	display: inline-block; 
+	color: #FFF; 
+	width: 200px;
+	font-size: 14px;
+	margin: 0 20px;
+}
+.ebankat_btn a:hover, .ebankat_btn button:hover { background: #ff802b;}
+.ebankat_btn button.cancel { background: #999; }
+.ebankat_btn button.cancel:hover { background: #a6a6a6;}
+
+/*---售后记录 提示弹层---*/
+.alertRequest { 
+	width: 200px; 
+	position: fixed; 
+	top: 166px;
+	left: 50%;
+	margin-left: -100px;
+	background: #FF9;
+	border: 1px #FF9900 solid;
+	height:32px;
+	line-height: 32px;
+	padding: 0 10px;
+}
+.alertRequest a.close { 
+	width: 8px; 
+	height: 8px;
+	display: inline-block;
+	text-indent: -999px;
+	overflow: hidden; 
+	background: url(../images/icons.png) no-repeat -185px -275px;
+}
+
+/*-------订单状态图标-------*/
+.order_icon {
+	color: #333; 
+	display: inline-block; 
+	margin-top: 100px;
+	line-height: 50px;
+	height: 50px;
+	font-size: 22px;
+	font-family: "microsoft yahei";
+	font-weight: bold;	
+}
+.order_icon i {
+	width: 50px; 
+	height: 50px; 
+	display: inline-block;
+	float: left;
+	margin-right: 20px;
+}
+i.noPay_icon { 
+	background: url(../images/order_icon.png) no-repeat 0 0;
+}
+i.alreadyPay_icon { 
+	background: url(../images/order_icon.png) no-repeat 0 -50px;
+}
+i.alreadySend_icon { 
+	background: url(../images/order_icon.png) no-repeat 0 -100px;
+}
+i.completeDeal_icon { 
+	background: url(../images/order_icon.png) no-repeat 0 -150px;
+}
+i.cancelDeal_icon { 
+	background: url(../images/order_icon.png) no-repeat 0 -200px;
+}
+i.closeDeal_icon { 
+	background: url(../images/order_icon.png) no-repeat 0 -250px;
+}
+
+/*------upImgLoading-----*/
+.upImgLoading { 
+	display:none;
+	padding: 20px 50px; 
+	text-align: center; 
+	position: fixed; 
+	z-index: 1000; 
+	background: #FFF;
+	border-radius: 8px;
+	top: 50%; 
+	left: 50%;
+	margin-top: -55px;
+	margin-left: -89px;
+}
+.upImgLoading span { width: 37px; height: 37px; display: inline-block; font-size: 0;}
+.upImgLoading p { line-height: 32px;}
+

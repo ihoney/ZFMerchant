@@ -133,7 +133,6 @@ var ResetPwdController = function ($scope, $http, $timeout) {
 //	     			alert("手机号码已注册");
                 }
             }).error(function (data) {
-                    console.log("获取验证信息失败！");
                 });
             $scope.startTimer();
         }
@@ -183,7 +182,6 @@ var ResetPwdController = function ($scope, $http, $timeout) {
 	                        $scope.user.errorMessage = "不存在用户 或 验证码错误";
 	                    }
 	                }).error(function (data) {
-	                        console.log("注册失败！");
 	                    });
             	};
             };
@@ -201,7 +199,6 @@ var ResetPwdController = function ($scope, $http, $timeout) {
                         $scope.user.errorMessage = "不存在用户 或 验证码错误";
                     }
                 }).error(function (data) {
-                        console.log("注册失败！");
                     });
             	 };
             };

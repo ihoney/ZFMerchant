@@ -72,13 +72,20 @@ var orderController = function ($scope, $http, LoginService) {
     //取消
     $scope.cancelApply = function(id){
     	$scope.req={id:id};
-		$http.post("api/order/cancelMyOrder", $scope.req).success(function (data) {  //绑定
-            if (data != null && data != undefined) {
-            	$scope.submitPage();
-            }
-        }).error(function (data) {
-            $("#serverErrorModal").modal({show: true});
-        });
+    	
+    	if(window.confirm('你确定要取消吗？')){
+    		$http.post("api/order/cancelMyOrder", $scope.req).success(function (data) {  //绑定
+                if (data != null && data != undefined) {
+                	$scope.submitPage();
+                }
+            }).error(function (data) {
+                $("#serverErrorModal").modal({show: true});
+            });
+            return true;
+         }else{
+            return false;
+        }
+	
 	};
     //详情
     $scope.orderinfo=function (p) {

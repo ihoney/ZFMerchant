@@ -3,11 +3,18 @@
 //系统设置模块
 var shopModule = angular.module("shopModule",[]);
 
-var shopController = function ($scope, $http, LoginService) {
+var shopController = function ($scope, $http,$location, LoginService) {
 	
 	$scope.req={};
 	$scope.req.keys=LoginService.keys;
 	$scope.req.city_id=LoginService.city;
+	
+	//$scope.req.category=$location.search()['category'];
+	if(undefined==$location.search()['category']){
+		$scope.req.category=0;
+	}else{
+		$scope.req.category=$location.search()['category'];
+	}
 	
 	$scope.req.has_purchase=false;
 	//$scope.req.keys="";
@@ -15,13 +22,14 @@ var shopController = function ($scope, $http, LoginService) {
 	//$scope.req.maxPrice=0;
 	
 	$scope.req.brands_id=[];
-	$scope.req.category=[];
+	
 	$scope.req.pay_channel_id=[];
 	$scope.req.pay_card_id=[];
 	$scope.req.trade_type_id=[];
 	$scope.req.sale_slip_id=[];
 	$scope.req.tDate=[];
-	
+	$scope.check2show=false;
+	$scope.check2son=[];
 	$scope.xxx="";
 	$scope.sb=function(one){
 		$('#xx').hide();
@@ -42,13 +50,13 @@ var shopController = function ($scope, $http, LoginService) {
 		$scope.shopcartcount();
 		$scope.searchinfo();
 		$scope.list();
-		
     };
     $scope.searchinfo=function(){
     	$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.brands=data.result.brands;
-            	$scope.category=data.result.webcategory;
+            	//$scope.category=data.result.webcategory;
+            	$scope.category=data.result.category;
             	$scope.sale_slip=data.result.sale_slip;
             	$scope.pay_card=data.result.pay_card;
             	$scope.pay_channel=data.result.pay_channel;
@@ -56,9 +64,53 @@ var shopController = function ($scope, $http, LoginService) {
             	$scope.tDate=data.result.tDate;
             	$scope.all={id:0,value:"全部"};
             	$scope.tDate.unshift($scope.all);
+            	if($scope.req.category>0){
+            		if($scope.req.category<5){
+            			angular.forEach($scope.category, function (one) {
+            					if(one.id==$scope.req.category){
+            						one.clazz="hover";
+            						$scope.chli2val=one.value;
+            			    		$scope.chli2show=true;
+            					}
+            	            });
+            		}else if($scope.req.category<7){
+            			angular.forEach($scope.category, function (one) {
+        					if(one.id==1){
+        						one.clazz="hover";
+        						$scope.check2son=one.son;
+        						angular.forEach(one.son, function (one2) {
+                					if(one2.id==$scope.req.category){
+                						one2.clazz="hover";
+                						$scope.chli2val=one2.value;
+                			    		$scope.chli2show=true;
+                			    		$scope.check2show=true;
+                					}
+                	            });
+        					}
+        	            });
+            		}else if($scope.req.category<9){
+            			angular.forEach($scope.category, function (one) {
+        					if(one.id==2){
+        						one.clazz="hover";
+        						$scope.check2son=one.son;
+        						angular.forEach(one.son, function (one2) {
+                					if(one2.id==$scope.req.category){
+                						one2.clazz="hover";
+                						$scope.chli2val=one2.value;
+                			    		$scope.chli2show=true;
+                			    		$scope.check2show=true;
+                					}
+                	            });
+        					}
+        	            });
+            		}
+            	}
             }
         });
     }
+    $scope.gtoto = function(url,id) {
+    	window.open(url+id);
+	}
     $scope.search=function () {
 	    $scope.req.indexPage=1;
 	    LoginService.keys=$scope.req.keys;
@@ -161,41 +213,58 @@ var shopController = function ($scope, $http, LoginService) {
   //POS机类型
     $scope.check2=function (p) {
     	if(p.clazz=="hover"){
-    		p.clazz="";
-    		$scope.chli2val="";
-    		$scope.req.category=[];
-    		angular.forEach($scope.category, function (one) {
-       		  if(one.clazz=="hover"){
-       			$scope.chli2val=$scope.chli2val+one.value+",";
-       			$scope.req.category.push(one.id);
-       		  }
-            });
-    		if($scope.chli2val==""){
-    			$scope.chli2show=false;
-    		}else{
-    			var s=$scope.chli2val;
-    			s=s.substring(0,s.length-1);
-    			$scope.chli2val=s;
-    		}
+    		$scope.check2show=false;
+    		$scope.chli2show=false;
+        	p.clazz="";
+        	$scope.req.category=0;
     	}else{
-    		if($scope.chli2show){
-    			$scope.chli2val=$scope.chli2val+","+p.value;
+    		angular.forEach($scope.category, function (one) {
+       		 	one.clazz="";
+            });
+    		$scope.check2son=p.son;
+    		angular.forEach($scope.check2son, function (one) {
+       		 	one.clazz="";
+            });
+    		if(undefined!=$scope.check2son&&$scope.check2son.length>0){
+    			$scope.check2show=true;
     		}else{
-    			$scope.chli2val=p.value;
+    			$scope.check2show=false;
     		}
+    		$scope.chli2val=p.value;
     		$scope.chli2show=true;
-    		$scope.req.category.push(p.id);
+    		$scope.req.category=p.id;
+        	p.clazz="hover";
+    	}
+    	$scope.search();
+    }
+    $scope.check2sona=function (p) {
+    	if(p.clazz=="hover"){
+    		angular.forEach($scope.category, function (one) {
+       		 	one.clazz="";
+            });
+    		$scope.check2show=false;
+    		$scope.chli2show=false;
+    		p.clazz="";
+    		$scope.req.category=0;
+    	}else{
+    		angular.forEach($scope.check2son, function (one) {
+       		 	one.clazz="";
+            });
+    		$scope.chli2val=p.value;
+    		$scope.chli2show=true;
+    		$scope.req.category=p.id;
     		p.clazz="hover";
     	}
     	$scope.search();
     }
     $scope.chli2del=function () {
     	$scope.chli2show=false;
-    	$scope.req.category=[];
-    	 angular.forEach($scope.category, function (one) {
-    		 one.clazz="";
-         });
-    	 $scope.search();
+    	$scope.req.category=0;
+    	$scope.check2show=false;
+    	angular.forEach($scope.category, function (one) {
+   		 	one.clazz="";
+        });
+    	$scope.search();
     }
   //支付通道
     $scope.check3=function (p) {

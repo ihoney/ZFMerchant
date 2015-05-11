@@ -51,7 +51,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess(customerService.getOne(id));
         } catch (Exception e) {
             logger.error("获取用户信息失败", e);
-            sysResponse = Response.getError("获取用户信息失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -59,6 +59,14 @@ public class CustomerAPI {
     @RequestMapping(value = "findCustById", method = RequestMethod.POST)
     public Response findCustById(@RequestBody MyOrderReq req) {
             Map<String,Object> m = customerService.findCustById(req);
+            String sphone = m.get("phone")+"";
+            if(sphone != ""){
+            	 sphone = SysUtils.toProSub(sphone);
+                 m.put("sphone", sphone);
+               logger.debug("phone>>>>"+ sphone);
+            }else{
+            	  m.put("sphone", "");
+            }
         return Response.buildSuccess(m, "success");
     }
     
@@ -82,7 +90,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("修改用户信息失败", e);
-            sysResponse = Response.getError("修改用户信息失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -143,7 +151,7 @@ public class CustomerAPI {
             }
         } catch (Exception e) {
             logger.error("修改用户密码失败", e);
-            sysResponse = Response.getError("修改用户密码失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -174,7 +182,7 @@ public class CustomerAPI {
             }
         } catch (Exception e) {
             logger.error("修改用户密码失败", e);
-            sysResponse = Response.getError("修改用户密码失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -193,7 +201,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess(result);
         } catch (Exception e) {
             logger.error("获取积分列表失败", e);
-            sysResponse = Response.getError("获取积分列表失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -210,7 +218,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess(customerService.getIntegralTotal(customerId));
         } catch (Exception e) {
             logger.error("获取积分总计失败", e);
-            sysResponse = Response.getError("获取积分总计失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -231,7 +239,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("提交积分兑换失败", e);
-            sysResponse = Response.getError("提交积分兑换失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -248,7 +256,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess(customerService.getAddressList(customerId));
         } catch (Exception e) {
             logger.error("获取地址列表失败", e);
-            sysResponse = Response.getError("获取地址列表失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -273,7 +281,7 @@ public class CustomerAPI {
             logger.debug("insertAddress>>>> id "+ j);
         } catch (Exception e) {
             logger.error("新增地址失败", e);
-            sysResponse = Response.getError("新增地址失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -296,7 +304,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess();
 //        } catch (Exception e) {
 //            logger.error("修改地址失败", e);
-//            sysResponse = Response.getError("修改地址失败:系统异常");
+//            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
 //        }
         return sysResponse;
     }
@@ -315,7 +323,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("设置为默认地址失败", e);
-            sysResponse = Response.getError("设置为默认地址失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }
@@ -338,7 +346,7 @@ public class CustomerAPI {
             sysResponse = Response.getSuccess();
         } catch (Exception e) {
             logger.error("删除地址失败", e);
-            sysResponse = Response.getError("删除地址失败:系统异常");
+            sysResponse = Response.getError("系统暂时无法处理您的请求,请重试");
         }
         return sysResponse;
     }

@@ -67,6 +67,11 @@ public class TerminalsService {
 		return list;
 	}
 	
+	public String getOpeningProtocol(int terminalsId){
+		return terminalsMapper.getOpeningProtocol(terminalsId);
+	}
+	
+	
 	/**
 	 * 获得终端列表总记录数
 	 * 

@@ -45,11 +45,13 @@ var payController = function($scope, $http,$location,LoginService) {
 		if(1==$scope.payway){
 			//alert("支付宝");
 			$scope.order.title="";
+			$scope.order.body="";
         	var count=0;
         	 angular.forEach($scope.order.good, function (one) {
                  if(count<2){
                 	 $scope.order.title+=one.title+" "+one.pcname+"("+one.quantity+"件)";
                  }
+                 $scope.order.body+=one.title+" "+one.pcname+"("+one.quantity+"件)；";
                  count++;
              });
         	 if(count>2){
@@ -57,7 +59,7 @@ var payController = function($scope, $http,$location,LoginService) {
         	 }
 			window.open("alipayapi.jsp?WIDtotal_fee="+
 					$scope.order.total_price/100+"&WIDsubject="+$scope.order.title
-					+"&WIDout_trade_no="+$scope.order.order_number);  
+					+"&WIDout_trade_no="+$scope.order.order_number+"&WIDbody="+$scope.order.body);  
 		}else if(2==$scope.payway){
 			window.open("unionpay.jsp?WIDtotal_fee="+
 					$scope.order.total_price/100+"&WIDsubject="+$scope.order.title

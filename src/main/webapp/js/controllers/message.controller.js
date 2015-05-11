@@ -10,19 +10,8 @@ var messageController = function($scope, $location, $http, LoginService) {
 	$scope.isSelectAll=false;
 	$scope.req.customer_id=LoginService.userid;
 	$scope.init = function() {
-		if(LoginService.userid == 0){
-			window.location.href = '#/login';
-		}else{
-			//显示用户登录部分
-			$scope.$emit('changeshow',false);
-		}
 		initSystemPage($scope.req);// 初始化分页参数
-		$scope.req.id=$location.search()['id'];
-		if($scope.req.id>0){
-			$scope.getinfo();
-		}else{
-			$scope.getlist();
-		}
+		$scope.getlist();
 		
 	};
 	$scope.getlist=function() {
@@ -31,13 +20,6 @@ var messageController = function($scope, $location, $http, LoginService) {
 			if (data.code == 1) {
 				$scope.list=data.result.content;
 				calcSystemPage($scope.req, data.result.total);// 计算分页
-			} 
-		});
-	};
-	$scope.getinfo=function() {
-		$http.post("api/message/receiver/getById",$scope.req).success(function(data) {
-			if (data.code == 1) {
-				$scope.message=data.result;
 			} 
 		});
 	};
@@ -92,11 +74,13 @@ var messageController = function($scope, $location, $http, LoginService) {
 		});
 	}
 	$scope.unread = function() {
+		$scope.isSelectAll=false;
 		$scope.req.indexPage=1;
 		$scope.req.q=0;
 		$scope.getlist();
 	}
 	$scope.read = function() {
+		$scope.isSelectAll=false;
 		$scope.req.indexPage=1;
 		$scope.req.q=2;
 		$scope.getlist();
@@ -132,6 +116,32 @@ var messageController = function($scope, $location, $http, LoginService) {
 	};
 };
 
-
+var messageinfoController = function($scope, $location, $http, LoginService) {
+	
+	$scope.init = function() {
+		$scope.req={};
+		$scope.req.customer_id=LoginService.userid;
+		$scope.req.id=$location.search()['id'];
+		$scope.getinfo();
+	};
+	$scope.getinfo=function() {
+		$http.post("api/message/receiver/getById",$scope.req).success(function(data) {
+			if (data.code == 1) {
+				$scope.message=data.result;
+			} 
+		});
+	};
+	$scope.delone= function(id) {
+		$scope.req.id=id;
+		$http.post("api/message/receiver/deleteById",$scope.req).success(function(data) {
+			if (data.code == 1) {
+				window.location.href = '#/message';
+			} 
+		});
+	}
+	$scope.init();
+	
+};
 
 messageModule.controller("messageController", messageController);
+messageModule.controller("messageinfoController", messageinfoController);

@@ -1,18 +1,18 @@
 <div class="main">
 	<div class="box">
-    	<div class="breadcrumb">
-        	<ul>
-                <li>选择支付方式</li>
-            </ul>
-        </div>
         <div class="inner">
 			<div class="payBox">
             	<div class="pay_no">
-                	<div class="payWarning"><i class="no1"></i>库存不足！</div>
+                	<div class="payWarning"><i class="no1"></i><span>库存不足！</span></div>
                 </div>
             </div>
-			<div class="btnBottom"><button class="whiteBtn" onClick="javascript:history.go(-1);">返回</button></div>
+			<div class="btnBottom payWarning_btn"><button class="whiteBtn" onclick="gogo()">返回</button></div>
         </div>
     </div>
-    <br/>
 </div>
+
+<script>
+	var gogo=function(){
+		window.location.href ="#/shop";
+	}
+</script>

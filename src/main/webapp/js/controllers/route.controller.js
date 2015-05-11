@@ -123,6 +123,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/customer/up_email.html'
 	}).when('/order_appraise', {
 		templateUrl : 'views/order/order_appraise.html'
+	}).when('/noshop', {
+		templateUrl : 'views/shop/noshop.html'
 	}).otherwise({
 		redirectTo : "/"
 	});

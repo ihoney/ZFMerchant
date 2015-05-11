@@ -214,7 +214,7 @@
 		WHERE
 			ca.customer_id = #{customerId} and ca.status = 1
 		ORDER BY
-			ca.created_at DESC
+			ca.id 
 	]]>
 	</select>
 

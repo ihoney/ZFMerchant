@@ -66,12 +66,14 @@
                             <span ng-if="nums.status == 4"> 已注销</span> 
                             <span ng-if="nums.status == 5"> 已停用</span>  
                            </strong></td>
-                            <td ng-if="nums.type != 0"><a href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn">查看详情</a>
+                            <td ng-if="nums.type != 0">
+                           <a ng-click="letitgo('#/terminalDetail?terminalId=',nums.id)"  class="a_btn">查看详情</a>
+                           
                             <span ng-if="nums.appid != null && nums.appid != ''">
                             <a ng-click="isopenstatus($index,nums.id)"  class="a_btn">重新申请</a>
                             </span>
                             <span ng-if="nums.appid == null || nums.appid == ''">
-                            <a href="#/terminalOpening?terminalId={{nums.id}}" class="a_btn">申请开通</a>
+                            <a ng-click="applyOpenInfo(nums.id)" class="a_btn">申请开通</a>
                             </span>
                             </td>
                             <td ng-if="nums.type == 0"><a href="#/terminalDetail?terminalId={{nums.id}}" class="a_btn"></a><a href="#" class="a_btn"></a>
@@ -100,6 +102,16 @@
         	</div>
     	</div>
     	 <div class="mask" ng-controller="terminalController"></div>
+<div class="ebankAgreementTab" style="display: none;">
+	<a href="javascript:void(0);" class="close">关闭</a>
+    <h1>华尔街金融平台用户认证开通协议</h1>
+	<div class="ebankat_con">
+    	<textarea readonly="readonly" name="" cols="" rows="" id="openApplyText">
+        </textarea>
+    </div>
+    <div class="ebankat_checkbox"><input name="" type="checkbox" value="" id="checkBoxEbanat"/> 我接受此开通协议</div>
+    <div class="ebankat_btn"><button onClick="applyOpenSure()">确定</button><button class="cancel" onClick="closeEbankAgreementTab()">取消</button></div>
+</div>
 
 <div id="closeWin" class="tab otherTerminal_tab" ng-controller="terminalController">
 	<a href="javascript:void(0);" class="close">关闭</a>
@@ -125,4 +137,41 @@
 	</div>
 	<div class="tabFoot"><button class="orangeBtn" ng-click="addChannel('1')">确定</button></div>
 </div>
+<div style="display:none">
+<a href="#" class="a_btn" id="hideApplyOpenA">申请开通</a>
+</div>
+<script>
+	$(function(){
+		$(".ebankAgreement_a").bind('click',function(){
+		    $(".mask").css({display:'block',height: $(document).height()});
+			$(".ebankAgreementTab").css('display','block');
+			return false;
+		});
+		$(".ebankAgreementTab a.close, .ebankat_btn a").click(function(){
+			$(".mask").css('display','none');
+			$(".ebankAgreementTab").css('display','none');
+		});
+		$(".ebankAgreementTab").hide();
+	})
+
+	function closeEbankAgreementTab(){
+		$(".ebankAgreementTab").hide();
+		$(".mask").hide();
+	}
+	
+	function applyOpenSure(){
+		if($("#checkBoxEbanat").is(':checked')){
+			var numsId=$("#checkBoxEbanat").val();
+			var tempHref="#/terminalOpening?terminalId="+numsId;
+			window.open(tempHref);
+			$(".mask").hide();
+			$(".ebankAgreementTab").hide();
+			//$("#hideApplyOpenA").attr("href",tempHref);
+			//$("#hideApplyOpenA").click();
+			
+		}else{
+			alert("请阅读【华尔街金融平台用户认证开通协议】,并选中【我接受此开通协议】");
+		}
+	}
+</script>
    

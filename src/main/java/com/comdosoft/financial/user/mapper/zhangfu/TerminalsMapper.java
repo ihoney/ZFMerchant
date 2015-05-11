@@ -312,4 +312,6 @@ public interface TerminalsMapper {
     List<Map<String, Object>> getModule(Map<String, Object> map);
     
     Map<Object, Object> getTerminalById(Integer terminalId);
+
+	String getOpeningProtocol(int terminalsId);
 }

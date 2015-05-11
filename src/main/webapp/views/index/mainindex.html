@@ -14,21 +14,15 @@
 
 		<div class="box">
 			<div class="i_category">
-				<ul>
-					<li><a href="#" class="pos01"><i></i>
-							<p>传统POS机</p></a></li>
-					<li><a href="#" class="pos02"><i></i>
-							<p>智能手机插件POS</p></a></li>
-					<li><a href="#" class="pos03"><i></i>
-							<p>功能手机插件POS</p></a></li>
-					<li><a href="#" class="pos04"><i></i>
-							<p>音频外插件POS</p></a></li>
-					<li><a href="#" class="pos05"><i></i>
-							<p>蓝牙插件POS</p></a></li>
-					<li><a href="#" class="pos06"><i></i>
-							<p>其它POS</p></a></li>
-				</ul>
-			</div>
+        	<ul>
+            	<li><a href="#/shop?category=5" class="pos01"><i></i><p>台式一体POS</p></a></li>
+                <li><a href="#/shop?category=6" class="pos02"><i></i><p>台式分体POS</p></a></li>
+                <li><a href="#/shop?category=7" class="pos03"><i></i><p>手持无线POS</p></a></li>
+                <li><a href="#/shop?category=8" class="pos04"><i></i><p>MPOS</p></a></li>
+                <li><a href="#/shop?category=3" class="pos05"><i></i><p>智能POS</p></a></li>
+                <li><a href="#/shop?category=4" class="pos06"><i></i><p>POS配件</p></a></li>
+            </ul>
+       		 </div>
 			<div class="searchProgress">
 				<div class="title">申请进度查询</div>
 				<div class="sp_con">
@@ -47,13 +41,13 @@
             <div class="hp_con">
             	<ul>
                 	<li ng-repeat="p in pos_list ">
-                    	<h1><a 	href="#/shopinfo?goodId={{p.id}}"   title="{{p.title}}" target="_blank">{{p.title}}</a></h1>
+                    	<h1><a 	  title="{{p.title}}" ng-click="letitgo('#/shopinfo?goodId=',p.id)">{{p.title}}</a></h1>
                         <div class="pro_text">
-                        	<a 	href="#/shopinfo?goodId={{p.id}}"  class="pro_img_a" target="_blank"><img src="{{p.good_logo}}" /></a>
+                        	<a 	  class="pro_img_a" ng-click="letitgo('#/shopinfo?goodId=',p.id)"><img src="{{p.good_logo}}" /></a>
                             <div class="pro_text_con">
                             	<div class="pro_money">{{p.retail_price/100 |currency : "￥"}} </div>
                                 <div class="pro_text_p" title="{{p.second_title}}">{{p.second_title}}</div>
-                                <a class="pro_text_a"  	href="#/shopinfo?goodId={{p.id}}"  target="_blank">查看详情</a>
+                                <a class="pro_text_a"  	 ng-click="letitgo('#/shopinfo?goodId=',p.id)">查看详情</a>
                             </div>
                         </div>
                     </li>
@@ -65,7 +59,7 @@
         	<div class="title">网站公告</div>
             <div class="no_con">
             	<ul>
-                	<li  ng-repeat="m in web_list"><i></i><p><a href="javascript:void(0)" ng-click="notice_show(m)">{{m.title}}</a></p>
+                	<li  ng-repeat="m in web_list"><i></i><p><a  ng-click="notice_show(m)">{{m.title}}</a></p>
                     	<span>{{m.create_at}}</span>	
                     </li>
                 </ul>
@@ -105,8 +99,42 @@
 			</div>
 		</div>
 
-		<iframe src="views/comm/footer.html" width="98%" height="320px" style="border:1px"></iframe>
-		  
+		<!-- <iframe src="views/comm/footer.html" width="98%" height="320px" style="border:1px"></iframe> -->
+		   <div class="box">
+    	<div class="serviceContent">
+        	<dl>
+            	<dt><a  class="sc01"><i></i>厂家直销</a></dt>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+            </dl>
+            <dl>
+            	<dt><a  class="sc02"><i></i>直连机构</a></dt>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+            </dl>
+            <dl>
+            	<dt><a  class="sc03"><i></i>在线入网</a></dt>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+            </dl>
+            <dl>
+            	<dt><a  class="sc04"><i></i>标准费率</a></dt>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+            </dl>
+            <dl>
+            	<dt><a  class="sc05"><i></i>保障售后</a></dt>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+                <dd><a >指引的超连接</a></dd>
+            </dl>
+            <div class="ewm"><img src="images/ewm.jpg" /></div>
+        </div>
+    </div>
 	</div>
 
 	<div class="tab buyIntention_tab">

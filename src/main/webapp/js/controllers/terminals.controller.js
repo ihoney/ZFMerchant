@@ -104,7 +104,7 @@ var terminalController = function ($scope, $http, LoginService) {
 					alert("正在第三方审核,请耐心等待...");
 				}
 				else {
-					window.location.href ="#/terminalOpening?terminalId="+id+"&status="+$scope.list[i].openstatus;
+					window.open("#/terminalOpening?terminalId="+id+"&status="+$scope.list[i].openstatus);
 				}
 			}
 		}
@@ -120,6 +120,27 @@ var terminalController = function ($scope, $http, LoginService) {
 		//取消终端号的筛选
 		//$scope.serialNum = null;
 		$scope.getInfo();
+	}
+	
+	$scope.applyOpenInfo=function(temp){
+		$scope.temp = {
+				id : temp
+			};
+		$http.post("api/terminal/getOpeningProtocol", $scope.temp).success(
+				function(data) { // 绑定
+					if (data != null && data != undefined) {
+						if (data.code == 1) {
+							$("#openApplyText").val(data.result);
+						} else {
+							alert(data.message);
+						}
+					}
+				}).error(function(data) {
+			alert("获取列表失败");
+		});
+		$("#checkBoxEbanat").val(temp);
+		$(".ebankAgreementTab").show();
+		$(".mask").show();
 	}
 	
 	//筛选终端号

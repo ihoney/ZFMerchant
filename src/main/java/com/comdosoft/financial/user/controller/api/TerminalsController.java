@@ -14,6 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -130,6 +134,18 @@ public class TerminalsController {
 	}
 	
 	/**
+	 * 获取协议内容
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "getOpeningProtocol", method = RequestMethod.POST)
+	public Response getOpeningProtocol(@RequestBody Map<String, Object> map){
+		int terminalId=Integer.parseInt(map.get("id").toString());
+		String openingProtocol= terminalsService.getOpeningProtocol(terminalId);
+		return Response.getSuccess(openingProtocol);
+	}
+	
+	/**
 	 * 收单通道
 	 */
 	@RequestMapping(value = "getFactories", method = RequestMethod.POST)
@@ -198,7 +214,7 @@ public class TerminalsController {
 		try {
 			String  password= terminalsService.findPassword((Integer)map.get("terminalid")) == null?null:
 				terminalsService.findPassword((Integer)map.get("terminalid"));
-			String pass = "该终端为设置密码！";
+			String pass = "该终端未设置密码！";
 			if(password != null){
 				/*pass = SysUtils.Decrypt(
 						password,passPath);*/
@@ -743,31 +759,33 @@ public class TerminalsController {
 					}
 					//判断该商户是否存在
 					Map<Object, Object> countMap =  openingApplyService.getMerchantsIsNo((String) map.get("merchantName"),(String) map.get("phone"));
+					//添加商户
+					Merchant merchant = new Merchant();
+					merchant.setLegalPersonName((String) map
+							.get("name"));
+					merchant.setLegalPersonCardId((String) map
+							.get("cardId"));
+					merchant.setTitle((String) map
+							.get("merchantName"));
+					merchant.setTaxRegisteredNo((String) map
+							.get("registeredNo"));
+					merchant.setOrganizationCodeNo((String) map
+							.get("organizationNo"));
+					merchant.setAccountBankNum((String) map
+							.get("bankNum"));
+					merchant.setCustomerId((Integer) map
+							.get("applyCustomerId"));
+					merchant.setCityId((Integer)map.get("cityId"));
+					merchant.setPhone((String) map
+						.get("phone"));
 					if(countMap == null){
-						//添加商户
-						Merchant merchant = new Merchant();
-						merchant.setLegalPersonName((String) map
-								.get("name"));
-						merchant.setLegalPersonCardId((String) map
-								.get("cardId"));
-						merchant.setTitle((String) map
-								.get("merchantName"));
-						merchant.setTaxRegisteredNo((String) map
-								.get("registeredNo"));
-						merchant.setOrganizationCodeNo((String) map
-								.get("organizationNo"));
-						merchant.setAccountBankNum((String) map
-								.get("bankNum"));
-						merchant.setCustomerId((Integer) map
-								.get("applyCustomerId"));
-						merchant.setCityId((Integer)map.get("cityId"));
-						merchant.setPhone((String) map
-							.get("phone"));
 						openingApplyService.addMerchan(merchant);
 						//获得添加后商户Id
 						//terminalId = merchant.getId();
 						openingApplie.setMerchantId(merchant.getId());
 					}else if(countMap !=null){
+						merchant.setId((Integer)countMap.get("id"));
+						openingApplyService.updateMerchan(merchant);
 						openingApplie.setMerchantId((Integer)countMap.get("id"));
 					}
 					//为终端表关联对应的商户id和通道周期ID 
@@ -918,16 +936,40 @@ public class TerminalsController {
      * @param id
      */
     @RequestMapping(value = "upload/tempImage/{id}", method = RequestMethod.POST)
-    public Response tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
+    public ResponseEntity<String> tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
         try {
+        	String json;
+    		HttpHeaders responseHeaders = new HttpHeaders();
+    		responseHeaders.setContentType(MediaType.TEXT_HTML);
+        	
+        	int temp=img.getOriginalFilename().lastIndexOf(".");
+    		String houzuiStr=img.getOriginalFilename().substring(temp+1);
+        	if(!commentService.typeIsCommit(houzuiStr)){
+    			//return Response.getError("您所上传的文件格式不正确");
+    			json="{\"message\":\"您所上传的文件格式不正确\",\"code\":\"-1\"}";
+      			return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+    		}else{
+            	//判断上传文件大小问题
+    			if(!HttpFile.fileSize(img)){
+            		json="{\"message\":\"您上传的图片大小过大，请上传小于2M的图片\",\"code\":\"-1\"}";
+            		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+    			}
+    		}
         	String joinpath="";
         	joinpath = HttpFile.upload(img, userTerminal+id+"/opengImg/");
-        	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
-        		return Response.getError(joinpath);
-        	joinpath = filePath+joinpath;
-        		return Response.getSuccess(joinpath);
+        	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath)){
+        		json="{\"message\":\""+joinpath+"\",\"code\":\"-1\"}";
+        		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+        	}else{
+        		joinpath = filePath+joinpath;
+        		json="{\"result\":\""+joinpath+"\",\"code\":\"1\"}";
+        		//return Response.getSuccess(joinpath);
+        		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+        	}
+        		//return Response.getSuccess(joinpath);
         } catch (Exception e) {
-            return Response.getError("请求失败！");
+        	e.printStackTrace();
+        	return new ResponseEntity<String>("{\"nessage\":\"请求失败！\",\"code\":\"-1\"}", null, HttpStatus.OK);
         }
     }
     
@@ -963,7 +1005,6 @@ public class TerminalsController {
     public Response tempUpdateFile(@PathVariable(value="id") int id,@RequestParam(value = "updatefile") MultipartFile updatefile, HttpServletRequest request) {
     	try {
         	String joinpath = HttpFile.upload(updatefile, sysFileTerminal+id+"/update/");
-        	System.out.println("差可能路径："+joinpath);
         	if("上传失败".equals(joinpath) || "同步上传失败".equals(joinpath))
         		return Response.getError(joinpath);
         		return Response.getSuccess(joinpath);

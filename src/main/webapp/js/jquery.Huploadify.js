@@ -10,10 +10,10 @@ $.fn.Huploadify = function(opts){
 		formData:null,//发送给服务端的参数，格式：{key1:value1,key2:value2}
 		fileObjName:'file',//在后端接受文件的参数名称，如PHP中的$_FILES['file']
 		fileSizeLimit:2048,//允许上传的文件大小，单位KB
-		showUploadedPercent:false,//是否实时显示上传的百分比，如20%
+		showUploadedPercent:true,//是否实时显示上传的百分比，如20%
 		showUploadedSize:false,//是否实时显示已上传的文件大小，如1M/2M
 		buttonText:'上传照片',//上传按钮上的文字
-		removeTimeout: 1000,//上传完成后进度条的消失时间
+		removeTimeout: 99999,//上传完成后进度条的消失时间
 		itemTemplate:itemTemp,//上传队列显示的模板
 		onUploadStart:null,//上传开始时的动作
 		onUploadSuccess:null,//上传成功的动作
@@ -84,14 +84,16 @@ $.fn.Huploadify = function(opts){
 				  for(var i=0,len=files.length;i<len;i++){
 				  	var thisFile = files[i];
 				  		if(parseInt(formatFileSize(thisFile.size,true))>option.fileSizeLimit){
-				  			alert('文件'+thisFile.name+'大小超出限制！');
+//				  			alert('文件'+thisFile.name+'大小超出限制！');
+				  			alert('文件大小超出限制！');
 				  			continue;
 				  		}
 						if($.inArray(thisFile.name.split('.').pop(),typeArray)>=0){
 							arr.push(thisFile);	
 						}
 						else{
-							alert('文件'+thisFile.name+'类型不允许！');
+//							alert('文件'+thisFile.name+'类型不允许！');
+							alert('您所上传的文件格式不正确!');
 						}  	
 					}	
 				}

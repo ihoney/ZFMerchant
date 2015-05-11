@@ -66,6 +66,12 @@ public interface OpeningApplyMapper {
 	void addMerchan(Merchant merchant);
 	
 	/**
+	 * 修改商户
+	 * @return
+	 */
+	void updateMerchan(Merchant merchant);
+	
+	/**
 	 * 获得所有通道
 	 * @return
 	 */
@@ -148,4 +154,6 @@ public interface OpeningApplyMapper {
 	 * @param id
 	 */
 	void deleteOpeningInfos(Integer id);
+	
+	String getOpeningProtocol(int terminalsId);
 }

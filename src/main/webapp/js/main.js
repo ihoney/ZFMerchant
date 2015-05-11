@@ -169,7 +169,7 @@ $(function() {
 
 // pro_detail 商品详细信息
 $(function() {
-	$(".pro_detail_con > div").not(":first").hide();
+
 	$(".pro_detail_title li").unbind("click").bind(
 			"click",
 			function() {
@@ -281,7 +281,6 @@ function infoTab(i_tab, i_box) {
 	$(i_tab).hover(
 			function(e) { 
 				var val = $(this).attr("imgPath");
-				console.info(val); 
 				if(val != undefined && val != ""){
 					$(i_box).children("img").attr("src", $(this).attr("imgPath"));  
 					$(i_box).css('display', 'block');
