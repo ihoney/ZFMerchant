@@ -1,9 +1,17 @@
 function showImage(obj) { 
-	
+	var doc_height = $(document).height();
+	 $(".mask").css({
+			display : 'block',
+			height : doc_height
+		});
+	$(".mask").show();
+	$(".upImgLoading").show();
 	$(obj).parent("a").parent("form").attr("action","api/terminal/upload/tempImage/"+$("#terid").val());
 	$(obj).parent("a").parent("form").ajaxSubmit({
 		success : function(data) {
 			data = JSON.parse(data);
+			$(".mask").hide();
+        	$(".upImgLoading").hide();
 			if(data.code == -1){
 				alert(data.message);
 			}else if(data.code == 1){
