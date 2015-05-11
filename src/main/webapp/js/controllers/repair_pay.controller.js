@@ -21,7 +21,9 @@ var repair_payController = function($scope, $http,$location) {
             		$scope.pay=false;
             		$scope.payway=data.result.paytype;
             	}
-            	
+            }else{
+            	alert("维修单不存在");
+            	window.location.href = '#/cs_repair';
             }
         });
 	};
