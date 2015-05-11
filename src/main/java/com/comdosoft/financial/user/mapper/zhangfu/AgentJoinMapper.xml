@@ -8,4 +8,7 @@
 		VALUES(#{agent_type},#{address},DEFAULT,#{touchName},#{touchPhone},NOW())
 	</insert>
 
+	<select id="findAgentsJoinByNameAndPhone" resultType="com.comdosoft.financial.user.domain.zhangfu.AgentsJoin">
+		select aj.id from agents_join aj where aj.touch_name = #{0} and aj.touch_phone=#{1}
+	</select>
 </mapper>
