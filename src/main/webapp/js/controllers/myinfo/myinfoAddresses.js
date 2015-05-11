@@ -31,7 +31,6 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		var receiver  = $scope.address.receiver; 
 		var phone    = $scope.address.moblephone; 
 		var  tel         = $scope.address.telphone;
-//		console.log("==>>"+addr +"  ==>"+zipCode);
 	   if (typeof($scope.selected) == "undefined" || ($scope.selected) == "" || ($scope.selected) == null) { 
 		   alert("请选择省份");
 		   return false;

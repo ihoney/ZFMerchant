@@ -157,7 +157,7 @@
                         });
                     }
                     else {
-                        console.log("Select or Die: It looks like the SoD already exists");
+//                        console.log("Select or Die: It looks like the SoD already exists");
                     }
 
                 });
@@ -546,7 +546,7 @@
                         $sod.find("span").remove();
                         $select.unwrap();
                     } else {
-                        console.log("Select or Die: There's no SoD to destroy");
+//                        console.log("Select or Die: There's no SoD to destroy");
                     }
                 });
             }, // destroy
@@ -576,7 +576,7 @@
                             _private.populateSoD($(this), $sodList, $sod);
                         });
                     } else {
-                        console.log("Select or Die: There's no SoD to update");
+//                        console.log("Select or Die: There's no SoD to update");
                     }
                 });
 
@@ -604,7 +604,7 @@
                             $select.prop("disabled", true);
                         }
                     } else {
-                        console.log("Select or Die: There's no SoD to disable");
+//                        console.log("Select or Die: There's no SoD to disable");
                     }
                 });
             }, // disable
@@ -631,7 +631,7 @@
                             $select.prop("disabled", false);
                         }
                     } else {
-                        console.log("Select or Die: There's no SoD to enable");
+//                        console.log("Select or Die: There's no SoD to enable");
                     }
                 });
             } // enable
