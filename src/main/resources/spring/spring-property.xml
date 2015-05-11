@@ -12,8 +12,8 @@
 				<!-- <value>classpath:config/pcuser.properties</value>-->
 				<!-- <value>classpath:config/pcuser.properties</value> -->
 				<!-- <value>classpath:config/demo.properties</value>  -->
-		 		<value>classpath:config/pcuser.properties</value> 
-				<!-- <value>classpath:config/local.properties</value> -->
+		 	<!-- 	<value>classpath:config/pcuser.properties</value>  -->
+				<value>classpath:config/local.properties</value>
 				<value>classpath:config/config.properties</value>
 			</list>
 		</property>

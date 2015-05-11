@@ -71,14 +71,9 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			$scope.$emit('changeshow', false);
 		}
 		
-		var vw = "ok";
+		var vw = "上传成功";
 		$('#cardIdFrontPhotoPath').Huploadify({//法人上半身照片
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
@@ -87,13 +82,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			});
 		
 		$('#cardIdBackPhotoPath').Huploadify({//法人身份证照片背面
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdBackPhotoPath=obj.result;
@@ -103,13 +92,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 		
 		
 		$('#bodyPhotoPath').Huploadify({//法人上半身照片
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.bodyPhotoPath=obj.result;
@@ -118,13 +101,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			});
 		
 		$('#licenseNoPicPath').Huploadify({//营业执照照片
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.licenseNoPicPath=obj.result;
@@ -132,13 +109,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 					}
 			});
 		$('#taxNoPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.taxNoPicPath=obj.result;
@@ -146,13 +117,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 					}
 			});
 		$('#orgCodeNoPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.orgCodeNoPicPath=obj.result;
@@ -160,13 +125,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 					}
 			});
 		$('#accountPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.accountPicPath=obj.result;

@@ -8,7 +8,7 @@ public class RootUrl {
     
     public static String urlpath = "http://121.40.64.167:8080/";
 
-    public static String localpath = "/opt/data/";
+    public static String localpath = "/home/vince/temp/";
 
 //    public static String urlpath = "http://121.40.84.2:8080/ZFMerchant/";
 //

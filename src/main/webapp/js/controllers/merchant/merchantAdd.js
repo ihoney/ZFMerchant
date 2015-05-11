@@ -4,13 +4,21 @@
 var merchantAddModule = angular.module("merchantAddModule", []);
 var merchantAddController = function($scope, $http, $location, LoginService) {
 	$scope.merchant={};
-//	$scope.merchant.cardIdFrontPhotoPath='';
-//	$scope.merchant.cardIdBackPhotoPath='';
-//	$scope.merchant.bodyPhotoPath='';
-//	$scope.merchant.licenseNoPicPath='';
-//	$scope.merchant.taxNoPicPath='';
-//	$scope.merchant.orgCodeNoPicPath='';
-//	$scope.merchant.accountPicPath='';
+//	$scope.merchant.cardIdFrontPhotoPath==null ?'':$scope.merchant.cardIdFrontPhotoPath;
+//	$scope.merchant.cardIdBackPhotoPath==null ?'':$scope.merchant.cardIdBackPhotoPath;
+//	$scope.merchant.bodyPhotoPath==null ?'':$scope.merchant.bodyPhotoPath;
+//	$scope.merchant.licenseNoPicPath==null ?'':$scope.merchant.licenseNoPicPath;
+//	$scope.merchant.taxNoPicPath==null ?'':$scope.merchant.taxNoPicPath;
+//	$scope.merchant.orgCodeNoPicPath==null ?'':$scope.merchant.orgCodeNoPicPath;
+//	$scope.merchant.accountPicPath==null ?'':$scope.merchant.accountPicPath;
+//	
+//	$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
+//	$("#cardIdBackPhotoPath_m").attr("imgPath",$scope.merchant.cardIdBackPhotoPath);
+//	$("#bodyPhotoPath_m").attr("imgPath",$scope.merchant.bodyPhotoPath);
+//	$("#licenseNoPicPath_m").attr("imgPath",$scope.merchant.licenseNoPicPath);
+//	$("#taxNoPicPath_m").attr("imgPath",$scope.merchant.taxNoPicPath);
+//	$("#orgCodeNoPicPath_m").attr("imgPath",$scope.merchant.orgCodeNoPicPath);
+//	$("#accountPicPath_m").attr("imgPath",$scope.merchant.accountPicPath);
 	$scope.merchantAdd = function() {
 		if($scope.merchant.title =="" || typeof($scope.merchant.title)=="undefined" ){
 			alert("请填写商户名称");
@@ -122,36 +130,15 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 		
 		var vw = "上传成功";
 		$('#cardIdFrontPhotoPath').Huploadify({//法人上半身照片
-		
-			removeTimeout:9999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 var doc_height = $(document).height();
-				 $("#mer_mask").css({
-						display : 'block',
-						height : doc_height
-					});
-				 $("#mer_mask").show();
-				 $("#mer_upImgLoading").show();
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
 				$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
 				 $("#cardIdFrontPhotoPath_s").html(vw);
-				 $("#mer_mask").hide();
-				 $("#mer_upImgLoading").hide();
 		     }
 			});
 		
 		$('#cardIdBackPhotoPath').Huploadify({//法人身份证照片背面
-			removeTimeout:9999999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdBackPhotoPath=obj.result;
@@ -160,14 +147,7 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		
-		
 		$('#bodyPhotoPath').Huploadify({//法人上半身照片
-			removeTimeout:9999999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.bodyPhotoPath=obj.result;
@@ -177,12 +157,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			});
 		
 		$('#licenseNoPicPath').Huploadify({//营业执照照片
-			removeTimeout:9999999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.licenseNoPicPath=obj.result;
@@ -191,12 +165,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		$('#taxNoPicPath').Huploadify({// 
-			removeTimeout:9999999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.taxNoPicPath=obj.result;
@@ -205,12 +173,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		$('#orgCodeNoPicPath').Huploadify({// 
-			removeTimeout:9999999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.orgCodeNoPicPath=obj.result;
@@ -219,12 +181,6 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 					}
 			});
 		$('#accountPicPath').Huploadify({// 
-			removeTimeout:9999999,
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.accountPicPath=obj.result;
