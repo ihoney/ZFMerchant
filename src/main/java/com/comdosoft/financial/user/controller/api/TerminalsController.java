@@ -939,7 +939,6 @@ public class TerminalsController {
     public ResponseEntity<String> tempImage(@PathVariable(value="id") int id,@RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
         try {
         	String json;
-        	
     		HttpHeaders responseHeaders = new HttpHeaders();
     		responseHeaders.setContentType(MediaType.TEXT_HTML);
         	
@@ -947,8 +946,14 @@ public class TerminalsController {
     		String houzuiStr=img.getOriginalFilename().substring(temp+1);
         	if(!commentService.typeIsCommit(houzuiStr)){
     			//return Response.getError("您所上传的文件格式不正确");
-    			json="{\"message\":\"您所上传的文件格式不正确\",\"code\" = \"-1\"}";
+    			json="{\"message\":\"您所上传的文件格式不正确\",\"code\":\"-1\"}";
       			return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+    		}else{
+            	//判断上传文件大小问题
+    			if(!HttpFile.fileSize(img)){
+            		json="{\"message\":\"您上传的图片大小过大，请上传小于2M的图片\",\"code\":\"-1\"}";
+            		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+    			}
     		}
         	String joinpath="";
         	joinpath = HttpFile.upload(img, userTerminal+id+"/opengImg/");

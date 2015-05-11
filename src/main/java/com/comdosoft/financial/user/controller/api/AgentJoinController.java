@@ -23,6 +23,8 @@ public class AgentJoinController {
 		int result = agentJoinService.addNewJoinInfo(agent);
 		if(result == 1){
 			req.setCode(req.SUCCESS_CODE);
+		}else if(result == -2){
+			req.setCode(req.MISSING_CODE);
 		}else{
 			req.setCode(req.ERROR_CODE);
 		}

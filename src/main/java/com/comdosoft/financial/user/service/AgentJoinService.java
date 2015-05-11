@@ -15,10 +15,26 @@ public class AgentJoinService {
 	@Autowired
 	private AgentJoinMapper agentJoinMapper;
 
+	/**
+	 * 检查当前申请人的资料是否已存在
+	 * 
+	 * @return
+	 */
+	private boolean checkRepeat(AgentsJoin aj) {
+		return agentJoinMapper.findAgentsJoinByNameAndPhone(aj.getTouchName(),
+				aj.getTouchPhone()) == null ? true : false;
+	}
+
 	public int addNewJoinInfo(AgentsJoin agent) {
 		try {
-			agentJoinMapper.addNewInfo(agent);
-			return 1;
+			System.out.println(checkRepeat(agent));
+			if (checkRepeat(agent)) {
+				agentJoinMapper.addNewInfo(agent);
+				return 1;
+			} else {
+				logger.info("当前添加的合作伙伴已存在!");
+				return -2;
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
