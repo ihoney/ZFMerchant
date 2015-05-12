@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -402,7 +403,11 @@ public class OrderService {
             }
             List<Terminal> terminals = orderMapper.getTerminsla(id, null);
 	        for (Terminal t : terminals) {
-	              sb.append(" "+ t.getSerialNum() );
+	        	String r2 = t.getReserver2();
+	        	if(!StringUtils.isBlank(r2)){
+	        		r2 = "("+r2+")";
+	        	}
+	            sb.append(" "+ t.getSerialNum()+r2 );
 	        }
             map.put("terminals", sb.toString().trim());
         }
@@ -535,7 +540,11 @@ public class OrderService {
                     List<Terminal> terminals = orderMapper.getTerminsla(id, Integer.valueOf(good_id));
                      sb = new StringBuffer();
                     for (Terminal t : terminals) {
-                        sb.append(t.getSerialNum() + " , ");
+                    	String r2 = t.getReserver2();
+        	        	if(!StringUtils.isBlank(r2)){
+        	        		r2 = "("+r2+")";
+        	        	}
+                        sb.append(" "+t.getSerialNum()+r2 );
                     }
                 }  
                 String good_logo = "";
@@ -549,7 +558,7 @@ public class OrderService {
                 omap.put("good_logo", good_logo);
                 newObjList.add(omap);
             }
-            map.put("terminals", sb.toString());
+            map.put("terminals", sb.toString().trim());
         }
 
         map.put("order_goodsList", newObjList);
