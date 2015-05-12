@@ -169,6 +169,7 @@ public class CsRepairService {
         String id = o.get("id").toString();
         map.put("id", id);
         map.put("apply_num", o.get("apply_num"));//维修编号
+        map.put("paytype", o.get("pay_types"));//支付类型
         map.put("repair_price", o.get("repair_price")==null?"":o.get("repair_price"));
         return map;
     }
