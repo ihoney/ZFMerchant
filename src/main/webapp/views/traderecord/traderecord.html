@@ -3,18 +3,18 @@
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="#/traderecord">交易流水</a></li>
-			<li><a href="javascript:void(0)">{{typeName}}</a></li>
+			<li><a >{{typeName}}</a></li>
 		</ul>
 	</div>
 	<div class="content clear">
 		<div class="dealNav">
-			<a href="javascript:void(0);" class="dn_prev">上一页</a>
+			<a class="dn_prev">上一页</a>
 			<div class="dealNavBox">
 				<ul class="li_show">
-					<li ng-repeat="one in tradeType"><a href="javascript:void(0);" ng-click="changeType(one)" class="{{one.id==req.tradeTypeId?'hover':''}}">{{one.value}}</a></li>
+					<li ng-repeat="one in tradeType"><a  ng-click="changeType(one)" class="{{one.id==req.tradeTypeId?'hover':''}}">{{one.value}}</a></li>
 				</ul>
 			</div>
-			<a href="javascript:void(0);" class="dn_next">下一页</a>
+			<a  class="dn_next">下一页</a>
 		</div>
 
 		<div class="user_title">
@@ -29,7 +29,7 @@
 						</select>
 					</div></li>
 				<li><div class="user_date">
-						<label>选择日期</label><input type="text" ng-model="req.startTime" readonly>&nbsp;-&nbsp;<input type="text" ng-model="req.endTime" readonly>
+						<label>选择日期</label><input type="text" ng-model="req.startTime" readonly>&nbsp;-&nbsp;<input type="text"  ng-model="req.endTime" readonly>
 					</div></li>
 				<li><button class="ghostBtn" ng-click="search()">搜索</button></li>
 			</ul>
@@ -79,11 +79,11 @@
 		</div>
 		<div class="pageTurn">
 			<div class="p_num" ng-show="req.totalPage>1">
-				<a ng-class="{true:'disabled'}[req.indexPage==1]" href="javascript:void(0)" ng-click="req.indexPage=1;list()">首页</a>
-				<a ng-class="{true:'disabled'}[req.indexPage==1]" href="javascript:void(0)" ng-click="prev()">上一页</a>
-				<a ng-class="{true:'current'}[req.indexPage==currentPage]" ng-repeat="currentPage in req.pages" href="javascript:void(0)" ng-click="loadPage(currentPage)">{{currentPage}}</a>
-				<a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]" href="javascript:void(0)" ng-click="next()">下一页</a>
-				<a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]" href="javascript:void(0)" ng-click="req.indexPage=req.totalPage;list()">末页</a>
+				<a ng-class="{true:'disabled'}[req.indexPage==1]"  ng-click="req.indexPage=1;list()">首页</a>
+				<a ng-class="{true:'disabled'}[req.indexPage==1]"  ng-click="prev()">上一页</a>
+				<a ng-class="{true:'current'}[req.indexPage==currentPage]" ng-repeat="currentPage in req.pages"  ng-click="loadPage(currentPage)">{{currentPage}}</a>
+				<a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]"  ng-click="next()">下一页</a>
+				<a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]"  ng-click="req.indexPage=req.totalPage;list()">末页</a>
 			</div>
 			<div class="p_skip">
 				<span>共&nbsp;{{req.totalPage}}&nbsp;页</span>&nbsp;<span>到第&nbsp;<input type="text" ng-model="req.gotoPage">&nbsp;页</span>
@@ -93,9 +93,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$(function() {
-		$(".user_date input").datepicker();
-	});
+	
 	jQuery(function($) {
 		$.datepicker.regional['zh-CN'] = {
 			closeText : '关闭',
