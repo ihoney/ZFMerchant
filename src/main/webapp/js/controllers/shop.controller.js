@@ -63,6 +63,12 @@ var shopController = function ($scope, $http,$location, LoginService) {
 			$scope.searchvalues=[];
 		}
 	};
+	$scope.enterchange2 =  function(e){
+		var keycode = window.event?e.keyCode:e.which;
+        if(keycode==13){
+        	$scope.search();
+        }
+	}
     $scope.searchinfo=function(){
     	$http.post("api/good/search", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {

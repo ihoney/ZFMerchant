@@ -4,7 +4,7 @@
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
-					<input ng-model="req.keys" type="text" placeholder="请输入pos机信息" ng-change="change2()"/>
+					<input ng-model="req.keys" type="text" placeholder="请输入pos机信息" ng-change="change2()" ng-keyup="enterchange2($event)"/>
 					<button ng-click="search()">搜索</button>
 				</div>
 				<div class="hotwords">

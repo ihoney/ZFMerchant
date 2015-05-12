@@ -122,7 +122,7 @@
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
-					<input ng-model="haha" type="text" placeholder="请输入pos机信息" ng-change="change()"/>
+					<input ng-model="haha" type="text" placeholder="请输入pos机信息" ng-change="change()" ng-keyup="enterchange($event)"/>
 					<button ng-click="searchShop()">搜索</button>
 				</div>
 				<div class="hotwords">

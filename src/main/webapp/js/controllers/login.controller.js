@@ -224,6 +224,12 @@ var searchController = function($scope,$http, LoginService) {
 			$scope.searchvalues=[];
 		}
 	};
+	$scope.enterchange =  function(e){
+		var keycode = window.event?e.keyCode:e.which;
+        if(keycode==13){
+        	$scope.searchShop();
+        }
+	}
 
 };
 
