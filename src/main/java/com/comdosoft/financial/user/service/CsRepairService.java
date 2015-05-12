@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.comdosoft.financial.user.domain.zhangfu.CsRepairPayment;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
@@ -171,9 +172,11 @@ public class CsRepairService {
         map.put("repair_price", o.get("repair_price")==null?"":o.get("repair_price"));
         return map;
     }
-
+    
+    @Transactional(value = "transactionManager-zhangfu")
 	public Integer repairSuccess(String ordernumber) {
 		Map<String,Object> repairMap = repairMapper.findRepairByNumber(Integer.parseInt(ordernumber));
+		logger.debug("维修回调start》》》》ordernumber   "+ ordernumber+" >>>repairMap"+ repairMap);
 		if(null == repairMap){
 			return 0;
 		}
@@ -188,10 +191,12 @@ public class CsRepairService {
 		crp.setRepairPrice(Integer.parseInt(price));
 		crp.setCsRepairId(Integer.parseInt(id));
 		int i = repairPaymentMapper.insertPayment(crp);
+		logger.debug("insertpayment>>>>>"+ i);
 		MyOrderReq mr = new MyOrderReq();
 		mr.setId(Integer.parseInt(id));
 		mr.setRepairStatus(RepairStatus.PAID);
-		repairMapper.updateRepair(mr);
-		return i;
+		int j = repairMapper.updateRepair(mr);
+		logger.debug(" repair over......."+ j);
+		return 1;
 	}
 }

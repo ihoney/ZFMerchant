@@ -25,7 +25,7 @@ public interface CsRepairMapper {
     int countSearch(MyOrderReq myOrderReq);
     
     void changeStatus(MyOrderReq myOrderReq);
-    void updateRepair(MyOrderReq myOrderReq);
+    int updateRepair(MyOrderReq myOrderReq);
     
     List<Map<String, Object>> wxlist(MyOrderReq myOrderReq);
 

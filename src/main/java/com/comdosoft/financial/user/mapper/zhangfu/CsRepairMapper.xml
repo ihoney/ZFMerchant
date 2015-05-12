@@ -221,7 +221,7 @@
 	</select>
 	
 	
-	<update id="updateRepair">
+	<update id="updateRepair" >
 	update  cs_repairs 
 	SET STATUS = #{repairStatus.code},updated_at = NOW()
 	where id = #{id}
