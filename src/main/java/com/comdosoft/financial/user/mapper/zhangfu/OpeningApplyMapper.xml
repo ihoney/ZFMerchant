@@ -77,7 +77,8 @@
  	<select id="getApplyList" parameterType="map" resultType="map">
  		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(b.`name`,'') as brandName,
  		IFNULL(g.model_number,'') as model_number,IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,IFNULL(c.`name`,'') as channelName
- 		,IFNULL(t.pay_channel_id,'0') as payChannelId
+ 		,IFNULL(t.pay_channel_id,'0') as payChannelId,
+ 		IFNULL(c.opening_protocol,'') as openingProtocol
  		FROM terminals t 
  		LEFT JOIN opening_applies o ON o.terminal_id = t.id
  		LEFT JOIN goods g on t.good_id=g.id 
