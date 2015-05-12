@@ -35,6 +35,7 @@ input { border: none;}
 .search {
 	float: left;
 	margin: 15px 0 0 60px;
+	position: relative;
 }
 .search_box {
 	width: 440px;
@@ -64,6 +65,19 @@ input { border: none;}
 .search .hotwords { padding: 5px 0;}
 .search .hotwords a { color: #999; margin: 0 5px;}
 .search .hotwords a:hover {color: #ff5f2b; text-decoration: underline;}
+
+.suggest_container { 
+	width: 351px; 
+	position: absolute; 
+	top: 33px; 
+	left: 3px; 
+	background: #FFF;
+	border: 1px #CCCCCC solid;
+	border-top: 0px;
+ 	z-index: 10000;
+}
+.suggest_container a { height: 32px; line-height: 32px; display: block; padding: 0 10px;}
+.suggest_container a:hover { background: #f8f8f8;}
 
 .phone { width: 200px; height: 40px; font-size: 0; float: left; margin: 15px 0 0 60px;}
 
