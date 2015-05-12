@@ -5,6 +5,7 @@
 			<li><a href="#/order">我的订单</a></li>
 		</ul>
 	</div>
+ 
 	<div class="content clear">
 		<div class="user_title">
 			<h1>订单列表</h1>
@@ -12,8 +13,8 @@
 		<div class="seenBox clear">
 			<ul>
 				<li><div class="user_search">
-						<input name="search" type="text" ng-model="search" placeholder="订单编号、商品名称、关键字查询" title="根据订单编号、商品名称、关键字查询" value=""/>
-						<button ng-click="submitSearch()"></button>
+						<input name="search" type="text" ng-model="search" placeholder="订单编号、商品名称、关键字查询" title="根据订单编号、商品名称、关键字查询" value=""   onkeypress="SubmitEvent(event)" />
+						<button ng-click="submitSearch()"  id="btn_submit"></button>
 					</div></li>
 				<li><div class="user_select">
 						<label>状态筛选</label>
