@@ -31,6 +31,8 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 		var receiver  = $scope.address.receiver; 
 		var phone    = $scope.address.moblephone; 
 		var  tel         = $scope.address.telphone;
+		var p_zip_code = /^[1-9][0-9]{5}$/;
+		var phone_pattern =  /^1[3|4|5|8][0-9]\d{8}$/ ;
 	   if (typeof($scope.selected) == "undefined" || ($scope.selected) == "" || ($scope.selected) == null) { 
 		   alert("请选择省份");
 		   return false;
@@ -40,13 +42,13 @@ var myinfoAddressesController = function($scope, $http, LoginService) {
 	   }else if(typeof(addr) == "undefined"  || (addr) == ""  || (addr) == null){
 		   alert("请输入详细地址");
 		   return false;
-	   }else if(typeof(zipCode) == "undefined"  || (zipCode) == ""  || (zipCode) == null){
-		   alert("请输入正确的邮编");
+	   }else if(typeof(zipCode) == "undefined"  || (zipCode) == ""  || (zipCode) == null || !p_zip_code.test(zipCode)){
+		   alert("请输入正确的邮编" );
 		   return false;
 	   }else if(typeof(receiver) == "undefined"  || (receiver) == ""  || (receiver) == null){
 		   alert("请输入收货人");
 		   return false;
-	   }else if(typeof(phone) == "undefined"  || (phone) == ""  || (phone) == null){
+	   }else if(typeof(phone) == "undefined"  || (phone) == ""  || (phone) == null  ||  !phone_pattern.test(phone) ) {
 		   alert("请输入正确的手机号！");
 		   return false;
 	   }else if(typeof(tel) == "undefined"  || (tel) == ""  || (tel) == null){
