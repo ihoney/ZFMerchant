@@ -178,4 +178,8 @@ public class GoodService {
         return sb.toString();
     }
 
+    public List<String> getValue(PosReq posreq) {
+        return goodMapper.getValue(posreq);
+    }
+
 }

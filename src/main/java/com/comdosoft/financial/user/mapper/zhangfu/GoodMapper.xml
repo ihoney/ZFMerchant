@@ -249,6 +249,12 @@
 	</select>
 
 
-
+	<select id="getValue" resultType="String">
+		SELECT t.value
+		from ((SELECT title as value from goods) union (SELECT name as value from pay_channels))t 
+		where t.value LIKE '%${keys}%'
+		ORDER BY  LENGTH(t.value)
+		LIMIT 0,8
+	</select>
 
 </mapper>

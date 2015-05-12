@@ -203,7 +203,8 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 	$scope.city_list();
 };
 
-var searchController = function($scope, LoginService) {
+var searchController = function($scope,$http, LoginService) {
+	$scope.searchvalues=[];
 	$scope.searchShop = function() {
 		LoginService.keys = $scope.haha;
 		window.location.href = '#/shop';
@@ -212,6 +213,23 @@ var searchController = function($scope, LoginService) {
 		LoginService.keys = xx;
 		window.location.href = '#/shop';
 	};
+	$scope.change = function() {
+		if($scope.haha!=undefined&&$.trim($scope.haha)!=''){
+			$http.post("api/good/value",{keys:$scope.haha}).success(function(data) {
+				if (data.code == 1) {
+					$scope.searchvalues=data.result;
+				}
+			});
+		}else{
+			$scope.searchvalues=[];
+		}
+	};
+	$scope.enterchange =  function(e){
+		var keycode = window.event?e.keyCode:e.which;
+        if(keycode==13){
+        	$scope.searchShop();
+        }
+	}
 
 };
 
