@@ -175,7 +175,7 @@ public class CsRepairService {
     
     @Transactional(value = "transactionManager-zhangfu")
 	public Integer repairSuccess(String ordernumber) {
-		Map<String,Object> repairMap = repairMapper.findRepairByNumber(Integer.parseInt(ordernumber));
+		Map<String,Object> repairMap = repairMapper.findRepairByNumber(ordernumber);
 		logger.debug("维修回调start》》》》ordernumber   "+ ordernumber+" >>>repairMap"+ repairMap);
 		if(null == repairMap){
 			return 0;
