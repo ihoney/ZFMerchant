@@ -4,13 +4,16 @@
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
-					<input ng-model="req.keys" type="text" placeholder="请输入pos机信息" />
+					<input ng-model="req.keys" type="text" placeholder="请输入pos机信息" ng-change="change2()" ng-keyup="enterchange2($event)"/>
 					<button ng-click="search()">搜索</button>
 				</div>
 				<div class="hotwords">
 					<div class="hotwords">
 						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
 					</div>
+					<div class="suggest_container">
+		            	<a  ng-repeat="one in searchvalues" ng-click="hotwords(one)">{{one}}</a>
+		            </div>
 				</div>
 			</div>
 			<div class="phone">

@@ -203,7 +203,8 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 	$scope.city_list();
 };
 
-var searchController = function($scope, LoginService) {
+var searchController = function($scope,$http, LoginService) {
+	$scope.searchvalues=[];
 	$scope.searchShop = function() {
 		LoginService.keys = $scope.haha;
 		window.location.href = '#/shop';
@@ -212,6 +213,23 @@ var searchController = function($scope, LoginService) {
 		LoginService.keys = xx;
 		window.location.href = '#/shop';
 	};
+	$scope.change = function() {
+		if($scope.haha!=undefined&&$.trim($scope.haha)!=''){
+			$http.post("api/good/value",{keys:$scope.haha}).success(function(data) {
+				if (data.code == 1) {
+					$scope.searchvalues=data.result;
+				}
+			});
+		}else{
+			$scope.searchvalues=[];
+		}
+	};
+	$scope.enterchange =  function(e){
+		var keycode = window.event?e.keyCode:e.which;
+        if(keycode==13){
+        	$scope.searchShop();
+        }
+	}
 
 };
 
@@ -237,6 +255,15 @@ var loginController = function($scope, $location, $http, LoginService) {
 			LoginService.login($scope, $http);
 		}
 	};
+	
+	 //登陆回车事件 
+	 document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+         if(e && e.keyCode==13){ // enter 键
+             //要做的事情
+       	  $('#dengluenter').click();
+        }
+    }; 
 
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	$scope.loginUserName = LoginService.loginUserName;

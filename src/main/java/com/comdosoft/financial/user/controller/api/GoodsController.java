@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.controller.api;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,5 +87,15 @@ public class GoodsController {
         return response;
     }
     
-   
+    @RequestMapping(value = "value", method = RequestMethod.POST)
+    public Response value(@RequestBody PosReq posreq){
+        List<String> values;
+        try {
+            values = goodService.getValue(posreq);
+            return Response.getSuccess(values);
+        } catch (Exception e) {
+            return Response.getError("系统异常");
+        }
+        
+    }
 }

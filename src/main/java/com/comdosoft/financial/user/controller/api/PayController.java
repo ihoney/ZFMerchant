@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.service.CsRepairService;
 import com.comdosoft.financial.user.service.OrderService;
@@ -31,7 +32,12 @@ public class PayController {
     }
     
     @RequestMapping(value = "repair_alipayback", method = RequestMethod.POST)
-    public void repair_alipayback(@RequestParam("ordernumber") String ordernumber) {// apply_num  维修编号
-    	csRepairService.repairSuccess(ordernumber);
+    public Response repair_alipayback(@RequestParam("ordernumber") String ordernumber) {// apply_num  维修编号
+    	int i = csRepairService.repairSuccess(ordernumber);
+    	if(i==1){
+    		return Response.getSuccess();
+    	}else{
+    		return Response.getError("付款失败");
+    	}
     }
 }

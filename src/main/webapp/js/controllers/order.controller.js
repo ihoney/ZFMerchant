@@ -4,6 +4,7 @@ var orderModule = angular.module("orderModule",[]);
 var orderController = function ($scope, $http, LoginService) {
 
 	initSystemPage($scope);// 初始化分页参数
+ 
 	// 搜索
 	$scope.submitSearch = function(){
 		$scope.req = {
