@@ -73,8 +73,8 @@ public class BackRcvResponse{
 			orderreq.setType(2);
 			orderService.payFinish(orderreq);
 		}
-
 		LogUtil.writeLog("BackRcvResponse接收后台通知结束");
+		resp.setStatus(HttpServletResponse.SC_OK);
 	}
 	
 }
