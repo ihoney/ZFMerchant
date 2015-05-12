@@ -15,7 +15,15 @@
 		hm.src = "//hm.baidu.com/hm.js?38632c918c9886103d9ce4aee1b286ba";
 		var s = document.getElementsByTagName("script")[0];
 		s.parentNode.insertBefore(hm, s);
+		
 	})();
+//btn_submit
+	function SubmitEvent(e){
+		var e = e || window.event; 
+		if(e.keyCode == 13){ 
+		document.getElementById("btn_submit").click(); 
+		} 
+   }
 </script>
 
 <!--shop.css 商品列表 商品详情页-->
@@ -60,6 +68,7 @@
 <script type="text/javascript" src="js/controllers/login.controller.js"></script>
 <script type="text/javascript" src="js/controllers/pay.controller.js"></script>
 <script type="text/javascript"	src="js/controllers/mainindex.controller.js"></script>
+<script type="text/javascript" src="js/jquery.Huploadify.js"></script>
 <script type="text/javascript"	src="js/left.js"></script>
 <!--[if lte IE 8]>
 <script type="text/javascript"	src="js/left.js"></script>
