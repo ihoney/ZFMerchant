@@ -311,7 +311,7 @@ td a.a_btn:hover { text-decoration: underline;}
 }
 .item_list li div.text { text-align: left; min-height: 26px; min-width: 262px;}
 .item_list li div.text select { height: 24px; border:1px #CCCCCC solid; width: 262px;}
-.item_list li div.text input[type=text] { height: 24px; border:1px #CCCCCC solid; width: 250px; padding: 0 5px;}
+.item_list li div.text input[type=text] { height: 24px; line-height: 24px; border:1px #CCCCCC solid; width: 250px; padding: 0 5px;}
 .item_list li div.text input[type=text].xl { width: 370px;}
 .item_list span.checkboxRadio_span { float: left; margin-right: 10px; height: 24px;}
 .item_list span.checkboxRadio_span input { 
