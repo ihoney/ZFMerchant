@@ -52,21 +52,42 @@ var shopController = function ($scope, $http,$location, LoginService) {
 		$scope.list();
     };
     $scope.searchvalues=[];
+    $scope.checkval="";
     $scope.change2 = function() {
+    	$scope.index=0;
+		$scope.checkval="";
 		if($scope.req.keys!=undefined&&$.trim($scope.req.keys)!=''){
 			$http.post("api/good/value",{keys:$scope.req.keys}).success(function(data) {
 				if (data.code == 1) {
 					$scope.searchvalues=data.result;
+					$scope.maxindex=$scope.searchvalues.length;
 				}
 			});
 		}else{
 			$scope.searchvalues=[];
+			$scope.maxindex=0;
 		}
 	};
 	$scope.enterchange2 =  function(e){
 		var keycode = window.event?e.keyCode:e.which;
         if(keycode==13){
         	$scope.search();
+        }else if(keycode==38){
+        	//alert("shang")
+        	if($scope.index>0&&$scope.index<=$scope.maxindex){
+        		$scope.index--;
+        		$('.suggest_container a').removeClass("hover");
+            	$('#ew'+$scope.index).addClass("hover");
+            	$scope.checkval=$('#ew'+$scope.index).html();
+        	}
+        }else if(keycode==40){
+        	//alert("xia")
+        	if($scope.index>=0&&$scope.index<$scope.maxindex){
+        		$scope.index++;
+        		$('.suggest_container a').removeClass("hover");
+            	$('#ew'+$scope.index).addClass("hover");
+            	$scope.checkval=$('#ew'+$scope.index).html();
+        	}
         }
 	}
     $scope.searchinfo=function(){
@@ -131,6 +152,10 @@ var shopController = function ($scope, $http,$location, LoginService) {
 	}
     $scope.search=function () {
 	    $scope.req.indexPage=1;
+	    if($scope.checkval!=""){
+	    	$scope.req.keys=$scope.checkval;
+		}
+	    $scope.searchvalues=[];
 	    LoginService.keys=$scope.req.keys;
 	    $scope.list();
     };

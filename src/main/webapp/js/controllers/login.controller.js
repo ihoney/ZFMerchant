@@ -205,8 +205,14 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 
 var searchController = function($scope,$http, LoginService) {
 	$scope.searchvalues=[];
+	$scope.checkval="";
 	$scope.searchShop = function() {
+		if($scope.checkval!=""){
+			$scope.haha=$scope.checkval;
+		}
 		LoginService.keys = $scope.haha;
+		$scope.searchvalues=[];
+		$scope.haha="";
 		window.location.href = '#/shop';
 	};
 	$scope.hotwords = function(xx) {
@@ -214,20 +220,42 @@ var searchController = function($scope,$http, LoginService) {
 		window.location.href = '#/shop';
 	};
 	$scope.change = function() {
+		$scope.index=0;
+		$scope.checkval="";
 		if($scope.haha!=undefined&&$.trim($scope.haha)!=''){
 			$http.post("api/good/value",{keys:$scope.haha}).success(function(data) {
 				if (data.code == 1) {
 					$scope.searchvalues=data.result;
+					$scope.maxindex=$scope.searchvalues.length;
 				}
 			});
 		}else{
 			$scope.searchvalues=[];
+			$scope.maxindex=0;
 		}
 	};
 	$scope.enterchange =  function(e){
 		var keycode = window.event?e.keyCode:e.which;
         if(keycode==13){
         	$scope.searchShop();
+        }else if(keycode==38){
+        	//alert("shang")
+        	if($scope.index>0&&$scope.index<=$scope.maxindex){
+        		$scope.index--;
+        		$('.suggest_container a').removeClass("hover");
+            	$('#qw'+$scope.index).addClass("hover");
+            	$scope.checkval=$('#qw'+$scope.index).html();
+        	}
+        	
+        	
+        }else if(keycode==40){
+        	//alert("xia")
+        	if($scope.index>=0&&$scope.index<$scope.maxindex){
+        		$scope.index++;
+        		$('.suggest_container a').removeClass("hover");
+            	$('#qw'+$scope.index).addClass("hover");
+            	$scope.checkval=$('#qw'+$scope.index).html();
+        	}
         }
 	}
 
