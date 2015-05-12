@@ -12,7 +12,7 @@
 						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
 					</div>
 					<div class="suggest_container">
-		            	<a  ng-repeat="one in searchvalues" ng-click="hotwords(one)">{{one}}</a>
+		            	<a id="ew{{$index+1}}" ng-repeat="one in searchvalues" ng-click="hotwords(one)">{{one}}</a>
 		            </div>
 				</div>
 			</div>
