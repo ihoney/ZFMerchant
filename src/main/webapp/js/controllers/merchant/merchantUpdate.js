@@ -71,105 +71,71 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 			$scope.$emit('changeshow', false);
 		}
 		
-		var vw = "ok";
+		var vw = "上传成功";
 		$('#cardIdFrontPhotoPath').Huploadify({//法人上半身照片
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdFrontPhotoPath=obj.result;
+				$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
 				 $("#cardIdFrontPhotoPath_s").html(vw);
 					}
 			});
 		
 		$('#cardIdBackPhotoPath').Huploadify({//法人身份证照片背面
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.cardIdBackPhotoPath=obj.result;
+				$("#cardIdBackPhotoPath_m").attr("imgPath",$scope.merchant.cardIdBackPhotoPath);
 				 $("#cardIdBackPhotoPath_s").html(vw);
 					}
 			});
 		
 		
 		$('#bodyPhotoPath').Huploadify({//法人上半身照片
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.bodyPhotoPath=obj.result;
+				$("#bodyPhotoPath_m").attr("imgPath",$scope.merchant.bodyPhotoPath);
 				 $("#bodyPhotoPath_s").html(vw);
 					}
 			});
 		
 		$('#licenseNoPicPath').Huploadify({//营业执照照片
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.licenseNoPicPath=obj.result;
+				$("#licenseNoPicPath_m").attr("imgPath",$scope.merchant.licenseNoPicPath);
 				 $("#licenseNoPicPath_s").html(vw);
 					}
 			});
 		$('#taxNoPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.taxNoPicPath=obj.result;
+				$("#taxNoPicPath_m").attr("imgPath",$scope.merchant.taxNoPicPath);
 				 $("#taxNoPicPath_s").html(vw);
 					}
 			});
 		$('#orgCodeNoPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.orgCodeNoPicPath=obj.result;
+				$("#orgCodeNoPicPath_m").attr("imgPath",$scope.merchant.orgCodeNoPicPath);
 				 $("#orgCodeNoPicPath_s").html(vw);
 					}
 			});
 		$('#accountPicPath').Huploadify({// 
-			fileSizeLimit:9999,
 			buttonText:'重新上传',
-			uploader:'api/index/upload',
-			 simUploadLimit : 1,
-			 onUploadStart:function(){
-				 
-			 },
 			onUploadComplete:function(event, response, status){
 				var obj = eval( "(" + response + ")" );//转换后的JSON对象
 				$scope.merchant.accountPicPath=obj.result;
+				$("#accountPicPath_m").attr("imgPath",$scope.merchant.accountPicPath);
 				 $("#accountPicPath_s").html(vw);
 					}
 			});

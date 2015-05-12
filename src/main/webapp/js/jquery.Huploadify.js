@@ -5,20 +5,35 @@ $.fn.Huploadify = function(opts){
 		fileTypeExts:'*.jpg;*.png;*.gif;*.bmp;*.jpeg;*.JPG;*.PNG;*.GIF;*.BMP;*.JPEG',//允许上传的文件类型，格式'*.jpg;*.doc'
 		uploader:'api/index/upload',//文件提交的地址
 		auto:true,//是否开启自动上传
+	    simUploadLimit : 1,
 		method:'post',//发送请求的方式，get或post
 		multi:false,//是否允许选择多个文件
 		formData:null,//发送给服务端的参数，格式：{key1:value1,key2:value2}
 		fileObjName:'file',//在后端接受文件的参数名称，如PHP中的$_FILES['file']
 		fileSizeLimit:2048,//允许上传的文件大小，单位KB
-		showUploadedPercent:true,//是否实时显示上传的百分比，如20%
+		showUploadedPercent:false,//是否实时显示上传的百分比，如20%
 		showUploadedSize:false,//是否实时显示已上传的文件大小，如1M/2M
 		buttonText:'上传照片',//上传按钮上的文字
-		removeTimeout: 99999,//上传完成后进度条的消失时间
+		removeTimeout: 0,//上传完成后进度条的消失时间
 		itemTemplate:itemTemp,//上传队列显示的模板
-		onUploadStart:null,//上传开始时的动作
-		onUploadSuccess:null,//上传成功的动作
-		onUploadComplete:null,//上传完成的动作
-		onUploadError:null, //上传失败的动作
+		 onUploadStart:function(){//上传开始时的动作
+			 var doc_height = $(document).height();
+			 $("#mer_mask").css({//显示遮罩loading
+					display : 'block',
+					height : doc_height
+				});
+			 $("#mer_mask").show();
+			 $("#mer_upImgLoading").show();
+		 },
+		onUploadSuccess:function(){//上传成功的动作
+			 $("#mer_mask").hide();
+			 $("#mer_upImgLoading").hide();
+		},
+		onUploadComplete:function(){
+		},//上传完成的动作
+		onUploadError:function(){
+			alert("上传失败");
+		}, //上传失败的动作
 		onInit:null,//初始化时的动作
 		onCancel:null//删除掉某个文件后的回调函数，可传入参数file
 	}
@@ -201,7 +216,8 @@ $.fn.Huploadify = function(opts){
 			  try{
 				 xhr=new XMLHttpRequest();//尝试创建 XMLHttpRequest 对象，除 IE 外的浏览器都支持这个方法。
 			  }catch(e){	  
-				xhr=ActiveXobject("Msxml12.XMLHTTP");//使用较新版本的 IE 创建 IE 兼容的对象（Msxml2.XMLHTTP）。
+				  xhr=  new window.ActiveXObject( "Microsoft.XMLHTTP" );
+			//	xhr=ActiveXobject("Msxml12.XMLHTTP");//使用较新版本的 IE 创建 IE 兼容的对象（Msxml2.XMLHTTP）。
 			  }
 			  
 			  if (xhr.upload) {
