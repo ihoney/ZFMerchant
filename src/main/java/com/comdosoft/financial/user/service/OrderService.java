@@ -405,7 +405,7 @@ public class OrderService {
 	        for (Terminal t : terminals) {
 	        	String r2 = t.getReserver2();
 	        	if(!StringUtils.isBlank(r2)){
-	        		r2 = "("+r2+")";
+	        		r2 = "(激活码："+r2+")";
 	        	}else{
 	        		r2 = "";
 	        	}
@@ -544,7 +544,7 @@ public class OrderService {
                     for (Terminal t : terminals) {
                     	String r2 = t.getReserver2();
         	        	if(!StringUtils.isBlank(r2)){
-        	        		r2 = "("+r2+")";
+        	        		r2 = "(激活码："+r2+")";
         	        	}else{
         	        		r2 = "";
         	        	}
