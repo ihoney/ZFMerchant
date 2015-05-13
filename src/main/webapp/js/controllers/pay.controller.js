@@ -86,6 +86,9 @@ var payController = function($scope, $http,$location,LoginService) {
             }
         });
 	};
+	$scope.payproblem= function(){
+		window.open("help/payproblem.html");
+	};
 	$scope.init();
 };
 

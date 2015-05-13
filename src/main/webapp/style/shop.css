@@ -126,8 +126,8 @@
 /*--首页轮播--*/
 .head_index { position: absolute; top: 40px; left: 0px; width: 100%; z-index: 5;}
 .ad { font-size: 0px; width: 100%;}
-.banner { position: relative; overflow: auto; height: 466px;}
-.banner li { list-style: none; height: 466px;}
+.banner { position: relative; overflow: auto; height: 700px;}
+.banner li { list-style: none; height: 700px;}
 .banner ul li { 
 	float: left; 
 	background-size: contain; 
