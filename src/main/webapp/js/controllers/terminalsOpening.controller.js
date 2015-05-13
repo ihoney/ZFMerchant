@@ -174,10 +174,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
         	  if(data.code == 1){
         		//终端信息
                   $scope.merchant = data.result;
-                  if($scope.merchant.legal_person_name != null){
-                	  $("#valueName").val($scope.merchant.legal_person_name);
-                	  $("#bankNameValue").val($scope.merchant.legal_person_name);
-                  }
+                	  $("#bankNameValue").val($scope.merchantNamed);
         	  }else{
         		  alert("商户信息加载失败！");
         	  }

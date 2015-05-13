@@ -871,3 +871,5 @@ i.closeDeal_icon {
 .upImgLoading span { width: 37px; height: 37px; display: inline-block; font-size: 0;}
 .upImgLoading p { line-height: 32px;}
 
+/*-----申请开通提示文字-----*/
+.prompt_p { color: #999; width: 264px; clear: both;}
