@@ -79,5 +79,11 @@
        INSERT into customer_intentions(intention_name,intention_phone,content,STATUS,created_at)
 	  VALUES (#{name},#{phone},#{content},1,now())
      </insert>
+     
+     <select id="getAgentName" resultType="String">
+	<![CDATA[
+		SELECT ifnull(company_name,name) company_name  from agents  where id=#{agentId}
+	]]>
+	</select>
 
 </mapper>
