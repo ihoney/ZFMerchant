@@ -130,7 +130,6 @@
 .banner li { list-style: none; height: 700px;}
 .banner ul li { 
 	float: left; 
-	background-size: contain; 
 	background-position: center center; 
 	background-repeat: no-repeat;
 	background-color: #FFF;
