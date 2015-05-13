@@ -52,14 +52,14 @@
                             <li>
                             	<span class="labelSpan">商户名称：</span>
                                 <div class="text">
-                                <input name="" id="merchant" type="text" ng-model="merchantNamed"/>
+                                <input name="" id="merchant" type="text" ng-model="merchantNamed" ng-keyup="toworte()"/>
                                 <p class="prompt_p" ng-if="status==1">请填写公司全名</p>
                                 <p class="prompt_p" ng-if="status==2">请填写申请人姓名</p>
                                 </div>
                             </li>
                                 <li><span class="labelSpan" id="keyNmae">姓名：</span>
                                 	<div class="text">
-                                	<input name="valueName" type="text" id="valueName"  value="{{merchant.legal_person_name}}" ng-keyup="toworte()"/>
+                                	<input name="valueName" type="text" id="valueName"  value="{{merchant.legal_person_name}}" />
                                 	<p class="prompt_p">必须与法人身份证照片相符</p>
                                 	</div>
                                 </li>
