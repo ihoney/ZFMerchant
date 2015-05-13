@@ -75,7 +75,7 @@
  	
 
  	<select id="getApplyList" parameterType="map" resultType="map">
- 		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(b.`name`,'') as brandName,
+ 		SELECT IFNULL(t.id,'') as id,IFNULL(t.serial_num,'') as serial_num,IFNULL(t.status,'') as status,IFNULL(t.type,'') as type,IFNULL(b.`name`,'') as brandName,
  		IFNULL(g.model_number,'') as model_number,IFNULL(o.id,'') as appid,IFNULL(o.`status`,'') as openstatus,IFNULL(c.`name`,'') as channelName
  		,IFNULL(t.pay_channel_id,'0') as payChannelId,
  		IFNULL(c.opening_protocol,'') as openingProtocol
