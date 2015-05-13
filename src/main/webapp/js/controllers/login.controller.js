@@ -7,18 +7,6 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 	$scope.ngshow2 = false;
 	$scope.shopcart1 = true;
 	$scope.shopcart2 = true;
-	$scope.shopcount = 0;
-	$scope.shopcartcount = function() {
-		if (LoginService.userid > 0) {
-			$http.post("api/cart/total", {
-				customerId : LoginService.userid
-			}).success(function(data) { // 绑定
-				if (data.code == 1) {
-					$scope.shopcount = data.result;
-				}
-			});
-		}
-	};
 	$scope.$on('$locationChangeStart', function(scope, next, current) {
 		var strs = new Array(); // 定义一数组
 		strs = next.split("/#/"); // 字符分割
@@ -130,6 +118,9 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 					$scope.shopcount = data.result;
 				}
 			});
+		}else{
+			$scope.shopcart=typeof($cookieStore.get("shopcart")) == 'undefined' ? [] : $cookieStore.get("shopcart");
+			$scope.shopcount=$scope.shopcart.length;
 		}
 	};
 	$scope.shopcartcount();
@@ -263,6 +254,9 @@ var searchController = function($scope,$http, LoginService) {
 
 var loginController = function($scope, $location, $http, LoginService) {
 
+	if(LoginService.userid>0){
+		window.location.href = '#/';
+	}
 	$scope.codeClass= false;
 	$scope.RememberPass = false;
 	// 登陆
