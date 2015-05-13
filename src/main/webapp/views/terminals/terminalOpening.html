@@ -148,7 +148,7 @@
                                 <li><span class="labelSpan" id="bankNameKey">结算银行帐户名：</span>
                                 	<div class="text">
                                 	<input disabled="disabled" name="" type="text" id="bankNameValue" value="{{openingInfos.account_bank_name}}"/>
-                                	<p class="prompt_p">必须是结算银行卡持有人的名字，并且与提交的姓名一致</p>
+                                	<p class="prompt_p">必须是结算银行卡持有人的名称，并且与提交的商户名一致</p>
                                 	</div>
                                 </li>
                                 <li><span class="labelSpan" id="bankCodeKey">结算银行名称：</span>
@@ -166,7 +166,8 @@
                       		</div>
                       </div>
                     <div class="attributes_box" ng-repeat="ma in MaterialLevel">
-                    	<h2>{{ma.levelTitle}}<em>{{ma.levelDescription}}</em></h2>
+                    	<h2>{{ma.levelTitle}}<em>{{ma.levelDescription}}</em>
+                    	<em ng-if="$index == 0" style="color: #F00;">* 上传格式、尺寸、大小</em></h2>
                         <div class="item_list clear">
                             <ul>
                                 <li ng-if="$index == 0 && status==1"><span class="labelSpan" id="organizationNoKey">组织登记号：</span>
