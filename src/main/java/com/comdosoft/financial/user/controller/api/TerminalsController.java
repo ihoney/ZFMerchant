@@ -190,7 +190,7 @@ public class TerminalsController {
 				map.put("merchantId", merchants.getId().toString());
 				map.put("status", String.valueOf(Terminal.TerminalTYPEID_1));
 				map.put("isReturnCsDepots", String.valueOf(Terminal.IS_RETURN_CS_DEPOTS_NO));
-				map.put("type", String.valueOf(Terminal.SYSTYPE));
+				map.put("type", String.valueOf(Terminal.SELFTYPES));
 				map.put("payChannelId", map.get("payChannelId"));
 				terminalsService.addTerminal(map);
 				return Response.getSuccess("添加成功！");
