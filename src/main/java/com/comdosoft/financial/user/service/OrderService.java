@@ -369,6 +369,7 @@ public class OrderService {
         if (olist.size() > 0) {
             OrderGood og = olist.get(0);
             StringBuffer sb = new StringBuffer();
+            StringBuffer sb2 = new StringBuffer();
             map.put("good_merchant", og.getGood() == null ? "" : og.getGood().getFactory() == null ? "" : og.getGood().getFactory().getName() == null ? "" : og.getGood().getFactory().getName());// 供货商
             for (OrderGood od : olist) {
                 omap = new HashMap<String, Object>();
@@ -409,9 +410,11 @@ public class OrderService {
 	        	}else{
 	        		r2 = "";
 	        	}
-	            sb.append(" "+ t.getSerialNum()+r2+"<br/>" );
+	            sb.append(" "+ t.getSerialNum()+r2 );
+	            sb2.append(" "+ t.getSerialNum()+r2+"<br/>" );
 	        }
             map.put("terminals", sb.toString().trim());
+            map.put("terminals_web", sb2.toString().trim());
         }
         map.put("order_goodsList", newObjList);
         MyOrderReq myOrderReq = new MyOrderReq();
