@@ -302,7 +302,7 @@
 	o.total_quantity as total_num,
 	om.customer_id as om_customer_id,
 	om.order_id as om_order_id,oo.logistics_name,oo.logistics_number,
-	ca.receiver ,ca.address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name
+	ca.receiver ,CONCAT(cccs.`name`,' ',ccs.`name`,' ',ca.address) as address,ca.moblephone,om.content as om_content,om.created_at as om_create_at,c.`name` as om_name
 	FROM
 	orders o
 	LEFT JOIN order_goods og ON o.id = og.order_id
@@ -316,6 +316,8 @@
 	LEFT JOIN customers c on om.customer_id = c.id
 	LEFT JOIN order_payments p on o.id= p.order_id
 	left join order_logistics oo on o.id = oo.order_id
+	left JOIN cities ccs on ccs.id = ca.city_id
+left JOIN cities cccs on cccs.id = ccs.parent_id
 	WHERE
 	o.id = #{param1}
 	</select>
