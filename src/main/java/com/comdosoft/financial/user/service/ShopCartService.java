@@ -1,5 +1,6 @@
 package com.comdosoft.financial.user.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.comdosoft.financial.user.domain.query.Cart;
 import com.comdosoft.financial.user.domain.query.CartReq;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
@@ -73,6 +75,45 @@ public class ShopCartService {
 
     public int getTotal(CartReq cartreq) {
         return shopCartMapper.getTotal(cartreq);
+    }
+
+    public List<?> getunLoginList(CartReq cartreq) {
+        List<Map<String,Object>> mapList=new ArrayList<Map<String,Object>>();
+        Map<String,Object> m=null;
+        int count=0;
+        for (Cart c : cartreq.getCart()) {
+            count++;
+            m=shopCartMapper.getShopOne2(c);
+            if(m!=null){
+                List<String> goodPics=goodMapper.getgoodPics(c.getGoodId());
+                if(null!=goodPics&&goodPics.size()>0){
+                    m.put("url_path",filePath+goodPics.get(0));
+                }
+                m.put("quantity", c.getQuantity());
+                m.put("id", count);
+                mapList.add(m);
+            }
+            
+        }
+        return mapList;
+    }
+
+    public int bigupdate(CartReq cartreq) {
+        try {
+            for (Cart c : cartreq.getCart()) {
+                cartreq.setQuantity(c.getQuantity());
+                cartreq.setGoodId(c.getGoodId());
+                cartreq.setPaychannelId(c.getPaychannelId());
+                int r=add(cartreq);
+                if(r==0){
+                    return -1;
+                }
+            }
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
+        
     }
 
 }

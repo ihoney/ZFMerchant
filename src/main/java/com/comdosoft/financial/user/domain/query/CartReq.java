@@ -1,5 +1,7 @@
 package com.comdosoft.financial.user.domain.query;
 
+import java.util.List;
+
 public class CartReq {
     
     
@@ -9,6 +11,8 @@ public class CartReq {
      private int quantity;
      private int paychannelId;
      private int type;
+     
+     private List<Cart> cart;
      
      //{"id":1,"goodId":2,"customerId":2,"quantity":2,"paychannelId":2}
      
@@ -47,6 +51,12 @@ public class CartReq {
     }
     public void setType(int type) {
         this.type = type;
+    }
+    public List<Cart> getCart() {
+        return cart;
+    }
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
     }
      
      
