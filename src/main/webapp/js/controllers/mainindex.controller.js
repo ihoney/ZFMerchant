@@ -8,6 +8,18 @@ var mainindexController = function($scope, $http) {
 	$scope.req = {};
 
 	$scope.addBuy = function() {
+		if($scope.req.name==undefined||$.trim($scope.req.name)==""){
+			alert("请输入意向人");
+			return;
+		}
+		if($scope.req.phone==undefined||$.trim($scope.req.phone)==""){
+			alert("请输入联系电话");
+			return;
+		}
+		if($scope.req.content==undefined||$.trim($scope.req.content)==""){
+			alert("请输入咨询内容");
+			return;
+		}
 		$http.post("api/paychannel/intention/add", $scope.req).success(function(data) { // 绑定
 			if (data.code == 1) {
 				$('.buyIntention_tab').hide();
