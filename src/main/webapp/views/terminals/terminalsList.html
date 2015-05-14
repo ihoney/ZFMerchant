@@ -74,7 +74,7 @@
                             <span ng-if="nums.appid != null && nums.appid != '' && nums.status != 4">
                             <a ng-click="isopenstatus($index,nums.id)"  class="a_btn">重新申请</a>
                             </span>
-                            <span ng-if="nums.appid == null || nums.appid == '' && nums.status != 4"">
+                            <span ng-if="(nums.appid == null || nums.appid == '') && nums.status != 4">
                             <a ng-click="applyOpenInfo(nums.id)" class="a_btn">申请开通</a>
                             </span>
                             </td>
