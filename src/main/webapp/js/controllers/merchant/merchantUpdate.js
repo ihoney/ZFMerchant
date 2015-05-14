@@ -54,6 +54,7 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 		$scope.merchant.customerId = LoginService.userid;
 		$http.post("api/merchant/update", $scope.merchant).success(function(data) {
 			if (data.code == 1) {
+				alert("更新成功");
 				window.location.href = '#/merchantList';
 			} else {
 				alert(data.message);
@@ -72,73 +73,211 @@ var merchantUpdateController = function($scope, $http, $location, LoginService) 
 		}
 		
 		var vw = "上传成功";
-		$('#cardIdFrontPhotoPath').Huploadify({//法人上半身照片
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.cardIdFrontPhotoPath=obj.result;
-				$("#cardIdFrontPhotoPath_m").attr("imgPath",$scope.merchant.cardIdFrontPhotoPath);
-				 $("#cardIdFrontPhotoPath_s").html(vw);
-					}
-			});
 		
-		$('#cardIdBackPhotoPath').Huploadify({//法人身份证照片背面
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.cardIdBackPhotoPath=obj.result;
-				$("#cardIdBackPhotoPath_m").attr("imgPath",$scope.merchant.cardIdBackPhotoPath);
-				 $("#cardIdBackPhotoPath_s").html(vw);
-					}
-			});
+		  $("#cardIdFrontPhotoPath").uploadify({
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+		                $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.cardIdFrontPhotoPath=data;
+						$("#cardIdFrontPhotoPath_m").attr("imgPath",data);
+						 $("#cardIdFrontPhotoPath_s").html(vw);
+	                }
+	        });
+		  
+			//法人身份证照片背面
+		  $("#cardIdBackPhotoPath").uploadify({
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+	                    $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.cardIdBackPhotoPath=data;
+						$("#cardIdBackPhotoPath_m").attr("imgPath",data);
+						 $("#cardIdBackPhotoPath_s").html(vw);
+	                }
+	        });
+
+		  $("#bodyPhotoPath").uploadify({
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+	                    $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.bodyPhotoPath=data;
+						$("#bodyPhotoPath_m").attr("imgPath",data);
+						 $("#bodyPhotoPath_s").html(vw);
+	                }
+	        });
+		   
+		  $("#licenseNoPicPath").uploadify({ 
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+	                    $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.licenseNoPicPath=data;
+						$("#licenseNoPicPath_m").attr("imgPath",data);
+						 $("#licenseNoPicPath_s").html(vw);
+	                }
+	        });
+
+		  $("#taxNoPicPath").uploadify({ 
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+	                    $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.taxNoPicPath=data;
+						$("#taxNoPicPath_m").attr("imgPath",data);
+						 $("#taxNoPicPath_s").html(vw);
+	                }
+	        });
+		  
+		  $("#orgCodeNoPicPath").uploadify({ 
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+	                    $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.orgCodeNoPicPath=data;
+						$("#orgCodeNoPicPath_m").attr("imgPath",data);
+						 $("#orgCodeNoPicPath_s").html(vw);
+	                }
+	        });
+		  
+		  $("#accountPicPath").uploadify({ 
+			  buttonText:'重新上传',
+	            'queueID':    'file',     
+	            'multi':       false,
+	            onUploadStart:function(){//上传开始时的动作
+					 var doc_height = $(document).height();
+					 $("#mer_mask").css({//显示遮罩loading
+							display : 'block',
+							height : doc_height
+						});
+					 $("#mer_mask").show();
+					 $("#mer_upImgLoading").show();
+				 },
+	            //检测FLASH失败调用
+	                'onFallback':function()
+	               {
+	                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+	               },
+	                //上传到服务器，服务器返回相应信息到data里
+	                'onUploadSuccess':function(file, data, response)
+	                {
+	                    $("#mer_mask").hide();
+			   			 $("#mer_upImgLoading").hide();
+			   			$scope.merchant.accountPicPath=data;
+						$("#accountPicPath_m").attr("imgPath",data);
+						 $("#accountPicPath_s").html(vw);
+	                }
+	        });
 		
-		
-		$('#bodyPhotoPath').Huploadify({//法人上半身照片
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.bodyPhotoPath=obj.result;
-				$("#bodyPhotoPath_m").attr("imgPath",$scope.merchant.bodyPhotoPath);
-				 $("#bodyPhotoPath_s").html(vw);
-					}
-			});
-		
-		$('#licenseNoPicPath').Huploadify({//营业执照照片
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.licenseNoPicPath=obj.result;
-				$("#licenseNoPicPath_m").attr("imgPath",$scope.merchant.licenseNoPicPath);
-				 $("#licenseNoPicPath_s").html(vw);
-					}
-			});
-		$('#taxNoPicPath').Huploadify({// 
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.taxNoPicPath=obj.result;
-				$("#taxNoPicPath_m").attr("imgPath",$scope.merchant.taxNoPicPath);
-				 $("#taxNoPicPath_s").html(vw);
-					}
-			});
-		$('#orgCodeNoPicPath').Huploadify({// 
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.orgCodeNoPicPath=obj.result;
-				$("#orgCodeNoPicPath_m").attr("imgPath",$scope.merchant.orgCodeNoPicPath);
-				 $("#orgCodeNoPicPath_s").html(vw);
-					}
-			});
-		$('#accountPicPath').Huploadify({// 
-			buttonText:'重新上传',
-			onUploadComplete:function(event, response, status){
-				var obj = eval( "(" + response + ")" );//转换后的JSON对象
-				$scope.merchant.accountPicPath=obj.result;
-				$("#accountPicPath_m").attr("imgPath",$scope.merchant.accountPicPath);
-				 $("#accountPicPath_s").html(vw);
-					}
-			});
 	};
 	$scope.init();
 };
