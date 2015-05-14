@@ -467,6 +467,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 			return false;
 		}  else {
 			$scope.inputclassme = "input_true";
+			$scope.passIsOn = false;
 			return true;
 		}
 	}
@@ -480,6 +481,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		$scope.codeBei = null;
 		$scope.show = true;
 		$scope.reGetRandCodeImg();
+		$scope.inputclass = "input_true";
+		$scope.inputclassme = "input_true";
+		$scope.passIsOn = false;
+		$scope.inputemaila = "input_true";
+		$scope.inputemailb = "input_true";
+		$scope.passerrorboolean = false;
 		// 发送邮件倒计时
 		window.clearInterval(window.one);
 		// 发送手机验证码倒计时
@@ -502,6 +509,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		$scope.inputclassme = "input_true";
+		$scope.inputclass = "input_true";
+		$scope.passIsOn = false;
+		$scope.inputemaila = "input_true";
+		$scope.inputemailb = "input_true";
+		$scope.passerrorboolean = false;
 		$scope.reGetRandCodeImg();
 		// 发送邮件倒计时
 		window.clearInterval(window.one);
@@ -592,6 +605,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 
 	// 注册用户
 	$scope.addUser = function() {
+		
 		$http.post("api/user/userWebRegistration", {
 			username : $scope.rename,
 			accountType : false,
@@ -637,6 +651,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 			return false;
 		} else {
 			$scope.inputemailb = "input_true";
+			$scope.passerrorboolean = false;
 			return true;
 		}
 	}
