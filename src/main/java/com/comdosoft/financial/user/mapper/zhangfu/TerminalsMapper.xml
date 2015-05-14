@@ -88,7 +88,7 @@
 		WHERE t.customer_id = #{id} 
 		<if test="frontStatus != null and frontStatus !=''">AND t.`status` = #{frontStatus}</if>
 		<if test="serialNum != null and serialNum !=''">AND  t.serial_num like '%${serialNum}%'</if>
-		ORDER BY t.created_at DESC
+		ORDER BY t.created_at DESC,t.id DESC
 		LIMIT #{offSetPage},#{pageSize}
 
 	</select>
@@ -222,7 +222,7 @@
 
 	<select id="getRate" parameterType="int" resultType="map">
 		SELECT
-		s.id,s.terminal_rate,d.trade_type,d.trade_value,y.rate as service_rate,t.base_rate,l.`status`
+		s.id,IFNULL(s.terminal_rate,0) as terminal_rate,IFNULL(d.trade_type,'') as trade_type,IFNULL(d.trade_value,0) as trade_value,IFNULL(y.rate,0) as service_rate,IFNULL(t.base_rate,0) as base_rate,IFNULL(l.`status`,null) as status
 		FROM terminals t LEFT JOIN
 		support_trade_types s ON t.pay_channel_id = s.pay_channel_id
 		LEFT JOIN dictionary_trade_types d ON d.id = s.trade_type_id

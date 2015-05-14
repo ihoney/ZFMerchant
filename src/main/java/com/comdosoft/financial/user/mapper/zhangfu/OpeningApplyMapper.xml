@@ -86,6 +86,7 @@
 		LEFT JOIN pay_channels c on c.id=t.pay_channel_id
  		WHERE t.customer_id=#{id}
  		AND t.status in (#{twoStatus},#{threeStatus})
+ 		ORDER BY t.created_at DESC,t.id DESC
  		LIMIT #{offSetPage},#{pageSize}
  	</select>
  	
