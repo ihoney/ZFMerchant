@@ -7,18 +7,6 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 	$scope.ngshow2 = false;
 	$scope.shopcart1 = true;
 	$scope.shopcart2 = true;
-	$scope.shopcount = 0;
-	$scope.shopcartcount = function() {
-		if (LoginService.userid > 0) {
-			$http.post("api/cart/total", {
-				customerId : LoginService.userid
-			}).success(function(data) { // 绑定
-				if (data.code == 1) {
-					$scope.shopcount = data.result;
-				}
-			});
-		}
-	};
 	$scope.$on('$locationChangeStart', function(scope, next, current) {
 		var strs = new Array(); // 定义一数组
 		strs = next.split("/#/"); // 字符分割
@@ -130,6 +118,9 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 					$scope.shopcount = data.result;
 				}
 			});
+		}else{
+			$scope.shopcart=typeof($cookieStore.get("shopcart")) == 'undefined' ? [] : $cookieStore.get("shopcart");
+			$scope.shopcount=$scope.shopcart.length;
 		}
 	};
 	$scope.shopcartcount();
@@ -263,6 +254,9 @@ var searchController = function($scope,$http, LoginService) {
 
 var loginController = function($scope, $location, $http, LoginService) {
 
+	if(LoginService.userid>0){
+		window.location.href = '#/';
+	}
 	$scope.codeClass= false;
 	$scope.RememberPass = false;
 	// 登陆
@@ -473,6 +467,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 			return false;
 		}  else {
 			$scope.inputclassme = "input_true";
+			$scope.passIsOn = false;
 			return true;
 		}
 	}
@@ -486,6 +481,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		$scope.codeBei = null;
 		$scope.show = true;
 		$scope.reGetRandCodeImg();
+		$scope.inputclass = "input_true";
+		$scope.inputclassme = "input_true";
+		$scope.passIsOn = false;
+		$scope.inputemaila = "input_true";
+		$scope.inputemailb = "input_true";
+		$scope.passerrorboolean = false;
 		// 发送邮件倒计时
 		window.clearInterval(window.one);
 		// 发送手机验证码倒计时
@@ -508,6 +509,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		$scope.inputclassme = "input_true";
+		$scope.inputclass = "input_true";
+		$scope.passIsOn = false;
+		$scope.inputemaila = "input_true";
+		$scope.inputemailb = "input_true";
+		$scope.passerrorboolean = false;
 		$scope.reGetRandCodeImg();
 		// 发送邮件倒计时
 		window.clearInterval(window.one);
@@ -598,6 +605,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 
 	// 注册用户
 	$scope.addUser = function() {
+		
 		$http.post("api/user/userWebRegistration", {
 			username : $scope.rename,
 			accountType : false,
@@ -643,6 +651,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 			return false;
 		} else {
 			$scope.inputemailb = "input_true";
+			$scope.passerrorboolean = false;
 			return true;
 		}
 	}

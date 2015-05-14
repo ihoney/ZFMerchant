@@ -409,7 +409,7 @@ public class OrderService {
 	        	}else{
 	        		r2 = "";
 	        	}
-	            sb.append(" "+ t.getSerialNum()+r2 );
+	            sb.append(" "+ t.getSerialNum()+r2+"<br/>" );
 	        }
             map.put("terminals", sb.toString().trim());
         }

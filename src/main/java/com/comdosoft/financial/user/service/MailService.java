@@ -1,6 +1,11 @@
 package com.comdosoft.financial.user.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -234,14 +239,29 @@ public class MailService {
      */
     private static String getEmailContent(MailReq req) {
         StringBuffer sb = new StringBuffer();
-        /*sb.append("尊敬的"+req.getUserName()+"先生/女士：<br>");*/
+   /*     sb.append("尊敬的"+req.getUserName()+"先生/女士：<br>");
         sb.append("感谢您注册 ebank007.com! <br>");
         sb.append("请点击以下链接激活你的账户并设置您的账号密码：<br>");
-       /* sb.append("The download link for Android is: this link<br>");*/
+        sb.append("The download link for Android is: this link<br>");
         sb.append(req.getUrl() + "<br>");
         sb.append("此邮件为系统自动发出，请勿回复此邮件，如果您有疑问，请联系我们：<br>");
         sb.append("邮箱：support@ebank007.com<br>");
-        sb.append("服务热线：400-009-0876<br>");
+        sb.append("服务热线：400-009-0876<br>");*/
+        
+        Map<Object, Object> map = new HashMap<Object, Object>();
+        map=stytemtime();
+        sb.append("亲爱的用户：<br>");
+        sb.append("您好！<br>");
+        sb.append("您于"+map.get("timeb")+" 注册华尔街金融账号："+req.getUserName()+"，点击以下链接，即可激活该账号：<br>");
+        sb.append(req.getUrl() + "<br>");
+        sb.append("（如果您无法点击此链接，请将它复制到浏览器地址栏后访问）<br>");
+        sb.append("1.为了保障您账号的安全性，请在24小时内完成激活，此链接将在您激活过后一次失效！<br>");
+        sb.append("2.请尽快完成激活，否则过期，即"+map.get("timec")+"后华尔街金融有权收回该账号。<br>");
+        sb.append("<br><br>");
+        sb.append("华尔街金融<br>");
+        sb.append(map.get("timea")+"<br>");
+        sb.append("<hr><br>");
+        sb.append("若您没有注册过华尔街金融账号，请忽略此邮件，此账号将不会被激活，由此给您带来的不便请谅解！<br>");
         return sb.toString();
     }
     
@@ -332,5 +352,24 @@ public class MailService {
         } catch (Exception e) {
             logger.debug("from[" + mailUserName + "]to[" + req.getAddress() + "]send[" + "" + "]content[" + req.getUrl() + "]失败", e);
         }
+    }
+    
+    /**
+     * 获取当前时间
+     */
+    public static Map<Object, Object> stytemtime(){
+    	Calendar c = Calendar.getInstance();
+    	Map<Object, Object> map = new HashMap<Object, Object>();
+    	
+    	 DateFormat format1=new SimpleDateFormat("yyyy年MM月dd日");
+    	 DateFormat format2=new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+    	 String time1=format1.format(c.getTime());
+    	 String time2=format2.format(c.getTime());
+    	 c.add(Calendar.DAY_OF_MONTH, 1);
+    	 String time3=format2.format(c.getTime());
+    	 map.put("timea", time1);
+    	 map.put("timeb", time2);
+    	 map.put("timec", time3);
+    	 return map;
     }
 }

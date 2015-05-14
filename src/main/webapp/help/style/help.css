@@ -1,0 +1,114 @@
+@charset "utf-8";
+* { padding: 0; margin: 0;}
+body { font: 12px/1.5 "\5b8b\4f53", Arial,Verdana; color: #333; background: #f6f6f6;}
+a { text-decoration: none;}
+a:hover { text-decoration: underline;}
+
+li { list-style: none;}
+
+.box { width: 1200px; margin: 0 auto;}
+.red { color: #F00;}
+
+.head {}
+.topInfo { height:40px; line-height: 40px; background: #ff5f2b;}
+.topInfo a { 
+	color: #FFF; 
+	margin: 0 30px; 
+	font-size: 14px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.logoNav { height: 90px; overflow: hidden; background: #FFF;}
+.logo { 
+	width: 350px; 
+	height: 60px;
+	background: url(../images/logo_help.png) no-repeat;
+	text-indent: -999px;
+	overflow: hidden;
+	float: left;
+	margin-top: 15px;
+}
+.nav { 
+	float: right;
+	overflow: hidden; 
+	margin-top: 50px;
+}
+.nav li { float: left;}
+.nav li a { 
+	width: 170px; 
+	height: 38px; 
+	display: inline-block;
+	border: 1px #ff4a00 solid;
+	text-align: center;
+	line-height: 38px;
+	font-size: 16px;
+	color: #ff4a00;
+	text-decoration: none;
+}
+.nav li a:hover, .nav li a.hover { background: #ff4a00; color: #FFF;}
+
+.main { padding: 50px 0; width: 1200px; margin: 0 auto; overflow: hidden;}
+
+.left { float: left; width: 180px;} 
+.right { float: left; width: 1005px; padding-left:15px;}
+
+.l_nav { margin-bottom: 10px; width: 178px; border: 1px #CCCCCC solid;}
+.l_nav h1 { 
+	height: 36px; 
+	line-height: 36px; 
+	text-align: center; 
+	color: #FFF; 
+	font-size: 14px;
+	background: #ff4a00;
+}
+.side_menu { background: #FFF;}
+.side_menu li { line-height:36px; text-align: center; border-bottom: 1px #f6f6f6 solid;} 
+.side_menu li > a {
+	display: block; 
+	height: 36px; 
+	color: #666666; 
+	font-size: 14px; 
+	text-decoration: none;
+	font-weight: bold;
+	position: relative;
+}
+.side_menu li > a:hover { background: #f8f8f8; }
+.side_menu li.hover > a { color: #333; }
+.side_menu li .sub_menu { background: #f1f1f1;}
+.side_menu li .sub_menu a { font-size: 12px; color: #999999; font-weight:500;}
+.side_menu li .sub_menu a:hover { background: #e6e6e6; color: #666666;}
+.side_menu li .sub_menu li.hover a { color: #ff4a00;}
+
+.side_menu li i {
+	width: 12px;
+	height: 6px;
+	display: block;
+	position: absolute; 
+	top: 50%; 
+	right: 9px; 
+	margin: -3px -3px 0 0;
+}
+.side_menu li i.off { background: url(../images/menu_i.png) no-repeat 0px -6px;}
+.side_menu li i.on { background: url(../images/menu_i.png) no-repeat 0px 0px;}
+
+.l_ad { width: 180px;}
+.l_ad .ad_box { width: 178px; border: 1px #CCCCCC solid; margin-bottom: 10px; background: #FFF;}
+
+
+.r_content { background: #FFF; padding: 20px; border: 1px #CCCCCC solid; min-height: 500px;}
+.r_content h1 { font-size: 18px; line-height: 36px; margin-bottom: 10px; font-family: "microsoft yahei";}
+.r_content h2 { font-size: 14px; line-height: 28px; margin-bottom: 10px; color: #f39a00;}
+.r_content p { line-height: 24px; margin-bottom: 10px;}
+
+.w9 { width: 900px;}
+.w6 { width: 600px;}
+
+
+/*-------foot-------*/
+.foot { border-top: 1px #ccc solid; padding: 10px 0; overflow: hidden;}
+.foot .foot_nav { float: left;}
+.foot .foot_nav li { float: left;}
+.foot .foot_nav li a { color: #016cb7; margin: 0 10px;}
+.foot .foot_nav li a:hover { color: #0292f7;}
+.copyright { float: right; color: #666;}
