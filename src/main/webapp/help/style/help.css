@@ -10,13 +10,12 @@ li { list-style: none;}
 .red { color: #F00;}
 
 .head {}
-.topInfo { height:40px; line-height: 40px; background: #ff5f2b;}
+.topInfo { height:40px; line-height: 40px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 16px;}
 .topInfo a { 
 	color: #FFF; 
 	margin: 0 30px; 
 	font-size: 14px;
 	display: inline-block;
-	font-weight: bold;
 }
 
 .logoNav { height: 90px; overflow: hidden; background: #FFF;}
