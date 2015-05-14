@@ -87,6 +87,21 @@ public class GoodsController {
         return response;
     }
     
+    @RequestMapping(value = "getGoodImgUrl", method = RequestMethod.POST)
+    public Response getGoodImgUrl(@RequestBody Map<String, Object> map){
+    	Response response = new Response();
+    	List<Map<String, Object>> temp=goodService.getGoodImgUrl(Integer.parseInt(map.get("goodId").toString()));
+    	if(null==temp || temp.size()<1){
+    		response.setCode(Response.ERROR_CODE);
+    		response.setMessage("该商品不存在图片文件！");
+    	}else{
+    		response.setResult(temp);
+    		response.setCode(Response.SUCCESS_CODE);
+    	}
+    	return response;
+        
+    }
+    
     @RequestMapping(value = "value", method = RequestMethod.POST)
     public Response value(@RequestBody PosReq posreq){
         List<String> values;

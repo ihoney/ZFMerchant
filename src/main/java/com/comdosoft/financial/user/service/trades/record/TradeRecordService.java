@@ -136,6 +136,8 @@ public class TradeRecordService {
             } else {
                 result.put("payChannelName", null);
             }
+            String agentName=paychannelMapper.getAgentName((int) result.get("agentId"));
+            result.put("agentName", agentName);
         }
         return result;
     }

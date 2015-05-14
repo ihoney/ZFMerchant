@@ -21,7 +21,16 @@ input { border: none;}
 
 
 /*顶部信息*/
-.head { padding: 20px 0; border-bottom: 2px #ff5f2b solid; background: rgba(255,255,255,0.7);}
+.head { padding: 10px 0; border-bottom: 2px #ff5f2b solid; background: url(../images/white.png) repeat;}
+
+.topInfo { height: 40px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 16px;}
+
+
+.loginInfo { float: right; height: 40px; line-height: 40px;}
+.loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
+
+
+
 .logo { 
 	width: 316px; 
 	height: 50px; 
@@ -34,7 +43,7 @@ input { border: none;}
 .logo a { width: 316px; height: 50px; display: block;}
 .search {
 	float: left;
-	margin: 15px 0 0 60px;
+	margin: 10px 0 0 60px;
 	position: relative;
 }
 .search_box {
@@ -46,6 +55,7 @@ input { border: none;}
 .search_box input { 
 	width: 343px; 
 	height: 30px;
+	line-height: 30px;
 	padding: 0 5px; 
 	background: rgba(255,255,255,0.7); 
 	display: inline-block;
@@ -74,14 +84,16 @@ input { border: none;}
 	background: #FFF;
 	border: 1px #CCCCCC solid;
 	border-top: 0px;
- 	z-index: 10000;
+	z-index: 10000;
+	display: none;
 }
 .suggest_container a { height: 32px; line-height: 32px; display: block; padding: 0 10px;}
 .suggest_container a:hover, .suggest_container a.hover { background: #f8f8f8;}
 
+
 .phone { width: 200px; height: 40px; font-size: 0; float: left; margin: 15px 0 0 60px;}
 
-.shoppingCart { float: right; margin-top: 15px; position: relative;}
+.shoppingCart { float: right; margin-top: 10px; position: relative;}
 .sCart_h { position: relative; width: 75px; padding: 5px;}
 .sCart_h i { 
 	width: 40px; 
@@ -117,20 +129,62 @@ input { border: none;}
 	color: #FFF;
 	padding: 0px 5px;
 }
-.sCart_b { 
-	display: none; 
+.sCart_b {
+	display: none;
 	background: #FFF; 
 	box-shadow: 0 0 2px rgba(0,0,0,0.3); 
-	padding: 20px;
+	padding: 10px;
 	position: absolute;
 	right: 0px;
 	top: 40px;
-	width: 200px;
+	width: 320px;
 	z-index: 10;
+	border: 1px #eee solid;
 }
-.sCart_b strong { color: #ff5f2b; margin: 0 5px;}
-.sCart_b a { padding: 2px 5px; background: #ff5f2b; color:#fff; border-radius: 2px;}
-.sCart_b a:hover {background: #ff9b00;}
+
+/*--新 购物车---*/
+.mini_cart_hd { padding: 10px 0; font-weight:bold;}
+.mini_cart_bd { border-bottom: 1px #eee solid; overflow: hidden;}
+.mini_cart_bd li { margin-bottom: 10px; height: 42px; overflow: hidden;}
+
+.mini_cart_img { 
+	float: left; 
+	margin-right: 10px; 
+	width: 42px; 
+	height: 42px;
+	display: inline-block;
+	overflow: hidden;
+	text-align: center;
+}
+.mini_cart_img a { border: 1px #fff solid; width: 40px; height: 40px; display: inline-block; font-size: 0;}
+.mini_cart_img a:hover { border: 1px #eee solid;}
+.mini_cart_img img { width: 40px; height: 40px; vertical-align: middle;}
+
+.mini_cart_price { float: right; color: #ff5f2b;}
+.mini_cart_title { height: 20px; overflow: hidden;}
+.mini_cart_title a { 
+	width: 200px; 
+	overflow: hidden;
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+	display: inline-block;
+}
+.mini_cart_title a:hover { color: #ff5f2b;}
+.mini_cart_del { float: right;}
+.mini_cart_del a { color: #999;}
+.mini_cart_del a:hover { text-decoration: underline; color: #666;}
+.mini_cart_info { 
+	width: 200px; 
+	height: 20px; 
+	overflow: hidden; 
+	color: #9c9c9c;
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+}
+
+.mini_cart_ft { text-align: center; padding: 10px 10px 0 10px;}
+.mini_cart_ft a { background: #ff5f2b; padding: 5px 10px; display: inline-block; color: #FFF;}
+.mini_cart_ft a:hover { background: #fd6b3c;}
 
 
 .inner {border: 1px #CCCCCC solid; background: #FFF; padding: 10px;}

@@ -71,6 +71,9 @@ var repair_payController = function($scope, $http,$location) {
             }
         });
 	};
+	$scope.payproblem= function(){
+		window.open("help/payproblem.html");
+	};
 	$scope.init();
 };
 

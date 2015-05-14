@@ -12,6 +12,7 @@ var loginService = function($http, $rootScope, $cookieStore) {
 		loginUserName : typeof ($cookieStore.get("loginUserName")) == 'undefined' ? "" : $cookieStore.get("loginUserName"),
 		userid : typeof ($cookieStore.get("loginUserId")) == 'undefined' ? 0 : $cookieStore.get("loginUserId"),
 		city : typeof ($cookieStore.get("city_id")) == 'undefined' ? 0 : $cookieStore.get("city_id"),
+		cityName : typeof ($cookieStore.get("cityName")) == 'undefined' ? "" : $cookieStore.get("cityName"),
 		subusername : typeof ($cookieStore.get("subusername")) == 'undefined' ? 0 : $cookieStore.get("subusername"),
 		goods : [],
 		tradeTypeId : 0,
@@ -47,6 +48,8 @@ var loginService = function($http, $rootScope, $cookieStore) {
 							$cookieStore.put("loginUserName", data.result.username);
 							$cookieStore.put("loginUserId", data.result.id);
 							$cookieStore.put("subusername", data.result.subusername);
+							$cookieStore.put("cityName", data.result.cityName);
+							$cookieStore.put("city_name",data.result.cityName)
 							// 更新购物车
 							var shopcart2x = [];
 							shopcart2x = typeof ($cookieStore.get("shopcart")) == 'undefined' ? [] : $cookieStore.get("shopcart");

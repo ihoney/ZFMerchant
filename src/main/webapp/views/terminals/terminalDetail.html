@@ -34,12 +34,15 @@
                     	</span>
                     	<span ng-if="applyDetails.status == 3">
                     	<a href="javascript:void(0)" ng-click="judgeChang()" class="ghostBtn">换货</a>
-                    	<a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a>
+                    	<!-- <a href="javascript:void(0)" ng-click="judgeUpdate()" class="ghostBtn">更新资料</a> -->
                     	<!-- <a href="javascript:void(0)" ng-click="judgeRepair()" class="ghostBtn">维修</a> -->
                     	<a href="javascript:void(0)" ng-click="judgeReturn()" class="ghostBtn">退货</a>
                     	<a href="javascript:void(0)" ng-if="applyDetails.types == 2 || applyDetails.types == 4" ng-click="terminalsRentalReturn()" class="ghostBtn">租赁退还</a>
                     	<a href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步终端状态</a>
                     	<a href="javascript:void(0)" ng-click="gotoopen(applyDetails.id)" class="ghostBtn">申请开通</a>
+                    	</span>
+                    	<span ng-if="applyDetails.status == 4">
+                    	<a href="javascript:void(0)" class="ghostBtn" ng-click="synchronous()">同步终端状态</a>
                     	</span>
                         </div>
                     </div>
@@ -55,6 +58,8 @@
                                 <span ng-if="applyDetails.status == 2">终端状态： 部分开通</span> 
                             	<span ng-if="applyDetails.status == 1">终端状态： 已开通</span>
                             	<span ng-if="applyDetails.status == 3">终端状态： 未开通</span>
+                            	<span ng-if="applyDetails.status == 4">终端状态： 已注销</span>
+                            	<span ng-if="applyDetails.status == 5">终端状态： 已停用</span>
                                	 </li>
                                 <li>
                                 <span ng-if="applyDetails.applieStatus == 1">开通申请状态： 待初次预审</span> 

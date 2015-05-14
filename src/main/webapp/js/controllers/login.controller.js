@@ -2,7 +2,7 @@
 
 var indexController = function($scope, $location, $http, LoginService, $cookieStore) {
 	$scope.loginUserName = LoginService.loginUserName;
-	$scope.city_name = $cookieStore.get("city_name") == null ? "上海市" : $cookieStore.get("city_name");
+	$scope.city_name = $cookieStore.get("city_name") == null ? "全国" : $cookieStore.get("city_name");
 	$scope.ngshow = true;
 	$scope.ngshow2 = false;
 	$scope.shopcart1 = true;
@@ -16,6 +16,13 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 			$('#head_index').removeClass('head_index');
 		}
 		if (LoginService.userid == 0) {
+			if(strs[1]!="login"){
+				$cookieStore.put("url",strs[1]);
+			}
+			strs = strs[1].split("?");
+			if (check(strs[0])) {
+				window.location.href = '#/login';
+			}
 			$scope.loginshow = false;
 			$scope.ngshow = true;
 			$scope.ngshow2 = false;
@@ -25,7 +32,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 				strs = strs[1].split("?");
 				if (strs[0] == 'login') {
 					if (LoginService.userid > 0) {
-						window.location.href = '#/';
+						window.location.href = '#/'+$cookieStore.get("url");
 					}
 				}
 				if (check(strs[0])) {
@@ -148,7 +155,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 
 var headerController = function($scope, $location, $http, LoginService, $cookieStore) {
 	$scope.loginUserName = LoginService.subusername;
-	$scope.city_name = $cookieStore.get("city_name") == null ? "上海市" : $cookieStore.get("city_name");
+	$scope.city_name = $cookieStore.get("city_name") == null ? "全国" : $cookieStore.get("city_name");
 
 	$scope.index = function() {
 		window.location.href = '#/';
@@ -254,9 +261,6 @@ var searchController = function($scope,$http, LoginService) {
 
 var loginController = function($scope, $location, $http, LoginService) {
 
-	if(LoginService.userid>0){
-		window.location.href = '#/';
-	}
 	$scope.codeClass= false;
 	$scope.RememberPass = false;
 	// 登陆
@@ -467,6 +471,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 			return false;
 		}  else {
 			$scope.inputclassme = "input_true";
+			$scope.passIsOn = false;
 			return true;
 		}
 	}
@@ -480,6 +485,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		$scope.codeBei = null;
 		$scope.show = true;
 		$scope.reGetRandCodeImg();
+		$scope.inputclass = "input_true";
+		$scope.inputclassme = "input_true";
+		$scope.passIsOn = false;
+		$scope.inputemaila = "input_true";
+		$scope.inputemailb = "input_true";
+		$scope.passerrorboolean = false;
 		// 发送邮件倒计时
 		window.clearInterval(window.one);
 		// 发送手机验证码倒计时
@@ -502,6 +513,12 @@ var registerController = function($scope, $location, $http, LoginService) {
 		$scope.show = false;
 		$scope.sendEmailShow = true;
 		$scope.successEmailShow = false;
+		$scope.inputclassme = "input_true";
+		$scope.inputclass = "input_true";
+		$scope.passIsOn = false;
+		$scope.inputemaila = "input_true";
+		$scope.inputemailb = "input_true";
+		$scope.passerrorboolean = false;
 		$scope.reGetRandCodeImg();
 		// 发送邮件倒计时
 		window.clearInterval(window.one);
@@ -592,6 +609,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 
 	// 注册用户
 	$scope.addUser = function() {
+		
 		$http.post("api/user/userWebRegistration", {
 			username : $scope.rename,
 			accountType : false,
@@ -637,6 +655,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 			return false;
 		} else {
 			$scope.inputemailb = "input_true";
+			$scope.passerrorboolean = false;
 			return true;
 		}
 	}

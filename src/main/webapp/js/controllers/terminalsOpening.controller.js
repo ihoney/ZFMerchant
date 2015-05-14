@@ -160,7 +160,7 @@ var terminalOpenController = function ($scope, $http,$location, LoginService) {
   
 //姓名和银行名称对应
   $scope.toworte = function(){
-	  $("#bankNameValue").val($("#valueName").val());
+	  $("#bankNameValue").val($("#merchant").val());
   }
   
   //动态显示商户
