@@ -23,7 +23,7 @@ input { border: none;}
 /*顶部信息*/
 .head { padding: 10px 0; border-bottom: 2px #ff5f2b solid; background: url(../images/white.png) repeat;}
 
-.topInfo { height: 40px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 16px;}
+.topInfo { height: 40px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 14px;}
 
 
 .loginInfo { float: right; height: 40px; line-height: 40px;}
@@ -145,44 +145,39 @@ input { border: none;}
 /*--新 购物车---*/
 .mini_cart_hd { padding: 10px 0; font-weight:bold;}
 .mini_cart_bd { border-bottom: 1px #eee solid; overflow: hidden;}
-.mini_cart_bd li { margin-bottom: 10px; height: 42px; overflow: hidden;}
+.mini_cart_bd li { margin-bottom: 10px; height: 62px; overflow: hidden;}
 
 .mini_cart_img { 
 	float: left; 
 	margin-right: 10px; 
-	width: 42px; 
-	height: 42px;
+	width: 62px; 
+	height: 62px;
 	display: inline-block;
 	overflow: hidden;
 	text-align: center;
 }
-.mini_cart_img a { border: 1px #fff solid; width: 40px; height: 40px; display: inline-block; font-size: 0;}
+.mini_cart_img a { border: 1px #fff solid; width: 60px; height: 60px; display: inline-block; font-size: 0;}
 .mini_cart_img a:hover { border: 1px #eee solid;}
-.mini_cart_img img { width: 40px; height: 40px; vertical-align: middle;}
+.mini_cart_img img { width: 60px; height: 60px; vertical-align: middle;}
 
-.mini_cart_price { float: right; color: #ff5f2b;}
-.mini_cart_title { height: 20px; overflow: hidden;}
-.mini_cart_title a { 
-	width: 200px; 
-	overflow: hidden;
-	white-space: nowrap; 
-	text-overflow: ellipsis;
+.mini_cart_title { width: 150px;  line-height: 18px; overflow: hidden; float: left;}
+.mini_cart_title a {
 	display: inline-block;
 }
 .mini_cart_title a:hover { color: #ff5f2b;}
-.mini_cart_del { float: right;}
-.mini_cart_del a { color: #999;}
-.mini_cart_del a:hover { text-decoration: underline; color: #666;}
-.mini_cart_info { 
-	width: 200px; 
-	height: 20px; 
-	overflow: hidden; 
-	color: #9c9c9c;
-	white-space: nowrap; 
-	text-overflow: ellipsis;
-}
 
-.mini_cart_ft { text-align: center; padding: 10px 10px 0 10px;}
+.mini_cart_info {
+	float: right;
+	height: 62px; 
+	overflow: hidden; 
+	color: #666;
+}
+.mini_cart_info p { display: block; color: #ff5f2b; font-weight: bold; text-align: right;}
+
+.mini_cart_ft { text-align: right; padding: 10px 0px 0 10px; overflow: hidden;}
+
+.mini_cart_ft p { margin-bottom: 10px; line-height: 24px;}
+
 .mini_cart_ft a { background: #ff5f2b; padding: 5px 10px; display: inline-block; color: #FFF;}
 .mini_cart_ft a:hover { background: #fd6b3c;}
 
