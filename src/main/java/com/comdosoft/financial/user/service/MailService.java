@@ -252,7 +252,7 @@ public class MailService {
         map=stytemtime();
         sb.append("亲爱的用户：<br>");
         sb.append("您好！<br>");
-        sb.append("您于"+map.get("timeb")+" 注册华尔街金融账号：123456789@qq.com，点击以下链接，即可激活该账号：<br>");
+        sb.append("您于"+map.get("timeb")+" 注册华尔街金融账号："+req.getUserName()+"，点击以下链接，即可激活该账号：<br>");
         sb.append(req.getUrl() + "<br>");
         sb.append("（如果您无法点击此链接，请将它复制到浏览器地址栏后访问）<br>");
         sb.append("1.为了保障您账号的安全性，请在24小时内完成激活，此链接将在您激活过后一次失效！<br>");
