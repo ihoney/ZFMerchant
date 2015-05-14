@@ -49,6 +49,7 @@ var loginService = function($http, $rootScope, $cookieStore) {
 							$cookieStore.put("loginUserId", data.result.id);
 							$cookieStore.put("subusername", data.result.subusername);
 							$cookieStore.put("cityName", data.result.cityName);
+							$cookieStore.put("city_name",data.result.cityName)
 							// 更新购物车
 							var shopcart2x = [];
 							shopcart2x = typeof ($cookieStore.get("shopcart")) == 'undefined' ? [] : $cookieStore.get("shopcart");
