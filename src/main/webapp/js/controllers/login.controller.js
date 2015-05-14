@@ -2,7 +2,7 @@
 
 var indexController = function($scope, $location, $http, LoginService, $cookieStore) {
 	$scope.loginUserName = LoginService.loginUserName;
-	$scope.city_name = $cookieStore.get("city_name") == null ? "上海市" : $cookieStore.get("city_name");
+	$scope.city_name = $cookieStore.get("city_name") == null ? "全国" : $cookieStore.get("city_name");
 	$scope.ngshow = true;
 	$scope.ngshow2 = false;
 	$scope.shopcart1 = true;
@@ -16,6 +16,13 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 			$('#head_index').removeClass('head_index');
 		}
 		if (LoginService.userid == 0) {
+			if(strs[1]!="login"){
+				$cookieStore.put("url",strs[1]);
+			}
+			strs = strs[1].split("?");
+			if (check(strs[0])) {
+				window.location.href = '#/login';
+			}
 			$scope.loginshow = false;
 			$scope.ngshow = true;
 			$scope.ngshow2 = false;
@@ -25,7 +32,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 				strs = strs[1].split("?");
 				if (strs[0] == 'login') {
 					if (LoginService.userid > 0) {
-						window.location.href = '#/';
+						window.location.href = '#/'+$cookieStore.get("url");
 					}
 				}
 				if (check(strs[0])) {
@@ -148,7 +155,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 
 var headerController = function($scope, $location, $http, LoginService, $cookieStore) {
 	$scope.loginUserName = LoginService.subusername;
-	$scope.city_name = $cookieStore.get("city_name") == null ? "上海市" : $cookieStore.get("city_name");
+	$scope.city_name = $cookieStore.get("city_name") == null ? "全国" : $cookieStore.get("city_name");
 
 	$scope.index = function() {
 		window.location.href = '#/';
@@ -254,9 +261,6 @@ var searchController = function($scope,$http, LoginService) {
 
 var loginController = function($scope, $location, $http, LoginService) {
 
-	if(LoginService.userid>0){
-		window.location.href = '#/';
-	}
 	$scope.codeClass= false;
 	$scope.RememberPass = false;
 	// 登陆

@@ -68,8 +68,7 @@ i.no1 {
 	background: url(../images/icons.png) no-repeat -71px -261px;
 }
 
-.topInfo { height: 40px; background: #ff5f2b;}
-
+/*客服*/
 .top_kf { color: #FFF; line-height: 40px; float: left; font-size: 14px;}
 .top_kf li { float: left; margin-right: 20px;}
 .top_kf li a.kf_a { color: #FFF; position: relative; padding-left: 25px; display: inline-block;}
@@ -97,10 +96,11 @@ i.no1 {
 .top_kf a:hover, 
 .top_kf a.hover { border-bottom: 2px #FFFFFF solid;}
 
-
+/*顶部用户*/
 .top_user { float: right; line-height: 40px; font-size: 14px;}
 .top_user a { display: inline-block; margin: 0 15px; color: #FFF;}
 .top_user a:hover { text-decoration: underline;}
+
 
 .main_user { background: #f6f6f6; padding: 10px 0;}
 .main_user .left {

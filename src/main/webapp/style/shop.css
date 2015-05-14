@@ -2,6 +2,7 @@
 
 .main { margin: 20px 0;}
 
+/*地址*/
 .address { float: left; position: relative; color: #FFF;}
 .address .addr_h_hover { 
 	background: #FFF; 
@@ -50,19 +51,15 @@
 
 .topNav { float: left; margin-left: 50px;}
 .topNav a { 
-	font-size: 14px; 
+	font-size: 16px; 
 	color: #FFF; 
 	height: 38px;
 	line-height: 38px; 
 	display: inline-block;
 	margin: 0 20px;
-	font-weight:bold;
+	font-weight: 100;
 }
 .topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid;}
-
-.loginInfo { float: right; height: 40px; line-height: 40px;}
-.loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
-
 
 /*------selectBox div模拟select------*/
 .selectBox { 
