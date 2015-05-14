@@ -439,16 +439,16 @@
 	background: url(../images/serviceIcon.png) no-repeat 0 0;
 }
 .serviceContent dt a.sc02 i { 
-	background: url(../images/serviceIcon.png) no-repeat 0 -55px;
+	background: url(../images/serviceIcon.png) no-repeat 0 -220px;
 }
 .serviceContent dt a.sc03 i { 
-	background: url(../images/serviceIcon.png) no-repeat 0 -110px;
+	background: url(../images/serviceIcon.png) no-repeat 0 -55px;	
 }
 .serviceContent dt a.sc04 i { 
 	background: url(../images/serviceIcon.png) no-repeat 0 -165px;
 }
 .serviceContent dt a.sc05 i { 
-	background: url(../images/serviceIcon.png) no-repeat 0 -220px;
+	background: url(../images/serviceIcon.png) no-repeat 0 -110px;
 }
 /*
 .serviceContent dt a:hover { 
