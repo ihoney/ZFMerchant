@@ -40,7 +40,7 @@
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
 	position: absolute;
 	z-index: 100001;
-	top: 39px;
+	top: 29px;
 	display: none;
 }
 .address .addr_b li { display: inline; margin: 5px; color: #333;}
@@ -123,7 +123,7 @@
 .selectBox ul li:hover { background: #f2f2f1;}
 
 /*--首页轮播--*/
-.head_index { position: absolute; top: 30px; left: 0px; width: 100%; z-index: 5; border-bottom: 2px #ff5f2b solid; }
+.head_index { position: absolute; top: 30px; left: 0px; width: 100%; z-index: 5; border-bottom: none !important; }
 .ad { font-size: 0px; width: 100%;}
 .banner { position: relative; overflow: auto; height: 700px;}
 .banner li { list-style: none; height: 700px;}

@@ -21,7 +21,7 @@ input { border: none;}
 
 
 /*顶部信息*/
-.head { padding-top: 5px; height: 80px; background: url(../images/white.png) repeat;}
+.head { padding-top: 5px; height: 80px; background: url(../images/white.png) repeat; border-bottom: 2px #ff5f2b solid;}
 
 .topInfo { height: 30px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 14px;}
 
