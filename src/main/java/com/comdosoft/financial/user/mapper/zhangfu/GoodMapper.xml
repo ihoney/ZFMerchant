@@ -247,8 +247,17 @@
 	<select id="getPicList" resultType="map">
 		select id,url_path as urlPath from good_detail_pictures where good_id=#{goodId}
 	</select>
+	
+	<select id="getMobilePicList" resultType="map">
+		select id,url_path as urlPath from good_mobile_pictures where good_id=#{goodId}
+	</select>
 
-
-
+	<select id="getValue" resultType="String">
+		SELECT t.value
+		from ((SELECT title as value from goods) union (SELECT name as value from pay_channels))t 
+		where t.value LIKE '%${keys}%'
+		ORDER BY  LENGTH(t.value)
+		LIMIT 0,8
+	</select>
 
 </mapper>

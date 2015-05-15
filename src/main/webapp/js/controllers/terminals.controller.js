@@ -151,6 +151,14 @@ var terminalController = function ($scope, $http, LoginService) {
 		$scope.boolean = true;
 		$scope.getInfo();
 	}
+	
+	//终端号回车事件
+	$scope.enterchange =  function(e){
+		var keycode = window.event?e.keyCode:e.which;
+        if(keycode==13){
+        	$scope.screeningSerialNum();
+        }
+	}
 
 	//go to page
 	$scope.tiaoPage = 1;

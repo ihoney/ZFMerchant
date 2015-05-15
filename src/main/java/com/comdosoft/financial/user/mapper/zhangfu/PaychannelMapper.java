@@ -28,4 +28,6 @@ public interface PaychannelMapper {
 
     void addIntention(Intentionreq req);
 
+    String getAgentName(int agentId);
+
 }

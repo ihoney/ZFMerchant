@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,7 @@ import com.comdosoft.financial.user.utils.SysUtils;
 @RequestMapping("api/index")
 public class IndexController {
 
+	public static final Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Autowired
     private IndexService indexService ;
     
@@ -142,5 +145,21 @@ public class IndexController {
             return Response.getError(result);
         }
     }
+    
+    //文件上传 返回上传后的地址
+    @RequestMapping(value = "fileupload", method = RequestMethod.POST)
+    public String webupload(@RequestParam("file") MultipartFile file,HttpServletRequest request){
+    	logger.debug(" web start upload "+ file);
+    	String result ;
+    	try{
+    		 result=HttpFile.upload(file, userMerchant);
+    		 result = filePath + result;
+    	}catch(Exception e){
+    		result = "-1";
+    	}
+        logger.debug(" web start upload "+ file+" >>result>>"+result);
+        return result;
+    }
+    
     
 }

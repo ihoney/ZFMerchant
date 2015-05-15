@@ -76,6 +76,7 @@ var traderecordController = function($scope, $http, LoginService) {
 		if (LoginService.userid == 0) {
 			window.location.href = '#/login';
 		} 
+		$(".user_date input").datepicker();
 		initSystemPage($scope.req);// 初始化分页参数
 		$scope.getTerminals();
 		$scope.getTradeType();

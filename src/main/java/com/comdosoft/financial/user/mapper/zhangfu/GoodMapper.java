@@ -66,4 +66,6 @@ public interface GoodMapper {
 
 
     List<Map<String, Object>> getPicList(int goodId);
+    List<Map<String, Object>> getMobilePicList(int goodId);
+    List<String> getValue(PosReq posreq);
 }

@@ -2,7 +2,9 @@
 
 .main { margin: 20px 0;}
 
-.address { float: left; position: relative; color: #FFF;}
+/*地址*/
+.address { float: left; position: relative; color: #FFF; height: 30px; width: 152px;}
+.address_con {top: 0px; left: 0px; position: absolute;}
 .address .addr_h_hover { 
 	background: #FFF; 
 	color: #ff5f2b; 
@@ -11,22 +13,29 @@
 	border-top: none;
 	position: relative; 
 	z-index: 100002;
-	line-height: 40px;
+	line-height: 30px;
 }
 .address .addr_h { 
-	padding: 0 20px;
 	border: 1px #ff5f2b solid; 
 	border-bottom: none; 
 	border-top: none;
-	line-height: 40px;
-	
+	line-height: 30px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	max-width: 110px;
+	padding: 0 20px;
+	position: relative;
 }
 .address .addr_h i { 
 	width: 7px; 
 	height: 4px; 
-	display: inline-block; 
-	margin-left: 5px; 
+	display: inline-block;
 	background: url(../images/icons.png) no-repeat 0 0;
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	right: 10px;
 }
 .address .addr_h_hover i { background: url(../images/icons.png) no-repeat 0 -5px;}
 
@@ -39,7 +48,7 @@
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
 	position: absolute;
 	z-index: 100001;
-	top: 39px;
+	top: 29px;
 	display: none;
 }
 .address .addr_b li { display: inline; margin: 5px; color: #333;}
@@ -48,21 +57,19 @@
 .address .addr_b li button { height: 24px; border: 1px #CCCCCC solid; background: #f5f5f5; padding: 0 5px;}
 
 
-.topNav { float: left; margin-left: 50px;}
+.topNav { float: left; margin-left: 10px;}
 .topNav a { 
-	font-size: 14px; 
 	color: #FFF; 
-	height: 38px;
-	line-height: 38px; 
-	display: inline-block;
+	height: 28px;
+	line-height: 30px; 
+	display: block;
+	float: left;
 	margin: 0 20px;
-	font-weight:bold;
+	font-weight: 100;
+	width: 80px;
+	text-align: center;
 }
-.topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid;}
-
-.loginInfo { float: right; height: 40px; line-height: 40px;}
-.loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
-
+.topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid; font-weight: bold;}
 
 /*------selectBox div模拟select------*/
 .selectBox { 
@@ -124,13 +131,12 @@
 .selectBox ul li:hover { background: #f2f2f1;}
 
 /*--首页轮播--*/
-.head_index { position: absolute; top: 40px; left: 0px; width: 100%; z-index: 5;}
+.head_index { position: absolute; top: 30px; left: 0px; width: 100%; z-index: 5; border-bottom: none !important; }
 .ad { font-size: 0px; width: 100%;}
-.banner { position: relative; overflow: auto; }
-.banner li { list-style: none; height: 466px;}
+.banner { position: relative; overflow: auto; height: 700px;}
+.banner li { list-style: none; height: 700px;}
 .banner ul li { 
 	float: left; 
-	background-size: contain; 
 	background-position: center center; 
 	background-repeat: no-repeat;
 	background-color: #FFF;
@@ -422,11 +428,10 @@
 .serviceContent dt a { 
 	height: 55px; 
 	line-height: 55px; 
-	display: block; 
+	display: inline-block; 
 	position: relative; 
 	padding-left: 60px;
 	color: #333;
-	cursor: text;
 	font-family: "microsoft yahei";
 }
 .serviceContent dt a i { 
@@ -443,16 +448,16 @@
 	background: url(../images/serviceIcon.png) no-repeat 0 0;
 }
 .serviceContent dt a.sc02 i { 
-	background: url(../images/serviceIcon.png) no-repeat 0 -55px;
+	background: url(../images/serviceIcon.png) no-repeat 0 -220px;
 }
 .serviceContent dt a.sc03 i { 
-	background: url(../images/serviceIcon.png) no-repeat 0 -110px;
+	background: url(../images/serviceIcon.png) no-repeat 0 -55px;	
 }
 .serviceContent dt a.sc04 i { 
 	background: url(../images/serviceIcon.png) no-repeat 0 -165px;
 }
 .serviceContent dt a.sc05 i { 
-	background: url(../images/serviceIcon.png) no-repeat 0 -220px;
+	background: url(../images/serviceIcon.png) no-repeat 0 -110px;
 }
 /*
 .serviceContent dt a:hover { 
@@ -731,7 +736,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .next:hover { background: url(../images/icons.png) no-repeat -63px -112px;}
 
 .smallImg { width: 296px; height: 75px; float: left; position: relative; overflow: hidden; font-size: 0;}
-.pic_show { width: 5000px; margin-top: 10px; display: block; position: absolute; left: 2px;}
+.pic_show { width: 5000px; margin-top: 10px; display: block; position: absolute;}
 .smallImg li { 
 	display: inline-block;
 	cursor: pointer; 

@@ -175,7 +175,7 @@
 			o.id,o.repair_price,
 			o.`status` AS apply_status,
 			o.created_at AS apply_time,
-			t.serial_num,o.apply_num,
+			t.serial_num,o.apply_num,o.pay_types,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
 			pc.`name` as zhifu_pt, m.title AS merchant_name,
@@ -221,7 +221,7 @@
 	</select>
 	
 	
-	<update id="updateRepair">
+	<update id="updateRepair" >
 	update  cs_repairs 
 	SET STATUS = #{repairStatus.code},updated_at = NOW()
 	where id = #{id}

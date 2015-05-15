@@ -40,13 +40,14 @@
        ORDER BY SC.updated_at DESC
     </select>
     
+
+    
     <select id="getTotal" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="int">
        select count(sc.id)
        from shopping_carts sc 
        LEFT JOIN pay_channels pc on pc.id=sc.pay_channel_id 
        LEFT JOIN goods g on g.id=sc.good_id
-			 LEFT JOIN good_brands b on g.good_brands_id=b.id
-       where sc.customer_id=#{customerId}
+       where sc.customer_id=#{customerId} and g.id is not NULL and pc.id is not null
     </select>
     
     <select id="getShopOne" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="map">
@@ -59,6 +60,15 @@
        where g.id=#{goodId} and pc.id=#{paychannelId}
     </select>
     
+    <select id="getShopOne2" resultType="map">
+       select  pc.name,pc.opening_cost,g.id as goodId,g.second_title,
+ 			  g.retail_price,g.title,g.Model_number,b.name as good_brands
+       from goods g 
+       LEFT JOIN goods_pay_channels gpc on gpc.good_id=g.id 
+       LEFT JOIN pay_channels pc on pc.id=gpc.pay_channel_id
+	   LEFT JOIN good_brands b on g.good_brands_id=b.id
+       where g.id=#{goodId} and pc.id=#{paychannelId}
+    </select>
     
     <select id="getLeaseOne" parameterType="com.comdosoft.financial.user.domain.query.CartReq" resultType="map">
        select  pc.name,pc.opening_cost,g.id as goodId,g.second_title,g.lease_price,g.lease_time,g.return_time,

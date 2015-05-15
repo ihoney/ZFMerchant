@@ -8,11 +8,12 @@
 	</insert>
 
 	<select id="doLogin" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer" resultType="map">
- 		SELECT id,username,account_type as accountType,name,city_id as cityId,types,last_logined_at as lastLoginedAt,
- 		integral as integral,status,device_code as deviceCode,created_at as createdAt,updated_at as updatedAt,phone,email 
- 		FROM customers 
- 		WHERE username=#{username} AND password=#{password} AND types=#{types} 
- 		AND status=#{status}
+ 		SELECT t.id,t.username,t.account_type as accountType,t.name,t.city_id as cityId,t.types,t.last_logined_at as lastLoginedAt,
+ 		t.integral as integral,t.status,t.device_code as deviceCode,t.created_at as createdAt,t.updated_at as updatedAt,t.phone,t.email,e.`name` as cityName
+ 		FROM customers t
+		LEFT JOIN cities e on e.id = t.city_id
+ 		WHERE t.username=#{username} AND t.password=#{password} AND t.types=#{types} 
+ 		AND t.status=#{status}
  	</select>
  	
  	<update id="updateUser" parameterType="com.comdosoft.financial.user.domain.zhangfu.Customer">

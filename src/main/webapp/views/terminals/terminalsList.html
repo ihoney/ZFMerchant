@@ -16,7 +16,7 @@
                     </div>
                     <div class="seenBox clear">
                     	<ul>
-                        	<li><div class="user_search"><input placeholder="请输入终端号查询" name="" type="text" ng-model="serialNum"/><button ng-click="screeningSerialNum()"></button></div></li>
+                        	<li><div class="user_search"><input placeholder="请输入终端号查询" name="" type="text" ng-model="serialNum" ng-keyup="enterchange($event)"/><button ng-click="screeningSerialNum()"></button></div></li>
                             <li><div class="user_select">
                             	<label>状态筛选</label>
                             	<select name="" ng-model="screeningStatus" ng-change="screening()">
@@ -68,11 +68,13 @@
                            </strong></td>
                             <td ng-if="nums.type != 0">
                            <a ng-click="letitgo('#/terminalDetail?terminalId=',nums.id)"  class="a_btn">查看详情</a>
-                           
-                            <span ng-if="nums.appid != null && nums.appid != ''">
+                           <span ng-if="nums.status == 4">
+                            <a ng-click="isopenstatus($index,nums.id)"  class="a_btn">重新开通</a>
+                            </span>
+                            <span ng-if="nums.appid != null && nums.appid != '' && nums.status != 4">
                             <a ng-click="isopenstatus($index,nums.id)"  class="a_btn">重新申请</a>
                             </span>
-                            <span ng-if="nums.appid == null || nums.appid == ''">
+                            <span ng-if="(nums.appid == null || nums.appid == '') && nums.status != 4">
                             <a ng-click="applyOpenInfo(nums.id)" class="a_btn">申请开通</a>
                             </span>
                             </td>

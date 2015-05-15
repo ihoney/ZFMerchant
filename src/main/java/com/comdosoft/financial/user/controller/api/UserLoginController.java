@@ -75,7 +75,7 @@ public class UserLoginController {
             String phone = (String)map.get("codeNumber");//手机号
             if (userLoginService.findUnameAndStatus(customer) > 0) {
             	 userLoginService.updateCode(customer);
-            	 Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
+            	 Boolean is_sucess = SysUtils.sendPhoneCode("欢迎使用华尔街金融平台，您此次操作的验证码是："+str+"（切勿告知他人），请在页面中输入以完成验证，有问题请致电400-009-0876.", phone);
                  if(!is_sucess){
                  	return Response.getError("获取验证码失败！");
                  }
@@ -83,7 +83,7 @@ public class UserLoginController {
             } else{
             	if (userLoginService.findUname((String)map.get("codeNumber"),Customer.TYPE_CUSTOMER,Customer.STATUS_NORMAL) == 0) {
                     try {
-                        Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, phone);
+                        Boolean is_sucess = SysUtils.sendPhoneCode("欢迎使用华尔街金融平台，您此次操作的验证码是："+str+"（切勿告知他人），请在页面中输入以完成验证，有问题请致电400-009-0876.", phone);
                         if(!is_sucess){
                         	return Response.getError("获取验证码失败！");
                         }else{
@@ -135,7 +135,7 @@ public class UserLoginController {
                     MailReq req = new MailReq();
                     req.setUserName(customer.getUsername());
                     req.setAddress(customer.getUsername());
-                    req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
+                    req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>"+sendEmailRegisterServicsePath+"</a>");
                     MailService.sendMailWithFilesAsynchronous(req);
                     return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
                 }
@@ -180,7 +180,7 @@ public class UserLoginController {
     				customer.setEmail(customer.getUsername());
     				userLoginService.addUser(customer);
     				req.setAddress(customer.getUsername());
-    				req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>点击激活！</a>");
+    				req.setUrl("<a href='"+sendEmailRegisterServicsePath+"?sendStatus=-1&sendusername="+customer.getUsername()+"'>"+sendEmailRegisterServicsePath+"</a>");
     				MailService.sendMailWithFilesAsynchronous(req);
     				return Response.getSuccess("激活链接已发送至你的邮箱，请点击激活。");
     			}
@@ -292,7 +292,7 @@ public class UserLoginController {
                 return Response.getError("用户不存在！");
             } else {
                 userLoginService.updateCode(customer);
-                Boolean is_sucess = SysUtils.sendPhoneCode("感谢您注册华尔街金融，您的验证码为："+str, (String)map.get("codeNumber"));
+                Boolean is_sucess = SysUtils.sendPhoneCode("欢迎使用华尔街金融平台，您此次操作的验证码是："+str+"（切勿告知他人），请在页面中输入以完成验证，有问题请致电400-009-0876.", (String)map.get("codeNumber"));
                 if(!is_sucess){
                 	return Response.getError("获取验证码失败！");
                 }else{

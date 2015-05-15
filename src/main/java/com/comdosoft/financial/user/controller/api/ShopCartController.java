@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,12 +29,23 @@ public class ShopCartController {
         return resp;
     }
     
+    @RequestMapping(value = "getunLoginList", method = RequestMethod.POST)
+    public Response getunLoginList(@RequestBody CartReq cartreq){
+        Response resp=new Response();
+        List<?> cartList=shopCartService.getunLoginList(cartreq);
+        resp.setCode(Response.SUCCESS_CODE);
+        resp.setResult(cartList);
+        return resp;
+    }
+    
+    
+    
     @RequestMapping(value = "total", method = RequestMethod.POST)
     public Response getTotal(@RequestBody CartReq cartreq){
         Response resp=new Response();
-        int total=shopCartService.getTotal(cartreq);
+        Map<String, Object> map=shopCartService.getTopList(cartreq);
         resp.setCode(Response.SUCCESS_CODE);
-        resp.setResult(total);
+        resp.setResult(map);
         return resp;
     }
     
@@ -65,6 +77,18 @@ public class ShopCartController {
     public Response update(@RequestBody CartReq cartreq){
         Response resp=new Response();
         int result= shopCartService.update(cartreq);
+        if(result==1){
+            resp.setCode(Response.SUCCESS_CODE);
+        }else{
+            resp.setCode(Response.ERROR_CODE);
+        }
+        return resp;
+    }
+    
+    @RequestMapping(value = "bigupdate", method = RequestMethod.POST)
+    public Response bigupdate(@RequestBody CartReq cartreq){
+        Response resp=new Response();
+        int result= shopCartService.bigupdate(cartreq);
         if(result==1){
             resp.setCode(Response.SUCCESS_CODE);
         }else{

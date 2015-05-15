@@ -5,8 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IEs=edge" />
 <meta name="renderer" content="webkit" />
-
-<title>华尔街金融平台</title> 
+ 
+<title>华尔街金融平台</title>
+<script>
+//btn_submit
+	function SubmitEvent(e){
+		var e = e || window.event; 
+		if(e.keyCode == 13){ 
+		document.getElementById("btn_submit").click(); 
+		} 
+   }
+</script> 
 
 <!--shop.css 商品列表 商品详情页-->
 <link href="style/shop.css" rel="stylesheet" type="text/css" />
@@ -50,6 +59,7 @@
 <script type="text/javascript" src="js/controllers/login.controller.js"></script>
 <script type="text/javascript" src="js/controllers/pay.controller.js"></script>
 <script type="text/javascript"	src="js/controllers/mainindex.controller.js"></script>
+<script type="text/javascript" src="js/jquery.Huploadify.js"></script>
 <script type="text/javascript"	src="js/left.js"></script>
 <!--[if lte IE 8]>
 <script type="text/javascript"	src="js/left.js"></script>
@@ -59,8 +69,9 @@
 	<div class="topInfo clear" >
 		<div class="box" ng-controller="headerController">
 			<div class="address">
+			<div class="address_con">
 				<div class="addr_h">
-					<span id="city_name" ng-bind="city_name" ><strong>{{city_name}}</strong></span><i
+					<span id="city_name" ng-bind="city_name" title="{{city_name}}">{{city_name}}</span><i
 						class="down"></i>
 				</div>
 				<div class="addr_b">
@@ -77,13 +88,9 @@
 					</ul>
 				</div>
 			</div>
+			</div>
 			<div class="topNav">
 				<a href="#">首页</a> <a href="#/shop">选购POS机</a> <a href="#/userdown">APP下载</a>
-				<!-- <a href="#">入驻机构</a>
-				<a href="#/userdown">APP下载</a>
-				<a href="#">查看交易流水</a> 
-				<a href="#">POS机构认证</a>
-				<a href="#">打造精致小店</a> -->
 			</div>
 			<div class="loginInfo" ng-if="!loginshow">
 				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
@@ -103,14 +110,15 @@
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
-					<input ng-model="haha" type="text" placeholder="请输入pos机信息" />
+					<input ng-model="haha" type="text" placeholder="请输入pos机信息" ng-change="change()" ng-keyup="enterchange($event)"/>
 					<button ng-click="searchShop()">搜索</button>
 				</div>
 				<div class="hotwords">
-					<div class="hotwords">
-						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
-					</div>
+					<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
 				</div>
+				<div class="suggest_container">
+	            	<a id="qw{{$index+1}}" ng-repeat="one in searchvalues" ng-click="hotwords(one)" >{{one}}</a>
+	            </div>
 			</div>
 			<div class="phone" ng-show="shopcart2">
 				<img src="images/dh.png" />
@@ -119,10 +127,31 @@
 				<div class="sCart_h">
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
+				
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去付款</a>
+            	<div class="mini_cart_hd"></div>
+                <ul class="mini_cart_bd">
+                	<li ng-repeat="one in cars" ng-if="$index<4">
+                    	<div class="mini_cart_img"><a ng-click="letitgo('#/shopinfo?goodId=',one.goodId)"><img src="{{one.url_path}}" /></a></div>
+                        <div class="mini_cart_title"><a ng-click="letitgo('#/shopinfo?goodId=',one.goodId)">{{one.title}}</a></div>
+                        <div class="mini_cart_info">
+                            <p><strong>{{(one.opening_cost+one.retail_price)/100|currency : "￥"}}</strong></p>
+                            <p><strong>x {{one.quantity}}</strong></p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mini_cart_ft">
+                    <p>共<strong> {{shopcount}} </strong>件商品　共计<strong>{{totalmoney/100|currency : "￥"}}</strong></p>
+                	<a href="#/shopcart">进入购物车，查看全部商品</a>
+                </div>
+            </div>
+				
+				
+				
+				
+				<div class="sCart_b" ng-if="shopcount==0">
+					<div class="mini_cart_ft" style="text-align: center;">您购物车中暂无商品 <a href="#/shop">立即购买</a></div>
 				</div>
-				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去购买</a></div>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/main.js"></script>
@@ -158,20 +187,98 @@
 	<div ng-view ng-if="ngshow"></div>
 
 
+
+<div class="box">
+			<div class="serviceContent">
+				<dl>
+					<dt>
+						<a target="_blank" href="help/serviceGuarantee.html" class="sc01"><i></i>厂家直销</a>
+					</dt>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<a target="_blank" href="help/serviceGuarantee.html" class="sc02"><i></i>直连机构</a>
+					</dt>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<a target="_blank" href="help/serviceGuarantee.html" class="sc03"><i></i>在线入网</a>
+					</dt>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<a target="_blank" href="help/serviceGuarantee.html" class="sc04"><i></i>标准费率</a>
+					</dt>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<a target="_blank" href="help/serviceGuarantee.html" class="sc05"><i></i>保障售后</a>
+					</dt>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+					<dd>
+						<a>指引的超连接</a>
+					</dd>
+				</dl>
+				<div class="ewm">
+					<img src="images/ewm.jpg" />
+				</div>
+			</div>
+		</div>
 	<div class="foot">
 		<div class="box">
 			<ul class="foot_nav">
-				<li><a href="#">关于我们</a></li>
+				<li><a href="static/about.html">关于我们</a></li>     
+        		<li>/</li>
+				<li><a href="static/contact.html">联系我们</a></li>
 				<li>/</li>
-				<li><a href="#">企业文化</a></li>
-				<li>/</li>
-				<li><a href="#">帮助中心</a></li>
-				<li>/</li>
-				<li><a href="#">企业招聘</a></li>
+				<li><a href="help/problems.html">帮助中心</a></li>
+				<li style="display: none;">/</li>
+				<li style="display: none;"><a href="static/invite.html">企业招聘</a></li>
 			</ul>
 			<div class="copyright">
 				版权所有 <span>&COPY</span>  2011-2015 上海掌富网络技术有限公司（<a
-					href="http://www.miitbeian.gov.cn/">沪ICP备 12002389号－4</a>）
+					ng-click="letitgo('http://www.miitbeian.gov.cn/',0)">沪ICP备 12002389号-4</a>）
 			</div>
 		</div>
 	</div>
