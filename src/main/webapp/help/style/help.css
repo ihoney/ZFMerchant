@@ -106,6 +106,10 @@ li { list-style: none;}
 .w9 { width: 900px;}
 .w6 { width: 600px;}
 
+/*------zfb_table----*/
+.zfb_table { background: #e5e5e5; width: 50%;}
+.zfb_table td { background: #FFF; text-align: center; vertical-align: middle; padding: 20px;}
+
 
 /*-------foot-------*/
 .foot { border-top: 1px #ccc solid; padding: 10px 0; overflow: hidden;}
