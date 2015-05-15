@@ -89,6 +89,7 @@ var shopcartController = function($scope, $http, LoginService, $cookieStore) {
 			});
 		}
 		$scope.setCheck();
+		$scope.$emit('shopcartcountchange');
 	}
 	$scope.del = function(id) {
 		if (LoginService.userid == 0) {
@@ -101,7 +102,7 @@ var shopcartController = function($scope, $http, LoginService, $cookieStore) {
 			});
 			location.reload();
 		}
-
+		$scope.$emit('shopcartcountchange');
 	}
 	$scope.delAll = function() {
 		$scope.cartid.reverse();
@@ -124,6 +125,7 @@ var shopcartController = function($scope, $http, LoginService, $cookieStore) {
 				location.reload();
 			}
 		}
+		$scope.$emit('shopcartcountchange');
 	}
 	$scope.next = function() {
 		$scope.goods = [];

@@ -21,12 +21,12 @@ input { border: none;}
 
 
 /*顶部信息*/
-.head { padding: 10px 0; border-bottom: 2px #ff5f2b solid; background: url(../images/white.png) repeat;}
+.head { padding-top: 5px; height: 80px; background: url(../images/white.png) repeat; border-bottom: 2px #ff5f2b solid;}
 
-.topInfo { height: 40px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 14px;}
+.topInfo { height: 30px; background: #ff5f2b; font-family: "microsoft yahei"; font-size: 14px;}
 
 
-.loginInfo { float: right; height: 40px; line-height: 40px;}
+.loginInfo { float: right; height: 30px; line-height: 30px;}
 .loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
 
 
@@ -72,7 +72,7 @@ input { border: none;}
 	display: inline-block;
 	float: left;
 }
-.search .hotwords { padding: 5px 0;}
+.search .hotwords { padding: 5px 0; font-family: "microsoft yahei";}
 .search .hotwords a { color: #999; margin: 0 5px;}
 .search .hotwords a:hover {color: #ff5f2b; text-decoration: underline;}
 
@@ -174,7 +174,7 @@ input { border: none;}
 }
 .mini_cart_info p { display: block; color: #ff5f2b; font-weight: bold; text-align: right;}
 
-.mini_cart_ft { text-align: right; padding: 10px 0px 0 10px; overflow: hidden;}
+.mini_cart_ft { text-align: right; padding: 5px 0px 5px 10px; overflow: hidden;}
 
 .mini_cart_ft p { margin-bottom: 10px; line-height: 24px;}
 
