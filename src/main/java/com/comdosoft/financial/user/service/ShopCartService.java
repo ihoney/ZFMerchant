@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -116,41 +117,57 @@ public class ShopCartService {
         
     }
 
-    public List<?> getToplist(CartReq cartreq) {
-        List<Map<String,Object>> mapList=shopCartMapper.getToplist(cartreq);
-        for (Map<String, Object> map : mapList) {
-            int goodId =SysUtils.String2int(""+map.get("goodId")); 
-            //图片
-            List<String> goodPics=goodMapper.getgoodPics(goodId);
-            if(null!=goodPics&&goodPics.size()>0){
-                map.put("url_path",filePath+goodPics.get(0));
-            }
-        }
-        return mapList;
-    }
 
-    public List<?> getunLoginTopList(CartReq cartreq) {
-        List<Map<String,Object>> mapList=new ArrayList<Map<String,Object>>();
-        Map<String,Object> m=null;
-        int count=0;
-        b: for (Cart c : cartreq.getCart()) {
-            count++;
-            if(count==5){
-                break b;
-            }
-            m=shopCartMapper.getShopOne2(c);
-            if(m!=null){
-                List<String> goodPics=goodMapper.getgoodPics(c.getGoodId());
+
+
+
+    public Map<String, Object> getTopList(CartReq cartreq) {
+        Map<String, Object> resultmap=new HashMap<String, Object>();
+        List<Map<String,Object>> mapList=null;
+        int totalcount=0;
+        int totalmoney=0;
+        if(cartreq.getCustomerId()>0){
+            mapList=shopCartMapper.getList(cartreq);
+            for (Map<String, Object> map : mapList) {
+                int goodId =SysUtils.String2int(""+map.get("goodId")); 
+                int quantity=SysUtils.String2int(""+map.get("quantity"));
+                int opening_cost=SysUtils.String2int(""+map.get("opening_cost"));
+                int retail_price=SysUtils.String2int(""+map.get("retail_price"));
+                totalcount+=quantity;
+                totalmoney+=(opening_cost+retail_price)*quantity;
+                //图片
+                List<String> goodPics=goodMapper.getgoodPics(goodId);
                 if(null!=goodPics&&goodPics.size()>0){
-                    m.put("url_path",filePath+goodPics.get(0));
+                    map.put("url_path",filePath+goodPics.get(0));
                 }
-                m.put("quantity", c.getQuantity());
-                m.put("id", count);
-                mapList.add(m);
             }
-            
+        }else{
+            mapList=new ArrayList<Map<String,Object>>();
+            Map<String,Object> m=null;
+            int count=0;
+            for (Cart c : cartreq.getCart()) {
+                count++;
+                m=shopCartMapper.getShopOne2(c);
+                totalcount+=c.getQuantity();
+                int opening_cost=SysUtils.String2int(""+m.get("opening_cost"));
+                int retail_price=SysUtils.String2int(""+m.get("retail_price"));
+                totalmoney+=(opening_cost+retail_price)*c.getQuantity();
+                if(m!=null){
+                    List<String> goodPics=goodMapper.getgoodPics(c.getGoodId());
+                    if(null!=goodPics&&goodPics.size()>0){
+                        m.put("url_path",filePath+goodPics.get(0));
+                    }
+                    m.put("quantity", c.getQuantity());
+                    m.put("id", count);
+                    mapList.add(m);
+                }
+                
+            }
         }
-        return mapList;
+        resultmap.put("list", mapList);
+        resultmap.put("totalcount", totalcount);
+        resultmap.put("totalmoney", totalmoney);
+        return resultmap;
     }
 
 }

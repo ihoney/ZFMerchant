@@ -1,6 +1,7 @@
 package com.comdosoft.financial.user.controller.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,31 +38,14 @@ public class ShopCartController {
         return resp;
     }
     
-    @RequestMapping(value = "toplist", method = RequestMethod.POST)
-    public Response getToplist(@RequestBody CartReq cartreq){
-        Response resp=new Response();
-        List<?> cartList=shopCartService.getToplist(cartreq);
-        resp.setCode(Response.SUCCESS_CODE);
-        resp.setResult(cartList);
-        return resp;
-    }
-    
-    @RequestMapping(value = "getunLoginTopList", method = RequestMethod.POST)
-    public Response getunLoginTopList(@RequestBody CartReq cartreq){
-        Response resp=new Response();
-        List<?> cartList=shopCartService.getunLoginTopList(cartreq);
-        resp.setCode(Response.SUCCESS_CODE);
-        resp.setResult(cartList);
-        return resp;
-    }
     
     
     @RequestMapping(value = "total", method = RequestMethod.POST)
     public Response getTotal(@RequestBody CartReq cartreq){
         Response resp=new Response();
-        int total=shopCartService.getTotal(cartreq);
+        Map<String, Object> map=shopCartService.getTopList(cartreq);
         resp.setCode(Response.SUCCESS_CODE);
-        resp.setResult(total);
+        resp.setResult(map);
         return resp;
     }
     

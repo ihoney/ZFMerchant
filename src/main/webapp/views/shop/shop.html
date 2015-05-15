@@ -21,12 +21,28 @@
 				<div class="sCart_h">
 					<i></i><em></em><span>{{shopcount>0?shopcount:""}}</span>
 				</div>
+				
 				<div class="sCart_b" ng-if="shopcount>0">
-					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去付款</a>
-				</div>
-				<div class="sCart_b" ng-if="shopcount==0">
-					购物车暂无商品，<a href="#/shop">去购买</a>
-				</div>
+            	<div class="mini_cart_hd"></div>
+                <ul class="mini_cart_bd">
+                	<li ng-repeat="one in cars" ng-if="$index<4">
+                    	<div class="mini_cart_img"><a ng-click="letitgo('#/shopinfo?goodId=',one.goodId)"><img src="{{one.url_path}}" /></a></div>
+                        <div class="mini_cart_title"><a ng-click="letitgo('#/shopinfo?goodId=',one.goodId)">{{one.title}}</a></div>
+                        <div class="mini_cart_info">
+                            <p><strong>{{(one.opening_cost+one.retail_price)/100|currency : "￥"}}</strong></p>
+                            <p><strong>x {{one.quantity}}</strong></p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mini_cart_ft">
+                    <p>共<strong> {{shopcount}} </strong>件商品　共计<strong>{{totalmoney/100|currency : "￥"}}</strong></p>
+                	<a href="#/shopcart">进入购物车，查看全部商品</a>
+                </div>
+            </div>
+			<div class="sCart_b" ng-if="shopcount==0">
+				<div class="mini_cart_ft" style="text-align: center;">您购物车中暂无商品 <a href="#/shop">立即购买</a></div>
+			</div>
+				
 			</div>
 		</div>
 	</div>

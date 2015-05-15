@@ -174,7 +174,7 @@ input { border: none;}
 }
 .mini_cart_info p { display: block; color: #ff5f2b; font-weight: bold; text-align: right;}
 
-.mini_cart_ft { text-align: right; padding: 10px 0px 0 10px; overflow: hidden;}
+.mini_cart_ft { text-align: right; padding: 5px 0px 5px 10px; overflow: hidden;}
 
 .mini_cart_ft p { margin-bottom: 10px; line-height: 24px;}
 
