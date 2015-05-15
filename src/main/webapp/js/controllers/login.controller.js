@@ -10,7 +10,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 	$scope.$on('$locationChangeStart', function(scope, next, current) {
 		var strs = new Array(); // 定义一数组
 		strs = next.split("/#/"); // 字符分割
-		if (strs[1] == "") {
+		if (strs[1] == ""||strs[1] == "userdown") {
 			$('#head_index').addClass('head_index');
 		} else {
 			$('#head_index').removeClass('head_index');
