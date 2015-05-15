@@ -1,4 +1,4 @@
-@charset "utf-8";
+/*@charset "utf-8";
 * { padding: 0; margin: 0;}
 body { 
 	font: 12px/1.5 "\5b8b\4f53", Arial,Verdana; 
@@ -17,6 +17,7 @@ input { border: none;}
 .box { width: 1200px; margin: 0 auto;}
 
 /*顶部信息*/
+/*
 .head { 
 	padding: 20px 0; 
 	background: rgba(255,255,255,0.8);
@@ -174,7 +175,7 @@ input { border: none;}
 
 .loginInfo { float: right; height: 40px; line-height: 40px;}
 .loginInfo a { color: #FFF; margin: 0 10px;}
-
+*/
 .ad { font-size: 0px; width: 100%;}
 .userDownLoadBanner{
 	width:1200px;

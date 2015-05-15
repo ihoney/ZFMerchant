@@ -12,14 +12,14 @@
 	border-top: none;
 	position: relative; 
 	z-index: 100002;
-	line-height: 40px;
+	line-height: 30px;
 }
 .address .addr_h { 
 	padding: 0 20px;
 	border: 1px #ff5f2b solid; 
 	border-bottom: none; 
 	border-top: none;
-	line-height: 40px;
+	line-height: 30px;
 	
 }
 .address .addr_h i { 
@@ -52,13 +52,16 @@
 .topNav { float: left; margin-left: 50px;}
 .topNav a { 
 	color: #FFF; 
-	height: 38px;
-	line-height: 38px; 
-	display: inline-block;
+	height: 28px;
+	line-height: 30px; 
+	display: block;
+	float: left;
 	margin: 0 20px;
 	font-weight: 100;
+	width: 80px;
+	text-align: center;
 }
-.topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid;}
+.topNav a:hover, .topNav a.hover { border-bottom: 2px #FFFFFF solid; font-weight: bold;}
 
 /*------selectBox div模拟select------*/
 .selectBox { 
@@ -120,7 +123,7 @@
 .selectBox ul li:hover { background: #f2f2f1;}
 
 /*--首页轮播--*/
-.head_index { position: absolute; top: 40px; left: 0px; width: 100%; z-index: 5;}
+.head_index { position: absolute; top: 30px; left: 0px; width: 100%; z-index: 5; border-bottom: 2px #ff5f2b solid; }
 .ad { font-size: 0px; width: 100%;}
 .banner { position: relative; overflow: auto; height: 700px;}
 .banner li { list-style: none; height: 700px;}
