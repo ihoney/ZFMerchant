@@ -33,6 +33,8 @@ public interface ShopCartMapper {
 
     Map<String, Object> getShopOne2(Cart c);
 
+    List<Map<String, Object>> getToplist(CartReq cartreq);
+
     
     
 }

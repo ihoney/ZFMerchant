@@ -4,16 +4,14 @@
 			<div class="logo" style="cursor: pointer" ng-click="index()">华尔街金融</div>
 			<div class="search">
 				<div class="search_box">
-					<input ng-model="req.keys" type="text" placeholder="请输入pos机信息" ng-change="change2()" ng-keyup="enterchange2($event)"/>
+					<input ng-model="req.keys" type="text" placeholder="请输入pos机信息" ng-change="change2()" ng-keyup="enterchange2($event)" />
 					<button ng-click="search()">搜索</button>
 				</div>
 				<div class="hotwords">
-					<div class="hotwords">
-						<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
-					</div>
-					<div class="suggest_container">
-		            	<a id="ew{{$index+1}}" ng-repeat="one in searchvalues" ng-click="hotwords(one)">{{one}}</a>
-		            </div>
+					<a ng-click="hotwords('ZF300')">ZF300</a><a ng-click="hotwords('华智融')">华智融</a><a ng-click="hotwords('信雅达')">信雅达</a>
+				</div>
+				<div class="suggest_container">
+					<a id="ew{{$index+1}}" ng-repeat="one in searchvalues" ng-click="hotwords(one)">{{one}}</a>
 				</div>
 			</div>
 			<div class="phone">
@@ -26,7 +24,9 @@
 				<div class="sCart_b" ng-if="shopcount>0">
 					您购物车中有<strong>{{shopcount}}</strong>件商品，<a href="#/shopcart">去付款</a>
 				</div>
-				<div class="sCart_b" ng-if="shopcount==0">购物车暂无商品，<a href="#/shop">去购买</a></div>
+				<div class="sCart_b" ng-if="shopcount==0">
+					购物车暂无商品，<a href="#/shop">去购买</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -35,52 +35,37 @@
 			<div class="category_group">
 				<div class="crumbs_nav">
 					<ul>
-						<li
-							ng-show="chli1show||chli2show||chli3show||chli4show||chli5show||chli6show||chli7show"
-							class="crumbs_nav_li_h">您当前选择<i></i></li>
-						<li ng-show="chli1show" class="crumbs_nav_drop" id="chli1"><a
-							href="javascript:void(0)" ng-click="chli1del()" class="hover"><span
-								class="cnd_p">POS机品牌：{{chli1val}}</span><span class="cnd_x"></span></a><i></i></li>
-						<li ng-show="chli2show" class="crumbs_nav_drop" id="chli2"><a
-							href="javascript:void(0)" ng-click="chli2del()" class="hover"><span
-								class="cnd_p">POS机类型：{{chli2val}}</span><span class="cnd_x"></span></a><i></i></li>
-						<li ng-show="chli3show" class="crumbs_nav_drop" id="chli3"><a
-							href="javascript:void(0)" ng-click="chli3del()" class="hover"><span
-								class="cnd_p">支付通道：{{chli3val}}</span><span class="cnd_x"></span></a><i></i></li>
-						<li ng-show="chli4show" class="crumbs_nav_drop" id="chli4"><a
-							href="javascript:void(0)" ng-click="chli4del()" class="hover"><span
-								class="cnd_p">支持卡类型：{{chli4val}}</span><span class="cnd_x"></span></a><i></i></li>
-						<li ng-show="chli5show" class="crumbs_nav_drop" id="chli5"><a
-							href="javascript:void(0)" ng-click="chli5del()" class="hover"><span
-								class="cnd_p">支持交易类型：{{chli5val}}</span><span class="cnd_x"></span></a><i></i></li>
-						<li ng-show="chli6show" class="crumbs_nav_drop" id="chli6"><a
-							href="javascript:void(0)" ng-click="chli6del()" class="hover"><span
-								class="cnd_p">签购单方式：{{chli6val}}</span><span class="cnd_x"></span></a><i></i></li>
+						<li ng-show="chli1show||chli2show||chli3show||chli4show||chli5show||chli6show||chli7show" class="crumbs_nav_li_h">您当前选择<i></i></li>
+						<li ng-show="chli1show" class="crumbs_nav_drop" id="chli1"><a href="javascript:void(0)" ng-click="chli1del()" class="hover"><span class="cnd_p">POS机品牌：{{chli1val}}</span><span class="cnd_x"></span></a><i></i></li>
+						<li ng-show="chli2show" class="crumbs_nav_drop" id="chli2"><a href="javascript:void(0)" ng-click="chli2del()" class="hover"><span class="cnd_p">POS机类型：{{chli2val}}</span><span class="cnd_x"></span></a><i></i></li>
+						<li ng-show="chli3show" class="crumbs_nav_drop" id="chli3"><a href="javascript:void(0)" ng-click="chli3del()" class="hover"><span class="cnd_p">支付通道：{{chli3val}}</span><span class="cnd_x"></span></a><i></i></li>
+						<li ng-show="chli4show" class="crumbs_nav_drop" id="chli4"><a href="javascript:void(0)" ng-click="chli4del()" class="hover"><span class="cnd_p">支持卡类型：{{chli4val}}</span><span class="cnd_x"></span></a><i></i></li>
+						<li ng-show="chli5show" class="crumbs_nav_drop" id="chli5"><a href="javascript:void(0)" ng-click="chli5del()" class="hover"><span class="cnd_p">支持交易类型：{{chli5val}}</span><span class="cnd_x"></span></a><i></i></li>
+						<li ng-show="chli6show" class="crumbs_nav_drop" id="chli6"><a href="javascript:void(0)" ng-click="chli6del()" class="hover"><span class="cnd_p">签购单方式：{{chli6val}}</span><span class="cnd_x"></span></a><i></i></li>
 					</ul>
 				</div>
-				
+
 				<div class="category_item">
-            	<h4>POS机类型：</h4>
-                <a ng-show="category.length>7" class="more">更多<i></i></a>
-                <div class="category_item_con">
-                	<ul>
-                    	<li ng-repeat="one in category"><a ng-click="check2(one)" class="{{one.clazz}}">{{one.value}}</a></li>
-                    </ul>
-                    <div class="sub_category_item" ng-show="check2show">
-                    	<a ng-click="check2sona(one)" ng-repeat="one in check2son" class="{{one.clazz}}">{{one.value}}</a>
-                    </div>
-                </div>
-            </div>
-				
-				
-				
+					<h4>POS机类型：</h4>
+					<a ng-show="category.length>7" class="more">更多<i></i></a>
+					<div class="category_item_con">
+						<ul>
+							<li ng-repeat="one in category"><a ng-click="check2(one)" class="{{one.clazz}}">{{one.value}}</a></li>
+						</ul>
+						<div class="sub_category_item" ng-show="check2show">
+							<a ng-click="check2sona(one)" ng-repeat="one in check2son" class="{{one.clazz}}">{{one.value}}</a>
+						</div>
+					</div>
+				</div>
+
+
+
 				<div class="category_item">
 					<h4>POS机品牌：</h4>
 					<a class="more" ng-show="brands.length>7">更多<i></i></a>
 					<div class="category_item_con">
 						<ul>
-							<li ng-repeat="one in brands"><a href="javascript:void(0)"
-								ng-click="check1(one)" class="{{one.clazz}}">{{one.value}}</a></li>
+							<li ng-repeat="one in brands"><a href="javascript:void(0)" ng-click="check1(one)" class="{{one.clazz}}">{{one.value}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -89,9 +74,7 @@
 					<a class="more" ng-show="pay_channel.length>7">更多<i></i></a>
 					<div class="category_item_con">
 						<ul>
-							<li ng-repeat="one in pay_channel"><a
-								href="javascript:void(0)" ng-click="check3(one)"
-								class="{{one.clazz}}">{{one.value}}</a></li>
+							<li ng-repeat="one in pay_channel"><a href="javascript:void(0)" ng-click="check3(one)" class="{{one.clazz}}">{{one.value}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -100,8 +83,7 @@
 					<a class="more" ng-show="pay_card.length>7">更多<i></i></a>
 					<div class="category_item_con">
 						<ul>
-							<li ng-repeat="one in pay_card"><a href="javascript:void(0)"
-								ng-click="check4(one)" class="{{one.clazz}}">{{one.value}}</a></li>
+							<li ng-repeat="one in pay_card"><a href="javascript:void(0)" ng-click="check4(one)" class="{{one.clazz}}">{{one.value}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -110,9 +92,7 @@
 					<a class="more" ng-show="trade_type.length>7">更多<i></i></a>
 					<div class="category_item_con">
 						<ul>
-							<li ng-repeat="one in trade_type"><a
-								href="javascript:void(0)" ng-click="check5(one)"
-								class="{{one.clazz}}">{{one.value}}</a></li>
+							<li ng-repeat="one in trade_type"><a href="javascript:void(0)" ng-click="check5(one)" class="{{one.clazz}}">{{one.value}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -121,9 +101,7 @@
 					<a class="more" ng-show="sale_slip.length>7">更多<i></i></a>
 					<div class="category_item_con">
 						<ul>
-							<li ng-repeat="one in sale_slip"><a
-								href="javascript:void(0)" ng-click="check6(one)"
-								class="{{one.clazz}}">{{one.value}}</a></li>
+							<li ng-repeat="one in sale_slip"><a href="javascript:void(0)" ng-click="check6(one)" class="{{one.clazz}}">{{one.value}}</a></li>
 						</ul>
 
 					</div>
@@ -132,17 +110,13 @@
 			<div class="sortbar clear">
 				<div class="sortbar_ul">
 					<ul>
-						<li class="default_sort hover"><a href="javasrcipt:void(0);"
-							ng-click="order(0)">综合排序</a></li>
+						<li class="default_sort hover"><a href="javasrcipt:void(0);" ng-click="order(0)">综合排序</a></li>
 						<li class="on_1"><span>按价格</span>
 							<div class="droplist">
-								<a href="javascript:void(0);" class="dashed" ng-click="order(2)">按价格从高到低</a>
-								<a href="javascript:void(0);" ng-click="order(3)">按价格从低到高</a>
+								<a href="javascript:void(0);" class="dashed" ng-click="order(2)">按价格从高到低</a> <a href="javascript:void(0);" ng-click="order(3)">按价格从低到高</a>
 							</div></li>
-						<li class="default_sort" title="按销量从高到低"><a
-							href="javascript:void(0);" ng-click="order(1)">按销量</a></li>
-						<li class="default_sort" title="按评价从多到少"><a
-							href="javascript:void(0);" ng-click="order(4)">按评价</a></li>
+						<li class="default_sort" title="按销量从高到低"><a href="javascript:void(0);" ng-click="order(1)">按销量</a></li>
+						<li class="default_sort" title="按评价从多到少"><a href="javascript:void(0);" ng-click="order(4)">按评价</a></li>
 					</ul>
 				</div>
 				<div class="accountTime">
@@ -158,13 +132,10 @@
 					</div>
 				</div>
 				<div class="price">
-					<label>价格</label> <input ng-model="req.minPrice" type="text"
-						placeholder="¥" /> - <input ng-model="req.maxPrice" type="text"
-						placeholder="¥" />
+					<label>价格</label> <input ng-model="req.minPrice" type="text" placeholder="¥" /> - <input ng-model="req.maxPrice" type="text" placeholder="¥" />
 				</div>
 				<div class="lease">
-					<input ng-model="req.has_purchase" type="checkbox" value="1" />
-					支持租赁
+					<input ng-model="req.has_purchase" type="checkbox" value="1" /> 支持租赁
 				</div>
 				<div class="sortBtn">
 					<button class="btn" ng-click="search()">确定</button>
@@ -173,8 +144,7 @@
 					<div class="page_info">
 						<span>{{req.indexPage}}</span>/{{req.totalPage}}
 					</div>
-					<a href="javascript:void(0);" class="page_prev" ng-click="prev()"><i></i></a>
-					<a href="javascript:void(0);" class="page_next" ng-click="next()"><i></i></a>
+					<a href="javascript:void(0);" class="page_prev" ng-click="prev()"><i></i></a> <a href="javascript:void(0);" class="page_next" ng-click="next()"><i></i></a>
 				</div>
 			</div>
 
@@ -202,8 +172,7 @@
 					<tr ng-repeat="one in goodList">
 						<td>
 							<div class="td_proBox clear">
-								<a ng-click="gtoto('#/shopinfo?goodId=',one.id)"  class="cn_img"><img
-									src="{{one.url_path}}" /></a>
+								<a ng-click="gtoto('#/shopinfo?goodId=',one.id)" class="cn_img"><img src="{{one.url_path}}" /></a>
 								<div class="td_proBox_info">
 									<h1>
 										<a ng-click="gtoto('#/shopinfo?goodId=',one.id)">{{one.Title}}</a>
@@ -212,26 +181,19 @@
 								</div>
 							</div>
 						</td>
-						<td><a href="javascript:void(0);"><strong>{{one.retail_price/100
-									|currency : "￥"}}</strong></a></td>
+						<td><a href="javascript:void(0);"><strong>{{one.retail_price/100 |currency : "￥"}}</strong></a></td>
 						<td><span class="{{one.has_lease?'lease_t':'lease_t_no'}}">支持租赁</span></td>
-						<td><a href="javascript:void(0);">月销量<em>{{one.volume_number
-									}}</em>件
+						<td><a href="javascript:void(0);">月销量<em>{{one.volume_number }}</em>件
 						</a></td>
 						<td>
 							<div class="evaluate">
 								<a href="javascript:void(0);">
 									<ul>
-										<li
-											class="{{one.total_score>9?'p_li_o':(one.total_score>4?'p_li_b':'')}}"></li>
-										<li
-											class="{{one.total_score>19?'p_li_o':(one.total_score>14?'p_li_b':'')}}"></li>
-										<li
-											class="{{one.total_score>29?'p_li_o':(one.total_score>24?'p_li_b':'')}}"></li>
-										<li
-											class="{{one.total_score>39?'p_li_o':(one.total_score>34?'p_li_b':'')}}"></li>
-										<li
-											class="{{one.total_score>49?'p_li_o':(one.total_score>44?'p_li_b':'')}}"></li>
+										<li class="{{one.total_score>9?'p_li_o':(one.total_score>4?'p_li_b':'')}}"></li>
+										<li class="{{one.total_score>19?'p_li_o':(one.total_score>14?'p_li_b':'')}}"></li>
+										<li class="{{one.total_score>29?'p_li_o':(one.total_score>24?'p_li_b':'')}}"></li>
+										<li class="{{one.total_score>39?'p_li_o':(one.total_score>34?'p_li_b':'')}}"></li>
+										<li class="{{one.total_score>49?'p_li_o':(one.total_score>44?'p_li_b':'')}}"></li>
 									</ul>
 								</a>
 							</div>
@@ -240,27 +202,17 @@
 				</table>
 				<div class="pageTurn">
 					<div class="p_num" ng-show="req.totalPage>1">
-						<a ng-class="{true:'disabled'}[req.indexPage==1]"
-							href="javascript:void(0)" ng-click="req.indexPage=1;list()">首页</a>
-						<a ng-class="{true:'disabled'}[req.indexPage==1]"
-							href="javascript:void(0)" ng-click="prev()">上一页</a> <a
-							ng-class="{true:'current'}[req.indexPage==currentPage]"
-							ng-repeat="currentPage in req.pages" href="javascript:void(0)"
-							ng-click="loadPage(currentPage)">{{currentPage}}</a> <a
-							ng-class="{true:'disabled'}[req.indexPage==req.totalPage]"
-							href="javascript:void(0)" ng-click="next()">下一页</a> <a
-							ng-class="{true:'disabled'}[req.indexPage==req.totalPage]"
-							href="javascript:void(0)"
-							ng-click="req.indexPage=req.totalPage;list()">末页</a>
+						<a ng-class="{true:'disabled'}[req.indexPage==1]" href="javascript:void(0)" ng-click="req.indexPage=1;list()">首页</a> <a ng-class="{true:'disabled'}[req.indexPage==1]" href="javascript:void(0)" ng-click="prev()">上一页</a> <a
+							ng-class="{true:'current'}[req.indexPage==currentPage]" ng-repeat="currentPage in req.pages" href="javascript:void(0)" ng-click="loadPage(currentPage)">{{currentPage}}</a> <a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]"
+							href="javascript:void(0)" ng-click="next()">下一页</a> <a ng-class="{true:'disabled'}[req.indexPage==req.totalPage]" href="javascript:void(0)" ng-click="req.indexPage=req.totalPage;list()">末页</a>
 					</div>
 					<div class="p_skip">
-						<span>共&nbsp;{{req.totalPage}}&nbsp;页</span>&nbsp;<span>到第&nbsp;<input
-							type="text" ng-model="req.gotoPage">&nbsp;页
+						<span>共&nbsp;{{req.totalPage}}&nbsp;页</span>&nbsp;<span>到第&nbsp;<input type="text" ng-model="req.gotoPage">&nbsp;页
 						</span>
 						<button ng-click="getPage()">确定</button>
 					</div>
 				</div>
-			</div> 
+			</div>
 		</div>
 		<br />
 	</div>

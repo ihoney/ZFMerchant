@@ -16,7 +16,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 			$('#head_index').removeClass('head_index');
 		}
 		if (LoginService.userid == 0) {
-			if(strs[1]!="login"){
+			if(!check2(strs[1])){
 				$cookieStore.put("url",strs[1]);
 			}
 			strs = strs[1].split("?");
@@ -82,6 +82,15 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		}
 		return false;
 	}
+	var check2 = function(str) {
+		var arry = [ "login","register","findpass","findpassEmail" ];
+		for (var i = 0; i < arry.length; i++) {
+			if (str == arry[i]) {
+				return true;
+			}
+		}
+		return false;
+	}
 	var checkcart1 = function(str) {
 		var arry = [ "login", "shop", "register", "findpass" ,"findpassEmail"];
 		for (var i = 0; i < arry.length; i++) {
@@ -128,6 +137,23 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		}else{
 			$scope.shopcart=typeof($cookieStore.get("shopcart")) == 'undefined' ? [] : $cookieStore.get("shopcart");
 			$scope.shopcount=$scope.shopcart.length;
+		}
+	};
+	$scope.shopcartlist = function() {
+		if (LoginService.userid > 0) {
+			$http.post("api/cart/list", $scope.req).success(function(data) {
+				if (data.code == 1) {
+					$scope.topcarts = data.result;
+				}
+			});
+		}else{
+			$http.post("api/cart/getunLoginList", {
+				cart : $scope.shopcart
+			}).success(function(data) {
+				if (data.code == 1) {
+					$scope.topcarts = data.result;
+				}
+			});
 		}
 	};
 	$scope.shopcartcount();

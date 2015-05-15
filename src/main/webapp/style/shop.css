@@ -3,7 +3,8 @@
 .main { margin: 20px 0;}
 
 /*地址*/
-.address { float: left; position: relative; color: #FFF;}
+.address { float: left; position: relative; color: #FFF; height: 30px; width: 152px;}
+.address_con {top: 0px; left: 0px; position: absolute;}
 .address .addr_h_hover { 
 	background: #FFF; 
 	color: #ff5f2b; 
@@ -15,19 +16,26 @@
 	line-height: 30px;
 }
 .address .addr_h { 
-	padding: 0 20px;
 	border: 1px #ff5f2b solid; 
 	border-bottom: none; 
 	border-top: none;
 	line-height: 30px;
-	
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	max-width: 110px;
+	padding: 0 20px;
+	position: relative;
 }
 .address .addr_h i { 
 	width: 7px; 
 	height: 4px; 
-	display: inline-block; 
-	margin-left: 5px; 
+	display: inline-block;
 	background: url(../images/icons.png) no-repeat 0 0;
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	right: 10px;
 }
 .address .addr_h_hover i { background: url(../images/icons.png) no-repeat 0 -5px;}
 
@@ -49,7 +57,7 @@
 .address .addr_b li button { height: 24px; border: 1px #CCCCCC solid; background: #f5f5f5; padding: 0 5px;}
 
 
-.topNav { float: left; margin-left: 50px;}
+.topNav { float: left; margin-left: 10px;}
 .topNav a { 
 	color: #FFF; 
 	height: 28px;
@@ -420,7 +428,7 @@
 .serviceContent dt a { 
 	height: 55px; 
 	line-height: 55px; 
-	display: block; 
+	display: inline-block; 
 	position: relative; 
 	padding-left: 60px;
 	color: #333;
@@ -728,7 +736,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .next:hover { background: url(../images/icons.png) no-repeat -63px -112px;}
 
 .smallImg { width: 296px; height: 75px; float: left; position: relative; overflow: hidden; font-size: 0;}
-.pic_show { width: 5000px; margin-top: 10px; display: block; position: absolute; left: 2px;}
+.pic_show { width: 5000px; margin-top: 10px; display: block; position: absolute;}
 .smallImg li { 
 	display: inline-block;
 	cursor: pointer; 

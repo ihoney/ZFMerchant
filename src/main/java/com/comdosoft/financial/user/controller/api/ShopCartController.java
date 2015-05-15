@@ -37,6 +37,25 @@ public class ShopCartController {
         return resp;
     }
     
+    @RequestMapping(value = "toplist", method = RequestMethod.POST)
+    public Response getToplist(@RequestBody CartReq cartreq){
+        Response resp=new Response();
+        List<?> cartList=shopCartService.getToplist(cartreq);
+        resp.setCode(Response.SUCCESS_CODE);
+        resp.setResult(cartList);
+        return resp;
+    }
+    
+    @RequestMapping(value = "getunLoginTopList", method = RequestMethod.POST)
+    public Response getunLoginTopList(@RequestBody CartReq cartreq){
+        Response resp=new Response();
+        List<?> cartList=shopCartService.getunLoginTopList(cartreq);
+        resp.setCode(Response.SUCCESS_CODE);
+        resp.setResult(cartList);
+        return resp;
+    }
+    
+    
     @RequestMapping(value = "total", method = RequestMethod.POST)
     public Response getTotal(@RequestBody CartReq cartreq){
         Response resp=new Response();

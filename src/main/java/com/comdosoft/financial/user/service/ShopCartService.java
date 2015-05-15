@@ -116,4 +116,41 @@ public class ShopCartService {
         
     }
 
+    public List<?> getToplist(CartReq cartreq) {
+        List<Map<String,Object>> mapList=shopCartMapper.getToplist(cartreq);
+        for (Map<String, Object> map : mapList) {
+            int goodId =SysUtils.String2int(""+map.get("goodId")); 
+            //图片
+            List<String> goodPics=goodMapper.getgoodPics(goodId);
+            if(null!=goodPics&&goodPics.size()>0){
+                map.put("url_path",filePath+goodPics.get(0));
+            }
+        }
+        return mapList;
+    }
+
+    public List<?> getunLoginTopList(CartReq cartreq) {
+        List<Map<String,Object>> mapList=new ArrayList<Map<String,Object>>();
+        Map<String,Object> m=null;
+        int count=0;
+        b: for (Cart c : cartreq.getCart()) {
+            count++;
+            if(count==5){
+                break b;
+            }
+            m=shopCartMapper.getShopOne2(c);
+            if(m!=null){
+                List<String> goodPics=goodMapper.getgoodPics(c.getGoodId());
+                if(null!=goodPics&&goodPics.size()>0){
+                    m.put("url_path",filePath+goodPics.get(0));
+                }
+                m.put("quantity", c.getQuantity());
+                m.put("id", count);
+                mapList.add(m);
+            }
+            
+        }
+        return mapList;
+    }
+
 }

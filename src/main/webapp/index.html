@@ -78,8 +78,9 @@
 	<div class="topInfo clear" >
 		<div class="box" ng-controller="headerController">
 			<div class="address">
+			<div class="address_con">
 				<div class="addr_h">
-					<span id="city_name" ng-bind="city_name" ><strong>{{city_name}}</strong></span><i
+					<span id="city_name" ng-bind="city_name" title="{{city_name}}">{{city_name}}</span><i
 						class="down"></i>
 				</div>
 				<div class="addr_b">
@@ -96,13 +97,9 @@
 					</ul>
 				</div>
 			</div>
+			</div>
 			<div class="topNav">
 				<a href="#">首页</a> <a href="#/shop">选购POS机</a> <a href="#/userdown">APP下载</a>
-				<!-- <a href="#">入驻机构</a>
-				<a href="#/userdown">APP下载</a>
-				<a href="#">查看交易流水</a> 
-				<a href="#">POS机构认证</a>
-				<a href="#">打造精致小店</a> -->
 			</div>
 			<div class="loginInfo" ng-if="!loginshow">
 				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
