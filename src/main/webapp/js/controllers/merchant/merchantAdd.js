@@ -126,6 +126,8 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 			window.location.href = '#/login';
 		} else {
 			$scope.$emit('changeshow', false);
+			// 鼠标经过小图提示大图
+				infoTab('.cover', '.img_info');
 		}
 		
 		var vw = "上传成功";
@@ -359,6 +361,35 @@ var merchantAddController = function($scope, $http, $location, LoginService) {
 		                }
 		        });
 	};
+	
+	function infoTab(i_tab, i_box) {
+		$(i_tab).hover(
+				function(e) { 
+					var val = $(this).attr("imgPath");
+					if(val != undefined && val != ""){
+						$(i_box).children("img").attr("src", $(this).attr("imgPath"));  
+						$(i_box).css('display', 'block');
+						$(i_box).css('top',
+								$(this).offset().top - $(i_box).height() + 'px');
+		
+						if ($(this).offset().left + $(i_box).width() > $(document)
+								.width()) {
+							$(i_box).css('left',
+									($(this).offset().left) - $(i_box).width() + 'px');
+						} else {
+							$(i_box).css('left',
+									($(this).offset().left) + $(this).width() + 'px');
+						}
+					}
+				}, function(e) {
+					$(i_box).children("img").attr("src", "");
+					$(i_box).css('display', 'none');
+					$(i_box).css({
+						'top' : 0 + 'px',
+						'left' : 0 + 'px'
+				}); 
+		});  
+	}
 	$scope.init();
 };
 merchantAddModule.controller("merchantAddController", merchantAddController);
