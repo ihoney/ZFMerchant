@@ -4,14 +4,6 @@
 var myappModule = angular.module("myappModule",[]);
 
 var myappController = function ($scope, $http, LoginService) {
-	$("#leftRoute").show();
-
-	if(LoginService.userid == 0){
-		window.location.href = '#/login';
-	}else{
-		//显示用户登录部分
-		$scope.$emit('changeshow',false);
-		
 		//左侧样式调整
 		$("#left_common li").unbind("click").bind("click", function(){
 			$(this).children('a').addClass("hover");
@@ -32,7 +24,6 @@ var myappController = function ($scope, $http, LoginService) {
 				$(this).find("i").removeClass("off").addClass("on");
 			}
 		});
-	}
 	$scope.my_message_list = function(){
 		$scope.req={customer_id:LoginService.userid,rows:8};
 		$http.post("api/message/receiver/getAll", $scope.req).success(function (data) {   
