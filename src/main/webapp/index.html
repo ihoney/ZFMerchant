@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" id="ng-app"
-	ng-controller="indexController">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule"  id="ng-app"	ng-scp  ng-controller="indexController">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IEs=edge" />
@@ -23,6 +22,7 @@
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
 <link href="style/global.css" rel="stylesheet" type="text/css" />
+<link href="js/libs/angular-csp.css" rel="stylesheet" type="text/css" />
 <!-- 日历控件 -->
 <link href="style/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="js/jQuery-1.11.2.js"></script>
@@ -65,7 +65,7 @@
 <script type="text/javascript"	src="js/left.js"></script>
 <![endif]-->
 </head>
-<body>
+<body ngCloak>
 	<div class="topInfo clear" >
 		<div class="box" ng-controller="headerController">
 			<div class="address">

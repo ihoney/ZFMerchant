@@ -1,11 +1,9 @@
-<div id="mainindex" ng-controller="mainindexController">
+<div id="mainindex" ng-controller="mainindexController" class="ng-cloak">
 	
 	<div class="ad">
 		<div class="banner">
 			<ul class="show">
-			<li ng-repeat="one in pic_list" on-finish-render3-filters
-					ng-style="getBackgroundStyle(one.picture_url)"
-					ng-click="gotoo(one.website_url)"></li>
+			<li ng-repeat="one in pic_list" on-finish-render3-filters 	ng-style="getBackgroundStyle(one.picture_url)"	ng-click="gotoo(one.website_url)"></li>
 			</ul>
 		</div>
 	</div>
