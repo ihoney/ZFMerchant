@@ -489,6 +489,7 @@ public class TerminalsService {
                 if(listmap2!=null&&listmap2.size()>0){
                     map.put("openStatus", listmap2);
                 }else{
+                    map.put("openStatus", listmap2);
                     map.put("error", "未申请");
                 }
                 

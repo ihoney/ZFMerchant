@@ -193,5 +193,75 @@ public class GoodService {
             }
         }
         return picList;
+    }
+
+    public Map<String, Object> goodshow(PosReq posreq) {
+        Map<String, Object> goodInfoMap = null;
+        // 商品信息
+        Map<String, Object> goodinfo = goodMapper.getGoodById2(posreq.getGoodId());
+        int id = SysUtils.String2int("" + goodinfo.get("id"));
+        if (id > 0) {
+            goodInfoMap = new HashMap<String, Object>();
+            goodInfoMap.put("goodinfo", goodinfo);
+            // 支付通道
+            List<Map<String, Object>> payChannelList = goodMapper.getPayChannelListByGoodId(posreq);
+            if (null != payChannelList && payChannelList.size() > 0) {
+                goodInfoMap.put("payChannelList", payChannelList);
+                int pcid=SysUtils.String2int("" +payChannelList.get(0).get("id"));
+                goodInfoMap.put("paychannelinfo",pcService.payChannelInfo(pcid));
+            }
+            // 图片
+            List<String> goodPics = goodMapper.getgoodPics(posreq.getGoodId());
+            if(goodPics!=null&&goodPics.size()>0){
+                for (int i = 0; i < goodPics.size(); i++) {
+                    goodPics.set(i, filePath+ goodPics.get(i));
+                }
+            }
+            goodInfoMap.put("goodPics", goodPics);
+            // 评论数
+            int commentsCount = cMapper.getCommentCount(posreq.getGoodId());
+            goodInfoMap.put("commentsCount", commentsCount);
+            // 生产厂家
+            int factoryId = SysUtils.String2int("" + goodinfo.get("factory_id"));
+            if (factoryId > 0) {
+                Map<String, Object> factoryMap = goodMapper.getFactoryById(factoryId);
+                if(factoryMap!=null){
+                    factoryMap.put("logo_file_path", filePath+factoryMap.get("logo_file_path"));
+                    goodInfoMap.put("factory", factoryMap);
+                }
+            }
+            List<Map<String, Object>> relativeShopList = goodMapper.getRelativeShopListByGoodId(posreq);
+            if (null != relativeShopList && relativeShopList.size() > 0) {
+               for (Map<String, Object> map : relativeShopList) {
+                   // 图片
+                   List<String> goodPics2 = goodMapper.getgoodPics( SysUtils.String2int(map.get("id").toString()));
+                   if (null != goodPics2 && goodPics2.size() > 0) {
+                       map.put("url_path", filePath+goodPics2.get(0));
+                   }
+                   int openprice=0;
+                   int googid=SysUtils.String2int(map.get("id").toString());
+                   posreq.setGoodId(googid);
+                   List<Map<String, Object>> pclist = goodMapper.getPayChannelListByGoodId(posreq);
+                   if (null != pclist && pclist.size() > 0) {
+                       openprice=SysUtils.String2int(pclist.get(0).get("opening_cost").toString()); 
+                   }
+                   map.put("retail_price", SysUtils.String2int(map.get("retail_price").toString())+openprice);
+               }
+            }
+            goodInfoMap.put("relativeShopList",relativeShopList);
+            
+            List<Map<String, Object>> picList=goodMapper.getPicList(id);
+            if(picList!=null){
+                for(int i=0;i<picList.size();i++){
+                    if(picList.get(i).get("urlPath")!=null){
+                        String urlPath=filePath+picList.get(i).get("urlPath").toString();
+                        picList.get(i).put("urlPath", urlPath);
+                    }
+                }
+            }
+            goodInfoMap.put("picList", picList);
+            
+        }
+        return goodInfoMap;
     }    
 }

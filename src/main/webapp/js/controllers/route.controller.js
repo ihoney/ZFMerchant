@@ -125,6 +125,8 @@ function routeConfig($routeProvider) {
 		templateUrl : 'views/order/order_appraise.html'
 	}).when('/noshop', {
 		templateUrl : 'views/shop/noshop.html'
+	}).when('/shopshow', {
+		templateUrl : 'views/shop/shopshow.html'
 	}).otherwise({
 		redirectTo : "/"
 	});

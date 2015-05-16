@@ -63,6 +63,8 @@ public interface CustomerMapper {
 	int countAddress(Map<Object, Object> param);
 
 	CustomerAddress findAddressById(Integer addressId);
+	
+	int updateDevice(Integer id,String deviceCode);
 
 
 }

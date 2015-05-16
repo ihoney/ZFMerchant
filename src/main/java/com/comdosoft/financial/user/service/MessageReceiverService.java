@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.comdosoft.financial.user.domain.zhangfu.MessageReceiver;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.domain.zhangfu.SysMessage;
+import com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.MessageReceiverMapper;
 import com.comdosoft.financial.user.utils.page.Page;
 import com.comdosoft.financial.user.utils.page.PageRequest;
@@ -22,6 +23,8 @@ import com.comdosoft.financial.user.utils.page.PageRequest;
 public class MessageReceiverService {
     @Resource
     private MessageReceiverMapper messageReceiverMapper;
+    @Resource
+    private CustomerMapper customerMapper;
 
     public Page<Object> findAll(MyOrderReq myOrderReq) {
         PageRequest request = new PageRequest(myOrderReq.getPage(),myOrderReq.getRows());
@@ -77,5 +80,9 @@ public class MessageReceiverService {
     public void deleteAll(MyOrderReq myOrderReq) {
         messageReceiverMapper.deleteAll(myOrderReq);
     }
+
+	public int upCustomerDevice(Integer customerId,String deviceCode) {
+		return customerMapper.updateDevice(customerId, deviceCode);
+	}
 
 }

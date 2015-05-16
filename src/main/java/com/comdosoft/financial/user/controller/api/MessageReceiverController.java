@@ -118,4 +118,14 @@ public class MessageReceiverController {
         Response rs = Response.buildSuccess(ts, "");
         return rs;
     }
+    @RequestMapping(value="sendDeviceCode")
+    public Response sendDeviceCode(Integer customerId,String deviceCode){
+    	int code = messageReceiverService.upCustomerDevice(customerId, deviceCode);
+    	if(code==1){
+    		return Response.getSuccess();
+    	}else{
+    		return Response.getError("保存推送通道ID出错");
+    	}
+    	
+    }
 }

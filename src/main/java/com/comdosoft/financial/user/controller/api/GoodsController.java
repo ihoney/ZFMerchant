@@ -78,6 +78,22 @@ public class GoodsController {
         return response;
     }
     
+    @RequestMapping(value = "goodshow", method = RequestMethod.POST)
+    public Response goodshow(@RequestBody PosReq posreq){
+        Response response = new Response();
+        response.setCode(Response.ERROR_CODE);
+        Map<String, Object> goodInfoMap;
+        try {
+            goodInfoMap = goodService.goodshow(posreq);
+            response.setCode(Response.SUCCESS_CODE);
+            response.setResult(goodInfoMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return response;
+        }
+        return response;
+    }
+    
     @RequestMapping(value = "search", method = RequestMethod.POST)
     public Response getSearchCondition(@RequestBody PosReq posreq){
         Response response = new Response();
