@@ -306,5 +306,12 @@
 		 WHERE id = #{id}
 	]]>
 	</update>
+	
+	<update id="updateDevice">
+	<![CDATA[
+		UPDATE customers SET device_code = #{1}
+		 WHERE id = #{0}
+	]]>
+	</update>
 
 </mapper>
