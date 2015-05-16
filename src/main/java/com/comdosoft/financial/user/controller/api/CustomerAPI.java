@@ -18,6 +18,7 @@ import com.comdosoft.financial.user.domain.Response;
 import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.service.CustomerService;
+import com.comdosoft.financial.user.service.MessageReceiverService;
 import com.comdosoft.financial.user.utils.SysUtils;
 
 /**
@@ -33,6 +34,8 @@ public class CustomerAPI {
 
     @Resource
     private CustomerService customerService;
+    @Resource
+    private MessageReceiverService messageReceiverService;
 
     /**
      * 日志记录器
@@ -387,6 +390,17 @@ public class CustomerAPI {
 		}
 		return sysResponse;
 	}
+	
+	@RequestMapping(value="sendDeviceCode",method=RequestMethod.POST)
+    public Response sendDeviceCode(@RequestBody Customer param){
+    	int code = messageReceiverService.upCustomerDevice(param.getId(), param.getDeviceCode());
+    	if(code==1){
+    		return Response.getSuccess();
+    	}else{
+    		return Response.getError("保存推送通道ID出错");
+    	}
+    	
+    }
 
 
 }
