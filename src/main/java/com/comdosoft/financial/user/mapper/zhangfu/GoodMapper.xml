@@ -18,6 +18,21 @@
 		where g.status=5 and
 		g.is_published=1 and g.id=#{goodId}
 	</select>
+	
+	<select id="getGoodById2" resultType="map">
+		SELECT g.id,g.Title,g.second_title,gb.name as good_brand,g.Model_number,pc.name as category,
+		g.volume_number,g.retail_price,g.price,g.total_score,
+		g.has_lease,g.lease_time,g.return_time,g.lease_price,g.lease_description,g.lease_agreement,g.lease_deposit,
+		g.shell_material,g.battery_info,dsow.sign_order_way,decw.encrypt_card_way,
+		g.factory_id,g.description,g.quantity
+		from goods g
+		LEFT JOIN good_brands gb
+		on g.good_brands_id=gb.id
+		left JOIN pos_categories pc on g.pos_category_id=pc.id
+		LEFT JOIN dictionary_sign_order_ways dsow on dsow.id=g.sign_order_way_id
+		LEFT JOIN dictionary_encrypt_card_ways decw on decw.id=g.encrypt_card_way_id
+		where  g.id=#{goodId}
+	</select>
 
 
 	<select id="getGoodsList" parameterType="com.comdosoft.financial.user.domain.query.PosReq" resultType="map">
