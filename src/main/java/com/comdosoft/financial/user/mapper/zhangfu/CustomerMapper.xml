@@ -68,6 +68,7 @@
 
 	<select id="getCustomerById" resultType="com.comdosoft.financial.user.domain.zhangfu.Customer">
 	 SELECT c.id,
+	 		c.username,
 			c.name,
 			c.phone,
 			c.email,

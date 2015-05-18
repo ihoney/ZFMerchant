@@ -5,7 +5,21 @@ public class CommentsJson {
     private Integer good_id;
     private Integer score;
     private String content;
-    /**  
+    private String customer_name;
+   
+	/**
+	 * @return the customer_name
+	 */
+	public String getCustomer_name() {
+		return customer_name;
+	}
+	/**
+	 * @param customer_name the customer_name to set
+	 */
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
+	}
+	/**  
      * 获取 customer_id  
      * @return customer_id
      */
@@ -61,24 +75,29 @@ public class CommentsJson {
     public void setContent(String content) {
         this.content = content;
     }
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "CommentsJson [customer_id=" + customer_id + ", good_id=" + good_id + ", score=" + score + ", content=" + content + "]";
-    }
-    public CommentsJson(Integer customer_id, Integer good_id, Integer score, String content) {
-        super();
-        this.customer_id = customer_id;
-        this.good_id = good_id;
-        this.score = score;
-        this.content = content;
-    }
-    public CommentsJson() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-   
+ 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CommentsJson [customer_id=" + customer_id + ", good_id="
+				+ good_id + ", score=" + score + ", content=" + content
+				+ ", customer_name=" + customer_name + "]";
+	}
+	public CommentsJson(Integer customer_id, Integer good_id, Integer score,
+			String content, String customer_name) {
+		super();
+		this.customer_id = customer_id;
+		this.good_id = good_id;
+		this.score = score;
+		this.content = content;
+		this.customer_name = customer_name;
+	}
+	public CommentsJson() {
+		super();
+	}
+ 
+    
     
 }
