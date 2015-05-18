@@ -394,7 +394,7 @@ left JOIN cities cccs on cccs.id = ccs.parent_id
 		(score,content,customer_id,good_id,created_at,status,customer_name,order_id)
 		VALUES
 		 <foreach collection="list" item="item" index="index" separator="," > 
-			(#{item.score},#{item.content},#{item.customer_id},#{item.good_id},NOW(),1,#{item.customer_name},#{order_id})
+			(#{item.score},#{item.content},#{item.customer_id},#{item.good_id},NOW(),1,#{item.customer_name},#{item.order_id})
     	</foreach> 
 	</insert>
 	
