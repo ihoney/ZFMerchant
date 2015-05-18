@@ -18,47 +18,8 @@
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>
-		<!-- 上传文件限制大小(单位Byte):5MB -->
-		<property name="maxUploadSize" value="5242880"></property>
+		<!-- 上传文件限制大小(单位Byte):2MB -->
+		<property name="maxUploadSize" value="2097152"></property>
 	</bean>
-
-	<!-- bean -->
-    <bean id="orderCleanJob" class="com.comdosoft.financial.user.runner.OrderCleanJob" />
-     
-    <!-- 定义调用对象和调用对象的方法 -->
-    <bean id="orderCleanJobDetail"
-        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <!-- 调用的类 -->
-        <property name="targetObject" ref="orderCleanJob" />
-        <!-- 调用类中的方法 -->
-        <property name="targetMethod" value="doClean" />
-        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
-        <property name="concurrent" value="false"/>
-    </bean>
- 
-    <!-- quartz-2.x的配置 -->
-     <!-- 定义触发时间 -->
-    <bean id="myJobTrigger"
-        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail">
-            <ref bean="orderCleanJobDetail" />
-        </property>
-        <property name="cronExpression">
-         <value>0 0 0/2 * * ?</value><!-- 每2个小时启动 -->
-     </property>
-    </bean> 
-    
-     
-    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
-    <!-- 如果lazy-init='true',则需要实例化该bean才能执行调度程序 -->
-    <bean name="startQuertz" lazy-init="false" autowire="no"
-        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-        <property name="triggers">
-            <list>
-                <ref bean="myJobTrigger" /> 
-            </list>
-        </property>
-        <!-- <property name="autoStartup" value="true"/>  -->
-    </bean>
 
 </beans>
