@@ -41,6 +41,8 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
 		
 		$scope.message = {
 				reason:$scope.reason,
+				person:$scope.person,
+				phone:$scope.phone,
 				terminalsId:Math.ceil($scope.terminalId),
 				customerId:Math.ceil($scope.customerId),
 				returnPrice:$scope.returnPrice,
