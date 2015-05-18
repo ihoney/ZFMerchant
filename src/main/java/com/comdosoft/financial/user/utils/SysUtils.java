@@ -469,6 +469,33 @@ public class SysUtils {
     }  
     
     /**
+     *  string转****
+     * @param string
+     * @return
+     */
+    public static String toProSub2(String s) {
+        String ss[]=s.split("@");
+        if(ss.length==1){
+            return toPro(s);
+        }else{
+            String s1="";
+            if(ss[0].length()==1){
+                s1="*";
+            }else if(ss[0].length()==2){
+                s1="**";
+            }else if(ss[0].length()==3){
+                s1="***";
+            }else if(ss[0].length()==4){
+                s1="****";
+            }else{
+                s1=ss[0].substring(0,ss[0].length()-4)+"****";
+            }
+            return s1+"@"+ss[1];
+        }
+    }
+    
+    
+    /**
      * 验证手机号码
      * @param mobiles
      * @return
