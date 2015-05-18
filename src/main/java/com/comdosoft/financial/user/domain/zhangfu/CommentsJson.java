@@ -95,14 +95,16 @@ public class CommentsJson {
 	@Override
 	public String toString() {
 		return "CommentsJson [customer_id=" + customer_id + ", good_id="
-				+ good_id + ", score=" + score + ", content=" + content
-				+ ", customer_name=" + customer_name + "]";
+				+ good_id + ", order_id=" + order_id + ", score=" + score
+				+ ", content=" + content + ", customer_name=" + customer_name
+				+ "]";
 	}
-	public CommentsJson(Integer customer_id, Integer good_id, Integer score,
-			String content, String customer_name) {
+	public CommentsJson(Integer customer_id, Integer good_id, Integer order_id,
+			Integer score, String content, String customer_name) {
 		super();
 		this.customer_id = customer_id;
 		this.good_id = good_id;
+		this.order_id = order_id;
 		this.score = score;
 		this.content = content;
 		this.customer_name = customer_name;
