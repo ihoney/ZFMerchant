@@ -110,6 +110,8 @@ public class OrderController {
           int i =   orderService.batchSaveComment(myOrderReq);
           if(i>0){
         	  return Response.buildSuccess("", "评论成功"); 
+          }else if(i==-2){
+        	  return Response.getError("您已经评论过了！"); 
           }else{
         	  return Response.getError("评论失败"); 
           }

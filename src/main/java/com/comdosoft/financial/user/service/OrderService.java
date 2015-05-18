@@ -459,6 +459,7 @@ public class OrderService {
         return new Page<Object>(request, obj_list, count);
     }
 
+    @Transactional(value = "transactionManager-zhangfu")
     public int batchSaveComment(MyOrderReq myOrderReq) {
     	Integer orderId = myOrderReq.getId();
     Order order = 	orderMapper.findMyOrderById(orderId);
@@ -466,6 +467,10 @@ public class OrderService {
     if(status<3){//非法提交
     	logger.debug("评分非法提交");
     	return 0;
+    }
+    if(status == OrderStatus.EVALUATED.getCode()){
+    	logger.debug("已经评过分了");
+    	return -2;
     }
     List<CommentsJson> coms = 	myOrderReq.getJson();
     List<CommentsJson> new_coms = new ArrayList<CommentsJson>();
