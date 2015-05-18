@@ -65,7 +65,7 @@
 <script type="text/javascript"	src="js/left.js"></script>
 <![endif]-->
 </head>
-<body ngCloak>
+<body   class="ng-cloak">
 	<div class="topInfo clear" >
 		<div class="box" ng-controller="headerController">
 			<div class="address">
@@ -96,7 +96,7 @@
 				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 			<div class="loginInfo" ng-if="loginshow">
-				<span>{{loginUserName}}</span><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
+				<span ng-bind="loginUserName"> </span><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
 					ng-click="escLogin()">退出</a><a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 		</div>
