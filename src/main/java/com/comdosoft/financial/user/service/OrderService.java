@@ -460,11 +460,19 @@ public class OrderService {
     }
 
     public int batchSaveComment(MyOrderReq myOrderReq) {
+    	Integer orderId = myOrderReq.getId();
+    Order order = 	orderMapper.findMyOrderById(orderId);
+    Integer status = order.getStatus()==null?0:order.getStatus();
+    if(status<3){//非法提交
+    	logger.debug("评分非法提交");
+    	return 0;
+    }
     List<CommentsJson> coms = 	myOrderReq.getJson();
     List<CommentsJson> new_coms = new ArrayList<CommentsJson>();
     for(CommentsJson c: coms){
     	Customer cm  = customerMapper.getCustomerById(new Customer(c.getCustomer_id()));
     	c.setCustomer_name(cm.getUsername()==null?"":cm.getUsername());
+    	c.setOrder_id(orderId);
     	new_coms.add(c);
     }
     logger.debug("comments>>>"+ new_coms);

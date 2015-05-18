@@ -3,10 +3,23 @@ package com.comdosoft.financial.user.domain.zhangfu;
 public class CommentsJson {
     private Integer customer_id;
     private Integer good_id;
+    private Integer order_id;
     private Integer score;
     private String content;
     private String customer_name;
    
+	/**
+	 * @return the order_id
+	 */
+	public Integer getOrder_id() {
+		return order_id;
+	}
+	/**
+	 * @param order_id the order_id to set
+	 */
+	public void setOrder_id(Integer order_id) {
+		this.order_id = order_id;
+	}
 	/**
 	 * @return the customer_name
 	 */
