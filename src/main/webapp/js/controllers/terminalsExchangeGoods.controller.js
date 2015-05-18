@@ -93,7 +93,13 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	  		 };
   	  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
   	  	          if (data != null && data != undefined) {
-  	  	        	$scope.terminalDetail();
+  	  	        	  if(data.code == 1){
+  	  	        		$scope.receiver = "";
+  	  	        		$scope.address = "";
+  	  	        		$scope.moblephone= "";
+  	  	        		$scope.zipCode="";
+  	  	        		$scope.terminalDetail();
+  	  	        	  }
   	  	          }
   	  	      }).error(function (data) {
   	  	    	  alert("操作失败");

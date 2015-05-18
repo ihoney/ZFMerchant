@@ -98,6 +98,7 @@ public class TerminalsService {
 	 * @return
 	 */
 	public void addCostometAddress(CustomerAddress customerAddress) {
+	    customerAddress.setStatus((byte) CustomerAddress.STATUS_1);
 		 terminalsMapper.addCostometAddress(customerAddress);
 	}
 	
