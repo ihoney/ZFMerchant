@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.MailReq;
+import com.comdosoft.financial.user.domain.zhangfu.AppVersion;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.mapper.zhangfu.IndexMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
@@ -166,6 +167,11 @@ public class IndexService {
 	            e.printStackTrace();
 	        }
 	        return "";
+	}
+
+	public AppVersion getVersion(AppVersion app) {
+		AppVersion list = indexMapper.getVersion(app);
+		return list;
 	}
 
 }
