@@ -199,7 +199,7 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 	$scope.gotoagentlogin1 = function() {
 		$http.post("api/user/goToAgentLogin1").success(function(data) {
 			if (data.code == 1) {
-				window.location.href = data.result;
+				window.open(data.result);
 			}
 			if (data.code == -1) {
 				alert("链接失败！");
