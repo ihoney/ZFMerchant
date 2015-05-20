@@ -13,6 +13,16 @@ public class RootUrl {
 
     public static String filepath;
 
+    
+    public  String getLocalpath() {
+        return localpath;
+    }
+
+    @Autowired
+    public  void setLocalpath(@Value("${localpath}")String localpath) {
+        RootUrl.localpath = localpath;
+    }
+
     public  String getUrlpath() {
         return urlpath;
     }
