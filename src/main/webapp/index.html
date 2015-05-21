@@ -94,11 +94,22 @@
 				<a href="#">首页</a> <a href="#/shop">选购POS机</a> <a href="#/userdown">APP下载</a>
 			</div>
 			<div class="loginInfo" ng-if="!loginshow">
-				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
+				<a href="#/login" class="loginInfo_abtn">登录</a> <a href="#/register" class="loginInfo_abtn">注册</a> <a ng-click="gotoagentlogin1()" class="loginInfo_abtn">合作伙伴入口</a>
 			</div>
-			<div class="loginInfo" ng-if="loginshow">
-				<span ng-bind="loginUserName"> </span><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
-					ng-click="escLogin()">退出</a><a ng-click="gotoagentlogin1()">合作伙伴入口</a>
+			<div class="loginInfo" ng-show="loginshow">
+				<span ng-bind="loginUserName" class="loginInfo_abtn"> </span>
+				<div class="loginUser">
+            	<div class="loginUser_zf">
+                	<a href="#/myapp">我的掌富</a>
+                    <i></i>
+                </div>
+                <div class="loginUser_menu">
+                	<a href="#/order">我的订单</a>
+                    <a href="#/terminal">我的终端</a>
+                </div>
+            </div>
+				<a ng-click="escLogin()" class="loginInfo_abtn">退出</a>
+				<a ng-click="gotoagentlogin1()" class="loginInfo_abtn">合作伙伴入口</a>
 			</div>
 		</div>
 		<div class="clear"></div>
