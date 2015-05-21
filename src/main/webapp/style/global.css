@@ -27,7 +27,54 @@ input { border: none;}
 
 
 .loginInfo { float: right; height: 30px; line-height: 30px;}
-.loginInfo a, .loginInfo span { color: #FFF; margin: 0 10px;}
+.loginInfo a.loginInfo_abtn, .loginInfo span.loginInfo_abtn { color: #FFF; margin: 0 10px; display: inline-block; float: left;}
+
+.loginUser { float: left;color: #FFF; margin: 0 10px; position: relative; width: 76px; height: 30px;}
+.loginUser .loginUser_zf { position: absolute; top: 0; left: 0; padding: 0 10px; z-index: 1300;}
+.loginUser .loginUser_zf a {
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	max-width: 80px;
+	display: block;
+	color: #FFF;
+}
+.loginUser .loginUser_zf i {
+	width: 7px; 
+	height: 4px; 
+	display: inline-block;
+	background: url(../images/address_icon.png) no-repeat 0 0;
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	right: 2px;
+}
+.loginUser .lun_hover { background: #fff; color: #ff5f2b;}
+.loginUser .lun_hover a { color:#ff5f2b;}
+.loginUser .lun_hover i {background: url(../images/address_icon.png) no-repeat 0 -4px;}
+
+.loginUser .loginUser_menu { 
+	position: absolute; 
+	display: none;
+	top: 29px;
+	left: 0;
+	z-index: 1200;
+	background: #fff;
+	width: 100px;
+	padding: 10px 0;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+}
+.loginUser .loginUser_menu a { 
+	display: block;
+	height: 28px; 
+	line-height: 28px;
+	color: #333;
+	margin: 0;
+	padding: 0 10px;
+}
+.loginUser .loginUser_menu a:hover {
+	background: #eee;
+}
 
 
 

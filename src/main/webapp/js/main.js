@@ -365,3 +365,16 @@ $(function() {
 	});
 
 });
+
+$(function(){
+	$(".loginUser").hover(
+		function(){
+			$(this).find(".loginUser_zf").addClass("lun_hover");
+			$(this).find(".loginUser_menu").css("display","block");
+		},
+		function(){
+			$(this).find(".loginUser_zf").removeClass("lun_hover");	
+			$(this).find(".loginUser_menu").css("display","none");
+		}
+	)	
+})
