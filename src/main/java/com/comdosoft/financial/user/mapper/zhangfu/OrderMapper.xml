@@ -324,7 +324,7 @@ left JOIN cities cccs on cccs.id = ccs.parent_id
     
 	<update id="changeStatus" >
         UPDATE orders
-			SET `status` = #{orderStatus.code},updated_at= NOW()
+			SET status = #{orderStatus.code},	cancel_flag =#{cancel_flag.code} ,updated_at = NOW()
 		WHERE
 			id = #{id}
     </update>

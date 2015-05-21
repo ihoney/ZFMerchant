@@ -27,6 +27,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
+import com.comdosoft.financial.user.mapper.zhangfu.CancelType;
 import com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
@@ -434,6 +435,7 @@ public class OrderService {
     @Transactional(value = "transactionManager-zhangfu")
     public void cancelMyOrder(MyOrderReq myOrderReq) {
         myOrderReq.setOrderStatus(OrderStatus.CANCEL);
+        myOrderReq.setCancel_flag(CancelType.USER);
         orderMapper.changeStatus(myOrderReq);
     	List<Map<String, Object>> o = orderMapper.findOrderById(myOrderReq);
     	for(Map<String,Object> oo :o){

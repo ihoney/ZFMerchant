@@ -3,6 +3,8 @@ package com.comdosoft.financial.user.domain.zhangfu;
 import java.util.Arrays;
 import java.util.List;
 
+import com.comdosoft.financial.user.mapper.zhangfu.CancelType;
+
 
 
 public class MyOrderReq {
@@ -29,9 +31,15 @@ public class MyOrderReq {
     private String track_number;
     private List<CommentsJson> json;
     
-   
+	private CancelType cancel_flag; //取消类型
     
-    public String getUserName() {
+    public CancelType getCancel_flag() {
+		return cancel_flag;
+	}
+	public void setCancel_flag(CancelType cancel_flag) {
+		this.cancel_flag = cancel_flag;
+	}
+	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
