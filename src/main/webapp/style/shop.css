@@ -31,13 +31,13 @@
 	width: 7px; 
 	height: 4px; 
 	display: inline-block;
-	background: url(../images/icons.png) no-repeat 0 0;
+	background: url(../images/address_icon.png) no-repeat 0 0;
 	position: absolute;
 	top: 50%;
 	margin-top: -2px;
 	right: 10px;
 }
-.address .addr_h_hover i { background: url(../images/icons.png) no-repeat 0 -5px;}
+.address .addr_h_hover i { background: url(../images/address_icon.png) no-repeat 0 -4px;}
 
 .address .addr_b { 
 	width: 270px; 
@@ -769,7 +769,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .proInfo_area { float: left; width: 530px; padding-left: 20px;}
 .proInfo_area h1 { font-size: 16px; line-height: 32px;}
 .proInfo_area h3 { font-size: 12px; color: #666; line-height: 24px;}
-.pac_summary { line-height: 24px; margin: 10px 0; height: 222px;}
+.pac_summary { line-height: 24px; margin: 10px 0; height: 290px;}
 .pac_summary li { padding: 10px 0; overflow: hidden;}
 .pac_summary li span { width: 70px; float: left; color: #666;}
 .pac_summary li .text { float: left;}
@@ -786,6 +786,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 .pac_summary li.selected_li a:hover { background: #fff;  border: 1px #ff5f2b solid; color: #ff5f2b;}
 .pac_summary li.selected_li a.hover { background: #ff5f2b; color: #FFF; border: 1px #ff5f2b solid;}
 .pac_summary li.deposit_li { display: none;}
+.pac_summary li.sales_li .text span { color:#ff5f2b; font-size: 14px;}
 
 
 .buy_numb { overflow: hidden; float: left;}
@@ -811,7 +812,7 @@ a.page_next:hover {background: url(../images/icons.png) no-repeat -35px -171px;}
 }
 .buy_stock { font-style: normal; float: left; margin-left: 5px;}
 
-.buy_action { margin: 10px 0; padding: 10px 0; text-align: left;}
+.buy_action { padding: 10px 0; text-align: left;}
 .buy_action a { 
 	width: 180px; 
 	height: 38px;

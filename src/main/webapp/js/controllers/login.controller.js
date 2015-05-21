@@ -119,8 +119,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		$scope.password1 = "";
 		$scope.code = "";
 		location.reload();
-		window.location.href = '#/';
-
+		//window.location.href = '#/';
 	}
 
 	$scope.shopcount = 0;
