@@ -93,7 +93,13 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
   	  		 };
   	  		 $http.post("api/terminal/addCostometAddress",  $scope.CostometAddress).success(function (data) {  //绑定
   	  	          if (data != null && data != undefined) {
-  	  	        	$scope.terminalDetail();
+  	  	        	  if(data.code == 1){
+  	  	        		$scope.receiver = "";
+  	  	        		$scope.address = "";
+  	  	        		$scope.moblephone= "";
+  	  	        		$scope.zipCode="";
+  	  	        		$scope.terminalDetail();
+  	  	        	  }
   	  	          }
   	  	      }).error(function (data) {
   	  	    	  alert("操作失败");
@@ -119,8 +125,22 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 	      });
   	}
   	
+  	//提交校验
+  	$scope.establish = function(){
+  		 if($scope.reason  == undefined || $scope.reason == ''){
+  			 alert("请填写换货原因！");
+  			 return false;
+  		 }else if($scope.returnAddressId  == undefined || $scope.returnAddressId == ''){
+  			 alert("请选择寄回地址！");
+  			 return false;
+  		 }
+  		 return true;
+  		
+  	}
+  	
   //提交
 	$scope.subDetail = function () {
+		
 		if($scope.addreyn == false){
 			for(var i = 0; i<$scope.addressList.length;i++){
 				if($scope.addressList[i].isDefault ==1){
@@ -164,18 +184,20 @@ var terminalExchangeGoodsController = function ($scope, $http,$location, LoginSe
 				type : 3,
 				modelStatus : $("#modelStatus").val()
 				};
-      $http.post("api/terminal/subChange", $scope.message).success(function (data) {  //绑定
-          if (data != null && data != undefined) {
-        	  if(data.code == 1){
-        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
-        	  }else{
-        		  alert("换货失败！");
-        	  }
-          }
-      }).error(function (data) {
-    	  alert("操作失败");
-      });
-      
+			if($scope.establish()){
+				  $http.post("api/terminal/subChange", $scope.message).success(function (data) {  //绑定
+		          if (data != null && data != undefined) {
+		        	  if(data.code == 1){
+		        		  window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+		        	  }else{
+		        		  alert("换货失败！");
+		        	  }
+		          }
+		      }).error(function (data) {
+		    	  alert("操作失败");
+		      });
+		      
+			}
   };
   
   $scope.terminalDetail();

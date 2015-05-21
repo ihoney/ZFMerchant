@@ -98,6 +98,8 @@ public class TerminalsService {
 	 * @return
 	 */
 	public void addCostometAddress(CustomerAddress customerAddress) {
+	    customerAddress.setStatus((byte) CustomerAddress.STATUS_1);
+	    customerAddress.setIsDefault(CustomerAddress.ISDEFAULT_2);
 		 terminalsMapper.addCostometAddress(customerAddress);
 	}
 	
@@ -489,6 +491,7 @@ public class TerminalsService {
                 if(listmap2!=null&&listmap2.size()>0){
                     map.put("openStatus", listmap2);
                 }else{
+                    map.put("openStatus", listmap2);
                     map.put("error", "未申请");
                 }
                 

@@ -152,10 +152,9 @@ indexModule.directive('onFinishRender3Filters', function ($timeout) {
                 	$('.banner').unslider({
     					speed : 500,
     					delay : 3000,
-    					complete : function() {
-    					},
     					keys : true,
     					dots : true,
+    					arrows:true,
     					fluid : false
     				});
                 });

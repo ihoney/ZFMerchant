@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule" id="ng-app"
-	ng-controller="indexController">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="indexModule"  id="ng-app"	ng-scp  ng-controller="indexController">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IEs=edge" />
 <meta name="renderer" content="webkit" />
- 
-<title>华尔街金融平台</title>
+ <title>华尔街金融平台即将上线</title>
+<meta name="description" content="全国领先的POS支付终端、P2P、融资理财销售服务平台，提供POS终端选购、交易流水查询、在线POS开通认证、实时视频认证、5*18时客服在线服务，是您安全可靠的一站式购买POS机认证平台 " />
+<meta name="Keywords" content="POS,终端,支付设备,支付终端,POS机,POS申请,POS机购买,在线POS机认证,华尔街,华尔街金融,移动支付电子支付,刷卡支付," />
 <script>
 //btn_submit
 	function SubmitEvent(e){
@@ -23,6 +23,7 @@
 <link href="style/user.css" rel="stylesheet" type="text/css" />
 <!--global.css全局公用-->
 <link href="style/global.css" rel="stylesheet" type="text/css" />
+<link href="js/libs/angular-csp.css" rel="stylesheet" type="text/css" />
 <!-- 日历控件 -->
 <link href="style/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="js/jQuery-1.11.2.js"></script>
@@ -65,7 +66,7 @@
 <script type="text/javascript"	src="js/left.js"></script>
 <![endif]-->
 </head>
-<body>
+<body   class="ng-cloak">
 	<div class="topInfo clear" >
 		<div class="box" ng-controller="headerController">
 			<div class="address">
@@ -96,7 +97,7 @@
 				<a href="#/login">登录</a> <a href="#/register">注册</a> <a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 			<div class="loginInfo" ng-if="loginshow">
-				<span>{{loginUserName}}</span><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
+				<span ng-bind="loginUserName"> </span><a href="#/myapp">我的掌富</a><a href="javascript:void(0)"
 					ng-click="escLogin()">退出</a><a ng-click="gotoagentlogin1()">合作伙伴入口</a>
 			</div>
 		</div>

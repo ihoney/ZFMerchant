@@ -10,13 +10,15 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 	$scope.$on('$locationChangeStart', function(scope, next, current) {
 		var strs = new Array(); // 定义一数组
 		strs = next.split("/#/"); // 字符分割
-		if (strs[1] == "") {
+		if (strs[1] == ""||strs[1] == "userdown") {
 			$('#head_index').addClass('head_index');
 		} else {
 			$('#head_index').removeClass('head_index');
 		}
 		if (LoginService.userid == 0&&strs.length == 2) {
-			if (!check2(strs[1])) {
+			var ss=new Array();
+			ss=strs[1].split("?");
+			if (!check2(ss[0])) {
 				$cookieStore.put("url", strs[1]);
 			}
 			strs = strs[1].split("?");
@@ -83,7 +85,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		return false;
 	}
 	var check2 = function(str) {
-		var arry = [ "login", "register", "findpass", "findpassEmail" ];
+		var arry = [ "login", "register", "findpass", "findpassEmail"];
 		for (var i = 0; i < arry.length; i++) {
 			if (str == arry[i]) {
 				return true;
@@ -117,8 +119,7 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 		$scope.password1 = "";
 		$scope.code = "";
 		location.reload();
-		window.location.href = '#/';
-
+		//window.location.href = '#/';
 	}
 
 	$scope.shopcount = 0;
@@ -199,7 +200,7 @@ var headerController = function($scope, $location, $http, LoginService, $cookieS
 	$scope.gotoagentlogin1 = function() {
 		$http.post("api/user/goToAgentLogin1").success(function(data) {
 			if (data.code == 1) {
-				window.location.href = data.result;
+				window.open(data.result);
 			}
 			if (data.code == -1) {
 				alert("链接失败！");

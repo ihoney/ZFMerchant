@@ -68,6 +68,7 @@
 
 	<select id="getCustomerById" resultType="com.comdosoft.financial.user.domain.zhangfu.Customer">
 	 SELECT c.id,
+	 		c.username,
 			c.name,
 			c.phone,
 			c.email,
@@ -304,6 +305,13 @@
 	<![CDATA[
 		UPDATE customer_addresses SET status = 2 ,	updated_at = NOW()
 		 WHERE id = #{id}
+	]]>
+	</update>
+	
+	<update id="updateDevice">
+	<![CDATA[
+		UPDATE customers SET device_code = #{1}
+		 WHERE id = #{0}
 	]]>
 	</update>
 

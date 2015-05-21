@@ -1,5 +1,5 @@
-<script type="text/javascript" src="js/controllers/shopinfo.controller.js"></script>
-<div ng-controller="shopinfoController" class="ng-cloak">
+<script type="text/javascript" src="js/controllers/shopshow.controller.js"></script>
+<div ng-controller="shopshowController" class="ng-cloak">
 	<div class="main">
 		<div class="box">
 			<div class="product_left clear">
@@ -66,10 +66,6 @@
 										<em class="buy_stock">库存{{good.goodinfo.quantity}}件</em>
 									</div></li>
 							</ul>
-						</div>
-						<div class="buy_action">
-							<a href="#/shopmakeorder?goodId={{good.goodinfo.id}}&type=1&quantity={{quantity}}&paychannelId={{paychannel.id}}" class="buy_btn">立即购买</a> <a
-								href="#/leasemakeorder?goodId={{good.goodinfo.id}}&type=2&quantity={{quantity}}&paychannelId={{paychannel.id}}" class="lease_btn">租赁</a> <a ng-click="addCart()" class="shoppingCart_btn"><i></i>放入购物车</a>
 						</div>
 					</div>
 				</div>
@@ -234,7 +230,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div style="display: none;">
 							<div class="pro_evaluate">
 								<div class="evaluate_title">

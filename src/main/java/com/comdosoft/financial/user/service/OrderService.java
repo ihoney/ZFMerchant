@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.comdosoft.financial.user.domain.query.OrderReq;
 import com.comdosoft.financial.user.domain.query.PosReq;
+import com.comdosoft.financial.user.domain.zhangfu.CommentsJson;
+import com.comdosoft.financial.user.domain.zhangfu.Customer;
 import com.comdosoft.financial.user.domain.zhangfu.Good;
 import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
@@ -25,6 +27,7 @@ import com.comdosoft.financial.user.domain.zhangfu.Order;
 import com.comdosoft.financial.user.domain.zhangfu.OrderGood;
 import com.comdosoft.financial.user.domain.zhangfu.OrderStatus;
 import com.comdosoft.financial.user.domain.zhangfu.Terminal;
+import com.comdosoft.financial.user.mapper.zhangfu.CustomerMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.GoodMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
 import com.comdosoft.financial.user.mapper.zhangfu.ShopCartMapper;
@@ -39,6 +42,8 @@ import com.comdosoft.financial.user.utils.unionpay.UnionpayService;
 public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private CustomerMapper customerMapper;
     @Autowired
     private GoodMapper goodMapper;
     @Autowired
@@ -454,8 +459,29 @@ public class OrderService {
         return new Page<Object>(request, obj_list, count);
     }
 
+    @Transactional(value = "transactionManager-zhangfu")
     public int batchSaveComment(MyOrderReq myOrderReq) {
-      int i =   orderMapper.batchSaveComment(myOrderReq.getJson());
+    	Integer orderId = myOrderReq.getId();
+    Order order = 	orderMapper.findMyOrderById(orderId);
+    Integer status = order.getStatus()==null?0:order.getStatus();
+    if(status<3){//非法提交
+    	logger.debug("评分非法提交");
+    	return 0;
+    }
+    if(status == OrderStatus.EVALUATED.getCode()){
+    	logger.debug("已经评过分了");
+    	return -2;
+    }
+    List<CommentsJson> coms = 	myOrderReq.getJson();
+    List<CommentsJson> new_coms = new ArrayList<CommentsJson>();
+    for(CommentsJson c: coms){
+    	Customer cm  = customerMapper.getCustomerById(new Customer(c.getCustomer_id()));
+    	c.setCustomer_name(cm.getUsername()==null?"":cm.getUsername());
+    	c.setOrder_id(orderId);
+    	new_coms.add(c);
+    }
+    logger.debug("comments>>>"+ new_coms);
+      int i =   orderMapper.batchSaveComment(new_coms);
       if(i>0){
     	  myOrderReq.setOrderStatus(OrderStatus.EVALUATED);
           int j = orderMapper.changeStatus(myOrderReq);

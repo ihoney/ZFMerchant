@@ -52,10 +52,10 @@ var ordermarkController = function ($scope,$location, $http, LoginService) {
     	json_req =  JSON.stringify(json_req);
     	$scope.req = json_req;
     	$http.post("api/order/batchSaveComment", $scope.req).success(function (data) {  
+    		alert(data.message);
     		if (data.code==1) {
-    			alert("评论成功");
     			window.location.href = '#/orderinfo?orderId='+$scope.order_id;
-    		}
+    		} 
     	}).error(function (data) {
     	});
     };

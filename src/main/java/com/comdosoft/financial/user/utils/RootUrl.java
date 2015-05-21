@@ -1,20 +1,44 @@
 package com.comdosoft.financial.user.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class RootUrl {
 
-//    public static String urlpath = "http://www.ebank007.com/";
-//
-//    public static String filepath = "http://file.ebank007.com/";
+    public static String localpath;
+
+    public static String urlpath;
+
+    public static String filepath;
+
     
-    //    public static String urlpath = "http://121.40.64.167:8080/";
+    public  String getLocalpath() {
+        return localpath;
+    }
 
-    public static String localpath = "/opt/data/";
+    @Autowired
+    public  void setLocalpath(@Value("${localpath}")String localpath) {
+        RootUrl.localpath = localpath;
+    }
 
-    public static String urlpath = "http://121.40.84.2:8080/ZFMerchant/";
+    public  String getUrlpath() {
+        return urlpath;
+    }
 
-    public static String filepath = "http://121.40.84.2:8888/";
+    @Autowired
+    public  void setUrlpath(@Value("${urlpath}")String urlpath) {
+        RootUrl.urlpath = urlpath;
+    }
+
+    public  String getFilepath() {
+        return filepath;
+    }
+
+    @Autowired
+    public  void setFilepath(@Value("${filePath}")String filepath) {
+        RootUrl.filepath = filepath;
+    }
     
-//    public static String urlpath = "http://114.251.149.242:18080/ZFMerchant/";
-//
-//    public static String filepath = "http://121.40.84.2:8888/";
 }

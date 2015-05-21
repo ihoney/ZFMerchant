@@ -41,6 +41,8 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
 		
 		$scope.message = {
 				reason:$scope.reason,
+				person:$scope.person,
+				phone:$scope.phone,
 				terminalsId:Math.ceil($scope.terminalId),
 				customerId:Math.ceil($scope.customerId),
 				returnPrice:$scope.returnPrice,
@@ -49,20 +51,26 @@ var terminalReturnGoodController = function ($scope, $http,$location, LoginServi
 				type : 3,
 				modelStatus:$("#modelStatus").val()
 				};
-		
-    $http.post("api/terminal/subReturn", $scope.message).success(function (data) {  //绑定
-        if (data != null && data != undefined) {
-        	if(data.code == 1){
-        		alert("操作成功！");
-        		window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
-        	}else{
-        		alert("操作失败！");
-        	}
-        }
-    }).error(function (data) {
-  	  alert("操作失败");
-    });
-    
+		if($scope.reason == undefined || $scope.reason == ''){
+			alert("请填写退货原因！");
+		}else if($scope.person == undefined || $scope.person == ''){
+			alert("请填写联系人！");
+		}else if($scope.phone == undefined || $scope.phone ==''){
+			alert("请填写联系电话！");
+		}else{
+			  $http.post("api/terminal/subReturn", $scope.message).success(function (data) {  //绑定
+	        if (data != null && data != undefined) {
+	        	if(data.code == 1){
+	        		alert("操作成功！");
+	        		window.location.href ='#/terminalDetail?terminalId='+$scope.terminalId;
+	        	}else{
+	        		alert("操作失败！");
+	        	}
+	        }
+	    }).error(function (data) {
+	  	  alert("操作失败");
+	    });
+		}
 };
 
   $scope.terminalDetail();

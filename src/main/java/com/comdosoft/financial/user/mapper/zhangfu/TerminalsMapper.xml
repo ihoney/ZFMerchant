@@ -31,8 +31,8 @@
 	</insert>
 	
 	<insert id="addCostometAddress" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.CustomerAddress">
-		INSERT INTO customer_addresses(city_id,receiver,address,moblephone,zip_code,is_default,customer_id,created_at,updated_at)
-		VALUES(#{cityId},#{receiver},#{address},#{moblephone},#{zipCode},#{isDefault},#{customerId},now(),now())
+		INSERT INTO customer_addresses(city_id,receiver,address,moblephone,zip_code,is_default,customer_id,created_at,updated_at,status)
+		VALUES(#{cityId},#{receiver},#{address},#{moblephone},#{zipCode},#{isDefault},#{customerId},now(),now(),#{status})
 	</insert>
 	
 	
@@ -47,15 +47,15 @@
 	</insert>
 	
 	<insert id="subReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-		INSERT INTO cs_returns(terminal_id,status,return_price,reason,should_cencel,cs_cencel_id,customer_id,created_at,updated_at,apply_num)
-		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()))
+		INSERT INTO cs_returns(terminal_id,status,return_price,reason,should_cencel,cs_cencel_id,customer_id,created_at,updated_at,apply_num,return_address_id)
+		VALUES(#{terminalsId},#{status},#{returnPrice},#{reason},1,#{csCencelId},#{customerId},now(),now(),unix_timestamp(now()),#{returnAddressId})
 	</insert>
 	
 	<insert id="subToUpdate" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT INTO cs_update_infos(terminal_id,status,templete_info_xml,created_at,updated_at,customer_id,apply_num)
 		VALUES(#{terminalsId},#{status},#{templeteInfoXml},now(),now(),#{customerId},unix_timestamp(now()))
 	</insert>
-	
+
 	<!-- 查询交易流水用 -->
 	<select id="getTerminals" resultType="map">
 	<![CDATA[

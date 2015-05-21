@@ -21,6 +21,15 @@ public class Customer {
 	private String code;
 	private String dentcode;
 
+	
+	public Customer() {
+	}
+
+	public Customer(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */

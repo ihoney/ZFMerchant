@@ -435,6 +435,10 @@ public class TerminalsController {
 	@RequestMapping(value = "subReturn", method = RequestMethod.POST)
 	public Response subReturn(@RequestBody Map<Object, Object> maps) {
 		try {
+		    CustomerAddress cusAddress = new CustomerAddress();
+		    cusAddress.setReceiver((String)maps.get("person"));
+		    cusAddress.setMoblephone((String)maps.get("phone"));
+		    cusAddress.setCityId((Integer)maps.get("customerId"));
 			if(maps.get("modelStatus") == null){
 				maps.put("csCencelId", null);
 			}else if(Integer.parseInt((String)maps.get("modelStatus")) == 1){
@@ -448,8 +452,14 @@ public class TerminalsController {
 			terminalsService.subRentalReturn(csCancel);
 			maps.put("csCencelId", csCancel.getId());
 			}
-			terminalsService.subReturn(maps);
-			return Response.getSuccess("操作成功！");
+			terminalsService.addCostometAddress(cusAddress);
+			if(cusAddress.getId()>0){
+			    maps.put("returnAddressId",cusAddress.getId());
+			    terminalsService.subReturn(maps);
+	            return Response.getSuccess("操作成功！");
+			}else {
+			    return Response.getError("操作失败！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
