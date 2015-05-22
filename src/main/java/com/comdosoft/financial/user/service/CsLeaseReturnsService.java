@@ -45,6 +45,7 @@ public class CsLeaseReturnsService {
         csLeaseReturnsMapper.cancelApply(myOrderReq);
     }
 
+    //   returnprice 没有 就显示  计算的价格    ，  计算价格大于0 就写（参考金额）
     public Map<String, Object> findById(MyOrderReq myOrderReq)  {
         Map<String, Object> o = csLeaseReturnsMapper.findById(myOrderReq);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -105,6 +106,8 @@ public class CsLeaseReturnsService {
                 return_price = new BigDecimal(0);
             }
             map.put("return_price", return_price ); // 退还金额
+           Integer  crf_retrun_price =   (Integer) (o.get("crf_retrun_price")==null?0: o.get("crf_retrun_price"));
+            map.put("crf_retrun_price", crf_retrun_price ); // 退还金额
            
 //            if(day<min*30){
 //            	map.put("lease_length", min*30 ); // 租赁时长 天
