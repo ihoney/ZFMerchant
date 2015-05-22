@@ -41,7 +41,7 @@ group BY id
 	
 	<select id="getPosList2" resultType="map" >
 SELECT
-		g.id as id 
+		g.id as id ,
 		g.title,g.second_title,g.retail_price
 	FROM
 		goods g
