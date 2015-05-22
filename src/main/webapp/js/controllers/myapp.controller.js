@@ -4,6 +4,7 @@
 var myappModule = angular.module("myappModule",[]);
 
 var myappController = function ($scope, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-我的掌富");
 		//左侧样式调整
 		$("#left_common li").unbind("click").bind("click", function(){
 			$(this).children('a').addClass("hover");

@@ -4,7 +4,7 @@
 var cs_cencelModule = angular.module("cs_cencelModule",[]);
 
 var cs_cencelController = function ($scope, $http, LoginService) {
-	
+	$scope.$emit('topTitle',"华尔街金融平台-注销记录");
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

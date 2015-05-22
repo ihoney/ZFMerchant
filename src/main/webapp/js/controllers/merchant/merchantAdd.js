@@ -3,6 +3,7 @@
 // 创建商户
 var merchantAddModule = angular.module("merchantAddModule", []);
 var merchantAddController = function($scope, $http, $location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-添加商户");
 	$scope.merchant={};
 //	$scope.merchant.cardIdFrontPhotoPath==null ?'':$scope.merchant.cardIdFrontPhotoPath;
 //	$scope.merchant.cardIdBackPhotoPath==null ?'':$scope.merchant.cardIdBackPhotoPath;

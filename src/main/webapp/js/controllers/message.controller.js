@@ -4,6 +4,7 @@
 var messageModule = angular.module("messageModule", []);
 
 var messageController = function($scope, $location, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-我的消息");
 	$scope.req={};
 	$scope.req.ids=[];
 	$scope.req.q=2;
@@ -117,7 +118,7 @@ var messageController = function($scope, $location, $http, LoginService) {
 };
 
 var messageinfoController = function($scope, $location, $http, LoginService) {
-	
+	$scope.$emit('topTitle',"华尔街金融平台-消息详情");
 	$scope.init = function() {
 		$scope.req={};
 		$scope.req.customer_id=LoginService.userid;

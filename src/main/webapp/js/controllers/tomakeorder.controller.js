@@ -4,6 +4,7 @@
 var tomakeorderModule = angular.module("tomakeorderModule", []);
 
 var cartmakeorderController = function($scope, $location, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-提交订单");
 	$scope.order = {
 		invoice_type : 1,
 		addressId : 0
@@ -53,6 +54,7 @@ var cartmakeorderController = function($scope, $location, $http, LoginService) {
 };
 
 var shopmakeorderController = function($scope, $location, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-提交订单");
 	$scope.order = {
 		invoice_type : 1,
 		addressId : 0

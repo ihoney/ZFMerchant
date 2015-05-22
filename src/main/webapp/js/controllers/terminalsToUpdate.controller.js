@@ -4,6 +4,7 @@
 var terminalToUpdateModule = angular.module("terminalToUpdateModule",['loginServiceModule']);
 
 var terminalToUpdateController = function ($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-更新资料");
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = LoginService.userid;
 	$(".leaseExplain_tab").hide();

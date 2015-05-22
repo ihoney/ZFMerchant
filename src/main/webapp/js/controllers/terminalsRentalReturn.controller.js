@@ -4,6 +4,7 @@
 var terminalRentalReturnModule = angular.module("terminalRentalReturnModule",['loginServiceModule']);
 
 var terminalRentalReturnController = function ($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-申请租赁退还");
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = Math.ceil(LoginService.userid);
 	//查看终端详情

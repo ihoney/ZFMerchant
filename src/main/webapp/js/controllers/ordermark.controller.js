@@ -4,6 +4,7 @@
 var ordermarkModule = angular.module("ordermarkModule",[]);
 
 var ordermarkController = function ($scope,$location, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-商品评价");
 	$scope.req={};
 	$scope.order_id = $location.search()['orderId'];
 	$scope.req.id=$scope.order_id;

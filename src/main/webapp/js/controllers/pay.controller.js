@@ -20,6 +20,7 @@ var payController = function($scope, $http,$location,LoginService) {
 		$http.post("api/order/payOrder", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.order=data.result;
+            	$scope.$emit('topTitle',"华尔街金融平台-支付"+$scope.order.order_number);
             	if(data.result.paytype>0){
             		$scope.pay=false;
             		$scope.payway=data.result.paytype;

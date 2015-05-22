@@ -160,6 +160,9 @@ var indexController = function($scope, $location, $http, LoginService, $cookieSt
 			window.open(url + id);
 		}
 	};
+	$scope.$on('topTitle', function(d, data) {
+		$scope.topTitle = data;
+	});
 
 };
 
@@ -271,7 +274,7 @@ var searchController = function($scope, $http, LoginService) {
 };
 
 var loginController = function($scope, $location, $http, LoginService) {
-
+	$scope.$emit('topTitle',"华尔街金融平台-登录");
 	$scope.codeClass = false;
 	$scope.RememberPass = false;
 	// 登陆
@@ -370,6 +373,7 @@ function getCookie(name) {
 }
 
 var registerController = function($scope, $location, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-注册");
 	$scope.usernameLocal = $location.search()['sendusername'];
 	$scope.sendStatus = Math.ceil($location.search()['sendStatus']);
 	// 检验邮箱格式
@@ -823,6 +827,7 @@ var registerController = function($scope, $location, $http, LoginService) {
 };
 
 var findpassController = function($scope, $location, $http, LoginService, $timeout) {
+	$scope.$emit('topTitle',"华尔街金融平台-找回密码");
 	$scope.usernameLocal = $location.search()['sendusername'];
 	$scope.sendStatus = Math.ceil($location.search()['sendStatus']);
 	// 检验邮箱格式

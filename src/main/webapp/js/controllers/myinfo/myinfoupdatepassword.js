@@ -3,6 +3,7 @@
 // 系统设置模块
 var myinfoupdatepasswordModule = angular.module("myinfoupdatepasswordModule", []);
 var myinfoupdatepasswordController = function($scope, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-修改密码");
 	$scope.customer = {};
 	$scope.updatepassword = function() {
 		var p = $scope.customer.password;

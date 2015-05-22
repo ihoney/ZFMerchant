@@ -5,6 +5,7 @@ var orderinfoModule = angular.module("orderinfoModule",[]);
 
 var orderinfoController = function ($scope,$location, $http, LoginService) {
 //	$("#leftRoute").show();
+	$scope.$emit('topTitle',"华尔街金融平台-订单详情");
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';
 	}else{

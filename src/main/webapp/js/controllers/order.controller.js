@@ -2,7 +2,7 @@
 //订单
 var orderModule = angular.module("orderModule",[]);
 var orderController = function ($scope, $http, LoginService) {
-
+	$scope.$emit('topTitle',"华尔街金融平台-我的订单");
 	initSystemPage($scope);// 初始化分页参数
  
 	// 搜索

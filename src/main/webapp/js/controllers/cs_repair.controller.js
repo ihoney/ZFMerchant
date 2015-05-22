@@ -4,7 +4,7 @@
 var cs_repairModule = angular.module("cs_repairModule",[]);
 
 var cs_repairController = function ($scope, $http, LoginService) {
- 
+	$scope.$emit('topTitle',"华尔街金融平台-维修记录");
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

@@ -4,6 +4,7 @@
 var terminalOpenModule = angular.module("terminalOpenModule",['loginServiceModule']);
 
 var terminalOpenController = function ($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-申请开通");
 	//已有商户，点击样式
 	$scope._br = -1;
 	

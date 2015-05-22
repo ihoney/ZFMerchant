@@ -3,6 +3,7 @@
 // 交易流水
 var traderecordOneModule = angular.module("traderecord1OneModule", []);
 var traderecordOneController = function($scope, $http, $location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-交易流水详情");
 	$scope.traderecord1One = function() {
 		$scope.req={};
 		$scope.req.id = $location.search()['id'];

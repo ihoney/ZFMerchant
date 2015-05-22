@@ -4,6 +4,7 @@
 var terminalExchangeGoodsModule = angular.module("terminalExchangeGoodsModule",['loginServiceModule']);
 
 var terminalExchangeGoodsController = function ($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-申请换货");
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = LoginService.userid;
 	$scope.shiCities = [];

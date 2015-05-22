@@ -4,6 +4,7 @@
 var terminalReturnGoodModule = angular.module("terminalReturnGoodModule",['loginServiceModule']);
 
 var terminalReturnGoodController = function ($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-申请退货");
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = LoginService.userid;
 	//查看终端详情

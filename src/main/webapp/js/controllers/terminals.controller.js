@@ -4,6 +4,7 @@
 var terminalModule = angular.module("terminalModule",['loginServiceModule']);
 
 var terminalController = function ($scope, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-我的终端");
 	  initSystemPage($scope);// 初始化分页参数
 	  $scope.customersId = LoginService.userid;
 	  $scope.total = 0;

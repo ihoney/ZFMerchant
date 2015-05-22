@@ -4,6 +4,7 @@
 var terminalDetailModule = angular.module("terminalDetailModule",['loginServiceModule']);
 
 var terminalDetailController = function ($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-终端详情");
 	$scope.terminalId=Math.ceil($location.search()['terminalId']);
 	$scope.customerId = LoginService.userid;;
 	$(".leaseExplain_tab").hide();

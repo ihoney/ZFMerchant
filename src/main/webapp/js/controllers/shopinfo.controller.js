@@ -19,6 +19,7 @@ var shopinfoController = function($scope, $location, $http, LoginService, $cooki
 		$http.post("api/good/goodinfo", $scope.req).success(function(data) { // 绑定
 			if (data.code == 1) {
 				$scope.good = data.result;
+				$scope.$emit('topTitle',"华尔街金融平台-"+$scope.good.goodinfo.Title);
 				$scope.paychannel = data.result.paychannelinfo;
 				$scope.picList = data.result.picList;
 			} else {

@@ -4,7 +4,7 @@
 var shopModule = angular.module("shopModule",[]);
 
 var shopController = function ($scope, $http,$location, LoginService) {
-	
+	$scope.$emit('topTitle',"华尔街金融平台-POS机选购");
 	$scope.req={};
 	$scope.req.keys=LoginService.keys;
 	$scope.req.city_id=LoginService.city;

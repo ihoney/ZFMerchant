@@ -4,6 +4,7 @@
 var shopcartModule = angular.module("shopcartModule", []);
 
 var shopcartController = function($scope, $http, LoginService, $cookieStore) {
+	$scope.$emit('topTitle',"华尔街金融平台-购物车");
 	$scope.carts = [];
 	$scope.req = {};
 	$scope.selectCount = 0;

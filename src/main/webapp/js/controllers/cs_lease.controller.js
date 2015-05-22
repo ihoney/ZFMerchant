@@ -4,7 +4,7 @@
 var cs_leaseModule = angular.module("cs_leaseModule",[]);
 
 var cs_leaseController = function ($scope, $http, LoginService) {
- 
+	$scope.$emit('topTitle',"华尔街金融平台-租赁退还记录");
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

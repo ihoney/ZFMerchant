@@ -3,6 +3,7 @@
 // 系统设置模块
 var myinfobaseModule = angular.module("myinfobaseModule", []);
 var myinfobaseController = function($scope, $http,$location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-基本信息");
 	var sid = $location.search()['id'];
 	var customerId = LoginService.userid;
 	

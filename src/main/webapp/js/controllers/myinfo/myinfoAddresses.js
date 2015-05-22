@@ -3,6 +3,7 @@
 // 地址管理
 var myinfoAddressesModule = angular.module("myinfoAddressesModule", []);
 var myinfoAddressesController = function($scope, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-地址管理");
 	$scope.list = function() {
 		var customerId = LoginService.userid;
 		$http.post("api/customers/getAddressList/" + customerId).success(function(data) {

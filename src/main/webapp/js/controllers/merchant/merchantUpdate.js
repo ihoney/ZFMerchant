@@ -3,6 +3,7 @@
 // 创建商户
 var merchantUpdateModule = angular.module("merchantUpdateModule", []);
 var merchantUpdateController = function($scope, $http, $location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-编辑商户");
 	$scope.merchant={};
 		var merchantId = $location.search()['merchantId'];
 		$scope.req = {id : merchantId};

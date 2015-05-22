@@ -4,7 +4,7 @@
 var cs_changeModule = angular.module("cs_changeModule",[]);
 
 var cs_changeController = function ($scope, $http, LoginService) {
- 
+	$scope.$emit('topTitle',"华尔街金融平台-换货记录");
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

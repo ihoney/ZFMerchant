@@ -3,6 +3,7 @@
 // 积分管理
 var myinfointegralModule = angular.module("myinfointegralModule", []);
 var myinfointegralController = function($scope, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-我的积分");
 	initSystemPage($scope);// 初始化分页参数
 	$scope.list = function() {
 		var query = LoginService.userid + "/" + $scope.indexPage + "/" + $scope.rows;

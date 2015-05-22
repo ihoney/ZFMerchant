@@ -4,7 +4,7 @@
 var mainindexModule = angular.module("shopModule", []);
 
 var mainindexController = function($scope, $http) {
-
+	$scope.$emit('topTitle',"华尔街金融平台-最全最优质POS选购平台");
 	$scope.req = {};
 
 	$scope.addBuy = function() {

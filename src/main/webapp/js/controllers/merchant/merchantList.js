@@ -3,6 +3,7 @@
 // 商户列表
 var merchantListModule = angular.module("merchantListModule", []);
 var merchantListController = function($scope, $http, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-我的商户");
 	initSystemPage($scope);// 初始化分页参数
 	$scope.list = function() {
 		var customerId = LoginService.userid;

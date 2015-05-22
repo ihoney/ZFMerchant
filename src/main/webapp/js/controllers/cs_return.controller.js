@@ -4,7 +4,7 @@
 var cs_returnModule = angular.module("cs_returnModule",[]);
 
 var cs_returnController = function ($scope, $http, LoginService) {
-	 
+	$scope.$emit('topTitle',"华尔街金融平台-退货记录");
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

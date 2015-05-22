@@ -3,6 +3,7 @@
 // 商户详情
 var merchantOneModule = angular.module("merchantOneModule", []);
 var merchantOneController = function($scope, $http, $location, LoginService) {
+	$scope.$emit('topTitle',"华尔街金融平台-商户详情");
 	$scope.merchantOne = function(e) {
 		var merchantId = $location.search()['merchantId'];
 		$http.post("api/merchant/getOne/" + merchantId).success(function(data) {

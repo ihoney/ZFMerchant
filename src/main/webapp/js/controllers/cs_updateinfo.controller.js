@@ -4,7 +4,7 @@
 var cs_updateinfoModule = angular.module("cs_updateinfoModule",[]);
 
 var cs_updateinfoController = function ($scope,$location, $http, LoginService) {
-	 
+	$scope.$emit('topTitle',"华尔街金融平台-更新资料记录详情");
 	$("#leftRoute").show();
 	if(LoginService.userid == 0){
 		window.location.href = '#/login';

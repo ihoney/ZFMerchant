@@ -4,6 +4,7 @@
 var repair_payModule = angular.module("repair_payModule", []);
 
 var repair_payController = function($scope, $http,$location) {
+	
 	$scope.pay=true;
 	$scope.req={};
 	$scope.order={};
@@ -17,6 +18,7 @@ var repair_payController = function($scope, $http,$location) {
 		$http.post("api/cs/repair/repairPay", $scope.req).success(function (data) {  //绑定
             if (data.code==1) {
             	$scope.order=data.result;
+            	$scope.$emit('topTitle',"华尔街金融平台-维修支付"+$scope.order.apply_num);
             	if(data.result.paytype>0){
             		$scope.pay=false;
             		$scope.payway=data.result.paytype;
