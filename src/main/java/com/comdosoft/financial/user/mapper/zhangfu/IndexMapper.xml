@@ -31,11 +31,11 @@
 		gp.url_path
 	FROM
 		goods g
-	LEFT JOIN (select * from goods_pictures  ) as gp ON g.id = gp.good_id
+	LEFT JOIN (SELECT id,url_path,good_id FROM goods_pictures  ) AS gp ON g.id = gp.good_id  
 	where g.`status`=5  and g.is_published = 1  and g.is_recommend=1
 	group by g.id
 	ORDER BY
-		g.id DESC 
+		g.id DESC ,gp.id asc
 	limit 0,6
 	</select>
 	
