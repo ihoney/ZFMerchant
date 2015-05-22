@@ -93,7 +93,7 @@ public class CsReturnService {
         map.put("reason", o.get("reason")==null?"":o.get("reason"));
         map.put("brand_name", o.get("brand_name")==null?"":o.get("brand_name"));
         map.put("brand_number", o.get("brand_number")==null?"":o.get("brand_number"));
-        map.put("return_price", o.get("return_price")==null?"--":o.get("return_price"));
+        map.put("return_price", o.get("return_price")==null?"0":o.get("return_price"));
         map.put("crf_status", o.get("crf_status")==null?"0":o.get("crf_status"));
         map.put("zhifu_pingtai", o.get("zhifu_pt")==null?"":o.get("zhifu_pt"));
         map.put("merchant_name", o.get("merchant_name")==null?"":o.get("merchant_name"));
