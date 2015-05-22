@@ -55,7 +55,7 @@ public class IndexController {
      */
     @RequestMapping(value = "pos_list", method = RequestMethod.POST)
     public Response getPosList(){
-        List<Map<String,Object>> result= indexService.getPosList();
+        List<Map<String,Object>> result= indexService.getPosList2();
         return Response.buildSuccess(result, "查询成功");
     }
     

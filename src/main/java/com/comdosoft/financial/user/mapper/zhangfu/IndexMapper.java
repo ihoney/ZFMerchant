@@ -21,4 +21,6 @@ public interface IndexMapper {
     List<Map<String, Object>> getAllCitiesList();
 
 	AppVersion getVersion(AppVersion app);
+
+	List<Map<String, Object>> getPosList2();
 }

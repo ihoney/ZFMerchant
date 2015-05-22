@@ -6,27 +6,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.comdosoft.financial.user.domain.query.MailReq;
 import com.comdosoft.financial.user.domain.zhangfu.AppVersion;
+import com.comdosoft.financial.user.domain.zhangfu.GoodsPicture;
 import com.comdosoft.financial.user.domain.zhangfu.MyOrderReq;
 import com.comdosoft.financial.user.mapper.zhangfu.IndexMapper;
+import com.comdosoft.financial.user.mapper.zhangfu.OrderMapper;
 import com.comdosoft.financial.user.utils.SysUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 @Service
 public class IndexService {
-//    private static final Logger logger = LoggerFactory.getLogger(IndexService.class);
+    private static final Logger logger = LoggerFactory.getLogger(IndexService.class);
     @Resource
     private IndexMapper indexMapper;
+    @Resource
+    private OrderMapper orderMapper;
     @Resource
     private MailService mailService;
     
@@ -63,18 +70,42 @@ public class IndexService {
 
     public List<Map<String, Object>> getPosList() {
         List<Map<String, Object>> list = indexMapper.getPosList();
-        List<Map<String, Object>> newlist = new ArrayList<Map<String,Object>>();
+        List<Map<String, Object>> newlist = new LinkedList<Map<String,Object>>();
+        System.err.println();
+        Map<String,Object> map = null;
+        for(Map<String,Object> m: list){
+            map = new HashMap<String,Object>();
+            String id =  m.get("id")==null?"":m.get("id").toString();
+            String pgid =  m.get("pgid")==null?"":m.get("pgid").toString();
+            logger.debug("id>>"+id+"pgid>>>>"+pgid+"  urlpath>>>"+m.get("url_path"));
+            map.put("id", id);
+            map.put("title", m.get("title")==null?"":m.get("title"));
+            map.put("retail_price", m.get("retail_price")==null?"":m.get("retail_price"));
+            map.put("second_title", m.get("second_title")==null?"": m.get("second_title"));
+            map.put("good_logo", m.get("url_path")==null?"": filePath+m.get("url_path"));
+            newlist.add(map);
+        }
+        return newlist;
+    }
+    
+    public List<Map<String, Object>> getPosList2() {
+        List<Map<String, Object>> list = indexMapper.getPosList2();
+        List<Map<String, Object>> newlist = new LinkedList<Map<String,Object>>();
         Map<String,Object> map = null;
         for(Map<String,Object> m: list){
             map = new HashMap<String,Object>();
             String id =  m.get("id")==null?"":m.get("id").toString();
             map.put("id", id);
-//            map.put("brand_number", m.get("brand_number")==null?"":m.get("brand_number"));
-//            map.put("volume_number", m.get("volume_number")==null?"":m.get("volume_number"));
             map.put("title", m.get("title")==null?"":m.get("title"));
             map.put("retail_price", m.get("retail_price")==null?"":m.get("retail_price"));
             map.put("second_title", m.get("second_title")==null?"": m.get("second_title"));
-            map.put("good_logo", m.get("url_path")==null?"": filePath+m.get("url_path"));
+            List<GoodsPicture> pglist = orderMapper.findPicByGoodId(Integer.parseInt(id));
+            String good_logo ="";         
+            if (pglist.size() > 0) {
+                GoodsPicture gp = pglist.get(0);
+                 good_logo = gp.getUrlPath()==null?"":filePath +gp.getUrlPath();
+            }
+            map.put("good_logo", good_logo);
             newlist.add(map);
         }
         return newlist;

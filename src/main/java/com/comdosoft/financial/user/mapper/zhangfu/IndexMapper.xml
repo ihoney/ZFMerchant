@@ -39,6 +39,18 @@ group BY id
 	limit 0,6
 	</select>
 	
+	<select id="getPosList2" resultType="map" >
+SELECT
+		g.id as id 
+		g.title,g.second_title,g.retail_price
+	FROM
+		goods g
+	where g.`status`=5  and g.is_published = 1  and g.is_recommend=1
+	ORDER BY
+		id DESC 
+	limit 0,6
+	</select>
+	
 	<select id="getParentCitiesList" resultType="map" >
 	SELECT
 		c.`name`,
