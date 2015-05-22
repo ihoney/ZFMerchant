@@ -25,17 +25,17 @@
 	</select>
 	<!-- 热卖pos -->
 	<select id="getPosList" resultType="map" >
-	SELECT
-		g.id,
+SELECT
+		g.id as id,gp.id as pgid,
 		g.title,g.second_title,g.retail_price,
 		gp.url_path
 	FROM
 		goods g
 	LEFT JOIN (SELECT id,url_path,good_id FROM goods_pictures  ) AS gp ON g.id = gp.good_id  
 	where g.`status`=5  and g.is_published = 1  and g.is_recommend=1
-	group by g.id
+group BY id
 	ORDER BY
-		g.id DESC ,gp.id asc
+		id DESC ,pgid asc
 	limit 0,6
 	</select>
 	
