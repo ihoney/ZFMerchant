@@ -107,14 +107,19 @@
 			o.return_price,
 			o.bank_name,
 			o.bank_account,
-			o.reason,o.cs_cencel_id,
-			t.serial_num,cc.templete_info_xml,
+			o.reason,
+			o.cs_cencel_id,
+			t.serial_num,
+			cc.templete_info_xml,
 			o.apply_num,
 			gb.`name` AS brand_name,
 			g.model_number AS brand_number,
-			pc.`name` as zhifu_pt, m.title AS merchant_name,
+			pc.`name` AS zhifu_pt,
+			m.title AS merchant_name,
 			m.phone AS mer_phone,
-			cra.address ,cra.receiver,cra.phone as receiver_phone  
+			cra.address,
+			cra.receiver,
+			cra.phone AS receiver_phone,crf.`status` as crf_status
 		FROM
 			cs_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
@@ -122,9 +127,9 @@
 		LEFT JOIN good_brands gb ON g.good_brands_id = gb.id
 		LEFT JOIN pay_channels pc ON t.pay_channel_id = pc.id
 		LEFT JOIN merchants m ON t.merchant_id = m.id
-		left join cs_cancels cc on o.cs_cencel_id = cc.id
+		LEFT JOIN cs_cancels cc ON o.cs_cencel_id = cc.id
 		LEFT JOIN cs_receiver_addresses cra ON o.return_address_id = cra.id
-		
+		left JOIN cs_refunds crf on o.id = crf.target_id and crf.target_type=1
 		WHERE
 			o.id = #{id}
 	</select>

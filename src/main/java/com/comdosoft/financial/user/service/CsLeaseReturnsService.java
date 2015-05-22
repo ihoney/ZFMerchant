@@ -117,9 +117,15 @@ public class CsLeaseReturnsService {
 //                     "  租赁时长:"+day+"天"+"  最长租赁时间："+max * 30+"天"+" 最短租赁时间:"+min*30+"天");
             myOrderReq.setId(Integer.parseInt(id));
         }else{
-            logger.error("时间日期出错了。。。。");//以后处理
+            logger.error("时间日期出错了。。。。"); 
         }
         map.put("terminal_num", o.get("serial_num")==null?"":o.get("serial_num"));
+        /**
+    	 * 退款状态1.待处理
+    	 * 退款状态2.处理完成
+    	 * 退款状态3.已取消
+    	 */
+        map.put("crf_status", o.get("crf_status")==null?"0":o.get("crf_status"));
         map.put("apply_num", o.get("apply_num")==null?"":o.get("apply_num"));
         map.put("brand_name", o.get("brand_name")==null?"":o.get("brand_name"));
         map.put("brand_number", o.get("brand_number")==null?"":o.get("brand_number"));

@@ -47,7 +47,11 @@
              <div class="attributes_list clear">
                  <ul>
                      <li class="w">
-                  	   退款金额：{{info.return_price/100 |currency : "￥"}}    联系人：{{info.receiver_person}}    联系电话：{{info.receiver_phone}}
+                  	   退款金额：{{info.return_price/100 |currency : "￥"}}       退款状态：
+                  	   <font ng-if="info.crf_status == 1">待处理</font>  
+                  	   <font ng-if="info.crf_status == 2">处理完成</font>   
+                  	   <font ng-if="info.crf_status == 3">已取消</font>  
+                  	   <font ng-if="info.crf_status == 0">--</font>       联系人：{{info.receiver_person}}    联系电话：{{info.receiver_phone}}
                      </li>
 					<li>                  
 					  退货地址：{{info.receiver_addr}}   </li>
