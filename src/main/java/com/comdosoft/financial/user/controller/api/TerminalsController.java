@@ -395,12 +395,20 @@ public class TerminalsController {
 	@RequestMapping(value = "JudgeLeaseReturn", method = RequestMethod.POST)
 	public Response JudgeLeaseReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			int count = terminalsService.JudgeLeaseReturn((Integer)maps.get("terminalid"),CsLeaseReturn.STATUS_1,CsLeaseReturn.STATUS_2);
-			if(count == 0){
-				return Response.getSuccess("可以申请！");
-			}else{
-				return Response.getError("已有相关申请！");
-			}
+		    //判断该终端是否已有未处理完的申请
+            int countc = terminalsService.JudgeReturn((Integer)maps.get("terminalid"),CsUpdateInfo.STATUS_1,CsUpdateInfo.STATUS_2);
+            int countb = terminalsService.JudgeChangStatus((Integer)maps.get("terminalid"),CsChange.STATUS_1,CsChange.STATUS_2);
+            int counta = terminalsService.JudgeLeaseReturn((Integer)maps.get("terminalid"),CsLeaseReturn.STATUS_1,CsLeaseReturn.STATUS_2);
+            
+            if(counta >0){
+                return Response.getError("已有该终端租赁退还申请！");
+            }else if (countb >0){
+                return Response.getError("已有该终端换货申请！");
+            }else if(countc >0){
+                return Response.getError("已有该终端退货申请！");
+            }else{
+                return Response.getSuccess("可以申请！");
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -415,12 +423,20 @@ public class TerminalsController {
 	@RequestMapping(value = "judgeReturn", method = RequestMethod.POST)
 	public Response judgeReturn(@RequestBody Map<Object, Object> maps) {
 		try {
-			int count = terminalsService.JudgeReturn((Integer)maps.get("terminalid"),CsUpdateInfo.STATUS_1,CsUpdateInfo.STATUS_2);
-			if(count == 0){
-				return Response.getSuccess("可以申请！");
-			}else{
-				return Response.getError("已有相关申请！");
-			}
+		  //判断该终端是否已有未处理完的申请
+		    int counta = terminalsService.JudgeReturn((Integer)maps.get("terminalid"),CsUpdateInfo.STATUS_1,CsUpdateInfo.STATUS_2);
+            int countb = terminalsService.JudgeChangStatus((Integer)maps.get("terminalid"),CsChange.STATUS_1,CsChange.STATUS_2);
+            int countc = terminalsService.JudgeLeaseReturn((Integer)maps.get("terminalid"),CsLeaseReturn.STATUS_1,CsLeaseReturn.STATUS_2);
+            
+            if(counta >0){
+                return Response.getError("已有该终端退货申请！");
+            }else if (countb >0){
+                return Response.getError("已有该终端换货申请！");
+            }else if(countc >0){
+                return Response.getError("已有该终端租赁退还申请！");
+            }else{
+                return Response.getSuccess("可以申请！");
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.getError("请求失败！");
@@ -559,11 +575,18 @@ public class TerminalsController {
 	public Response judgeChang(@RequestBody Map<Object, Object> maps) {
 		try {
 			//判断该终端是否已有未处理完的申请
-			int count = terminalsService.JudgeChangStatus((Integer)maps.get("terminalid"),CsChange.STATUS_1,CsChange.STATUS_2);
-			if(count == 0){
-				return Response.getSuccess("可以申请！");
+			int counta = terminalsService.JudgeChangStatus((Integer)maps.get("terminalid"),CsChange.STATUS_1,CsChange.STATUS_2);
+			int countb = terminalsService.JudgeReturn((Integer)maps.get("terminalid"),CsUpdateInfo.STATUS_1,CsUpdateInfo.STATUS_2);
+			int countc = terminalsService.JudgeLeaseReturn((Integer)maps.get("terminalid"),CsLeaseReturn.STATUS_1,CsLeaseReturn.STATUS_2);
+            
+			if(counta >0){
+			    return Response.getError("已有该终端换货申请！");
+			}else if (countb >0){
+			    return Response.getError("已有该终端退货申请！");
+			}else if(countc >0){
+			    return Response.getError("已有该终端租赁退还申请！");
 			}else{
-				return Response.getError("已有相关申请！");
+			    return Response.getSuccess("可以申请！");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

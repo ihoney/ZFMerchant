@@ -117,10 +117,10 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 	  $http.post("api/terminal/judgeChang", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == -1){
-        		  alert("已有该终端换货申请！");
+        		  alert(data.message);
+        		  //alert("已有该终端换货申请！");
         	  }else if(data.code == 1){
         		  window.location.href = "#/terminalExchangeGoods?terminalId="+$scope.terminalId;
-        		  
         	  }
           }
       }).error(function (data) {
@@ -181,7 +181,8 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 	  $http.post("api/terminal/judgeReturn", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == -1){
-        		  alert("已有该终端退货申请！");
+        		  //alert("已有该终端退货申请！");
+        		  alert(data.message);
         	  }else if(data.code == 1){
         		  window.location.href = "#/terminalReturnGood?terminalId="+$scope.terminalId;
         		  
@@ -197,7 +198,8 @@ var terminalDetailController = function ($scope, $http,$location, LoginService) 
 	  $http.post("api/terminal/JudgeLeaseReturn", {terminalid:$scope.terminalId}).success(function (data) {  //绑定
           if (data != null && data != undefined) {
         	  if(data.code == -1){
-        		  alert("已有该终端租赁退还申请！");
+        		  //alert("已有该终端租赁退还申请！");
+        		  alert(data.message);
         	  }else if(data.code == 1){
         		  window.location.href = "#/terminalRentalReturn?terminalId="+$scope.terminalId;
         		  
