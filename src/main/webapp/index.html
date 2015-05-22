@@ -62,7 +62,7 @@
 <script type="text/javascript"	src="js/controllers/mainindex.controller.js"></script>
 <script type="text/javascript"	src="js/controllers/head.controller.js"></script>
 <script type="text/javascript" src="js/jquery.Huploadify.js"></script>
-<script type="text/javascript"	src="js/left.js"></script>
+
 <!--[if lte IE 8]>
 <script type="text/javascript"	src="js/left.js"></script>
 <![endif]-->
@@ -170,9 +170,9 @@
 		<script type="text/javascript" src="js/main.js"></script>
 	</div>
 
-	<div ng-if="ngshow2" class="main_user">
+	<div ng-if="ngshow2" class="main_user" on-left>
 		<div class="box">
-			<div class="left">
+			<div class="left"  ng-controller="leftController">
 				<ul id="left_common">
 					<li><a href="#/myapp">我的掌富</a></li>
 					<li><a href="#/order">我的订单</a></li>
@@ -194,7 +194,6 @@
 				</ul>
 			</div>
 			<div ng-view></div>
-		<script type="text/javascript"	src="js/left.js"></script>
 		</div>
 	</div>
 	<div ng-view ng-if="ngshow"></div>
