@@ -22,7 +22,7 @@
 	
 	<insert id="subLeaseReturn" useGeneratedKeys="true" keyProperty="id" parameterType="map">
 		INSERT INTO cs_lease_returns(status,terminal_id,created_at,updated_at,apply_num,order_types,contact,phone,return_address_id,customer_id,cs_cencel_id)
-		VALUES(#{status},#{terminalId},now(),now(),unix_timestamp(now()),#{orderTypes},#{contact},#{phone},1,#{customerId},#{csCencelId})
+		VALUES(#{status},#{terminalId},now(),now(),unix_timestamp(now()),#{orderTypes},#{contact},#{phone},NULL,#{customerId},#{csCencelId})
 	</insert>
 	
 	<insert id="subRepairAddress" useGeneratedKeys="true" keyProperty="id" parameterType="com.comdosoft.financial.user.domain.zhangfu.CsReceiverAddress">
