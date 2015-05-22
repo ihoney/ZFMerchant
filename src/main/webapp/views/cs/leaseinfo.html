@@ -53,8 +53,12 @@
              <div class="attributes_list clear">
                  <ul>
                      <li class="w">
-                  	   退款金额：  <font ng-if="info.return_price == 0">--</font>  
-                  	   <font ng-if="info.return_price != 0"> {{info.return_price/100 |currency : "￥"}} </font>  
+                  	   退款金额：  <font ng-if="info.crf_retrun_price == 0">
+													<font ng-if="info.return_price == 0">--</font>  
+													 <font ng-if="info.return_price > 0"> {{info.return_price/100 |currency : "￥"}} （参考金额）</font>  
+											</font>  
+                  	      <font ng-if="info.crf_retrun_price > 0">   {{info.crf_retrun_price/100 |currency : "￥"}}
+                  	  </font>  
                   	    , 退款状态：
                   	   <font ng-if="info.crf_status == 1">待处理</font>  
                   	   <font ng-if="info.crf_status == 2">处理完成</font>   
