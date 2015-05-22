@@ -110,7 +110,7 @@
 			cc.templete_info_xml,
 			cra.address,
 			cra.receiver,
-			cra.phone AS receiver_phone,crf.`status` as crf_status,crf.return_price as crf_retrun_price
+			cra.phone AS receiver_phone,crf.`status` as crf_status,o.return_price as crf_retrun_price
 		FROM
 			cs_lease_returns o
 		LEFT JOIN terminals t ON o.terminal_id = t.id
